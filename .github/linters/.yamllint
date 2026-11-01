@@ -1,0 +1,42 @@
+---
+# version: 1.0.1
+# created: 2022-11-24
+# updated: 2026-10-31
+
+yaml-files:
+    - '*.yaml'
+    - '*.yml'
+    - .yamllint
+
+rules:
+    braces: enable
+    brackets: enable
+    colons: enable
+    commas: enable
+    comments:
+        level: warning
+    comments-indentation:
+        level: warning
+    document-end: disable
+    document-start: disable
+    empty-lines:
+        max: 2
+        max-end: 1
+    empty-values: disable
+    hyphens: enable
+    indentation: enable
+    key-duplicates: enable
+    key-ordering: disable
+    new-line-at-end-of-file: enable
+    new-lines: enable
+    octal-values: disable
+    quoted-strings: disable
+    trailing-spaces: enable
+    truthy:
+        level: warning
+        # GitHub Actions needs the `on:` key, which yamllint would otherwise read as a true/false value
+        check-keys: false
+    # 120 chars should be enough, but don't fail if line is longer
+    line-length:
+        max: 120
+        level: warning

@@ -1,0 +1,92 @@
+# version: 1.0.5
+# created: 2026-10-31
+# updated: 2026-10-31
+"""Checks every script in src/sh/, shell_utils.sh and the bash script template follow the template's structure."""
+
+import re
+
+import pytest
+from _paths import REPO_ROOT, SCRIPTS_DIR
+
+TEMPLATE = REPO_ROOT / "src" / "templates" / "bash_script_template.sh"
+# shell_utils.sh is a library that other scripts source, not a script that runs on its own
+LIBRARIES = {"shell_utils.sh"}
+SCRIPTS = sorted(path for path in SCRIPTS_DIR.glob("*.sh") if path.name not in LIBRARIES)
+LIBRARY_PATHS = sorted(SCRIPTS_DIR / name for name in LIBRARIES)
+
+# the parts of src/templates/bash_script_template.sh every script must keep, in this order
+REQUIRED_PARTS = [
+    ("shebang", r"#!/bin/bash"),
+    ("version header", r"# version: \S+"),
+    ("strict mode", r"set -euo pipefail\b.*"),
+    ("description line", r"# Description: .+"),
+    ("usage line", r"# Usage: .+"),
+    ("shell_utils.sh source", r"source src/sh/shell_utils\.sh"),
+    ("Ctrl+C trap", r"trap handle_interruption SIGINT"),
+    ("Variables section", r"# Variables"),
+    ("Functions section", r"# Functions"),
+    ("Main script logic section", r"# Main script logic"),
+    ("start message", r'print_section_header "\$\{DEBUG\}" "Script execution started\."'),
+    ("completed message", r'print_section_header "\$\{DEBUG\}" "Script execution completed\."( && echo)?'),
+]
+# a sourced library skips strict mode, the trap and the start/end messages, so it doesn't change its caller's shell
+LIBRARY_PARTS = [
+    part
+    for part in REQUIRED_PARTS
+    if part[0]
+    in {"shebang", "version header", "description line", "usage line", "Variables section", "Functions section"}
+]
+
+
+def problems_with(path, parts=REQUIRED_PARTS):
+    """Return each required part that's missing or out of order in the script, as readable messages."""
+    lines = path.read_text().splitlines()
+    problems, last_found = [], -1
+    for name, pattern in parts:
+        found = next((n for n, line in enumerate(lines) if re.fullmatch(pattern, line)), None)
+        if found is None:
+            problems.append(f"missing the {name}")
+        # each part must come after the one before it, so a part found above the last one is out of order
+        elif found < last_found:
+            problems.append(f"the {name} (line {found + 1}) is out of order")
+        else:
+            last_found = found
+    return problems
+
+
+# MoSCoW: Should — stops an empty scan from passing every other test
+def test_scripts_are_found():
+    """The scan finds the scripts, so an empty glob can't make every other test pass by default."""
+    assert len(SCRIPTS) >= 5, f"expected at least 5 scripts in src/sh/, found {[p.name for p in SCRIPTS]}"
+
+
+# MoSCoW: Must — every script and library must follow the bash script template
+@pytest.mark.parametrize(
+    ("path", "parts"),
+    [(path, REQUIRED_PARTS) for path in [TEMPLATE, *SCRIPTS]] + [(path, LIBRARY_PARTS) for path in LIBRARY_PATHS],
+    ids=lambda value: value.name if hasattr(value, "name") else None,
+)
+def test_script_follows_the_template(path, parts):
+    """Each script keeps every template part, and each library the parts it can, in the template's order."""
+    problems = problems_with(path, parts)
+    assert not problems, f"{path.relative_to(REPO_ROOT)} doesn't follow {TEMPLATE.relative_to(REPO_ROOT)}: {problems}"
+
+
+# MoSCoW: Should — proves the check catches a missing part
+def test_a_missing_part_is_reported(tmp_path):
+    """A script with no completed message is caught, so the check can't silently pass everything."""
+    script = tmp_path / "broken.sh"
+    script.write_text(TEMPLATE.read_text().replace('"Script execution completed."', '"Done."'))
+    assert problems_with(script) == ["missing the completed message"], "only the completed message should be missing"
+
+
+# MoSCoW: Could — rarer case of every part present but reordered
+def test_an_out_of_order_part_is_reported(tmp_path):
+    """A section moved above an earlier one is reported as out of order."""
+    script = tmp_path / "reordered.sh"
+    text = TEMPLATE.read_text().replace("# Functions\n", "# Placeholder\n")
+    script.write_text("# Functions\n" + text)
+    problems = problems_with(script)
+    assert any("Functions section" in problem and "out of order" in problem for problem in problems), (
+        f"expected the Functions section to be reported as out of order, got {problems}"
+    )

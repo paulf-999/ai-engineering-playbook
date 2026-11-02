@@ -1,6 +1,6 @@
-<!-- version: 1.0.31 -->
+<!-- version: 1.0.32 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-10-31 -->
+<!-- updated: 2026-11-02 -->
 # 📊 Markdown Quality Audit
 
 For maintainers of this template: how good each markdown doc is, scored out of 10.
@@ -40,3 +40,9 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [`tests` README](../../../../tests/README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Global CLAUDE.md](../../../../src/templates/global_claude.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Tests audit](quality_audit_test_files.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Target architecture README](../../../target-architecture/README.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line, overview content or links to child pages; Clarity: no H1 or context, so a newcomer can't tell what the target architecture is |
+| [Target architecture](../../../target-architecture/architecture.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no description of the configuration or its components; Clarity: no H1 or context to orient a newcomer |
+| [Design principles](../../../target-architecture/design-principles.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no principles or constraints listed; Clarity: no H1, and "your chosen" doesn't say whose principles they are or why |
+| [Reference material README](../../../target-architecture/reference-material/README.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | **F · 5/10** | Core coverage: placeholder only, with no audience line, source register or links to the reference pages; Clarity: no H1, and "the four references" aren't named; Maintainability: hard-coded count "four" will drift as references change; Accuracy: says four references but only two reference pages exist |
+| [AI-native SDLC reference](../../../target-architecture/reference-material/anthropic-ai-native-sdlc.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line, source link, guidance or implications; Clarity: no H1, and the source and the term "SDLC" aren't explained |
+| [DORA AI capabilities](../../../target-architecture/reference-material/dora-ai-capabilities.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line, source link, capabilities or evidence; Clarity: no H1, and DORA and the "seven capabilities" aren't explained |

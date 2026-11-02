@@ -37,7 +37,7 @@ Choose one:
 ## :white_check_mark: Checklist
 
 - [ ] Pre-commit hooks pass
-- [ ] 20 files or fewer changed, or on a `release/` branch (see `docs/git_branching_strategy.md`)
+- [ ] 20 files or fewer changed, or on a `release/` branch (see `docs/reference/git_branching_strategy.md`)
 
 ## :bulb: Best Practices
 

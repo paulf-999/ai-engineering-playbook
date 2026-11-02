@@ -1,4 +1,4 @@
-<!-- version: 1.0.43 -->
+<!-- version: 1.0.44 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-02 -->
 # 📊 Markdown Quality Audit
@@ -30,12 +30,12 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [`README.md`](../../../../README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`SECURITY.md`](../../../../.github/SECURITY.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`docs` README](../../../README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Branching strategy](../../../git_branching_strategy.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Branching strategy](../../../reference/git_branching_strategy.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`file_headers.md`](../../file_headers.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Markdown rubric](../themes/quality_themes_markdown_files.md) | Independent review | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | 🟡 1 | **D · 6/10** | Leanness: 528 words, over its own limit, with limits repeated between the table and How to score; Clarity: the `Part of` and `Read` exemption and "tracked doc" are unexplained; Maintainability: the size limits appear twice and "the five" is a hard-coded count; Accuracy: it says maintainer docs aren't linked from contributor docs, but three are |
 | [Test rubric](../themes/quality_themes_test_files.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Test maintenance](../../test_maintenance.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Virtualenv setup](../../../virtualenv_setup.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Virtualenv setup](../../../reference/virtualenv_setup.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`src` README](../../../../src/README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`tests` README](../../../../tests/README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Global CLAUDE.md](../../../../src/templates/global_claude.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

@@ -1,6 +1,6 @@
-<!-- version: 2.1.4 -->
+<!-- version: 2.1.5 -->
 <!-- created: 2022-11-04 -->
-<!-- updated: 2026-10-31 -->
+<!-- updated: 2026-11-02 -->
 # 🧩 Template Git Repo
 
 *Baseline for creating new internal repositories with consistent structure and standards.*
@@ -28,7 +28,7 @@ A **generic starting point** for new projects, providing:
 Before raising a PR, please:
 
 * Follow the [Contributing Guidelines](.github/CONTRIBUTING.md) – overview of branch naming, commit messages and PR rules.
-* Use the [Git Branching Strategy](docs/git_branching_strategy.md) – includes branch types and naming rules.
+* Use the [Git Branching Strategy](docs/reference/git_branching_strategy.md) – includes branch types and naming rules.
 * Rely on [CODEOWNERS](.github/CODEOWNERS) – reviewers are auto-assigned by repo area.
 * Complete the [Pull Request Template](.github/pull_request_template.md) – summary, change type, testing.
 
@@ -45,6 +45,6 @@ Before raising a PR, please:
    cd <new-repo>
    ```
 
-4. Create and activate a virtualenv (see [docs/virtualenv_setup.md](docs/virtualenv_setup.md)), then run `make deps` to install the requirements and the pre-commit git hooks.
+4. Create and activate a virtualenv (see [docs/reference/virtualenv_setup.md](docs/reference/virtualenv_setup.md)), then run `make deps` to install the requirements and the pre-commit git hooks.
 5. Update the `README.md`, `requirements.txt` and `.github/CODEOWNERS` as needed, and fill in the TODOs in `CLAUDE.md`.
 6. Run `make test` to check everything works.

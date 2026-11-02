@@ -1,6 +1,6 @@
-<!-- version: 3.1.2 -->
+<!-- version: 3.2.0 -->
 <!-- created: 2025-09-18 -->
-<!-- updated: 2026-10-31 -->
+<!-- updated: 2026-11-02 -->
 # 🤝 Contributing
 
 For anyone contributing to this repo: the branch, commit and PR conventions to follow.
@@ -32,3 +32,9 @@ To build a valid message interactively, stage your files and run `src/sh/git_com
 - Mark **Breaking Change** if applicable and describe the rollout impact.
 - Pre-commit hooks must pass before raising a PR — fix the underlying issue rather than bypassing with `--no-verify`.
 - Run `make test` and make sure it passes before raising a PR.
+
+## 🏷️ File naming
+
+- **Rule:** name every file and folder in lowercase snake_case, e.g. `docs/target_architecture/design_principles.md`.
+- **Why one rule:** Python can't import a module with hyphens in its name, so docs and scripts use underscores to match.
+- **Exceptions:** conventional names keep their usual form, such as `README.md`, `CLAUDE.md`, `CONTRIBUTING.md` and `Makefile`.

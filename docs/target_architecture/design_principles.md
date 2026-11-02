@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.2.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-02 -->
 # 🧭 Design principles
@@ -24,9 +24,12 @@ For anyone adding to or reviewing this repo's Claude configuration: the principl
 ## 📌 Status and terms
 
 - 🚧 **Status:** adopted on 2026-11-02, while the always-on budget check and the task log are planned but not yet built.
+- 📚 **Source:** the stance follows section 4 of the maintainer's handover document, which isn't in the repo.
+
+### 📖 Terms
+
 - 📥 **Always-on:** context that loads into every session, whatever the task.
 - 📝 **Task log:** a planned table with one row per real task, recording its outcome and any feedback on components.
 - 🔄 **CI:** continuous integration, the checks GitHub runs on every PR.
 - 🪝 **Hook:** a script Claude Code runs automatically when an event happens, such as a tool call.
 - 🧪 **Pre-commit:** the checks that run on your machine before each commit.
-- 📚 **Source:** the stance follows section 4 of the maintainer's handover document, which isn't in the repo.

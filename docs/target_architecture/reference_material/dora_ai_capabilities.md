@@ -1,4 +1,4 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-02 -->
 # 📊 DORA: AI Capabilities Model
@@ -24,8 +24,8 @@ For anyone shaping the target architecture: what DORA's (DevOps Research and Ass
 
 ## 📚 Pages
 
-- **[Overview](dora_ai_capabilities/_overview.md):** the evidence base, central claim and intended use.
-- **[The seven capabilities](dora_ai_capabilities/_seven_capabilities.md):** what each one is, what it amplifies, and where the report covers it.
-- **[Findings worth carrying forward](dora_ai_capabilities/_findings.md):** specific points to use when designing the target architecture.
-- **[Limitations](dora_ai_capabilities/_limitations.md):** what the evidence can and can't show.
-- **[Applicability to this playbook (proposed, not yet adopted)](dora_ai_capabilities/_applicability.md):** how far each capability fits a personal playbook.
+- **[Overview](dora_ai_capabilities/01_overview.md):** the evidence base, central claim and intended use.
+- **[The seven capabilities](dora_ai_capabilities/02_seven_capabilities.md):** what each one is, what it amplifies, and where the report covers it.
+- **[Findings worth carrying forward](dora_ai_capabilities/03_findings.md):** specific points to use when designing the target architecture.
+- **[Limitations](dora_ai_capabilities/04_limitations.md):** what the evidence can and can't show.
+- **[Applicability to this playbook (proposed, not yet adopted)](dora_ai_capabilities/05_applicability.md):** how far each capability fits a personal playbook.

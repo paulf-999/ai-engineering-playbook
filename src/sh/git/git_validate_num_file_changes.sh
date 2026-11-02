@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.4.1
+# version: 1.4.2
 # created: 2026-10-30
 # updated: 2026-11-02
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -87,7 +87,7 @@ print_changed_files() {
 check_file_count() {
     if [[ "${FILE_COUNT}" -gt "${MAX_FILES_CHANGED}" ]]; then
         print_section_header "${ERROR}" "ERROR: number of files changed in PR (${FILE_COUNT}) exceeds the max (${MAX_FILES_CHANGED})."
-        echo -e "Split the PR by logical area, or use a release/ branch for one bulk change (see docs/git_branching_strategy.md)."
+        echo -e "Split the PR by logical area, or use a release/ branch for one bulk change (see docs/reference/git_branching_strategy.md)."
         exit 1
     fi
     print_section_header "${INFO}" "SUCCESS: number of changed files (${FILE_COUNT}) is within the max (${MAX_FILES_CHANGED})."
@@ -98,7 +98,7 @@ check_file_count() {
 #=======================================================================
 print_section_header "${DEBUG}" "Script execution started."
 
-# release branches are for large bulk changes (see docs/git_branching_strategy.md), so they skip the check
+# release branches are for large bulk changes (see docs/reference/git_branching_strategy.md), so they skip the check
 if is_release_branch; then
     print_section_header "${INFO}" "Release branch - skip file count check." && echo
     exit 0

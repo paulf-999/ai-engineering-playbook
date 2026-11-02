@@ -1,4 +1,4 @@
-<!-- version: 1.0.40 -->
+<!-- version: 1.0.43 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-02 -->
 # 📊 Markdown Quality Audit
@@ -32,7 +32,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [`docs` README](../../../README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Branching strategy](../../../git_branching_strategy.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`file_headers.md`](../../file_headers.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Markdown rubric](../themes/quality_themes_markdown_files.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Markdown rubric](../themes/quality_themes_markdown_files.md) | Independent review | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | 🟡 1 | **D · 6/10** | Leanness: 528 words, over its own limit, with limits repeated between the table and How to score; Clarity: the `Part of` and `Read` exemption and "tracked doc" are unexplained; Maintainability: the size limits appear twice and "the five" is a hard-coded count; Accuracy: it says maintainer docs aren't linked from contributor docs, but three are |
 | [Test rubric](../themes/quality_themes_test_files.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Test maintenance](../../test_maintenance.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Virtualenv setup](../../../virtualenv_setup.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
@@ -47,8 +47,10 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Current architecture: alignment](../../../target_architecture/current_architecture/04_reference_alignment.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: proposed changes](../../../target_architecture/current_architecture/05_proposed_changes.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Target architecture README](../../../target_architecture/README.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line, overview content or links to child pages; Clarity: no H1 or context, so a newcomer can't tell what the target architecture is |
-| [Target architecture](../../../target_architecture/architecture.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no description of the configuration or its components; Clarity: no H1 or context to orient a newcomer |
-| [Design principles](../../../target_architecture/design_principles.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no principles or constraints listed; Clarity: no H1, and "your chosen" doesn't say whose principles they are or why |
+| [Target architecture](../../../target_architecture/target_architecture.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no description of the configuration or its components; Clarity: no H1 or context to orient a newcomer |
+| [Design principles](../../../target_architecture/design_principles.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Principles page](../../../target_architecture/design_principles/01_principles.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Criteria page](../../../target_architecture/design_principles/02_evaluation_criteria.md) | Independent review | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Core coverage: the Evidence, Cost and Before-and-after checks rely on the unbuilt task log and budget check, with no interim way to answer them; Clarity: "logged tasks", "always-on budget check" and "Tier" are undefined on the page, and the two-task threshold has no reason |
 | [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [SDLC: overview](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/01_overview.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

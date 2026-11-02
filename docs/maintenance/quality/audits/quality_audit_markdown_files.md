@@ -1,4 +1,4 @@
-<!-- version: 1.0.35 -->
+<!-- version: 1.0.36 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-02 -->
 # 📊 Markdown Quality Audit
@@ -44,7 +44,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Target architecture](../../../target_architecture/architecture.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no description of the configuration or its components; Clarity: no H1 or context to orient a newcomer |
 | [Design principles](../../../target_architecture/design_principles.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no principles or constraints listed; Clarity: no H1, and "your chosen" doesn't say whose principles they are or why |
 | [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the "For this playbook" summary bullet presents the three plays as fitting without saying it's a proposal not yet adopted, as _relevance.md labels it, and "CI" is never expanded |
 | [SDLC: overview](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/_overview.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [SDLC: plays by stage](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/_plays_by_stage.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [SDLC: caveats](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/_caveats.md) | Independent review | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: "the indicators", "plays" and "closing lesson" go unexplained for a reader who lands here directly, and the link label "Capture as intent.md" reads like a filename; Maintainability: the "in beta" status of Claude Tag will go out of date |

@@ -1,4 +1,4 @@
-<!-- version: 2.0.2 -->
+<!-- version: 2.0.3 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-02 -->
 # 🧭 Anthropic: The AI-native SDLC Playbook
@@ -20,10 +20,22 @@ For anyone shaping the target architecture: what Anthropic's AI-native SDLC (sof
 - **Citing:** name the lesson and that access date.
 - **Labels:** the overview, plays and caveats pages describe what the course says, while the reading and relevance pages give this playbook's interpretation.
 
-## 📚 Pages
+## 📋 The course says: overview
 
-- **[Overview](anthropic_ai_native_sdlc/01_overview.md):** the course's shape, thread and suggested starting plays.
-- **[Plays by stage](anthropic_ai_native_sdlc/02_plays_by_stage.md):** each play's core practice and how to measure it.
-- **[Caveats](anthropic_ai_native_sdlc/03_caveats.md):** the course's audience, evidence and vendor limits.
-- **[Our reading](anthropic_ai_native_sdlc/04_our_reading.md):** what the course means for reviewing and designing this playbook.
-- **[Relevance to this playbook (proposed, not yet adopted)](anthropic_ai_native_sdlc/05_relevance.md):** which plays to adopt, adapt or leave out.
+- **Read:** [Overview](anthropic_ai_native_sdlc/01_overview.md), the course's shape, thread and suggested starting plays.
+
+## 🔄 The course says: plays by stage
+
+- **Read:** [Plays by stage](anthropic_ai_native_sdlc/02_plays_by_stage.md), each play's core practice and how to measure it.
+
+## ⚠️ Caveats
+
+- **Read:** [Caveats](anthropic_ai_native_sdlc/03_caveats.md), the course's audience, evidence and vendor limits.
+
+## 🔍 Our reading
+
+- **Read:** [Our reading](anthropic_ai_native_sdlc/04_our_reading.md), what the course means for reviewing and designing this playbook.
+
+## 🎯 Relevance to this playbook (proposed, not yet adopted)
+
+- **Read:** [Relevance to this playbook](anthropic_ai_native_sdlc/05_relevance.md), which plays to adopt, adapt or leave out.

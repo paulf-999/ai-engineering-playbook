@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-02 -->
 # 🏛️ Current architecture
@@ -10,7 +10,7 @@ For anyone shaping the target architecture: what the current Claude configuratio
 - **What it is:** [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook), a personal Claude Code configuration installed onto each machine with `make install`.
 - **Strengths:** a safe installer, a real test suite and automated checks make it reproducible and portable.
 - **Main risk:** 36 always-on rule files load about 30,000 tokens into every session, whatever the task.
-- **Reference fit:** measured against Anthropic's [AI-native SDLC (software development lifecycle) course](target_architecture/reference_material/anthropic_ai_native_sdlc.md) and the [AI Capabilities Model by DORA (DevOps Research and Assessment)](target_architecture/reference_material/dora_ai_capabilities.md), it has a strong feedback loop but no intent-first step or outcome measures.
+- **Reference fit:** measured against Anthropic's [AI-native SDLC (software development lifecycle) course](reference_material/anthropic_ai_native_sdlc.md) and the [AI Capabilities Model by DORA (DevOps Research and Assessment)](reference_material/dora_ai_capabilities.md), it has a strong feedback loop but no intent-first step or outcome measures.
 - **For the target:** keep the current format, and reshape the core rule files around those sources' findings.
 
 ## 📸 Snapshot
@@ -48,7 +48,7 @@ For anyone shaping the target architecture: what the current Claude configuratio
 
 ## 🔍 Alignment with the reference material
 
-- **Scope:** the practices the [SDLC relevance page](target_architecture/reference_material/anthropic_ai_native_sdlc/05_relevance.md) and [DORA applicability page](target_architecture/reference_material/dora_ai_capabilities/05_applicability.md) propose for this playbook, plus the outcome indicators every SDLC play names.
+- **Scope:** the practices the [SDLC relevance page](reference_material/anthropic_ai_native_sdlc/05_relevance.md) and [DORA applicability page](reference_material/dora_ai_capabilities/05_applicability.md) propose for this playbook, plus the outcome indicators every SDLC play names.
 - **Source:** SDLC rows name the course stage the play belongs to, such as Build or Test.
 - **Status:** ✅ aligned, 🟡 partly aligned, ❌ not yet in place.
 

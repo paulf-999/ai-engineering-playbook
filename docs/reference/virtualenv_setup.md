@@ -1,4 +1,4 @@
-<!-- version: 1.0.7 -->
+<!-- version: 1.0.8 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-02 -->
 # 🐍 Virtual Environment Setup
@@ -11,7 +11,7 @@ The commands below are for Linux, macOS or [WSL](https://learn.microsoft.com/win
 
 ---
 
-## 1. Create a Virtual Environment
+## 1️⃣ Create a Virtual Environment
 
 Run the following in the project root:
 
@@ -25,7 +25,7 @@ This will create a hidden `.venv/` directory containing the environment.
 
 ---
 
-## 2. Activate the Virtual Environment
+## 2️⃣ Activate the Virtual Environment
 
 ```bash
 source .venv/bin/activate
@@ -35,7 +35,7 @@ Once activated, your shell prompt will typically show `(.venv)`.
 
 ---
 
-## 3. Install Requirements
+## 3️⃣ Install Requirements
 
 With the environment active, install the dependencies and the development tools (linters and tests):
 
@@ -47,7 +47,7 @@ Or run `make deps`, which also installs the pre-commit git hooks.
 
 ---
 
-## 4. Deactivate the Environment
+## 4️⃣ Deactivate the Environment
 
 When finished, deactivate with:
 
@@ -57,7 +57,7 @@ deactivate
 
 ---
 
-## 5. Clean Up
+## 5️⃣ Clean Up
 
 To remove the environment completely:
 
@@ -69,5 +69,5 @@ rm -rf .venv
 
 ## 🔍 Notes
 
-* The `.venv/` folder is ignored via `.gitignore` and should not be committed.
-* If you use multiple projects, each should have its own virtual environment.
+- 🙈 **Git-ignored:** the `.venv/` folder is ignored via `.gitignore` and should not be committed.
+- 🗃️ **One per project:** if you use multiple projects, each should have its own virtual environment.

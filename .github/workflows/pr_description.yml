@@ -1,0 +1,33 @@
+---
+# version: 1.0.0
+# created: 2026-11-02
+# updated: 2026-11-02
+# Check each PR description stays short and only uses full links, re-checking whenever it's edited.
+# A separate workflow from ci.yml, so editing a description doesn't re-run the tests.
+name: PR description
+
+on:
+    pull_request:
+        branches: [main]
+        types: [opened, edited, reopened, synchronize]
+
+permissions:
+    contents: read
+
+# Cancel an older run on the same PR when its description is edited again
+concurrency:
+    group: pr-description-${{ github.event.pull_request.number }}
+    cancel-in-progress: true
+
+jobs:
+    pr_description:
+        name: 'PR description: check details and links'
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+            # Passed through env, not ${{ }} in the script, so a crafted description can't inject shell
+            - name: Validate PR description
+              env:
+                  PR_DESCRIPTION: ${{ github.event.pull_request.body }}
+              run: src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}"

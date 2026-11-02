@@ -1,44 +1,40 @@
-<!-- version: 1.2.0 -->
+<!-- version: 2.0.0 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-02 -->
 # 📄 Markdown Quality Rubric
 
-For maintainers of this template: how to score each markdown doc out of 10, with a 10 meaning a doc that's short, correct and easy to follow, not the longest one.
+For maintainers of this repo: how to score each markdown doc out of 10, where 10 means short, correct and easy to follow.
 
 ---
 
 ## 🏷️ Themes
 
-| Theme (Rubric) | Description/Purpose |
-|---|---|
-| 🎯 **Core coverage** | Covers every task the reader comes for, and opens by saying who it's for |
-| ⚖️ **Leanness** | Links to other docs instead of repeating them, and stays short: about 100 lines, 500 words and 25 words a cell |
-| 📖 **Clarity** | A newcomer gets the gist from a skim, with emoji anchors, jargon explained, and a reason for any non-obvious rule |
-| 🔧 **Maintainability** | No lists that drift, points to the source instead, keeps no history, and covers one topic per file |
-| ✅ **Accuracy** | Every command, path and link works and matches the repo today |
+Each theme scores ✅ 2, 🟡 1 or ❌ 0, and the five add up to a grade: A for 9 or more, B for 8, C for 7, D for 6, and F below 6.
 
-## 🔢 Scores
-
-Scores work exactly as in [the test rubric's Scores section](quality_themes_test_files.md#-scores): each Theme (Rubric) gets ✅ 2, 🟡 1 or ❌ 0 points, and the five add up to a graded score out of 10.
+| Theme | ✅ 2 | 🟡 1 | ❌ 0 |
+|---|---|---|---|
+| 🎯 **Core coverage** | Says who it's for, and fully answers each question that reader brings | Misses one question, or answers it only partly | Placeholder, or the reader can't tell what it's for |
+| ⚖️ **Leanness** | Within the limits below, linking to detail rather than repeating it | Over a limit, or repeats a section from another doc | Mostly repetition or padding |
+| 📖 **Clarity** | Key point first, jargon explained, rules justified, and emojis as below | One lapse, such as an unexplained term or a buried point | Hard to follow even after a full read |
+| 🔧 **Maintainability** | One topic, no history, no file trees, full option lists or hard-coded counts | One such lapse | Two or more lapses |
+| ✅ **Accuracy** | Every path, command, link and claim checks out against its source | One wrong path, link or claim | Several errors, or a broken command |
 
 ## 📏 How to score
 
-- 🧍 **Score each file on its own:** judge it against what its reader needs, not against other docs.
-- 📖 **Clarity:** headings, bullets and tables should put the key point first, and a rule or step a newcomer might question, such as a naming limit or a required order, needs a short reason.
-- 😀 **Scannable:** headings, table rows and bullets open with an emoji, and a bullet inside a table cell follows the same rules as any other bullet, though `Part of` and `Read` link bullets need no emoji.
-- ⚖️ **Leanness:** a doc over about 100 lines or 500 words, or a table cell over about 25 words, costs points, because it's harder to skim, and so does a section copied from another doc.
-- 🔧 **Maintainability:** a full file tree, a full list of options or a hard-coded count costs points, because each drifts as the repo changes.
-- ✅ **Accuracy:** every path, command and link is checked against the repo as it is now.
-- 🔒 **Maintainer-only docs:** docs under `docs/maintenance/` are deliberately left out of the contributor docs, so not linking to them isn't a Core coverage gap.
-- 🕳️ **Gaps:** every theme below ✅ is named in the audit's **Gaps** column, starting with the theme's name.
-- 🚫 **Not scored:** the PR and issue templates, which are forms to fill in rather than docs to read, and the audit itself, which can't fairly score itself.
+- 🧍 **Score each file for its own reader:** compare it with other docs only to spot repetition.
+- 🚧 **Placeholder cap:** when Core coverage is ❌, every other theme scores 🟡 at most, because an empty page is easy to keep short and correct.
+- 📐 **Limits:** about 500 words a page and 25 words a table cell, unless the page is a lookup table that readers search rather than read.
+- 😀 **Emojis:** one at the start of each heading, table row and top-level bullet, except `Part of` and `Read` link bullets.
+- 🕳️ **Gaps:** name every theme below ✅ in the audit's Gaps column, starting with the theme's name.
 
-## 🛑 Avoiding over-writing
+## 🧩 Exceptions
 
-- ✂️ **Lower scores don't mean add text:** if a new section would cost Leanness or Clarity points, link to where the detail lives instead.
-- 📉 **Cutting can raise the score:** removing a repeated or out-of-date section improves Leanness and Accuracy.
+- 📸 **Snapshots:** a page that says it describes a dated commit is checked for Accuracy against that commit, and its counts don't cost Maintainability.
+- 🔒 **Maintainer docs:** not linking to docs under `docs/maintenance/` isn't a Core coverage gap, since they're for maintainers only.
 
 ## 📊 Where scores live
 
-- 📊 **Audit:** `docs/maintenance/quality/audits/quality_audit_markdown_files.md` holds each doc's theme scores, overall score and gaps.
-- 🧪 **Checked by:** `tests/docs/maintenance/quality/test_quality_audit_markdown_files.py`, which fails if a tracked doc has no row, or a score or grade doesn't match its themes.
+- 📋 **Audit:** [`quality_audit_markdown_files.md`](../audits/quality_audit_markdown_files.md) holds each doc's scores, gaps and the version scored.
+- 🧪 **Checked by:** [`test_quality_audit_markdown_files.py`](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py), which fails on a missing row, a score or Gaps entry that doesn't add up, a broken placeholder cap, or a doc whose MAJOR.MINOR version has moved past the one scored.
+- 🔢 **Versions:** a content change raises MINOR, so it needs a fresh score, while a typo fix raises only PATCH.
+- 🚫 **Not scored:** the PR and issue templates, which are forms, plus the audit and this rubric, which can't fairly score themselves.

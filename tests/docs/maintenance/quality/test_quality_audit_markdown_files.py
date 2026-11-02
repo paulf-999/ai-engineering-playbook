@@ -1,16 +1,19 @@
-# version: 1.3.0
+# version: 1.4.0
 # created: 2026-10-31
-# updated: 2026-10-31
+# updated: 2026-11-02
 """Checks the markdown files quality audit (quality_audit_markdown_files.md) lists every doc and adds up."""
 
 import os
+import re
 import subprocess
+from contextlib import nullcontext
 
 import pytest
 from _audit_tables import assert_links_work, assert_quality_scores, read_table
 from _paths import REPO_ROOT
 
 AUDIT = REPO_ROOT / "docs" / "maintenance" / "quality" / "audits" / "quality_audit_markdown_files.md"
+RUBRIC = REPO_ROOT / "docs" / "maintenance" / "quality" / "themes" / "quality_themes_markdown_files.md"
 
 # the themes in quality/themes/quality_themes_markdown_files.md, as the audit's column headings
 THEMES = ("Core coverage", "Leanness", "Clarity", "Maintainability", "Accuracy")
@@ -20,14 +23,14 @@ TEMPLATES = (".github/ISSUE_TEMPLATE/", ".github/pull_request_template.md")
 
 
 def tracked_docs():
-    """Return every markdown file git tracks, minus the PR and issue templates and this audit."""
+    """Return every markdown file git tracks, minus the PR and issue templates, this audit and its rubric."""
     # ask git, so untracked drafts and ignored folders like .venv/ are left out, and ignore the user's git config
     env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
     command = ["git", "ls-files", "*.md"]
     output = subprocess.run(command, cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=True)
-    # the audit can't fairly score itself
-    skipped = str(AUDIT.relative_to(REPO_ROOT))
-    return {path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES) and path != skipped}
+    # the audit and its rubric can't fairly score themselves
+    skipped = {str(AUDIT.relative_to(REPO_ROOT)), str(RUBRIC.relative_to(REPO_ROOT))}
+    return {path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES) and path not in skipped}
 
 
 def assert_one_row_per_doc(rows, docs):
@@ -40,15 +43,41 @@ def assert_one_row_per_doc(rows, docs):
     assert not (missing or extra or repeated), f"add rows for {missing}, remove {extra}, de-duplicate {repeated}"
 
 
+def assert_placeholder_cap(rows):
+    """Check a row with Core coverage ❌ scores no other theme above 🟡, since an empty page is easy to keep short."""
+    for row in rows:
+        if row["Core coverage"] == "❌ 0":
+            over = [theme for theme in THEMES if row[theme] == "✅ 2"]
+            assert not over, f"{row['name']}: Core coverage is ❌, so {over} can score 🟡 at most"
+
+
+def major_minor(version):
+    """Return a version's MAJOR.MINOR part, e.g. '1.2' for '1.2.3'."""
+    return ".".join(version.split(".")[:2])
+
+
+def assert_scored_versions_current(rows, root=REPO_ROOT):
+    """Check each doc's MAJOR.MINOR version still matches the Version it was scored at."""
+    for row in rows:
+        header = re.search(r"version: (\d+\.\d+\.\d+)", (root / row["link"]).read_text())
+        assert header, f"{row['name']}: add a version header, so its score can be pinned to a version"
+        current = header.group(1)
+        assert major_minor(current) == major_minor(row["Version"]), (
+            f"{row['name']}: scored at {row['Version']}, now {current}, so re-score it and update Version"
+        )
+
+
 # MoSCoW: Should — keeps the docs audit true to the repo's docs
 def test_docs_audit_matches_the_docs():
-    """Links work, every tracked doc has one row, and each row's score, grade and Gaps match its themes."""
+    """Links work, every doc has one current row, and each row's score, grade, Gaps and cap match its themes."""
     assert_links_work(AUDIT)
     rows = read_table(AUDIT, "⭐ Quality by doc")
 
     assert_one_row_per_doc(rows, tracked_docs())
 
     assert_quality_scores(rows, THEMES)
+    assert_placeholder_cap(rows)
+    assert_scored_versions_current(rows)
 
 
 # one row with every theme at ✅ 2, so each case below changes just one cell
@@ -69,6 +98,30 @@ def test_a_wrong_score_or_gap_is_reported(change, message):
     """An invalid theme cell, a score that doesn't match the themes, an unnamed gap or a stray gap each fail."""
     with pytest.raises(AssertionError, match=message):
         assert_quality_scores([{**GOOD_ROW, **change}], THEMES)
+
+
+# MoSCoW: Should — a cap that never fails would let an empty page score well
+def test_a_broken_placeholder_cap_is_reported():
+    """A row with Core coverage ❌ and another theme at ✅ fails, naming the theme."""
+    row = {**GOOD_ROW, "Core coverage": "❌ 0"}
+    with pytest.raises(AssertionError, match="Leanness"):
+        assert_placeholder_cap([row])
+
+
+# MoSCoW: Should — a version check that never fails would let a stale score stand
+@pytest.mark.parametrize(
+    ("scored", "outcome"),
+    [
+        pytest.param("1.1.0", nullcontext(), id="patch_change_is_fine"),
+        pytest.param("1.0.3", pytest.raises(AssertionError, match="re-score"), id="minor_change_needs_rescore"),
+    ],
+)
+def test_a_stale_score_is_reported(tmp_path, scored, outcome):
+    """A doc whose MAJOR.MINOR has moved past its scored Version fails, while a PATCH change passes."""
+    (tmp_path / "doc.md").write_text("<!-- version: 1.1.4 -->\n")
+    rows = [{"name": "doc.md", "link": "doc.md", "Version": scored}]
+    with outcome:
+        assert_scored_versions_current(rows, root=tmp_path)
 
 
 # MoSCoW: Should — a link check that never fails would let a broken audit link through

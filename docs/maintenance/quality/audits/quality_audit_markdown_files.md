@@ -1,4 +1,4 @@
-<!-- version: 1.0.33 -->
+<!-- version: 1.0.34 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-02 -->
 # 📊 Markdown Quality Audit
@@ -43,6 +43,6 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Target architecture README](../../../target_architecture/README.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line, overview content or links to child pages; Clarity: no H1 or context, so a newcomer can't tell what the target architecture is |
 | [Target architecture](../../../target_architecture/architecture.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no description of the configuration or its components; Clarity: no H1 or context to orient a newcomer |
 | [Design principles](../../../target_architecture/design_principles.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line and no principles or constraints listed; Clarity: no H1, and "your chosen" doesn't say whose principles they are or why |
-| [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | **F · 5/10** | Core coverage: placeholder only, with no audience line, source register or links to the reference pages; Clarity: no H1, and "the four references" aren't named; Maintainability: hard-coded count "four" will drift as references change; Accuracy: says four references but only two reference pages exist |
-| [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line, source link, guidance or implications; Clarity: no H1, and the source and the term "SDLC" aren't explained |
-| [DORA AI capabilities](../../../target_architecture/reference_material/dora_ai_capabilities.md) | Independent review | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **C · 7/10** | Core coverage: placeholder only, with no audience line, source link, capabilities or evidence; Clarity: no H1, and DORA and the "seven capabilities" aren't explained |
+| [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: jargon such as "evals", "leading and lagging indicator" and "DORA delivery measures" isn't explained, the plays table cells are dense to skim, and the `claude_ai_playbook` reference has no context for a newcomer |
+| [DORA AI capabilities](../../../target_architecture/reference_material/dora_ai_capabilities.md) | Independent review | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

@@ -1,4 +1,4 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-02 -->
 # 🏛️ Current architecture
@@ -7,11 +7,11 @@ For anyone shaping the target architecture: what the current Claude configuratio
 
 ## 📋 Executive Summary
 
-- **What it is:** [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook), a personal Claude Code configuration installed onto each machine with `make install`.
-- **Strengths:** a safe installer, a real test suite and automated checks make it reproducible and portable.
-- **Main risk:** 36 always-on rule files load about 30,000 tokens into every session, whatever the task.
-- **Reference fit:** measured against Anthropic's [AI-native SDLC (software development lifecycle) course](reference_material/anthropic_ai_native_sdlc.md) and the [AI Capabilities Model by DORA (DevOps Research and Assessment)](reference_material/dora_ai_capabilities.md), it has a strong feedback loop but no intent-first step or outcome measures.
-- **For the target:** keep the current format, and reshape the core rule files around those sources' findings.
+- 📦 **What it is:** [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook), a personal Claude Code configuration installed onto each machine with `make install`.
+- 💪 **Strengths:** a safe installer, a real test suite and automated checks make it reproducible and portable.
+- ⚠️ **Main risk:** 36 always-on rule files load about 30,000 tokens into every session, whatever the task.
+- 🔍 **Reference fit:** measured against Anthropic's [AI-native SDLC (software development lifecycle) course](reference_material/anthropic_ai_native_sdlc.md) and the [AI Capabilities Model by DORA (DevOps Research and Assessment)](reference_material/dora_ai_capabilities.md), it has a strong feedback loop but no intent-first step or outcome measures.
+- 🎯 **For the target:** keep the current format, and reshape the core rule files around those sources' findings.
 
 ## 📸 Snapshot
 
@@ -35,4 +35,4 @@ For anyone shaping the target architecture: what the current Claude configuratio
 
 ## 🧭 Lessons for the target architecture
 
-- **Read:** [Lessons](current_architecture/05_proposed_changes.md), on the proposed changes page: start minimal, apply the halving test, and keep the strengths.
+- **Read:** [Lessons](current_architecture/05_proposed_changes.md#-lessons-for-the-target-architecture), on the proposed changes page: start minimal, apply the halving test, and keep the strengths.

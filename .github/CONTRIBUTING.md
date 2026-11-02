@@ -1,4 +1,4 @@
-<!-- version: 3.2.1 -->
+<!-- version: 3.2.2 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-02 -->
 # 🤝 Contributing
@@ -29,6 +29,7 @@ To build a valid message interactively, stage your files and run `src/sh/git/git
 - Use the [PR template](pull_request_template.md) and fill in the summary section.
 - Write the PR title in the same `type(scope): description` format as a commit, because squash merges use it as the commit message on `main` and CI checks it.
 - Keep PRs small and focused — split into multiple PRs by logical area if a change goes over the file limit, or use a `release/` branch for one bulk change (see [Exceptions for Large Changes](../docs/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix)).
+- Keep **Additional Details** to 5 bullets or fewer, and use full GitHub URLs for links, because CI checks both and relative links don't work in a PR.
 - Mark **Breaking Change** if applicable and describe the rollout impact.
 - Pre-commit hooks must pass before raising a PR — fix the underlying issue rather than bypassing with `--no-verify`.
 - Run `make test` and make sure it passes before raising a PR.

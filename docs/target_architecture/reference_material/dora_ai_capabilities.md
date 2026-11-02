@@ -1,4 +1,4 @@
-<!-- version: 2.0.2 -->
+<!-- version: 2.0.3 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-02 -->
 # 📊 DORA: AI Capabilities Model
@@ -22,10 +22,22 @@ For anyone shaping the target architecture: what DORA's (DevOps Research and Ass
 - **Methodology:** this report defers to the [*State of AI-assisted Software Development 2025*](https://dora.dev/research/2025/dora-report/) report for its methods and models (p. 94).
 - **Labels:** the overview, capabilities, findings and limitations pages report the source, while the applicability page is this playbook's interpretation.
 
-## 📚 Pages
+## 📋 The report says: overview
 
-- **[Overview](dora_ai_capabilities/01_overview.md):** the evidence base, central claim and intended use.
-- **[The seven capabilities](dora_ai_capabilities/02_seven_capabilities.md):** what each one is, what it amplifies, and where the report covers it.
-- **[Findings worth carrying forward](dora_ai_capabilities/03_findings.md):** specific points to use when designing the target architecture.
-- **[Limitations](dora_ai_capabilities/04_limitations.md):** what the evidence can and can't show.
-- **[Applicability to this playbook (proposed, not yet adopted)](dora_ai_capabilities/05_applicability.md):** how far each capability fits a personal playbook.
+- **Read:** [Overview](dora_ai_capabilities/01_overview.md), the evidence base, central claim and intended use.
+
+## 🧩 The report says: the seven capabilities
+
+- **Read:** [The seven capabilities](dora_ai_capabilities/02_seven_capabilities.md), what each one is, what it amplifies, and where the report covers it.
+
+## 🔎 The report says: findings worth carrying forward
+
+- **Read:** [Findings worth carrying forward](dora_ai_capabilities/03_findings.md), specific points to use when designing the target architecture.
+
+## ⚠️ Limitations
+
+- **Read:** [Limitations](dora_ai_capabilities/04_limitations.md), what the evidence can and can't show.
+
+## 🎯 Applicability to this playbook (proposed, not yet adopted)
+
+- **Read:** [Applicability to this playbook](dora_ai_capabilities/05_applicability.md), how far each capability fits a personal playbook.

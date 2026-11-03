@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🏗️ Target architecture
@@ -31,18 +31,18 @@ Every component sits in one of three tiers:
 
 - 📏 **Measure:** the tokens that load into every session, estimated as total characters ÷ 4.
 - 📂 **Counted:** the `CLAUDE.md` files and their `@` imports, rules with no `paths:` setting, and skill and agent descriptions.
-- 🚧 **Ceiling:** [3,000 tokens](design_principles/01_principles.md#-numbers-and-tests), raised only by a PR that links logged evidence.
+- 🚧 **Ceiling:** set in the [principles' numbers](design_principles/01_principles.md#-numbers-and-tests), and raised only by a PR that links logged evidence.
 
 ## 🛡️ CI checks
 
-| Check | Fails when | Status |
+| Check | Fails when | How it runs |
 |---|---|---|
-| 💰 **Always-on budget** | The estimate exceeds the ceiling | Planned |
-| 📦 **PR size** | Over 20 files change, except on a `release/` branch | Runs [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) |
+| 💰 **Always-on budget** | The estimate exceeds the ceiling | [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh), as a pre-commit hook that CI also runs |
+| 📦 **PR size** | A PR changes more files than its limit allows, except on a `release/` branch | Runs [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) |
 
 ## 📏 Measures
 
-Each task gets a row in the task log, a planned markdown table in this repo, and the [regular review](design_principles/01_principles.md#-numbers-and-tests) adds overhead figures:
+Each task gets a row in the [task log](../maintenance/task_log.md), and the [regular review](design_principles/01_principles.md#-numbers-and-tests) adds overhead figures:
 
 | Measure | Definition | Unit | Recorded |
 |---|---|---|---|

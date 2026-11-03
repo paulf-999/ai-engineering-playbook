@@ -1,4 +1,4 @@
-<!-- version: 2.1.1 -->
+<!-- version: 2.2.0 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 📄 Markdown Quality Rubric
@@ -41,6 +41,7 @@ A round is one blind review, given only the page and this rubric.
 - ⚖️ **Fixes add nothing:** a fix mustn't make the page longer, so adding a point means cutting another.
 - 🛑 **Two rounds:** blind scores vary by about a point, so if reviewers disagree across two rounds, settle the point here rather than editing the page again.
 - 🤏 **Borderline notes:** a reviewer's notes that don't cost a mark aren't gaps.
+- 🧾 **List lead-ins:** a list needs a lead-in sentence only when the heading right above it doesn't already say what the items are.
 
 ## 🧩 Exceptions
 

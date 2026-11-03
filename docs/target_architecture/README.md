@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🏗️ Target architecture docs
@@ -8,8 +8,6 @@
 Together they plan a new, leaner Claude Code configuration for this repo.
 
 ## 📖 Reading order
-
-If you're new, start with the first page:
 
 1. [Review of the old Claude configuration](current_architecture.md): what it contains, what works well, and where it grew heavier than the evidence justified.
 2. [Design principles](design_principles.md): the principles every part of the new configuration follows, and the checks a new part must pass.

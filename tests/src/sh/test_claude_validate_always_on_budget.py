@@ -1,4 +1,4 @@
-# version: 1.0.0
+# version: 1.0.1
 # created: 2026-11-03
 # updated: 2026-11-03
 """Tests for the always-on budget check, which caps the Claude context loaded into every session."""
@@ -29,21 +29,22 @@ def write(directory, path, text):
     target.write_text(text)
 
 
-# MoSCoW: Must — context within the budget must not be blocked
+# MoSCoW: Must — context at the budget must pass, and context one token over must fail
 @pytest.mark.parametrize(
-    ("text", "tokens"),
+    ("tokens", "exit_code", "message"),
     [
-        (HUNDRED_TOKENS, 100),
+        (100, 0, "~100 tokens, within the 150-token budget"),
         # exactly at the budget still passes, since only going over fails
-        ("x" * 599 + "\n", 150),
+        (150, 0, "~150 tokens, within the 150-token budget"),
+        (151, 1, "~151 tokens, over the 150-token budget"),
     ],
 )
-def test_context_within_the_budget_passes(tmp_path, text, tokens):
-    """A CLAUDE.md at or under a 150-token budget exits 0 and reports its estimate."""
-    write(tmp_path, "CLAUDE.md", text)
+def test_the_budget_boundary(tmp_path, tokens, exit_code, message):
+    """A CLAUDE.md at or under a 150-token budget passes, one token over fails, and the estimate is reported."""
+    write(tmp_path, "CLAUDE.md", "x" * (tokens * 4 - 1) + "\n")
     result = run_check(tmp_path)
-    assert result.returncode == 0, f"~{tokens} tokens should pass a 150-token budget:\n{result.stdout}"
-    assert f"~{tokens} tokens, within the 150-token budget" in result.stdout, "the estimate should be reported"
+    assert result.returncode == exit_code, f"~{tokens} tokens should exit {exit_code}:\n{result.stdout}"
+    assert message in result.stdout, "the estimate and verdict should be reported"
 
 
 # MoSCoW: Must — every kind of always-on context counts towards the budget
@@ -59,6 +60,8 @@ def test_context_within_the_budget_passes(tmp_path, text, tokens):
         (".claude/skills/example/SKILL.md", "---\ndescription: " + "x" * 400 + "\n---\n"),
         # agent descriptions count the same way
         (".claude/agents/example.md", "---\ndescription: " + "x" * 400 + "\n---\n"),
+        # a description folded over several lines with > counts in full
+        (".claude/skills/folded/SKILL.md", "---\ndescription: >\n  " + "x" * 200 + "\n  " + "x" * 200 + "\n---\n"),
     ],
 )
 def test_each_kind_of_always_on_context_is_counted(tmp_path, path, text):
@@ -70,13 +73,23 @@ def test_each_kind_of_always_on_context_is_counted(tmp_path, path, text):
     assert "over the 150-token budget" in result.stdout, "the failure should say the budget was exceeded"
 
 
-# MoSCoW: Must — rules that load only for certain files mustn't count against the budget
-def test_a_path_scoped_rule_is_not_counted(tmp_path):
-    """A rule whose opening block sets paths: loads only with matching files, so it isn't counted."""
+# MoSCoW: Must — context that doesn't load in every session mustn't count against the budget
+@pytest.mark.parametrize(
+    ("path", "text"),
+    [
+        # a rule whose opening block sets paths: loads only with matching files
+        (".claude/rules/scoped.md", "---\npaths:\n  - '*.sql'\n---\n" + HUNDRED_TOKENS),
+        # a skill's or agent's body loads only when it's used, so only its description counts
+        (".claude/skills/example/SKILL.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),
+        (".claude/agents/example.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),
+    ],
+)
+def test_context_loaded_only_on_demand_is_not_counted(tmp_path, path, text):
+    """Adding 100 tokens that load only on demand to a 100-token CLAUDE.md stays within a 150-token budget."""
     write(tmp_path, "CLAUDE.md", HUNDRED_TOKENS)
-    write(tmp_path, ".claude/rules/scoped.md", "---\npaths:\n  - '*.sql'\n---\n" + HUNDRED_TOKENS)
+    write(tmp_path, path, text)
     result = run_check(tmp_path)
-    assert result.returncode == 0, f"a paths: rule shouldn't count towards the budget:\n{result.stdout}"
+    assert result.returncode == 0, f"{path} shouldn't count towards the budget:\n{result.stdout}"
 
 
 # MoSCoW: Should — a bad budget value must fail clearly rather than be compared as text

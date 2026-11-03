@@ -1,7 +1,10 @@
-# version: 1.4.0
+# version: 1.4.1
 # created: 2026-10-31
-# updated: 2026-11-02
-"""Checks the markdown files quality audit (quality_audit_markdown_files.md) lists every doc and adds up."""
+# updated: 2026-11-03
+"""Checks the markdown files quality audit lists every doc once, its scores add up, and no score is out of date.
+
+Also checks the placeholder cap, and that each check below can fail.
+"""
 
 import os
 import re
@@ -59,6 +62,7 @@ def major_minor(version):
 def assert_scored_versions_current(rows, root=REPO_ROOT):
     """Check each doc's MAJOR.MINOR version still matches the Version it was scored at."""
     for row in rows:
+        # the first 'version: X.Y.Z' is the file's own header, whatever its comment style
         header = re.search(r"version: (\d+\.\d+\.\d+)", (root / row["link"]).read_text())
         assert header, f"{row['name']}: add a version header, so its score can be pinned to a version"
         current = header.group(1)
@@ -109,6 +113,7 @@ def test_a_broken_placeholder_cap_is_reported():
 
 
 # MoSCoW: Should — a version check that never fails would let a stale score stand
+# each case pairs a scored Version with the outcome expected, where nullcontext() means no error is raised
 @pytest.mark.parametrize(
     ("scored", "outcome"),
     [

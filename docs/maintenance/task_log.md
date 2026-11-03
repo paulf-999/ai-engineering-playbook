@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-03 -->
 # 📝 Task log
@@ -13,6 +13,7 @@ Add one row when a task's change is accepted, and add rework to that row when a 
 
 | Date | Task | Time to acceptance (minutes) | Rework (fix commits) | Interventions | Component feedback |
 |---|---|---|---|---|---|
+| 📚 2026-11-03 | Summarised a published industry survey report into a reference page, updated the source register, and raised a PR | 17 | 0 | 0 | PR links point to the branch, not a commit, so break after merge; PR template's unticked options were removed; no title or plan confirmed before raising the PR |
 
 ## 🔁 Reviews
 

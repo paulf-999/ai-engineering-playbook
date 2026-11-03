@@ -1,11 +1,11 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 🧪 tests
 
 **Purpose:** how the `tests/` folder is laid out, and where a new test goes.
 
-Tests follow four layout rules:
+Tests follow these layout rules:
 
 - 🪞 **Mirrored paths:** a test sits at the same path as the file it checks, so tests for `src/sh/git/git_commit.sh` live in `tests/src/sh/git/test_git_commit.py`.
   - **Docs too:** the tests that keep the doc quality audits accurate mirror `docs/maintenance/quality/`.

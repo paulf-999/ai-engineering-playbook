@@ -1,14 +1,13 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 📚 Reference Material
 
-For anyone working on the target architecture: the external sources it draws on, what each is used for, and how to cite them.
-
-- 🔤 **Terms:** SDLC is the software development lifecycle, and DORA (DevOps Research and Assessment) is a long-running research programme on software delivery performance.
-- 📅 **Accessed:** every source was last checked on 2026-11-02.
+**Purpose:** the outside sources behind this repo's target architecture, the design for its new Claude configuration, and how to use and cite them.
 
 ## 📋 Source register
+
+Sources were checked on 2026-11-02, and the Access column says which were read in full.
 
 | # | Source | Publisher | Version or date | Access | Used for |
 |---|---|---|---|---|---|
@@ -19,12 +18,16 @@ For anyone working on the target architecture: the external sources it draws on,
 
 ## 🧭 How to use these sources
 
-- 🛠️ **Anthropic:** practical guidance for each delivery stage, not evidence that a practice improves outcomes.
-- 🔬 **DORA:** evidence, enabling conditions and measures, mostly from surveys, so it shows correlation rather than cause.
-- 🚫 **Neither:** is a specification this playbook must implement.
+Each source plays a different role:
+
+- 🛠️ **Anthropic's SDLC course:** practical guidance for each stage of the software development lifecycle, not evidence that a practice works.
+- 🔬 **DORA (DevOps Research and Assessment):** a long-running research programme whose surveys show correlation rather than cause.
+- 🚫 **Not a specification:** this repo takes ideas from both, but needn't implement either.
 - 📝 **Citations:** record the page or section, and the version or access date, for every claim taken from a source.
 
-## 🔗 Synthesis pages
+## 🔗 Summary pages
 
-- 🧭 **[AI-native SDLC](anthropic_ai_native_sdlc.md):** what Anthropic's course recommends, and how it applies here.
-- 📊 **[DORA AI capabilities](dora_ai_capabilities.md):** what DORA's AI Capabilities Model report found, and how it applies here.
+Each main source has a summary page:
+
+- [Anthropic's SDLC course: summary and relevance](anthropic_ai_native_sdlc.md)
+- [DORA's AI Capabilities Model: summary and relevance](dora_ai_capabilities.md)

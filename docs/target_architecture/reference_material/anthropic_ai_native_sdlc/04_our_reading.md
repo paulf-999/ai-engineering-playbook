@@ -1,19 +1,17 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🔍 AI-native SDLC course: Our reading
 
-For anyone shaping the target architecture: this playbook's reading of the course.
+**Purpose:** what Anthropic's SDLC course means for the design of this repo's Claude configuration.
 
-- **Part of:** [Anthropic: The AI-native SDLC Playbook](../anthropic_ai_native_sdlc.md).
-
-## 📖 Terms
-
-- 📈 **Leading and lagging indicators:** an early signal that a practice is working, and a later measure of its outcome.
+This page is part of the [summary of Anthropic's SDLC course](../anthropic_ai_native_sdlc.md), and gives this repo's view rather than the course's.
 
 ## 🔑 Key points
 
-- 🦴 **Spine:** specify, plan, then verify against versioned artefacts, a sequence a personal playbook can follow without any organisation features.
-- ⚖️ **Advisory versus enforced:** the course separates advisory controls (skills, `CLAUDE.md`) from enforced ones (hooks, required CI checks).
-- 🔎 **Audit use:** the planned audit of this playbook's previous Claude configuration, the [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook) repository, needs the same split to show which safeguards code enforces and which are only advice.
-- 📏 **Measurement:** every play names a leading and a lagging indicator, giving ready candidates for checking whether a change actually helped.
+These ideas carry over:
+
+- 🦴 **Core sequence:** specify, plan, then check the work against versioned files, which needs none of the admin-run features that some plays assume.
+- ⚖️ **Advice versus enforcement:** skills and `CLAUDE.md` only advise Claude, while hooks and required CI checks enforce.
+  - **Use here:** the [review of the old configuration](../../current_architecture/03_complexity_without_evidence.md) applies this split to its safeguards.
+- 📏 **Measurement:** each play's early signal and later result are ready candidates for checking whether a change helped.

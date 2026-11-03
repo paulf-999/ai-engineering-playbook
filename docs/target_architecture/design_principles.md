@@ -1,4 +1,4 @@
-<!-- version: 1.4.0 -->
+<!-- version: 1.5.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🧭 Design principles
@@ -7,7 +7,7 @@
 
 ## 📋 Executive Summary
 
-- 🌱 **Stance:** a small required core, with skills and agents used only when a task needs them.
+- 🌱 **Stance:** a small required core, with skills and agents used only when a task needs them, as the [handover review](reference_material/handover_review.md) recommends.
 - ⚖️ **Bar:** the configuration must beat a near-bare setup of `CLAUDE.md`, tests and CI on results, effort or consistency.
 - ➕ **Adding:** a component, meaning a rule, skill, hook or agent, needs a gap seen in real tasks that it closes.
 - 🗑️ **Keeping:** a component stays only while the task log shows it helping.

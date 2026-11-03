@@ -1,4 +1,4 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.4.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 📚 Reference Material
@@ -7,7 +7,7 @@
 
 ## 📋 Source register
 
-The Access column says which sources were read in full, and Captured gives the date each summary page was written, so an old date flags a summary to recheck.
+The Access column says which sources were read in full, and Captured gives the date each summary or quoted page was written, so an old date flags a summary to recheck.
 
 | # | Source | Publisher | Version or date | Access | Captured | Used for |
 |---|---|---|---|---|---|---|
@@ -15,11 +15,12 @@ The Access column says which sources were read in full, and Captured gives the d
 | 2️⃣ | [DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/) | DORA, a Google Cloud programme | Report v. 2025.1, CC BY-NC-SA 4.0 | Full report from [Google Cloud](https://cloud.google.com/resources/content/2025-dora-ai-capabilities-model-report), read in full | 2026-11-02 | The seven capabilities and how to build them |
 | 3️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | 2025, exact date not stated | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), not yet read | No summary | Survey evidence on AI adoption and outcomes |
 | 4️⃣ | [DORA AI Capabilities Model survey questions](https://dora.dev/ai/capabilities-model/questions/) | DORA, a Google Cloud programme | Page last updated 2025-11-25 | Public | No summary | How each capability and outcome was measured |
-| 5️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | How much always-on context costs, and how imports and path-scoped rules load |
-| 6️⃣ | [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) | Birgitta Böckeler, on martinfowler.com | 2026-04-02 | Public, read in full | 2026-11-03 | When to guide Claude and when to enforce, from outside Anthropic |
-| 7️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of the setup still helps |
-| 8️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) | METR (Becker, Rush, Barnes and Rein), on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
-| 9️⃣ | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
+| 5️⃣ | [Handover review](handover_review.md), sections 4 and 6 | An outside reviewer of the old setup | Not dated | Quoted in this repo | 2026-11-03 | The design's stance and priorities |
+| 6️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | How much always-on context costs, and how imports and path-scoped rules load |
+| 7️⃣ | [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) | Birgitta Böckeler, on martinfowler.com | 2026-04-02 | Public, read in full | 2026-11-03 | When to guide Claude and when to enforce, from outside Anthropic |
+| 8️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of the setup still helps |
+| 9️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) | METR (Becker, Rush, Barnes and Rein), on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
+| 🔟 | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
 
 ## 🧭 How to use these sources
 
@@ -33,6 +34,7 @@ These sources say what to do, but none shows that a practice works:
 - 📘 **Claude Code docs:** how Claude Code behaves today, so recheck the live page before relying on an old summary.
 - 🧰 **Böckeler's harness engineering:** a practitioner's view from outside Anthropic, useful as a check on vendor advice.
 - 🧪 **Anthropic's evals article:** a method for testing agents, not evidence about this repo.
+- 🧑‍💼 **Handover review:** one reviewer's judgement on the old setup, which sets the design's direction rather than proving it works.
 
 ### 🔬 Evidence
 
@@ -57,3 +59,4 @@ Each summarised source has its own page:
 - [Böckeler's harness engineering: summary and relevance](bockeler_harness_engineering.md)
 - [Anthropic's evals article: summary and relevance](anthropic_agent_evals.md)
 - [METR's developer productivity trial: summary and relevance](metr_developer_productivity_trial.md)
+- [The handover review's two quoted sections](handover_review.md)

@@ -1,4 +1,4 @@
-<!-- version: 1.0.47 -->
+<!-- version: 1.0.48 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 📊 Markdown Quality Audit
@@ -49,7 +49,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Target architecture README](../../../target_architecture/README.md) | Independent review | 1.0.0 | ❌ 0 | 🟡 1 | 🟡 1 | 🟡 1 | 🟡 1 | **F · 4/10** | Core coverage: placeholder only, with no audience line or content; Leanness: capped; Clarity: capped; Maintainability: capped; Accuracy: capped, all by the placeholder cap |
 | [Target architecture](../../../target_architecture/target_architecture.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Design principles](../../../target_architecture/design_principles.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Principles page](../../../target_architecture/design_principles/01_principles.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the 3,000-token bullet doesn't say it's the always-on ceiling, and the halving test bullet gives no rationale or timing |
+| [Principles page](../../../target_architecture/design_principles/01_principles.md) | Independent review | 1.2.0 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: repeats the milestone cadence from the target architecture page; Clarity: task log, CI, hook and pre-commit are used without definition |
 | [Criteria page](../../../target_architecture/design_principles/02_evaluation_criteria.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: it asks for one top-level Evaluation criteria bullet without naming the PR section or the five-bullet cap behind it |
 | [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | 2.0.3 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

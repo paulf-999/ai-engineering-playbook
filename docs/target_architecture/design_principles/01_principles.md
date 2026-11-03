@@ -1,13 +1,13 @@
-<!-- version: 1.2.1 -->
+<!-- version: 1.2.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🧱 Design principles: Principles
 
 **Purpose:** the principles every new or changed component must follow, and how each one is checked.
 
-These principles are part of this repo's [design principles](../design_principles.md). Each one answers a lesson from [Where complexity outran evidence](../current_architecture/03_complexity_without_evidence.md), our review of where the current Claude configuration grew heavier than its evidence justified, unless the table cites another source.
+They're part of this repo's [design principles](../design_principles.md).
 
-| Principle | What it means | Checked by | Lesson |
+| Principle | What it means | Checked by | [Lesson](../current_architecture/03_complexity_without_evidence.md) |
 |---|---|---|---|
 | 🌱 **Minimal by default** | Beyond the [mandatory core](../target_architecture.md#-tiers) of `CLAUDE.md`, tests and CI, everything is optional. | A planned budget check on context loaded every session | Always-on weight |
 | 💰 **Every component earns its cost** | It closes a gap seen in logged tasks. | Its PR's answers to the [evaluation criteria](02_evaluation_criteria.md) | Per-turn overhead, and [irrelevant context](../reference_material/dora_ai_capabilities/03_findings.md) (DevOps Research and Assessment, pp. 32–33) |
@@ -27,4 +27,9 @@ These principles are part of this repo's [design principles](../design_principle
 
 ## ♻️ Carried over
 
-- ♻️ **Kept from the current configuration:** reversible changes, growing in stages, essentials first, and live sources over stale lists, as its [proposed changes](../current_architecture/05_proposed_changes.md) recommend.
+These principles from the current setup still apply:
+
+- Make every change easy to reverse.
+- Grow in small stages.
+- Load essentials first, and detail only on demand.
+- Link to live sources rather than keeping lists that go stale.

@@ -1,4 +1,4 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🏗️ Target architecture
@@ -28,7 +28,7 @@ For anyone building or reviewing this repo's Claude configuration: what it conta
 
 - 📏 **Measure:** total characters ÷ 4 of what loads into every session.
 - 📂 **Counted:** the `CLAUDE.md` files and their `@` imports, rules without `paths:`, and skill and agent descriptions.
-- 🚧 **Ceiling:** [3,000 tokens](design_principles/01_principles.md#-why-these-numbers), raised only by a PR that links logged evidence.
+- 🚧 **Ceiling:** [3,000 tokens](design_principles/01_principles.md#-numbers-and-tests), raised only by a PR that links logged evidence.
 
 ## 🛡️ Guards
 
@@ -51,4 +51,4 @@ For anyone building or reviewing this repo's Claude configuration: what it conta
 | 💰 **Always-on tokens** | The budget estimate above | Tokens | Per milestone |
 | 🧰 **Upkeep** | Time spent changing the configuration | Hours | Per milestone |
 
-- 🗑️ **Acting on feedback:** each milestone [retires components that don't pay](design_principles/01_principles.md) and runs the [halving test](design_principles/01_principles.md#-why-these-numbers): could half the components go without harm?
+- 🗑️ **Acting on feedback:** each milestone [retires components that don't pay](design_principles/01_principles.md) and runs the [halving test](design_principles/01_principles.md#-numbers-and-tests): could half the components go without harm?

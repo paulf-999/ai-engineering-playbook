@@ -1,31 +1,39 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.2.3 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🧱 Design principles: Principles
 
-For anyone adding to or reviewing a component: the principles it must follow, and how each one is checked.
+**Purpose:** the principles every new or changed component (a rule, skill, hook or agent) must follow, and how each one is checked.
 
-- **Part of:** [Design principles](../design_principles.md).
-- 📚 **Lessons:** each principle answers a lesson from [Where complexity outran evidence](../current_architecture/03_complexity_without_evidence.md), unless the table links another source.
+They're part of this repo's [design principles](../design_principles.md).
 
-| Principle | What it means | How it's checked | Lesson |
+| Principle | What it means | Checked by | Source |
 |---|---|---|---|
-| 🌱 **Minimal by default** | • **Mandatory:** only `CLAUDE.md`, tests, CI and two size checks.<br>• **Everything else:** optional or task-specific. | • **Budget:** a planned CI check caps always-on context at 3,000 tokens.<br>• **PR size:** CI fails a PR over 20 files, bar `release/` branches. | Always-on weight |
-| 💰 **Every component earns its cost** | • **Evidence:** a recurring gap in logged tasks.<br>• **Curated context:** irrelevant context degrades answers ([DORA](../reference_material/dora_ai_capabilities/03_findings.md), pp. 32–33). | Its PR answers the [evaluation criteria](02_evaluation_criteria.md). | Per-turn overhead, and rules about rules |
-| 🔒 **Enforce what must hold** | Whatever must hold is enforced by a hook, test or CI check, not by prose. | In review, the PR names the check that enforces it. | Advisory controls |
-| 🔁 **No duplicate controls** | One control each, so a rule never restates a CI or pre-commit check. | The evaluation criteria's "No duplicate" check. | Repeated checks ([#7](https://github.com/paulf-999/ai-engineering-playbook/issues/7)) |
-| 🔌 **Opt-in, never mandatory** | No orchestration, so no workflow requires a skill or agent. | The evaluation criteria's "No orchestration" check. | Universal loading ([#7](https://github.com/paulf-999/ai-engineering-playbook/issues/7)) |
-| 📏 **Measure outcomes and overhead** | • **Outcomes:** time to acceptance, rework and human interventions.<br>• **Overhead:** always-on tokens and upkeep time. | • **Task log:** one row per real task, once built.<br>• **Milestone:** a review every 20 tasks or 4 weeks. | No outcome data |
-| 🗑️ **Retire what doesn't pay** | Retire a component flagged unhelpful twice, or unused for a milestone. | The milestone review removes flagged components and runs the halving test. | No outcome data |
-| 🧑 **Humans own judgement calls** | A person is accountable: they merge every PR and decide scope and design. | • **Ruleset:** changes reach `main` only by PR, with checks passing.<br>• **Gap:** with no approval required, human merging is a convention. | Advisory controls |
+| 🌱 **Minimal by default** | Beyond the [mandatory core](../target_architecture.md#-tiers) of `CLAUDE.md`, tests and CI, everything is optional. | A planned budget check on context loaded every session | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md) |
+| 💰 **Every component earns its cost** | It closes a gap seen in logged tasks. | Its PR's answers to the [evaluation criteria](02_evaluation_criteria.md) | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md), plus [DORA research](../reference_material/dora_ai_capabilities/03_findings.md) on irrelevant context |
+| 🔒 **Enforce what must hold** | Use a hook, test or CI check, not prose. | The PR naming that check | [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc/04_our_reading.md) |
+| 🔁 **No duplicate controls** | A rule never restates a CI or pre-commit check. | The "No duplicate" criterion | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md) |
+| 🔌 **Opt-in, never mandatory** | No workflow requires a skill or agent. | The "No orchestration" criterion | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md) |
+| 📏 **Measure outcomes and overhead** | Log each task's [outcome and overhead](../target_architecture.md#-measures). | The planned task log, one row per task | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md), plus [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc/01_overview.md) on indicators |
+| 🗑️ **Retire what doesn't pay** | Remove a component after two bad reports, or if it's unused between reviews. | The regular review | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md) |
+| 🧑 **Humans own judgement calls** | A person merges every PR and decides scope and design. | Changes reach `main` only by PR, though approval isn't enforced | [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc/01_overview.md) |
 
-## 🔢 Why these numbers
+## 🔢 Numbers and tests
 
-- 📏 **3,000 tokens:** about a tenth of the current [snapshot](../current_architecture/01_snapshot.md)'s load, and near the top of our 2,000–3,000-token estimate for the 200-line `CLAUDE.md` limit Anthropic advises.
-- 🗓️ **20 tasks or 4 weeks:** enough evidence to judge a component, without letting an unused one linger.
-- 🚩 **Flagged twice:** one flag may be a one-off, while two show a pattern.
-- 🔪 **Halving test:** asks whether removing half the components would make outcomes materially worse.
+The principles above rely on these limits and checks:
+
+- 📏 **3,000-token budget:** the most text that may load into every session, a tenth of what the [old configuration](../current_architecture/01_snapshot.md) loads.
+  - **Why this size:** it's roughly what Anthropic's advice to keep `CLAUDE.md` under 200 lines allows, by our estimate.
+- 🗓️ **Review every 20 tasks or 4 weeks:** often enough to drop unused parts, with enough evidence to judge each one.
+- 🚩 **Two bad reports:** remove a part after two task-log notes say it got in the way, since one may be chance.
+- 🔪 **Halving test:** at each review, ask whether removing half the rules, skills, hooks and agents would make results noticeably worse.
+  - **If not:** the setup is bigger than it needs to be.
 
 ## ♻️ Carried over
 
-- ♻️ **Still apply:** reversible changes, growing in stages, essentials first, and live sources over stale lists, as [proposed changes](../current_architecture/05_proposed_changes.md) lists.
+These principles from the [Claude configuration this repo replaces](../current_architecture.md) still apply:
+
+- Make every change easy to reverse.
+- Grow in small stages.
+- Load essentials first, and detail only on demand.
+- Link to live sources rather than keeping lists that go stale.

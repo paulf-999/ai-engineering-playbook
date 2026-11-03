@@ -1,4 +1,4 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.2.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🧭 Anthropic: The AI-native SDLC Playbook
@@ -17,6 +17,7 @@
 
 - 📚 **Course:** [The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook), from Anthropic's Claude Academy, about an hour of reading.
 - 📅 **Version:** the course gives no date or version, so cite the lesson and the 2026-11-02 access date.
+- 🗓️ **Captured:** 2026-11-02, after reading every lesson in full.
 
 ## 📖 The pages
 

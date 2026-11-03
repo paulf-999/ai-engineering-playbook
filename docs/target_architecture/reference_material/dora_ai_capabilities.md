@@ -1,4 +1,4 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.2.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 📊 DORA: AI Capabilities Model
@@ -19,7 +19,7 @@ The report and how to cite it:
 
 - 📄 **Report:** [*DORA AI Capabilities Model*](https://dora.dev/ai/capabilities-model/report/), v. 2025.1, Google LLC, with citations retrieved October 2025 (p. 1).
 - ⚖️ **Licence:** CC BY-NC-SA 4.0, so it can be quoted with attribution for non-commercial use.
-- 📅 **Accessed:** read in full on 2026-11-02, from the PDF the report page links to.
+- 🗓️ **Captured:** 2026-11-02, after reading in full the PDF the report page links to.
 - 🔢 **Page numbers:** "p." means the report's printed page number, which is one less than the PDF page.
 - 🧪 **Methods:** the report defers to [*State of AI-assisted Software Development 2025*](https://dora.dev/research/2025/dora-report/) for how it was run (p. 94).
 

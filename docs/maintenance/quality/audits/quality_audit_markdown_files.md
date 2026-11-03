@@ -1,4 +1,4 @@
-<!-- version: 1.0.50 -->
+<!-- version: 1.0.51 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 📊 Markdown Quality Audit
@@ -45,22 +45,22 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Current architecture: what works well](../../../target_architecture/current_architecture/02_what_works_well.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: complexity](../../../target_architecture/current_architecture/03_complexity_without_evidence.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: alignment](../../../target_architecture/current_architecture/04_reference_alignment.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Current architecture: proposed changes](../../../target_architecture/current_architecture/05_proposed_changes.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: the spec.md and plan.md proposal gives no reason or source, and "Claude's global settings" is vague; Maintainability: "five ways" and "three ways" count the page's own bullets |
+| [Current architecture: proposed changes](../../../target_architecture/current_architecture/05_proposed_changes.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | **A · 9/10** | Accuracy: says DORA found irrelevant context degrades answers, but the linked findings page only says to favour relevant context over volume |
 | [Target architecture README](../../../target_architecture/README.md) | Independent review | 1.0.0 | ❌ 0 | 🟡 1 | 🟡 1 | 🟡 1 | 🟡 1 | **F · 4/10** | Core coverage: placeholder only, with no audience line or content; Leanness: capped; Clarity: capped; Maintainability: capped; Accuracy: capped, all by the placeholder cap |
 | [Target architecture](../../../target_architecture/target_architecture.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Design principles](../../../target_architecture/design_principles.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Principles page](../../../target_architecture/design_principles/01_principles.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Criteria page](../../../target_architecture/design_principles/02_evaluation_criteria.md) | Independent review | 1.2.0 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: the Tokens bullet restates the characters ÷ 4 estimate from the target architecture; Clarity: "budget check" has no explanation or link |
-| [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | 2.0.3 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [SDLC: overview](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/01_overview.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [SDLC: plays by stage](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/02_plays_by_stage.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [SDLC: caveats](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/03_caveats.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: "the indicators", "plays" and "closing lesson" go unexplained for a reader who lands here directly, and the link label "Capture as intent.md" reads like a filename; Maintainability: the "in beta" status of Claude Tag will go out of date |
-| [SDLC: our reading](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/04_our_reading.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "organisation features" is vague, "the planned audit" isn't linked to any plan, and the glossary and reading bullets run together with no heading between them |
-| [SDLC: relevance](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/05_relevance.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [DORA AI capabilities](../../../target_architecture/reference_material/dora_ai_capabilities.md) | Independent review | 2.0.3 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [DORA: overview](../../../target_architecture/reference_material/dora_ai_capabilities/01_overview.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [DORA: seven capabilities](../../../target_architecture/reference_material/dora_ai_capabilities/02_seven_capabilities.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [DORA: findings](../../../target_architecture/reference_material/dora_ai_capabilities/03_findings.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: glossary terms and findings run together as one unheaded bullet list, "Context rot" appears in both, and "the rubric" and "it also amplifies" depend on context the page never gives |
-| [DORA: limitations](../../../target_architecture/reference_material/dora_ai_capabilities/04_limitations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [DORA: applicability](../../../target_architecture/reference_material/dora_ai_capabilities/05_applicability.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Criteria page](../../../target_architecture/design_principles/02_evaluation_criteria.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [SDLC: overview](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/01_overview.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [SDLC: plays by stage](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/02_plays_by_stage.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [SDLC: caveats](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/03_caveats.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [SDLC: our reading](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/04_our_reading.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [SDLC: relevance](../../../target_architecture/reference_material/anthropic_ai_native_sdlc/05_relevance.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [DORA AI capabilities](../../../target_architecture/reference_material/dora_ai_capabilities.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [DORA: overview](../../../target_architecture/reference_material/dora_ai_capabilities/01_overview.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [DORA: seven capabilities](../../../target_architecture/reference_material/dora_ai_capabilities/02_seven_capabilities.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [DORA: findings](../../../target_architecture/reference_material/dora_ai_capabilities/03_findings.md) | Independent review | 1.1.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: the "Trunk" entry defines a common engineering term that needs no definition |
+| [DORA: limitations](../../../target_architecture/reference_material/dora_ai_capabilities/04_limitations.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [DORA: applicability](../../../target_architecture/reference_material/dora_ai_capabilities/05_applicability.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

@@ -1,21 +1,19 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 📋 AI-native SDLC course: Overview
 
-For anyone shaping the target architecture: the course's shape, thread and suggested starting plays.
+**Purpose:** how Anthropic's SDLC course is structured, and where it suggests starting.
 
-- **Part of:** [Anthropic: The AI-native SDLC Playbook](../anthropic_ai_native_sdlc.md).
-
-## 📖 Terms
-
-- 📈 **Leading and lagging indicators:** an early signal that a practice is working, and a later measure of its outcome.
-- 🧪 **Evals:** repeatable test tasks that check an AI agent still behaves as expected after a change.
+This page is part of the [summary of Anthropic's SDLC course](../anthropic_ai_native_sdlc.md). The course is built from plays: short recommended practices, each with prerequisites, steps and two measures of success.
 
 ## 🔑 Key points
 
-- 🧩 **Shape:** twelve "plays" across six stages (Plan, Design, Build, Test, Deploy, Maintain), each with prerequisites, steps, governance and a leading and a lagging indicator.
-- 🧵 **Thread:** each stage leaves a versioned artefact for the next, from `intent.md` to `spec.md` to `plan.md` to code, evals and review findings.
+The course's structure comes down to these points:
+
+- 🧩 **Stages:** the plays are grouped by stage: plan, design, build, test, deploy and maintain.
+- 📈 **Measures:** each play names a leading indicator, an early sign it's working, and a lagging indicator, a later measure of its outcome.
+- 🧵 **Thread:** each stage leaves a versioned file for the next, from `intent.md` to `spec.md` to `plan.md`, then code, tests and review findings.
 - 🙋 **Accountability:** "Humans remain accountable for every decision that requires judgment" ([Introduction](https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction)).
-- 🚦 **Where to start:** the plays with no prerequisites are capture intent, plan mode, `CLAUDE.md`, skills, a feedback loop and hooks as approval gates ([Introduction](https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction)).
-- 🔀 **Non-linear:** plays are modular, so organisations can take the stages in a different order.
+- 🚦 **Where to start:** with the plays that need nothing else first, such as capturing intent, plan mode and `CLAUDE.md` ([Introduction](https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction)).
+  - **Plan mode:** Claude proposes a plan before changing anything.

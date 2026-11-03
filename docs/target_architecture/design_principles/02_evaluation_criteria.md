@@ -1,20 +1,20 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # ✅ Design principles: Evaluation criteria
 
 **Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), must pass before it's added.
 
-This page is part of the [design principles](../design_principles.md), which also define always-on and task log. Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since that section allows only five top-level bullets.
+This page is part of the [design principles](../design_principles.md), which also define always-on and task log. Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since that section allows 5 bullets or fewer.
 
-Until the task log and budget check exist:
+Until the task log and the CI check on the [always-on budget](../target_architecture.md#-always-on-budget) exist:
 
 - 🧾 **Evidence:** cite the tasks in the PR description.
-- 🧮 **Tokens:** estimate always-on tokens as characters ÷ 4, against the [3,000-token budget](01_principles.md#-numbers-and-tests).
+- 🧮 **Tokens:** estimate them by hand, as the budget section describes.
 
 ## 🚪 Should it exist?
 
-It should exist only if all three hold:
+It should exist only if every check below holds:
 
 - [ ] 📊 **Evidence:** the gap appears in at least two logged tasks, since one may be a one-off.
 - [ ] 🤖 **Claude still gets it wrong:** rerunning the task with only `CLAUDE.md`, tests and CI still shows the gap.

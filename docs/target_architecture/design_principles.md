@@ -1,4 +1,4 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.3.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🧭 Design principles
@@ -24,7 +24,7 @@ Read them in this order:
 
 - 🚧 **Status:** adopted on 2026-11-02, while the always-on budget check and the task log are planned but not yet built.
 
-These pages use two terms of their own:
+These pages define their own terms:
 
 - 📥 **Always-on:** context that loads into every session, whatever the task.
 - 📝 **Task log:** a planned table with one row per real task, recording its outcome and any feedback on components.

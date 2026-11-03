@@ -1,13 +1,11 @@
-<!-- version: 1.0.11 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-02 -->
-# 🤖 CLAUDE.md — <project_name>
-
-<!-- Starting point: fill in the TODOs and keep this file lean, since Claude reads all of it every session. Add a line only when Claude repeatedly gets something wrong, and link to .github/CONTRIBUTING.md and docs/ rather than repeating them. -->
+<!-- updated: 2026-11-03 -->
+# 🤖 CLAUDE.md — AI Engineering Playbook
 
 ## 🎯 Project
 
-<!-- TODO: what this repo does, who uses it, and anything Claude keeps getting wrong here -->
+A playbook for a lean, evidence-led Claude Code setup: design docs in `docs/target_architecture/`, plus shell helpers and their tests. Most changes are markdown docs.
 
 | Task | Command |
 |---|---|
@@ -17,4 +15,5 @@
 
 - 🏁 **Done means:** `make test` and `pre-commit run --all-files` both pass.
 - 📜 **Conventions:** follow `.github/CONTRIBUTING.md` for branching, commits and PRs.
-- 🧪 **Tests:** score and maintain tests per `docs/maintenance/test_maintenance.md`.
+- 📝 **Docs:** follow the rubric in `docs/maintenance/quality/themes/quality_themes_markdown_files.md`.
+- 🧪 **Tests:** maintain tests per `docs/maintenance/test_maintenance.md`.

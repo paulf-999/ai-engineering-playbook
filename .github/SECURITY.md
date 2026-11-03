@@ -1,22 +1,19 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🔐 Security Policy
 
-For anyone who finds a security problem in this repo: how to report it privately, so it can be fixed before anyone else learns about it.
-
----
+**Purpose:** how to report a security problem in this repo privately, so it can be fixed before it's widely known.
 
 ## 📣 Reporting a vulnerability
 
-- 🔒 **Report privately:** open the repo's **Security** tab and choose **Report a vulnerability**.
-- 🚫 **Not in public:** please don't raise security problems as issues or PRs.
-- 📎 **Include:** what's affected, how to reproduce it, and what impact you expect.
+- 📨 **Ask for a contact:** open a GitHub issue titled "Security contact request", without describing the problem.
+- 🔒 **Then share details privately:** the maintainer replies with a private way to send them.
+- 📎 **Include:** what's affected, how to reproduce it, and the impact you expect.
 
-## ⏱️ What happens next
+## 🛠️ What happens next
 
-- 📬 **Acknowledgement:** you'll get a reply within 7 days.
-- 🛠️ **Fix:** confirmed problems are fixed on `main`, and you'll be credited unless you'd rather not be.
+- 🩹 **Fix:** confirmed problems are fixed on `main`, and you're credited unless you'd rather not be.
 
 ## 📦 Supported versions
 

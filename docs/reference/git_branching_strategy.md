@@ -1,61 +1,50 @@
-<!-- version: 2.0.4 -->
+<!-- version: 2.1.0 -->
 <!-- created: 2022-11-04 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🌿 Git Branching Strategy
 
-For anyone contributing to a repo made from this template: which branches to use and how to name them.
+**Purpose:** which branches to use in this repo, and how to name them.
 
-This repository uses a **simplified branching strategy**, with branch names enforced by a [pre-commit hook](../../src/sh/git/git_validate_branch_name.sh).
-
----
+Every branch starts from `main` and merges back into it through a PR, and a [pre-commit hook](../../src/sh/git/git_validate_branch_name.sh) checks each branch name.
 
 ## 🌱 Branch Types
 
-| Branch | Purpose |
+| Branch | Use it for |
 |---|---|
-| 🏠 `main` | Long-lived branch containing production-ready code. |
-| ✨ `feature/` | • **Purpose:** short-lived branches for new features.<br>• **Flow:** branch from `main`, merge back into `main`. |
-| 🚑 `hotfix/` | • **Purpose:** short-lived branches for urgent fixes to production.<br>• **Flow:** branch from `main`, merge back into `main`. |
-| 📦 `release/` | • **Purpose:** short-lived branches for PRs over the file limit — see [Exceptions for Large Changes](#-exceptions-for-large-changes--use-the-release-prefix).<br>• **Flow:** branch from `main`, merge back into `main`. |
-
----
+| 🏠 `main` | The long-lived branch that every other branch merges into |
+| ✨ `feature/` | New features |
+| 🚑 `hotfix/` | Urgent fixes |
+| 📦 `release/` | One bulk change over the PR file limit, as [below](#-exceptions-for-large-changes--use-the-release-prefix) |
 
 ## 📦 Exceptions for Large Changes — Use the `release/` Prefix
 
-PRs should stay within the file limit set in [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh), which the `MAX_FILES_ALLOWED` environment variable overrides. CI fails any PR over the limit unless its branch starts with `release/`, because small PRs are quicker and safer to review. For PRs over the limit:
+CI fails a PR that changes more than 20 files, because small PRs are quicker and safer to review. A `release/` branch is exempt, for changes that must land together:
 
-- 🔖 **Prefix:** the branch must start with `release/`.
-- 🔁 **Same change:** the PR should apply the same type of change in bulk (e.g. formatting, linting, or consistent refactoring across many files).
-- 🎯 **Aim:** keep such PRs structured and easy to review despite their size.
+- 🔖 **Prefix:** start the branch name with `release/`.
+- 🔁 **Same change:** apply one kind of change in bulk, such as formatting or a consistent rename.
+- 🔧 **Limit:** the 20-file default is set in [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh), and the `MAX_FILES_ALLOWED` environment variable overrides it.
 
 ```bash
 git checkout -b release/reformat_all_sql_models
 ```
 
----
-
 ## 📝 Naming Rules
 
-- ❓ **Why these rules:** lowercase letters, numbers and underscores keep branch names consistent, and safe to use in shell commands, URLs and CI without quoting.
-- 🔡 **Name part:** `<name>`, the part after the prefix, must:
-  - **Case:** be lowercase.
-  - **Characters:** contain only letters, numbers, and underscores (`a–z`, `0–9`, `_`).
-  - **Not allowed:** hyphens, spaces, or special characters.
-- 🧩 **Regex:** the `VALID_GIT_BRANCH_NAME` variable in [`git_validate_branch_name.sh`](../../src/sh/git/git_validate_branch_name.sh) holds the exact pattern.
-- 🤖 **Dependabot exception:** CI skips this check for PRs opened by Dependabot, because its `dependabot/...` branch names can't be changed.
+The part after the prefix follows these rules:
 
----
+- 🔡 **Characters:** only lowercase letters, numbers and underscores.
+- ❓ **Why:** such names are safe in shell commands, URLs and CI without quoting.
+- 🧩 **Exact pattern:** the `VALID_GIT_BRANCH_NAME` variable in the hook script.
+- 🤖 **Dependabot:** CI skips the check for Dependabot's PRs, because their `dependabot/...` names can't be changed.
 
 ## ✅ Examples
 
-| ✅ Allowed | ❌ Not allowed | Reason |
+Each row shows a valid name and an invalid one that breaks a single rule:
+
+| Valid | Invalid | Rule broken |
 |---|---|---|
-| ✅ `feature/add_pr_template` | `feature/add-pr-template` | Hyphen not allowed |
-| ✅ `feature/add_pr_123` | `feature/Add_PR` | Uppercase not allowed |
-| ✅ `hotfix/fix_commitlint` | `hotfix/fix commitlint` | Spaces not allowed |
-| ✅ `hotfix/issue_42` | `feature/feature_with$symbol` | Special characters not allowed |
-| ✅ `release/reformat_all_sql_models` | `bugfix/fix_typo` | Prefix not allowed |
-
----
-
-The script [`git_validate_branch_name.sh`](../../src/sh/git/git_validate_branch_name.sh) enforces the rules above.
+| 🔗 `feature/add_pr_template` | `feature/add-pr-template` | Hyphen |
+| 🔠 `feature/add_pr_123` | `feature/Add_PR` | Uppercase |
+| 🔲 `hotfix/fix_commitlint` | `hotfix/fix commitlint` | Space |
+| 💲 `hotfix/fix_symbol` | `hotfix/fix$symbol` | Special character |
+| 🏷️ `release/reformat_all_sql_models` | `bugfix/fix_typo` | Unknown prefix |

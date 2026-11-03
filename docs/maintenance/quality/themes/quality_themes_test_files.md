@@ -1,6 +1,6 @@
-<!-- version: 3.0.11 -->
+<!-- version: 3.0.12 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🧪 Test Quality Rubric
 
 For maintainers of this template: how to score the tests for each script out of 10, with a 10 meaning enough testing that stays easy to read, not the most tests.
@@ -11,7 +11,7 @@ For maintainers of this template: how to score the tests for each script out of 
 
 | Theme (Rubric) | Description/Purpose |
 |---|---|
-| 🎯 **Core coverage** | Every Must-level behaviour (a core contract of a hook or CI check, per the MoSCoW scores in [`test_maintenance.md`](../../test_maintenance.md)) has a test |
+| 🎯 **Core coverage** | Every Must-level behaviour (a core promise of a hook or CI check, per the MoSCoW scores in [`test_maintenance.md`](../../test_maintenance.md)) has a test |
 | ⚖️ **Leanness** | No duplicate or cosmetic tests (ones that check only wording or layout, not behaviour), and no more Could tests (rare paths) than Must tests |
 | 📖 **Clarity** | A newcomer can tell what each test checks from its current name and docstring, and non-obvious logic has a short comment |
 | 🧩 **Simplicity** | Short tests in plain pytest, and a harmless change breaks at most one test |
@@ -46,7 +46,7 @@ Each Theme (Rubric) gets a symbol and 0, 1 or 2 points, so the five add up to a 
 
 ## 🛑 Avoiding over-testing
 
-- ❓ **Why cap Could tests:** see **Wrong balance** in [`test_maintenance.md`](../../test_maintenance.md).
+- ❓ **Why cap Could tests:** see **Balance** under Periodic review in [`test_maintenance.md`](../../test_maintenance.md#-periodic-review).
 - 🙅 **Lower scores don't mean add tests:** if a new test would cost Leanness or Simplicity points, don't add it, even if it covers a real path.
 - ✂️ **Removing tests can raise the score:** deleting a duplicate or cosmetic test improves Leanness.
 

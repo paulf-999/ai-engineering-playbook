@@ -1,10 +1,22 @@
-<!-- version: 1.0.5 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-02 -->
-# 📚 docs
+<!-- updated: 2026-11-03 -->
+# 📚 Docs folder guide
 
-For anyone looking for this repo's guides: which docs are for contributors, which are for maintainers, and where a new doc goes.
+**Purpose:** what each folder under `docs/` holds, and where a new doc goes.
 
-- 👥 **Contributors:** the guides in [`reference/`](reference/), such as the [Git branching strategy](reference/git_branching_strategy.md), cover working in a repo made from this template.
-- 🛠️ **Maintainers:** [`maintenance/`](maintenance/) covers looking after the template itself, such as file headers and test upkeep, and its [`quality/`](maintenance/quality/) folder splits into `themes/`, which says how to score, and `audits/`, which holds the scores.
-- 🆕 **New doc:** put a contributor guide in `reference/` and a maintainer-only one under `maintenance/`, open it with the [version header](maintenance/file_headers.md), and give it a row in the [markdown quality audit](maintenance/quality/audits/quality_audit_markdown_files.md), because `make test` fails on a tracked doc missing either.
+The folders, by reader:
+
+- 🏗️ **Design:** [`target_architecture/`](target_architecture/) holds the design for this repo's Claude configuration, and the sources behind it.
+- 👥 **Contributors:** [`reference/`](reference/) holds how-to guides, such as the [Git branching strategy](reference/git_branching_strategy.md).
+- 🛠️ **Maintainers:** [`maintenance/`](maintenance/) covers upkeep of this repo, such as file headers and test upkeep.
+  - **Quality:** its `quality/` folder holds how docs and tests are scored, in `themes/`, and the scores, in `audits/`.
+
+## 🆕 Adding a doc
+
+`make test` fails on a new doc that misses steps 2 or 3:
+
+1. Put it in the folder for its reader, from the list above.
+2. Open it with the [version header](maintenance/file_headers.md).
+3. Give it a row in the [markdown quality audit](maintenance/quality/audits/quality_audit_markdown_files.md).
+4. Start it with a **Purpose:** line, per the [markdown rubric](maintenance/quality/themes/quality_themes_markdown_files.md).

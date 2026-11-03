@@ -1,32 +1,28 @@
-<!-- version: 1.1.5 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🧪 Test Maintenance
 
-For maintainers of this template: how many tests to write, how to score them and when to delete them.
+**Purpose:** how many tests to write, how to rate each one's importance, and when to delete one.
 
----
+Size the suite by test functions, not pytest cases, since one parametrised function can produce dozens of cases.
 
-## 📋 Executive summary
+## 🏷️ Priority scores
 
-- 🔢 **Count functions, not cases:** one parametrised function can produce dozens of pytest cases, so size the suite by its test functions.
-- 🏷️ **Score every test:** each test function carries a `# MoSCoW:` comment that says how much it matters.
-- 🗑️ **Delete `Won't` tests:** a test that adds nothing new is removed rather than kept with a low score.
-- 👀 **Review with the code:** a PR that changes a script also reviews that script's test scores.
+Each test function gets a priority on the MoSCoW scale (Must, Should, Could, Won't):
 
-## 🏷️ MoSCoW scores
-
-| Score | Meaning | What happens if it breaks |
+| Score | Use it for | If the test breaks |
 |---|---|---|
-| 🔴 **Must** | Guards a core contract of a hook or CI check | A bad commit, PR or file gets through, or a good one is blocked |
-| 🟠 **Should** | Main options, common edge cases and clear error messages | A common path misbehaves, but the core gate still works |
+| 🔴 **Must** | A core promise of a hook or CI check, such as blocking a bad commit | A bad change gets through, or a good one is blocked |
+| 🟠 **Should** | Main options, common edge cases and clear error messages | A common path misbehaves, but the core check still works |
 | 🟡 **Could** | Rare edge cases and template helpers | Something unusual misbehaves |
-| ⚪ **Won't** | A duplicate of a lower-level test, or a cosmetic check | Nothing new, so the test is deleted |
+| ⚪ **Won't** | A duplicate or cosmetic check | Nothing is lost, so delete the test |
 
 - 📝 **Format:** put `# MoSCoW: <score> — <reason>` on the line above the test's decorators, or above `def` when it has none.
-- 💬 **Reason:** keep it to about 12 words, and say what the test protects, not how it works.
-- 🎯 **Tests only:** score `test_` functions, not helpers or fixtures, which take their importance from the tests that use them.
-- 💡 **Example:**
+- 💬 **Reason:** about 12 words on what the test protects, not how it works.
+- 🎯 **Tests only:** score `test_` functions, not helpers or fixtures.
+
+For example:
 
 ```python
 # MoSCoW: Must — security: a PR title must never run as code
@@ -35,39 +31,30 @@ def test_title_with_shell_characters_is_not_executed():
 
 ## 📏 How many tests
 
-- 🔴 **Musts:** write one per contract of a script, covering the happy path, each failure that blocks and the limit boundary.
-- 🧱 **Lowest level once:** test a shared helper in `test_shell_utils.py`, and give each script that uses it one wiring test, not a copy of every edge case.
-- 🔀 **Parametrise:** cover input variants with parametrised cases instead of near-duplicate functions.
-- 🐛 **Bug fixes:** each fix adds one regression test, scored by the impact of the bug.
-- 🚫 **No new `Won't` tests:** if a test would score `Won't`, don't add it.
+Size each script's tests by these rules:
 
-## ⚖️ What's normal
+- 🔴 **Musts:** cover the happy path, each failure that blocks, and the limit boundary.
+- 🧱 **Shared helpers:** test them once in `tests/src/sh/test_shell_utils.py`, and give each script that uses them one test that it calls them correctly.
+- 🔀 **Variants:** use parametrised cases rather than near-duplicate functions.
+- 🐛 **Bug fixes:** add one regression test, scored by the bug's impact.
+- 👯 **Duplicates:** if two tests always fail together for the same reason, delete one.
 
-There's no standard number of tests per script, so judge the suite by these checks instead of a target.
+## 🍂 Keeping tests current
 
-- 📐 **Typical size:** a small script usually needs a handful of test functions, and a longer script with menus or many options needs more.
-- 👯 **Too many:** two tests that would always fail together, for the same reason, mean one of them is a duplicate.
-- 📉 **Wrong balance:** more `Could` tests than `Must` tests means the suite spends more upkeep on rare edge cases than on what matters.
-- 🐢 **Too slow:** a slow test that only covers a rare edge case should earn its run time or be deleted.
-- 🕳️ **Too few:** a contract with no `Must` test, such as an untested limit or a failure that should block, is a gap to fill.
+A stale test checks behaviour the code no longer has, so it passes but protects nothing. A PR that changes a script also:
 
-## 🍂 Keeping tests from going stale
-
-A stale test checks or describes behaviour the code no longer has, so it still passes but protects nothing.
-
-- 🔗 **Same PR:** a change to a script updates that script's tests in the same PR, and deletes tests for behaviour it removes.
-- 🔄 **Rescore:** the same PR rechecks those tests' scores, since a change can turn a `Could` into a `Must`, or a test into a duplicate.
-- 📛 **Names and docstrings:** describe what the code does now, never what is "new", "added" or "old", since that wording goes stale on the next change.
+- 🔗 **Updates its tests:** and deletes those for behaviour it removes.
+- 🔄 **Re-rates them:** since a change can turn a `Could` into a `Must`, or a test into a duplicate.
+- 📛 **Keeps names current:** names and docstrings describe what the code does now, never what's "new" or "old".
 
 ## 🔍 Periodic review
 
-At each template release, count the tests by score:
+Every few months, count the tests by score:
 
 ```bash
 grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
 ```
 
-- 📜 **By script:** `docs/maintenance/quality/audits/quality_audit_test_files.md` shows the same counts for each script, and `tests/docs/maintenance/quality/test_quality_audit_test_files.py` fails if it falls out of date.
-- ⭐ **Quality:** rescore each script out of 10 in the same audit, using `docs/maintenance/quality/themes/quality_themes_test_files.md`.
-- ✂️ **Cut:** delete `Could` tests that no longer earn their run time, and any test that now duplicates another.
-- ☑️ **Check:** every test function still has exactly one `# MoSCoW:` comment.
+- 📉 **Balance:** more `Could` than `Must` tests means upkeep goes on rare cases rather than what matters.
+- ✂️ **Cut:** delete slow `Could` tests that no longer earn their run time.
+- ⭐ **Rescore:** score each script out of 10 in the [tests audit](quality/audits/quality_audit_test_files.md), using the [test rubric](quality/themes/quality_themes_test_files.md).

@@ -1,73 +1,36 @@
-<!-- version: 1.0.8 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🐍 Virtual Environment Setup
 
-For anyone setting up this repo locally for the first time: how to create the Python virtualenv it needs.
+**Purpose:** how to create the Python virtual environment this repo needs, so its packages stay separate from your system Python.
 
-Using a virtualenv keeps dependencies isolated and avoids conflicts with system Python packages.
+The commands are for Linux, macOS or [WSL](https://learn.microsoft.com/windows/wsl/) on Windows, since the repo's `make` targets and hook scripts need a bash shell.
 
-The commands below are for Linux, macOS or [WSL](https://learn.microsoft.com/windows/wsl/) on Windows, because the repo's `make` targets and bash hook scripts don't run in plain PowerShell or Command Prompt.
+## 1️⃣ Create it
 
----
-
-## 1️⃣ Create a Virtual Environment
-
-Run the following in the project root:
+Check the `python-version` in [`ci.yml`](../../.github/workflows/ci.yml), so local results match CI. Then create the environment from the project root, naming that version, such as `python3.13`:
 
 ```bash
-python3 -m venv .venv
+python3.13 -m venv .venv
 ```
 
-Use the Python version CI uses, set by `python-version` in [`ci.yml`](../../.github/workflows/ci.yml), so local results match CI. To pick that version, call it by name in place of `python3`, such as `python3.13 -m venv .venv` for `python-version: '3.13'`.
-
-This will create a hidden `.venv/` directory containing the environment.
-
----
-
-## 2️⃣ Activate the Virtual Environment
+## 2️⃣ Activate it
 
 ```bash
 source .venv/bin/activate
 ```
 
-Once activated, your shell prompt will typically show `(.venv)`.
+Your shell prompt usually shows `(.venv)` once it's active.
 
----
+## 3️⃣ Install
 
-## 3️⃣ Install Requirements
-
-With the environment active, install the dependencies and the development tools (linters and tests):
+Install the requirements and the pre-commit git hooks:
 
 ```bash
-pip install -r requirements.txt
+make deps
 ```
 
-Or run `make deps`, which also installs the pre-commit git hooks.
+## 4️⃣ Deactivate or remove it
 
----
-
-## 4️⃣ Deactivate the Environment
-
-When finished, deactivate with:
-
-```bash
-deactivate
-```
-
----
-
-## 5️⃣ Clean Up
-
-To remove the environment completely:
-
-```bash
-rm -rf .venv
-```
-
----
-
-## 🔍 Notes
-
-- 🙈 **Git-ignored:** the `.venv/` folder is ignored via `.gitignore` and should not be committed.
-- 🗃️ **One per project:** if you use multiple projects, each should have its own virtual environment.
+Run `deactivate` when you're finished, or `rm -rf .venv` to remove the environment completely.

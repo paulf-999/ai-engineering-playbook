@@ -1,46 +1,47 @@
-<!-- version: 3.2.4 -->
+<!-- version: 3.3.0 -->
 <!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🤝 Contributing
 
-For anyone contributing to this repo: the branch, commit and PR conventions to follow.
+**Purpose:** the branch, commit and PR conventions every contribution to this repo follows.
 
-After cloning, activate a virtualenv (see [Virtualenv setup](../docs/reference/virtualenv_setup.md)) and run `make deps` once, so the pre-commit hooks these conventions rely on are installed. `make deps` stops if no virtualenv is active, so packages never land in your system Python.
-
----
+Before your first commit, activate a virtualenv (see the [virtualenv setup guide](../docs/reference/virtualenv_setup.md)) and run `make deps`, which installs the pre-commit hooks these conventions rely on.
 
 ## 🌱 Branching
 
-- 📖 **Strategy:** follow the rules in [Git Branching Strategy](../docs/reference/git_branching_strategy.md).
-- 🛂 **Checked:** branch names are automatically validated by the pre-commit hook at `src/sh/git/git_validate_branch_name.sh`.
+- 📖 **Strategy:** follow the [Git branching strategy](../docs/reference/git_branching_strategy.md).
+- 🛂 **Checked:** a pre-commit hook rejects branch names that break it.
 
 ## 📝 Commits
 
-- 📐 **Format:** follow [Conventional Commits](https://www.conventionalcommits.org/) using the format `type(scope): imperative description`, where `type` is a Conventional Commits type such as `feat`, `fix` or `docs`, and `scope` is the area of the repo affected (e.g. `makefile`, `pre-commit`, `ci`).
-- 🛂 **Checked:** a commit-msg hook runs commitlint, which rejects any message not in this format, and `src/sh/git/git_commit.sh` lists every type it allows.
-- 🧰 **Interactive helper:** to build a valid message interactively, stage your files and run `src/sh/git/git_commit.sh`.
-  - **Scope:** it offers the top-level folders of the staged files as the scope, or lets you type your own.
+- 📐 **Format:** write `type(scope): imperative description`, following [Conventional Commits](https://www.conventionalcommits.org/).
+  - **Type:** the kind of change, such as `feat`, `fix` or `docs`.
+  - **Scope:** the area of the repo affected, such as `makefile` or `ci`.
+- 🛂 **Checked:** a commit-message hook rejects any message that doesn't match the format.
+- 🧰 **Helper:** stage your files and run `src/sh/git/git_commit.sh` to build a valid message step by step.
 
-**Examples:**
+Two valid messages:
 
-- ✨ **Feature:** `feat(pre-commit): add ruff`
-- 🐛 **Fix:** `fix(makefile): run pytest from make test`
+- `feat(pre-commit): add ruff`
+- `fix(makefile): run pytest from make test`
 
 ## 🔀 Pull Requests
 
-- 📄 **Template:** use the [PR template](pull_request_template.md) and fill in the summary section.
-- 🔤 **Title:** write the PR title in the same `type(scope): description` format as a commit, because squash merges use it as the commit message on `main` and CI checks it.
-- 📏 **Size:** keep PRs small and focused — split into multiple PRs by logical area if a change goes over the file limit, or use a `release/` branch for one bulk change (see [Exceptions for Large Changes](../docs/reference/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix)).
-- 🗒️ **Additional Details:** keep it to 5 bullets or fewer, and use full GitHub URLs for links, because CI checks both and relative links don't work in a PR.
-- 💥 **Breaking Change:** mark it if applicable and describe the rollout impact.
+- 📄 **Template:** fill in the [PR template](pull_request_template.md).
+- 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
+- 📏 **Size:** keep each PR to 20 files or fewer, or use a [`release/` branch](../docs/reference/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
+- 🗒️ **Optional details:** keep the template's Additional Details section to 5 bullets, with full GitHub URLs, since CI checks both.
+- 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR
 
-- 🪝 **Pre-commit hooks:** they must pass — fix the underlying issue rather than bypassing with `--no-verify`.
-- 🧪 **Tests:** run `make test` and make sure it passes.
+Both checks must pass:
+
+- 🪝 **Pre-commit hooks:** fix what they flag, rather than skipping them with `--no-verify`.
+- 🧪 **Tests:** run `make test`.
 
 ## 🏷️ File naming
 
-- 🔡 **Rule:** name every file and folder in lowercase snake_case, e.g. `docs/target_architecture/design_principles.md`.
-- ❓ **Why one rule:** Python can't import a module with hyphens in its name, so docs and scripts use underscores to match.
-- 📌 **Exceptions:** conventional names keep their usual form, such as `README.md`, `CLAUDE.md`, `CONTRIBUTING.md` and `Makefile`.
+- 🔡 **Rule:** name every file and folder in lowercase snake_case, such as `design_principles.md`.
+- ❓ **Why:** Python can't import a module with a hyphen in its name, so the whole repo uses underscores to match.
+- 📌 **Exceptions:** conventional names such as `README.md`, `CLAUDE.md` and `Makefile`.

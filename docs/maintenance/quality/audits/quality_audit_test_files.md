@@ -1,4 +1,4 @@
-<!-- version: 3.3.1 -->
+<!-- version: 3.4.0 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 📊 Test Coverage Audit
@@ -6,7 +6,7 @@
 **Purpose:** how many tests each script has, and how good those tests are.
 
 - 🧪 **Kept accurate by:** [this audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py), which fails if either table falls out of step with the test files.
-- 🪞 **Own checker:** the checker counts its own tests, so the totals match `make test`, but it gets no quality score, since it can't fairly score itself.
+- 🪞 **Own checker:** the checker counts its own tests but gets no quality score, since it can't fairly score itself.
 - 🕳️ **Gaps:** written by hand when a script is scored, so recheck a script's gaps whenever its tests change.
 
 ## 🏷️ MoSCoW scores by script
@@ -36,20 +36,20 @@ This table counts each script's tests by their [priority score](../../test_maint
 
 ## ⭐ Quality by script
 
-Each script's tests are scored against the [test rubric](../themes/quality_themes_test_files.md), and every row is scored by an independent review in a fresh context, never by the model that wrote the tests.
+Each script's tests are scored against the [test rubric](../themes/quality_themes_test_files.md) by an independent review in a fresh context, never by the model that wrote the tests.
 
-| Script or check | Scored by | Total (functions) | Test Cases | Core coverage | Leanness | Clarity | Simplicity | Reliability | Score | Gaps |
-|---|---|---|---|---|---|---|---|---|---|---|
-| | | | | *Must paths tested* | *No extra tests* | *Easy to follow* | *Short, plain, robust to change* | *Repeatable, clear failures* | | |
-| [Header bump](../../../../src/sh/bump_file_headers.sh) | Independent review | 14 | 14 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [`git_commit.sh`](../../../../src/sh/git/git_commit.sh) | Independent review | 13 | 17 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Branch name](../../../../src/sh/git/git_validate_branch_name.sh) | Independent review | 4 | 10 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [PR size](../../../../src/sh/git/git_validate_num_file_changes.sh) | Independent review | 10 | 12 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [PR description](../../../../src/sh/git/git_validate_pr_description.sh) | Independent review | 3 | 10 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [PR title](../../../../src/sh/git/git_validate_pr_title.sh) | Independent review | 3 | 14 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Always-on budget](../../../../src/sh/claude_validate_always_on_budget.sh) | Independent review | 4 | 9 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | Independent review | 5 | 13 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [`Makefile`](../../../../Makefile) | Independent review | 2 | 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | Independent review | 4 | 12 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | Independent review | 6 | 13 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the version regex and the `nullcontext()` pass-or-fail cases have no explaining comment, and the module docstring doesn't mention the version or placeholder checks |
-| [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | Independent review | 2 | 4 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| Script or check | Core coverage | Leanness | Clarity | Simplicity | Reliability | Score | Gaps |
+|---|---|---|---|---|---|---|---|
+| | *Must paths tested* | *No extra tests* | *Easy to follow* | *Short, plain, robust to change* | *Repeatable, clear failures* | | |
+| [Header bump](../../../../src/sh/bump_file_headers.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [`git_commit.sh`](../../../../src/sh/git/git_commit.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Branch name](../../../../src/sh/git/git_validate_branch_name.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [PR size](../../../../src/sh/git/git_validate_num_file_changes.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [PR description](../../../../src/sh/git/git_validate_pr_description.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [PR title](../../../../src/sh/git/git_validate_pr_title.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Always-on budget](../../../../src/sh/claude_validate_always_on_budget.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [`Makefile`](../../../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the version regex and the `nullcontext()` pass-or-fail cases have no explaining comment, and the module docstring doesn't mention the version or placeholder checks |
+| [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

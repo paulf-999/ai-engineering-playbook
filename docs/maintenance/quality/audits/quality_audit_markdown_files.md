@@ -1,4 +1,4 @@
-<!-- version: 1.0.56 -->
+<!-- version: 1.0.57 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 📊 Markdown Quality Audit
@@ -34,24 +34,24 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Branching strategy](../../../reference/git_branching_strategy.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`file_headers.md`](../../file_headers.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Test rubric](../themes/quality_themes_test_files.md) | Independent review | 3.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Test maintenance](../../test_maintenance.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "the limit boundary" in the Musts bullet is undefined, so a reader can't tell which limit to test |
+| [Test maintenance](../../test_maintenance.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Task log](../../task_log.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Virtualenv setup](../../../reference/virtualenv_setup.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`src` README](../../../../src/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`tests` README](../../../../tests/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Global CLAUDE.md](../../../../src/templates/global_claude.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Tests audit](quality_audit_test_files.md) | Independent review | 3.3.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: the Scored by column repeats the sentence above it, and the quality table repeats the counts from the MoSCoW table |
+| [Tests audit](quality_audit_test_files.md) | Independent review | 3.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture](../../../target_architecture/current_architecture.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: snapshot](../../../target_architecture/current_architecture/01_snapshot.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: what works well](../../../target_architecture/current_architecture/02_what_works_well.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: complexity](../../../target_architecture/current_architecture/03_complexity_without_evidence.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: alignment](../../../target_architecture/current_architecture/04_reference_alignment.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: proposed changes](../../../target_architecture/current_architecture/05_proposed_changes.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Target architecture README](../../../target_architecture/README.md) | Independent review | 1.1.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: the "New to the repo" bullet repeats the reading order, and "Read them in this order:" repeats its heading |
-| [Target architecture](../../../target_architecture/target_architecture.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Maintainability: the CI checks table is a hand-kept list that leaves out the PR title, branch name and pre-commit checks |
-| [Design principles](../../../target_architecture/design_principles.md) | Independent review | 1.5.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | **A · 9/10** | Accuracy: the Keeping bullet says a component stays "only while the task log shows it helping", but the retire rule removes it after two bad notes or no use |
+| [Target architecture README](../../../target_architecture/README.md) | Independent review | 1.2.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "If you're new, start with the first page" repeats the numbered reading order |
+| [Target architecture](../../../target_architecture/target_architecture.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Design principles](../../../target_architecture/design_principles.md) | Independent review | 1.6.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Principles page](../../../target_architecture/design_principles/01_principles.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Criteria page](../../../target_architecture/design_principles/02_evaluation_criteria.md) | Independent review | 1.4.0 | 🟡 1 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **B · 8/10** | Core coverage: the Purpose line says "before it's added", but some checks apply after; Maintainability: the 5-bullet limit is copied from the PR template |
+| [Criteria page](../../../target_architecture/design_principles/02_evaluation_criteria.md) | Independent review | 1.5.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Reference material README](../../../target_architecture/reference_material/README.md) | Independent review | 1.4.1 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: DORA is expanded only after its first use in the register, and METR and harness engineering are never explained; Maintainability: the Summary pages list repeats the register, and "the only causal evidence here" dates as sources are added |
 | [Handover review](../../../target_architecture/reference_material/handover_review.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [AI-native SDLC reference](../../../target_architecture/reference_material/anthropic_ai_native_sdlc.md) | Independent review | 2.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
@@ -63,7 +63,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [DORA AI capabilities](../../../target_architecture/reference_material/dora_ai_capabilities.md) | Independent review | 2.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [DORA: overview](../../../target_architecture/reference_material/dora_ai_capabilities/01_overview.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [DORA: seven capabilities](../../../target_architecture/reference_material/dora_ai_capabilities/02_seven_capabilities.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [DORA: findings](../../../target_architecture/reference_material/dora_ai_capabilities/03_findings.md) | Independent review | 1.2.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Value stream mapping" is defined in the term list and then repeated as its own bullet |
+| [DORA: findings](../../../target_architecture/reference_material/dora_ai_capabilities/03_findings.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [DORA: limitations](../../../target_architecture/reference_material/dora_ai_capabilities/04_limitations.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [DORA: applicability](../../../target_architecture/reference_material/dora_ai_capabilities/05_applicability.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Claude Code best practices](../../../target_architecture/reference_material/claude_code_best_practices.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

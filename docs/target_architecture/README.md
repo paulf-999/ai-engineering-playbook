@@ -1,4 +1,4 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🏗️ Target architecture docs
@@ -9,14 +9,13 @@ Together they plan a new, leaner Claude Code configuration for this repo.
 
 ## 📖 Reading order
 
-Read them in this order:
+If you're new, start with the first page:
 
 1. [Review of the old Claude configuration](current_architecture.md): what it contains, what works well, and where it grew heavier than the evidence justified.
 2. [Design principles](design_principles.md): the principles every part of the new configuration follows, and the checks a new part must pass.
 3. [Target architecture](target_architecture.md): what the new configuration contains, what loads when, and how its cost and benefit are measured.
-4. [Reference material](reference_material/README.md): Anthropic's course on AI-native software development and research from DORA (DevOps Research and Assessment), which the other pages cite.
+4. [Reference material](reference_material/README.md): the sources the other pages cite, such as Anthropic's course on AI-native software development and research from DORA (DevOps Research and Assessment).
 
-## 🧭 Where to start
+## ➕ Adding a component
 
-- 🆕 **New to the repo:** read the pages in order, starting with the review of the old configuration.
-- ➕ **Adding a rule, skill, hook or agent:** go straight to the [evaluation criteria](design_principles/02_evaluation_criteria.md), which its PR must answer.
+To add a rule, skill, hook or agent, go straight to the [evaluation criteria](design_principles/02_evaluation_criteria.md), which its PR must answer.

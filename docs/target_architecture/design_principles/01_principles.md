@@ -1,6 +1,6 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🧱 Design principles: Principles
 
 For anyone adding to or reviewing a component: the principles it must follow, and how each one is checked.
@@ -21,7 +21,7 @@ For anyone adding to or reviewing a component: the principles it must follow, an
 
 ## 🔢 Why these numbers
 
-- 📏 **3,000 tokens:** about a tenth of the current [snapshot](../current_architecture/01_snapshot.md)'s load, and roughly in line with Anthropic's advice to keep `CLAUDE.md` under 200 lines.
+- 📏 **3,000 tokens:** about a tenth of the current [snapshot](../current_architecture/01_snapshot.md)'s load, and near the top of our 2,000–3,000-token estimate for the 200-line `CLAUDE.md` limit Anthropic advises.
 - 🗓️ **20 tasks or 4 weeks:** enough evidence to judge a component, without letting an unused one linger.
 - 🚩 **Flagged twice:** one flag may be a one-off, while two show a pattern.
 - 🔪 **Halving test:** asks whether removing half the components would make outcomes materially worse.

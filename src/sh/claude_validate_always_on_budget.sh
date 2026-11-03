@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.0.0
+# version: 1.0.1
 # created: 2026-11-03
 # updated: 2026-11-03
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -80,11 +80,27 @@ count_always_on_rules() {
     done < <(cd "${CHECK_DIR}" && find .claude/rules -name '*.md' | sort)
 }
 
+# Print a file's description from its opening --- block, including one folded over several lines with > or |
+description_text() {
+    awk '
+        NR == 1 && $0 != "---" { exit }
+        NR > 1 && $0 == "---" { exit }
+        # the indented lines under "description: >" or "description: |" are the text itself
+        in_block && /^[[:space:]]/ { print; next }
+        { in_block = 0 }
+        /^description:/ {
+            value = $0
+            sub(/^description:[[:space:]]*/, "", value)
+            if (value ~ /^[>|][-+]?[[:space:]]*$/) { in_block = 1 } else { print value }
+        }
+    ' "${1}"
+}
+
 # Count each skill's and agent's description, which Claude sees in every session so it can pick one
 count_descriptions() {
     local file chars
     while IFS= read -r file; do
-        chars=$(sed -n 's/^description:[[:space:]]*//p' "${CHECK_DIR}/${file}" | head -n 1 | wc -m | tr -d ' ')
+        chars=$(description_text "${CHECK_DIR}/${file}" | wc -m | tr -d ' ')
         TOTAL_CHARS=$((TOTAL_CHARS + chars))
         echo "  ~$((chars / 4)) tokens  ${file} (description)"
     # either folder may be missing, which mustn't stop the other being searched

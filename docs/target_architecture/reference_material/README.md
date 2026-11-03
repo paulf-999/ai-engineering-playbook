@@ -1,4 +1,4 @@
-<!-- version: 1.6.0 -->
+<!-- version: 1.6.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 📚 Reference Material
@@ -13,7 +13,7 @@ Each summarised or quoted source links to its page from the Source column, the A
 |---|---|---|---|---|---|---|
 | 1️⃣ | [The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook) · [summary](anthropic_ai_native_sdlc.md) | Anthropic (Claude Academy) | Not stated, © 2026 | Public, sign-in optional, read in full | 2026-11-02 | Lifecycle and workflow guidance |
 | 2️⃣ | [DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/) · [summary](dora_ai_capabilities.md) | DORA (DevOps Research and Assessment), a Google Cloud programme | Report v. 2025.1, CC BY-NC-SA 4.0 | Full report from [Google Cloud](https://cloud.google.com/resources/content/2025-dora-ai-capabilities-model-report), read in full | 2026-11-02 | The seven capabilities and how to build them |
-| 3️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | 2025, exact date not stated | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), not yet read | No summary | Survey evidence on AI adoption and outcomes |
+| 3️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) · [summary](dora_state_of_ai_2025.md) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | Report v. 2025.2, CC BY-NC-SA 4.0 | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), read in full | 2026-11-03 | Survey evidence on AI adoption and outcomes |
 | 4️⃣ | [DORA AI Capabilities Model survey questions](https://dora.dev/ai/capabilities-model/questions/) | DORA, a Google Cloud programme | Page last updated 2025-11-25 | Public | No summary | How each capability and outcome was measured |
 | 5️⃣ | [Handover review](handover_review.md), sections 4 and 6 | An outside reviewer of the [old Claude configuration](../current_architecture.md) | Not dated | Quoted in this repo | 2026-11-03 | The design's stance and priorities |
 | 6️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) · [summary](claude_code_memory_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | What loading context into every session costs, and how imports and path-scoped rules load |

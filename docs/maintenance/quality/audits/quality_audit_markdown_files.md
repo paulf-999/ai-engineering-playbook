@@ -1,4 +1,4 @@
-<!-- version: 1.0.60 -->
+<!-- version: 1.0.61 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 📊 Markdown Quality Audit
@@ -71,3 +71,4 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Anthropic: agent evals](../../../target_architecture/reference_material/anthropic_agent_evals.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Claude Code memory docs](../../../target_architecture/reference_material/claude_code_memory_docs.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [METR trial](../../../target_architecture/reference_material/metr_developer_productivity_trial.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [DORA: State of AI 2025](../../../target_architecture/reference_material/dora_state_of_ai_2025.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "delivery instability", the page's central term, is never explained |

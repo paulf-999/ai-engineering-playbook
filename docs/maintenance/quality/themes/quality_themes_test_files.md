@@ -1,56 +1,47 @@
-<!-- version: 3.0.12 -->
+<!-- version: 3.1.0 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 🧪 Test Quality Rubric
 
-For maintainers of this template: how to score the tests for each script out of 10, with a 10 meaning enough testing that stays easy to read, not the most tests.
-
----
+**Purpose:** how to score the tests for each script out of 10, where 10 means enough tests that stay easy to read, not the most tests.
 
 ## 🏷️ Themes
 
-| Theme (Rubric) | Description/Purpose |
+The tests for a script are scored on five themes:
+
+| Theme | What ✅ looks like |
 |---|---|
-| 🎯 **Core coverage** | Every Must-level behaviour (a core promise of a hook or CI check, per the MoSCoW scores in [`test_maintenance.md`](../../test_maintenance.md)) has a test |
-| ⚖️ **Leanness** | No duplicate or cosmetic tests (ones that check only wording or layout, not behaviour), and no more Could tests (rare paths) than Must tests |
-| 📖 **Clarity** | A newcomer can tell what each test checks from its current name and docstring, and non-obvious logic has a short comment |
-| 🧩 **Simplicity** | Short tests in plain pytest, and a harmless change breaks at most one test |
-| 🧊 **Reliability** | Isolated, repeatable, and a failure says what broke |
+| 🎯 **Core coverage** | Every Must-level behaviour, a core promise of a hook or CI check, has a test (see the [priority scores](../../test_maintenance.md#-priority-scores)) |
+| ⚖️ **Leanness** | No duplicate tests, and no cosmetic ones that check only wording or layout |
+| 📖 **Clarity** | A newcomer can tell what each test checks from its name and docstring |
+| 🧩 **Simplicity** | Short tests in plain pytest, where a harmless change breaks at most one test |
+| 🧊 **Reliability** | Isolated, repeatable tests whose failures say what broke |
 
 ## 🔢 Scores
 
-Each Theme (Rubric) gets a symbol and 0, 1 or 2 points, so the five add up to a score out of 10.
-
-| Symbol | Points | Meaning | Example |
-|---|---|---|---|
-| ✅ | **2** | Fully met | Every Must-level behaviour has a test |
-| 🟡 | **1** | Partly met | One common path has no test |
-| ❌ | **0** | Not met | Several core behaviours have no test |
-
-- 🧮 **Overall score:** the total of the five themes' points, out of 10.
-- 🎓 **Grade:** A for 9 or more, B for 8, C for 7, D for 6, and F below 6.
-- 💡 **Example:** four ✅ and one 🟡 total 9, which is shown as **A · 9/10**.
+Each theme scores ✅ 2 when fully met, 🟡 1 when partly met and ❌ 0 when not met. The five add up to a score out of 10, graded as in the [markdown rubric](quality_themes_markdown_files.md#-themes), so four ✅ and one 🟡 show as **A · 9/10**.
 
 ## 📏 How to score
 
 - 🗂️ **Score the script, not each test:** look at all of a script's tests together.
 - 🌙 **Rare paths don't cost points:** an untested error that almost never happens isn't a Core coverage gap.
-- 🕳️ **Gaps:** every theme below ✅ is named in the audit's **Gaps** column, starting with the theme's name.
+- 🕳️ **Gaps:** name every theme below ✅ in the audit's Gaps column, starting with the theme's name.
 
 ### 🔍 Theme-specific rules
 
-- 📖 **Clarity:** parsing, regexes, ordering checks and unexplained inputs (such as answers fed to a prompt) need a one-line comment, while plain setup doesn't.
-- 🧩 **Simplicity:** a test body over about 12 lines costs a point, because a longer test usually checks more than one thing and is harder to read when it fails.
-  - **Also costs a point:** mocking the script's internals, or asserting the same message text in two or more tests, because rewording it breaks them all.
-- 🧊 **Reliability:** a test should run in a temporary folder or repo, ignore the user's git config so it gives the same result on any machine, and use assertion messages that say what broke.
+- 📖 **Clarity:** parsing, regexes, ordering checks and unexplained inputs need a one-line comment, while plain setup doesn't.
+- 🧩 **Simplicity:** a test body over about 12 lines costs a point, since it usually checks more than one thing.
+  - **Also costs a point:** mocking the script's internals, or asserting the same message text in several tests.
+- 🧊 **Reliability:** run each test in a temporary folder or repo.
+  - **Git config:** ignore the user's own settings, so the result is the same on any machine.
+  - **Failures:** each assertion message says what broke.
 
 ## 🛑 Avoiding over-testing
 
-- ❓ **Why cap Could tests:** see **Balance** under Periodic review in [`test_maintenance.md`](../../test_maintenance.md#-periodic-review).
-- 🙅 **Lower scores don't mean add tests:** if a new test would cost Leanness or Simplicity points, don't add it, even if it covers a real path.
+- 📉 **Could tests:** more `Could` tests than `Must` tests costs a Leanness point, as the [periodic review](../../test_maintenance.md#-periodic-review) explains.
+- 🙅 **Lower scores don't mean add tests:** if a new test would cost Leanness or Simplicity points, leave it out.
 - ✂️ **Removing tests can raise the score:** deleting a duplicate or cosmetic test improves Leanness.
 
 ## 📊 Where scores live
 
-- 📋 **Audit:** `docs/maintenance/quality/audits/quality_audit_test_files.md` holds each script's theme scores, overall score and gaps.
-- 🧪 **Checked by:** `tests/docs/maintenance/quality/test_quality_audit_test_files.py`, which fails if a symbol doesn't match its score, or an overall score or grade doesn't match the theme scores.
+The [tests audit](../audits/quality_audit_test_files.md) holds each script's scores and gaps, and `tests/docs/maintenance/quality/test_quality_audit_test_files.py` fails if a score doesn't add up.

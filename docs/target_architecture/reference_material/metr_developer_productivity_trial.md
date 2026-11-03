@@ -1,4 +1,4 @@
-<!-- version: 1.1.3 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-03 -->
 # ⚖️ METR: AI and experienced open-source developers
@@ -29,7 +29,6 @@ The paper reports these points, by section:
 - 🔮 **Forecasts:** developers expected a 24% speed-up, and economics and machine learning experts expected 39% and 38% (3.1).
 - ⏱️ **Where time went:** with AI, developers coded and searched less, and prompted, waited, reviewed output and idled more (3.2).
 - 🔍 **Causes:** 5 of 21 candidate factors had evidence behind them, including over-optimism, familiarity with the code, and AI missing unwritten project knowledge (3.3, C.1).
-  - **Count:** v2's full text says 21, but arXiv's listing page still says 20.
 
 ### ➕ Also in the paper
 

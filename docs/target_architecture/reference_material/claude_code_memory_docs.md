@@ -1,4 +1,4 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-03 -->
 # 🧠 Claude Code docs: How Claude remembers your project
@@ -33,13 +33,13 @@ The page makes these points, by section:
 ### ➕ Also on the page
 
 - ⚔️ **Conflicts:** if two instructions contradict, "Claude may pick one arbitrarily" ("Write effective instructions").
-- 💬 **Comments are free:** block-level HTML comments are stripped before loading ("How CLAUDE.md files load").
+- 💬 **Comments are free:** block-level HTML comments in `CLAUDE.md` files are stripped before loading ("How CLAUDE.md files load").
 
 ## 🎯 What it means for this repo
 
 This section is this repo's reading, not the page's:
 
 - 📏 **Budget basis:** the 200-line guidance is where the 3,000-token figure for the budget comes from.
-- 🧮 **What to count:** `CLAUDE.md`, everything it imports, rules without `paths:`, and skill and agent descriptions, as the budget already does, but not path-scoped rules or full skill bodies.
+- 🧮 **What to count:** the page's loading rules match the budget's [Counted list](../target_architecture.md#-always-on-budget), so path-scoped rules and full skill bodies rightly stay outside it.
   - **Skills:** the live best-practices page says that for a skill Claude can start on its own, Claude sees its name and description in each session ("[Put team procedures in skills](https://code.claude.com/docs/en/best-practices#put-team-procedures-in-skills)").
-- 🏷️ **Version headers:** this repo's `<!-- version -->` headers are HTML comments, so they add nothing to the budget.
+- 🏷️ **Version headers:** this repo's `<!-- version -->` headers cost nothing in `CLAUDE.md` files, but the page doesn't say the same for rule files.

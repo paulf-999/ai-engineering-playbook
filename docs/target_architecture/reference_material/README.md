@@ -1,4 +1,4 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.4.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 📚 Reference Material
@@ -7,7 +7,7 @@
 
 ## 📋 Source register
 
-Sources were checked on 2026-11-02, and the Access column says which were read in full.
+Each source was checked when it was added, and the Access column says how to reach each one.
 
 | # | Source | Publisher | Version or date | Access | Used for |
 |---|---|---|---|---|---|

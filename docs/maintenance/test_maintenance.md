@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-03 -->
 # 🧪 Test Maintenance
@@ -33,7 +33,7 @@ def test_title_with_shell_characters_is_not_executed():
 
 Size each script's tests by these rules:
 
-- 🔴 **Musts:** cover the happy path, each failure that blocks, and the limit boundary.
+- 🔴 **Musts:** cover the happy path, each failure that blocks, and both sides of any limit, such as exactly at a cap and one over it.
 - 🧱 **Shared helpers:** test them once in `tests/src/sh/test_shell_utils.py`, and give each script that uses them one test that it calls them correctly.
 - 🔀 **Variants:** use parametrised cases rather than near-duplicate functions.
 - 🐛 **Bug fixes:** add one regression test, scored by the bug's impact.

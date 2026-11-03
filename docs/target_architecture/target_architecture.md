@@ -1,4 +1,4 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.4.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🏗️ Target architecture
@@ -20,7 +20,7 @@ Every component sits in one of three tiers:
 
 | Tier | Contains | Loads |
 |---|---|---|
-| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/templates/global_claude.md), `make test` and the CI checks below | Every session, or every PR |
+| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/templates/global_claude.md), `make test` and the CI checks, including the guards below | Every session, or every PR |
 | 🧰 **Optional** | Skills, which are step-by-step procedures, and agents, which work in a separate context | When the engineer or Claude asks for one |
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 
@@ -33,9 +33,11 @@ Every component sits in one of three tiers:
 - 📂 **Counted:** the `CLAUDE.md` files and their `@` imports, rules with no `paths:` setting, and skill and agent descriptions.
 - 🚧 **Ceiling:** set in the [principles' numbers](design_principles/01_principles.md#-numbers-and-tests), and raised only by a PR that links logged evidence.
 
-## 🛡️ CI checks
+## 🛡️ Design guards
 
-| Check | Fails when | How it runs |
+These checks protect the design itself, alongside the repo's other [CI checks](../../.github/workflows/ci.yml):
+
+| Guard | Fails when | How it runs |
 |---|---|---|
 | 💰 **Always-on budget** | The estimate exceeds the ceiling | [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh), as a pre-commit hook that CI also runs |
 | 📦 **PR size** | A PR changes more files than its limit allows, except on a `release/` branch | Runs [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) |

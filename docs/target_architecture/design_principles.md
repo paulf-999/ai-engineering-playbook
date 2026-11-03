@@ -1,4 +1,4 @@
-<!-- version: 1.5.0 -->
+<!-- version: 1.6.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🧭 Design principles
@@ -10,7 +10,7 @@
 - 🌱 **Stance:** a small required core, with skills and agents used only when a task needs them, as the [handover review](reference_material/handover_review.md) recommends.
 - ⚖️ **Bar:** the configuration must beat a near-bare setup of `CLAUDE.md`, tests and CI on results, effort or consistency.
 - ➕ **Adding:** a component, meaning a rule, skill, hook or agent, needs a gap seen in real tasks that it closes.
-- 🗑️ **Keeping:** a component stays only while the task log shows it helping.
+- 🗑️ **Keeping:** a component is removed once the [task log](../maintenance/task_log.md) shows it getting in the way, or going unused.
 - ⚠️ **Watch for:** workflows that force agents to run, too much context in every session, and rules that repeat CI checks.
 
 ## 📖 The pages
@@ -24,7 +24,7 @@ Read them in this order:
 
 - 🚧 **Status:** adopted, with the always-on budget check and the [task log](../maintenance/task_log.md) in place.
 
-These pages define their own terms:
+This page defines the terms its child pages use:
 
 - 📥 **Always-on:** context that loads into every session, whatever the task.
 - 📝 **Task log:** a [table](../maintenance/task_log.md) with one row per real task, recording its outcome and any feedback on components.

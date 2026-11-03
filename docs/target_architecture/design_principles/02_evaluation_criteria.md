@@ -1,11 +1,11 @@
-<!-- version: 1.4.0 -->
+<!-- version: 1.5.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # ✅ Design principles: Evaluation criteria
 
-**Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), must pass before it's added.
+**Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), must pass before it's added and once it's in use.
 
-This page is part of the [design principles](../design_principles.md), which also define always-on and task log. Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since that section allows 5 bullets or fewer.
+This page is part of the [design principles](../design_principles.md), which also define always-on and task log. Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since the [PR template](../../../.github/pull_request_template.md) limits that section's bullets.
 
 ## 🚪 Should it exist?
 

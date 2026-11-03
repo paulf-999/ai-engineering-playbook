@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-03 -->
 # 🧠 Claude Code docs: How Claude remembers your project
@@ -18,7 +18,7 @@ It's one of the summaries listed in this repo's [reference material](README.md).
 
 - 📘 **Page:** [How Claude remembers your project](https://code.claude.com/docs/en/memory), Claude Code docs, Anthropic.
 - 📅 **Version:** the page shows no date or version, so cite the section heading and the capture date.
-- 🗓️ **Captured:** 2026-11-03, after reading the whole page, which may have changed since, so recheck it before citing a detail.
+- 🗓️ **Captured:** 2026-11-03, after reading the whole page.
 
 ## 📋 The docs say
 

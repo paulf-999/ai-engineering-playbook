@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-03 -->
 # ⚖️ METR: AI and experienced open-source developers
@@ -9,7 +9,7 @@ It's one of the summaries listed in this repo's [reference material](README.md).
 
 ## 📋 Executive Summary
 
-- ⚖️ **What it is:** a randomised controlled trial, so it can show cause rather than correlation.
+- ⚖️ **What it is:** a randomised controlled trial with experienced developers working on their own projects.
 - 📉 **Finding:** with AI allowed, 16 experienced developers took 19% longer on 246 real tasks in their own mature projects (Abstract).
 - 🪞 **Perception gap:** the same developers believed afterwards that AI had cut their time by 20% (Abstract).
 - 🎯 **For this repo:** measure what a component does, rather than trusting how helpful it feels.

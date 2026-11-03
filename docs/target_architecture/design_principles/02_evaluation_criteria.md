@@ -1,4 +1,4 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.4.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # ✅ Design principles: Evaluation criteria
@@ -6,11 +6,6 @@
 **Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), must pass before it's added.
 
 This page is part of the [design principles](../design_principles.md), which also define always-on and task log. Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since that section allows 5 bullets or fewer.
-
-Until the task log and the CI check on the [always-on budget](../target_architecture.md#-always-on-budget) exist:
-
-- 🧾 **Evidence:** cite the tasks in the PR description.
-- 🧮 **Tokens:** estimate them by hand, as the budget section describes.
 
 ## 🚪 Should it exist?
 
@@ -25,8 +20,8 @@ It should exist only if every check below holds:
 Its shape passes when:
 
 - [ ] 🧭 **Right mechanism:** its form fits the need, per the table below.
-- [ ] 🎚️ **Tier:** it loads only for the tasks that need it, unless every engineer needs it on every task.
-- [ ] 💰 **Cost:** always-on context stays within the budget.
+- [ ] 🎚️ **Tier:** it sits in a [tier](../target_architecture.md#-tiers) that loads only for the tasks that need it, unless every engineer needs it on every task.
+- [ ] 💰 **Cost:** always-on context stays within the [always-on budget](../target_architecture.md#-always-on-budget).
 - [ ] 🔌 **No orchestration:** no workflow requires it, so it stays [opt-in](01_principles.md).
 
 | Need | Mechanism |

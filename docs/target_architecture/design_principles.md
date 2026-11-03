@@ -1,4 +1,4 @@
-<!-- version: 1.3.1 -->
+<!-- version: 1.4.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-03 -->
 # 🧭 Design principles
@@ -22,9 +22,9 @@ Read them in this order:
 
 ## 📌 Status and terms
 
-- 🚧 **Status:** adopted on 2026-11-02, while the always-on budget check and the task log are planned but not yet built.
+- 🚧 **Status:** adopted, with the always-on budget check and the [task log](../maintenance/task_log.md) in place.
 
 These pages define their own terms:
 
 - 📥 **Always-on:** context that loads into every session, whatever the task.
-- 📝 **Task log:** a planned table with one row per real task, recording its outcome and any feedback on components.
+- 📝 **Task log:** a [table](../maintenance/task_log.md) with one row per real task, recording its outcome and any feedback on components.

@@ -1,11 +1,13 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 📦 src
 
-For anyone opening this folder for the first time: what belongs here, and where to add new code.
+**Purpose:** what belongs in the `src/` folder, and where new code goes.
 
-- 📂 **What lives here:** the repo's code, in one folder per language or tool, such as `sh/` for shell scripts and `make/` for files the root `Makefile` includes.
-- 🆕 **New language:** give it its own folder here, such as `py/` for Python, so each folder holds one kind of file.
+The folder holds the repo's code, organised by language or tool:
+
+- 📂 **One folder each:** such as `sh/` for shell scripts and `make/` for files the root `Makefile` includes.
+- 🆕 **New language:** give it its own folder, such as `py/` for Python.
 - 📋 **Templates:** `templates/` holds starter files to copy, not code that runs.
-- 🧪 **Tests:** code that has tests keeps them at the same path under `tests/src/`, so a script in `src/sh/` is tested in `tests/src/sh/`.
+- 🧪 **Tests:** the [tests README](../tests/README.md) says where each script's tests go.

@@ -1,35 +1,30 @@
-<!-- version: 1.2.1 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 🧭 Design principles
 
-For anyone adding to or reviewing this repo's Claude configuration: the principles each component follows, and the checks it must pass to be added.
+**Purpose:** the principles every part of this repo's Claude configuration follows, and the checks a new part must pass.
 
 ## 📋 Executive Summary
 
-- 🌱 **Stance:** a small mandatory foundation, with skills and agents used only when a task needs them.
-- ⚖️ **Bar:** the configuration must beat a near-bare setup of `CLAUDE.md`, tests and CI on outcomes, effort or consistency.
-- ➕ **Adding:** a component (rule, skill, hook or agent) needs a logged gap that it closes.
+- 🌱 **Stance:** a small required core, with skills and agents used only when a task needs them.
+- ⚖️ **Bar:** the configuration must beat a near-bare setup of `CLAUDE.md`, tests and CI on results, effort or consistency.
+- ➕ **Adding:** a component, meaning a rule, skill, hook or agent, needs a gap seen in real tasks that it closes.
 - 🗑️ **Keeping:** a component stays only while the task log shows it helping.
-- ⚠️ **Watch for:** mandatory agent orchestration, excessive context loading, and rules that repeat CI checks.
+- ⚠️ **Watch for:** workflows that force agents to run, too much context in every session, and rules that repeat CI checks.
 
-## 🧱 Principles
+## 📖 The pages
 
-- **Read:** [Principles](design_principles/01_principles.md), the principles and how each is checked.
+Read them in this order:
 
-## ✅ Evaluation criteria
-
-- **Read:** [Evaluation criteria](design_principles/02_evaluation_criteria.md), the checks a new or ported component must pass.
+1. [The principles, and how each is checked](design_principles/01_principles.md).
+2. [The checks a new or ported component must pass](design_principles/02_evaluation_criteria.md).
 
 ## 📌 Status and terms
 
 - 🚧 **Status:** adopted on 2026-11-02, while the always-on budget check and the task log are planned but not yet built.
-- 📚 **Source:** the stance follows section 4 of the maintainer's handover document, which isn't in the repo.
 
-### 📖 Terms
+These pages use two terms of their own:
 
 - 📥 **Always-on:** context that loads into every session, whatever the task.
 - 📝 **Task log:** a planned table with one row per real task, recording its outcome and any feedback on components.
-- 🔄 **CI:** continuous integration, the checks GitHub runs on every PR.
-- 🪝 **Hook:** a script Claude Code runs automatically when an event happens, such as a tool call.
-- 🧪 **Pre-commit:** the checks that run on your machine before each commit.

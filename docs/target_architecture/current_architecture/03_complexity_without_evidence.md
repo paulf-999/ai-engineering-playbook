@@ -1,17 +1,14 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # ⚠️ Current architecture: Where complexity outran evidence
 
-For anyone shaping the target architecture: where the repo grew heavier than the evidence justifies.
+**Purpose:** where the old Claude configuration grew heavier than the evidence for it justified.
 
-- **Part of:** [Current architecture](../current_architecture.md).
-- 📌 **Snapshot:** everything here describes [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook) at commit `915685f`, dated 2026-10-31.
+This page is part of the [current architecture](../current_architecture.md) review. It found five problems:
 
-## ⚠️ Findings
-
-- 🏋️ **Always-on weight:** most tasks need only a fraction of the guidance that loads every session.
-- 🔁 **Per-turn overhead:** a prompt hook injects the response format and timing rules into every turn, including trivial ones.
-- 📐 **Rules about rules:** authoring, scorecard and metadata standards add upkeep that doesn't change engineering outcomes directly.
-- 🗣️ **Advisory controls:** most safeguards, including "ask before acting", are prose rules that rely on Claude checking itself.
-- 📉 **No outcome data:** there's no record of delivery time, rework or human effort to show which components help.
+- 🏋️ **Always-on weight:** about 30,000 tokens of rules load into every session, whatever the task, and nothing measures how many a task uses.
+- 🔁 **Per-turn overhead:** a hook adds the response-format rules to every prompt, including trivial ones.
+- 📐 **Rules about rules:** standards for writing rules, scoring them and dating them add upkeep without changing engineering results.
+- 🗣️ **Advisory controls:** most safeguards, such as "ask before acting", are written rules that rely on Claude checking itself.
+- 📉 **No outcome data:** nothing records delivery time, rework or human effort, so nobody can tell which components help.

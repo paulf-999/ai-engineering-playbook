@@ -1,20 +1,21 @@
-<!-- version: 3.2.24 -->
+<!-- version: 3.3.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # 📊 Test Coverage Audit
 
-For maintainers of this template: how many tests each script has, and how good those tests are.
+**Purpose:** how many tests each script has, and how good those tests are.
 
-- **Kept accurate by:** [`tests/docs/maintenance/quality/test_quality_audit_test_files.py`](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py), which fails if either table falls out of step with the test files.
-- **Own checker:** this audit's checker has a MoSCoW row, so the Totals row matches `make test`, but it isn't given quality scores, because the audit can't fairly score its own checker.
-- **Gaps:** written by hand when a script is scored, and checked to name every theme below ✅, so recheck them whenever its tests change.
+- 🧪 **Kept accurate by:** [this audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py), which fails if either table falls out of step with the test files.
+- 🪞 **Own checker:** the checker counts its own tests, so the totals match `make test`, but it gets no quality score, since it can't fairly score itself.
+- 🕳️ **Gaps:** written by hand when a script is scored, so recheck a script's gaps whenever its tests change.
 
 ## 🏷️ MoSCoW scores by script
 
-Each test's `# MoSCoW:` comment, counted per script or check, where each script's tests live in the matching `test_<name>.py` file (see [`docs/maintenance/test_maintenance.md`](../../test_maintenance.md)).
+This table counts each script's tests by their [priority score](../../test_maintenance.md#-priority-scores):
 
-- **Total (functions) vs Test Cases:** Total (functions) counts test functions, which the MoSCoW scores label, and **Test Cases** counts the test cases pytest runs, since a parametrised function runs once per input.
-- **Totals:** its Test Cases figure is the number `make test` reports.
+- 🔢 **Total (functions):** the test functions, each of which carries one score.
+- 🧪 **Test Cases:** the cases pytest runs, since a parametrised function runs once per input.
+  - **Totals:** this figure matches what `make test` reports.
 
 | Script or check | Must | Should | Could | Won't | Total (functions) | **Test Cases** |
 |---|---|---|---|---|---|---|
@@ -34,11 +35,7 @@ Each test's `# MoSCoW:` comment, counted per script or check, where each script'
 
 ## ⭐ Quality by script
 
-Long script names are shortened to a label here, to keep the table narrow, and each label links to its script.
-
-Each script's tests are scored against [`docs/maintenance/quality/themes/quality_themes_test_files.md`](../themes/quality_themes_test_files.md), whose [Scores section](../themes/quality_themes_test_files.md#-scores) explains the symbols and grades.
-
-**Scored by:** says who gave each row its scores — every row is scored by an independent review in a fresh context, never by the model that wrote the tests.
+Each script's tests are scored against the [test rubric](../themes/quality_themes_test_files.md), and every row is scored by an independent review in a fresh context, never by the model that wrote the tests.
 
 | Script or check | Scored by | Total (functions) | Test Cases | Core coverage | Leanness | Clarity | Simplicity | Reliability | Score | Gaps |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -52,5 +49,5 @@ Each script's tests are scored against [`docs/maintenance/quality/themes/quality
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | Independent review | 5 | 13 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`Makefile`](../../../../Makefile) | Independent review | 2 | 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | Independent review | 4 | 11 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | Independent review | 6 | 13 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the version regex and the `nullcontext()` pass-or-fail cases have no explaining comment, and the module docstring omits the new checks |
+| [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | Independent review | 6 | 13 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the version regex and the `nullcontext()` pass-or-fail cases have no explaining comment, and the module docstring doesn't mention the version or placeholder checks |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | Independent review | 2 | 4 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

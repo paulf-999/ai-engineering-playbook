@@ -1,21 +1,20 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-02 -->
+<!-- updated: 2026-11-03 -->
 # ✅ Current architecture: What works well
 
-For anyone shaping the target architecture: the strengths the target architecture should keep.
+**Purpose:** the strengths of the old Claude configuration that the new design keeps.
 
-- **Part of:** [Current architecture](../current_architecture.md).
-- 📌 **Snapshot:** everything here describes [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook) at commit `915685f`, dated 2026-10-31.
+This page is part of the [current architecture](../current_architecture.md) review.
 
 ## 🛡️ Safety and verification
 
-- 🔐 **Safe installer:** `make install` previews every step, needs a typed confirmation, backs up the old config and refuses to run without a real terminal.
-- 🌍 **Portability:** paths resolve from the config-folder setting (`CLAUDE_CONFIG_DIR`) or the script's own location, backed by tests.
-- 🧪 **Executable verification:** the tests, pre-commit hooks (checks run before each commit) and CI can fail a bad change.
+- 🔐 **Safe installer:** `make install` previews every step, needs a typed confirmation, and backs up the old config first.
+- 🌍 **Portability:** scripts find the config folder from a setting or their own location, rather than a fixed path, and tests check this.
+- 🧪 **Checks that can fail:** tests, pre-commit hooks and CI can each block a bad change.
 
 ## 🧩 Design and review
 
-- 💤 **Lazy loading:** path-scoped and on-demand rules keep detail out of most sessions.
-- 👀 **Independent review:** when asked, a reviewer agent scores work in a fresh context, so the author doesn't mark its own work.
-- 📜 **Recorded decisions:** `docs/decisions/` explains why key choices were made.
+- 💤 **Loading on demand:** rules for certain files, or rarely needed detail, stay out of most sessions.
+- 👀 **Independent review:** a reviewer agent can score work in a fresh context, so the author doesn't mark its own work.
+- 📜 **Recorded decisions:** a `docs/decisions/` folder in that repo explains why key choices were made.

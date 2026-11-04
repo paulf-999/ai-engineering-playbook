@@ -1,4 +1,4 @@
-# version: 1.0.2
+# version: 1.0.3
 # created: 2026-11-04
 # updated: 2026-11-04
 """Tests for the context cost report, which tables each src/claude/ file's tokens and when it loads."""
@@ -37,21 +37,21 @@ def run_report(tmp_path, env, *args):
     return subprocess.run(command, cwd=tmp_path, env=env, capture_output=True, text=True, check=False)
 
 
-# MoSCoW: Must — each file's row must say when it loads, and only every-session files count in the total
-def test_report_lists_each_file_with_when_it_loads(tmp_path):
-    """The table gives each tracked file its load condition and tokens, and totals only every-session files."""
+# MoSCoW: Must — each file must sit in its load type's table, and each table must total only its own files
+def test_report_puts_each_file_in_its_load_tables(tmp_path):
+    """Every-session, path-scoped and on-demand files each get their own table, with a subtotal of only those files."""
     env = config_repo(tmp_path)
     result = run_report(tmp_path, env)
     assert result.returncode == 0, f"writing the report should succeed:\n{result.stdout}{result.stderr}"
     report = (tmp_path / REPORT).read_text()
-    assert "| `CLAUDE.md` | Every session | ~100 |" in report, "CLAUDE.md should load every session"
-    assert "| `rules/scoped.md` | With matching files: `**/*.py`, `**/*.sh` | ~" in report, (
-        "every glob should be listed"
+    every, rest = report.split("## 📂 With matching files")
+    scoped, lazy = rest.split("## 💤 On demand")
+    assert "| 1 | `CLAUDE.md` | ~100 |" in every and "| | **Subtotal** | **~100** |" in every, (
+        "CLAUDE.md loads every session"
     )
-    assert "| `rules/_rules_on_demand/guide.md` | On demand, via a pointer | ~100 |" in report, (
-        "lazy files are on demand"
-    )
-    assert "**~100**" in report, "only the every-session file should count in the total"
+    assert "| 1 | `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
+    assert "| 1 | `rules/_rules_on_demand/guide.md` | ~100 |" in lazy, "lazy files should sit in the on-demand table"
+    assert "guide.md" not in every and "scoped.md" not in every, "only every-session files belong in the first table"
 
 
 # MoSCoW: Must — the check must fail when the table no longer matches the files

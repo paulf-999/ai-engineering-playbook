@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.0.2
+# version: 1.0.3
 # created: 2026-11-04
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -37,7 +37,7 @@ ALWAYS_ON_CHARS=0
 # Print when a file loads: on demand, with matching files, or in every session
 load_condition() {
     local file="${1}" globs
-    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_lazy_load/"* ]]; then
+    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_on_demand/"* ]]; then
         echo "On demand, via a pointer"
         return
     fi

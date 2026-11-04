@@ -1,4 +1,4 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.1.1 -->
 <!-- created: 2026-09-17 -->
 <!-- updated: 2026-11-04 -->
 # 🗂️ Claude plans
@@ -9,4 +9,4 @@
   - **Skip when:** the user waives gates, or the work has a single phase.
 - 🗂️ **Plan approval:** the "Implement the following plan:" message Claude Code sends after you accept a plan isn't a go-ahead, so wait for an explicit one.
 
-- **Read on demand:** `_rules_lazy_load/saving_plans.md`, in your Claude config directory, once a plan is approved.
+- **Read on demand:** `_rules_on_demand/saving_plans.md`, in your Claude config directory, once a plan is approved.

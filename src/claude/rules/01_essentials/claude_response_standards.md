@@ -1,9 +1,9 @@
-<!-- version: 4.0.0 -->
+<!-- version: 4.0.1 -->
 <!-- created: 2026-09-07 -->
 <!-- updated: 2026-11-04 -->
 # 📝 Response standards
 
-**Purpose:** the shape of every substantive reply, so each one can be scanned in seconds.
+**Purpose:** the shape and pacing of Claude's replies to your prompts, so each one can be scanned in seconds.
 
 ## 📤 Shape
 

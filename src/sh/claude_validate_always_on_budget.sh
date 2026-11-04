@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.2.0
+# version: 1.2.1
 # created: 2026-11-03
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -30,15 +30,6 @@ TOTAL_CHARS=0
 # Functions
 #=======================================================================
 
-# Count characters rather than bytes, so an emoji counts once
-use_utf8_locale() {
-    local utf8_locale
-    utf8_locale="$(locale -a 2>/dev/null | grep -iE '^(c|en_us)\.utf-?8$' | head -n 1 || true)"
-    if [[ -n "${utf8_locale}" ]]; then
-        export LC_ALL="${utf8_locale}"
-    fi
-}
-
 # Normalise the budget to a whole number, or exit 1
 validate_token_budget() {
     if ! TOKEN_BUDGET="$(to_whole_number "${TOKEN_BUDGET}")"; then
@@ -50,7 +41,7 @@ validate_token_budget() {
 # Add a file's characters to the total and print its estimate
 count_file() {
     local path="${1}" chars
-    chars=$(wc -m < "${CHECK_DIR}/${path}" | tr -d ' ')
+    chars=$(count_loaded_chars "${CHECK_DIR}/${path}")
     TOTAL_CHARS=$((TOTAL_CHARS + chars))
     echo "  ~$((chars / 4)) tokens  ${path}"
 }

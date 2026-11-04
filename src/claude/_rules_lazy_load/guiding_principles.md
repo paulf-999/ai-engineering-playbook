@@ -1,4 +1,4 @@
-<!-- version: 2.0.0 -->
+<!-- version: 2.1.0 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 🧭 Guiding principles for Claude config
@@ -19,3 +19,9 @@
 - ↩️ **Easy to remove:** keep each piece small and single-purpose, so one small PR can take it out.
 - 💸 **Automation pays back:** automate only work done about 5 or more times a month.
 - 🔗 **Live sources:** link to the source of truth rather than keeping lists that go stale.
+
+## 📏 Writing a rule or skill
+
+- 📐 **Size:** keep a rule to about 100 lines and one concept, and split anything longer into a parent and child files.
+- 🎯 **Openings:** open a skill with what it does in plain words, clear to a newcomer within 60 seconds.
+- ↩️ **Newline:** end each file with a single newline.

@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.1.0
+# version: 1.1.1
 # created: 2026-11-04
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -52,27 +52,30 @@ load_condition() {
 # Print one table per load type, each with a subtotal, so a total never mixes files that load differently
 table_body() {
     local file chars condition name
-    local every="" scoped="" lazy="" every_chars=0 scoped_chars=0 lazy_chars=0
+    local every="" scoped="" lazy="" every_chars=0 scoped_chars=0 lazy_chars=0 every_n=0 scoped_n=0 lazy_n=0
     while IFS= read -r file; do
         chars=$(count_loaded_chars "${REPO_DIR}/${file}")
         condition="$(load_condition "${file}")"
         name="\`${file#"${CONFIG_DIR}"/}\`"
         case "${condition}" in
             "Every session")
-                every+="| ${name} | ~$((chars / 4)) |"$'\n'
+                every_n=$((every_n + 1))
+                every+="| ${every_n} | ${name} | ~$((chars / 4)) |"$'\n'
                 every_chars=$((every_chars + chars)) ;;
             "On demand"*)
-                lazy+="| ${name} | ~$((chars / 4)) |"$'\n'
+                lazy_n=$((lazy_n + 1))
+                lazy+="| ${lazy_n} | ${name} | ~$((chars / 4)) |"$'\n'
                 lazy_chars=$((lazy_chars + chars)) ;;
             *)
-                scoped+="| ${name} | ${condition#With matching files: } | ~$((chars / 4)) |"$'\n'
+                scoped_n=$((scoped_n + 1))
+                scoped+="| ${scoped_n} | ${name} | ${condition#With matching files: } | ~$((chars / 4)) |"$'\n'
                 scoped_chars=$((scoped_chars + chars)) ;;
         esac
     # sort by byte value, so the order is the same on every machine whatever its locale
     done < <(git -C "${REPO_DIR}" ls-files -- "${CONFIG_DIR}/*.md" | LC_ALL=C sort)
-    printf '## 🔒 Every session\n\n| File | Tokens |\n|---|---|\n%s| **Subtotal** | **~%s** |\n' "${every}" "$((every_chars / 4))"
-    printf '\n## 📂 With matching files\n\n| File | Globs | Tokens |\n|---|---|---|\n%s| **Subtotal** | | **~%s** |\n' "${scoped}" "$((scoped_chars / 4))"
-    printf '\n## 💤 On demand\n\n| File | Tokens |\n|---|---|\n%s| **Subtotal** | **~%s** |\n' "${lazy}" "$((lazy_chars / 4))"
+    printf '## 🔒 Every session\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' "${every}" "$((every_chars / 4))"
+    printf '\n## 📂 With matching files\n\n| # | File | Globs | Tokens |\n|---|---|---|---|\n%s| | **Subtotal** | | **~%s** |\n' "${scoped}" "$((scoped_chars / 4))"
+    printf '\n## 💤 On demand\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' "${lazy}" "$((lazy_chars / 4))"
 }
 
 # Print the whole report after its header: the purpose, how it's kept current, and the table

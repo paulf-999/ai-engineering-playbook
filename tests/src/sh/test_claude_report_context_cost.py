@@ -1,4 +1,4 @@
-# version: 1.0.2
+# version: 1.0.3
 # created: 2026-11-04
 # updated: 2026-11-04
 """Tests for the context cost report, which tables each src/claude/ file's tokens and when it loads."""
@@ -46,9 +46,11 @@ def test_report_puts_each_file_in_its_load_tables(tmp_path):
     report = (tmp_path / REPORT).read_text()
     every, rest = report.split("## 📂 With matching files")
     scoped, lazy = rest.split("## 💤 On demand")
-    assert "| `CLAUDE.md` | ~100 |" in every and "| **Subtotal** | **~100** |" in every, "CLAUDE.md loads every session"
-    assert "| `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
-    assert "| `rules/_rules_lazy_load/guide.md` | ~100 |" in lazy, "lazy files should sit in the on-demand table"
+    assert "| 1 | `CLAUDE.md` | ~100 |" in every and "| | **Subtotal** | **~100** |" in every, (
+        "CLAUDE.md loads every session"
+    )
+    assert "| 1 | `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
+    assert "| 1 | `rules/_rules_lazy_load/guide.md` | ~100 |" in lazy, "lazy files should sit in the on-demand table"
     assert "guide.md" not in every and "scoped.md" not in every, "only every-session files belong in the first table"
 
 

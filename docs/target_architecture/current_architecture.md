@@ -1,6 +1,6 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.1.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # 🏛️ Current architecture
 
 **Purpose:** what the Claude configuration this repo replaces contains, what works well in it, and the lessons the new design carries forward.
@@ -26,6 +26,6 @@ Read them in this order:
 
 ## 🎓 Lessons for the new design
 
-- 🌱 **Start minimal:** begin with `CLAUDE.md`, one test command and CI, and add a component only once a real problem recurs.
+- 🌱 **Start minimal:** begin with `CLAUDE.md`, one test command and CI, then port components in small batches, each checked for the patterns that made this setup costly.
 - 🔪 **Halving test:** ask whether removing half the components would make results noticeably worse.
 - 💪 **Keep the strengths:** carry over everything on the strengths page.

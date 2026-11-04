@@ -1,4 +1,4 @@
-# version: 1.0.4
+# version: 1.0.5
 # created: 2026-11-03
 # updated: 2026-11-04
 """Tests for the always-on budget check, which caps the Claude context loaded into every session."""
@@ -105,3 +105,12 @@ def test_a_budget_that_is_not_a_whole_number_fails(tmp_path):
     result = run_check(tmp_path, budget="3k")
     assert result.returncode == 1, "a budget of '3k' should be rejected"
     assert "must be a whole number" in result.stdout, "the error should say the budget must be a whole number"
+
+
+# MoSCoW: Must — HTML comments don't reach Claude, so they mustn't count towards the budget
+def test_html_comments_are_not_counted(tmp_path):
+    """A 100-token CLAUDE.md plus 100 tokens of HTML comments, one over several lines, stays within 150 tokens."""
+    comments = "<!-- " + "x" * 190 + " -->\n<!--\n" + "x" * 190 + "\n-->\n"
+    write(tmp_path, "CLAUDE.md", comments + HUNDRED_TOKENS)
+    result = run_check(tmp_path)
+    assert result.returncode == 0, f"HTML comments shouldn't count towards the budget:\n{result.stdout}"

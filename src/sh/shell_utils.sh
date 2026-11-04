@@ -1,7 +1,7 @@
 #!/bin/bash
-# version: 1.1.1
+# version: 1.1.2
 # created: 2025-09-12
-# updated: 2026-10-31
+# updated: 2026-11-04
 
 # Description: Reusable shell script vars & functions, sourced by other scripts (not run directly)
 # Usage: source src/sh/shell_utils.sh (from a script run at the repo root)
@@ -74,6 +74,20 @@ file_exists() {
 handle_interruption() {
     log_message "${WARNING}" "Script execution aborted by the user."
     exit 1
+}
+
+# Count characters rather than bytes, so an emoji counts once
+use_utf8_locale() {
+    local utf8_locale
+    utf8_locale="$(locale -a 2>/dev/null | grep -iE '^(c|en_us)\.utf-?8$' | head -n 1 || true)"
+    if [[ -n "${utf8_locale}" ]]; then
+        export LC_ALL="${utf8_locale}"
+    fi
+}
+
+# Print a file's character count without its HTML comments, which Claude Code strips before loading a file
+count_loaded_chars() {
+    perl -0777 -pe 's/<!--.*?-->//gs' "${1}" | wc -m | tr -d ' '
 }
 
 # Print a whole number in base 10, or fail if it isn't one

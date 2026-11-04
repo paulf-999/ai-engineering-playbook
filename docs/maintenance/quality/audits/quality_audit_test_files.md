@@ -1,4 +1,4 @@
-<!-- version: 3.4.5 -->
+<!-- version: 3.4.6 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Test Coverage Audit
@@ -25,15 +25,16 @@ This table counts each script's tests by their [priority score](../../test_maint
 | [`git_validate_num_file_changes.sh`](../../../../src/sh/git/git_validate_num_file_changes.sh) | 3 | 4 | 3 | 0 | 10 | **12** |
 | [`git_validate_pr_description.sh`](../../../../src/sh/git/git_validate_pr_description.sh) | 3 | 0 | 0 | 0 | 3 | **10** |
 | [`git_validate_pr_title.sh`](../../../../src/sh/git/git_validate_pr_title.sh) | 3 | 0 | 0 | 0 | 3 | **14** |
-| [`claude_validate_always_on_budget.sh`](../../../../src/sh/claude_validate_always_on_budget.sh) | 3 | 1 | 0 | 0 | 4 | **17** |
+| [`claude_validate_always_on_budget.sh`](../../../../src/sh/claude_validate_always_on_budget.sh) | 4 | 1 | 0 | 0 | 5 | **18** |
 | [`claude_install_config.sh`](../../../../src/sh/claude_install_config.sh) | 7 | 1 | 0 | 0 | 8 | **8** |
+| [`claude_report_context_cost.sh`](../../../../src/sh/claude_report_context_cost.sh) | 2 | 1 | 0 | 0 | 3 | **3** |
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | 2 | 1 | 2 | 0 | 5 | **13** |
 | [`Makefile`](../../../../Makefile) | 2 | 0 | 0 | 0 | 2 | **2** |
-| [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 2 | 1 | 0 | 4 | **13** |
+| [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 2 | 1 | 0 | 4 | **14** |
 | [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | 0 | 6 | 0 | 0 | 6 | **13** |
 | [This audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py) | 0 | 2 | 0 | 0 | 2 | **2** |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 2 | 0 | 0 | 0 | 2 | **4** |
-| **Totals** | | | | | **80** | **149** |
+| **Totals** | | | | | **84** | **154** |
 
 ## ⭐ Quality by script
 
@@ -50,6 +51,7 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [PR title](../../../../src/sh/git/git_validate_pr_title.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Always-on budget](../../../../src/sh/claude_validate_always_on_budget.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the "over the 150-token budget" message is asserted in two tests, so rewording it breaks both |
 | [Install](../../../../src/sh/claude_install_config.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Context cost report](../../../../src/sh/claude_report_context_cost.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`Makefile`](../../../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

@@ -1,4 +1,4 @@
-# version: 1.0.0
+# version: 1.0.1
 # created: 2026-11-04
 # updated: 2026-11-04
 """Tests for the context cost report, which tables each src/claude/ file's tokens and when it loads."""
@@ -20,7 +20,7 @@ def config_repo(tmp_path):
     files = {
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- version: 1.0.0 -->\n" + HUNDRED_TOKENS,
-        "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n---\n' + HUNDRED_TOKENS,
+        "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/_rules_lazy_load/guide.md": HUNDRED_TOKENS,
     }
     for path, text in files.items():
@@ -45,7 +45,9 @@ def test_report_lists_each_file_with_when_it_loads(tmp_path):
     assert result.returncode == 0, f"writing the report should succeed:\n{result.stdout}{result.stderr}"
     report = (tmp_path / REPORT).read_text()
     assert "| `CLAUDE.md` | Every session | ~100 |" in report, "CLAUDE.md should load every session"
-    assert "| `rules/scoped.md` | With matching files: `**/*.py` | ~" in report, "paths: globs should be listed"
+    assert "| `rules/scoped.md` | With matching files: `**/*.py`, `**/*.sh` | ~" in report, (
+        "every glob should be listed"
+    )
     assert "| `rules/_rules_lazy_load/guide.md` | On demand, via a pointer | ~100 |" in report, (
         "lazy files are on demand"
     )

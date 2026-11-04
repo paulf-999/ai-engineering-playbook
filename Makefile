@@ -1,6 +1,6 @@
-# version: 1.1.1
+# version: 1.1.2
 # created: 2022-11-04
-# updated: 2026-11-02
+# updated: 2026-11-04
 SHELL = /bin/sh
 
 #================================================================
@@ -32,7 +32,7 @@ help:
 
 deps:
 	@echo "${INFO}\nCalled makefile target 'deps'. Download any required libraries.${COLOUR_OFF}\n"
-	@test -n "$$VIRTUAL_ENV" || { echo "Activate the virtualenv first: see docs/reference/virtualenv_setup.md"; exit 1; }
+	@test -n "$$VIRTUAL_ENV" || { echo "Activate the virtualenv first: see docs/guides/virtualenv_setup.md"; exit 1; }
 	@python -m pip install -r requirements.txt
 	@python -m pre_commit install
 

@@ -1,6 +1,6 @@
-# version: 1.0.4
+# version: 1.0.5
 # created: 2026-10-31
-# updated: 2026-11-02
+# updated: 2026-11-04
 """Tests for the Makefile's deps target, which must only install into an active virtualenv."""
 
 import os
@@ -32,7 +32,7 @@ def test_deps_stops_without_a_virtualenv(tmp_path):
     env.pop("VIRTUAL_ENV", None)
     result = run_deps(env)
     assert result.returncode != 0, "make deps should stop without a virtualenv"
-    assert "docs/reference/virtualenv_setup.md" in result.stdout, (
+    assert "docs/guides/virtualenv_setup.md" in result.stdout, (
         f"expected a pointer to the virtualenv setup doc: {result.stdout}"
     )
     assert not log.exists(), f"make deps ran python without a virtualenv: {log.read_text() if log.exists() else ''}"

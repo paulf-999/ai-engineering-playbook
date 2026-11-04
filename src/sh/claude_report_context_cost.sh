@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.0.1
+# version: 1.0.2
 # created: 2026-11-04
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -42,7 +42,7 @@ load_condition() {
         return
     fi
     # the globs listed under paths: in the file's opening --- block
-    globs="$(awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { on = 1; next } on && /^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); printf "%s`%s`", sep, $0; sep = ", " } on && !/^[[:space:]]*-/ { on = 0 }' "${REPO_DIR}/${file}")"
+    globs="$(awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { on = 1; next } on && /^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); printf "%s`%s`", sep, $0; sep = ", "; next } on && !/^[[:space:]]*-/ { on = 0 }' "${REPO_DIR}/${file}")"
     if [[ -n "${globs}" ]]; then
         echo "With matching files: ${globs}"
     else

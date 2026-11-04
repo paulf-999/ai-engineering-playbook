@@ -1,6 +1,6 @@
-<!-- version: 1.0.61 -->
+<!-- version: 1.0.62 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # 📊 Markdown Quality Audit
 
 For maintainers of this template: how good each markdown doc is, scored out of 10.
@@ -31,12 +31,12 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [`README.md`](../../../../README.md) | Independent review | 2.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`SECURITY.md`](../../../../.github/SECURITY.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`docs` README](../../../README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Branching strategy](../../../reference/git_branching_strategy.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Branching strategy](../../../guides/git_branching_strategy.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`file_headers.md`](../../file_headers.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Test rubric](../themes/quality_themes_test_files.md) | Independent review | 3.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Test maintenance](../../test_maintenance.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Task log](../../task_log.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Virtualenv setup](../../../reference/virtualenv_setup.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Virtualenv setup](../../../guides/virtualenv_setup.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`src` README](../../../../src/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`tests` README](../../../../tests/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Global CLAUDE.md](../../../../src/templates/global_claude.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

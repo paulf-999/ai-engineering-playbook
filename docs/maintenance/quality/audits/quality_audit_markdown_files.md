@@ -50,7 +50,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Naming standards](../../../../src/claude/rules/01_essentials/naming_standards.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Claude naming patterns](../../../../src/claude/rules/_rules_on_demand/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/01_essentials/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.2.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Check tools first, Report checks and Pre-existing issues give no reason |
 | [Claude plans](../../../../src/claude/rules/02_claude_standards/claude_plans.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Plan approval gives no reason, and "you" is ambiguous |
 | [Saving plans](../../../../src/claude/rules/_rules_on_demand/saving_plans.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: it doesn't say what happens when a plan finishes, or where plan mode's scratch folder is |
 | [Git](../../../../src/claude/rules/02_claude_standards/git.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Flag complex operations and Worktrees give no reason |

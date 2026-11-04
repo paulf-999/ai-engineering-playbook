@@ -19,11 +19,11 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 2 | `rules/01_essentials/claude_response_standards.md` | ~218 |
 | 3 | `rules/01_essentials/naming_standards.md` | ~194 |
 | 4 | `rules/01_essentials/writing_style.md` | ~305 |
-| 5 | `rules/02_claude_standards/behaviour.md` | ~390 |
+| 5 | `rules/02_claude_standards/behaviour.md` | ~391 |
 | 6 | `rules/02_claude_standards/claude_plans.md` | ~157 |
 | 7 | `rules/02_claude_standards/git.md` | ~325 |
 | 8 | `rules/02_claude_standards/security.md` | ~201 |
-| | **Subtotal** | **~2334** |
+| | **Subtotal** | **~2335** |
 
 ## 📂 With matching files
 

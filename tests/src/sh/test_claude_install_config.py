@@ -1,4 +1,4 @@
-# version: 1.1.0
+# version: 1.1.1
 # created: 2026-11-04
 # updated: 2026-11-04
 """Tests for the install script, which copies src/claude/ into a Claude config directory after a typed 'install'."""
@@ -127,3 +127,37 @@ def test_reinstalling_unchanged_files_makes_no_backup(tmp_path):
     result = run_install(tmp_path, answer="install")
     assert result.returncode == 0, f"the second install should succeed:\n{result.stdout}{result.stderr}"
     assert not (tmp_path / "backups").exists(), "no backup folder should be made when nothing is overwritten"
+
+
+# MoSCoW: Must — a file an earlier install added, and the repo has since removed, must not linger
+def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
+    """A path in the last install's manifest that the repo no longer has is backed up, removed and dropped."""
+    (tmp_path / "rules").mkdir()
+    (tmp_path / "rules" / "old.md").write_text("old rule\n")
+    (tmp_path / ".playbook_install_manifest").write_text("rules/old.md\n")
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert not (tmp_path / "rules" / "old.md").exists(), "a file the repo removed should be removed"
+    backups = list((tmp_path / "backups").glob("install_*/rules/old.md"))
+    assert len(backups) == 1 and backups[0].read_text() == "old rule\n", "the removed file should be backed up first"
+    manifest = (tmp_path / ".playbook_install_manifest").read_text().splitlines()
+    assert set(manifest) == {installed_path(path) for path in tracked_config_files()}, (
+        "the manifest should list this install"
+    )
+
+
+# MoSCoW: Must — a tampered manifest must never remove a file outside the config directory
+def test_manifest_paths_outside_the_target_are_ignored(tmp_path):
+    """A manifest path containing '..' is skipped, so the file it points at is left alone."""
+    target = tmp_path / "config"
+    target.mkdir()
+    outside = tmp_path / "outside.md"
+    outside.write_text("keep me\n")
+    (target / ".playbook_install_manifest").write_text("../outside.md\n")
+
+    result = run_install(target, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert outside.read_text() == "keep me\n", "a file outside the config directory must never be removed"

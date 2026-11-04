@@ -1,4 +1,4 @@
-<!-- version: 2.3.4 -->
+<!-- version: 2.3.5 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 🧭 AI Engineering Playbook
@@ -39,4 +39,4 @@ Before raising a PR, read the [contributing guidelines](.github/CONTRIBUTING.md)
 
 2. Create and activate a virtualenv (see the [virtualenv setup guide](docs/guides/virtualenv_setup.md)), then run `make deps` to install the requirements and the pre-commit git hooks.
 3. Run `make test` to check everything works.
-4. Run `make install` from your own terminal to copy [`src/claude/`](src/claude/) into your Claude config directory, `$CLAUDE_CONFIG_DIR` or `~/.claude`, backing up any file it replaces.
+4. Run `make install` from your own terminal to copy [`src/claude/`](src/claude/) into your Claude config directory, `$CLAUDE_CONFIG_DIR` or `~/.claude`, backing up any file it replaces or removes, since it also removes files an earlier install added that the repo has since dropped.

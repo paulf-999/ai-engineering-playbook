@@ -1,4 +1,4 @@
-<!-- version: 1.0.7 -->
+<!-- version: 1.0.8 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 💰 Context cost
@@ -16,20 +16,20 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~542 |
-| 2 | `rules/01_essentials/claude_response_standards.md` | ~218 |
-| 3 | `rules/01_essentials/naming_standards.md` | ~194 |
-| 4 | `rules/01_essentials/writing_style.md` | ~305 |
-| 5 | `rules/02_claude_standards/behaviour.md` | ~391 |
-| 6 | `rules/02_claude_standards/claude_plans.md` | ~157 |
-| 7 | `rules/02_claude_standards/git.md` | ~325 |
-| 8 | `rules/02_claude_standards/security.md` | ~201 |
+| 2 | `rules/behaviour.md` | ~391 |
+| 3 | `rules/claude_plans.md` | ~157 |
+| 4 | `rules/claude_response_standards.md` | ~218 |
+| 5 | `rules/git.md` | ~325 |
+| 6 | `rules/naming_standards.md` | ~194 |
+| 7 | `rules/security.md` | ~201 |
+| 8 | `rules/writing_style.md` | ~305 |
 | | **Subtotal** | **~2335** |
 
 ## 📂 With matching files
 
 | # | File | Globs | Tokens |
 |---|---|---|---|
-| 1 | `rules/02_claude_standards/path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
+| 1 | `rules/path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
 | | **Subtotal** | | **~195** |
 
 ## 💤 On demand

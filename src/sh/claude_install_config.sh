@@ -1,11 +1,11 @@
 #!/bin/bash
-# version: 1.2.0
+# version: 1.2.1
 # created: 2026-11-04
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
-#              On-demand files in rules/_rules_lazy_load/ go beside rules/, since Claude Code loads everything under rules/
+#              On-demand files in rules/_rules_on_demand/ go beside rules/, since Claude Code loads everything under rules/
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed
 # Usage: src/sh/claude_install_config.sh (run from the repo root, at your own terminal; make install calls it)
 
@@ -21,7 +21,7 @@ trap handle_interruption SIGINT
 
 # mirrors the config directory's layout, so each file is copied to the same relative path, except on-demand files
 SOURCE_DIR="src/claude"
-LAZY_RULES_DIR="rules/_rules_lazy_load"
+LAZY_RULES_DIR="rules/_rules_on_demand"
 TARGET_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
 # the paths the last install wrote, one per line, so the next install can remove any the repo no longer has
 MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
@@ -37,7 +37,7 @@ REMOVED_FILES=()
 # Functions
 #=======================================================================
 
-# Print where a source file installs: on-demand files move from rules/_rules_lazy_load/ to _rules_lazy_load/
+# Print where a source file installs: on-demand files move from rules/_rules_on_demand/ to _rules_on_demand/
 target_path() {
     local file="${1}"
     if [[ "${file}" == "${LAZY_RULES_DIR}/"* ]]; then

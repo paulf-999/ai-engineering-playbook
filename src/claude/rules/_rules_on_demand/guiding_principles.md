@@ -1,4 +1,4 @@
-<!-- version: 2.4.0 -->
+<!-- version: 2.4.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 🧭 Guiding principles for Claude config
@@ -23,6 +23,6 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_lazy_load/authoring_guidelines.md`, in your Claude config directory, once a new rule, skill or agent is worth adding.
-- **Read on demand:** `_rules_lazy_load/portable_paths.md`, before writing a hook, script or test for the config.
-- **Read on demand:** `_rules_lazy_load/turn_budgets.md`, before testing a config change with `claude -p` or another unattended run.
+- **Read on demand:** `_rules_on_demand/authoring_guidelines.md`, in your Claude config directory, once a new rule, skill or agent is worth adding.
+- **Read on demand:** `_rules_on_demand/portable_paths.md`, before writing a hook, script or test for the config.
+- **Read on demand:** `_rules_on_demand/turn_budgets.md`, before testing a config change with `claude -p` or another unattended run.

@@ -1,4 +1,4 @@
-<!-- version: 2.0.0 -->
+<!-- version: 2.0.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 🏷️ Claude naming patterns
@@ -13,4 +13,4 @@
 | 🤖 **Agent** | `agents/<group>/<name>/AGENT.md` | `agents/core/technical_writer/AGENT.md` |
 
 - 🗂️ **Group related rules:** put rules for one domain in a subfolder, such as `style_guide_standards/sql.md`.
-- 💤 **On-demand files:** name them the same way, and put them in `_rules_lazy_load/`.
+- 💤 **On-demand files:** name them the same way, and put them in `_rules_on_demand/`.

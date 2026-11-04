@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.2.1
+# version: 1.2.2
 # created: 2026-11-03
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -78,8 +78,8 @@ count_always_on_rules_in() {
         if ! awk 'NR == 1 && $0 != "---" { exit 1 } NR > 1 && $0 == "---" { exit 1 } /^paths:/ { found = 1 } END { exit !found }' "${CHECK_DIR}/${rule}"; then
             count_file "${rule}"
         fi
-    # on-demand files kept in rules/_rules_lazy_load/ install beside rules/, so they don't load every session
-    done < <(cd "${CHECK_DIR}" && find "${root}/rules" -path "${root}/rules/_rules_lazy_load" -prune -o -name '*.md' -print | sort)
+    # on-demand files kept in rules/_rules_on_demand/ install beside rules/, so they don't load every session
+    done < <(cd "${CHECK_DIR}" && find "${root}/rules" -path "${root}/rules/_rules_on_demand" -prune -o -name '*.md' -print | sort)
 }
 
 # Print a file's description from its opening --- block, including one folded over several lines with > or |

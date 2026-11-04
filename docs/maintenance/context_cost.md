@@ -1,36 +1,50 @@
-<!-- version: 1.0.6 -->
+<!-- version: 1.0.7 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
 
-This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/`, and a pre-commit check fails if it's out of date, so don't edit the table by hand.
+This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/`, and a pre-commit check fails if it's out of date, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../target_architecture/target_architecture.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
 - 📂 **With matching files:** loads only once Claude opens a file that matches one of its globs.
 - 💤 **On demand:** loads only when Claude follows a pointer to it.
 
-| File | Loads | Tokens |
+## 🔒 Every session
+
+| # | File | Tokens |
 |---|---|---|
-| `CLAUDE.md` | Every session | ~542 |
-| `rules/01_essentials/claude_response_standards.md` | Every session | ~218 |
-| `rules/01_essentials/naming_standards.md` | Every session | ~194 |
-| `rules/01_essentials/writing_style.md` | Every session | ~305 |
-| `rules/02_claude_standards/behaviour.md` | Every session | ~391 |
-| `rules/02_claude_standards/claude_plans.md` | Every session | ~157 |
-| `rules/02_claude_standards/git.md` | Every session | ~325 |
-| `rules/02_claude_standards/path_scoped_rules/code_security.md` | With matching files: `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
-| `rules/02_claude_standards/security.md` | Every session | ~201 |
-| `rules/_rules_lazy_load/authoring_guidelines.md` | On demand, via a pointer | ~264 |
-| `rules/_rules_lazy_load/claude_naming_patterns.md` | On demand, via a pointer | ~199 |
-| `rules/_rules_lazy_load/guiding_principles.md` | On demand, via a pointer | ~436 |
-| `rules/_rules_lazy_load/permission_recommendations.md` | On demand, via a pointer | ~154 |
-| `rules/_rules_lazy_load/portable_paths.md` | On demand, via a pointer | ~189 |
-| `rules/_rules_lazy_load/saving_plans.md` | On demand, via a pointer | ~169 |
-| `rules/_rules_lazy_load/todo_logging.md` | On demand, via a pointer | ~141 |
-| `rules/_rules_lazy_load/turn_budgets.md` | On demand, via a pointer | ~174 |
-| `rules/_rules_lazy_load/writing_style/_audience_and_depth.md` | On demand, via a pointer | ~324 |
-| `rules/_rules_lazy_load/writing_style/_drafts_and_errors.md` | On demand, via a pointer | ~199 |
-| `rules/_rules_lazy_load/writing_style/_markdown_layout.md` | On demand, via a pointer | ~264 |
-| **Every-session total** | | **~2335** |
+| 1 | `CLAUDE.md` | ~542 |
+| 2 | `rules/01_essentials/claude_response_standards.md` | ~218 |
+| 3 | `rules/01_essentials/naming_standards.md` | ~194 |
+| 4 | `rules/01_essentials/writing_style.md` | ~305 |
+| 5 | `rules/02_claude_standards/behaviour.md` | ~391 |
+| 6 | `rules/02_claude_standards/claude_plans.md` | ~157 |
+| 7 | `rules/02_claude_standards/git.md` | ~325 |
+| 8 | `rules/02_claude_standards/security.md` | ~201 |
+| | **Subtotal** | **~2335** |
+
+## 📂 With matching files
+
+| # | File | Globs | Tokens |
+|---|---|---|---|
+| 1 | `rules/02_claude_standards/path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
+| | **Subtotal** | | **~195** |
+
+## 💤 On demand
+
+| # | File | Tokens |
+|---|---|---|
+| 1 | `rules/_rules_on_demand/authoring_guidelines.md` | ~264 |
+| 2 | `rules/_rules_on_demand/claude_naming_patterns.md` | ~199 |
+| 3 | `rules/_rules_on_demand/guiding_principles.md` | ~436 |
+| 4 | `rules/_rules_on_demand/permission_recommendations.md` | ~154 |
+| 5 | `rules/_rules_on_demand/portable_paths.md` | ~189 |
+| 6 | `rules/_rules_on_demand/saving_plans.md` | ~169 |
+| 7 | `rules/_rules_on_demand/todo_logging.md` | ~141 |
+| 8 | `rules/_rules_on_demand/turn_budgets.md` | ~174 |
+| 9 | `rules/_rules_on_demand/writing_style/_audience_and_depth.md` | ~324 |
+| 10 | `rules/_rules_on_demand/writing_style/_drafts_and_errors.md` | ~199 |
+| 11 | `rules/_rules_on_demand/writing_style/_markdown_layout.md` | ~264 |
+| | **Subtotal** | **~2517** |

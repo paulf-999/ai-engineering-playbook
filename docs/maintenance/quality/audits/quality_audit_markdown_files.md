@@ -1,4 +1,4 @@
-<!-- version: 1.0.80 -->
+<!-- version: 1.0.81 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Markdown Quality Audit
@@ -41,25 +41,25 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [`src` README](../../../../src/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`tests` README](../../../../tests/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Global CLAUDE.md](../../../../src/claude/CLAUDE.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Guiding principles](../../../../src/claude/rules/_rules_lazy_load/guiding_principles.md) | Independent review | 2.4.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the engineer test in Real problem doesn't say what \"anyway\" means |
-| [Authoring guidelines](../../../../src/claude/rules/_rules_lazy_load/authoring_guidelines.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "lean session" is a project term the page doesn't explain |
-| [Turn budgets](../../../../src/claude/rules/_rules_lazy_load/turn_budgets.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Portable paths](../../../../src/claude/rules/_rules_lazy_load/portable_paths.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: never hard-code `~/.claude` reads against using it as the fallback; Maintainability: the Why bullet cites history |
-| [TODO logging](../../../../src/claude/rules/_rules_lazy_load/todo_logging.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Guiding principles](../../../../src/claude/rules/_rules_on_demand/guiding_principles.md) | Independent review | 2.4.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the engineer test in Real problem doesn't say what \"anyway\" means |
+| [Authoring guidelines](../../../../src/claude/rules/_rules_on_demand/authoring_guidelines.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "lean session" is a project term the page doesn't explain |
+| [Turn budgets](../../../../src/claude/rules/_rules_on_demand/turn_budgets.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Portable paths](../../../../src/claude/rules/_rules_on_demand/portable_paths.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: never hard-code `~/.claude` reads against using it as the fallback; Maintainability: the Why bullet cites history |
+| [TODO logging](../../../../src/claude/rules/_rules_on_demand/todo_logging.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Writing style](../../../../src/claude/rules/01_essentials/writing_style.md) | Independent review | 3.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Naming standards](../../../../src/claude/rules/01_essentials/naming_standards.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Claude naming patterns](../../../../src/claude/rules/_rules_lazy_load/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
+| [Claude naming patterns](../../../../src/claude/rules/_rules_on_demand/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/01_essentials/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.2.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Check tools first, Report checks and Pre-existing issues give no reason |
 | [Claude plans](../../../../src/claude/rules/02_claude_standards/claude_plans.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Plan approval gives no reason, and "you" is ambiguous |
-| [Saving plans](../../../../src/claude/rules/_rules_lazy_load/saving_plans.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: it doesn't say what happens when a plan finishes, or where plan mode's scratch folder is |
+| [Saving plans](../../../../src/claude/rules/_rules_on_demand/saving_plans.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: it doesn't say what happens when a plan finishes, or where plan mode's scratch folder is |
 | [Git](../../../../src/claude/rules/02_claude_standards/git.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Flag complex operations and Worktrees give no reason |
 | [Security](../../../../src/claude/rules/02_claude_standards/security.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Code security](../../../../src/claude/rules/02_claude_standards/path_scoped_rules/code_security.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | 🟡 1 | **B · 8/10** | Leanness: the Logs bullet repeats security.md; Accuracy: "whenever a code file is open" overstates the five globs |
-| [Permission recommendations](../../../../src/claude/rules/_rules_lazy_load/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Markdown layout](../../../../src/claude/rules/_rules_lazy_load/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
-| [Audience and depth](../../../../src/claude/rules/_rules_lazy_load/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |
-| [Drafts and errors](../../../../src/claude/rules/_rules_lazy_load/writing_style/_drafts_and_errors.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: nothing says the table lists the allowed domains, or which one errors use |
+| [Permission recommendations](../../../../src/claude/rules/_rules_on_demand/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Markdown layout](../../../../src/claude/rules/_rules_on_demand/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
+| [Audience and depth](../../../../src/claude/rules/_rules_on_demand/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |
+| [Drafts and errors](../../../../src/claude/rules/_rules_on_demand/writing_style/_drafts_and_errors.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: nothing says the table lists the allowed domains, or which one errors use |
 | [Tests audit](quality_audit_test_files.md) | Independent review | 3.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture](../../../target_architecture/current_architecture.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: snapshot](../../../target_architecture/current_architecture/01_snapshot.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

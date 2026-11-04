@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.0.2
+# version: 1.1.0
 # created: 2026-11-03
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -22,6 +22,8 @@ CHECK_DIR="${1:-.}"
 TOKEN_BUDGET="${ALWAYS_ON_TOKEN_BUDGET:-3000}"
 # the files Claude loads in every session, before any @-imports they pull in
 CONTEXT_FILES=("CLAUDE.md" "src/claude/CLAUDE.md")
+# the project config (.claude/) and the global config make install copies (src/claude/), which both load here
+CONFIG_ROOTS=(".claude" "src/claude")
 TOTAL_CHARS=0
 
 #=======================================================================
@@ -68,16 +70,24 @@ count_with_imports() {
     done < <(sed -n 's/^@\([^[:space:]]*\).*/\1/p' "${CHECK_DIR}/${path}")
 }
 
-# Count every rule in .claude/rules/ that has no paths: setting, so loads in every session
+# Count every rule in each config root's rules/ that has no paths: setting, so loads in every session
 count_always_on_rules() {
-    local rule
-    [[ -d "${CHECK_DIR}/.claude/rules" ]] || return 0
+    local root
+    for root in "${CONFIG_ROOTS[@]}"; do
+        count_always_on_rules_in "${root}"
+    done
+}
+
+# Count the always-on rules under one config root's rules/ folder
+count_always_on_rules_in() {
+    local rule root="${1}"
+    [[ -d "${CHECK_DIR}/${root}/rules" ]] || return 0
     while IFS= read -r rule; do
         # a paths: line inside the opening --- block scopes the rule to matching files
         if ! awk 'NR == 1 && $0 != "---" { exit 1 } NR > 1 && $0 == "---" { exit 1 } /^paths:/ { found = 1 } END { exit !found }' "${CHECK_DIR}/${rule}"; then
             count_file "${rule}"
         fi
-    done < <(cd "${CHECK_DIR}" && find .claude/rules -name '*.md' | sort)
+    done < <(cd "${CHECK_DIR}" && find "${root}/rules" -name '*.md' | sort)
 }
 
 # Print a file's description from its opening --- block, including one folded over several lines with > or |
@@ -98,13 +108,15 @@ description_text() {
 
 # Count each skill's and agent's description, which Claude sees in every session so it can pick one
 count_descriptions() {
-    local file chars
-    while IFS= read -r file; do
-        chars=$(description_text "${CHECK_DIR}/${file}" | wc -m | tr -d ' ')
-        TOTAL_CHARS=$((TOTAL_CHARS + chars))
-        echo "  ~$((chars / 4)) tokens  ${file} (description)"
-    # either folder may be missing, which mustn't stop the other being searched
-    done < <(cd "${CHECK_DIR}" && { find .claude/skills -name 'SKILL.md' 2>/dev/null || true; find .claude/agents -name '*.md' 2>/dev/null || true; } | sort)
+    local file chars root
+    for root in "${CONFIG_ROOTS[@]}"; do
+        while IFS= read -r file; do
+            chars=$(description_text "${CHECK_DIR}/${file}" | wc -m | tr -d ' ')
+            TOTAL_CHARS=$((TOTAL_CHARS + chars))
+            echo "  ~$((chars / 4)) tokens  ${file} (description)"
+        # either folder may be missing, which mustn't stop the other being searched
+        done < <(cd "${CHECK_DIR}" && { find "${root}/skills" -name 'SKILL.md' 2>/dev/null || true; find "${root}/agents" -name '*.md' 2>/dev/null || true; } | sort)
+    done
 }
 
 # Compare the estimate with the budget, exiting 1 when it's over

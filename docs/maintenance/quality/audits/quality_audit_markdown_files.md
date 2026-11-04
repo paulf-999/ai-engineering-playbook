@@ -1,4 +1,4 @@
-<!-- version: 1.0.76 -->
+<!-- version: 1.0.77 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Markdown Quality Audit
@@ -47,6 +47,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Claude naming patterns](../../../../src/claude/rules/_rules_lazy_load/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/01_essentials/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Verify before done and Pre-existing issues give no reason |
+| [Git](../../../../src/claude/rules/02_claude_standards/git.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Flag complex operations and Worktrees give no reason |
 | [Markdown layout](../../../../src/claude/rules/_rules_lazy_load/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
 | [Audience and depth](../../../../src/claude/rules/_rules_lazy_load/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |
 | [Drafts and errors](../../../../src/claude/rules/_rules_lazy_load/writing_style/_drafts_and_errors.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: nothing says the table lists the allowed domains, or which one errors use |

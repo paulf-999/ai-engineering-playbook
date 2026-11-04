@@ -1,4 +1,4 @@
-<!-- version: 1.5.4 -->
+<!-- version: 1.5.5 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-04 -->
 # 🏗️ Target architecture
@@ -8,6 +8,8 @@
 This page describes the design, and the [design principles' status section](design_principles.md#-status-and-terms) says which parts are built so far.
 
 ## 📋 Executive Summary
+
+A small required core loads in every session, and every other component loads only when needed and is removed if the task log shows it doesn't pay.
 
 - 🌱 **Small core:** only `CLAUDE.md`, the tests and the CI checks are required.
 - 📥 **On demand:** everything else loads only when a task calls for it.

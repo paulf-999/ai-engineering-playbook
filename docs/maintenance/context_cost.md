@@ -1,4 +1,4 @@
-<!-- version: 1.0.4 -->
+<!-- version: 1.0.5 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 💰 Context cost
@@ -22,8 +22,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | `rules/02_claude_standards/git.md` | Every session | ~325 |
 | `rules/02_claude_standards/path_scoped_rules/code_security.md` | With matching files: `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
 | `rules/02_claude_standards/security.md` | Every session | ~201 |
+| `rules/_rules_lazy_load/authoring_guidelines.md` | On demand, via a pointer | ~264 |
 | `rules/_rules_lazy_load/claude_naming_patterns.md` | On demand, via a pointer | ~199 |
-| `rules/_rules_lazy_load/guiding_principles.md` | On demand, via a pointer | ~407 |
+| `rules/_rules_lazy_load/guiding_principles.md` | On demand, via a pointer | ~436 |
 | `rules/_rules_lazy_load/permission_recommendations.md` | On demand, via a pointer | ~154 |
 | `rules/_rules_lazy_load/portable_paths.md` | On demand, via a pointer | ~189 |
 | `rules/_rules_lazy_load/saving_plans.md` | On demand, via a pointer | ~169 |

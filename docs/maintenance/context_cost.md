@@ -1,4 +1,4 @@
-<!-- version: 1.0.5 -->
+<!-- version: 1.0.6 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 💰 Context cost
@@ -17,7 +17,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | `rules/01_essentials/claude_response_standards.md` | Every session | ~218 |
 | `rules/01_essentials/naming_standards.md` | Every session | ~194 |
 | `rules/01_essentials/writing_style.md` | Every session | ~305 |
-| `rules/02_claude_standards/behaviour.md` | Every session | ~390 |
+| `rules/02_claude_standards/behaviour.md` | Every session | ~391 |
 | `rules/02_claude_standards/claude_plans.md` | Every session | ~157 |
 | `rules/02_claude_standards/git.md` | Every session | ~325 |
 | `rules/02_claude_standards/path_scoped_rules/code_security.md` | With matching files: `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
@@ -33,4 +33,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | `rules/_rules_lazy_load/writing_style/_audience_and_depth.md` | On demand, via a pointer | ~324 |
 | `rules/_rules_lazy_load/writing_style/_drafts_and_errors.md` | On demand, via a pointer | ~199 |
 | `rules/_rules_lazy_load/writing_style/_markdown_layout.md` | On demand, via a pointer | ~264 |
-| **Every-session total** | | **~2334** |
+| **Every-session total** | | **~2335** |

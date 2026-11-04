@@ -1,4 +1,4 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.1.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 🛡️ Behaviour
@@ -20,4 +20,4 @@
 - 🤝 **Corrections:** treat an explicit correction as settled for the rest of the session, rather than drifting back to the earlier approach.
 - 💾 **Checkpoints:** once a task spans many files or turns, write its decisions and open items to `~/_sessions/YYYY_MM_DD_<topic>.md`, so a later session can resume it.
 
-- **Read on demand:** `_rules_lazy_load/todo_logging.md`, in your Claude config directory, when the user asks to add something to their TODOs.
+- **Read on demand:** `_rules_on_demand/todo_logging.md`, in your Claude config directory, when the user asks to add something to their TODOs.

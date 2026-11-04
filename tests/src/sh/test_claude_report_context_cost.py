@@ -21,7 +21,7 @@ def config_repo(tmp_path):
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- version: 1.0.0 -->\n" + HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
-        "src/claude/rules/_rules_lazy_load/guide.md": HUNDRED_TOKENS,
+        "src/claude/rules/_rules_on_demand/guide.md": HUNDRED_TOKENS,
     }
     for path, text in files.items():
         (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
@@ -50,7 +50,7 @@ def test_report_puts_each_file_in_its_load_tables(tmp_path):
         "CLAUDE.md loads every session"
     )
     assert "| 1 | `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
-    assert "| 1 | `rules/_rules_lazy_load/guide.md` | ~100 |" in lazy, "lazy files should sit in the on-demand table"
+    assert "| 1 | `rules/_rules_on_demand/guide.md` | ~100 |" in lazy, "lazy files should sit in the on-demand table"
     assert "guide.md" not in every and "scoped.md" not in every, "only every-session files belong in the first table"
 
 

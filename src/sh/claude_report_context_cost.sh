@@ -36,7 +36,7 @@ HEADER_LINES=3
 # Print when a file loads: on demand, with matching files, or in every session
 load_condition() {
     local file="${1}" globs
-    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_lazy_load/"* ]]; then
+    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_on_demand/"* ]]; then
         echo "On demand, via a pointer"
         return
     fi

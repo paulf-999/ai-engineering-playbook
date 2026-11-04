@@ -1,4 +1,4 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.3.1 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 🧠 Global Claude configuration
@@ -47,6 +47,6 @@
 
 ## ⚙️ Changing Claude's config
 
-- **Read on demand:** `_rules_lazy_load/guiding_principles.md`, in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.
+- **Read on demand:** `_rules_on_demand/guiding_principles.md`, in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.
 
 <!-- Imports (optional): @-import files Claude needs every session; each import loads in full at startup, so add sparingly -->

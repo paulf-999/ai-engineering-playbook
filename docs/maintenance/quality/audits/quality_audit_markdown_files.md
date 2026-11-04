@@ -1,4 +1,4 @@
-<!-- version: 1.0.78 -->
+<!-- version: 1.0.79 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Markdown Quality Audit
@@ -40,13 +40,18 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Virtualenv setup](../../../guides/virtualenv_setup.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`src` README](../../../../src/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`tests` README](../../../../tests/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Global CLAUDE.md](../../../../src/claude/CLAUDE.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Guiding principles](../../../../src/claude/rules/_rules_lazy_load/guiding_principles.md) | Independent review | 2.2.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Real problem bullet's engineer test is hard to apply to config |
+| [Global CLAUDE.md](../../../../src/claude/CLAUDE.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Guiding principles](../../../../src/claude/rules/_rules_lazy_load/guiding_principles.md) | Independent review | 2.3.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the engineer test in Real problem doesn't say what \"anyway\" means |
+| [Turn budgets](../../../../src/claude/rules/_rules_lazy_load/turn_budgets.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Portable paths](../../../../src/claude/rules/_rules_lazy_load/portable_paths.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: never hard-code `~/.claude` reads against using it as the fallback; Maintainability: the Why bullet cites history |
+| [TODO logging](../../../../src/claude/rules/_rules_lazy_load/todo_logging.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Writing style](../../../../src/claude/rules/01_essentials/claude_usage_standards/writing_style.md) | Independent review | 3.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Naming standards](../../../../src/claude/rules/01_essentials/claude_usage_standards/naming_standards.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Claude naming patterns](../../../../src/claude/rules/_rules_lazy_load/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/01_essentials/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Verify before done and Pre-existing issues give no reason |
+| [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Claude plans](../../../../src/claude/rules/02_claude_standards/claude_plans.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Plan approval gives no reason, and "you" is ambiguous |
+| [Saving plans](../../../../src/claude/rules/_rules_lazy_load/saving_plans.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: it doesn't say what happens when a plan finishes, or where plan mode's scratch folder is |
 | [Git](../../../../src/claude/rules/02_claude_standards/git.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Flag complex operations and Worktrees give no reason |
 | [Security](../../../../src/claude/rules/02_claude_standards/security.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Code security](../../../../src/claude/rules/02_claude_standards/path_scoped_rules/code_security.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | 🟡 1 | **B · 8/10** | Leanness: the Logs bullet repeats security.md; Accuracy: "whenever a code file is open" overstates the five globs |

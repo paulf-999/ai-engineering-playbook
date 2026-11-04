@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # 🧠 Global Claude configuration
 
 <!-- Template for ~/.claude/CLAUDE.md, which Claude loads in every session in every repo, so keep it lean. Put project facts in each repo's own CLAUDE.md, and add a line here only when Claude repeatedly gets something wrong across repos. -->
@@ -56,5 +56,9 @@ For multi-step work, give a short plan with a check for each step, since clear c
 ```
 
 <!-- Working if: diffs carry fewer unneeded changes, fewer rewrites come from overcomplication, and clarifying questions come before the work rather than after mistakes. -->
+
+## ⚙️ Changing Claude's config
+
+- **Read on demand:** `_rules_lazy_load/guiding_principles.md`, in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.
 
 <!-- Imports (optional): @-import files Claude needs every session; each import loads in full at startup, so add sparingly -->

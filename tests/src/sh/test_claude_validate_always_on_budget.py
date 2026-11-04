@@ -1,6 +1,6 @@
-# version: 1.0.1
+# version: 1.0.2
 # created: 2026-11-03
-# updated: 2026-11-03
+# updated: 2026-11-04
 """Tests for the always-on budget check, which caps the Claude context loaded into every session."""
 
 import os
@@ -51,7 +51,7 @@ def test_the_budget_boundary(tmp_path, tokens, exit_code, message):
 @pytest.mark.parametrize(
     ("path", "text"),
     [
-        ("src/templates/global_claude.md", HUNDRED_TOKENS),
+        ("src/claude/CLAUDE.md", HUNDRED_TOKENS),
         # a file CLAUDE.md pulls in with an @-import loads in full
         ("docs/imported.md", HUNDRED_TOKENS),
         # a rule with no paths: setting loads in every session

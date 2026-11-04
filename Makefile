@@ -1,4 +1,4 @@
-# version: 1.1.2
+# version: 1.1.3
 # created: 2022-11-04
 # updated: 2026-11-04
 SHELL = /bin/sh
@@ -8,7 +8,7 @@ SHELL = /bin/sh
 #================================================================
 # make help		# list the available targets
 # make deps		# install the dependencies and git hooks
-# make install		# perform the end-to-end install
+# make install		# copy src/claude/ into your Claude config directory
 # make run		# launch the service
 # make test		# run the tests (pytest)
 # make clean		# perform a housekeeping cleanup
@@ -37,7 +37,8 @@ deps:
 	@python -m pre_commit install
 
 install:
-	@echo "${INFO}\nCalled makefile target 'install'. Run the setup & install targets.\n${COLOUR_OFF}"
+	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${CLAUDE_CONFIG_DIR:-$$HOME/.claude}.${COLOUR_OFF}"
+	@bash src/sh/claude_install_config.sh
 
 run:
 	@echo "${INFO}\nCalled makefile target 'run'. Launch service.${COLOUR_OFF}\n"

@@ -1,4 +1,4 @@
-<!-- version: 1.0.67 -->
+<!-- version: 1.0.68 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Markdown Quality Audit
@@ -39,7 +39,8 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Virtualenv setup](../../../guides/virtualenv_setup.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`src` README](../../../../src/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`tests` README](../../../../tests/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Global CLAUDE.md](../../../../src/templates/global_claude.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Global CLAUDE.md](../../../../src/claude/CLAUDE.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Guiding principles](../../../../src/claude/_rules_lazy_load/guiding_principles.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Tests audit](quality_audit_test_files.md) | Independent review | 3.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture](../../../target_architecture/current_architecture.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Current architecture: snapshot](../../../target_architecture/current_architecture/01_snapshot.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

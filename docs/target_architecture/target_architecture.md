@@ -1,4 +1,4 @@
-<!-- version: 1.5.2 -->
+<!-- version: 1.5.3 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-04 -->
 # 🏗️ Target architecture
@@ -20,7 +20,7 @@ Every component sits in one of three tiers:
 
 | Tier | Contains | Loads |
 |---|---|---|
-| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/templates/global_claude.md), `make test` and the CI checks, including the guards below | Every session, or every PR |
+| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md), `make test` and the CI checks, including the guards below | Every session, or every PR |
 | 🧰 **Optional** | Skills, which are step-by-step procedures, and agents, which work in a separate context | When the engineer or Claude asks for one |
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 

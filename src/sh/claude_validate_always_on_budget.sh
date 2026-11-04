@@ -1,7 +1,7 @@
 #!/bin/bash
-# version: 1.0.1
+# version: 1.0.2
 # created: 2026-11-03
-# updated: 2026-11-03
+# updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Fail when the Claude context loaded into every session is estimated at over the token budget
@@ -21,7 +21,7 @@ CHECK_DIR="${1:-.}"
 # the token ceiling, set in docs/target_architecture/design_principles/01_principles.md; override via the ALWAYS_ON_TOKEN_BUDGET env var
 TOKEN_BUDGET="${ALWAYS_ON_TOKEN_BUDGET:-3000}"
 # the files Claude loads in every session, before any @-imports they pull in
-CONTEXT_FILES=("CLAUDE.md" "src/templates/global_claude.md")
+CONTEXT_FILES=("CLAUDE.md" "src/claude/CLAUDE.md")
 TOTAL_CHARS=0
 
 #=======================================================================

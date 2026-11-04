@@ -1,9 +1,9 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-04 -->
 # 📝 Task log
 
-**Purpose:** a record of real tasks done with this repo's Claude configuration, and of each regular review, so components are added and removed on evidence.
+**Purpose:** a record of real tasks done with this repo's Claude configuration, and of each regular review, so each component's trial and removal rest on evidence.
 
 The [target architecture's measures](../target_architecture/target_architecture.md#-measures) define each column. This repo is public, so describe each task in general terms, with no client or employer details.
 

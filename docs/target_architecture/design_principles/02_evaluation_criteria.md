@@ -1,24 +1,33 @@
-<!-- version: 1.5.0 -->
+<!-- version: 1.6.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # ✅ Design principles: Evaluation criteria
 
-**Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), must pass before it's added and once it's in use.
+**Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), must pass when it's added and while it's on trial.
 
-This page is part of the [design principles](../design_principles.md), which also define always-on and task log. Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since the [PR template](../../../.github/pull_request_template.md) limits that section's bullets.
+This page is part of the [design principles](../design_principles.md), which also define always-on and task log.
 
-## 🚪 Should it exist?
+Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since the [PR template](../../../.github/pull_request_template.md) limits that section's bullets.
 
-It should exist only if every check below holds:
+## 🚪 Review each file
 
-- [ ] 📊 **Evidence:** the gap appears in at least two logged tasks, since one may be a one-off.
-- [ ] 🤖 **Claude still gets it wrong:** rerunning the task with only `CLAUDE.md`, tests and CI still shows the gap.
-- [ ] 🔁 **No duplicate:** CI, pre-commit and existing components don't already handle it.
+Each file from the old configuration is reviewed on its own for bloat, and you decide whether to port it as is, port a slimmed version or leave it out. Reviewed files can then share a PR.
+
+- [ ] 🚩 **Red flags:** for each file, the PR lists every hit below and every failed [What shape?](#-what-shape) check, with the decision and why, since for a port these inform the decision but never block it.
+
+The flags come from the [review of the old setup](../current_architecture/03_complexity_without_evidence.md) and the [handover review](../reference_material/handover_review.md), and cover how a component loads and enforces, not its topic.
+
+| Red flag | Spotted by | Suggested fix |
+|---|---|---|
+| 🏋️ **Always-on weight** | No `paths:` setting, or imported into `CLAUDE.md` | Make it path-scoped or on demand |
+| ⏱️ **Per-turn overhead** | A hook that fires on every prompt, such as `UserPromptSubmit` | Fire on a narrower event |
+| 🗣️ **Advisory-only control** | Prose for something that must always hold, such as "never commit to main" | Keep the prose, and consider adding a hook or CI check |
 
 ## 🧰 What shape?
 
 Its shape passes when:
 
+- [ ] 🔁 **No duplicate:** CI, pre-commit and existing components don't already handle it.
 - [ ] 🧭 **Right mechanism:** its form fits the need, per the table below.
 - [ ] 🎚️ **Tier:** it sits in a [tier](../target_architecture.md#-tiers) that loads only for the tasks that need it, unless every engineer needs it on every task.
 - [ ] 💰 **Cost:** always-on context stays within the [always-on budget](../target_architecture.md#-always-on-budget).
@@ -34,8 +43,8 @@ Its shape passes when:
 
 ## 🧪 Is it working?
 
-After it's added, it passes when:
+Once it's in use, it passes when:
 
-- [ ] 🔬 **Before and after:** rerunning the logged task with the component no longer shows the gap.
+- [ ] 🧪 **Trial:** at the next [review](01_principles.md#-numbers-and-tests), it has been used and hasn't got in the way.
 - [ ] 📈 **Signals:** the PR names an early signal and a later result to watch, such as fewer corrections and less rework.
 - [ ] ↩️ **Clean exit:** one small PR could remove it without breaking anything else.

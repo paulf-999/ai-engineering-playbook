@@ -1,4 +1,4 @@
-<!-- version: 2.3.1 -->
+<!-- version: 2.3.3 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 🧭 AI Engineering Playbook
@@ -12,7 +12,7 @@
 
 ## 📦 What it provides
 
-The playbook adds a Claude Code component only when real tasks show it's needed. It provides:
+The playbook reviews each Claude Code component from the old setup one at a time for bloat before porting, slimming or dropping it, and removes what real tasks show isn't paying off. It provides:
 
 - The [target architecture](docs/target_architecture/target_architecture.md): what every session loads, what loads only when needed, and how results are measured
 - [Design principles](docs/target_architecture/design_principles.md) and the checks each new component must pass

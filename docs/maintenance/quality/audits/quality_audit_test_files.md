@@ -1,4 +1,4 @@
-<!-- version: 3.4.2 -->
+<!-- version: 3.4.3 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Test Coverage Audit
@@ -25,7 +25,7 @@ This table counts each script's tests by their [priority score](../../test_maint
 | [`git_validate_num_file_changes.sh`](../../../../src/sh/git/git_validate_num_file_changes.sh) | 3 | 4 | 3 | 0 | 10 | **12** |
 | [`git_validate_pr_description.sh`](../../../../src/sh/git/git_validate_pr_description.sh) | 3 | 0 | 0 | 0 | 3 | **10** |
 | [`git_validate_pr_title.sh`](../../../../src/sh/git/git_validate_pr_title.sh) | 3 | 0 | 0 | 0 | 3 | **14** |
-| [`claude_validate_always_on_budget.sh`](../../../../src/sh/claude_validate_always_on_budget.sh) | 3 | 1 | 0 | 0 | 4 | **13** |
+| [`claude_validate_always_on_budget.sh`](../../../../src/sh/claude_validate_always_on_budget.sh) | 3 | 1 | 0 | 0 | 4 | **17** |
 | [`claude_install_config.sh`](../../../../src/sh/claude_install_config.sh) | 4 | 1 | 0 | 0 | 5 | **5** |
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | 2 | 1 | 2 | 0 | 5 | **13** |
 | [`Makefile`](../../../../Makefile) | 2 | 0 | 0 | 0 | 2 | **2** |
@@ -33,7 +33,7 @@ This table counts each script's tests by their [priority score](../../test_maint
 | [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | 0 | 6 | 0 | 0 | 6 | **13** |
 | [This audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py) | 0 | 2 | 0 | 0 | 2 | **2** |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 2 | 0 | 0 | 0 | 2 | **4** |
-| **Totals** | | | | | **77** | **142** |
+| **Totals** | | | | | **77** | **146** |
 
 ## ⭐ Quality by script
 

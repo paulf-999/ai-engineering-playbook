@@ -1,4 +1,4 @@
-# version: 1.0.2
+# version: 1.0.3
 # created: 2026-11-03
 # updated: 2026-11-04
 """Tests for the always-on budget check, which caps the Claude context loaded into every session."""
@@ -56,6 +56,9 @@ def test_the_budget_boundary(tmp_path, tokens, exit_code, message):
         ("docs/imported.md", HUNDRED_TOKENS),
         # a rule with no paths: setting loads in every session
         (".claude/rules/always.md", HUNDRED_TOKENS),
+        # the global config make install copies loads in every session too
+        ("src/claude/rules/always.md", HUNDRED_TOKENS),
+        ("src/claude/skills/example/SKILL.md", "---\ndescription: " + "x" * 400 + "\n---\n"),
         # Claude sees every skill's description, even when the skill isn't used
         (".claude/skills/example/SKILL.md", "---\ndescription: " + "x" * 400 + "\n---\n"),
         # agent descriptions count the same way
@@ -79,6 +82,9 @@ def test_each_kind_of_always_on_context_is_counted(tmp_path, path, text):
     [
         # a rule whose opening block sets paths: loads only with matching files
         (".claude/rules/scoped.md", "---\npaths:\n  - '*.sql'\n---\n" + HUNDRED_TOKENS),
+        ("src/claude/rules/scoped.md", "---\npaths:\n  - '*.sql'\n---\n" + HUNDRED_TOKENS),
+        # a file read on demand loads only when Claude follows a pointer to it
+        ("src/claude/_rules_lazy_load/guide.md", HUNDRED_TOKENS),
         # a skill's or agent's body loads only when it's used, so only its description counts
         (".claude/skills/example/SKILL.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),
         (".claude/agents/example.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),

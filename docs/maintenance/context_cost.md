@@ -1,4 +1,4 @@
-<!-- version: 1.0.4 -->
+<!-- version: 1.0.5 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 💰 Context cost
@@ -15,8 +15,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|
 | `CLAUDE.md` | Every session | ~542 |
 | `rules/01_essentials/claude_response_standards.md` | Every session | ~218 |
-| `rules/01_essentials/claude_usage_standards/naming_standards.md` | Every session | ~194 |
-| `rules/01_essentials/claude_usage_standards/writing_style.md` | Every session | ~305 |
+| `rules/01_essentials/naming_standards.md` | Every session | ~194 |
+| `rules/01_essentials/writing_style.md` | Every session | ~305 |
 | `rules/02_claude_standards/behaviour.md` | Every session | ~390 |
 | `rules/02_claude_standards/claude_plans.md` | Every session | ~157 |
 | `rules/02_claude_standards/git.md` | Every session | ~325 |

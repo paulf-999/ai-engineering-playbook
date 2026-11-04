@@ -1,4 +1,4 @@
-<!-- version: 1.0.9 -->
+<!-- version: 1.0.10 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-04 -->
 # 💰 Context cost
@@ -30,7 +30,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Globs | Tokens |
 |---|---|---|---|
 | 1 | `rules/_path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
-| | **Subtotal** | | **~195** |
+| 2 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~1114 |
+| | **Subtotal** | | **~1310** |
 
 ## 💤 On demand
 
@@ -47,4 +48,20 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 9 | `rules/_rules_on_demand/claude_config/permission_recommendations.md` | ~154 |
 | 10 | `rules/_rules_on_demand/claude_config/portable_paths.md` | ~189 |
 | 11 | `rules/_rules_on_demand/claude_config/turn_budgets.md` | ~174 |
-| | **Subtotal** | **~2531** |
+| 12 | `rules/_rules_on_demand/style_guides/python/_comments.md` | ~258 |
+| 13 | `rules/_rules_on_demand/style_guides/python/_python_environment.md` | ~479 |
+| 14 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~836 |
+| 15 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~331 |
+| 16 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~748 |
+| 17 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~436 |
+| 18 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~1177 |
+| 19 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
+| 20 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~1100 |
+| 21 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~407 |
+| 22 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~1171 |
+| 23 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~947 |
+| 24 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~467 |
+| 25 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~716 |
+| 26 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~815 |
+| 27 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~396 |
+| | **Subtotal** | **~13678** |

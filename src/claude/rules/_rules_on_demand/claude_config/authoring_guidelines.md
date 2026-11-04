@@ -1,4 +1,4 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 🛠️ Authoring guidelines
@@ -16,4 +16,4 @@
 - 📁 **Skill layout:** give each skill a folder holding a short `SKILL.md`, with longer detail in a `reference/` folder it reads while running.
 - 📝 **Descriptions:** keep skill and agent descriptions short, since every one loads in every session.
 - 🤖 **When an agent:** use one only when the work needs its own context or an independent view, such as a blind review.
-- 🏷️ **Names:** follow the patterns in `_rules_on_demand/claude_naming_patterns.md`.
+- 🏷️ **Names:** follow the patterns in `_rules_on_demand/claude_config/claude_naming_patterns.md`.

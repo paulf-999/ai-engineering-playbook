@@ -1,6 +1,6 @@
-<!-- version: 2.3.0 -->
+<!-- version: 2.3.1 -->
 <!-- created: 2022-11-04 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # 🧭 AI Engineering Playbook
 
 **Purpose:** a practical playbook for consistent, repeatable AI-assisted engineering, starting with the design for a lean Claude Code setup.
@@ -37,5 +37,5 @@ Before raising a PR, read the [contributing guidelines](.github/CONTRIBUTING.md)
    cd ai-engineering-playbook
    ```
 
-2. Create and activate a virtualenv (see the [virtualenv setup guide](docs/reference/virtualenv_setup.md)), then run `make deps` to install the requirements and the pre-commit git hooks.
+2. Create and activate a virtualenv (see the [virtualenv setup guide](docs/guides/virtualenv_setup.md)), then run `make deps` to install the requirements and the pre-commit git hooks.
 3. Run `make test` to check everything works.

@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # 📚 Docs folder guide
 
 **Purpose:** what each folder under `docs/` holds, and where a new doc goes.
@@ -8,7 +8,7 @@
 The folders, by reader:
 
 - 🏗️ **Design:** [`target_architecture/`](target_architecture/) holds the design for this repo's Claude configuration, and the sources behind it.
-- 👥 **Contributors:** [`reference/`](reference/) holds how-to guides, such as the [Git branching strategy](reference/git_branching_strategy.md).
+- 👥 **Contributors:** [`guides/`](guides/) holds how-to guides, such as the [Git branching strategy](guides/git_branching_strategy.md).
 - 🛠️ **Maintainers:** [`maintenance/`](maintenance/) covers upkeep of this repo, such as file headers and test upkeep.
   - **Quality:** its `quality/` folder holds how docs and tests are scored, in `themes/`, and the scores, in `audits/`.
 

@@ -1,6 +1,6 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # 📝 Task log
 
 **Purpose:** a record of real tasks done with this repo's Claude configuration, and of each regular review, so components are added and removed on evidence.
@@ -9,7 +9,7 @@ The [target architecture's measures](../target_architecture/target_architecture.
 
 ## 🧾 Tasks
 
-Add one row when a task's change is accepted, and add rework to that row when a later fix is needed:
+Add one row when a task's change is accepted, and add rework to that row when a later fix is needed. Take time to acceptance from the session's transcript, from the first prompt to acceptance. Leave out any gap of over 15 minutes with no messages, which counts as a break.
 
 | Date | Task | Time to acceptance (minutes) | Rework (fix commits) | Interventions | Component feedback |
 |---|---|---|---|---|---|
@@ -21,4 +21,4 @@ Add one row at each [regular review](../target_architecture/design_principles/01
 
 | Date | Always-on tokens | Upkeep (hours) | Notes |
 |---|---|---|---|
-| 🏁 2026-11-03 | 887 | — | Starting point, measured by the budget check before any component is added |
+| 🏁 2026-11-03 | 887 | — | Starting point, measured by the [always-on budget check](../target_architecture/target_architecture.md#-always-on-budget) before any component is added |

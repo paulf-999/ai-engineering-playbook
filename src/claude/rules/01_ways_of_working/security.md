@@ -1,4 +1,4 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 🔐 Security
@@ -10,4 +10,4 @@
 - 🔑 **Secrets:** never commit, print or log a secret, credential, API key or connection string, and treat any that leaks as compromised.
 - 🗣️ **Raise concerns:** flag a security problem as soon as you see it, even during unrelated work.
 
-- **Read on demand:** `_rules_on_demand/permission_recommendations.md`, in your Claude config directory, before recommending a permission or allowlist change.
+- **Read on demand:** `_rules_on_demand/claude_config/permission_recommendations.md`, in your Claude config directory, before recommending a permission or allowlist change.

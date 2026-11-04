@@ -1,4 +1,4 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 📛 Naming standards
@@ -10,4 +10,4 @@
 - 📋 **Offer options:** before naming something new, propose 3 or 4 candidates with one marked recommended, since naming is the user's call.
 - 📈 **Name for scale:** fit the wider group it belongs to, so `naming_standards.md` beats `hook_naming.md`.
 
-- **Read on demand:** `_rules_on_demand/claude_naming_patterns.md`, in your Claude config directory, before naming a new rule, skill, hook or agent.
+- **Read on demand:** `_rules_on_demand/claude_config/claude_naming_patterns.md`, in your Claude config directory, before naming a new rule, skill, hook or agent.

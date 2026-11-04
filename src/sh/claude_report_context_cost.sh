@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.0.0
+# version: 1.0.1
 # created: 2026-11-04
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -62,7 +62,8 @@ table_body() {
             ALWAYS_ON_CHARS=$((ALWAYS_ON_CHARS + chars))
         fi
         echo "| \`${file#"${CONFIG_DIR}"/}\` | ${condition} | ~$((chars / 4)) |"
-    done < <(git -C "${REPO_DIR}" ls-files -- "${CONFIG_DIR}/*.md" | sort)
+    # sort by byte value, so the order is the same on every machine whatever its locale
+    done < <(git -C "${REPO_DIR}" ls-files -- "${CONFIG_DIR}/*.md" | LC_ALL=C sort)
     echo "| **Every-session total** | | **~$((ALWAYS_ON_CHARS / 4))** |"
 }
 
@@ -95,6 +96,9 @@ REPORT_PATH="${REPO_DIR}/${REPORT}"
 if [[ "${CHECK_ONLY}" == true ]]; then
     if [[ ! -f "${REPORT_PATH}" ]] || [[ "$(tail -n +$((HEADER_LINES + 1)) "${REPORT_PATH}")" != "${EXPECTED}" ]]; then
         print_section_header "${ERROR}" "ERROR: ${REPORT} is out of date. Run make context_cost and commit the result."
+        if [[ -f "${REPORT_PATH}" ]]; then
+            diff <(tail -n +$((HEADER_LINES + 1)) "${REPORT_PATH}") <(echo "${EXPECTED}") || true
+        fi
         exit 1
     fi
     print_section_header "${INFO}" "SUCCESS: ${REPORT} matches src/claude/."

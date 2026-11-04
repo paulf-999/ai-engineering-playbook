@@ -1,11 +1,11 @@
-<!-- version: 1.6.1 -->
+<!-- version: 1.6.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-04 -->
 # ✅ Design principles: Evaluation criteria
 
-**Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), must pass when it's added and while it's on trial.
+**Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), faces when it's added and while it's on trial.
 
-This page is part of the [design principles](../design_principles.md), which also define always-on and task log.
+This page is part of the [design principles](../design_principles.md), which also define always-on.
 
 Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since the [PR template](../../../.github/pull_request_template.md) limits that section's bullets.
 
@@ -13,7 +13,8 @@ Answer each check in the PR's Additional Details section, under one **Evaluation
 
 Each file from the old configuration is reviewed on its own for bloat, and you decide whether to port it as is, port a slimmed version or leave it out. Reviewed files can then share a PR.
 
-- [ ] 🚩 **Red flags:** for each file, the PR lists every hit below and every failed [What shape?](#-what-shape) check, with the decision and why, since for a port these inform the decision but never block it.
+- [ ] 🚩 **Red flags:** for each file, the PR lists every hit below and every failed [What shape?](#-what-shape) check, with the decision and why.
+  - **Ports vs new:** for a port these inform the decision but never block it, while a new component must pass every check.
 
 The flags come from the [review of the old setup](../current_architecture/03_complexity_without_evidence.md) and the [handover review](../reference_material/handover_review.md), and cover how a component loads and enforces, not its topic.
 

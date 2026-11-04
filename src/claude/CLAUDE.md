@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 🧠 Global Claude configuration
@@ -40,20 +40,8 @@
 
 **Define success criteria, then loop until they're verified.**
 
-Restate each task as something you can check:
-
-| Task | Becomes |
-|---|---|
-| 🛡️ Add validation | Write tests for bad inputs, then make them pass |
-| 🐛 Fix a bug | Write a test that reproduces it, then make it pass |
-| ♻️ Refactor | Confirm the tests pass both before and after |
-
-For multi-step work, give a short plan with a check for each step, since clear checks let you work without constant clarification:
-
-```text
-1. <step> → verify: <check>
-2. <step> → verify: <check>
-```
+- 🧪 **Make it checkable:** turn each task into a test, such as one that reproduces a bug, then make it pass, and confirm a refactor passes before and after.
+- 📋 **Plan with checks:** for multi-step work, list each step with the check that proves it's done.
 
 <!-- Working if: diffs carry fewer unneeded changes, fewer rewrites come from overcomplication, and clarifying questions come before the work rather than after mistakes. -->
 

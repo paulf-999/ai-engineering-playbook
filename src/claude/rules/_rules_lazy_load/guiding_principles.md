@@ -1,4 +1,4 @@
-<!-- version: 2.2.0 -->
+<!-- version: 2.3.0 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-04 -->
 # 🧭 Guiding principles for Claude config
@@ -7,7 +7,7 @@
 
 ## ✅ Before proposing a config change
 
-- 🎯 **Real problem:** name the recurring problem it solves, and that an engineer would build it without AI help, since "might be useful someday" isn't a reason.
+- 🎯 **Real problem:** name the recurring problem it solves, and check an engineer would have built it anyway, since "might be useful someday" isn't a reason.
 - 💰 **Cost:** estimate the tokens it adds to every session, or each time a hook fires, plus the upkeep of any new dependency or pipeline.
 - 💤 **Load on demand:** prefer a path-scoped rule, a skill or a read-on-demand file over anything always-on.
 - 🧰 **Right mechanism:** use a hook, test or CI check for what must always hold, since prose only advises.
@@ -20,3 +20,8 @@
 - 💸 **Automation pays back:** automate only work done about 5 or more times a month.
 - 🔗 **Live sources:** link to the source of truth rather than keeping lists that go stale.
 - 📐 **Size:** keep a rule to about 100 lines and one concept, and split anything longer into a parent and child files.
+
+## 📚 Read on demand
+
+- **Read on demand:** `_rules_lazy_load/portable_paths.md`, in your Claude config directory, before writing a hook, script or test for the config.
+- **Read on demand:** `_rules_lazy_load/turn_budgets.md`, before testing a config change with `claude -p` or another unattended run.

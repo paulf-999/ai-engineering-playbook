@@ -1,13 +1,13 @@
-<!-- version: 1.6.1 -->
+<!-- version: 1.7.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-04 -->
 # 📚 Reference Material
 
 **Purpose:** the outside sources behind this repo's target architecture, the design for its new Claude configuration, and how to use and cite them.
 
 ## 📋 Source register
 
-Each summarised or quoted source links to its page from the Source column, the Access column says which sources were read in full, and Captured gives the date each summary or quoted page was written, so an old date flags a summary to recheck.
+Each source links to its summary, Access says which were read in full, and an old Captured date flags a summary to recheck.
 
 | # | Source | Publisher | Version or date | Access | Captured | Used for |
 |---|---|---|---|---|---|---|
@@ -21,6 +21,7 @@ Each summarised or quoted source links to its page from the Source column, the A
 | 8️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) · [summary](anthropic_agent_evals.md) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of this repo's configuration still helps |
 | 9️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) · [summary](metr_developer_productivity_trial.md) | METR (Model Evaluation & Threat Research): Becker, Rush, Barnes and Rein, on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
 | 🔟 | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) · [summary](claude_code_best_practices.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
+| 1️⃣1️⃣ | [The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf) · [summary](togaf_standards.md) | The Open Group | 10th Edition, 2022, © The Open Group | Free download after registering, summary not yet checked against the full text | 2026-11-04 | A shared method and vocabulary for enterprise architecture |
 
 ## 🧭 How to use these sources
 
@@ -35,6 +36,12 @@ These sources say what to do, but none shows that a practice works:
 - 🧰 **Böckeler's harness engineering:** a practitioner's view, from outside Anthropic, of the controls a user builds around a coding agent, useful as a check on vendor advice.
 - 🧪 **Anthropic's evals article:** a method for testing agents, not evidence about this repo.
 - 🧑‍💼 **Handover review:** one reviewer's judgement on the old configuration, which sets the design's direction rather than proving it works.
+
+### 📐 Standards
+
+This source sets out a common method:
+
+- 🏛️ **The TOGAF Standard:** a shared method and vocabulary for enterprise architecture, not evidence that any practice works.
 
 ### 🔬 Evidence
 

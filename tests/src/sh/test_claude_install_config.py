@@ -1,4 +1,4 @@
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-04
 # updated: 2026-11-04
 """Tests for the install script, which copies src/claude/ into a Claude config directory after a typed 'install'."""
@@ -50,6 +50,11 @@ def tracked_config_files():
     return {path.removeprefix("src/claude/") for path in output.stdout.splitlines()}
 
 
+def installed_path(source):
+    """Return where a src/claude/ file should install, with on-demand files moved out of rules/."""
+    return source.removeprefix("rules/") if source.startswith("rules/_rules_lazy_load/") else source
+
+
 def installed_files(target):
     """Return every file under the target, as paths relative to it, ignoring backups."""
     return {
@@ -80,11 +85,23 @@ def test_install_copies_every_tracked_file(tmp_path):
     """Typing 'install' copies each tracked file in src/claude/ to the same relative path in the target."""
     result = run_install(tmp_path, answer="install")
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    expected = tracked_config_files()
-    assert expected, "git should list at least one file under src/claude/"
-    assert expected <= installed_files(tmp_path), f"missing installed files: {expected - installed_files(tmp_path)}"
-    for path in expected:
-        assert (tmp_path / path).read_bytes() == (SOURCE / path).read_bytes(), f"{path} should match the repo copy"
+    sources = tracked_config_files()
+    assert sources, "git should list at least one file under src/claude/"
+    installed = {installed_path(path): path for path in sources}
+    assert set(installed) <= installed_files(tmp_path), f"missing: {set(installed) - installed_files(tmp_path)}"
+    for target, source in installed.items():
+        assert (tmp_path / target).read_bytes() == (SOURCE / source).read_bytes(), f"{target} should match {source}"
+
+
+# MoSCoW: Must — on-demand files must never install under rules/, where Claude Code would load them every session
+def test_on_demand_files_install_beside_rules(tmp_path):
+    """Files in src/claude/rules/_rules_lazy_load/ install to _rules_lazy_load/, and none of them land in rules/."""
+    result = run_install(tmp_path, answer="install")
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert (tmp_path / "_rules_lazy_load" / "guiding_principles.md").is_file(), (
+        "on-demand files should sit beside rules/"
+    )
+    assert not (tmp_path / "rules" / "_rules_lazy_load").exists(), "no on-demand file should install under rules/"
 
 
 # MoSCoW: Must — install never loses what's already in your config

@@ -1,4 +1,4 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-04 -->
 # 📝 Task log
@@ -22,3 +22,4 @@ Add one row at each [regular review](../target_architecture/design_principles/01
 | Date | Always-on tokens | Upkeep (hours) | Notes |
 |---|---|---|---|
 | 🏁 2026-11-03 | 887 | — | Starting point, measured by the [always-on budget check](../target_architecture/target_architecture.md#-always-on-budget) before any component is added |
+| 🔧 2026-11-04 | 2,077 | 2.3 | Porting session, not a regular review: five files ported, plus about 15 independent review agents at about 90,000 tokens each |

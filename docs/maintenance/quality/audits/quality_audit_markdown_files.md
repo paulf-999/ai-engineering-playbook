@@ -1,4 +1,4 @@
-<!-- version: 1.0.76 -->
+<!-- version: 1.0.78 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Markdown Quality Audit
@@ -47,6 +47,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Claude naming patterns](../../../../src/claude/rules/_rules_lazy_load/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/01_essentials/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Behaviour](../../../../src/claude/rules/02_claude_standards/behaviour.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Verify before done and Pre-existing issues give no reason |
+| [Git](../../../../src/claude/rules/02_claude_standards/git.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Flag complex operations and Worktrees give no reason |
 | [Security](../../../../src/claude/rules/02_claude_standards/security.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Code security](../../../../src/claude/rules/02_claude_standards/path_scoped_rules/code_security.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | 🟡 1 | **B · 8/10** | Leanness: the Logs bullet repeats security.md; Accuracy: "whenever a code file is open" overstates the five globs |
 | [Permission recommendations](../../../../src/claude/rules/_rules_lazy_load/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

@@ -1,4 +1,4 @@
-<!-- version: 1.6.0 -->
+<!-- version: 1.6.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-04 -->
 # ✅ Design principles: Evaluation criteria
@@ -9,11 +9,11 @@ This page is part of the [design principles](../design_principles.md), which als
 
 Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since the [PR template](../../../.github/pull_request_template.md) limits that section's bullets.
 
-## 🚪 Port by default
+## 🚪 Review each file
 
-A component from the old configuration is ported by default, with one check first:
+Each file from the old configuration is reviewed on its own for bloat, and you decide whether to port it as is, port a slimmed version or leave it out. Reviewed files can then share a PR.
 
-- [ ] 🚩 **Red flags:** the PR lists every hit below, and every failed [What shape?](#-what-shape) check, with its fix or why it's ported as it is, since for a port these warn but never block.
+- [ ] 🚩 **Red flags:** for each file, the PR lists every hit below and every failed [What shape?](#-what-shape) check, with the decision and why, since for a port these inform the decision but never block it.
 
 The flags come from the [review of the old setup](../current_architecture/03_complexity_without_evidence.md) and the [handover review](../reference_material/handover_review.md), and cover how a component loads and enforces, not its topic.
 

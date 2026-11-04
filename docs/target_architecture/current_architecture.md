@@ -1,4 +1,4 @@
-<!-- version: 2.1.1 -->
+<!-- version: 2.1.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-04 -->
 # 🏛️ Current architecture
@@ -26,6 +26,6 @@ Read them in this order:
 
 ## 🎓 Lessons for the new design
 
-- 🌱 **Start minimal:** begin with `CLAUDE.md`, one test command and CI, then port components in small batches, each checked for the patterns that made this setup costly.
+- 🌱 **Start minimal:** begin with `CLAUDE.md`, one test command and CI, then review each component on its own for the patterns that made this setup costly, before porting, slimming or dropping it.
 - 🔪 **Halving test:** ask whether removing half the components would make results noticeably worse.
 - 💪 **Keep the strengths:** carry over everything on the strengths page.

@@ -1,10 +1,11 @@
 #!/bin/bash
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-04
 # updated: 2026-11-04
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
+#              On-demand files in rules/_rules_lazy_load/ go beside rules/, since Claude Code loads everything under rules/
 # Usage: src/sh/claude_install_config.sh (run from the repo root, at your own terminal; make install calls it)
 
 # Load reusable shell script vars & functions
@@ -17,8 +18,9 @@ trap handle_interruption SIGINT
 # Variables
 #=======================================================================
 
-# mirrors the config directory's layout, so each file is copied to the same relative path
+# mirrors the config directory's layout, so each file is copied to the same relative path, except on-demand files
 SOURCE_DIR="src/claude"
+LAZY_RULES_DIR="rules/_rules_lazy_load"
 TARGET_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
 BACKUP_DIR="${TARGET_DIR}/backups/install_$(date +%Y_%m_%d_%H%M%S)"
 # the tracked files under SOURCE_DIR, set by list_source_files
@@ -27,6 +29,16 @@ SOURCE_FILES=()
 #=======================================================================
 # Functions
 #=======================================================================
+
+# Print where a source file installs: on-demand files move from rules/_rules_lazy_load/ to _rules_lazy_load/
+target_path() {
+    local file="${1}"
+    if [[ "${file}" == "${LAZY_RULES_DIR}/"* ]]; then
+        echo "${file#rules/}"
+    else
+        echo "${file}"
+    fi
+}
 
 # Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed
 list_source_files() {
@@ -49,7 +61,7 @@ confirm_install() {
     fi
     log_message "${INFO}" "Installing ${#SOURCE_FILES[@]} file(s) into ${TARGET_DIR}:"
     for file in "${SOURCE_FILES[@]}"; do
-        echo "  ${file}"
+        echo "  $(target_path "${file}")"
     done
     echo "Each file it overwrites is backed up to ${BACKUP_DIR} first, and nothing is deleted."
     read -r -p "Type 'install' to continue: " answer || true
@@ -61,15 +73,16 @@ confirm_install() {
 
 # Copy each file over the target, backing up any existing copy that differs, and skipping identical ones
 install_files() {
-    local file target copied=0 backed_up=0
+    local file relative target copied=0 backed_up=0
     for file in "${SOURCE_FILES[@]}"; do
-        target="${TARGET_DIR}/${file}"
+        relative="$(target_path "${file}")"
+        target="${TARGET_DIR}/${relative}"
         if file_exists "${target}" && cmp -s "${SOURCE_DIR}/${file}" "${target}"; then
             continue
         fi
         if file_exists "${target}"; then
-            mkdir -p "$(dirname "${BACKUP_DIR}/${file}")"
-            cp -p "${target}" "${BACKUP_DIR}/${file}"
+            mkdir -p "$(dirname "${BACKUP_DIR}/${relative}")"
+            cp -p "${target}" "${BACKUP_DIR}/${relative}"
             backed_up=$((backed_up + 1))
         fi
         mkdir -p "$(dirname "${target}")"

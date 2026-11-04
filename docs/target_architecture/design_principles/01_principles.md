@@ -1,4 +1,4 @@
-<!-- version: 1.5.1 -->
+<!-- version: 1.5.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-04 -->
 # 🧱 Design principles: Principles
@@ -31,7 +31,7 @@ These limits back the principles:
 
 ## ♻️ Carried over
 
-These principles from the [Claude configuration this repo replaces](../current_architecture.md) still apply:
+These principles from the [old configuration's guiding principles](https://github.com/paulf-999/claude_ai_playbook/blob/915685f/src/claude/rules/01_essentials/guiding_principles.md) still apply:
 
 - Make every change easy to reverse.
 - Grow in small stages.

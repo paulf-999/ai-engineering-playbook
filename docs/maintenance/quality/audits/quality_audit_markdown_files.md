@@ -1,4 +1,4 @@
-<!-- version: 1.0.72 -->
+<!-- version: 1.0.73 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-04 -->
 # 📊 Markdown Quality Audit
@@ -42,6 +42,8 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Global CLAUDE.md](../../../../src/claude/CLAUDE.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Guiding principles](../../../../src/claude/rules/_rules_lazy_load/guiding_principles.md) | Independent review | 2.1.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: the Newline bullet repeats a pre-commit check |
 | [Writing style](../../../../src/claude/rules/01_essentials/claude_usage_standards/writing_style.md) | Independent review | 3.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Naming standards](../../../../src/claude/rules/01_essentials/claude_usage_standards/naming_standards.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Claude naming patterns](../../../../src/claude/rules/_rules_lazy_load/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/01_essentials/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Markdown layout](../../../../src/claude/rules/_rules_lazy_load/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
 | [Audience and depth](../../../../src/claude/rules/_rules_lazy_load/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |

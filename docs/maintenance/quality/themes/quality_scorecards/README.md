@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Quality Scorecards
@@ -31,6 +31,18 @@ This page is part of the maintainers' quality docs described in the [docs folder
 ## 🔍 Independent review
 
 Skills, rules and agents are scored by a reviewer that didn't write them, so the author never marks their own work.
+
+### 📏 Rules: one review per PR
+
+1. **Free checks:** `make test` passes, including [the rule structure test](../../../../../tests/src/claude/test_rules_structure.py), which checks layout, usage lines, inbound pointers and pointer paths.
+2. **Author's table:** the PR's evaluation table is filled in, including each rule's evidence of need.
+3. **One review:** a single fresh-context Agent call on Sonnet scores Clarity, Evidence of Need and Currency for every rule the PR adds or changes, reading only those rules, their pointer targets, [the rules rubric](rules/README.md) and [`scoring_anchors.md`](scoring_anchors.md).
+4. **Record:** each rule gets a row in [`rule_scorecards_summary.md`](rules/rule_scorecards_summary.md) and in [`score_history.csv`](score_history.csv), and the findings go in the PR, with no per-file scorecard.
+5. **Skip:** a PR that only moves or renames rules needs no review.
+
+- **Baseline:** the 7 scorecard files under `rules/` are the first full review, kept for reference rather than updated.
+
+### 🧩 Skills and agents
 
 1. **Deterministic checks:** `make test` and `pre-commit run --all-files` pass before any scoring.
 2. **Evals:** the artefact's evals exist at the count its maturity needs.

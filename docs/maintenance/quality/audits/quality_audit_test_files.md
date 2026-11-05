@@ -1,4 +1,4 @@
-<!-- version: 3.4.11 -->
+<!-- version: 3.4.12 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Test Coverage Audit
@@ -31,10 +31,11 @@ This table counts each script's tests by their [priority score](../../test_maint
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | 2 | 1 | 2 | 0 | 5 | **13** |
 | [`Makefile`](../../../../Makefile) | 2 | 0 | 0 | 0 | 2 | **2** |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 3 | 1 | 0 | 5 | **15** |
+| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | 9 | 3 | 0 | 0 | 12 | **103** |
 | [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | 0 | 6 | 0 | 0 | 6 | **13** |
 | [This audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py) | 0 | 2 | 0 | 0 | 2 | **2** |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 2 | 0 | 0 | 0 | 2 | **4** |
-| **Totals** | | | | | **88** | **167** |
+| **Totals** | | | | | **100** | **270** |
 
 ## ⭐ Quality by script
 
@@ -55,5 +56,6 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`Makefile`](../../../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the strict-xfail marks for rules awaiting a pointer, and the shared good-rule example, add moving parts |
 | [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Core coverage: no bad-header case for a markdown file or one with YAML front matter |

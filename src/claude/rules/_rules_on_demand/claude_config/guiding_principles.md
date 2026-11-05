@@ -1,6 +1,9 @@
-<!-- version: 2.4.2 -->
+<!-- version: 2.4.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
+<!-- applies_to: src/claude/**, **/.claude/**, **/CLAUDE.md -->
+<!-- miss_cost: medium — a config change lands without its cost being weighed -->
+<!-- loading: lazy — read when CLAUDE.md's pointer for changing Claude's config sends Claude here -->
 # 🧭 Guiding principles for Claude config
 
 **Purpose:** decide whether a proposed rule, skill, hook, import, setting or memory note is worth its cost, and how to build it.

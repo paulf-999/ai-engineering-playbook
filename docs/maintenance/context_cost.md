@@ -1,4 +1,4 @@
-<!-- version: 1.0.17 -->
+<!-- version: 1.0.18 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -40,7 +40,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~750 |
 | 10 | `rules/_path_scoped_rules/style_guides/utilities/makefile.md` | `**/Makefile`, `**/*.mk` | ~247 |
 | 11 | `rules/_path_scoped_rules/style_guides/utilities/mermaid.md` | `**/*.mmd` | ~198 |
-| | **Subtotal** | | **~6845** |
+| 12 | `rules/_path_scoped_rules/testing.md` | `**/*.py`, `**/*.sh`, `**/*.sql` | ~215 |
+| | **Subtotal** | | **~7060** |
 
 ## 💤 On demand
 
@@ -110,4 +111,6 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 62 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
 | 63 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
 | 64 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
-| | **Subtotal** | **~37426** |
+| 65 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
+| 66 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~472 |
+| | **Subtotal** | **~38591** |

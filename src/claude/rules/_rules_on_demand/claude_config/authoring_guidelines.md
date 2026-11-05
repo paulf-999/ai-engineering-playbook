@@ -1,9 +1,11 @@
-<!-- version: 2.0.2 -->
+<!-- version: 2.1.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
 # 🛠️ Authoring guidelines
 
 **Purpose:** how to structure a new rule, skill or agent for Claude's config, once the guiding principles say it's worth adding.
+
+- **Read on demand:** `_templates/README.md`, in your Claude config directory, before writing a new rule, skill or agent, for the template to start from.
 
 ## 📝 Rules
 

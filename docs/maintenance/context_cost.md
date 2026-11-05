@@ -1,4 +1,4 @@
-<!-- version: 1.0.18 -->
+<!-- version: 1.0.19 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -16,14 +16,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~546 |
-| 2 | `rules/01_ways_of_working/behaviour.md` | ~450 |
-| 3 | `rules/01_ways_of_working/claude_plans.md` | ~162 |
-| 4 | `rules/01_ways_of_working/git.md` | ~325 |
-| 5 | `rules/01_ways_of_working/security.md` | ~204 |
-| 6 | `rules/02_communication/claude_response_standards.md` | ~218 |
-| 7 | `rules/02_communication/naming_standards.md` | ~233 |
-| 8 | `rules/02_communication/writing_style.md` | ~344 |
-| | **Subtotal** | **~2484** |
+| 2 | `rules/01_standards/claude_response_standards.md` | ~218 |
+| 3 | `rules/01_standards/naming_standards.md` | ~233 |
+| 4 | `rules/02_conduct/behaviour.md` | ~446 |
+| 5 | `rules/02_conduct/security.md` | ~204 |
+| 6 | `rules/02_conduct/writing_style.md` | ~340 |
+| 7 | `rules/03_workflows/claude_plans.md` | ~160 |
+| 8 | `rules/03_workflows/git.md` | ~325 |
+| | **Subtotal** | **~2474** |
 
 ## 📂 With matching files
 
@@ -47,12 +47,12 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/_rules_on_demand/01_ways_of_working/automation_controls.md` | ~719 |
-| 2 | `rules/_rules_on_demand/01_ways_of_working/saving_plans.md` | ~169 |
-| 3 | `rules/_rules_on_demand/01_ways_of_working/todo_logging.md` | ~141 |
-| 4 | `rules/_rules_on_demand/02_communication/writing_style/_audience_and_depth.md` | ~324 |
-| 5 | `rules/_rules_on_demand/02_communication/writing_style/_drafts_and_errors.md` | ~199 |
-| 6 | `rules/_rules_on_demand/02_communication/writing_style/_markdown_layout.md` | ~264 |
+| 1 | `rules/_rules_on_demand/02_conduct/automation_controls.md` | ~719 |
+| 2 | `rules/_rules_on_demand/02_conduct/todo_logging.md` | ~141 |
+| 3 | `rules/_rules_on_demand/02_conduct/writing_style/_audience_and_depth.md` | ~324 |
+| 4 | `rules/_rules_on_demand/02_conduct/writing_style/_drafts_and_errors.md` | ~199 |
+| 5 | `rules/_rules_on_demand/02_conduct/writing_style/_markdown_layout.md` | ~264 |
+| 6 | `rules/_rules_on_demand/03_workflows/saving_plans.md` | ~169 |
 | 7 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~268 |
 | 8 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~199 |
 | 9 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~447 |

@@ -1,8 +1,9 @@
 ---
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-02
-# updated: 2026-11-02
-# Check each PR description stays short and only uses full links, re-checking whenever it's edited.
+# updated: 2026-11-05
+# Check each PR description stays short and only uses full links, re-checking whenever it's edited,
+# and that a PR changing src/claude/ answers the evaluation criteria.
 # A separate workflow from ci.yml, so editing a description doesn't re-run the tests.
 name: PR description
 
@@ -13,6 +14,8 @@ on:
 
 permissions:
     contents: read
+    # read the PR's changed files, to spot changes to the installed Claude config
+    pull-requests: read
 
 # Cancel an older run on the same PR when its description is edited again
 concurrency:
@@ -30,4 +33,8 @@ jobs:
             - name: Validate PR description
               env:
                   PR_DESCRIPTION: ${{ github.event.pull_request.body }}
-              run: src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}"
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  CHANGED_FILES="$(gh pr diff "${PR_NUMBER}" --name-only --repo "${GITHUB_REPOSITORY}")"
+                  src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "${CHANGED_FILES}"

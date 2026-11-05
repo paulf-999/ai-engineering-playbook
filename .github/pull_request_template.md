@@ -4,7 +4,7 @@
 
 ## :mag: (Optional) Additional Details
 
-[If needed, only what a reviewer must or should know, in 5 bullets or fewer, with full GitHub URLs for any file, issue or PR.]
+[If needed, only what a reviewer must or should know, in 5 bullets or fewer, with full GitHub URLs for any file, issue or PR. A change to `src/claude/` needs an **Evaluation criteria:** bullet, with a child per check in `docs/target_architecture/design_principles/02_evaluation_criteria.md`.]
 
 ## :hammer_and_wrench: Type of PR Change
 

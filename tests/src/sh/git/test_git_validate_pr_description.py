@@ -1,6 +1,6 @@
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-02
-# updated: 2026-11-02
+# updated: 2026-11-05
 """Tests for the PR description check, which keeps PR descriptions short and their links working."""
 
 import os
@@ -14,9 +14,11 @@ DETAILS = "## :mag: (Optional) Additional Details\n\n"
 NEXT_SECTION = "\n## :hammer_and_wrench: Type of PR Change\n\n- [x] Documentation\n"
 
 
-def run_check(description):
+def run_check(description, changed_files=""):
     """Run the PR description check from the repo root and return the full result."""
-    return subprocess.run([str(SCRIPT), description], cwd=REPO_ROOT, capture_output=True, text=True, check=False)
+    return subprocess.run(
+        [str(SCRIPT), description, changed_files], cwd=REPO_ROOT, capture_output=True, text=True, check=False
+    )
 
 
 def bullets(count):
@@ -75,3 +77,31 @@ def test_description_with_shell_characters_is_not_executed(tmp_path):
     )
     assert result.returncode == 0, f"the description is valid once its shell syntax is read as text: {result.stdout}"
     assert not marker.exists(), "shell syntax in the description was run as a command"
+
+
+CONFIG_FILE = "src/claude/rules/example.md\ndocs/other.md"
+CRITERIA = "- **Evaluation criteria:**\n  - **Red flags:** none.\n"
+
+
+# MoSCoW: Must — a PR changing the installed Claude config must answer the evaluation criteria
+@pytest.mark.parametrize(
+    ("description", "changed_files", "expected_code"),
+    [
+        # a config change with the bullet passes
+        (DETAILS + bullets(4) + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
+        # a config change without it fails
+        (DETAILS + bullets(4) + NEXT_SECTION, CONFIG_FILE, 1),
+        # the bullet must be top-level in Additional Details, not a child or in another section
+        (DETAILS + bullets(1) + "  " + CRITERIA + NEXT_SECTION, CONFIG_FILE, 1),
+        (DETAILS + bullets(1) + NEXT_SECTION + CRITERIA, CONFIG_FILE, 1),
+        # a PR that doesn't touch src/claude/ needs no bullet, and nor does a run without a file list
+        (DETAILS + bullets(4) + NEXT_SECTION, "docs/other.md\nsrc/sh/x.sh", 0),
+        (DETAILS + bullets(4) + NEXT_SECTION, "", 0),
+    ],
+)
+def test_config_changes_require_evaluation_criteria(description, changed_files, expected_code):
+    """Only a PR that changes src/claude/ must include a top-level Evaluation criteria bullet."""
+    result = run_check(description, changed_files)
+    assert result.returncode == expected_code, result.stdout
+    if expected_code == 1:
+        assert "Evaluation criteria" in result.stdout, f"the reason should name the missing bullet: {result.stdout}"

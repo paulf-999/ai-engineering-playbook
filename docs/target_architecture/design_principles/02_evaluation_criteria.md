@@ -1,13 +1,13 @@
-<!-- version: 1.6.2 -->
+<!-- version: 1.6.3 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
 # ✅ Design principles: Evaluation criteria
 
 **Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), faces when it's added and while it's on trial.
 
 This page is part of the [design principles](../design_principles.md), which also define always-on.
 
-Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since the [PR template](../../../.github/pull_request_template.md) limits that section's bullets.
+Answer each check in the PR's Additional Details section, under one **Evaluation criteria** bullet with a child per check, since the [PR template](../../../.github/pull_request_template.md) limits that section's bullets, and CI fails a PR that changes `src/claude/` without it.
 
 ## 🚪 Review each file
 

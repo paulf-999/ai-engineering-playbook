@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.2.1
+# version: 1.2.2
 # created: 2026-11-02
 # updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -67,20 +67,33 @@ changes_claude_config() {
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'
 }
 
-# Succeed if the "Evaluation criteria" section has at least one top-level bullet
+# Succeed if the "Evaluation criteria" section has at least one top-level bullet or table body row
 has_evaluation_criteria() {
-    section "Evaluation criteria" | grep -qE '^[-*] '
+    # a table's separator row, such as |---|---|, holds no answer, so it doesn't count
+    section "Evaluation criteria" | grep -E '^([-*] |\|)' | grep -qvE '^\|[-: |]+\|$'
+}
+
+# Print each square-bracket placeholder left in the "Evaluation criteria" section, one per line
+# inline code, links, checkboxes and alert markers such as [!TIP] are removed first, since they're real content
+criteria_placeholders() {
+    # shellcheck disable=SC2016  # the backticks are a literal sed pattern, not a command
+    section "Evaluation criteria" | sed -E 's/`[^`]*`//g; s/\[[^]]*\]\([^)]*\)//g; s/\[![A-Z]+\]//g; s/\[[ xX]\]//g' \
+        | grep -oE '\[[^]]+\]' || true
 }
 
 # Explain each reason the description fails, or print nothing if it's fine
 description_problems() {
-    local bullets links
+    local bullets links placeholders
     bullets="$(count_detail_bullets)"
     if (( bullets > MAX_DETAIL_BULLETS )); then
         echo "Cut 'Additional Details' to ${MAX_DETAIL_BULLETS} top-level bullets or fewer (it has ${bullets}), keeping only what a reviewer must or should know."
     fi
     if changes_claude_config && ! has_evaluation_criteria; then
-        echo "Answer the 'Evaluation criteria' section with Red flags, Shape and Working bullets, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
+        echo "Answer the 'Evaluation criteria' section with a Red flags, Shape and Working table, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
+    fi
+    placeholders="$(criteria_placeholders)"
+    if changes_claude_config && [[ -n "${placeholders}" ]]; then
+        echo "Replace the template placeholders left in 'Evaluation criteria' with real answers: ${placeholders//$'\n'/, }"
     fi
     links="$(relative_links)"
     if [[ -n "${links}" ]]; then

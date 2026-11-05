@@ -1,4 +1,4 @@
-# version: 1.2.1
+# version: 1.2.2
 # created: 2026-11-02
 # updated: 2026-11-05
 """Tests for the PR description check, which keeps PR descriptions short and their links working."""
@@ -111,3 +111,49 @@ def test_config_changes_require_evaluation_criteria(description, changed_files, 
     assert result.returncode == expected_code, result.stdout
     if expected_code == 1:
         assert "Evaluation criteria" in result.stdout, f"the reason should name the missing section: {result.stdout}"
+
+
+TABLE_HEADER = "| Review area | Standard | Result | Why |\n|---|---|---|---|\n"
+TEMPLATE_CRITERIA = (
+    "\n## :balance_scale: Evaluation criteria\n\n> [!TIP]\n> **✅ Safe to approve:** [one sentence saying why.]\n\n"
+    + TABLE_HEADER
+    + "| :toolbox: Shape | No duplicate | [✅ Aligned or ❌ Misaligned] | [why] |\n"
+)
+FILLED_CRITERIA = (
+    "\n## :balance_scale: Evaluation criteria\n\n> [!TIP]\n> **✅ Safe to approve:** no red flags.\n\n"
+    + TABLE_HEADER
+    + "| :toolbox: Shape | No duplicate | ✅ Aligned | Unique, per the [rules](https://x.io/r.md). |\n"
+    + "| :test_tube: Working | Trial | ⏳ Not yet due | [x] due at the next review, with `[x]` shown as code. |\n"
+)
+SEPARATOR_ONLY = "\n## :balance_scale: Evaluation criteria\n\n|---|---|\n"
+
+
+# MoSCoW: Must — a config PR must not pass with the template's example table left unfilled
+@pytest.mark.parametrize(
+    ("description", "changed_files", "expected_code"),
+    [
+        # the template's table and callout left as they are fail
+        (DETAILS + bullets(1) + TEMPLATE_CRITERIA + NEXT_SECTION, CONFIG_FILE, 1),
+        # a filled table passes, with links, inline code, checkboxes and the alert marker allowed
+        (DETAILS + bullets(1) + FILLED_CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
+        # a table separator alone holds no answer
+        (DETAILS + bullets(1) + SEPARATOR_ONLY + NEXT_SECTION, CONFIG_FILE, 1),
+        # a PR that doesn't touch src/claude/ isn't checked for placeholders
+        (DETAILS + bullets(1) + TEMPLATE_CRITERIA + NEXT_SECTION, "docs/other.md", 0),
+    ],
+)
+def test_config_changes_reject_unfilled_criteria(description, changed_files, expected_code):
+    """A config PR whose Evaluation criteria still holds the template's placeholders, or no answer, exits 1."""
+    result = run_check(description, changed_files)
+    assert result.returncode == expected_code, result.stdout
+    if expected_code == 1:
+        assert "Evaluation criteria" in result.stdout, f"the reason should name the section: {result.stdout}"
+
+
+# MoSCoW: Must — the reason must name each placeholder left in, so the author knows what to fill
+def test_unfilled_criteria_reason_lists_each_placeholder():
+    """The failure reason quotes every square-bracket placeholder left in the Evaluation criteria table."""
+    result = run_check(DETAILS + bullets(1) + TEMPLATE_CRITERIA + NEXT_SECTION, CONFIG_FILE)
+    assert result.returncode == 1, result.stdout
+    for placeholder in ("[one sentence saying why.]", "[✅ Aligned or ❌ Misaligned]", "[why]"):
+        assert placeholder in result.stdout, f"the reason should list {placeholder}: {result.stdout}"

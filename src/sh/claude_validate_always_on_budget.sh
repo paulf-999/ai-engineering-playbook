@@ -1,14 +1,15 @@
 #!/bin/bash
-# version: 1.2.2
+# version: 1.2.3
 # created: 2026-11-03
-# updated: 2026-11-04
+# updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Fail when the Claude context loaded into every session is estimated at over the token budget
 # Usage: src/sh/claude_validate_always_on_budget.sh [directory to check, default .] (run from the repo root)
 
 # Load reusable shell script vars & functions
-source src/sh/shell_utils.sh
+# shellcheck source=SCRIPTDIR/shell_utils.sh
+source "$(dirname "${BASH_SOURCE[0]}")/shell_utils.sh"
 
 # Catch Ctrl+C, so an interrupted run says so and exits 1
 trap handle_interruption SIGINT

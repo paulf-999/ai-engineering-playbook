@@ -1,14 +1,16 @@
 #!/bin/bash
-# version: 1.0.3
+# version: 1.0.4
 # created: 2025-10-14
-# updated: 2026-10-31
+# updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: <One line saying what this script does>
 # Usage: src/sh/<script_name>.sh [args] (run from the repo root)
 
 # Load reusable shell script vars & functions
-source src/sh/shell_utils.sh
+# Adjust the path from this script to where shell_utils.sh sits, which shellcheck can't follow in a template
+# shellcheck source=/dev/null
+source "$(dirname "${BASH_SOURCE[0]}")/shell_utils.sh"
 
 # Catch Ctrl+C, so an interrupted run says so and exits 1
 trap handle_interruption SIGINT

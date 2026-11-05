@@ -1,6 +1,6 @@
-# version: 1.0.6
+# version: 1.1.0
 # created: 2026-10-31
-# updated: 2026-11-02
+# updated: 2026-11-05
 """Checks every script in src/sh/, shell_utils.sh and the bash script template follow the template's structure."""
 
 import re
@@ -21,7 +21,8 @@ REQUIRED_PARTS = [
     ("strict mode", r"set -euo pipefail\b.*"),
     ("description line", r"# Description: .+"),
     ("usage line", r"# Usage: .+"),
-    ("shell_utils.sh source", r"source src/sh/shell_utils\.sh"),
+    # sourced by a path built from the script's own folder, so it works from any working directory
+    ("shell_utils.sh source", r'source "\$\(dirname "\$\{BASH_SOURCE\[0\]\}"\)/(\.\./)?shell_utils\.sh"'),
     ("Ctrl+C trap", r"trap handle_interruption SIGINT"),
     ("Variables section", r"# Variables"),
     ("Functions section", r"# Functions"),

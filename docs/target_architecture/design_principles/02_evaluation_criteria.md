@@ -1,4 +1,4 @@
-<!-- version: 1.7.0 -->
+<!-- version: 1.7.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-05 -->
 # ✅ Design principles: Evaluation criteria
@@ -7,7 +7,7 @@
 
 This page is part of the [design principles](../design_principles.md), which also define always-on.
 
-Answer the checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), one bullet per stage below: 🚩 **Red flags:**, 🧰 **Shape:** and 🧪 **Working:**. CI fails a PR that changes `src/claude/` and leaves that section with no bullet.
+Answer the checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), as a table with one row per standard below, under the columns Review area, Standard, Result and Why, whose Result says ✅ **Aligned**, ❌ **Misaligned** or ⏳ **Not yet due**. Open the section with a verdict callout, **✅ Safe to approve** or, when a red flag or failed check is left unresolved, **⚠️ Needs a decision**, so a reviewer sees the outcome first. CI fails a PR that changes `src/claude/` and leaves that section with no answer, or with the template's placeholders.
 
 ## 🚪 Review each file
 

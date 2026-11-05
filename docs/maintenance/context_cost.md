@@ -1,4 +1,4 @@
-<!-- version: 1.0.13 -->
+<!-- version: 1.0.14 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -31,12 +31,16 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|---|
 | 1 | `rules/_path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
 | 2 | `rules/_path_scoped_rules/style_guides/airflow.md` | `**/dags/**/*.py` | ~1105 |
-| 3 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/dbt_project.yml` | ~1114 |
-| 4 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~908 |
-| 5 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~478 |
-| 6 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~1114 |
-| 7 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~750 |
-| | **Subtotal** | | **~5666** |
+| 3 | `rules/_path_scoped_rules/style_guides/bash.md` | `**/*.sh` | ~591 |
+| 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/dbt_project.yml` | ~1114 |
+| 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~908 |
+| 6 | `rules/_path_scoped_rules/style_guides/infra/docker.md` | `**/Dockerfile*` | ~142 |
+| 7 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~478 |
+| 8 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~1114 |
+| 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~750 |
+| 10 | `rules/_path_scoped_rules/style_guides/utilities/makefile.md` | `**/Makefile`, `**/*.mk` | ~247 |
+| 11 | `rules/_path_scoped_rules/style_guides/utilities/mermaid.md` | `**/*.mmd` | ~198 |
+| | **Subtotal** | | **~6845** |
 
 ## 💤 On demand
 
@@ -65,30 +69,36 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 21 | `rules/_rules_on_demand/style_guides/infra/ansible/_playbooks.md` | ~679 |
 | 22 | `rules/_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md` | ~1024 |
 | 23 | `rules/_rules_on_demand/style_guides/infra/ansible/_variables.md` | ~795 |
-| 24 | `rules/_rules_on_demand/style_guides/infra/terraform/_ci_and_tooling.md` | ~603 |
-| 25 | `rules/_rules_on_demand/style_guides/infra/terraform/_conventions.md` | ~571 |
-| 26 | `rules/_rules_on_demand/style_guides/infra/terraform/_declarations.md` | ~609 |
-| 27 | `rules/_rules_on_demand/style_guides/infra/terraform/_modules.md` | ~740 |
-| 28 | `rules/_rules_on_demand/style_guides/infra/terraform/_providers.md` | ~535 |
-| 29 | `rules/_rules_on_demand/style_guides/infra/terraform/_structure.md` | ~613 |
-| 30 | `rules/_rules_on_demand/style_guides/python/_comments.md` | ~258 |
-| 31 | `rules/_rules_on_demand/style_guides/python/_python_environment.md` | ~479 |
-| 32 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~836 |
-| 33 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~331 |
-| 34 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~748 |
-| 35 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~436 |
-| 36 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~1177 |
-| 37 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
-| 38 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~1100 |
-| 39 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~407 |
-| 40 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~1171 |
-| 41 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~947 |
-| 42 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~467 |
-| 43 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~716 |
-| 44 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~815 |
-| 45 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~396 |
-| 46 | `rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
-| 47 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~929 |
-| 48 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
-| 49 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~388 |
-| | **Subtotal** | **~29672** |
+| 24 | `rules/_rules_on_demand/style_guides/infra/docker/_advanced.md` | ~768 |
+| 25 | `rules/_rules_on_demand/style_guides/infra/docker/_fundamentals.md` | ~444 |
+| 26 | `rules/_rules_on_demand/style_guides/infra/terraform/_ci_and_tooling.md` | ~603 |
+| 27 | `rules/_rules_on_demand/style_guides/infra/terraform/_conventions.md` | ~571 |
+| 28 | `rules/_rules_on_demand/style_guides/infra/terraform/_declarations.md` | ~609 |
+| 29 | `rules/_rules_on_demand/style_guides/infra/terraform/_modules.md` | ~740 |
+| 30 | `rules/_rules_on_demand/style_guides/infra/terraform/_providers.md` | ~535 |
+| 31 | `rules/_rules_on_demand/style_guides/infra/terraform/_structure.md` | ~613 |
+| 32 | `rules/_rules_on_demand/style_guides/python/_comments.md` | ~258 |
+| 33 | `rules/_rules_on_demand/style_guides/python/_python_environment.md` | ~479 |
+| 34 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~836 |
+| 35 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~331 |
+| 36 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~748 |
+| 37 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~436 |
+| 38 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~1177 |
+| 39 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
+| 40 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~1100 |
+| 41 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~407 |
+| 42 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~1171 |
+| 43 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~947 |
+| 44 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~467 |
+| 45 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~716 |
+| 46 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~815 |
+| 47 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~396 |
+| 48 | `rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
+| 49 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~929 |
+| 50 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
+| 51 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~388 |
+| 52 | `rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
+| 53 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
+| 54 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
+| 55 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
+| | **Subtotal** | **~32512** |

@@ -1,4 +1,4 @@
-<!-- version: 1.0.88 -->
+<!-- version: 1.0.89 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Markdown Quality Audit
@@ -100,6 +100,16 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Ansible: playbooks](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/ansible/_playbooks.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | **B · 8/10** | Leanness: naming, tree and CODEOWNERS repeat other pages; Maintainability: folder tree |
 | [Ansible: roles and tasks](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md) | Independent review | 1.0.7 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | ✅ 2 | **C · 7/10** | Leanness: over 500 words, repeating variable naming; Clarity: rescue bullet packs four points; Maintainability: role file tree |
 | [Ansible: variables](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/ansible/_variables.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: precedence reminder restates the hierarchy; Clarity: site and scope codes never defined |
+| [Bash style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/bash.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: naming and comment rules unjustified; Maintainability: hard-coded lists of utility functions and log colours |
+| [Docker style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/infra/docker.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Docker: fundamentals](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/docker/_fundamentals.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: `:latest` rule stated twice, and the apt block repeats the advanced page |
+| [Docker: advanced](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/docker/_advanced.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: repeats the fundamentals page's copy-order and apt-cleanup guidance |
+| [Makefile style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/utilities/makefile.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: "these rules" points to rules stated only in child pages; Maintainability: hard-coded count of exceptions |
+| [Makefile: naming](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md) | Independent review | 1.1.1 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: no reason given for lowercase names |
+| [Makefile: variables and commands](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md) | Independent review | 1.1.1 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: the `@echo` carve-out repeats the parent's exception |
+| [Mermaid style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/utilities/mermaid.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Mermaid: fundamentals](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md) | Independent review | 1.0.2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Role READMEs" undefined, and the top-down rule unjustified |
+| [Mermaid: advanced](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md) | Independent review | 2.0.2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: no reason given for `classDef milestone` on every diagram |
 | [Permission recommendations](../../../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Markdown layout](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
 | [Audience and depth](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |

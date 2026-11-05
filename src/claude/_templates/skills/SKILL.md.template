@@ -1,0 +1,56 @@
+---
+name: <domain>_<action>
+description: One-line description of what the skill does, using the phrases users type to ask for it
+maturity: draft
+tags:
+  criticality: should
+  status: active
+  tested: false
+---
+<!-- version: 0.1.0 -->
+<!-- created: YYYY-MM-DD -->
+<!-- updated: YYYY-MM-DD -->
+
+## 🤖 Instructions for Claude
+
+- **Pre-check:** [the call to make first, and what to tell the user if it fails]
+- **Never:** [an action Claude must not take, e.g. publish before the user approves]
+- **Always:** [an action Claude must take, e.g. write drafts to `~/_drafts/<domain>/`]
+- **Read first:** read `reference/_implementation.md` before acting
+
+## 🎯 Purpose
+
+One plain-language sentence saying what the skill does for the user:
+- **[Capability 1]** — [one-line explanation]
+- **[Capability 2]** — [one-line explanation]
+- **[Capability 3]** — [one-line explanation]
+
+## 💡 Example Usage
+
+```
+$ /<domain>_<action> [arguments]
+
+[A realistic run, start to finish: what the user types, what Claude asks,
+and what the user gets back. Keep it to 10–15 lines.]
+```
+
+## ✨ Best For
+
+[The situations this skill is built for, in one or two sentences.] Currently at the **draft** development stage — [the one or two things this stage doesn't cover yet].
+
+**Caveats:** [When not to use it, and what to use instead.]
+
+## 📚 References
+
+- `reference/_implementation.md` — phases, logic and error handling
+- `reference/_formats.md` — standards, validation rules and examples (if applicable)
+- `tests/evals.yaml` — [N] test scenarios covering [what they cover]
+- `docs/maintenance/quality/themes/quality_scorecards/skills/scorecard_<domain>_<action>.md` — 7-dimension quality scorecard
+
+---
+
+**Notes:**
+- Keep `SKILL.md` to about 60 lines, not counting Instructions for Claude — detail belongs in `reference/`, not here
+- Use only these five headed sections, in this order, each with its emoji
+- Put the maturity justification in the Best For line, not in the scorecard
+- One sentence per bullet, each opening with a bold keyword

@@ -1,0 +1,38 @@
+#!/bin/bash
+# version: 1.0.0
+# created: 2026-11-05
+# updated: 2026-11-05
+set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
+
+# Description: <One line saying what this script does>
+# Usage: src/sh/<script_name>.sh [args] (run from the repo root)
+
+# Load reusable shell script vars & functions
+# Adjust the path from this script to where shell_utils.sh sits, which shellcheck can't follow in a template
+# shellcheck source=/dev/null
+source "$(dirname "${BASH_SOURCE[0]}")/shell_utils.sh"
+
+# Catch Ctrl+C, so an interrupted run says so and exits 1
+trap handle_interruption SIGINT
+
+#=======================================================================
+# Variables
+#=======================================================================
+
+# shellcheck disable=SC2034  # intentionally unused: template placeholders
+variable1="value1"
+
+#=======================================================================
+# Functions
+#=======================================================================
+
+# TODO: add functions here
+
+#=======================================================================
+# Main script logic
+#=======================================================================
+print_section_header "${DEBUG}" "Script execution started."
+
+# TODO: add your code here
+
+print_section_header "${DEBUG}" "Script execution completed." && echo

@@ -1,4 +1,4 @@
-<!-- version: 1.0.92 -->
+<!-- version: 1.0.93 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Markdown Quality Audit
@@ -119,6 +119,9 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Jira: sprint planning](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_sprint_planning.md) | Independent review | 2.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: closing epic sentence repeats a bullet; Clarity: BAU and MCP tool names unexplained |
 | [Jira: business value](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_business_value.md) | Independent review | 2.0.5 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: over 500 words |
 | [Jira: values template](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_jira_values_template.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "ADF document" and "Summary area" unexplained |
+| [Testing](../../../../src/claude/rules/_path_scoped_rules/testing.md) | Independent review | 4.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Testing: design pattern](../../../../src/claude/rules/_rules_on_demand/testing/_testing_design_pattern.md) | Independent review | 1.0.3 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: never says where the goal statement goes |
+| [Testing: anti-patterns](../../../../src/claude/rules/_rules_on_demand/testing/_testing_anti_patterns.md) | Independent review | 1.2.1 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the fragile-test example shows shared state, not implementation coupling |
 | [Permission recommendations](../../../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Markdown layout](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
 | [Audience and depth](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |

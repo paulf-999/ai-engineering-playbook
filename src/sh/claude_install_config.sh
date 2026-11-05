@@ -1,7 +1,7 @@
 #!/bin/bash
-# version: 1.2.1
+# version: 1.2.2
 # created: 2026-11-04
-# updated: 2026-11-04
+# updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
@@ -10,7 +10,8 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 # Usage: src/sh/claude_install_config.sh (run from the repo root, at your own terminal; make install calls it)
 
 # Load reusable shell script vars & functions
-source src/sh/shell_utils.sh
+# shellcheck source=SCRIPTDIR/shell_utils.sh
+source "$(dirname "${BASH_SOURCE[0]}")/shell_utils.sh"
 
 # Catch Ctrl+C, so an interrupted run says so and exits 1
 trap handle_interruption SIGINT

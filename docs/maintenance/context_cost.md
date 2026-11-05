@@ -1,4 +1,4 @@
-<!-- version: 1.0.23 -->
+<!-- version: 1.0.24 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -38,4 +38,12 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 8 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~447 |
 | 9 | `rules/_rules_on_demand/claude_config/portable_paths.md` | ~189 |
 | 10 | `rules/_rules_on_demand/claude_config/turn_budgets.md` | ~174 |
-| | **Subtotal** | **~5158** |
+| 11 | `rules/_rules_on_demand/style_guides/jira.md` | ~385 |
+| 12 | `rules/_rules_on_demand/style_guides/jira/_business_value.md` | ~898 |
+| 13 | `rules/_rules_on_demand/style_guides/jira/_definition_of_ready.md` | ~272 |
+| 14 | `rules/_rules_on_demand/style_guides/jira/_field_standards.md` | ~662 |
+| 15 | `rules/_rules_on_demand/style_guides/jira/_jira_values_template.md` | ~359 |
+| 16 | `rules/_rules_on_demand/style_guides/jira/_sprint_planning.md` | ~586 |
+| 17 | `rules/_rules_on_demand/style_guides/jira/_ticket_conventions.md` | ~573 |
+| 18 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~463 |
+| | **Subtotal** | **~9358** |

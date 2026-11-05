@@ -1,4 +1,4 @@
-<!-- version: 1.0.12 -->
+<!-- version: 1.0.13 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -35,8 +35,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 4 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~908 |
 | 5 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~478 |
 | 6 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~1114 |
-| 7 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~990 |
-| | **Subtotal** | | **~5907** |
+| 7 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~750 |
+| | **Subtotal** | | **~5666** |
 
 ## 💤 On demand
 

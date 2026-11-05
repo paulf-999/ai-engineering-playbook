@@ -1,5 +1,5 @@
 ---
-<!-- version: 1.4.0 -->
+<!-- version: 1.5.0 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-05 -->
 paths:
@@ -13,6 +13,8 @@ paths:
 ## 📄 Script structure
 
 Start each new script from the repo's own script template, if it has one, so its sections come in the right order: shebang, safety flags, description and usage lines, shared utilities, trap, section headers and logging.
+
+- **Read on demand:** `_templates/utils/template_bash_script.sh`, in your Claude config directory, when the repo has no script template of its own.
 
 ## 🛡️ Safety flags
 

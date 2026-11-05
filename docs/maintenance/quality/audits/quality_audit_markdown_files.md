@@ -1,4 +1,4 @@
-<!-- version: 1.0.95 -->
+<!-- version: 1.0.96 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Markdown Quality Audit
@@ -42,10 +42,10 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [`tests` README](../../../../tests/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Global CLAUDE.md](../../../../src/claude/CLAUDE.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Guiding principles](../../../../src/claude/rules/_rules_on_demand/claude_config/guiding_principles.md) | Independent review | 2.4.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the engineer test in Real problem doesn't say what \"anyway\" means |
-| [Authoring guidelines](../../../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "lean session" is a project term the page doesn't explain |
+| [Authoring guidelines](../../../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "lean session" is a project term the page doesn't explain |
 | [Turn budgets](../../../../src/claude/rules/_rules_on_demand/claude_config/turn_budgets.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Portable paths](../../../../src/claude/rules/_rules_on_demand/claude_config/portable_paths.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: never hard-code `~/.claude` reads against using it as the fallback; Maintainability: the Why bullet cites history |
-| [TODO logging](../../../../src/claude/rules/_rules_on_demand/02_conduct/todo_logging.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [TODO logging](../../../../src/claude/rules/_rules_on_demand/02_conduct/todo_logging.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Automation controls](../../../../src/claude/rules/_rules_on_demand/02_conduct/automation_controls.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: just over the 500-word ceiling |
 | [Writing style](../../../../src/claude/rules/02_conduct/writing_style.md) | Independent review | 3.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Naming standards](../../../../src/claude/rules/01_standards/naming_standards.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
@@ -101,7 +101,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Ansible: playbooks](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/ansible/_playbooks.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | **B · 8/10** | Leanness: naming, tree and CODEOWNERS repeat other pages; Maintainability: folder tree |
 | [Ansible: roles and tasks](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md) | Independent review | 1.0.7 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | ✅ 2 | **C · 7/10** | Leanness: over 500 words, repeating variable naming; Clarity: rescue bullet packs four points; Maintainability: role file tree |
 | [Ansible: variables](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/ansible/_variables.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: precedence reminder restates the hierarchy; Clarity: site and scope codes never defined |
-| [Bash style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/bash.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: naming and comment rules unjustified; Maintainability: hard-coded lists of utility functions and log colours |
+| [Bash style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/bash.md) | Independent review | 1.5.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | **C · 7/10** | Clarity: naming and comment rules unjustified; Maintainability: hard-coded lists of utility functions and log colours; Accuracy: its own examples use the end-of-line comments it forbids |
 | [Docker style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/infra/docker.md) | Independent review | 1.4.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Docker: fundamentals](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/docker/_fundamentals.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: `:latest` rule stated twice, and the apt block repeats the advanced page |
 | [Docker: advanced](../../../../src/claude/rules/_rules_on_demand/style_guides/infra/docker/_advanced.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: repeats the fundamentals page's copy-order and apt-cleanup guidance |

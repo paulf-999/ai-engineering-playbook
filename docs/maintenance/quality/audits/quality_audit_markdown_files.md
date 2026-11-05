@@ -1,4 +1,4 @@
-<!-- version: 1.0.90 -->
+<!-- version: 1.0.91 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Markdown Quality Audit
@@ -48,7 +48,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [TODO logging](../../../../src/claude/rules/_rules_on_demand/01_ways_of_working/todo_logging.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Automation controls](../../../../src/claude/rules/_rules_on_demand/01_ways_of_working/automation_controls.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: just over the 500-word ceiling |
 | [Writing style](../../../../src/claude/rules/02_communication/writing_style.md) | Independent review | 3.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Naming standards](../../../../src/claude/rules/02_communication/naming_standards.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Naming standards](../../../../src/claude/rules/02_communication/naming_standards.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Claude naming patterns](../../../../src/claude/rules/_rules_on_demand/claude_config/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/02_communication/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Behaviour](../../../../src/claude/rules/01_ways_of_working/behaviour.md) | Independent review | 2.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
@@ -111,6 +111,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Mermaid style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/utilities/mermaid.md) | Independent review | 1.2.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Mermaid: fundamentals](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md) | Independent review | 1.0.2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Role READMEs" undefined, and the top-down rule unjustified |
 | [Mermaid: advanced](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md) | Independent review | 2.0.2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: no reason given for `classDef milestone` on every diagram |
+| [Date and time standards](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/datetime.md) | Independent review | 2.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | ✅ 2 | **C · 7/10** | Leanness: no-retroactive-update rule stated twice; Clarity: "DR" undefined; Maintainability: hand-kept Contents and org-specific lists |
 | [Permission recommendations](../../../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Markdown layout](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
 | [Audience and depth](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |

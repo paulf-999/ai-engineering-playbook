@@ -1,6 +1,6 @@
-<!-- version: 2.1.2 -->
+<!-- version: 2.1.3 -->
 <!-- created: 2026-09-17 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
 # 🗂️ Claude plans
 
 **Purpose:** when to pause multi-phase work, and plans in particular, for the user's approval.
@@ -9,4 +9,4 @@
   - **Skip when:** the user waives gates, or the work has a single phase.
 - 🗂️ **Plan approval:** the "Implement the following plan:" message Claude Code sends after you accept a plan isn't a go-ahead, so wait for an explicit one.
 
-- **Read on demand:** `_rules_on_demand/01_ways_of_working/saving_plans.md`, in your Claude config directory, once a plan is approved.
+- **Read on demand:** `_rules_on_demand/03_workflows/saving_plans.md`, in your Claude config directory, once a plan is approved.

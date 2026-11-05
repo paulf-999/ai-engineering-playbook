@@ -1,4 +1,4 @@
-<!-- version: 1.6.4 -->
+<!-- version: 1.7.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-05 -->
 # ✅ Design principles: Evaluation criteria
@@ -7,7 +7,7 @@
 
 This page is part of the [design principles](../design_principles.md), which also define always-on.
 
-Answer each check with its own bullet in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), since CI fails a PR that changes `src/claude/` without one.
+Answer the checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), one bullet per stage below: 🚩 **Red flags:**, 🧰 **Shape:** and 🧪 **Working:**. CI fails a PR that changes `src/claude/` and leaves that section with no bullet.
 
 ## 🚪 Review each file
 

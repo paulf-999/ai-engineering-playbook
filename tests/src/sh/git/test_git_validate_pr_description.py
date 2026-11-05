@@ -1,4 +1,4 @@
-# version: 1.2.0
+# version: 1.2.1
 # created: 2026-11-02
 # updated: 2026-11-05
 """Tests for the PR description check, which keeps PR descriptions short and their links working."""
@@ -80,8 +80,11 @@ def test_description_with_shell_characters_is_not_executed(tmp_path):
 
 
 CONFIG_FILE = "src/claude/rules/example.md\ndocs/other.md"
-CRITERIA = "\n## :scales: Evaluation criteria\n\n- **Cost:** none.\n- **Red flags:** none.\n"
-PLACEHOLDER = "\n## :scales: Evaluation criteria\n\n[One bullet per check.]\n"
+CRITERIA = (
+    "\n## :balance_scale: Evaluation criteria\n\n- :triangular_flag_on_post: **Red flags:** none.\n"
+    "- :toolbox: **Shape:** on demand.\n- :test_tube: **Working:** trial at the next review.\n"
+)
+PLACEHOLDER = "\n## :balance_scale: Evaluation criteria\n\n[Three bullets, one per stage.]\n"
 
 
 # MoSCoW: Must — a PR changing the installed Claude config must answer the evaluation criteria

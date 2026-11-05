@@ -6,9 +6,9 @@
 
 [If needed, only what a reviewer must or should know, in 5 bullets or fewer, with full GitHub URLs for any file, issue or PR.]
 
-## :scales: Evaluation criteria
+## :balance_scale: Evaluation criteria
 
-[Needed when the PR changes `src/claude/`: one bullet per check in `docs/target_architecture/design_principles/02_evaluation_criteria.md`, such as **Cost:** and **Red flags:**. Otherwise, write "Not applicable".]
+[Needed when the PR changes `src/claude/`: three bullets, each opening with its emoji, :triangular_flag_on_post: **Red flags:**, :toolbox: **Shape:** and :test_tube: **Working:**, and answering one stage's checks in `docs/target_architecture/design_principles/02_evaluation_criteria.md`. Otherwise, write "Not applicable".]
 
 ## :hammer_and_wrench: Type of PR Change
 

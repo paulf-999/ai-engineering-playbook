@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.2.0
+# version: 1.2.1
 # created: 2026-11-02
 # updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -80,7 +80,7 @@ description_problems() {
         echo "Cut 'Additional Details' to ${MAX_DETAIL_BULLETS} top-level bullets or fewer (it has ${bullets}), keeping only what a reviewer must or should know."
     fi
     if changes_claude_config && ! has_evaluation_criteria; then
-        echo "Answer the 'Evaluation criteria' section with a bullet per check in docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
+        echo "Answer the 'Evaluation criteria' section with Red flags, Shape and Working bullets, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
     fi
     links="$(relative_links)"
     if [[ -n "${links}" ]]; then

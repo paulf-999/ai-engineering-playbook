@@ -1,4 +1,4 @@
-<!-- version: 1.0.22 -->
+<!-- version: 1.0.23 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -15,7 +15,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| | **Subtotal** | **~0** |
+| 1 | `CLAUDE.md` | ~546 |
+| | **Subtotal** | **~546** |
 
 ## 📂 With matching files
 
@@ -29,4 +30,12 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|
 | 1 | `_templates/README.md` | ~1074 |
 | 2 | `_templates/skills/_quality_scorecard_template.md` | ~1258 |
-| | **Subtotal** | **~2332** |
+| 3 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~552 |
+| 4 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~360 |
+| 5 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~472 |
+| 6 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~433 |
+| 7 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~197 |
+| 8 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~447 |
+| 9 | `rules/_rules_on_demand/claude_config/portable_paths.md` | ~189 |
+| 10 | `rules/_rules_on_demand/claude_config/turn_budgets.md` | ~174 |
+| | **Subtotal** | **~5158** |

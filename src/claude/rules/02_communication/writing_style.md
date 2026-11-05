@@ -1,6 +1,6 @@
-<!-- version: 3.0.2 -->
+<!-- version: 3.1.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
 # ✏️ Writing style
 
 **Purpose:** how to write everything you produce, from replies and docs to tickets and commit messages.
@@ -16,3 +16,4 @@
 - **Read on demand:** `_rules_on_demand/02_communication/writing_style/_markdown_layout.md`, in your Claude config directory, before writing or restructuring a markdown doc.
 - **Read on demand:** `_rules_on_demand/02_communication/writing_style/_audience_and_depth.md`, before writing for people outside the repo, such as a Confluence page, ticket or email.
 - **Read on demand:** `_rules_on_demand/02_communication/writing_style/_drafts_and_errors.md`, before saving a draft or an error write-up.
+- **Read on demand:** `_rules_on_demand/style_guides/jira.md`, before writing or changing a Jira ticket.

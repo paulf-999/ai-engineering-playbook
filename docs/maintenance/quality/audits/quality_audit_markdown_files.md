@@ -1,4 +1,4 @@
-<!-- version: 1.0.91 -->
+<!-- version: 1.0.92 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Markdown Quality Audit
@@ -47,7 +47,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Portable paths](../../../../src/claude/rules/_rules_on_demand/claude_config/portable_paths.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **B · 8/10** | Clarity: never hard-code `~/.claude` reads against using it as the fallback; Maintainability: the Why bullet cites history |
 | [TODO logging](../../../../src/claude/rules/_rules_on_demand/01_ways_of_working/todo_logging.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Automation controls](../../../../src/claude/rules/_rules_on_demand/01_ways_of_working/automation_controls.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: just over the 500-word ceiling |
-| [Writing style](../../../../src/claude/rules/02_communication/writing_style.md) | Independent review | 3.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Writing style](../../../../src/claude/rules/02_communication/writing_style.md) | Independent review | 3.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Naming standards](../../../../src/claude/rules/02_communication/naming_standards.md) | Independent review | 2.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Claude naming patterns](../../../../src/claude/rules/_rules_on_demand/claude_config/claude_naming_patterns.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the Hook row lists hook types without saying what each means |
 | [Response standards](../../../../src/claude/rules/02_communication/claude_response_standards.md) | Independent review | 4.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
@@ -112,6 +112,13 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Mermaid: fundamentals](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md) | Independent review | 1.0.2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Role READMEs" undefined, and the top-down rule unjustified |
 | [Mermaid: advanced](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md) | Independent review | 2.0.2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: no reason given for `classDef milestone` on every diagram |
 | [Date and time standards](../../../../src/claude/rules/_rules_on_demand/style_guides/utilities/datetime.md) | Independent review | 2.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | ✅ 2 | **C · 7/10** | Leanness: no-retroactive-update rule stated twice; Clarity: "DR" undefined; Maintainability: hand-kept Contents and org-specific lists |
+| [Jira style guide](../../../../src/claude/rules/_rules_on_demand/style_guides/jira.md) | Independent review | 2.1.0 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: Core principles restate the required fields; Clarity: "Jira values" and "hygiene checks" used before being explained |
+| [Jira: ticket conventions](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_ticket_conventions.md) | Independent review | 2.0.2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: "No prose walls" repeats "no prose paragraphs"; Clarity: rules unjustified, and the example drops its H3 heading |
+| [Jira: field standards](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_field_standards.md) | Independent review | 2.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: Components and Business value sections repeat the table; Clarity: "ADF", "Triage" and "hygiene failure" unexplained |
+| [Jira: definition of ready](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_definition_of_ready.md) | Independent review | 2.0.3 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: Impact Rating block and matrix unexplained, and checks unjustified |
+| [Jira: sprint planning](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_sprint_planning.md) | Independent review | 2.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: closing epic sentence repeats a bullet; Clarity: BAU and MCP tool names unexplained |
+| [Jira: business value](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_business_value.md) | Independent review | 2.0.5 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: over 500 words |
+| [Jira: values template](../../../../src/claude/rules/_rules_on_demand/style_guides/jira/_jira_values_template.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "ADF document" and "Summary area" unexplained |
 | [Permission recommendations](../../../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Markdown layout](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
 | [Audience and depth](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |

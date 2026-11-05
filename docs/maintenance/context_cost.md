@@ -1,4 +1,4 @@
-<!-- version: 1.0.21 -->
+<!-- version: 1.0.22 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -27,4 +27,6 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| | **Subtotal** | **~0** |
+| 1 | `_templates/README.md` | ~1074 |
+| 2 | `_templates/skills/_quality_scorecard_template.md` | ~1258 |
+| | **Subtotal** | **~2332** |

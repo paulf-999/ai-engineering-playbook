@@ -1,6 +1,6 @@
-<!-- version: 1.4.0 -->
+<!-- version: 1.5.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-05 -->
 # 🏷️ File Headers
 
 **Purpose:** how the version header at the top of each file works, and how a commit check keeps it up to date.
@@ -12,7 +12,7 @@ Every file opens with a three-line header, placed after any shebang or YAML `---
 ```markdown
 <!-- version: 1.0.0 -->
 <!-- created: 2026-10-30 -->
-<!-- updated: 2026-10-30 -->
+<!-- updated: 2026-11-05 -->
 ```
 
 ## 📏 Rules
@@ -22,8 +22,8 @@ A pre-commit check, described below, does most of the work:
 - 🆕 **New file:** start at `version: 1.0.0`, with `created` and `updated` both set to today.
 - ✏️ **Every edit:** leave `created` alone, and let the check handle the rest.
 - 🙋 **By hand:** raise MINOR when you add guidance or behaviour, and MAJOR when you reverse or remove it.
-- 🚫 **Exempt:** the PR and issue templates, empty placeholder files, and `LICENSE`.
-  - **Full list:** the `EXEMPT` set in `tests/test_file_metadata_headers.py`.
+- 🚫 **Exempt:** the PR and issue templates, any `.template` file, empty placeholder files, and `LICENSE`.
+  - **Full list:** the `EXEMPT` set and `.template` check in `tests/test_file_metadata_headers.py`.
 
 ## ⚙️ Automation
 

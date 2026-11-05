@@ -1,6 +1,6 @@
-# version: 1.0.3
+# version: 1.1.1
 # created: 2026-11-04
-# updated: 2026-11-04
+# updated: 2026-11-05
 """Tests for the context cost report, which tables each src/claude/ file's tokens and when it loads."""
 
 import subprocess
@@ -15,13 +15,14 @@ HUNDRED_TOKENS = "x" * 399 + "\n"
 
 
 def config_repo(tmp_path):
-    """Make a git repo holding one always-on, one path-scoped and one on-demand file, and return its env."""
+    """Make a git repo holding one always-on, one path-scoped and two on-demand files, and return its env."""
     env = isolated_git_repo(tmp_path)
     files = {
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- version: 1.0.0 -->\n" + HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/_rules_on_demand/guide.md": HUNDRED_TOKENS,
+        "src/claude/_templates/README.md": HUNDRED_TOKENS,
     }
     for path, text in files.items():
         (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
@@ -31,26 +32,35 @@ def config_repo(tmp_path):
     return env
 
 
+# the fixture's two on-demand files, numbered in byte order, which puts _templates/ before rules/
+ON_DEMAND_ROWS = ("| 1 | `_templates/README.md` | ~100 |", "| 2 | `rules/_rules_on_demand/guide.md` | ~100 |")
+
+
 def run_report(tmp_path, env, *args):
     """Run the report script from the test repo's root and return the result."""
     command = ["bash", str(SCRIPT), *args]
     return subprocess.run(command, cwd=tmp_path, env=env, capture_output=True, text=True, check=False)
 
 
+def write_report(tmp_path, env):
+    """Write the report, failing with the script's output if that doesn't work, and return its text."""
+    result = run_report(tmp_path, env)
+    assert result.returncode == 0, f"writing the report should succeed:\n{result.stdout}{result.stderr}"
+    return (tmp_path / REPORT).read_text()
+
+
 # MoSCoW: Must — each file must sit in its load type's table, and each table must total only its own files
 def test_report_puts_each_file_in_its_load_tables(tmp_path):
     """Every-session, path-scoped and on-demand files each get their own table, with a subtotal of only those files."""
-    env = config_repo(tmp_path)
-    result = run_report(tmp_path, env)
-    assert result.returncode == 0, f"writing the report should succeed:\n{result.stdout}{result.stderr}"
-    report = (tmp_path / REPORT).read_text()
+    report = write_report(tmp_path, config_repo(tmp_path))
+    assert "## 📂 With matching files" in report and "## 💤 On demand" in report, "each load type needs a table"
     every, rest = report.split("## 📂 With matching files")
     scoped, lazy = rest.split("## 💤 On demand")
     assert "| 1 | `CLAUDE.md` | ~100 |" in every and "| | **Subtotal** | **~100** |" in every, (
         "CLAUDE.md loads every session"
     )
     assert "| 1 | `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
-    assert "| 1 | `rules/_rules_on_demand/guide.md` | ~100 |" in lazy, "lazy files should sit in the on-demand table"
+    assert all(row in lazy for row in ON_DEMAND_ROWS), "templates and lazy rules should sit in the on-demand table"
     assert "guide.md" not in every and "scoped.md" not in every, "only every-session files belong in the first table"
 
 
@@ -58,7 +68,7 @@ def test_report_puts_each_file_in_its_load_tables(tmp_path):
 def test_check_fails_once_a_file_changes(tmp_path):
     """--check passes straight after writing, then fails once a file grows, without rewriting the report."""
     env = config_repo(tmp_path)
-    run_report(tmp_path, env)
+    write_report(tmp_path, env)
     assert run_report(tmp_path, env, "--check").returncode == 0, "a freshly written report should pass the check"
 
     (tmp_path / "src" / "claude" / "CLAUDE.md").write_text(HUNDRED_TOKENS * 2)
@@ -74,7 +84,7 @@ def test_check_fails_once_a_file_changes(tmp_path):
 def test_check_ignores_the_version_header(tmp_path):
     """Changing only the report's version header still passes the check."""
     env = config_repo(tmp_path)
-    run_report(tmp_path, env)
+    write_report(tmp_path, env)
     report = tmp_path / REPORT
     report.write_text(report.read_text().replace("version: 1.0.0", "version: 1.0.7", 1))
     assert run_report(tmp_path, env, "--check").returncode == 0, "a header-only change should pass the check"

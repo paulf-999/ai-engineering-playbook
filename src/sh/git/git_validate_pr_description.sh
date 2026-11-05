@@ -1,11 +1,11 @@
 #!/bin/bash
-# version: 1.1.1
+# version: 1.2.0
 # created: 2026-11-02
 # updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Verify a PR description stays scannable: at most 5 top-level bullets under "Additional Details", and only full links, since relative links break in a PR
-# A PR that changes the installed Claude config under src/claude/ must also answer the evaluation criteria in an "Evaluation criteria" bullet
+# A PR that changes the installed Claude config under src/claude/ must also answer the evaluation criteria in an "Evaluation criteria" section
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -36,12 +36,17 @@ rendered_text() {
     printf '%s\n' "${PR_DESCRIPTION}" | awk '/^ *```/ { fenced = !fenced; next } !fenced'
 }
 
-# Print the lines under the "Additional Details" heading, up to the next "## " heading
-details_section() {
-    rendered_text | awk '
-        /^## / { in_details = ($0 ~ /Additional Details/); next }
-        in_details { print }
+# Print the lines under the first "## " heading that contains the given text, up to the next "## " heading
+section() {
+    rendered_text | awk -v heading="${1}" '
+        /^## / { in_section = (index($0, heading) > 0); next }
+        in_section { print }
     '
+}
+
+# Print the lines under the "Additional Details" heading
+details_section() {
+    section "Additional Details"
 }
 
 # Count the top-level bullets in the "Additional Details" section, ignoring indented child bullets
@@ -62,9 +67,9 @@ changes_claude_config() {
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'
 }
 
-# Succeed if "Additional Details" has a top-level "Evaluation criteria" bullet
+# Succeed if the "Evaluation criteria" section has at least one top-level bullet
 has_evaluation_criteria() {
-    details_section | grep -qE '^[-*] .*\*\*Evaluation criteria:\*\*'
+    section "Evaluation criteria" | grep -qE '^[-*] '
 }
 
 # Explain each reason the description fails, or print nothing if it's fine
@@ -75,7 +80,7 @@ description_problems() {
         echo "Cut 'Additional Details' to ${MAX_DETAIL_BULLETS} top-level bullets or fewer (it has ${bullets}), keeping only what a reviewer must or should know."
     fi
     if changes_claude_config && ! has_evaluation_criteria; then
-        echo "Add an '**Evaluation criteria:**' bullet to 'Additional Details', with a child per check in docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
+        echo "Answer the 'Evaluation criteria' section with a bullet per check in docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
     fi
     links="$(relative_links)"
     if [[ -n "${links}" ]]; then

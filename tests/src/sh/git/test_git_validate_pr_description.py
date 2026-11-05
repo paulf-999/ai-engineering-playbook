@@ -1,4 +1,4 @@
-# version: 1.1.0
+# version: 1.2.0
 # created: 2026-11-02
 # updated: 2026-11-05
 """Tests for the PR description check, which keeps PR descriptions short and their links working."""
@@ -80,28 +80,31 @@ def test_description_with_shell_characters_is_not_executed(tmp_path):
 
 
 CONFIG_FILE = "src/claude/rules/example.md\ndocs/other.md"
-CRITERIA = "- **Evaluation criteria:**\n  - **Red flags:** none.\n"
+CRITERIA = "\n## :scales: Evaluation criteria\n\n- **Cost:** none.\n- **Red flags:** none.\n"
+PLACEHOLDER = "\n## :scales: Evaluation criteria\n\n[One bullet per check.]\n"
 
 
 # MoSCoW: Must — a PR changing the installed Claude config must answer the evaluation criteria
 @pytest.mark.parametrize(
     ("description", "changed_files", "expected_code"),
     [
-        # a config change with the bullet passes
-        (DETAILS + bullets(4) + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
-        # a config change without it fails
+        # a config change with answered criteria passes, and its bullets don't count towards the details limit
+        (DETAILS + bullets(5) + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
+        # a config change without the section fails
         (DETAILS + bullets(4) + NEXT_SECTION, CONFIG_FILE, 1),
-        # the bullet must be top-level in Additional Details, not a child or in another section
-        (DETAILS + bullets(1) + "  " + CRITERIA + NEXT_SECTION, CONFIG_FILE, 1),
-        (DETAILS + bullets(1) + NEXT_SECTION + CRITERIA, CONFIG_FILE, 1),
-        # a PR that doesn't touch src/claude/ needs no bullet, and nor does a run without a file list
+        # the section must hold a top-level bullet, not just the template's placeholder or child bullets
+        (DETAILS + bullets(1) + PLACEHOLDER + NEXT_SECTION, CONFIG_FILE, 1),
+        (DETAILS + bullets(1) + PLACEHOLDER + "  - **Cost:** none.\n" + NEXT_SECTION, CONFIG_FILE, 1),
+        # the old bullet inside Additional Details no longer counts
+        (DETAILS + "- **Evaluation criteria:**\n  - **Red flags:** none.\n" + NEXT_SECTION, CONFIG_FILE, 1),
+        # a PR that doesn't touch src/claude/ needs no section, and nor does a run without a file list
         (DETAILS + bullets(4) + NEXT_SECTION, "docs/other.md\nsrc/sh/x.sh", 0),
         (DETAILS + bullets(4) + NEXT_SECTION, "", 0),
     ],
 )
 def test_config_changes_require_evaluation_criteria(description, changed_files, expected_code):
-    """Only a PR that changes src/claude/ must include a top-level Evaluation criteria bullet."""
+    """Only a PR that changes src/claude/ must answer the Evaluation criteria section with a bullet."""
     result = run_check(description, changed_files)
     assert result.returncode == expected_code, result.stdout
     if expected_code == 1:
-        assert "Evaluation criteria" in result.stdout, f"the reason should name the missing bullet: {result.stdout}"
+        assert "Evaluation criteria" in result.stdout, f"the reason should name the missing section: {result.stdout}"

@@ -1,0 +1,82 @@
+<!-- version: 1.0.0 -->
+<!-- created: 2026-11-05 -->
+<!-- updated: 2026-11-05 -->
+# 🧪 Test Scorecards
+
+**Purpose:** Apply the rule-scorecard discipline to the pytest files in this repo's `tests/` — one scorecard per test file, scored on the same seven-dimension shape rules use, adapted to what makes a test good.
+
+This page is part of the [quality scorecards](../README.md) home.
+
+---
+
+## 📁 Location convention
+
+One file per test, mirroring its path under `tests/`, in the playbook repo: `docs/maintenance/quality/themes/quality_scorecards/tests/<subpath>/scorecard_<test_file_stem>.md`.
+
+- **Example:** `tests/src/sh/test_script_structure.py` → `docs/maintenance/quality/themes/quality_scorecards/tests/src/sh/scorecard_test_script_structure.md`
+- **Keep the `test_` prefix:** it stops a test scorecard being mistaken for the scorecard of the rule it covers.
+- **Never `@import` these files:** they're review records, not content Claude reads while working.
+- **Header scores still apply:** every test keeps the quality and complexity scores in its metadata header (see `_rules_on_demand/testing/_test_metadata.md` (not built yet)) — the scorecard explains and extends them, it doesn't replace them.
+
+---
+
+## 📋 Template
+
+This is the test-specific version of the shared [`_templates/scorecard/scorecard.md.template`](../../../../../../src/claude/_templates/scorecard/scorecard.md.template), with the test dimensions filled in.
+
+```markdown
+# Quality Scorecard — <test_file_stem>.py
+
+**Date Created:** YYYY-MM-DD
+**Date Updated:** YYYY-MM-DD
+
+**Overall score:** X.X/10
+
+**Recommended improvements:** [omit this line and the bullets below entirely when Overall ≥ 8.5]
+- <one imperative action per distinct gap found in the Notes column below>
+
+| Dimension | Score | Date Updated | Notes |
+|---|---|---|---|
+| **Clarity** | X/10 | YYYY-MM-DD | • 🔍 **<keyword>:** <one point> |
+| **Complexity** | X/10 | YYYY-MM-DD | • 🧮 **Raw complexity N:** Concepts+Scope+Dependencies+Prerequisites |
+| **Evidence of Need** | X/10 | YYYY-MM-DD | • 🔗 **<keyword>:** <one point> |
+| **Coverage** | X/10 | YYYY-MM-DD | • 📊 **<keyword>:** N test functions, N assertions |
+| **Structural Compliance** | X/10 | YYYY-MM-DD | • ✅ **<keyword>:** <one point> |
+| **Currency** | X/10 | YYYY-MM-DD | • 🔍 **<keyword>:** <one point> |
+| **Regression Value** | X/10 | YYYY-MM-DD | • 🛡️ **<keyword>:** <one point> |
+| **Overall** | **X.X/10** | YYYY-MM-DD | • 💪 **<keyword>:** [strength]<br>• ⚠️ **<keyword>:** [gap, if any] |
+
+## 🔗 Related files
+
+- `tests/<subpath>/<test_file_stem>.py` — the test being scored
+- `<full/repo-relative/path>` — what the test guards, and anything else named in the Notes above
+```
+
+- **Notes column:** one point per bullet, joined with `<br>`, each `• <emoji> **<keyword>:** <point>` — same as rule scorecards.
+- **Related files:** full repo-relative paths, never bare filenames.
+- **Dates:** `Date Created` is frozen once set; `Date Updated` bumps whenever the test is re-scored.
+- **Row dates:** a row's `Date Updated` changes only when that row's score changes, and the header `Date Updated` must be on or after the latest row date.
+
+---
+
+## 🎯 Per-dimension criteria
+
+| Dimension | 10 looks like | 1 looks like |
+|---|---|---|
+| **Clarity** | Module docstring states the goal in one sentence, function names say what they check, assertion messages say how to fix a failure | No goal statement, vague names, bare `assert` with no message |
+| **Complexity** | Inverted shared complexity formula (`src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines.md`): one concept, one file, no dependencies or fixtures | Whole-repo scan, 6+ concepts, several dependencies and complex fixtures |
+| **Evidence of Need** | Guards a real rule, hook or skill, or a documented incident | Checks something nothing depends on, or a hypothetical |
+| **Coverage** | Every behaviour of its target is checked, including edge cases; counts are recorded in Notes but never scored, since padding to a count adds nothing (`_test_metadata.md` (not built yet)) | The target's main behaviour goes unchecked, or the test only checks that it exists |
+| **Structural Compliance** | Full metadata header, `Python style compliant: Yes` and true, correct location and name per `_testing_file_organization.md` (not built yet) | Missing or wrong header, style violations, misplaced file |
+| **Currency** | Every path and name it checks still exists, header dates and version match the last change | Checks renamed or removed things, stale header |
+| **Regression Value** | Would fail if the guarded behaviour broke, and proves its detector works on a synthetic bad case | Would still pass if the guarded thing were deleted or broken |
+
+**Overall:** the average of the seven dimensions, rounded to one decimal place.
+
+---
+
+## 📅 When to score
+
+- **On creation:** every new test gets a scorecard alongside it.
+- **On re-score:** when a test's coverage or scope changes, update its scorecard and its header scores together.
+- **Summary:** update the test's row in [`test_scorecards_summary.md`](test_scorecards_summary.md) in the same commit.

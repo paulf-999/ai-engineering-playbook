@@ -1,6 +1,6 @@
-# version: 1.4.1
+# version: 1.5.0
 # created: 2026-10-31
-# updated: 2026-11-03
+# updated: 2026-11-05
 """Checks the markdown files quality audit lists every doc once, its scores add up, and no score is out of date.
 
 Also checks the placeholder cap, and that each check below can fail.
@@ -21,12 +21,12 @@ RUBRIC = REPO_ROOT / "docs" / "maintenance" / "quality" / "themes" / "quality_th
 # the themes in quality/themes/quality_themes_markdown_files.md, as the audit's column headings
 THEMES = ("Core coverage", "Leanness", "Clarity", "Maintainability", "Accuracy")
 
-# the PR and issue templates, which are forms to fill in rather than docs to score
-TEMPLATES = (".github/ISSUE_TEMPLATE/", ".github/pull_request_template.md")
+# the PR, issue and config templates, which are forms to fill in rather than docs to score
+TEMPLATES = (".github/ISSUE_TEMPLATE/", ".github/pull_request_template.md", "src/claude/_templates/")
 
 
 def tracked_docs():
-    """Return every markdown file git tracks, minus the PR and issue templates, this audit and its rubric."""
+    """Return every markdown file git tracks, minus the templates, this audit and its rubric."""
     # ask git, so untracked drafts and ignored folders like .venv/ are left out, and ignore the user's git config
     env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
     command = ["git", "ls-files", "*.md"]

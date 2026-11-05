@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.1.2
+# version: 1.2.0
 # created: 2026-11-04
 # updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -37,7 +37,7 @@ HEADER_LINES=3
 # Print when a file loads: on demand, with matching files, or in every session
 load_condition() {
     local file="${1}" globs
-    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_on_demand/"* ]]; then
+    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* ]]; then
         echo "On demand, via a pointer"
         return
     fi

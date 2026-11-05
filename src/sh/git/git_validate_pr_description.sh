@@ -1,11 +1,12 @@
 #!/bin/bash
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-02
-# updated: 2026-11-02
+# updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Verify a PR description stays scannable: at most 5 top-level bullets under "Additional Details", and only full links, since relative links break in a PR
-# Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" (run from the repo root)
+# A PR that changes the installed Claude config under src/claude/ must also answer the evaluation criteria in an "Evaluation criteria" bullet
+# Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
 source src/sh/shell_utils.sh
@@ -18,6 +19,8 @@ trap handle_interruption SIGINT
 #=======================================================================
 
 PR_DESCRIPTION="${1-}"
+# the PR's changed files, one per line, used to spot changes to the installed Claude config
+CHANGED_FILES="${2-}"
 # most top-level bullets allowed under "Additional Details", matching the PR template
 MAX_DETAIL_BULLETS=5
 # why the description fails, set in the main logic (empty means it's valid)
@@ -53,12 +56,25 @@ relative_links() {
         | grep -vE '^(https?://|#|mailto:)' || true
 }
 
+# Succeed if the PR changes any file under src/claude/, the config that `make install` copies
+changes_claude_config() {
+    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'
+}
+
+# Succeed if "Additional Details" has a top-level "Evaluation criteria" bullet
+has_evaluation_criteria() {
+    details_section | grep -qE '^[-*] .*\*\*Evaluation criteria:\*\*'
+}
+
 # Explain each reason the description fails, or print nothing if it's fine
 description_problems() {
     local bullets links
     bullets="$(count_detail_bullets)"
     if (( bullets > MAX_DETAIL_BULLETS )); then
         echo "Cut 'Additional Details' to ${MAX_DETAIL_BULLETS} top-level bullets or fewer (it has ${bullets}), keeping only what a reviewer must or should know."
+    fi
+    if changes_claude_config && ! has_evaluation_criteria; then
+        echo "Add an '**Evaluation criteria:**' bullet to 'Additional Details', with a child per check in docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
     fi
     links="$(relative_links)"
     if [[ -n "${links}" ]]; then

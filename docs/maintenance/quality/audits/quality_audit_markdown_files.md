@@ -1,6 +1,6 @@
-<!-- version: 1.0.84 -->
+<!-- version: 1.0.86 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
 # 📊 Markdown Quality Audit
 
 For maintainers of this template: how good each markdown doc is, scored out of 10.
@@ -73,6 +73,17 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Python: assertions](../../../../src/claude/rules/_rules_on_demand/style_guides/python/testing/_assertions.md) | Independent review | 1.0.2 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Maintainability: the test organisation section belongs in the naming page |
 | [Python: fixtures and mocking](../../../../src/claude/rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md) | Independent review | 1.0.3 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | **B · 8/10** | Clarity: promises env vars but patches `sys.argv`; Accuracy: calls plain helpers fixtures |
 | [Python: test naming](../../../../src/claude/rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md) | Independent review | 1.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [SQL style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/sql.md) | Independent review | 1.4.0 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | ✅ 2 | **C · 7/10** | Leanness: `ref()` and `source()` rule repeated four times; Clarity: over-aliasing example muddles aliases with CTEs; Maintainability: dbt YAML and warehouse sizing overlap the dbt guide |
+| [SQL: formatting](../../../../src/claude/rules/_rules_on_demand/style_guides/sql/_formatting.md) | Independent review | 1.0.2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: over 500 words; Clarity: most rules unjustified, and `UNION ALL` sits under Joins |
+| [SQL: CTEs](../../../../src/claude/rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md) | Independent review | 1.0.6 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: grouping list and Contents repeat the headings; Clarity: fragments never assembled into one query |
+| [SQL: Snowflake data types](../../../../src/claude/rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md) | Independent review | 1.0.2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: Contents for three headings, plus a filler sentence; Clarity: NTZ and TZ never explained |
+| [SQL: SQLFluff](../../../../src/claude/rules/_rules_on_demand/style_guides/sql/_sqlfluff.md) | Independent review | 1.1.2 | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | **B · 8/10** | Leanness: repeats the parent's resolve-before-commit rule; Maintainability: excluded-rules table copies `.sqlfluff` |
+| [dbt style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/dbt.md) | Independent review | 1.5.0 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: over 500 words; Clarity: `KEY` used without saying it's the surrogate key |
+| [dbt: model organisation](../../../../src/claude/rules/_rules_on_demand/style_guides/dbt/_model_organisation.md) | Independent review | 1.0.2 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | ✅ 2 | **C · 7/10** | Leanness: over 500 words; Clarity: the team's default lookback window is never stated; Maintainability: hard-coded folder tree |
+| [dbt: naming](../../../../src/claude/rules/_rules_on_demand/style_guides/dbt/_naming_conventions.md) | Independent review | 1.0.3 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: repeats the surrogate-key rules; Clarity: lowercase column rule clashes with uppercase `KEY` names |
+| [dbt: YAML properties](../../../../src/claude/rules/_rules_on_demand/style_guides/dbt/_yaml_resource_properties.md) | Independent review | 1.0.6 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **B · 8/10** | Core coverage: source definitions have no example; Leanness: repeats the `KEY` test rule |
+| [dbt: macros](../../../../src/claude/rules/_rules_on_demand/style_guides/dbt/_macros.md) | Independent review | 1.0.6 | ✅ 2 | ✅ 2 | ✅ 2 | ❌ 0 | ✅ 2 | **B · 8/10** | Maintainability: pinned package versions and a directory tree will drift |
+| [dbt: snapshots](../../../../src/claude/rules/_rules_on_demand/style_guides/dbt/_snapshots.md) | Independent review | 1.0.5 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Permission recommendations](../../../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Markdown layout](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_markdown_layout.md) | Independent review | 2.0.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: "Review for cuts" repeats the parent's Brevity bullet |
 | [Audience and depth](../../../../src/claude/rules/_rules_on_demand/02_communication/writing_style/_audience_and_depth.md) | Independent review | 2.0.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: "Partial" for the data analytics team is undefined |

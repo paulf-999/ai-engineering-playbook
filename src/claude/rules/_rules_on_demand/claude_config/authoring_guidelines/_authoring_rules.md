@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-05 -->
 # 📝 Authoring rules
@@ -20,11 +20,12 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 🆕 **New-file gap:** a path-scoped rule loads only once a matching file is open, so point to it on demand too, for the first file of its kind.
 - 🧩 **Children:** name each child in its parent, and keep links to other files in those pointer lines rather than a Related section.
 - 🧪 **Test the pointer:** run a lean session on a matching task, and check Claude reads the file before acting.
+- 🧾 **Usage lines:** give each entry-point rule `applies_to`, `miss_cost` and `loading` lines straight after its header, which its children inherit.
 
 ## ✅ Before merging
 
 - 🛡️ **Enforcement:** a rule backed by a hook, test or CI check gets a test in the repo's `tests/` folder.
-- 🔎 **Checks:** run `make test` and `pre-commit run --all-files`, which include the always-on budget check.
-- 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section for each file.
-- 🏅 **Scorecard:** score it per `docs/maintenance/quality/themes/quality_scorecards/rules/README.md`, in the playbook repo.
+- 🔎 **Checks:** run `make test` and `pre-commit run --all-files`, which include the rule structure test and the always-on budget check.
+- 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section for each file, including its evidence of need.
+- 🏅 **Review:** have one fresh-context reviewer on Sonnet score every rule the PR changes, per `docs/maintenance/quality/themes/quality_scorecards/README.md`, in the playbook repo.
 - 🔁 **Trial:** log its use in the task log, and remove it at the next review if it hasn't paid its way.

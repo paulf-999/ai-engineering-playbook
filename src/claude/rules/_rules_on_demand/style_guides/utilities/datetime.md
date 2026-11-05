@@ -1,6 +1,9 @@
-<!-- version: 2.0.3 -->
+<!-- version: 2.0.4 -->
 <!-- created: 2026-04-11 -->
 <!-- updated: 2026-11-05 -->
+<!-- applies_to: * -->
+<!-- miss_cost: low — dates drift between formats -->
+<!-- loading: lazy — read when naming_standards.md's date pointer sends Claude here -->
 # 📅 Date & Time Standards
 
 **Purpose:** Set one date and time format for technical contexts, so code, metadata and logs sort and compare consistently.

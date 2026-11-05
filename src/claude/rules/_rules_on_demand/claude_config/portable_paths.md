@@ -1,6 +1,9 @@
-<!-- version: 2.0.0 -->
+<!-- version: 2.0.1 -->
 <!-- created: 2026-09-18 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
+<!-- applies_to: **/*.sh, **/*.py -->
+<!-- miss_cost: medium — a hook, script or test breaks on another machine, often silently -->
+<!-- loading: lazy — read when guiding_principles.md points here, before writing a hook, script or test -->
 # 🌍 Portable paths
 
 **Purpose:** how hooks, scripts and tests for Claude's config find files, so they work on any machine.

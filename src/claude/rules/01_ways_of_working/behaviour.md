@@ -1,6 +1,6 @@
-<!-- version: 2.2.2 -->
+<!-- version: 2.3.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-05 -->
 # 🛡️ Behaviour
 
 **Purpose:** how Claude decides, checks and reports while it works on a task.
@@ -12,6 +12,8 @@
 - 🎯 **Literal direction:** when the user names a tool, skill or action, use exactly that, since a substitute ignores their stated choice.
 - 🔌 **Check tools first:** before saying you can't reach a system such as Jira or Slack, search for a tool for it and try it.
 - 🚦 **Ask before big changes:** before a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question.
+
+- **Read on demand:** `_rules_on_demand/01_ways_of_working/automation_controls.md`, in your Claude config directory, before proposing or starting a loop, such as `/loop`, `/goal`, `/batch` or a multi-agent workflow.
 
 ## 📣 Reporting
 

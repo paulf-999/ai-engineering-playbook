@@ -1,4 +1,4 @@
-<!-- version: 1.0.15 -->
+<!-- version: 1.0.16 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -21,9 +21,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 4 | `rules/01_ways_of_working/git.md` | ~325 |
 | 5 | `rules/01_ways_of_working/security.md` | ~204 |
 | 6 | `rules/02_communication/claude_response_standards.md` | ~218 |
-| 7 | `rules/02_communication/naming_standards.md` | ~197 |
+| 7 | `rules/02_communication/naming_standards.md` | ~233 |
 | 8 | `rules/02_communication/writing_style.md` | ~318 |
-| | **Subtotal** | **~2422** |
+| | **Subtotal** | **~2458** |
 
 ## 📂 With matching files
 
@@ -98,8 +98,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 50 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~929 |
 | 51 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
 | 52 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~388 |
-| 53 | `rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
-| 54 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
-| 55 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
-| 56 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
-| | **Subtotal** | **~33231** |
+| 53 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~499 |
+| 54 | `rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
+| 55 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
+| 56 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
+| 57 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
+| | **Subtotal** | **~33730** |

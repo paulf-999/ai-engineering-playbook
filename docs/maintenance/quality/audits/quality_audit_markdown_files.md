@@ -1,4 +1,4 @@
-<!-- version: 1.0.86 -->
+<!-- version: 1.0.87 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Markdown Quality Audit
@@ -73,7 +73,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [Python: assertions](../../../../src/claude/rules/_rules_on_demand/style_guides/python/testing/_assertions.md) | Independent review | 1.0.2 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Maintainability: the test organisation section belongs in the naming page |
 | [Python: fixtures and mocking](../../../../src/claude/rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md) | Independent review | 1.0.3 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | **B · 8/10** | Clarity: promises env vars but patches `sys.argv`; Accuracy: calls plain helpers fixtures |
 | [Python: test naming](../../../../src/claude/rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md) | Independent review | 1.0.1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [SQL style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/sql.md) | Independent review | 1.4.0 | ✅ 2 | 🟡 1 | 🟡 1 | 🟡 1 | ✅ 2 | **C · 7/10** | Leanness: `ref()` and `source()` rule repeated four times; Clarity: over-aliasing example muddles aliases with CTEs; Maintainability: dbt YAML and warehouse sizing overlap the dbt guide |
+| [SQL style guide](../../../../src/claude/rules/_path_scoped_rules/style_guides/sql.md) | Independent review | 1.5.0 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Leanness: Enforcement line and checklist repeat Tooling and Mistakes |
 | [SQL: formatting](../../../../src/claude/rules/_rules_on_demand/style_guides/sql/_formatting.md) | Independent review | 1.0.2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: over 500 words; Clarity: most rules unjustified, and `UNION ALL` sits under Joins |
 | [SQL: CTEs](../../../../src/claude/rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md) | Independent review | 1.0.6 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: grouping list and Contents repeat the headings; Clarity: fragments never assembled into one query |
 | [SQL: Snowflake data types](../../../../src/claude/rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md) | Independent review | 1.0.2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: Contents for three headings, plus a filler sentence; Clarity: NTZ and TZ never explained |

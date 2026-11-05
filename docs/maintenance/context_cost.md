@@ -1,4 +1,4 @@
-<!-- version: 1.0.11 -->
+<!-- version: 1.0.12 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-05 -->
 # 💰 Context cost
@@ -32,8 +32,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `rules/_path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
 | 2 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/dbt_project.yml` | ~1114 |
 | 3 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~1114 |
-| 4 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~990 |
-| | **Subtotal** | | **~3415** |
+| 4 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~750 |
+| | **Subtotal** | | **~3174** |
 
 ## 💤 On demand
 

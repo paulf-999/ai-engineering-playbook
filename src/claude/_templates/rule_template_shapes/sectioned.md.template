@@ -1,0 +1,25 @@
+<!-- version: 1.0.0 -->
+<!-- created: YYYY-MM-DD -->
+<!-- updated: YYYY-MM-DD -->
+# 🔤 [Rule name]
+
+**Purpose:** [one sentence on what the rule covers, and why a reader needs it].
+
+[Optional navigation sentence, such as "This page is part of `<parent path>`." Delete if not a child.]
+
+## 🎯 [First action heading, such as "Before you start"]
+
+- 🔑 **[Keyword]:** [one sentence stating the rule].
+- 🔧 **[Keyword]:** [one sentence on how to apply it].
+
+## 🛠️ [Second action heading, such as "Before merging"]
+
+- 🔑 **[Keyword]:** [one sentence stating the rule].
+- 🔧 **[Keyword]:** [one sentence on how to apply it].
+
+<!-- Sectioned shape: use when the rule needs more than 5 labelled bullets, not counting Read on demand pointers. -->
+<!-- 2 to 4 emoji ## sections, each one list of 5 bullets at most. Delete these comments. -->
+
+## 📚 Read on demand
+
+- **Read on demand:** `_rules_on_demand/<domain>/<file>.md`, in your Claude config directory, [when to read it].

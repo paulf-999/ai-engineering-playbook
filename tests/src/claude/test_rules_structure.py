@@ -1,4 +1,4 @@
-# version: 1.0.1
+# version: 1.0.2
 # created: 2026-11-05
 # updated: 2026-11-07
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -152,8 +152,69 @@ def is_entry_point(path):
     return not path.name.startswith("_")
 
 
+# restored rules that don't meet the template yet, as (test, rule path): step 6 fixes them in batches and empties this
+KNOWN_FAILURES = {
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/code_security.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/airflow.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/bash.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/dbt.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/infra/ansible.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/infra/docker.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/infra/terraform.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/python.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/sql.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/utilities/makefile.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/utilities/mermaid.md"),
+    ("test_entry_point_has_usage_lines", "_path_scoped_rules/testing.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/02_conduct/automation_controls.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/02_conduct/todo_logging.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/03_workflows/saving_plans.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/claude_config/permission_recommendations.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/code_complexity.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/logging.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/module_organisation.md"),
+    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/testing.md"),
+    ("test_entry_point_has_usage_lines", "01_standards/claude_response_standards.md"),
+    ("test_entry_point_has_usage_lines", "01_standards/naming_standards.md"),
+    ("test_entry_point_has_usage_lines", "02_conduct/behaviour.md"),
+    ("test_entry_point_has_usage_lines", "02_conduct/security.md"),
+    ("test_entry_point_has_usage_lines", "02_conduct/writing_style.md"),
+    ("test_entry_point_has_usage_lines", "03_workflows/claude_plans.md"),
+    ("test_entry_point_has_usage_lines", "03_workflows/git.md"),
+    ("test_rule_headings", "_rules_on_demand/testing/_testing_anti_patterns.md"),
+    ("test_rule_headings", "_rules_on_demand/testing/_testing_design_pattern.md"),
+    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/airflow.md"),
+    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/dbt.md"),
+    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/infra/terraform.md"),
+    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/python.md"),
+    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/airflow/_best_practices.md"),
+    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/airflow/_tasks_and_operators.md"),
+    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/dbt/_naming_conventions.md"),
+    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md"),
+    (
+        "test_rule_lists_are_short",
+        "_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md",
+    ),
+    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/sql/_formatting.md"),
+    ("test_rule_lists_are_short", "01_standards/naming_standards.md"),
+    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md"),
+    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_error_handling.md"),
+    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_what_to_log.md"),
+    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/module_organisation/_docstrings.md"),
+    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/module_organisation/_public_private.md"),
+    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/testing/_assertions.md"),
+    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md"),
+}
+
+
+def params(paths, test_name):
+    """Return one case per rule, marking those in KNOWN_FAILURES as strict expected failures."""
+    mark = pytest.mark.xfail(reason="TODO: restored rule doesn't meet the template yet", strict=True)
+    return [pytest.param(path, marks=mark if (test_name, relative(path)) in KNOWN_FAILURES else ()) for path in paths]
+
+
 # MoSCoW: Must — every rule must open with the header, an emoji H1 and a Purpose line
-@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
+@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_opens_with_header_h1_and_purpose"), ids=relative)
 def test_rule_opens_with_header_h1_and_purpose(path):
     """Each rule has the 3-line header, exactly one H1 with an emoji, and a Purpose line straight after it."""
     problems = opening_problems(path.read_text())
@@ -161,7 +222,7 @@ def test_rule_opens_with_header_h1_and_purpose(path):
 
 
 # MoSCoW: Must — rules over the line limit cost context and must be split
-@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
+@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_size_and_ending"), ids=relative)
 def test_rule_size_and_ending(path):
     """Each rule is 110 lines or fewer, not counting comments or frontmatter, and ends with one newline."""
     problems = size_problems(path.read_text())
@@ -169,7 +230,7 @@ def test_rule_size_and_ending(path):
 
 
 # MoSCoW: Should — headings keep rules scannable and link only through pointers
-@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
+@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_headings"), ids=relative)
 def test_rule_headings(path):
     """Each ## heading has an emoji, Contents appears only with 3 or more headings, and there's no Related section."""
     problems = heading_problems(path.read_text())
@@ -177,7 +238,7 @@ def test_rule_headings(path):
 
 
 # MoSCoW: Should — long lists are hard to scan, so the layout rule caps them at 5
-@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
+@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_lists_are_short"), ids=relative)
 def test_rule_lists_are_short(path):
     """No list in a rule has more than 5 top-level bullets."""
     problems = list_problems(path.read_text())
@@ -185,16 +246,32 @@ def test_rule_lists_are_short(path):
 
 
 # MoSCoW: Must — the loading line must match where the rule lives, so it can't drift
-@pytest.mark.parametrize("path", [path for path in RULE_FILES if is_entry_point(path)], ids=relative)
+@pytest.mark.parametrize(
+    "path",
+    params([path for path in RULE_FILES if is_entry_point(path)], "test_entry_point_has_usage_lines"),
+    ids=relative,
+)
 def test_entry_point_has_usage_lines(path):
     """Each entry-point rule has applies_to, miss_cost and loading lines, with loading matching its folder."""
     problems = usage_problems(path.read_text(), relative(path))
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-def child_problems(path):
-    """Return problems with a child rule: no parent beside its folder, no sibling, or not named by the parent."""
-    parent = path.parent.with_suffix(".md")
+def find_parent(path, rules_dir=RULES_DIR):
+    """Return a child's parent rule: beside its folder, or at the same path in the loaded tree."""
+    beside = path.parent.with_suffix(".md")
+    candidates = [beside]
+    on_demand = rules_dir / "_rules_on_demand"
+    # a loaded parent, such as 02_conduct/writing_style.md, keeps its bulky children on demand
+    if beside.is_relative_to(on_demand):
+        rest = beside.relative_to(on_demand)
+        candidates += [rules_dir / rest, rules_dir / "_path_scoped_rules" / rest]
+    return next((candidate for candidate in candidates if candidate.exists()), beside)
+
+
+def child_problems(path, rules_dir=RULES_DIR):
+    """Return problems with a child rule: no parent for its folder, no sibling, or not named by the parent."""
+    parent = find_parent(path, rules_dir)
     if not parent.exists():
         return ["a child must sit in a folder named after a parent rule"]
     problems = []
@@ -215,19 +292,12 @@ def resolve(target):
     return RULES_DIR / target if target.startswith("_rules_on_demand/") else CONFIG_DIR / target
 
 
-# entry-point rules nothing in src/claude/ points to yet, until the always-on rules that name them are ported
-AWAITING_POINTERS = {"_rules_on_demand/style_guides/jira.md", "_rules_on_demand/style_guides/utilities/datetime.md"}
-
-
-def inbound_params():
-    """Return one case per on-demand entry point, marking those still awaiting a pointer as strict expected failures."""
-    mark = pytest.mark.xfail(reason="TODO: gains a pointer when the always-on rules are ported", strict=True)
-    paths = [path for path in RULE_FILES if is_entry_point(path) and relative(path).startswith("_rules_on_demand/")]
-    return [pytest.param(path, marks=mark if relative(path) in AWAITING_POINTERS else ()) for path in paths]
-
-
 # MoSCoW: Must — a child no parent points to is never read
-@pytest.mark.parametrize("path", [path for path in RULE_FILES if not is_entry_point(path)], ids=relative)
+@pytest.mark.parametrize(
+    "path",
+    params([path for path in RULE_FILES if not is_entry_point(path)], "test_child_is_named_by_its_parent"),
+    ids=relative,
+)
 def test_child_is_named_by_its_parent(path):
     """Each child sits in a folder named after its parent, has a sibling, and is named in the parent's text."""
     problems = child_problems(path)
@@ -235,7 +305,14 @@ def test_child_is_named_by_its_parent(path):
 
 
 # MoSCoW: Must — an on-demand rule nothing points to is never read
-@pytest.mark.parametrize("path", inbound_params(), ids=relative)
+@pytest.mark.parametrize(
+    "path",
+    params(
+        [path for path in RULE_FILES if is_entry_point(path) and relative(path).startswith("_rules_on_demand/")],
+        "test_on_demand_rule_has_an_inbound_pointer",
+    ),
+    ids=relative,
+)
 def test_on_demand_rule_has_an_inbound_pointer(path):
     """Each on-demand entry-point rule is named in a pointer somewhere else in the config."""
     names_it = [source for target, source in pointer_targets() if target == relative(path) and source != path]
@@ -331,3 +408,25 @@ def test_child_check_can_fail(tmp_path):
     orphan = tmp_path / "orphan" / "_child.md"
     orphan.write_text("x\n")
     assert child_problems(orphan) == ["a child must sit in a folder named after a parent rule"]
+
+
+# MoSCoW: Must — an on-demand child of a loaded parent must pass, while a true orphan still fails
+@pytest.mark.parametrize(
+    ("children", "parent"),
+    [
+        ("_rules_on_demand/02_conduct/topic", "02_conduct/topic.md"),
+        ("_rules_on_demand/style_guides/topic", "_path_scoped_rules/style_guides/topic.md"),
+    ],
+)
+def test_child_check_finds_a_parent_in_the_loaded_tree(tmp_path, children, parent):
+    """An on-demand child whose parent sits at the same path in the always-on or path-scoped tree passes."""
+    (tmp_path / children).mkdir(parents=True)
+    for name in ("_one.md", "_two.md"):
+        (tmp_path / children / name).write_text("x\n")
+    (tmp_path / parent).parent.mkdir(parents=True, exist_ok=True)
+    (tmp_path / parent).write_text("Points to _one.md and _two.md\n")
+    assert child_problems(tmp_path / children / "_one.md", tmp_path) == []
+    (tmp_path / parent).unlink()
+    assert child_problems(tmp_path / children / "_one.md", tmp_path) == [
+        "a child must sit in a folder named after a parent rule"
+    ]

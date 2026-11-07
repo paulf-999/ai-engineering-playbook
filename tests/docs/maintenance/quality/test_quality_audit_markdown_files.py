@@ -1,6 +1,6 @@
-# version: 1.5.1
+# version: 1.5.2
 # created: 2026-10-31
-# updated: 2026-11-05
+# updated: 2026-11-07
 """Checks the markdown files quality audit lists every doc once, its scores add up, and no score is out of date.
 
 Also checks the placeholder cap, and that each check below can fail.
@@ -72,7 +72,7 @@ def assert_scored_versions_current(rows, root=REPO_ROOT):
 
 
 # MoSCoW: Should — keeps the docs audit true to the repo's docs
-@pytest.mark.xfail(reason="TODO: src/claude/ is being rebuilt from empty (old config in src/claude_old/)", strict=True)
+@pytest.mark.xfail(reason="TODO: docs added since the rebuild need audit rows", strict=True)
 def test_docs_audit_matches_the_docs():
     """Links work, every doc has one current row, and each row's score, grade, Gaps and cap match its themes."""
     assert_links_work(AUDIT)

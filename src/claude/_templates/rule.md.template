@@ -21,14 +21,14 @@ This checklist runs past 5 items, since, like numbered steps, it needs every che
   - **MAJOR:** Guidance reversed or removed.
   - **MINOR:** Guidance added.
   - **PATCH:** Wording or typo fix only.
-- [ ] **Usage header:** An entry-point rule has `applies_to`, `miss_cost` and `loading` on lines 4–6, with `loading` matching its folder (`always-on`, `path-scoped` or `on demand`)
+- [ ] **Usage header:** An entry-point rule, unlike a child file, has `applies_to`, `miss_cost` and `loading` on lines 4–6, with `loading` matching its folder (`always-on`, `path-scoped` or `on demand`)
 - [ ] **Purpose present:** One-line statement at top
 - [ ] **H1 emoji header:** File title with emoji
 - [ ] **H2 section headers:** All start with emoji (scannability)
 - [ ] **Bold keywords:** Bullets open with an emoji, then `**term:**`
 - [ ] **One sentence per bullet:** No multi-sentence bullets (use sub-bullets instead)
 - [ ] **Five per list:** No list has more than 5 top-level bullets
-- [ ] **~100-line limit:** Rules ≤110 lines, split if needed
+- [ ] **Size limit:** About 110 lines at most, split if needed
 - [ ] **Trailing newline:** File ends with exactly one `\n`
 - [ ] **No H1 duplicates:** Only one `#` header per file
 - [ ] **Clear scope:** One concept per file, related patterns grouped
@@ -37,3 +37,5 @@ This checklist runs past 5 items, since, like numbered steps, it needs every che
 - [ ] **Contents only when earned:** Add a `## 📋 Contents` section only when the rule has 3 or more real `##` headings, not counting `## 📚 Read on demand`
 - [ ] **No Related section:** Link other files only through a `**Read on demand:**` line that says when to read them, never a list of related links
   - **Why:** a rule under `rules/` with no `paths:` setting loads every session, so every line costs always-on context.
+
+- **Read on demand:** `_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md`, in your Claude config directory, before merging, for the tier, pointers, scorecard and trial.

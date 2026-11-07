@@ -1,6 +1,6 @@
-# version: 1.0.0
+# version: 1.0.1
 # created: 2026-11-05
-# updated: 2026-11-05
+# updated: 2026-11-07
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
 
 Also checks that each gate can fail, using small broken examples.
@@ -120,7 +120,7 @@ def list_problems(text):
 def expected_loading(rule_path):
     """Return the loading value a rule's folder implies."""
     if rule_path.startswith("_rules_on_demand/"):
-        return "lazy"
+        return "on demand"
     if rule_path.startswith("_path_scoped_rules/"):
         return "path-scoped"
     return "always-on"
@@ -255,7 +255,7 @@ def test_every_pointer_target_exists():
 
 GOOD_RULE = (
     "<!-- version: 1.0.0 -->\n<!-- created: 2026-11-05 -->\n<!-- updated: 2026-11-05 -->\n"
-    "<!-- applies_to: * -->\n<!-- miss_cost: low — style drift -->\n<!-- loading: lazy — read on demand -->\n"
+    "<!-- applies_to: * -->\n<!-- miss_cost: low — style drift -->\n<!-- loading: on demand — read on demand -->\n"
     "# 🧪 Example\n\n**Purpose:** an example rule.\n\n## 🔢 Points\n\n- **One:** a point.\n"
 )
 
@@ -287,7 +287,11 @@ def test_each_check_can_fail(check, text, expected):
 @pytest.mark.parametrize(
     ("text", "rule_path", "expected"),
     [
-        (GOOD_RULE.replace("<!-- loading: lazy — read on demand -->\n", ""), "_rules_on_demand/x.md", "'loading' line"),
+        (
+            GOOD_RULE.replace("<!-- loading: on demand — read on demand -->\n", ""),
+            "_rules_on_demand/x.md",
+            "'loading' line",
+        ),
         (GOOD_RULE, "01_standards/x.md", "loading must be 'always-on'"),
         (GOOD_RULE.replace("low — style drift", "tiny"), "_rules_on_demand/x.md", "miss_cost must be"),
     ],
@@ -300,7 +304,7 @@ def test_usage_check_can_fail(text, rule_path, expected):
 
 
 PATH_SCOPED_RULE = "---\n" + GOOD_RULE.replace("# 🧪", "paths:\n  - '*.sql'\n---\n# 🧪").replace(
-    "lazy — read on demand", "path-scoped — loads with SQL files"
+    "on demand — read on demand", "path-scoped — loads with SQL files"
 )
 
 
@@ -310,7 +314,7 @@ def test_path_scoped_rule_passes_the_checks():
     assert not opening_problems(PATH_SCOPED_RULE), opening_problems(PATH_SCOPED_RULE)
     assert not usage_problems(PATH_SCOPED_RULE, "_path_scoped_rules/x.md"), "a correct path-scoped rule should pass"
     problems = usage_problems(PATH_SCOPED_RULE, "_rules_on_demand/x.md")
-    assert any("loading must be 'lazy'" in problem for problem in problems), f"missed it: {problems}"
+    assert any("loading must be 'on demand'" in problem for problem in problems), f"missed it: {problems}"
 
 
 # MoSCoW: Must — the child check must fail for a lone or unnamed child

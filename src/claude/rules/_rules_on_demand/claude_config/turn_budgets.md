@@ -1,9 +1,9 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 <!-- applies_to: **/*.sh, **/.github/workflows/** -->
 <!-- miss_cost: medium — an unattended run loops and overspends -->
-<!-- loading: lazy — read when guiding_principles.md points here, before an unattended run -->
+<!-- loading: on demand — read when guiding_principles.md points here, before an unattended run -->
 # 🔄 Turn budgets
 
 **Purpose:** how to cap turns when running Claude Code without a person watching, so a run can't loop and overspend.

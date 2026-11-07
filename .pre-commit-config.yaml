@@ -1,7 +1,7 @@
 ---
-# version: 1.2.13
+# version: 1.2.14
 # created: 2022-11-04
-# updated: 2026-11-05
+# updated: 2026-11-07
 # all commands by default will run on every commit
 default_install_hook_types: [pre-commit, commit-msg]
 default_stages: [pre-commit]
@@ -63,6 +63,7 @@ repos:
             description: Bumps each changed file's header (PATCH +1, updated = today), unless raised by hand.
             entry: src/sh/bump_file_headers.sh
             language: script
+            exclude: \.template$  # a template's header holds placeholders, copied into each new file made from it
           - id: claude_validate_always_on_budget  # Cap the Claude context loaded into every session
             name: Claude checks — always-on context within budget?
             description: Fails when CLAUDE.md files, their imports, always-on rules and skill descriptions exceed the token budget.

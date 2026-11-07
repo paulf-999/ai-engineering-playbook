@@ -1,9 +1,9 @@
-<!-- version: 2.1.1 -->
+<!-- version: 2.1.2 -->
 <!-- created: 2026-05-20 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — tickets miss required fields and need fixing by hand -->
-<!-- loading: lazy — read when writing_style.md's Jira pointer sends Claude here -->
+<!-- loading: on demand — read when writing_style.md's Jira pointer sends Claude here -->
 # 🎫 Jira style guide
 
 **Purpose:** standards for a team's Jira tickets, covering fields, ticket structure, sprint assignment and business value.

@@ -1,6 +1,6 @@
-<!-- version: 1.0.25 -->
+<!-- version: 1.0.26 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
@@ -28,11 +28,11 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `_templates/README.md` | ~1074 |
+| 1 | `_templates/README.md` | ~1188 |
 | 2 | `_templates/skills/_quality_scorecard_template.md` | ~1258 |
 | 3 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~552 |
 | 4 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~360 |
-| 5 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~539 |
+| 5 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~561 |
 | 6 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~433 |
 | 7 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~198 |
 | 8 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~447 |
@@ -46,4 +46,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 16 | `rules/_rules_on_demand/style_guides/jira/_sprint_planning.md` | ~586 |
 | 17 | `rules/_rules_on_demand/style_guides/jira/_ticket_conventions.md` | ~573 |
 | 18 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~464 |
-| | **Subtotal** | **~9437** |
+| | **Subtotal** | **~9573** |

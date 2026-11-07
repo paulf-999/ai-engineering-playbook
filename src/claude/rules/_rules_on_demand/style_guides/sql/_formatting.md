@@ -1,6 +1,6 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # 🗂️ SQL Formatting Standards
 
 **Purpose:** Establish formatting and style conventions for SQL queries and dbt models to ensure readability, consistency, and maintainability.
@@ -28,7 +28,7 @@
 ## 🔖 Naming conventions
 
 - **Format:** `snake_case` only — letters, numbers, underscores; begin with letter; don't end with underscore
-- **Case:** never `CamelCase` — harder to scan
+  - **Case:** never `CamelCase` — harder to scan
 - **Singularity:** use singular names, not plural (e.g., `employee` over `employees`)
 - **No abbreviations:** only universally understood abbreviations allowed
 - **No prefixes:** do not prefix table names with `tbl_` or other descriptors
@@ -41,7 +41,7 @@
 - **DRY code:** consolidate repeated logic using CTEs and Jinja
 - **No wildcards:** use explicit column lists rather than `SELECT *` from a table, though a dbt model may end by selecting everything from its final CTE
 - **One column per line:** in `SELECT` statements
-- **Leading commas:** commas start the line, not end the previous line:
+  - **Leading commas:** commas start the line, not end the previous line:
 
 ```sql
 SELECT
@@ -57,7 +57,7 @@ FROM orders
 - **ON placement:** place join conditions on a new indented line
 - **Always alias:** meaningful aliases, never single letters
 - **Prefix columns:** in joins with multiple tables, always prefix column names with table alias
-- **Prefer LEFT:** use `LEFT JOIN` over `RIGHT JOIN` — swap `FROM` and `JOIN` tables if needed
+  - **Prefer LEFT:** use `LEFT JOIN` over `RIGHT JOIN` — swap `FROM` and `JOIN` tables if needed
 - **Use UNION ALL:** prefer `UNION ALL` over `UNION` unless duplicate elimination is required
 
 ## 🔤 Aliases

@@ -1,6 +1,6 @@
-<!-- version: 1.0.3 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # 🏷️ dbt Naming Conventions
 
 **Purpose:** Set naming standards for models, files, keys, data types, audit fields, CTEs, and null handling across all layers of the dbt project.
@@ -32,7 +32,7 @@ Every model must have a surrogate key named `KEY`, generated using the `create_s
 
 - Use `snake_case` for file names and Python/Jinja identifiers.
 - Source column references must use the original casing from the source system (often quoted mixed case, e.g. `"MerchantNumber"`).
-- Transformed and derived columns use `lowercase_snake_case`.
+  - Transformed and derived columns use `lowercase_snake_case`.
 - Use names based on business terminology, not source system terminology.
 - Avoid reserved words as column names.
 - Be consistent — use the same field names across models wherever possible.

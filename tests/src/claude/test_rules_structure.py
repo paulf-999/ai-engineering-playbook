@@ -1,4 +1,4 @@
-# version: 1.0.3
+# version: 1.0.4
 # created: 2026-11-05
 # updated: 2026-11-07
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -104,12 +104,16 @@ def heading_problems(text):
     return problems
 
 
+# bullets the 5-item cap skips: checklist items, Contents links and Read on demand pointers
+UNCOUNTED_BULLET = re.compile(r"[-*] (\[[ x]\] |\[[^]]*\]\(#|\*\*Read on demand:\*\*)")
+
+
 def list_problems(text):
-    """Return each list with more than 5 top-level bullets, where blank lines and child bullets don't end a list."""
+    """Return each list over 5 counted top-level bullets, where blank lines and child bullets don't end it."""
     problems, count = [], 0
     for line in prose_lines(text.split("\n")) + ["end"]:
         if line.startswith(("- ", "* ")):
-            count += 1
+            count += 0 if UNCOUNTED_BULLET.match(line) else 1
         elif line.strip() and not line.startswith(" "):
             if count > MAX_BULLETS:
                 problems.append(f"a list has {count} top-level bullets, over {MAX_BULLETS}, so split it")
@@ -156,20 +160,6 @@ def is_entry_point(path):
 KNOWN_FAILURES = {
     ("test_rule_headings", "_rules_on_demand/testing/_testing_anti_patterns.md"),
     ("test_rule_headings", "_rules_on_demand/testing/_testing_design_pattern.md"),
-    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/airflow.md"),
-    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/dbt.md"),
-    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/infra/terraform.md"),
-    ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/python.md"),
-    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/airflow/_best_practices.md"),
-    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/airflow/_tasks_and_operators.md"),
-    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/dbt/_naming_conventions.md"),
-    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md"),
-    (
-        "test_rule_lists_are_short",
-        "_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md",
-    ),
-    ("test_rule_lists_are_short", "_rules_on_demand/style_guides/sql/_formatting.md"),
-    ("test_rule_lists_are_short", "01_standards/naming_standards.md"),
     ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md"),
     ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_error_handling.md"),
     ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_what_to_log.md"),
@@ -324,6 +314,7 @@ GOOD_RULE = (
         (heading_problems, GOOD_RULE + "\n## 🔗 Related\n", "Related section"),
         (list_problems, GOOD_RULE + "\n".join(f"- **P{n}:** x." for n in range(6)) + "\n", "over 5"),
         (list_problems, GOOD_RULE + "- **P:** x.\n\n" * 6, "over 5"),
+        (list_problems, GOOD_RULE + "- [ ] a check.\n" * 6 + "- **P:** x.\n" * 6, "over 5"),
     ],
 )
 def test_each_check_can_fail(check, text, expected):
@@ -331,6 +322,21 @@ def test_each_check_can_fail(check, text, expected):
     assert not check(GOOD_RULE), f"{check.__name__} should pass the good example"
     problems = check(text)
     assert any(expected in problem for problem in problems), f"{check.__name__} missed it: {problems}"
+
+
+# MoSCoW: Should — checklists, Contents links and pointers aren't prose lists, so they don't count towards the cap
+@pytest.mark.parametrize(
+    "bullet",
+    [
+        "- [ ] a check.",
+        "- [x] a done check.",
+        "- [🧪 A section](#-a-section)",
+        "- **Read on demand:** `x.md`, when needed.",
+    ],
+)
+def test_list_check_skips_uncounted_bullets(bullet):
+    """A list of 6 checklist items, Contents links or pointers passes, plus up to 5 ordinary bullets."""
+    assert not list_problems(GOOD_RULE + (bullet + "\n") * 6 + "- **P:** x.\n" * 4)
 
 
 # MoSCoW: Must — usage lines must fail when missing or when loading disagrees with the folder

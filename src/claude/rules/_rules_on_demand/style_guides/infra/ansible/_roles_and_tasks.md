@@ -1,6 +1,6 @@
-<!-- version: 1.0.7 -->
+<!-- version: 1.0.8 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # 🔧 Ansible Roles & Tasks
 
 **Purpose:** Set how roles are laid out and how their tasks, variables and versions are written.
@@ -55,14 +55,19 @@ ansible-galaxy role init --offline <role_name>
 
 ## ✅ Task standards
 
+### 🧩 Task basics
+
 - Every task must have a `name` in sentence case describing what it does.
 - Use FQCN for all modules (`ansible.builtin.*`, `community.*`, etc.).
-- Assert required variables are defined and non-empty at the start of a role — fail fast with a clear message.
 - Use `no_log: true` on any task that handles secrets or sensitive values.
+- Prefer `ansible.builtin.command` over `ansible.builtin.shell` unless the task genuinely requires shell features (pipes, redirects, glob expansion).
+  - Set `changed_when` explicitly on every `ansible.builtin.command` or `ansible.builtin.shell` task — derive the condition from stdout/stderr content where possible.
+
+### 🧱 Roles and failures
+
+- Assert required variables are defined and non-empty at the start of a role — fail fast with a clear message.
 - Roles must be self-contained and reusable — no hardcoded environment-specific values inside a role.
 - In `rescue` blocks: surface logs inline; include in-cluster diagnostics (port bindings, pod logs, events); use `failed_when: false` on all diagnostic tasks so a missing resource does not mask the original error; do not auto-uninstall — preserve state for post-failure investigation.
-- Prefer `ansible.builtin.command` over `ansible.builtin.shell` unless the task genuinely requires shell features (pipes, redirects, glob expansion).
-- Set `changed_when` explicitly on every `ansible.builtin.command` or `ansible.builtin.shell` task — derive the condition from stdout/stderr content where possible.
 
 ---
 

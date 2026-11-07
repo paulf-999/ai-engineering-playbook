@@ -1,7 +1,10 @@
 ---
-<!-- version: 4.0.0 -->
+<!-- version: 4.0.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/*.py, **/*.sh, **/*.sql -->
+<!-- miss_cost: medium — code changes ship untested or tests fall out of step -->
+<!-- loading: path-scoped — loads with code files -->
 paths:
   - "**/*.py"
   - "**/*.sh"

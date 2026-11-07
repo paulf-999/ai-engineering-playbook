@@ -1,6 +1,9 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/*.py -->
+<!-- miss_cost: low — functions grow harder to read and change -->
+<!-- loading: on demand — read when python.md's complexity pointer sends Claude here -->
 # 📊 Code Complexity
 
 **Purpose:** Establish metrics to identify and prevent overly complex Python code. Reduces mental load and improves maintainability.

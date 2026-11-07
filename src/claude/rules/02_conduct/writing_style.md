@@ -1,6 +1,9 @@
-<!-- version: 3.1.1 -->
+<!-- version: 3.1.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: * -->
+<!-- miss_cost: low — prose drifts from the house style -->
+<!-- loading: always-on — every session writes something -->
 # ✏️ Writing style
 
 **Purpose:** how to write everything you produce, from replies and docs to tickets and commit messages.

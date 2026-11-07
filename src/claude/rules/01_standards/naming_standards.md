@@ -1,6 +1,9 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.1.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: * -->
+<!-- miss_cost: low — names stop saying what a file holds -->
+<!-- loading: always-on — any session can create a file -->
 # 📛 Naming standards
 
 **Purpose:** how to name new files, folders and config artefacts, so a reader knows what each holds without opening it.

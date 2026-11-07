@@ -1,7 +1,10 @@
 ---
-<!-- version: 1.5.0 -->
+<!-- version: 1.5.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/*.sh -->
+<!-- miss_cost: medium — scripts fail silently or break on unexpected input -->
+<!-- loading: path-scoped — loads with shell scripts -->
 paths:
   - "**/*.sh"
 ---

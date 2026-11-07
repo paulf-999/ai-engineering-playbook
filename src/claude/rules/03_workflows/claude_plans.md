@@ -1,6 +1,9 @@
-<!-- version: 2.1.3 -->
+<!-- version: 2.1.4 -->
 <!-- created: 2026-09-17 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: * -->
+<!-- miss_cost: medium — multi-phase work runs past a wrong turn and needs redoing -->
+<!-- loading: always-on — any task can grow into phases -->
 # 🗂️ Claude plans
 
 **Purpose:** when to pause multi-phase work, and plans in particular, for the user's approval.

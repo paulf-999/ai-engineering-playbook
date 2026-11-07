@@ -1,4 +1,4 @@
-# version: 1.0.2
+# version: 1.0.3
 # created: 2026-11-05
 # updated: 2026-11-07
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -154,33 +154,6 @@ def is_entry_point(path):
 
 # restored rules that don't meet the template yet, as (test, rule path): step 6 fixes them in batches and empties this
 KNOWN_FAILURES = {
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/code_security.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/airflow.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/bash.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/dbt.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/infra/ansible.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/infra/docker.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/infra/terraform.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/python.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/sql.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/utilities/makefile.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/style_guides/utilities/mermaid.md"),
-    ("test_entry_point_has_usage_lines", "_path_scoped_rules/testing.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/02_conduct/automation_controls.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/02_conduct/todo_logging.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/03_workflows/saving_plans.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/claude_config/permission_recommendations.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/code_complexity.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/logging.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/module_organisation.md"),
-    ("test_entry_point_has_usage_lines", "_rules_on_demand/style_guides/python/testing.md"),
-    ("test_entry_point_has_usage_lines", "01_standards/claude_response_standards.md"),
-    ("test_entry_point_has_usage_lines", "01_standards/naming_standards.md"),
-    ("test_entry_point_has_usage_lines", "02_conduct/behaviour.md"),
-    ("test_entry_point_has_usage_lines", "02_conduct/security.md"),
-    ("test_entry_point_has_usage_lines", "02_conduct/writing_style.md"),
-    ("test_entry_point_has_usage_lines", "03_workflows/claude_plans.md"),
-    ("test_entry_point_has_usage_lines", "03_workflows/git.md"),
     ("test_rule_headings", "_rules_on_demand/testing/_testing_anti_patterns.md"),
     ("test_rule_headings", "_rules_on_demand/testing/_testing_design_pattern.md"),
     ("test_rule_lists_are_short", "_path_scoped_rules/style_guides/airflow.md"),

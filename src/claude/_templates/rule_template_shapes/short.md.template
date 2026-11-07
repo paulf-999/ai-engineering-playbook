@@ -1,0 +1,22 @@
+<!-- version: 1.0.0 -->
+<!-- created: YYYY-MM-DD -->
+<!-- updated: YYYY-MM-DD -->
+<!-- applies_to: [globs for the files whose sessions need it, or * for every session] -->
+<!-- miss_cost: [high, medium or low] — [what goes wrong if it's missed] -->
+<!-- loading: [always-on, path-scoped or on demand] — [why it loads that way] -->
+# 🔤 [Rule name]
+
+**Purpose:** [one sentence on what the rule covers, and why a reader needs it].
+
+- 🎯 **[Keyword]:** [one sentence stating the rule].
+- 🔧 **[Keyword]:** [one sentence on how to apply it].
+- 📅 **Why:** [optional: one sentence on the problem or incident it prevents, when the reason isn't obvious].
+
+- **Read on demand:** `_rules_on_demand/<domain>/<file>.md`, in your Claude config directory, [when to read it].
+
+<!-- Short shape: use when the rule needs 5 labelled bullets or fewer in all, counting Why if kept, but not Read on demand pointers. -->
+<!-- More than 5 means the sectioned shape, in sectioned.md.template. -->
+<!-- Optional: one table between bullets, when two or more items share the same fields. -->
+<!-- Optional: the Read on demand pointers; delete them if the rule has none. -->
+<!-- Child file: delete the applies_to, miss_cost and loading lines, since it inherits its parent's. -->
+<!-- Delete these comments. -->

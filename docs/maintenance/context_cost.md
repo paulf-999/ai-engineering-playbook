@@ -1,4 +1,4 @@
-<!-- version: 1.0.28 -->
+<!-- version: 1.0.29 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-07 -->
 # 💰 Context cost
@@ -74,7 +74,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 25 | `rules/_rules_on_demand/style_guides/dbt/_snapshots.md` | ~523 |
 | 26 | `rules/_rules_on_demand/style_guides/dbt/_yaml_resource_properties.md` | ~558 |
 | 27 | `rules/_rules_on_demand/style_guides/infra/ansible/_playbooks.md` | ~679 |
-| 28 | `rules/_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md` | ~1024 |
+| 28 | `rules/_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md` | ~1036 |
 | 29 | `rules/_rules_on_demand/style_guides/infra/ansible/_variables.md` | ~795 |
 | 30 | `rules/_rules_on_demand/style_guides/infra/docker/_advanced.md` | ~768 |
 | 31 | `rules/_rules_on_demand/style_guides/infra/docker/_fundamentals.md` | ~444 |
@@ -108,7 +108,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 59 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~815 |
 | 60 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~396 |
 | 61 | `rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
-| 62 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~929 |
+| 62 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~930 |
 | 63 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
 | 64 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~388 |
 | 65 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~464 |
@@ -118,4 +118,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 69 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 70 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 71 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~472 |
-| | **Subtotal** | **~42735** |
+| | **Subtotal** | **~42749** |

@@ -1,6 +1,6 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # ✅ Best Practices
 
 **Purpose:** Establish practices for idempotency, retries, error handling, testing, and configuration to ensure reliable and maintainable Airflow pipelines.
@@ -80,7 +80,7 @@ def notify_on_failure(context: dict) -> None:
 
 - **Never hardcode:** environment-specific values (URLs, credentials, schema names) must not be in DAG files
 - **Use `config.yaml`:** DAG inputs (data source, Airbyte connection names, schedule) are passed via `config.yaml` and accessed through `common.get_default_dag_params()`
-- **Don't read Variables in dag.py:** do not directly access Airflow Variables in `dag.py`
+  - **Don't read Variables in dag.py:** do not directly access Airflow Variables in `dag.py`
 - **Connections:** use Airflow Connections for external system credentials (databases, APIs, cloud); reference IDs in utility functions in `includes/`, not hardcoded
 - **Variables:** use for runtime configuration values not DAG-specific (e.g., `AIRFLOW_ENVIRONMENT_LEVEL`); access via `Variable.get("my_var")` in `includes/` utilities only
 - **Secrets backend:** store sensitive values in the configured secrets backend, not plaintext in Airflow metadata

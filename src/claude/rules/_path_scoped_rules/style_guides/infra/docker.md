@@ -1,7 +1,10 @@
 ---
-<!-- version: 1.4.0 -->
+<!-- version: 1.4.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/Dockerfile* -->
+<!-- miss_cost: low — images grow larger and slower to build -->
+<!-- loading: path-scoped — loads with Dockerfiles -->
 paths:
   - "**/Dockerfile*"
 ---

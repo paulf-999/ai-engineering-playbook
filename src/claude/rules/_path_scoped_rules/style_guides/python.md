@@ -1,7 +1,10 @@
 ---
-<!-- version: 1.5.0 -->
+<!-- version: 1.5.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/*.py -->
+<!-- miss_cost: low — Python drifts from the house style -->
+<!-- loading: path-scoped — loads with Python files -->
 paths:
   - "**/*.py"
 ---

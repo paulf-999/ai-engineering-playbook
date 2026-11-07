@@ -1,6 +1,9 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.1.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: * -->
+<!-- miss_cost: low — TODO rows drift from the table layout -->
+<!-- loading: on demand — read when behaviour.md's TODO pointer sends Claude here -->
 # 📝 TODO logging
 
 **Purpose:** what to do when the user says "add to TODOs" or similar.

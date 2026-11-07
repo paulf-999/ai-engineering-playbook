@@ -1,6 +1,9 @@
-<!-- version: 2.0.2 -->
+<!-- version: 2.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: * -->
+<!-- miss_cost: high — Claude follows injected instructions or leaks a secret -->
+<!-- loading: always-on — untrusted content can arrive in any session -->
 # 🔐 Security
 
 **Purpose:** how Claude handles untrusted content and secrets, in every session.

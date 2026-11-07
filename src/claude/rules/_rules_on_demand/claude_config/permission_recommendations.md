@@ -1,6 +1,9 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/settings.json, **/settings.local.json -->
+<!-- miss_cost: high — a broad allowlist lets destructive commands run unasked -->
+<!-- loading: on demand — read when security.md's permission pointer sends Claude here -->
 # 🔐 Permission recommendations
 
 **Purpose:** how to recommend Claude Code permissions, such as a `settings.json` allowlist, with the least access needed.

@@ -1,7 +1,10 @@
 ---
-<!-- version: 1.4.0 -->
+<!-- version: 1.4.1 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/playbooks/**/*.yml, **/roles/**/*.yml -->
+<!-- miss_cost: medium — playbooks drift from the team's structure and need reworking -->
+<!-- loading: path-scoped — loads with Ansible files -->
 paths:
   - "**/playbooks/**/*.yml"
   - "**/roles/**/*.yml"

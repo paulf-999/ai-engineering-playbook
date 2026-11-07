@@ -1,6 +1,9 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-09-17 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: * -->
+<!-- miss_cost: medium — an approved plan is lost in the scratch folder -->
+<!-- loading: on demand — read when claude_plans.md's plan pointer sends Claude here -->
 # 📤 Saving plans
 
 **Purpose:** where to keep a plan once the user approves it, so approved plans aren't lost in plan mode's scratch folder.

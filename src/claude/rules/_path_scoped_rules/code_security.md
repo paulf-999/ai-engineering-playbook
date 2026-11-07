@@ -1,7 +1,10 @@
 ---
-<!-- version: 2.0.0 -->
+<!-- version: 2.0.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: **/*.py, **/*.sh, **/*.sql, **/*.js, **/*.ts -->
+<!-- miss_cost: high — code ships with a secret or an injection hole -->
+<!-- loading: path-scoped — loads with code files -->
 paths:
   - "**/*.py"
   - "**/*.sh"

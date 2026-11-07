@@ -1,6 +1,9 @@
-<!-- version: 2.3.1 -->
+<!-- version: 2.3.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: * -->
+<!-- miss_cost: medium — Claude acts on guesses or claims unchecked work, which needs redoing -->
+<!-- loading: always-on — every task needs it -->
 # 🛡️ Behaviour
 
 **Purpose:** how Claude decides, checks and reports while it works on a task.

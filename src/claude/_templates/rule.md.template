@@ -3,8 +3,17 @@
 Use **Template A** (Principle-based) for single, focused principles with Why/How structure (e.g., guiding_principles.md).
 Use **Template B** (Constraint/Pattern-based) for multiple related patterns with emoji headers and callout blocks (e.g., behaviour.md, security.md).
 
+## 🧩 Shape patterns
+
+For a lean rule under about 35 lines, start from a shape template in `rule_template_shapes/` instead of Template A or B.
+
+- 🪶 **Short shape:** `short.md.template`, for 5 labelled bullets or fewer, not counting `Read on demand` pointers.
+- 🗂️ **Sectioned shape:** `sectioned.md.template`, for more than 5, split into 2 to 4 emoji `##` sections of up to 5 bullets each.
+- 🏷️ **Header:** both add `applies_to`, `miss_cost` and `loading` lines for an entry-point rule, which a child file leaves out.
+
 ## 📋 Contents
 
+- [Shape patterns](#-shape-patterns)
 - [Template A — Single Principle](#-template-a--single-principle)
 - [Template B — Constraint/Pattern-Based](#-template-b--constraintpattern-based)
 - [Quality Checklist — Both Templates](#-quality-checklist--both-templates)

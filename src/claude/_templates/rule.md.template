@@ -1,128 +1,41 @@
 # 🧭 Rule Template — Decision Tree
 
-Use **Template A** (Principle-based) for single, focused principles with Why/How structure (e.g., guiding_principles.md).
-Use **Template B** (Constraint/Pattern-based) for multiple related patterns with emoji headers and callout blocks (e.g., behaviour.md, security.md).
+**Purpose:** pick the shape a new rule starts from, then check it against the quality checklist before merging.
 
-## 📋 Contents
+## 🧩 Pick a shape
 
-- [Template A — Single Principle](#-template-a--single-principle)
-- [Template B — Constraint/Pattern-Based](#-template-b--constraintpattern-based)
-- [Quality Checklist — Both Templates](#-quality-checklist--both-templates)
+Count the labelled bullets the rule needs, not counting `Read on demand` pointers, then copy the matching file from `rule_template_shapes/`.
 
----
+- 🪶 **Short shape:** `short.md.template`, for 5 labelled bullets or fewer, with an optional table.
+- 🗂️ **Sectioned shape:** `sectioned.md.template`, for more than 5, split into 2 to 4 emoji `##` sections of up to 5 bullets each.
+- ✂️ **Too big for either:** past 4 sections or about 110 lines, split it into a parent and 2 or more `<parent>/_<aspect>.md` children, each starting from a shape.
+- 🏷️ **Usage header:** an entry-point rule keeps the `applies_to`, `miss_cost` and `loading` lines, and a child file deletes them.
 
-## 📋 Template A — Single Principle
+## ✅ Quality Checklist — Both Shapes
 
-Use when: one core concept, Why/How structure, ~50-60 lines.
-
-```markdown
-<!-- version: 1.0.0 -->
-<!-- created: YYYY-MM-DD -->
-<!-- updated: YYYY-MM-DD -->
-# 🔄 [Principle Name]
-
-**Purpose:** One-line statement of what this principle establishes.
-
-[Opening paragraph: context, why it matters, who it applies to.]
-
----
-
-## 📐 The Rule
-
-[The core principle, 1–3 sentences, clear and actionable.]
-
----
-
-## **Why**
-
-[Rationale: the underlying problem, historical context, or constraint that makes this rule necessary.]
-
----
-
-## **How to apply**
-
-[Guidance on when and how to follow the rule. Concrete examples welcome.]
-
-```
-
-**Characteristics:**
-- Metadata header on lines 1–3
-- Purpose statement (one line)
-- H1 emoji header
-- 50–70 lines
-- Bold **Why:** and **How to apply:** sections
-- Trailing newline
-
----
-
-## 📋 Template B — Constraint/Pattern-Based
-
-Use when: multiple related patterns, enforcement-style, ~80-110 lines.
-
-```markdown
-<!-- version: 1.0.0 -->
-<!-- created: YYYY-MM-DD -->
-<!-- updated: YYYY-MM-DD -->
-# 🛡️ [Domain] Rules
-
-**Purpose:** One-line statement of what these rules establish.
-
-Rules governing [domain/concern].
-
-## 🔬 [Pattern 1 Name]
-
-- **[Bullet 1]:** one-line explanation.
-  - **Note:** caveat or edge case (optional).
-- **[Bullet 2]:** one-line explanation.
-  - **Example:** concrete illustration (optional).
-
----
-
-## ⚙️ [Pattern 2 Name]
-
-- **[Bullet 1]:** one-line explanation.
-- **[Bullet 2]:** one-line explanation.
-
----
-
-## 🚨 [Pattern 3 Name] — Edge Cases
-
-| Scenario | Guidance |
-|----------|----------|
-| **[Case 1]** | [What to do and why] |
-| **[Case 2]** | [What to do and why] |
-
-```
-
-**Characteristics:**
-- Metadata header on lines 1–3
-- Purpose statement (one line)
-- H1 emoji header
-- Section emoji headers (`##`)
-- Bold keywords in bullets (`**Why:**`, `**Note:**`, `**Example:**`)
-- One sentence per bullet
-- 80–110 lines
-- Trailing newline
-
----
-
-## ✅ Quality Checklist — Both Templates
+This checklist runs past 5 items, since, like numbered steps, it needs every check.
 
 - [ ] **Metadata header:** Lines 1–3 are `<!-- version: X.Y.Z -->`, `<!-- created: YYYY-MM-DD -->`, `<!-- updated: YYYY-MM-DD -->`
-  - **New rule:** version `1.0.0`, with `created` and `updated` both set to today.
-  - **Every edit:** set `updated` to today and bump `version`.
-  - **MAJOR:** guidance reversed or removed.
-  - **MINOR:** guidance added.
-  - **PATCH:** wording or typo fix only.
+  - **New rule:** Version `1.0.0`, with `created` and `updated` both set to today.
+  - **Every edit:** Set `updated` to today and bump `version`.
+  - **MAJOR:** Guidance reversed or removed.
+  - **MINOR:** Guidance added.
+  - **PATCH:** Wording or typo fix only.
+- [ ] **Usage header:** An entry-point rule, unlike a child file, has `applies_to`, `miss_cost` and `loading` on lines 4–6, with `loading` matching its folder (`always-on`, `path-scoped` or `on demand`)
 - [ ] **Purpose present:** One-line statement at top
 - [ ] **H1 emoji header:** File title with emoji
 - [ ] **H2 section headers:** All start with emoji (scannability)
-- [ ] **Bold keywords:** Bullets open with `**term:**`
+- [ ] **Bold keywords:** Bullets open with an emoji, then `**term:**`
 - [ ] **One sentence per bullet:** No multi-sentence bullets (use sub-bullets instead)
-- [ ] **~100-line limit:** Rules ≤110 lines, split if needed
+- [ ] **Five per list:** No list has more than 5 top-level bullets
+- [ ] **Size limit:** About 110 lines at most, split if needed
 - [ ] **Trailing newline:** File ends with exactly one `\n`
 - [ ] **No H1 duplicates:** Only one `#` header per file
 - [ ] **Clear scope:** One concept per file, related patterns grouped
-- [ ] **Contents only when earned:** Add a `## 📋 Contents` section only when the rule has 3 or more real `##` headings
+- [ ] **British spelling:** Prose uses -ise and other British forms, while existing identifiers keep their spelling
+- [ ] **Enforcement test:** A rule backed by a hook, test or CI check has a test in the repo's `tests/` folder
+- [ ] **Contents only when earned:** Add a `## 📋 Contents` section only when the rule has 3 or more real `##` headings, not counting `## 📚 Read on demand`
 - [ ] **No Related section:** Link other files only through a `**Read on demand:**` line that says when to read them, never a list of related links
   - **Why:** a rule under `rules/` with no `paths:` setting loads every session, so every line costs always-on context.
+
+- **Read on demand:** `_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md`, in your Claude config directory, before merging, for the tier, pointers, scorecard and trial.

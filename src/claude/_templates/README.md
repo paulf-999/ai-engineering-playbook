@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.2.1 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # 📋 Templates Directory
 
 Centralized templates for skills and other Claude configuration artifacts. This directory is copied to `~/claude/_templates/` by `make install`.
@@ -15,6 +15,9 @@ _templates/
 │   └── _quality_scorecard_template.md
 ├── AGENT.md.template        # Starting point for a new agent
 ├── rule.md.template         # Starting point for a new rule
+├── rule_template_shapes/    # Lean rule shapes, chosen by bullet count
+│   ├── short.md.template
+│   └── sectioned.md.template
 ├── TODO.md.template         # Starting point for a project TODO list
 ├── scorecard/               # Scorecard layouts
 │   ├── scorecard.md.template          # Layout for every individual scorecard
@@ -56,9 +59,17 @@ _templates/
 
 **`rule.md.template`**
 
-- Two starting points for a new rule: Template A (one principle) and Template B (several related patterns)
-- Ends with a quality checklist that applies to both templates
+- Decision tree for a new rule: picks the short or sectioned shape below by bullet count
+- Ends with a quality checklist that applies to both shapes
 - Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
+
+**`rule_template_shapes/short.md.template`**
+
+- Lean rule of 5 labelled bullets or fewer: metadata and usage header, H1, Purpose, bullets and optional `Read on demand` pointers
+
+**`rule_template_shapes/sectioned.md.template`**
+
+- Lean rule of more than 5 labelled bullets: the same opening, then 2 to 4 emoji `##` sections of up to 5 bullets each
 
 **`TODO.md.template`**
 

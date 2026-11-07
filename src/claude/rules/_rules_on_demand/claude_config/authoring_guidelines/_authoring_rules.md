@@ -1,6 +1,6 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # 📝 Authoring rules
 
 **Purpose:** how to place, write, wire up and check a new rule for Claude's config.
@@ -13,6 +13,7 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 📂 **Certain files:** put a rule tied to one kind of file in `rules/_path_scoped_rules/`, with a `paths:` setting naming the files.
 - 💤 **On demand:** put everything else in `rules/_rules_on_demand/`, which `make install` moves beside `rules/`, so it never loads by itself.
 - 🧭 **When unsure:** choose on demand, since an always-on rule is the exception, not the default.
+- 🏷️ **Usage header:** give an entry-point rule `applies_to`, `miss_cost` and `loading` lines, with `loading` set to `always-on`, `path-scoped` or `on demand` to match its folder.
 
 ## 🔗 Wire it up
 

@@ -1,4 +1,4 @@
-<!-- version: 1.0.24 -->
+<!-- version: 1.0.25 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-07 -->
 # 💰 Context cost
@@ -28,7 +28,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `_templates/README.md` | ~1214 |
+| 1 | `_templates/README.md` | ~1188 |
 | 2 | `_templates/skills/_quality_scorecard_template.md` | ~1258 |
 | 3 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~552 |
 | 4 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~360 |
@@ -38,4 +38,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 8 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~447 |
 | 9 | `rules/_rules_on_demand/claude_config/portable_paths.md` | ~189 |
 | 10 | `rules/_rules_on_demand/claude_config/turn_budgets.md` | ~174 |
-| | **Subtotal** | **~5298** |
+| | **Subtotal** | **~5272** |

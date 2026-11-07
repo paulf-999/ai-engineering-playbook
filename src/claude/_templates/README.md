@@ -1,4 +1,4 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.2.1 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-07 -->
 # 📋 Templates Directory
@@ -59,9 +59,8 @@ _templates/
 
 **`rule.md.template`**
 
-- Two starting points for a new rule: Template A (one principle) and Template B (several related patterns)
-- Ends with a quality checklist that applies to both templates
-- Its Shape patterns section points to the two shape templates below, for lean rules
+- Decision tree for a new rule: picks the short or sectioned shape below by bullet count
+- Ends with a quality checklist that applies to both shapes
 - Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
 
 **`rule_template_shapes/short.md.template`**

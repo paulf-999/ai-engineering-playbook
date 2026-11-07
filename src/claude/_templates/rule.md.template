@@ -13,12 +13,14 @@ Count the labelled bullets the rule needs, not counting `Read on demand` pointer
 
 ## ✅ Quality Checklist — Both Shapes
 
+This checklist runs past 5 items, since, like numbered steps, it needs every check.
+
 - [ ] **Metadata header:** Lines 1–3 are `<!-- version: X.Y.Z -->`, `<!-- created: YYYY-MM-DD -->`, `<!-- updated: YYYY-MM-DD -->`
-  - **New rule:** version `1.0.0`, with `created` and `updated` both set to today.
-  - **Every edit:** set `updated` to today and bump `version`.
-  - **MAJOR:** guidance reversed or removed.
-  - **MINOR:** guidance added.
-  - **PATCH:** wording or typo fix only.
+  - **New rule:** Version `1.0.0`, with `created` and `updated` both set to today.
+  - **Every edit:** Set `updated` to today and bump `version`.
+  - **MAJOR:** Guidance reversed or removed.
+  - **MINOR:** Guidance added.
+  - **PATCH:** Wording or typo fix only.
 - [ ] **Usage header:** An entry-point rule has `applies_to`, `miss_cost` and `loading` on lines 4–6, with `loading` matching its folder (`always-on`, `path-scoped` or `on demand`)
 - [ ] **Purpose present:** One-line statement at top
 - [ ] **H1 emoji header:** File title with emoji
@@ -30,6 +32,8 @@ Count the labelled bullets the rule needs, not counting `Read on demand` pointer
 - [ ] **Trailing newline:** File ends with exactly one `\n`
 - [ ] **No H1 duplicates:** Only one `#` header per file
 - [ ] **Clear scope:** One concept per file, related patterns grouped
+- [ ] **British spelling:** Prose uses -ise and other British forms, while existing identifiers keep their spelling
+- [ ] **Enforcement test:** A rule backed by a hook, test or CI check has a test in the repo's `tests/` folder
 - [ ] **Contents only when earned:** Add a `## 📋 Contents` section only when the rule has 3 or more real `##` headings, not counting `## 📚 Read on demand`
 - [ ] **No Related section:** Link other files only through a `**Read on demand:**` line that says when to read them, never a list of related links
   - **Why:** a rule under `rules/` with no `paths:` setting loads every session, so every line costs always-on context.

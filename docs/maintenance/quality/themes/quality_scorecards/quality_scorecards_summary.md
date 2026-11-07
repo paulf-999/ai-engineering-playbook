@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-05 -->
 # 📊 Quality Scorecards Summary
@@ -21,7 +21,7 @@ This page is part of the [quality scorecards](README.md) home.
 | Tests | 0 | — | — | Nothing scored yet |
 | Skills | 0 | — | — | Nothing scored yet |
 | Rules — always-on | 0 | — | — | Nothing scored yet |
-| Rules — lazy-load | 0 | — | — | Nothing scored yet |
+| Rules — lazy-load | 7 | 7.0/10 | 2026-11-05 | • 💪 **Strongest:** 2 files tied at 7.7/10, including `guiding_principles.md`<br>• ⚠️ **Weakest:** `jira.md` (5.8/10) |
 | Hooks | 0 | — | — | Nothing scored yet |
 | Agents | 0 | — | — | Nothing scored yet |
 
@@ -33,7 +33,7 @@ Ranked by impact, highest first, with lazy-load rule actions last because those 
 
 | # | Action | Why | Source |
 |---|---|---|---|
-| — | Nothing to do until a scorecard exists | — | — |
+| 1 | • 🔧 **Lowest lazy-load rule score:** make `jira.md`'s required fields agree between the parent and its children | • 🔻 **Bottom of the table:** at 5.8/10 it is the lowest-scoring rule | [`rule_scorecards_summary.md`](rules/rule_scorecards_summary.md) |
 
 ---
 
@@ -43,7 +43,7 @@ Ranked by impact, highest first, with lazy-load rule actions last because those 
 |---|---|---|---|
 | [`tests/test_scorecards_summary.md`](tests/test_scorecards_summary.md) | 0 | — | — |
 | [`skills/skill_scorecards_summary.md`](skills/skill_scorecards_summary.md) | 0 | — | — |
-| [`rules/rule_scorecards_summary.md`](rules/rule_scorecards_summary.md) | 0 | — | — |
+| [`rules/rule_scorecards_summary.md`](rules/rule_scorecards_summary.md) | 7 | 7.0/10 | 2026-11-05 |
 | [`hooks/hook_scorecards_summary.md`](hooks/hook_scorecards_summary.md) | 0 | — | — |
 | [`agents/agent_scorecards_summary.md`](agents/agent_scorecards_summary.md) | 0 | — | — |
 

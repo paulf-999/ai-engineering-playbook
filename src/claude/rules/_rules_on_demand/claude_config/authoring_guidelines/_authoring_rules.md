@@ -13,7 +13,6 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 📂 **Certain files:** put a rule tied to one kind of file in `rules/_path_scoped_rules/`, with a `paths:` setting naming the files.
 - 💤 **On demand:** put everything else in `rules/_rules_on_demand/`, which `make install` moves beside `rules/`, so it never loads by itself.
 - 🧭 **When unsure:** choose on demand, since an always-on rule is the exception, not the default.
-- 🏷️ **Usage header:** give an entry-point rule `applies_to`, `miss_cost` and `loading` lines, with `loading` set to `always-on`, `path-scoped` or `on demand` to match its folder.
 
 ## 🔗 Wire it up
 
@@ -21,11 +20,12 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 🆕 **New-file gap:** a path-scoped rule loads only once a matching file is open, so point to it on demand too, for the first file of its kind.
 - 🧩 **Children:** name each child in its parent, and keep links to other files in those pointer lines rather than a Related section.
 - 🧪 **Test the pointer:** run a lean session on a matching task, and check Claude reads the file before acting.
+- 🧾 **Usage lines:** give each entry-point rule `applies_to`, `miss_cost` and `loading` lines straight after its header, with `loading` set to `always-on`, `path-scoped` or `on demand` to match its folder, and its children inherit them.
 
 ## ✅ Before merging
 
 - 🛡️ **Enforcement:** a rule backed by a hook, test or CI check gets a test in the repo's `tests/` folder.
-- 🔎 **Checks:** run `make test` and `pre-commit run --all-files`, which include the always-on budget check.
-- 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section for each file.
-- 🏅 **Scorecard:** score it per `docs/maintenance/quality/themes/quality_scorecards/rules/README.md`, in the playbook repo.
+- 🔎 **Checks:** run `make test` and `pre-commit run --all-files`, which include the rule structure test and the always-on budget check.
+- 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section for each file, including its evidence of need.
+- 🏅 **Review:** have one fresh-context reviewer on Sonnet score every rule the PR changes, per `docs/maintenance/quality/themes/quality_scorecards/README.md`, in the playbook repo.
 - 🔁 **Trial:** log its use in the task log, and remove it at the next review if it hasn't paid its way.

@@ -1,6 +1,9 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-07 -->
+<!-- applies_to: src/claude/**, **/.claude/** -->
+<!-- miss_cost: low — names drift from the house patterns -->
+<!-- loading: on demand — read when authoring_guidelines.md points here, before naming something new -->
 # 🏷️ Claude naming patterns
 
 **Purpose:** the name each kind of Claude config artefact takes, with an example of each.

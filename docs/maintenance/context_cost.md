@@ -1,4 +1,4 @@
-<!-- version: 1.0.29 -->
+<!-- version: 1.0.30 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-07 -->
 # 💰 Context cost
@@ -117,5 +117,5 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 68 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
 | 69 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 70 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
-| 71 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~472 |
-| | **Subtotal** | **~42749** |
+| 71 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
+| | **Subtotal** | **~42750** |

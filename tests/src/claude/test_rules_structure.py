@@ -1,4 +1,4 @@
-# version: 1.0.4
+# version: 1.0.5
 # created: 2026-11-05
 # updated: 2026-11-07
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -158,8 +158,6 @@ def is_entry_point(path):
 
 # restored rules that don't meet the template yet, as (test, rule path): step 6 fixes them in batches and empties this
 KNOWN_FAILURES = {
-    ("test_rule_headings", "_rules_on_demand/testing/_testing_anti_patterns.md"),
-    ("test_rule_headings", "_rules_on_demand/testing/_testing_design_pattern.md"),
     ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md"),
     ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_error_handling.md"),
     ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_what_to_log.md"),

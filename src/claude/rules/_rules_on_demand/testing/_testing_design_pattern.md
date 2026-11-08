@@ -1,13 +1,13 @@
-<!-- version: 1.0.3 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-07 -->
 # 🏗️ Test Design Pattern
 
 **Purpose:** Establish a standard pattern for writing tests that validate intended behavior and communicate goals clearly.
 
 ---
 
-## 4-Step Pattern
+## 🪜 4-Step Pattern
 
 When writing a test for a new feature, follow this pattern:
 

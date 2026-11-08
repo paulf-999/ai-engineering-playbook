@@ -1,13 +1,13 @@
-<!-- version: 1.7.1 -->
+<!-- version: 1.8.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-08 -->
 # ✅ Design principles: Evaluation criteria
 
 **Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), faces when it's added and while it's on trial.
 
 This page is part of the [design principles](../design_principles.md), which also define always-on.
 
-Answer the checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), as a table with one row per standard below, under the columns Review area, Standard, Result and Why, whose Result says ✅ **Aligned**, ❌ **Misaligned** or ⏳ **Not yet due**. Open the section with a verdict callout, **✅ Safe to approve** or, when a red flag or failed check is left unresolved, **⚠️ Needs a decision**, so a reviewer sees the outcome first. CI fails a PR that changes `src/claude/` and leaves that section with no answer, or with the template's placeholders.
+Answer the checks in the Evaluation criteria for Claude config changes section of the [PR template](../../../.github/pull_request_template.md), as a table with one row per standard below, under the columns Review area, Standard, Result and Why, whose Result says ✅ **Aligned**, ❌ **Misaligned** or ⏳ **Not yet due**. Open the section with a verdict callout, **✅ Safe to approve** or, when a red flag or failed check is left unresolved, **⚠️ Needs a decision**, so a reviewer sees the outcome first. CI fails a PR that changes `src/claude/` and leaves that section with no answer, or with the template's placeholders.
 
 ## 🚪 Review each file
 
@@ -32,6 +32,7 @@ Its shape passes when:
 - [ ] 🧭 **Right mechanism:** its form fits the need, per the table below.
 - [ ] 🎚️ **Tier:** it sits in a [tier](../target_architecture.md#-tiers) that loads only for the tasks that need it, unless every engineer needs it on every task.
 - [ ] 💰 **Cost:** always-on context stays within the [always-on budget](../target_architecture.md#-always-on-budget).
+- [ ] 📖 **On-demand cost:** each on-demand rule stays within the [read cap](01_principles.md#-numbers-and-tests) for one read.
 - [ ] 🔌 **No orchestration:** no workflow requires it, so it stays [opt-in](01_principles.md).
 
 | Need | Mechanism |

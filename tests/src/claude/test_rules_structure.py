@@ -1,4 +1,4 @@
-# version: 1.0.6
+# version: 1.1.0
 # created: 2026-11-05
 # updated: 2026-11-08
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -15,6 +15,9 @@ CONFIG_DIR = REPO_ROOT / "src" / "claude"
 RULES_DIR = CONFIG_DIR / "rules"
 RULE_FILES = sorted(RULES_DIR.rglob("*.md"))
 MAX_LINES = 110
+# the most an on-demand rule may cost to read, in tokens estimated as characters ÷ 4, as in context_cost.md
+MAX_READ_TOKENS = 1200
+ON_DEMAND_FILES = sorted((RULES_DIR / "_rules_on_demand").rglob("*.md"))
 MAX_BULLETS = 5
 # emoji blocks: pictographs and symbols, misc symbols and dingbats, arrows and technical symbols
 EMOJI = re.compile("[\U0001f300-\U0001faff☀-➿⬀-⯿⌀-⏿←-⇿]")
@@ -91,6 +94,14 @@ def size_problems(text):
     if not text.endswith("\n") or text.endswith("\n\n"):
         problems.append("must end with exactly one newline")
     return problems
+
+
+def read_cost_problems(text):
+    """Return a problem if reading the file costs more than the per-read cap, leaving out HTML comments."""
+    tokens = round(len(re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)) / 4)
+    if tokens > MAX_READ_TOKENS:
+        return [f"about {tokens:,} tokens to read, over the {MAX_READ_TOKENS:,}-token cap, so split it into children"]
+    return []
 
 
 def heading_problems(text):
@@ -179,6 +190,14 @@ def test_rule_opens_with_header_h1_and_purpose(path):
 def test_rule_size_and_ending(path):
     """Each rule is 110 lines or fewer, not counting comments or frontmatter, and ends with one newline."""
     problems = size_problems(path.read_text())
+    assert not problems, f"{relative(path)}: " + "; ".join(problems)
+
+
+# MoSCoW: Must — an on-demand rule over the read cap costs too much context each time Claude reads it
+@pytest.mark.parametrize("path", params(ON_DEMAND_FILES, "test_on_demand_rule_read_cost"), ids=relative)
+def test_on_demand_rule_read_cost(path):
+    """Each on-demand rule costs 1,200 tokens or fewer to read, not counting HTML comments."""
+    problems = read_cost_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
@@ -299,6 +318,7 @@ GOOD_RULE = (
         (opening_problems, GOOD_RULE.replace("**Purpose:** an example rule.", "Some text."), "Purpose"),
         (size_problems, GOOD_RULE + "line\n" * MAX_LINES, "over the 110-line limit"),
         (size_problems, GOOD_RULE + "\n", "exactly one newline"),
+        (read_cost_problems, GOOD_RULE + "x" * 4 * MAX_READ_TOKENS, "over the 1,200-token cap"),
         (heading_problems, GOOD_RULE.replace("## 🔢 Points", "## Points"), "heading needs an emoji"),
         (heading_problems, GOOD_RULE + "\n## 📋 Contents\n", "Contents section needs 3"),
         (heading_problems, GOOD_RULE + "\n## 🔗 Related\n", "Related section"),

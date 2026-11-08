@@ -1,6 +1,6 @@
-<!-- version: 1.5.2 -->
+<!-- version: 1.6.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-08 -->
 # 🧱 Design principles: Principles
 
 **Purpose:** the principles every new or changed component (a rule, skill, hook or agent) must follow, and how each one is checked.
@@ -24,6 +24,8 @@ These limits back the principles:
 
 - 📏 **3,000-token budget:** the most text that may load into every session, a tenth of what the [old configuration](../current_architecture/01_snapshot.md) loads.
   - **Why this size:** it's roughly what [Anthropic's advice](https://code.claude.com/docs/en/memory) to keep `CLAUDE.md` under 200 lines allows, by our estimate.
+- 📖 **1,200-token read cap:** the most one on-demand rule may cost each time Claude reads it.
+  - **Why this size:** it's just above the largest on-demand rule today, about 1,080 tokens, so it stops growth without forcing splits.
 - 🗓️ **Review every 20 tasks or 4 weeks:** often enough to drop unused parts, with enough evidence to judge each one.
 - 🚩 **Two notes, not one:** a single note that a part got in the way may be chance.
 - 🔪 **Halving test:** at each review, ask whether removing half the rules, skills, hooks and agents would make results noticeably worse.

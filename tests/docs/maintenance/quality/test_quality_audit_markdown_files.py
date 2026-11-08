@@ -1,6 +1,6 @@
-# version: 1.5.2
+# version: 1.5.3
 # created: 2026-10-31
-# updated: 2026-11-07
+# updated: 2026-11-08
 """Checks the markdown files quality audit lists every doc once, its scores add up, and no score is out of date.
 
 Also checks the placeholder cap, and that each check below can fail.
@@ -24,16 +24,21 @@ THEMES = ("Core coverage", "Leanness", "Clarity", "Maintainability", "Accuracy")
 # the PR, issue and config templates, which are forms to fill in rather than docs to score
 TEMPLATES = (".github/ISSUE_TEMPLATE/", ".github/pull_request_template.md", "src/claude/_templates/")
 
+# the scorecards and their summaries, which are review records rather than docs to score
+RECORDS = ("docs/maintenance/quality/themes/quality_scorecards/",)
+
 
 def tracked_docs():
-    """Return every markdown file git tracks, minus the templates, this audit and its rubric."""
+    """Return every markdown file git tracks, minus the templates, review records, this audit and its rubric."""
     # ask git, so untracked drafts and ignored folders like .venv/ are left out, and ignore the user's git config
     env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
     command = ["git", "ls-files", "*.md"]
     output = subprocess.run(command, cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=True)
     # the audit and its rubric can't fairly score themselves
     skipped = {str(AUDIT.relative_to(REPO_ROOT)), str(RUBRIC.relative_to(REPO_ROOT))}
-    return {path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES) and path not in skipped}
+    return {
+        path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES + RECORDS) and path not in skipped
+    }
 
 
 def assert_one_row_per_doc(rows, docs):
@@ -72,7 +77,6 @@ def assert_scored_versions_current(rows, root=REPO_ROOT):
 
 
 # MoSCoW: Should — keeps the docs audit true to the repo's docs
-@pytest.mark.xfail(reason="TODO: docs added since the rebuild need audit rows", strict=True)
 def test_docs_audit_matches_the_docs():
     """Links work, every doc has one current row, and each row's score, grade, Gaps and cap match its themes."""
     assert_links_work(AUDIT)

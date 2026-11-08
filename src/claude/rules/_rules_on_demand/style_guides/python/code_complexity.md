@@ -1,6 +1,6 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-08 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — functions grow harder to read and change -->
 <!-- loading: on demand — read when python.md's complexity pointer sends Claude here -->
@@ -95,7 +95,8 @@ def process_data(items, config, output_dir):
 
 Full explanation of each metric, thresholds, and examples:
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for the detail of this section.
+- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for cyclomatic and cognitive complexity.
+- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for the length, nesting, parameter and line-length limits.
 
 ---
 

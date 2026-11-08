@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-08 -->
 <!-- updated: 2026-11-08 -->
 # 📏 Complexity size limits
@@ -11,12 +11,12 @@
 
 **What:** Number of lines in a function.
 
-**Why:** CC doesn't capture length. Long linear functions are hard to understand.
+**Why:** Cyclomatic complexity (CC), the count of decision points, doesn't capture length, and long linear functions are hard to follow too.
 
-**Threshold:** < 30-40 lines
+**Threshold:** aim for 30 lines, and split a function past 40.
 
-- Exceeds 40? Consider extracting helper functions
-- Exception: Data processing, setup code, linear sequences
+- 🪚 **Over 40:** extract helper functions.
+- 🧾 **Exception:** data processing, setup code and other linear sequences.
 
 **Tool:** `radon raw src/ -s`
 
@@ -26,15 +26,17 @@
 
 **What:** How many levels deep code is nested (if/for/while/def inside each other).
 
-**Why:** Each level exponentially increases cognitive load.
+**Why:** Each level adds a condition the reader must hold in mind to follow the innermost line.
 
-**Threshold:** < 3 levels
+**Threshold:** 3 levels or fewer.
+
+**Tool:** ruff's `PLR1702` rule (too-many-nested-blocks).
 
 **How to reduce:**
 
-- **Early returns**: Exit function early instead of deep nesting
-- **Extract functions**: Move nested logic into helpers
-- **Use guard clauses**: Invert conditionals to reduce nesting
+- ↩️ **Early returns**: Exit function early instead of deep nesting
+- 🧩 **Extract functions**: Move nested logic into helpers
+- 🛡️ **Use guard clauses**: Invert conditionals to reduce nesting
 
 **Example (depth=4, bad):**
 
@@ -65,13 +67,14 @@ for item in items:
 
 **Why:** Many parameters = complex interface and high cognitive load.
 
-**Threshold:** < 5 parameters
+**Threshold:** 4 parameters or fewer.
+
+**Tool:** ruff's `PLR0913` rule (too-many-arguments), with `max-args = 4`.
 
 **How to reduce:**
 
-- **Group related params**: Use dataclasses or dicts for related options
-- **Use kwargs**: Accept `**options` for flexible configuration
-- **Partial application**: Pre-fill common parameter values
+- 📦 **Group related params**: Use a dataclass for options that travel together
+- 🧷 **Partial application**: Pre-fill common parameter values
 
 ---
 
@@ -79,10 +82,10 @@ for item in items:
 
 **What:** Characters per line (from your style guide).
 
-**Threshold:** < 120 characters
+**Threshold:** 120 characters or fewer, matching ruff's `line-length = 120`.
 
 **Why:** Long lines hide complexity or indicate poor naming.
 
 **Exception:** Long strings, URLs, unavoidable literals.
 
-**Tool:** `ruff check` (already configured)
+**Tool:** `ruff check`, which reports long lines as `E501`.

@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-08 -->
 <!-- updated: 2026-11-08 -->
 # 🚫 What not to log
@@ -88,8 +88,8 @@ logger.info(f"Processing customer ID: {customer_id}")
 
 Before logging, ask:
 
-- **Is this a secret?** (API key, password, token, connection string) → Don't log
-- **Is this PII?** (name, email, phone, SSN) → Don't log
-- **Is this sensitive business data?** (customer data, financial data) → Don't log
-- **Will this create noise?** (logged on every loop iteration?) → Log only periodically
-- **Is this useful for debugging?** (variable values, state changes) → Log it
+- 🔑 **Is this a secret?** (API key, password, token, connection string) → Don't log
+- 🪪 **Is this PII?** (name, email, phone, SSN) → Don't log
+- 💼 **Is this sensitive business data?** (customer data, financial data) → Don't log
+- 🔊 **Will this create noise?** (logged on every loop iteration?) → Log only periodically
+- 🐛 **Is this useful for debugging?** (variable values, state changes) → Log it

@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-08 -->
 <!-- updated: 2026-11-08 -->
 # 🏷️ Module metadata and function ordering
@@ -18,7 +18,7 @@ After the docstring and before imports, declare module-level metadata.
 Description: YAML config loader with ${ENV_VAR} interpolation
 """
 
-__author__ = "Paul Fry"
+__author__ = "Your Name"
 __version__ = "0.1"
 
 import os
@@ -27,8 +27,8 @@ import yaml
 
 ### Metadata fields
 
-- **`__author__`:** Who wrote/maintains this module (for questions, maintenance)
-- **`__version__`:** Version number of this module (helpful for tracking API changes)
+- 👤 **`__author__`:** Who wrote/maintains this module (for questions, maintenance)
+- 🔢 **`__version__`:** Version number of this module (helpful for tracking API changes)
 
 ### ❌ What NOT to include
 

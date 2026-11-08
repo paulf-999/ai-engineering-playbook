@@ -1,4 +1,4 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-08 -->
 # 📝 Module Docstrings
@@ -50,7 +50,7 @@ Every module must have a docstring at the top describing its purpose. Place it b
 #!/usr/bin/env python3
 """YAML config loader with ${ENV_VAR} interpolation."""
 
-__author__ = "Paul Fry"
+__author__ = "Your Name"
 __version__ = "0.1"
 
 import yaml
@@ -65,7 +65,7 @@ import yaml
 See README.md for usage and requirements.
 """
 
-__author__ = "Paul Fry"
+__author__ = "Your Name"
 __version__ = "0.1"
 ```
 
@@ -88,22 +88,12 @@ Requirements:
 
 **Problem:** Module docstrings should be brief and discoverable via `help(module)` or IDE tooltips. Workflow, requirements, and usage belong in **README.md or separate documentation**, not in the module docstring.
 
-### ✅ Recommended sections
-
-- **Description:** [Required] One-line purpose, or brief multi-line explanation
-
-### ❌ What NOT to include
+### ❌ Weak opening lines
 
 ```python
-# ❌ WRONG — too generic
+# ❌ WRONG — too generic: it names the module's type, not what it does
 """Config loader module"""
 
-# ❌ WRONG — implementation detail, not purpose
+# ❌ WRONG — implementation detail: it says how, not what it's for
 """This module loads YAML files and parses them"""
-
-# ❌ WRONG — author info in docstring (use __author__ below)
-"""
-Author: Paul Fry
-Purpose: Load config
-"""
 ```

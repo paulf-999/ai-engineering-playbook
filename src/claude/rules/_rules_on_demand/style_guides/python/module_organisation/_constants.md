@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-08 -->
 <!-- updated: 2026-11-08 -->
 # 🏷️ Constants
@@ -31,9 +31,9 @@ REQUIRED_ENV_VARS = ["AIRBYTE_API_URL", "AIRBYTE_USERNAME", "AIRBYTE_PASSWORD"]
 
 ### ✅ Naming
 
-- **Format:** `SCREAMING_SNAKE_CASE` (all uppercase with underscores)
-- **Grouping:** Related constants should be grouped together
-- **Comments:** Each group should have a descriptive comment above it
+- 🔠 **Format:** `SCREAMING_SNAKE_CASE` (all uppercase with underscores)
+- 🗂️ **Grouping:** Related constants should be grouped together
+- 💬 **Comments:** Each group should have a descriptive comment above it
 
 ### ✅ When to use constants
 

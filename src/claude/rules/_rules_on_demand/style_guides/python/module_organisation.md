@@ -1,4 +1,4 @@
-<!-- version: 1.1.3 -->
+<!-- version: 1.1.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-08 -->
 <!-- applies_to: **/*.py -->
@@ -38,7 +38,7 @@
 |---------|-----------|---------|
 | **Module docstring** | Multi-line at top, before imports | `"""Description: ..."""` |
 | **Date created** | Git history | `git log --follow <file>` |
-| **`__author__`** | String, after docstring | `__author__ = "Paul Fry"` |
+| **`__author__`** | String, after docstring | `__author__ = "Your Name"` |
 | **`__version__`** | String, after docstring | `__version__ = "0.1"` |
 | **Public function** | No underscore | `def load_config():` |
 | **Private function** | Leading underscore | `def _make_client():` |

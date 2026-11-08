@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-08 -->
 <!-- updated: 2026-11-08 -->
 # ❌ Error handling anti-patterns
@@ -59,35 +59,32 @@ except ValueError:
 
 **Problem:** Caller unaware of error; program continues with invalid state.
 
-### 5. Logging the full traceback — too verbose and exposes internals
+### 5. Formatting the traceback into the message — hard to read and search
 
 ```python
 # ❌ WRONG
 try:
     process()
-except Exception as e:
+except ProcessingError:
     logger.error(f"Error: {traceback.format_exc()}")
     raise
 ```
 
-**Problem:** Full tracebacks are noisy; exception message is usually sufficient.
+**Problem:** the traceback lands inside the message string, so log tools can't parse it.
+
+- ✅ **Instead:** call `logger.exception("Processing failed")` once, in the top-level handler, which attaches the traceback properly.
 
 ---
 
-## 📋 Decision tree: When to log vs. re-raise
+## 📋 When to log vs. re-raise
 
-```text
-Exception occurs
-    │
-    ├─ Is this expected (e.g., validation error)?
-    │  ├─ YES: Log at WARNING level, maybe continue with fallback
-    │  └─ NO: Log at ERROR level, re-raise (caller decides what to do)
-    │
-    ├─ Do I have context to add (file path, values)?
-    │  ├─ YES: Log with context, then re-raise
-    │  └─ NO: Just re-raise (logging won't add value)
-    │
-    └─ Is this the last handler (main function)?
-       ├─ YES: Log and handle/exit (no re-raise)
-       └─ NO: Log and re-raise (let caller handle)
-```
+Log each error once, where the most context is known, and let it travel up from there.
+
+| Situation | What to do |
+|---|---|
+| 🟡 **Expected and recoverable**, such as a missing optional file | Log at WARNING with context, use the fallback, and don't re-raise |
+| 🔴 **Unexpected, and you can add context**, such as the file path | Log at ERROR with that context, then re-raise, or raise a clearer error `from` it |
+| ⏭️ **Unexpected, and you have nothing to add** | Don't catch it, and let it propagate |
+| 🏁 **Top-level handler**, such as `main()` | Call `logger.exception()` and exit, since nothing above can handle it |
+
+Pattern 4 is wrong because a validation failure is not recoverable there: the caller carries on with an invalid config.

@@ -1,9 +1,9 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
-# 📝 Module Docstrings & Metadata
+<!-- updated: 2026-11-08 -->
+# 📝 Module Docstrings
 
-**Purpose:** Establish module docstring format and metadata conventions for self-documenting modules.
+**Purpose:** Establish module docstring format for self-documenting modules.
 
 ---
 
@@ -73,27 +73,12 @@ __version__ = "0.1"
 
 ### ❌ WRONG — Too verbose (violates progressive disclosure)
 
-**Verbose with Requirements, Usage, Workflow:**
-
 ```python
 #!/usr/bin/env python3
 """
 Description: Airbyte connection migrator — migrates connections from source to target server
              based on migration plan CSV.
 Date created: 2026-07-03
-
-Workflow:
-    1. Load migration plan from CSV (which connections to migrate, which target server)
-    2. Load connection inventory from YAML (extracted from source server)
-    3. For each connection in plan: migrate or skip based on target server + status
-
-Input files:
-    - plan_path: CSV with columns (source_name, target_server, ...)
-    - inventory_path: YAML with connections extracted from source Airbyte server
-
-Output:
-    - Creates connections on target server (if --apply flag set)
-    - Writes migration_log.yaml with audit trail of what was created
 
 Requirements:
     Environment variables must be set in .env
@@ -122,76 +107,3 @@ Author: Paul Fry
 Purpose: Load config
 """
 ```
-
----
-
-## 🏷️ Module metadata
-
-After the docstring and before imports, declare module-level metadata.
-
-### ✅ Standard metadata
-
-```python
-"""
-Description: YAML config loader with ${ENV_VAR} interpolation
-"""
-
-__author__ = "Paul Fry"
-__version__ = "0.1"
-
-import os
-import yaml
-```
-
-### Metadata fields
-
-- **`__author__`:** Who wrote/maintains this module (for questions, maintenance)
-- **`__version__`:** Version number of this module (helpful for tracking API changes)
-
-### ❌ What NOT to include
-
-```python
-# ❌ WRONG — belongs in docstring, not metadata
-__description__ = "Loads YAML config files"
-
-# ❌ WRONG — belongs in git history, not code
-__history__ = "Added in PR #42"
-
-# ❌ WRONG — too granular; commit message has this
-__last_modified__ = "2026-08-20"
-```
-
----
-
-## 📐 Function Ordering
-
-**Order functions by call hierarchy, not definition order:**
-
-```python
-# ❌ WRONG — helpers defined before main entry point
-def _setup_parser(): ...
-
-
-def _dispatch_command(args): ...
-
-
-def main(args=None):
-    parser = _setup_parser()
-    parsed_args = parser.parse_args(args)
-    _dispatch_command(parsed_args)
-
-
-# ✅ RIGHT — entry point first, then functions it calls
-def main(args=None):
-    parser = _setup_parser()
-    parsed_args = parser.parse_args(args)
-    _dispatch_command(parsed_args)
-
-
-def _setup_parser(): ...
-
-
-def _dispatch_command(args): ...
-```
-
-**Why:** Reading the file top-to-bottom tells the story of what the code does. Entry point (main) → supporting functions. Aids maintainability and understanding.

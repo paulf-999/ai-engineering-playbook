@@ -1,6 +1,6 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-08 -->
 # ✅ Assertions & Exception Testing
 
 **Purpose:** Establish assertion and exception testing conventions for validating expected behaviour.
@@ -70,50 +70,9 @@ def test_validate_config_raises_with_pattern_match():
 
 ---
 
-## 📁 Test organisation
-
-**Group related tests with comments:**
-
-```python
-# --- load_config tests ---
-
-
-def test_load_config_reads_yaml_file():
-    """File is read and parsed correctly."""
-    ...
-
-
-def test_load_config_interpolates_env_vars():
-    """${ENV_VAR} references are resolved from environment."""
-    ...
-
-
-def test_load_config_raises_on_missing_env_var():
-    """Raises EnvironmentError if ${VAR} is not set."""
-    ...
-
-
-# --- validate_config tests ---
-
-
-def test_validate_config_passes_valid_config():
-    """Valid config passes validation."""
-    ...
-
-
-def test_validate_config_raises_on_invalid_table_descriptor():
-    """Raises ValueError for unknown table_descriptor."""
-    ...
-```
-
-**Why:** Comments make test intent scannable and group related tests visually.
-
----
-
 ## ⚡ Quick reference
 
 | Goal | Pattern | Example |
 |---|---|---|
 | **Test exception raised** | `pytest.raises()` | `with pytest.raises(ValueError, match="pattern"):` |
 | **Verify assertion message** | Use `assert` with message | `assert x < 10, f"Expected x < 10, got {x}"` |
-| **Group related tests** | Comment dividers | `# --- load_config tests ---` |

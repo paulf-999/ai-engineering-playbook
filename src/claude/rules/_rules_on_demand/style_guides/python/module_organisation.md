@@ -1,6 +1,6 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-08 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — modules lose their docstrings and clear interfaces -->
 <!-- loading: on demand — read when python.md's module pointer sends Claude here -->
@@ -20,13 +20,15 @@
 
 ## 📝 Module docstrings & metadata
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/module_organisation/_docstrings.md`, in your Claude config directory, for the detail of this section.
+- **Read on demand:** `_rules_on_demand/style_guides/python/module_organisation/_docstrings.md`, in your Claude config directory, for module docstrings.
+- **Read on demand:** `_rules_on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md`, in your Claude config directory, for module metadata and function ordering.
 
 ---
 
 ## 🔒 Public vs private functions
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/module_organisation/_public_private.md`, in your Claude config directory, for the detail of this section.
+- **Read on demand:** `_rules_on_demand/style_guides/python/module_organisation/_public_private.md`, in your Claude config directory, for public and private functions.
+- **Read on demand:** `_rules_on_demand/style_guides/python/module_organisation/_constants.md`, in your Claude config directory, for module-level constants.
 
 ---
 

@@ -1,6 +1,6 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-08 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: medium — logs leak secrets or miss what's needed to debug -->
 <!-- loading: on demand — read when python.md's logging pointer sends Claude here -->
@@ -27,13 +27,15 @@
 
 ## ✅ What to log and what not to log
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_what_to_log.md`, in your Claude config directory, for the detail of this section.
+- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_what_to_log.md`, in your Claude config directory, for what to log.
+- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_what_not_to_log.md`, in your Claude config directory, for what to leave out of logs.
 
 ---
 
 ## 🚨 Logging in error handling
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_error_handling.md`, in your Claude config directory, for the detail of this section.
+- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_error_handling.md`, in your Claude config directory, for the patterns to follow.
+- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md`, in your Claude config directory, for the patterns to avoid.
 
 ---
 

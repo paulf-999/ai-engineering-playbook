@@ -1,6 +1,6 @@
-<!-- version: 1.0.3 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-08 -->
 # 🔧 Pytest Fixtures & Mocking
 
 **Purpose:** Establish fixtures and mocking conventions for isolating code under test and reducing duplication.
@@ -8,8 +8,6 @@
 ---
 
 ## 🔧 Pytest fixtures
-
-**Common fixtures from pytest:**
 
 ### `monkeypatch` — Mock environment variables and module attributes
 
@@ -25,19 +23,14 @@ def test_parse_args_defaults(monkeypatch):
 
 ```python
 def test_run_dry_run_plans_but_does_not_create(tmp_path):
-    # Create temp files for test
     inventory_path = tmp_path / "connection_inventory.yaml"
     log_path = tmp_path / "connection_migration_log.yaml"
     inventory_path.write_text("...")
-
-    # Run the function
     ConnectionMigrator(client).run(
         apply=False,
         inventory_path=str(inventory_path),
         log_path=str(log_path),
     )
-
-    # Assert log file was not created
     assert not log_path.exists()
 ```
 
@@ -69,11 +62,9 @@ def _entry(source_system="salesforce_prod", source_server="dc1_source_1"):
 
 
 def test_migrate_creates_source(tmp_path):
-    # Setup: use helper to create consistent test data
     client = _make_client()
     entry = _entry(source_system="salesforce_prod")
 
-    # Execute and assert
     ConnectionMigrator(client).process(entry)
     client.create_source.assert_called_once()
 ```
@@ -112,9 +103,6 @@ client.create_source.assert_called_once_with({"name": "Salesforce"})
 
 # Assert not called
 client.create_source.assert_not_called()
-
-# Assert called N times
-assert client.create_source.call_count == 3
 ```
 
 **Why:** Mocking isolates the code being tested from its dependencies. Mock assertions verify the code interacts with dependencies correctly.

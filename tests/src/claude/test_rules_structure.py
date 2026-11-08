@@ -1,6 +1,6 @@
-# version: 1.0.5
+# version: 1.0.6
 # created: 2026-11-05
-# updated: 2026-11-07
+# updated: 2026-11-08
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
 
 Also checks that each gate can fail, using small broken examples.
@@ -157,15 +157,7 @@ def is_entry_point(path):
 
 
 # restored rules that don't meet the template yet, as (test, rule path): step 6 fixes them in batches and empties this
-KNOWN_FAILURES = {
-    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md"),
-    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_error_handling.md"),
-    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/logging/_what_to_log.md"),
-    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/module_organisation/_docstrings.md"),
-    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/module_organisation/_public_private.md"),
-    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/testing/_assertions.md"),
-    ("test_rule_size_and_ending", "_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md"),
-}
+KNOWN_FAILURES = set()
 
 
 def params(paths, test_name):

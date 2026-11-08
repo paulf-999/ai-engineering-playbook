@@ -1,6 +1,6 @@
-<!-- version: 1.0.30 -->
+<!-- version: 1.0.31 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-08 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
@@ -93,29 +93,34 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 44 | `rules/_rules_on_demand/style_guides/jira/_ticket_conventions.md` | ~573 |
 | 45 | `rules/_rules_on_demand/style_guides/python/_comments.md` | ~258 |
 | 46 | `rules/_rules_on_demand/style_guides/python/_python_environment.md` | ~479 |
-| 47 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~837 |
+| 47 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~890 |
 | 48 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~331 |
-| 49 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~748 |
-| 50 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~437 |
-| 51 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~1177 |
-| 52 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
-| 53 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~1100 |
-| 54 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~408 |
-| 55 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~1171 |
-| 56 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~947 |
-| 57 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~468 |
-| 58 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~716 |
-| 59 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~815 |
-| 60 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~396 |
-| 61 | `rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
-| 62 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~930 |
-| 63 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
-| 64 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~388 |
-| 65 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~464 |
-| 66 | `rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
-| 67 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
-| 68 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
-| 69 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
-| 70 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
-| 71 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42750** |
+| 49 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~332 |
+| 50 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~459 |
+| 51 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~509 |
+| 52 | `rules/_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md` | ~544 |
+| 53 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~669 |
+| 54 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
+| 55 | `rules/_rules_on_demand/style_guides/python/logging/_what_not_to_log.md` | ~701 |
+| 56 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~417 |
+| 57 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~491 |
+| 58 | `rules/_rules_on_demand/style_guides/python/module_organisation/_constants.md` | ~375 |
+| 59 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~630 |
+| 60 | `rules/_rules_on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md` | ~416 |
+| 61 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~590 |
+| 62 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~468 |
+| 63 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~500 |
+| 64 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~745 |
+| 65 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~593 |
+| 66 | `rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
+| 67 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~930 |
+| 68 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
+| 69 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~388 |
+| 70 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~464 |
+| 71 | `rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
+| 72 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
+| 73 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
+| 74 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
+| 75 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
+| 76 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
+| | **Subtotal** | **~42860** |

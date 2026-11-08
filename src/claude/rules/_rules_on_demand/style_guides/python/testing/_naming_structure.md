@@ -1,6 +1,6 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-09-29 -->
+<!-- updated: 2026-11-08 -->
 # 🏷️ Test Naming & Structure
 
 **Purpose:** Establish test naming conventions and test structure patterns for readable, maintainable tests.
@@ -60,3 +60,43 @@ def test_parse_args_config_and_apply(monkeypatch):
 ```
 
 **Why:** This pattern is instantly recognisable and keeps tests focused on one scenario.
+
+---
+
+## 📁 Test organisation
+
+**Group related tests with comments:**
+
+```python
+# --- load_config tests ---
+
+
+def test_load_config_reads_yaml_file():
+    """File is read and parsed correctly."""
+    ...
+
+
+def test_load_config_interpolates_env_vars():
+    """${ENV_VAR} references are resolved from environment."""
+    ...
+
+
+def test_load_config_raises_on_missing_env_var():
+    """Raises EnvironmentError if ${VAR} is not set."""
+    ...
+
+
+# --- validate_config tests ---
+
+
+def test_validate_config_passes_valid_config():
+    """Valid config passes validation."""
+    ...
+
+
+def test_validate_config_raises_on_invalid_table_descriptor():
+    """Raises ValueError for unknown table_descriptor."""
+    ...
+```
+
+**Why:** Comments make test intent scannable and group related tests visually.

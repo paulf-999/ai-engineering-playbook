@@ -1,6 +1,6 @@
-<!-- version: 2.2.0 -->
+<!-- version: 2.2.1 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-09 -->
 # 📄 Markdown Quality Rubric
 
 **Purpose:** how maintainers score each markdown doc out of 10, where 10 means short, correct and easy to follow.
@@ -24,7 +24,6 @@ Each theme scores ✅ 2, 🟡 1 or ❌ 0, and the totals map to grades: A for 9 
 - 📐 **Limits:** aim for about 300 words a page, with 500 as the ceiling, and 25 words a table cell, since long pages bury the point.
   - **Exempt:** lookup tables, which readers search rather than read.
 - 😀 **Emojis:** one at the start of each heading, table row and labelled top-level bullet, but none on plain list items or steps, so emojis mark structure without cluttering lists.
-- 🕳️ **Gaps:** name every theme below ✅ in the audit's Gaps column, starting with the theme's name.
 
 ## 🔤 Terms
 
@@ -48,6 +47,6 @@ A round is one blind review, given only the page and this rubric.
 - 📸 **Snapshots:** a page describing a dated commit is checked against that commit, and its counts don't cost Maintainability.
 - 🔒 **Maintainer docs:** pages needn't link to `docs/maintenance/`, which is for maintainers only.
 
-## 📊 Where scores live
+## 📊 Where it's used
 
-The [audit](../audits/quality_audit_markdown_files.md) holds each doc's scores and says which files aren't scored and when a doc needs a fresh score.
+No audit keeps a score for each doc. Use this rubric when writing or reviewing one, and the [rules rubric](quality_themes_rules.md) borrows its Clarity and Accuracy themes.

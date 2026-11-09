@@ -1,4 +1,4 @@
-# version: 1.5.5
+# version: 1.5.6
 # created: 2026-10-31
 # updated: 2026-11-09
 """Checks the markdown files quality audit lists every doc once, its scores add up, and no score is out of date.
@@ -28,12 +28,9 @@ THEMES = ("Core coverage", "Leanness", "Clarity", "Maintainability", "Accuracy")
 # the PR, issue and config templates, which are forms to fill in rather than docs to score
 TEMPLATES = (".github/ISSUE_TEMPLATE/", ".github/pull_request_template.md", "src/claude/_templates/")
 
-# the scorecards and their summaries, which are review records rather than docs to score
-RECORDS = ("docs/maintenance/quality/themes/quality_scorecards/",)
-
 
 def tracked_docs():
-    """Return every markdown file git tracks, minus the templates, review records, this audit and its rubric."""
+    """Return every markdown file git tracks, minus the templates and the rubric and audit pairs."""
     # ask git, so untracked drafts and ignored folders like .venv/ are left out, and ignore the user's git config
     env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
     command = ["git", "ls-files", "*.md"]
@@ -41,9 +38,7 @@ def tracked_docs():
     # the audit and its rubric can't fairly score themselves, and the repo and rules pairs are review records
     pairs = (AUDIT, RUBRIC, REPO_AUDIT, REPO_RUBRIC, RULES_AUDIT, RULES_RUBRIC)
     skipped = {str(path.relative_to(REPO_ROOT)) for path in pairs}
-    return {
-        path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES + RECORDS) and path not in skipped
-    }
+    return {path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES) and path not in skipped}
 
 
 def assert_one_row_per_doc(rows, docs):

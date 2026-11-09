@@ -45,12 +45,11 @@ and what the user gets back. Keep it to 10–15 lines.]
 - `reference/_implementation.md` — phases, logic and error handling
 - `reference/_formats.md` — standards, validation rules and examples (if applicable)
 - `tests/evals.yaml` — [N] test scenarios covering [what they cover]
-- `docs/maintenance/quality/themes/quality_scorecards/skills/scorecard_<domain>_<action>.md` — 7-dimension quality scorecard
 
 ---
 
 **Notes:**
 - Keep `SKILL.md` to about 60 lines, not counting Instructions for Claude — detail belongs in `reference/`, not here
 - Use only these five headed sections, in this order, each with its emoji
-- Put the maturity justification in the Best For line, not in the scorecard
+- Put the maturity justification in the Best For line
 - One sentence per bullet, each opening with a bold keyword

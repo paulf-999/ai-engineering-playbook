@@ -1,6 +1,6 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-09 -->
 # 🤖 Authoring agents
 
 **Purpose:** when to build an agent for Claude's config, and how to write and check one.
@@ -25,4 +25,4 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 
 - 🧪 **Evals:** match the count to its maturity: 5 to 8 for draft, 8 to 12 for tactical and 12 or more for strategic.
 - 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section.
-- 🏅 **Scorecard:** score it per `docs/maintenance/quality/themes/quality_scorecards/agents/README.md`, in the playbook repo.
+- 🏅 **Review:** have a fresh-context reviewer score it against a rubric for its type, modelled on `docs/maintenance/quality/themes/quality_themes_rules.md`, in the playbook repo.

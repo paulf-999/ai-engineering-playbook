@@ -1,6 +1,6 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-09 -->
 # 🧪 Anthropic: Demystifying evals for AI agents
 
 **Purpose:** what Anthropic's engineering article on evals, automated tests that score an AI agent's work, recommends, where its limits are, and what it means for this repo.
@@ -39,7 +39,7 @@ The article makes these points, by section:
 
 This section is this repo's reading, not the article's:
 
-- 📒 **Task log as test set:** the [task log](../../maintenance/task_log.md), this repo's record of real tasks, can supply the "real failures" to start from.
+- 📒 **Transcripts as test set:** the session transcripts each [regular review](../design_principles/01_principles.md#-numbers-and-tests) reads, this repo's record of real tasks, can supply the "real failures" to start from.
 - 🔪 **Halving test:** the [halving test](../design_principles/01_principles.md#-numbers-and-tests) asks whether removing half the setup would hurt, and rerunning logged tasks with and without a part would measure it.
 - ⚖️ **Skill triggers:** testing when a skill should and shouldn't run guards against it running too often.
 - ⚠️ **Limit:** it's written for teams building agent products, and its evidence is case studies.

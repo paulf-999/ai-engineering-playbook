@@ -1,4 +1,4 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.0.3 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 📏 Rule Quality Audit
@@ -35,7 +35,7 @@
 | [`_rules_on_demand/02_conduct/automation_controls.md`](../../../../src/claude/rules/_rules_on_demand/02_conduct/automation_controls.md) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | A · 10/10 | — |
 | [`_rules_on_demand/02_conduct/todo_logging.md`](../../../../src/claude/rules/_rules_on_demand/02_conduct/todo_logging.md) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | A · 10/10 | — |
 | [`_rules_on_demand/03_workflows/saving_plans.md`](../../../../src/claude/rules/_rules_on_demand/03_workflows/saving_plans.md) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | A · 10/10 | — |
-| [`_rules_on_demand/claude_config/authoring_guidelines.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines.md) | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | A · 9/10 | No duplicate: the "Before you start" bullets (right mechanism, must always hold, no duplicate, evidence, about 100 lines) repeat `guiding_principles.md` and `authoring_guidelines/_authoring_rules.md` |
+| [`_rules_on_demand/claude_config/authoring_guidelines.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines.md) | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | A · 9/10 | No duplicate: the "Right mechanism", "Evidence" and "about 100 lines" bullets repeat `guiding_principles.md` |
 | [`_rules_on_demand/claude_config/claude_naming_patterns.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/claude_naming_patterns.md) | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | B · 8/10 | No duplicate: the skill and agent patterns are restated in `authoring_guidelines/_authoring_skills.md` and `_authoring_agents.md`; Accuracy: the `hook_enforcement_naming_convention.sh` and `agents/core/technical_writer/AGENT.md` examples exist nowhere in the repo |
 | [`_rules_on_demand/claude_config/guiding_principles.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/guiding_principles.md) | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | B · 8/10 | Changes behaviour: "Real problem" and "Start small" are default good practice; No duplicate: "Right mechanism", "Load on demand" and the roughly 100-line size point are repeated in `authoring_guidelines.md` |
 | [`_rules_on_demand/claude_config/permission_recommendations.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | A · 9/10 | Changes behaviour: "Auto-allow read-only commands" and "Say why" are default behaviour, and only the no-wildcard bullet (`Bash(git:*)`) is new |

@@ -1,9 +1,9 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-09 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — a commit picks up another session's files or runs in the wrong repo -->
-<!-- loading: always-on — any session can run git -->
+<!-- loading: on demand — read when behaviour.md's git pointer sends Claude here -->
 # 🌿 Git
 
 **Purpose:** how Claude uses git safely, in any repo, alongside each repo's own conventions.

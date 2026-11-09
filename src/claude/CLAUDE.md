@@ -1,9 +1,7 @@
-<!-- version: 1.3.2 -->
+<!-- version: 1.3.3 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-09 -->
 # 🧠 Global Claude configuration
-
-<!-- Template for ~/.claude/CLAUDE.md, which Claude loads in every session in every repo, so keep it lean. Put project facts in each repo's own CLAUDE.md, and add a line here only when Claude repeatedly gets something wrong across repos. -->
 
 ## 🧭 Behavioural Guidelines
 
@@ -43,10 +41,6 @@
 - 🧪 **Make it checkable:** turn each task into a test, such as one that reproduces a bug, then make it pass, and confirm a refactor passes before and after.
 - 📋 **Plan with checks:** for multi-step work, list each step with the check that proves it's done.
 
-<!-- Working if: diffs carry fewer unneeded changes, fewer rewrites come from overcomplication, and clarifying questions come before the work rather than after mistakes. -->
-
 ## ⚙️ Changing Claude's config
 
 - **Read on demand:** `_rules_on_demand/claude_config/guiding_principles.md`, in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.
-
-<!-- Imports (optional): @-import files Claude needs every session; each import loads in full at startup, so add sparingly -->

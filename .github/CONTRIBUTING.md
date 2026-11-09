@@ -1,6 +1,6 @@
-<!-- version: 3.3.3 -->
+<!-- version: 3.3.4 -->
 <!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-09 -->
 # 🤝 Contributing
 
 **Purpose:** the branch, commit and PR conventions every contribution to this repo follows.
@@ -36,10 +36,9 @@ Two valid messages:
 
 ### ✅ Before raising a PR
 
-Both checks must pass:
-
 - 🪝 **Pre-commit hooks:** fix what they flag, rather than skipping them with `--no-verify`.
-- 🧪 **Tests:** run `make test`.
+- 🧪 **Tests:** run `make test`, which must pass.
+- 📊 **Scores:** for each doc, test or rule you change, have a new Sonnet session re-score its row in its [quality audit](../docs/maintenance/quality/audits/), and CI warns about any you miss.
 
 ## 🏷️ File naming
 

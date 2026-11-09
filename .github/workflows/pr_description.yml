@@ -1,9 +1,9 @@
 ---
-# version: 1.1.0
+# version: 1.1.1
 # created: 2026-11-02
-# updated: 2026-11-05
+# updated: 2026-11-09
 # Check each PR description stays short and only uses full links, re-checking whenever it's edited,
-# and that a PR changing src/claude/ answers the evaluation criteria.
+# that a PR changing src/claude/ answers the evaluation criteria, and warn when a scored file changes without its row.
 # A separate workflow from ci.yml, so editing a description doesn't re-run the tests.
 name: PR description
 
@@ -38,3 +38,21 @@ jobs:
               run: |
                   CHANGED_FILES="$(gh pr diff "${PR_NUMBER}" --name-only --repo "${GITHUB_REPOSITORY}")"
                   src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "${CHANGED_FILES}"
+            # Warn, never fail, when a changed file has a row in a quality audit the PR leaves untouched,
+            # since a failing gate is what forced a re-score after every edit
+            - name: Warn about score rows left out of date
+              if: always()
+              env:
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  CHANGED_FILES="$(gh pr diff "${PR_NUMBER}" --name-only --repo "${GITHUB_REPOSITORY}")"
+                  while IFS= read -r file; do
+                      [[ -n "${file}" ]] || continue
+                      for audit in $(git ls-files 'docs/maintenance/quality/audits/*.md'); do
+                          # each audit row links to its file as ../<repo path>)
+                          if grep -qF "../${file})" "${audit}" && ! grep -qxF "${audit}" <<<"${CHANGED_FILES}"; then
+                              echo "::warning file=${file}::${file} has a score row in ${audit}, which this PR doesn't update"
+                          fi
+                      done
+                  done <<<"${CHANGED_FILES}"

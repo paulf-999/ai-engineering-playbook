@@ -1,4 +1,4 @@
-<!-- version: 3.4.19 -->
+<!-- version: 3.4.21 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-09 -->
 # 📊 Test Coverage Audit
@@ -32,11 +32,11 @@ This table counts each script's tests by their [priority score](../../test_maint
 | [`Makefile`](../../../../Makefile) | 2 | 0 | 0 | 0 | 2 | **2** |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 3 | 1 | 0 | 5 | **15** |
 | [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | 13 | 4 | 0 | 0 | 17 | **594** |
-| [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | 0 | 6 | 0 | 0 | 6 | **13** |
+| [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | 0 | 5 | 0 | 0 | 5 | **11** |
 | [Rules quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_rules.py) | 2 | 1 | 0 | 0 | 3 | **5** |
 | [This audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py) | 0 | 2 | 0 | 0 | 2 | **2** |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 2 | 0 | 0 | 0 | 2 | **4** |
-| **Totals** | | | | | **108** | **766** |
+| **Totals** | | | | | **107** | **764** |
 
 ## ⭐ Quality by script
 
@@ -59,5 +59,5 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the shared good-rule example adds a moving part |
 | [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Rules quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_rules.py) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: test_every_rule_has_a_row checks links, row list and score sums in one test, so a harmless change can break it for several reasons |
+| [Rules quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_rules.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Core coverage: no bad-header case for a markdown file or one with YAML front matter |

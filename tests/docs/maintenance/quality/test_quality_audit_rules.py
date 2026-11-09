@@ -1,4 +1,4 @@
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-09
 # updated: 2026-11-09
 """Checks the rules quality audit has one row per entry-point rule, and that each row's scores add up."""
@@ -11,7 +11,7 @@ AUDIT = REPO_ROOT / "docs" / "maintenance" / "quality" / "audits" / "quality_aud
 RULES_DIR = REPO_ROOT / "src" / "claude" / "rules"
 
 # the themes in quality/themes/quality_themes_rules.md, as the audit's column headings
-THEMES = ("Evidence of need", "Right mechanism", "Right tier", "No duplicate", "Enforced")
+THEMES = ("Changes behaviour", "Right place", "No duplicate", "Clarity", "Accuracy")
 
 
 def entry_point_rules(rules_dir=RULES_DIR, root=REPO_ROOT):

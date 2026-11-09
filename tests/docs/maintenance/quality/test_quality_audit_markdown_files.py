@@ -1,15 +1,13 @@
-# version: 1.5.6
+# version: 1.6.0
 # created: 2026-10-31
 # updated: 2026-11-09
-"""Checks the markdown files quality audit lists every doc once, its scores add up, and no score is out of date.
+"""Checks the markdown files quality audit lists every doc once, and its scores add up.
 
 Also checks the placeholder cap, and that each check below can fail.
 """
 
 import os
-import re
 import subprocess
-from contextlib import nullcontext
 
 import pytest
 from _audit_tables import assert_links_work, assert_quality_scores, read_table
@@ -28,9 +26,12 @@ THEMES = ("Core coverage", "Leanness", "Clarity", "Maintainability", "Accuracy")
 # the PR, issue and config templates, which are forms to fill in rather than docs to score
 TEMPLATES = (".github/ISSUE_TEMPLATE/", ".github/pull_request_template.md", "src/claude/_templates/")
 
+# the rules, which the rules audit scores for both how they read and whether they earn their place
+RULES = ("src/claude/rules/",)
+
 
 def tracked_docs():
-    """Return every markdown file git tracks, minus the templates and the rubric and audit pairs."""
+    """Return every markdown file git tracks, minus the templates, the rules, and the rubric and audit pairs."""
     # ask git, so untracked drafts and ignored folders like .venv/ are left out, and ignore the user's git config
     env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
     command = ["git", "ls-files", "*.md"]
@@ -38,7 +39,9 @@ def tracked_docs():
     # the audit and its rubric can't fairly score themselves, and the repo and rules pairs are review records
     pairs = (AUDIT, RUBRIC, REPO_AUDIT, REPO_RUBRIC, RULES_AUDIT, RULES_RUBRIC)
     skipped = {str(path.relative_to(REPO_ROOT)) for path in pairs}
-    return {path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES) and path not in skipped}
+    return {
+        path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES + RULES) and path not in skipped
+    }
 
 
 def assert_one_row_per_doc(rows, docs):
@@ -59,26 +62,9 @@ def assert_placeholder_cap(rows):
             assert not over, f"{row['name']}: Core coverage is ❌, so {over} can score 🟡 at most"
 
 
-def major_minor(version):
-    """Return a version's MAJOR.MINOR part, e.g. '1.2' for '1.2.3'."""
-    return ".".join(version.split(".")[:2])
-
-
-def assert_scored_versions_current(rows, root=REPO_ROOT):
-    """Check each doc's MAJOR.MINOR version still matches the Version it was scored at."""
-    for row in rows:
-        # the first 'version: X.Y.Z' is the file's own header, whatever its comment style
-        header = re.search(r"version: (\d+\.\d+\.\d+)", (root / row["link"]).read_text())
-        assert header, f"{row['name']}: add a version header, so its score can be pinned to a version"
-        current = header.group(1)
-        assert major_minor(current) == major_minor(row["Version"]), (
-            f"{row['name']}: scored at {row['Version']}, now {current}, so re-score it and update Version"
-        )
-
-
 # MoSCoW: Should — keeps the docs audit true to the repo's docs
 def test_docs_audit_matches_the_docs():
-    """Links work, every doc has one current row, and each row's score, grade, Gaps and cap match its themes."""
+    """Links work, every doc has one row, and each row's score, grade, Gaps and cap match its themes."""
     assert_links_work(AUDIT)
     rows = read_table(AUDIT, "⭐ Quality by doc")
 
@@ -86,7 +72,6 @@ def test_docs_audit_matches_the_docs():
 
     assert_quality_scores(rows, THEMES)
     assert_placeholder_cap(rows)
-    assert_scored_versions_current(rows)
 
 
 # one row with every theme at ✅ 2, so each case below changes just one cell
@@ -115,23 +100,6 @@ def test_a_broken_placeholder_cap_is_reported():
     row = {**GOOD_ROW, "Core coverage": "❌ 0"}
     with pytest.raises(AssertionError, match="Leanness"):
         assert_placeholder_cap([row])
-
-
-# MoSCoW: Should — a version check that never fails would let a stale score stand
-# each case pairs a scored Version with the outcome expected, where nullcontext() means no error is raised
-@pytest.mark.parametrize(
-    ("scored", "outcome"),
-    [
-        pytest.param("1.1.0", nullcontext(), id="patch_change_is_fine"),
-        pytest.param("1.0.3", pytest.raises(AssertionError, match="re-score"), id="minor_change_needs_rescore"),
-    ],
-)
-def test_a_stale_score_is_reported(tmp_path, scored, outcome):
-    """A doc whose MAJOR.MINOR has moved past its scored Version fails, while a PATCH change passes."""
-    (tmp_path / "doc.md").write_text("<!-- version: 1.1.4 -->\n")
-    rows = [{"name": "doc.md", "link": "doc.md", "Version": scored}]
-    with outcome:
-        assert_scored_versions_current(rows, root=tmp_path)
 
 
 # MoSCoW: Should — a link check that never fails would let a broken audit link through

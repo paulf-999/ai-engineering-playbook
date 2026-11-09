@@ -8,7 +8,7 @@ For maintainers of this template: how good each markdown doc is, scored out of 1
 - **Kept accurate by:** [`tests/docs/maintenance/quality/test_quality_audit_markdown_files.py`](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py), which fails if a tracked doc has no row, a score doesn't match its themes, Gaps doesn't name a theme below ✅, the placeholder cap is broken, or a doc's MAJOR.MINOR version has moved past the Version scored.
 - **Scored by:** who gave each row its scores — every row is scored by an independent review in a fresh context, never by the model that wrote the doc.
 - **Version:** the doc's version when it was scored, so a guidance change (a MINOR or MAJOR bump) calls for a fresh score, while a PATCH fix doesn't.
-- **Not scored:** the PR and issue templates, which are forms to fill in rather than docs to read, the scorecards under `quality_scorecards/`, which are review records, plus this audit and the markdown rubric, which can't fairly score themselves.
+- **Not scored:** the PR and issue templates, which are forms to fill in rather than docs to read, the scorecards under `quality_scorecards/`, which are review records, the [repo audit](quality_audit_repo.md) and its rubric, which score the repo rather than a doc, plus this audit and the markdown rubric, which can't fairly score themselves.
 
 ## ⭐ Quality by doc
 

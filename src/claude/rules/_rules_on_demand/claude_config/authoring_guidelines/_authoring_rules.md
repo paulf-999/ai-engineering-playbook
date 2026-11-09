@@ -1,4 +1,4 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-09 -->
 # 📝 Authoring rules
@@ -28,4 +28,4 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 🔎 **Checks:** run `make test` and `pre-commit run --all-files`, which include the rule structure test and the always-on budget check.
 - 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section for each file, including its evidence of need.
 - 🏅 **Review:** have one fresh-context reviewer on Sonnet score every rule the PR changes, per `docs/maintenance/quality/themes/quality_themes_rules.md`, in the playbook repo.
-- 🔁 **Trial:** log its use in the task log, and remove it at the next review if it hasn't paid its way.
+- 🔁 **Trial:** remove it at the next regular review if the session transcripts show it hasn't paid its way.

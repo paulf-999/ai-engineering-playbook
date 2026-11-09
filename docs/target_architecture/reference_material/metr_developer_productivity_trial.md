@@ -1,6 +1,6 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.3.1 -->
 <!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-09 -->
 # ⚖️ METR: AI and experienced open-source developers
 
 **Purpose:** what METR's randomised controlled trial found about early-2025 AI tools and experienced developers' speed, where its limits are, and what it means for this repo.
@@ -39,7 +39,7 @@ The paper reports these points, by section:
 
 This section is this repo's reading, not the paper's:
 
-- 📏 **Measure, don't ask:** log each task's [outcome and overhead](../target_architecture.md#-measures), and pair any [task log](../../maintenance/task_log.md) note, itself a self-report, with a measure such as rework or time.
+- 📏 **Measure, don't ask:** log each task's [outcome and overhead](../target_architecture.md#-measures), and pair any component feedback, itself a self-report, with a measure such as rework or time.
 - 🧠 **Unwritten knowledge:** AI lacking tacit project knowledge supports writing it into `CLAUDE.md`.
 - 🔄 **Contrast with DORA:** the [DORA research summarised here](dora_ai_capabilities.md) rests on surveys, while this trial timed real tasks directly.
 - ⚠️ **Limit:** 16 developers on 2025 tools, so a caution, not evidence that current tools slow anyone down.

@@ -1,6 +1,6 @@
-<!-- version: 1.6.0 -->
+<!-- version: 1.6.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 # 🏗️ Target architecture
 
 **Purpose:** what the new Claude configuration contains, what loads when, and how its cost and benefit are measured.
@@ -9,12 +9,12 @@ This page describes the design, and the [design principles' status section](desi
 
 ## 📋 Executive Summary
 
-A small required core loads in every session, and every other component loads only when needed and is removed if the task log shows it doesn't pay.
+A small required core loads in every session, and every other component loads only when needed and is removed if a regular review shows it doesn't pay.
 
 - 🌱 **Small core:** only `CLAUDE.md`, the tests and the CI checks are required.
 - 📥 **On demand:** everything else loads only when a task calls for it.
 - 💰 **Budget:** a CI check caps the text loaded into every session.
-- 📏 **Measures:** each task logs its outcome, and regular reviews log overhead.
+- 📏 **Measures:** each regular review measures outcomes and overhead from session transcripts and git history.
 
 ## 🎚️ Tiers
 
@@ -48,15 +48,15 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 
 ## 📏 Measures
 
-Each task gets a row in the [task log](../maintenance/task_log.md), and the [regular review](design_principles/01_principles.md#-numbers-and-tests) adds overhead figures:
+Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts and git history since the last review, and records them in the [repo audit](../maintenance/quality/audits/quality_audit_repo.md):
 
-| Measure | Definition | Unit | Recorded |
-|---|---|---|---|
-| ⏱️ **Time to acceptance** | Working time from first prompt to accepted change | Minutes | Per task |
-| 🔁 **Rework** | Later fixes for defects in the accepted change | Count of fix commits | On the original task's row |
-| ✋ **Interventions** | Times the engineer corrected Claude or redid its work | Count | Per task |
-| 💬 **Component feedback** | Components that helped, hindered or went unused | One line each | Per task |
-| 💰 **Always-on tokens** | The budget estimate above | Tokens | Per review |
-| 🧰 **Upkeep** | Time spent changing the configuration | Hours | Per review |
+| Measure | Definition | Unit |
+|---|---|---|
+| ⏱️ **Time to acceptance** | Working time from first prompt to accepted change | Minutes |
+| 🔁 **Rework** | Later fixes for defects in the accepted change | Count of fix commits |
+| ✋ **Interventions** | Times the engineer corrected Claude or redid its work | Count |
+| 💬 **Component feedback** | Components that helped, hindered or went unused | One line each |
+| 💰 **Always-on tokens** | The budget estimate above | Tokens |
+| 🧰 **Upkeep** | Time spent changing the configuration | Hours |
 
 - 🗑️ **Acting on feedback:** each review removes [components that don't pay](design_principles/01_principles.md) and runs the [halving test](design_principles/01_principles.md#-numbers-and-tests).

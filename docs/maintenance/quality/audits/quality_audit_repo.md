@@ -1,4 +1,4 @@
-<!-- version: 1.0.5 -->
+<!-- version: 1.0.6 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🏗️ Repo Quality Audit
@@ -13,6 +13,15 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 |---|---|---|---|---|---|---|
 | 🏁 2026-11-09 | 143 | 72 | 30 (21%) | 13 of 50 (26%) | 28 | ~2,664 (89%) |
 | ✂️ 2026-11-09 | 141 | 55 | 12 (9%) | 18 of 50 (36%) | 0 | ~2,664 (89%) |
+
+## 🧪 Outcomes by review
+
+The [measures](../../../target_architecture/target_architecture.md#-measures) for the tasks since the previous review:
+
+| Date | Tasks | Time to acceptance (median minutes) | Rework (fix commits) | Interventions | Upkeep (hours) | Notes |
+|---|---|---|---|---|---|---|
+| 🏁 2026-11-03 | 1 | 17 | 0 | 0 | — | Starting point, at 887 always-on tokens before any component was added; PR links pointed to the branch, so broke after merge |
+| 🔧 2026-11-04 | — | — | — | — | 2.3 | Porting session, not a regular review: five files ported, at 2,077 always-on tokens |
 
 ## 🎈 Bloat by run
 

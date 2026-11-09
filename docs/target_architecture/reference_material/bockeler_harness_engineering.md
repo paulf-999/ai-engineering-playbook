@@ -1,6 +1,6 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-09 -->
 # 🧰 Böckeler: Harness engineering for coding agent users
 
 **Purpose:** what Birgitta Böckeler's article on building controls around a coding agent argues, where its limits are, and what it means for this repo.
@@ -40,6 +40,6 @@ This section is this repo's reading, not the article's, and the principles named
 
 - 🗺️ **Mapping:** `CLAUDE.md`, rules and skills are inferential guides, while pre-commit hooks, tests and CI are computational sensors.
 - 🔒 **Enforcement:** preferring computational sensors for what must hold is "Enforce what must hold", with a source outside Anthropic.
-- 🔁 **Task log:** the steering loop matches adding a component only after a gap recurs in the [task log](../../maintenance/task_log.md), this repo's record of real tasks.
+- 🔁 **Regular review:** the steering loop matches adding a component only after a gap recurs across the session transcripts each [regular review](../design_principles/01_principles.md#-numbers-and-tests) reads.
 - 🗑️ **Retiring:** a check that never fires may be working, so retiring parts unused between reviews should apply to guidance, not sensors.
 - ⚠️ **Limit:** it's one practitioner's model, written for teams, with no measured results.

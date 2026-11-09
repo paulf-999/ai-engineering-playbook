@@ -1,4 +1,4 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.0.3 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🏗️ Repo Quality Rubric
@@ -18,7 +18,7 @@ Files and text the repo doesn't need:
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
 | ⚖️ **Proportionality** | Support files are no more than product files | Up to double | More than double |
-| 🧾 **Evidence of need** | Every file has a current user, inbound link or task-log row | One file has none | Several have none |
+| 🧾 **Evidence of need** | Every file has a current user or inbound link | One file has none | Several have none |
 | 🎯 **Single source** | Each fact, rule or check lives in one place | One duplicate | Several duplicates |
 | 📦 **Always-on headroom** | Always-on tokens are 75% of the budget or less | Up to 90% | Over 90% |
 | 🚧 **Placeholders** | No "not built yet" or "Nothing scored yet" text | 1 to 5 | More than 5 |
@@ -63,6 +63,8 @@ git grep -ciE 'not built yet|nothing scored yet' -- '*.md' ':!docs/maintenance/q
 src/sh/claude_validate_always_on_budget.sh
 ```
 
+For the audit's Outcomes table, read the session transcripts since the last review, in the `projects/` folder of the Claude config directory, and count fix commits with `git log`.
+
 ## 🕵️ Reviewer brief
 
 At each [regular review](../../../target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores:
@@ -70,9 +72,9 @@ At each [regular review](../../../target_architecture/design_principles/01_princ
 ```text
 Score this repo against docs/maintenance/quality/themes/quality_themes_repo.md.
 Run its measures, score each theme, and cite a path for each judged 🟡 or ❌.
-Return the measures, the ten theme scores with a reason each, the Bloat and
-Over-engineering totals, and up to 5 findings ranked by how much they would
-cut, each naming the files involved.
+Return the measures, the Outcomes row, the ten theme scores with a reason each,
+the Bloat and Over-engineering totals, and up to 5 findings ranked by how much
+they would cut, each naming the files involved.
 ```
 
 ## 📊 Where scores live

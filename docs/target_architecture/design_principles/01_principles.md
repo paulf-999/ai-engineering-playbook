@@ -1,11 +1,11 @@
-<!-- version: 1.6.1 -->
+<!-- version: 1.6.2 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 # 🧱 Design principles: Principles
 
 **Purpose:** the principles every new or changed component (a rule, skill, hook or agent) must follow, and how each one is checked.
 
-They're part of this repo's [design principles](../design_principles.md), which also define the task log.
+They're part of this repo's [design principles](../design_principles.md), which also define session transcripts.
 
 | Principle | What it means | Checked by | Source |
 |---|---|---|---|
@@ -14,8 +14,8 @@ They're part of this repo's [design principles](../design_principles.md), which 
 | 🔒 **Enforce what must hold** | Use a hook, test or CI check, not prose. | The PR naming that check | [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc/04_our_reading.md) |
 | 🔁 **No duplicate controls** | A rule never restates a CI or pre-commit check. | The "No duplicate" criterion | [Handover review](../reference_material/handover_review.md) |
 | 🔌 **Opt-in, never mandatory** | No workflow requires a skill or agent. | The "No orchestration" criterion | [Handover review](../reference_material/handover_review.md) |
-| 📏 **Measure outcomes and overhead** | Log each task's outcome, and each review's [overhead](../target_architecture.md#-measures). | The [task log](../../maintenance/task_log.md), a row per task and per review | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md), plus [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc/01_overview.md) on indicators |
-| 🗑️ **Retire what doesn't pay** | Remove a component after two task-log notes say it got in the way, or if it's unused between reviews. | The regular review | [Handover review](../reference_material/handover_review.md) |
+| 📏 **Measure outcomes and overhead** | Measure tasks' [outcomes and overhead](../target_architecture.md#-measures) at each review. | The [repo review](../../maintenance/quality/audits/quality_audit_repo.md), from session transcripts and git history | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md), plus [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc/01_overview.md) on indicators |
+| 🗑️ **Retire what doesn't pay** | Remove a component after two sessions show it got in the way, or if it's unused between reviews. | The regular review | [Handover review](../reference_material/handover_review.md) |
 | 🧑 **Humans own judgement calls** | A person merges every PR and decides scope and design. | Changes reach `main` only by PR, though approval isn't enforced | [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc/01_overview.md) |
 
 ## 🔢 Numbers and tests
@@ -27,7 +27,7 @@ These limits back the principles:
 - 📖 **1,200-token read cap:** the most one on-demand rule may cost each time Claude reads it.
   - **Why this size:** every on-demand rule fitted under it when it was set, so it stops growth without forcing splits.
 - 🗓️ **Review every 20 tasks or 4 weeks:** often enough to drop unused parts, with enough evidence to judge each one.
-- 🚩 **Two notes, not one:** a single note that a part got in the way may be chance.
+- 🚩 **Two sessions, not one:** a single session where a part got in the way may be chance.
 - 🔪 **Halving test:** at each review, ask whether removing half the rules, skills, hooks and agents would make results noticeably worse.
   - **If not:** the setup is bigger than it needs to be.
 

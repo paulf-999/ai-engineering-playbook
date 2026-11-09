@@ -1,6 +1,6 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-09 -->
 # 🛠️ Authoring skills
 
 **Purpose:** how to lay out, describe and test a new skill for Claude's config.
@@ -27,4 +27,4 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 🧪 **Evals:** match the count to its maturity: 5 to 8 for draft, 8 to 12 for tactical and 12 or more for strategic.
 - 🔐 **Safety:** read secrets from the environment, validate input before it reaches a shell or API, and hard-code no paths.
 - 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section.
-- 🏅 **Scorecard:** score it per `_templates/skills/_quality_scorecard_template.md`.
+- 🏅 **Review:** have a fresh-context reviewer score it against a rubric for its type, modelled on `docs/maintenance/quality/themes/quality_themes_rules.md`, in the playbook repo.

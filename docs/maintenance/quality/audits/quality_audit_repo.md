@@ -1,4 +1,4 @@
-<!-- version: 1.0.3 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🏗️ Repo Quality Audit
@@ -45,7 +45,7 @@ Each theme below ✅, with what would raise it:
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 🗂️ **Collapse the scorecards:** keep only what's used in [`quality_scorecards/`](../themes/quality_scorecards/README.md), dropping its `agents/`, `hooks/`, `skills/` and `tests/` folders and its unbuilt review steps.
+1. 🗂️ **Collapse the scorecards:** keep only what's used in `quality_scorecards/`, dropping its `agents/`, `hooks/`, `skills/` and `tests/` folders and its unbuilt review steps.
 2. 📋 **Templates without components:** remove `AGENT.md.template` and the `skills/` templates in [`src/claude/_templates/`](../../../../src/claude/_templates/README.md), since no agents or skills exist.
 3. 🧪 **Score each type one way:** keep the markdown audit and the [test rubric](../themes/quality_themes_test_files.md), and drop the second scoring system for each and the version-staleness gate.
 4. 🐚 **Duplicate shell files:** `src/sh/shell_utils.sh` matches `src/claude/_templates/utils/shell_utils.sh` byte for byte, and the two bash templates are near-copies.

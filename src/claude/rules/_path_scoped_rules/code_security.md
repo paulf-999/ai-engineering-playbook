@@ -1,8 +1,8 @@
 ---
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
-<!-- applies_to: **/*.py, **/*.sh, **/*.sql, **/*.js, **/*.ts -->
+<!-- updated: 2026-11-09 -->
+<!-- applies_to: Python, shell, SQL, JavaScript and TypeScript files -->
 <!-- miss_cost: high — code ships with a secret or an injection hole -->
 <!-- loading: path-scoped — loads with code files -->
 paths:

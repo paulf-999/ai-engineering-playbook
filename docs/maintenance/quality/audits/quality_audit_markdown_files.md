@@ -1,4 +1,4 @@
-<!-- version: 1.0.100 -->
+<!-- version: 1.0.101 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-09 -->
 # 📊 Markdown Quality Audit
@@ -41,6 +41,7 @@ Each doc is scored against [`docs/maintenance/quality/themes/quality_themes_mark
 | [`src` README](../../../../src/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`tests` README](../../../../tests/README.md) | Independent review | 1.1.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Global CLAUDE.md](../../../../src/claude/CLAUDE.md) | Independent review | 1.3.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Claude config README](../../../../src/claude/README.md) | Independent review | 1.0.0 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Guiding principles](../../../../src/claude/rules/_rules_on_demand/claude_config/guiding_principles.md) | Independent review | 2.4.0 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **A · 9/10** | Clarity: the engineer test in Real problem doesn't say what \"anyway\" means |
 | [Authoring guidelines](../../../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines.md) | Independent review | 3.0.2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Authoring: agents](../../../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md) | Independent review | 1.0.0 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | **B · 8/10** | Leanness: eval counts repeat the skills page; Clarity: draft, tactical and strategic aren't explained |

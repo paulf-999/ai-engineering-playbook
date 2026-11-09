@@ -1,7 +1,7 @@
 #!/bin/bash
-# version: 1.2.0
+# version: 1.2.1
 # created: 2026-11-04
-# updated: 2026-11-05
+# updated: 2026-11-09
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Write docs/maintenance/context_cost.md, a table of each src/claude/ file's estimated tokens and when it loads
@@ -35,9 +35,11 @@ HEADER_LINES=3
 #=======================================================================
 
 # Print when a file loads: on demand, with matching files, or in every session
+# the config's README is for people browsing the repo, so like the templates it's read only when opened
 load_condition() {
     local file="${1}" globs
-    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* ]]; then
+    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* \
+        || "${file}" == "${CONFIG_DIR}/README.md" ]]; then
         echo "On demand, via a pointer"
         return
     fi
@@ -75,7 +77,7 @@ table_body() {
     # sort by byte value, so the order is the same on every machine whatever its locale
     done < <(git -C "${REPO_DIR}" ls-files -- "${CONFIG_DIR}/*.md" | LC_ALL=C sort)
     printf '## 🔒 Every session\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' "${every}" "$((every_chars / 4))"
-    printf '\n## 📂 With matching files\n\n| # | File | Globs | Tokens |\n|---|---|---|---|\n%s| | **Subtotal** | | **~%s** |\n' "${scoped}" "$((scoped_chars / 4))"
+    printf '\n## 📂 Path-scoped rules\n\n| # | File | Globs | Tokens |\n|---|---|---|---|\n%s| | **Subtotal** | | **~%s** |\n' "${scoped}" "$((scoped_chars / 4))"
     printf '\n## 💤 On demand\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' "${lazy}" "$((lazy_chars / 4))"
 }
 
@@ -89,7 +91,7 @@ report_body() {
 This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/`, and a pre-commit check fails if it's out of date, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../target_architecture/target_architecture.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
-- 📂 **With matching files:** loads only once Claude opens a file that matches one of its globs.
+- 📂 **Path-scoped rules:** loads only once Claude opens a file that matches one of its globs.
 - 💤 **On demand:** loads only when Claude follows a pointer to it.
 
 EOF

@@ -4,7 +4,7 @@
 
 ## 🧩 Pick a shape
 
-Count the labelled bullets the rule needs, not counting `Read on demand` pointers, then copy the matching file from `rule_template_shapes/`.
+Count the labelled bullets the rule needs, not counting `Read on demand` pointers, then copy the matching file from `_templates/rules/`.
 
 - 🪶 **Short shape:** `short.md.template`, for 5 labelled bullets or fewer, with an optional table.
 - 🗂️ **Sectioned shape:** `sectioned.md.template`, for more than 5, split into 2 to 4 emoji `##` sections of up to 5 bullets each.

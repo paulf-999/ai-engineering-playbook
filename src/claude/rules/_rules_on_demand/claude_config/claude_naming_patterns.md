@@ -1,6 +1,6 @@
-<!-- version: 2.0.3 -->
+<!-- version: 2.1.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-09 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
 <!-- miss_cost: low — names drift from the house patterns -->
 <!-- loading: on demand — read when authoring_guidelines.md points here, before naming something new -->
@@ -11,9 +11,9 @@
 | Artefact | Pattern | Example |
 |---|---|---|
 | 📝 **Rule** | `<concept>.md`, named for the concept it covers | `naming_standards.md` |
-| 🛠️ **Skill** | `<domain>_<action>`, a domain then an imperative verb | `confluence_create_page` |
+| 🛠️ **Skill** | `<domain>-<action>`, a domain then an imperative verb, per the [Agent Skills spec](https://agentskills.io/specification) | `confluence-create-page` |
 | 🪝 **Hook** | `hook_<type>_<domain>.sh`, where type is `enforcement`, `style_guide` or `session_start` | `hook_enforcement_naming_convention.sh` |
-| 🤖 **Agent** | `agents/<group>/<name>/AGENT.md` | `agents/core/technical_writer/AGENT.md` |
+| 🤖 **Agent** | `agents/<group>/<domain>-<purpose>/AGENT.md`, hyphenated to match skills | `agents/core/technical-writer/AGENT.md` |
 
 - 🗂️ **Group related rules:** put rules for one domain in a subfolder, such as `style_guides/sql.md`.
 - 💤 **On-demand files:** name them the same way, and put them in `_rules_on_demand/`.

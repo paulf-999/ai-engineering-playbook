@@ -1,6 +1,6 @@
-<!-- version: 1.0.32 -->
+<!-- version: 1.0.33 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
@@ -96,16 +96,16 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 47 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~890 |
 | 48 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~331 |
 | 49 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~332 |
-| 50 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~534 |
+| 50 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~575 |
 | 51 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~509 |
-| 52 | `rules/_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md` | ~629 |
+| 52 | `rules/_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md` | ~639 |
 | 53 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~669 |
 | 54 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
 | 55 | `rules/_rules_on_demand/style_guides/python/logging/_what_not_to_log.md` | ~704 |
 | 56 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~417 |
-| 57 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~491 |
+| 57 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~500 |
 | 58 | `rules/_rules_on_demand/style_guides/python/module_organisation/_constants.md` | ~376 |
-| 59 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~592 |
+| 59 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~578 |
 | 60 | `rules/_rules_on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md` | ~417 |
 | 61 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~590 |
 | 62 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~468 |
@@ -123,4 +123,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 74 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 75 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 76 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42988** |
+| | **Subtotal** | **~43034** |

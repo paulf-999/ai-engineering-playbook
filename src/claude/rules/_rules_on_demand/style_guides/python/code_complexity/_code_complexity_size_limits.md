@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-11-08 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 # 📏 Complexity size limits
 
 **Purpose:** The limits on function length, nesting depth, parameter count and line length, and how to measure each.
@@ -18,7 +18,7 @@
 - 🪚 **Over 40:** extract helper functions.
 - 🧾 **Exception:** data processing, setup code and other linear sequences.
 
-**Tool:** `radon raw src/ -s`
+**Tool:** ruff's `PLR0915` rule (too-many-statements), which counts statements per function, a close proxy for length.
 
 ---
 
@@ -30,7 +30,7 @@
 
 **Threshold:** 3 levels or fewer.
 
-**Tool:** ruff's `PLR1702` rule (too-many-nested-blocks).
+**Tool:** ruff's `PLR1702` rule (too-many-nested-blocks), a preview rule, so it needs `preview = true` and `max-nested-blocks = 3`.
 
 **How to reduce:**
 

@@ -1,6 +1,6 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.3.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 # 📝 Module Docstrings
 
 **Purpose:** Establish module docstring format for self-documenting modules.
@@ -11,18 +11,12 @@
 
 Every module must have a docstring at the top describing its purpose. Place it before imports and `__author__`/`__version__` metadata.
 
-### Format
+### 📐 Format
 
 **Module docstrings must follow progressive disclosure**:
 
-- **Opening line:** One-sentence summary of module purpose
-- **Details:** Reserve for README, separate docs, or code comments — NOT the module docstring
-
-```python
-"""
-[One-sentence purpose — this is sufficient]
-"""
-```
+- 1️⃣ **Opening line:** One-sentence summary of module purpose
+- 📚 **Details:** Reserve for README, separate docs, or code comments — NOT the module docstring
 
 **Only add sections if absolutely necessary for critical context:**
 

@@ -1,6 +1,6 @@
-<!-- version: 1.1.4 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — modules lose their docstrings and clear interfaces -->
 <!-- loading: on demand — read when python.md's module pointer sends Claude here -->
@@ -36,7 +36,7 @@
 
 | Element | Convention | Example |
 |---------|-----------|---------|
-| **Module docstring** | Multi-line at top, before imports | `"""Description: ..."""` |
+| **Module docstring** | One sentence at top, before imports | `"""YAML config loader with ${ENV_VAR} interpolation."""` |
 | **Date created** | Git history | `git log --follow <file>` |
 | **`__author__`** | String, after docstring | `__author__ = "Your Name"` |
 | **`__version__`** | String, after docstring | `__version__ = "0.1"` |

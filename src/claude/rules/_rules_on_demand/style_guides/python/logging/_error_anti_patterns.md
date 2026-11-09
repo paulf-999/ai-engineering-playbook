@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-11-08 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 # ❌ Error handling anti-patterns
 
 **Purpose:** The exception-handling patterns that lose errors or their context, and when to log or re-raise.
@@ -9,7 +9,7 @@
 
 ## ❌ Bad patterns to avoid
 
-### 1. Bare except clause — catches everything, including system exceptions
+### 🚫 1. Bare except clause — catches everything, including system exceptions
 
 ```python
 # ❌ WRONG — catches KeyboardInterrupt, SystemExit, etc.
@@ -21,7 +21,7 @@ except:
 
 **Problem:** Masks unexpected exceptions; hides bugs.
 
-### 2. Generic Exception — too broad
+### 🚫 2. Generic Exception — too broad
 
 ```python
 # ❌ WRONG — catches unrelated exceptions
@@ -34,7 +34,7 @@ except Exception:
 
 **Problem:** Catches the wrong exceptions; makes debugging harder.
 
-### 3. Swallowing without logging — no debugging context
+### 🚫 3. Swallowing without logging — no debugging context
 
 ```python
 # ❌ WRONG — no way to know what failed
@@ -46,7 +46,7 @@ except KeyError:
 
 **Problem:** Impossible to debug why the program behaves unexpectedly.
 
-### 4. Catching specific exception without re-raising — changes control flow silently
+### 🚫 4. Catching specific exception without re-raising — changes control flow silently
 
 ```python
 # ❌ WRONG — caller has no idea this failed
@@ -59,7 +59,7 @@ except ValueError:
 
 **Problem:** Caller unaware of error; program continues with invalid state.
 
-### 5. Formatting the traceback into the message — hard to read and search
+### 🚫 5. Formatting the traceback into the message — hard to read and search
 
 ```python
 # ❌ WRONG
@@ -83,7 +83,7 @@ Log each error once, where the most context is known, and let it travel up from 
 | Situation | What to do |
 |---|---|
 | 🟡 **Expected and recoverable**, such as a missing optional file | Log at WARNING with context, use the fallback, and don't re-raise |
-| 🔴 **Unexpected, and you can add context**, such as the file path | Log at ERROR with that context, then re-raise, or raise a clearer error `from` it |
+| 🔴 **Unexpected, and you can add context**, such as the file path | Raise a clearer error `from` it, with that context in its message, and leave the logging to the top-level handler |
 | ⏭️ **Unexpected, and you have nothing to add** | Don't catch it, and let it propagate |
 | 🏁 **Top-level handler**, such as `main()` | Call `logger.exception()` and exit, since nothing above can handle it |
 

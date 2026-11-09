@@ -1,9 +1,9 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.0.2 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🏗️ Repo Quality Audit
 
-**Purpose:** for maintainers, whether the repo as a whole is over-engineered or bloated, scored out of 10 at each regular review.
+**Purpose:** for maintainers, how bloated and how over-engineered the repo is as a whole, each scored out of 10 at each regular review.
 
 Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-context reviewer runs its measures and scores its themes, and this page keeps one row per run.
 
@@ -15,9 +15,9 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 
 ## ⭐ Scores by run
 
-| Date | Proportionality | Evidence of need | Single source | Cross-file consistency | Upkeep cost | Score |
-|---|---|---|---|---|---|---|
-| 🏁 2026-11-09 | ✅ 2 | ❌ 0 | ❌ 0 | ❌ 0 | 🟡 1 | **3/10** |
+| Date | Proportionality | Evidence of need | Single source | **Bloat** | Cross-file consistency | Upkeep cost | **Over-engineering** |
+|---|---|---|---|---|---|---|---|
+| 🏁 2026-11-09 | ✅ 2 | ❌ 0 | ❌ 0 | **3/10** | ❌ 0 | 🟡 1 | **3/10** |
 
 ### 🔍 Why the latest scores
 

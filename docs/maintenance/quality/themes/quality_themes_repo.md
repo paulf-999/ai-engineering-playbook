@@ -1,15 +1,19 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🏗️ Repo Quality Rubric
 
-**Purpose:** how a reviewer scores the whole repo out of 10 for over-engineering and bloat, which per-file scores can't see.
+**Purpose:** how a reviewer gives the whole repo a bloat score and an over-engineering score, each out of 10, which per-file scores can't see.
 
 A per-file score rates how well a file is written, not whether it should exist. This rubric looks across files instead.
 
 ## 🏷️ Themes
 
-Each theme scores ✅ 2, 🟡 1 or ❌ 0, for a total out of 10.
+Each theme scores ✅ 2, 🟡 1 or ❌ 0. The themes add up to two scores, where 10 means none of the problem:
+
+- 🎈 **Bloat:** Proportionality, Evidence of need and Single source, out of 6.
+- 🏗️ **Over-engineering:** Cross-file consistency and Upkeep cost, out of 4.
+- 🔢 **Scaled:** each score is scaled to 10 and rounded to the nearest whole number, with halves rounded up.
 
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
@@ -49,7 +53,8 @@ At each [regular review](../../../target_architecture/design_principles/01_princ
 ```text
 Score this repo against docs/maintenance/quality/themes/quality_themes_repo.md.
 Run its measures, score each theme, and cite a path for each judged 🟡 or ❌.
-Return the measures, the five scores with a reason each, and up to 5 findings
+Return the measures, the five theme scores with a reason each, the two scores,
+and up to 5 findings
 ranked by how much they would cut, each naming the files involved.
 ```
 

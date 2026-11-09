@@ -1,6 +1,6 @@
-<!-- version: 3.4.16 -->
+<!-- version: 3.4.17 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-09 -->
 # 📊 Test Coverage Audit
 
 **Purpose:** how many tests each script has, and how good those tests are.
@@ -56,6 +56,6 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`Makefile`](../../../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the KNOWN_FAILURES strict-xfail hook, now empty, and the shared good-rule example, add moving parts |
+| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the shared good-rule example adds a moving part |
 | [Markdown quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_markdown_files.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Core coverage: no bad-header case for a markdown file or one with YAML front matter |

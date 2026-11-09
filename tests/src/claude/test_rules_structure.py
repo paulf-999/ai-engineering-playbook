@@ -1,6 +1,6 @@
-# version: 1.1.0
+# version: 1.1.1
 # created: 2026-11-05
-# updated: 2026-11-08
+# updated: 2026-11-09
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
 
 Also checks that each gate can fail, using small broken examples.
@@ -167,18 +167,8 @@ def is_entry_point(path):
     return not path.name.startswith("_")
 
 
-# restored rules that don't meet the template yet, as (test, rule path): step 6 fixes them in batches and empties this
-KNOWN_FAILURES = set()
-
-
-def params(paths, test_name):
-    """Return one case per rule, marking those in KNOWN_FAILURES as strict expected failures."""
-    mark = pytest.mark.xfail(reason="TODO: restored rule doesn't meet the template yet", strict=True)
-    return [pytest.param(path, marks=mark if (test_name, relative(path)) in KNOWN_FAILURES else ()) for path in paths]
-
-
 # MoSCoW: Must — every rule must open with the header, an emoji H1 and a Purpose line
-@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_opens_with_header_h1_and_purpose"), ids=relative)
+@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_opens_with_header_h1_and_purpose(path):
     """Each rule has the 3-line header, exactly one H1 with an emoji, and a Purpose line straight after it."""
     problems = opening_problems(path.read_text())
@@ -186,7 +176,7 @@ def test_rule_opens_with_header_h1_and_purpose(path):
 
 
 # MoSCoW: Must — rules over the line limit cost context and must be split
-@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_size_and_ending"), ids=relative)
+@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_size_and_ending(path):
     """Each rule is 110 lines or fewer, not counting comments or frontmatter, and ends with one newline."""
     problems = size_problems(path.read_text())
@@ -194,7 +184,7 @@ def test_rule_size_and_ending(path):
 
 
 # MoSCoW: Must — an on-demand rule over the read cap costs too much context each time Claude reads it
-@pytest.mark.parametrize("path", params(ON_DEMAND_FILES, "test_on_demand_rule_read_cost"), ids=relative)
+@pytest.mark.parametrize("path", ON_DEMAND_FILES, ids=relative)
 def test_on_demand_rule_read_cost(path):
     """Each on-demand rule costs 1,200 tokens or fewer to read, not counting HTML comments."""
     problems = read_cost_problems(path.read_text())
@@ -202,7 +192,7 @@ def test_on_demand_rule_read_cost(path):
 
 
 # MoSCoW: Should — headings keep rules scannable and link only through pointers
-@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_headings"), ids=relative)
+@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_headings(path):
     """Each ## heading has an emoji, Contents appears only with 3 or more headings, and there's no Related section."""
     problems = heading_problems(path.read_text())
@@ -210,7 +200,7 @@ def test_rule_headings(path):
 
 
 # MoSCoW: Should — long lists are hard to scan, so the layout rule caps them at 5
-@pytest.mark.parametrize("path", params(RULE_FILES, "test_rule_lists_are_short"), ids=relative)
+@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_lists_are_short(path):
     """No list in a rule has more than 5 top-level bullets."""
     problems = list_problems(path.read_text())
@@ -220,7 +210,7 @@ def test_rule_lists_are_short(path):
 # MoSCoW: Must — the loading line must match where the rule lives, so it can't drift
 @pytest.mark.parametrize(
     "path",
-    params([path for path in RULE_FILES if is_entry_point(path)], "test_entry_point_has_usage_lines"),
+    [path for path in RULE_FILES if is_entry_point(path)],
     ids=relative,
 )
 def test_entry_point_has_usage_lines(path):
@@ -267,7 +257,7 @@ def resolve(target):
 # MoSCoW: Must — a child no parent points to is never read
 @pytest.mark.parametrize(
     "path",
-    params([path for path in RULE_FILES if not is_entry_point(path)], "test_child_is_named_by_its_parent"),
+    [path for path in RULE_FILES if not is_entry_point(path)],
     ids=relative,
 )
 def test_child_is_named_by_its_parent(path):
@@ -279,10 +269,7 @@ def test_child_is_named_by_its_parent(path):
 # MoSCoW: Must — an on-demand rule nothing points to is never read
 @pytest.mark.parametrize(
     "path",
-    params(
-        [path for path in RULE_FILES if is_entry_point(path) and relative(path).startswith("_rules_on_demand/")],
-        "test_on_demand_rule_has_an_inbound_pointer",
-    ),
+    [path for path in RULE_FILES if is_entry_point(path) and relative(path).startswith("_rules_on_demand/")],
     ids=relative,
 )
 def test_on_demand_rule_has_an_inbound_pointer(path):

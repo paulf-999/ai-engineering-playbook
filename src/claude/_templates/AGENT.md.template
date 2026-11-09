@@ -1,5 +1,5 @@
 ---
-name: <domain>_<purpose>
+name: <domain>-<purpose>
 description: When Claude should delegate to this agent, using the phrases users type to ask for it
 tools: Read, Grep, Glob  # least privilege — list only the tools the job needs; leaving this out grants every tool
 model: inherit  # inherit (use the session's model), or an alias such as sonnet, opus or haiku
@@ -12,7 +12,8 @@ isolation: worktree  # only for an agent that changes files; leave it out otherw
 # 🎯 [Agent name]
 
 **Frontmatter guide:**
-- `name` — identifier matching `<domain>_<purpose>` pattern (e.g., `technical_writer`, `code_analyzer`)
+- `name` — identifier matching the `<domain>-<purpose>` pattern and the agent's folder name (e.g., `technical-writer`, `code-analyzer`)
+  - **Format:** hyphens match skill names, which the Agent Skills spec requires; the [Claude Code subagent docs](https://code.claude.com/docs/en/sub-agents) only forbid `:` and cap names at 256 characters
 - `description` — one sentence saying when Claude should delegate to this agent, since Claude Code decides from it alone
 - `tools` — comma-separated allowlist of only the tools the job needs (e.g. add `Write` only if it writes files) — leaving it out grants every tool
 - `model` — `inherit` (use the session's model), or an alias such as `sonnet`, `opus` or `haiku`, which never goes stale the way a full model ID does

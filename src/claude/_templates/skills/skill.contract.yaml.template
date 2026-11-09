@@ -5,8 +5,9 @@
 # Use this as your starting point when creating a new skill.
 # Populate this file BEFORE writing SKILL.md — the contract defines scope.
 
-name: <domain>_<action>          # [REQUIRED] must match directory prefix
-                                 # Example: git_create_pr, confluence_create_page
+name: <domain>-<action>          # [REQUIRED] must match the skill's folder name
+                                 # Example: git-create-pr, confluence-create-page
+                                 # Format: lowercase letters, digits and hyphens — https://agentskills.io/specification
 version: 1.0.0                   # [REQUIRED] semver, starting at 1.0.0
 summary: One-line description    # [REQUIRED] plain-language description
 test_coverage_level: none        # [REQUIRED] none, basic, or comprehensive
@@ -14,7 +15,7 @@ test_coverage_level: none        # [REQUIRED] none, basic, or comprehensive
 dispatch:
   triggers:
     explicit:                    # [REQUIRED] slash commands and exact phrases that invoke this skill
-      - /<skill_name>
+      - /<domain>-<action>
       - "exact trigger phrase"
     contextual:                  # [IF APPLICABLE] situational conditions that imply this skill
       - user wants to <do X>

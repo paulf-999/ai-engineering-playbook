@@ -1,4 +1,4 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-09 -->
 # 🛠️ Authoring skills
@@ -17,7 +17,7 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 
 ## 🎯 Scope and triggers
 
-- 🏷️ **Name:** `<domain>_<action>`, a domain then an imperative verb, such as `git_create_pr`.
+- 🏷️ **Name:** `<domain>-<action>`, a domain then an imperative verb, such as `git-create-pr`, matching the folder name, per the [Agent Skills spec](https://agentskills.io/specification).
 - 🚧 **Not for:** list in the contract's `not_for` what the skill doesn't do, since that boundary matters most.
 - 🗣️ **Description:** use the phrases people type to ask for it, with the other verbs and names they'd use, and keep it short, since every description loads in every session.
 - ✋ **Confirm first:** set `confirmation_required: true` for anything irreversible or visible to others, such as a push.

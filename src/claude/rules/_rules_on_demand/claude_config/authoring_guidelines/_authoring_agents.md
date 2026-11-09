@@ -1,4 +1,4 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-09 -->
 # 🤖 Authoring agents
@@ -11,7 +11,7 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 
 - 👥 **Own context:** build one only when the work needs a separate context or an independent view, such as a blind review.
 - 🔄 **Otherwise:** use a skill for a procedure and a rule for guidance, since an agent costs a fresh context each run.
-- 🏷️ **Name and place:** `agents/<group>/<name>/AGENT.md`, with a `<domain>_<purpose>` name.
+- 🏷️ **Name and place:** `agents/<group>/<name>/AGENT.md`, with a `<domain>-<purpose>` name, such as `technical-writer`, hyphenated to match skills, though the [Claude Code subagent docs](https://code.claude.com/docs/en/sub-agents) allow any name without a `:`.
 
 ## 📝 Writing it
 

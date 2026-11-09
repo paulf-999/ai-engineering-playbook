@@ -1,4 +1,4 @@
-# version: 1.1.3
+# version: 1.1.2
 # created: 2026-11-05
 # updated: 2026-11-09
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -16,7 +16,7 @@ CONFIG_DIR = REPO_ROOT / "src" / "claude"
 RULES_DIR = CONFIG_DIR / "rules"
 RULE_FILES = sorted(RULES_DIR.rglob("*.md"))
 MAX_LINES = 110
-# the most an on-demand rule may cost to read, in tokens estimated as characters ÷ 4
+# the most an on-demand rule may cost to read, in tokens estimated as characters ÷ 4, as in context_cost.md
 MAX_READ_TOKENS = 1200
 ON_DEMAND_FILES = sorted((RULES_DIR / "_rules_on_demand").rglob("*.md"))
 MAX_BULLETS = 5

@@ -1,4 +1,4 @@
-<!-- version: 3.4.25 -->
+<!-- version: 3.4.26 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-09 -->
 # 📊 Test Coverage Audit
@@ -27,14 +27,15 @@ This table counts each script's tests by their [priority score](../../test_maint
 | [`git_validate_pr_title.sh`](../../../../src/sh/git/git_validate_pr_title.sh) | 3 | 0 | 0 | 0 | 3 | **14** |
 | [`claude_validate_always_on_budget.sh`](../../../../src/sh/claude_validate_always_on_budget.sh) | 4 | 1 | 0 | 0 | 5 | **18** |
 | [`claude_install_config.sh`](../../../../src/sh/claude_install_config.sh) | 7 | 1 | 0 | 0 | 8 | **8** |
+| [`claude_report_context_cost.sh`](../../../../src/sh/claude_report_context_cost.sh) | 2 | 1 | 0 | 0 | 3 | **3** |
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | 2 | 1 | 2 | 0 | 5 | **13** |
 | [`Makefile`](../../../../Makefile) | 2 | 0 | 0 | 0 | 2 | **2** |
-| [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 2 | 1 | 0 | 4 | **13** |
+| [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 2 | 1 | 0 | 4 | **14** |
 | [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | 13 | 4 | 0 | 0 | 17 | **603** |
 | [Rules quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_rules.py) | 2 | 1 | 0 | 0 | 3 | **5** |
 | [This audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py) | 0 | 2 | 0 | 0 | 2 | **2** |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 2 | 0 | 0 | 0 | 2 | **4** |
-| **Totals** | | | | | **98** | **757** |
+| **Totals** | | | | | **101** | **761** |
 
 ## ⭐ Quality by script
 
@@ -51,6 +52,7 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [PR title](../../../../src/sh/git/git_validate_pr_title.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Always-on budget](../../../../src/sh/claude_validate_always_on_budget.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the "over the 150-token budget" message is asserted in two tests, so rewording it breaks both |
 | [Install](../../../../src/sh/claude_install_config.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Context cost report](../../../../src/sh/claude_report_context_cost.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | **A · 9/10** | Reliability: the version-header test never checks its replace changed the report |
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`Makefile`](../../../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

@@ -1,4 +1,4 @@
-<!-- version: 1.2.2 -->
+<!-- version: 1.2.3 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-09 -->
 # 📋 Templates Directory
@@ -16,8 +16,8 @@ _templates/
 ├── AGENT.md.template        # Starting point for a new agent
 ├── rule.md.template         # Starting point for a new rule
 ├── rules/                   # Lean rule shapes, chosen by bullet count
-│   ├── short.md.template
-│   └── sectioned.md.template
+│   ├── short_rule.md.template
+│   └── sectioned_rule.md.template
 ├── TODO.md.template         # Starting point for a project TODO list
 ├── scorecard/               # Scorecard layouts
 │   ├── scorecard.md.template          # Layout for every individual scorecard
@@ -63,11 +63,11 @@ _templates/
 - Ends with a quality checklist that applies to both shapes
 - Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
 
-**`rules/short.md.template`**
+**`rules/short_rule.md.template`**
 
 - Lean rule of 5 labelled bullets or fewer: metadata and usage header, H1, Purpose, bullets and optional `Read on demand` pointers
 
-**`rules/sectioned.md.template`**
+**`rules/sectioned_rule.md.template`**
 
 - Lean rule of more than 5 labelled bullets: the same opening, then 2 to 4 emoji `##` sections of up to 5 bullets each
 

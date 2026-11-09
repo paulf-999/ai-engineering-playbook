@@ -15,7 +15,7 @@
 - **Read on demand:** `_rules_on_demand/<domain>/<file>.md`, in your Claude config directory, [when to read it].
 
 <!-- Short shape: use when the rule needs 5 labelled bullets or fewer in all, counting Why if kept, but not Read on demand pointers. -->
-<!-- More than 5 means the sectioned shape, in sectioned.md.template. -->
+<!-- More than 5 means the sectioned shape, in sectioned_rule.md.template. -->
 <!-- Optional: one table between bullets, when two or more items share the same fields. -->
 <!-- Optional: the Read on demand pointers; delete them if the rule has none. -->
 <!-- Child file: delete the applies_to, miss_cost and loading lines, since it inherits its parent's. -->

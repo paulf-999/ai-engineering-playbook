@@ -6,8 +6,8 @@
 
 Count the labelled bullets the rule needs, not counting `Read on demand` pointers, then copy the matching file from `_templates/rules/`.
 
-- 🪶 **Short shape:** `short.md.template`, for 5 labelled bullets or fewer, with an optional table.
-- 🗂️ **Sectioned shape:** `sectioned.md.template`, for more than 5, split into 2 to 4 emoji `##` sections of up to 5 bullets each.
+- 🪶 **Short shape:** `short_rule.md.template`, for 5 labelled bullets or fewer, with an optional table.
+- 🗂️ **Sectioned shape:** `sectioned_rule.md.template`, for more than 5, split into 2 to 4 emoji `##` sections of up to 5 bullets each.
 - ✂️ **Too big for either:** past 4 sections or about 110 lines, split it into a parent and 2 or more `<parent>/_<aspect>.md` children, each starting from a shape.
 - 🏷️ **Usage header:** an entry-point rule keeps the `applies_to`, `miss_cost` and `loading` lines, and a child file deletes them.
 

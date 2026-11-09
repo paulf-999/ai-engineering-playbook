@@ -1,12 +1,11 @@
 ---
 name: <domain>_<purpose>
 description: When Claude should delegate to this agent, using the phrases users type to ask for it
-maturity: draft  # draft | tactical | strategic
 tools: Read, Grep, Glob  # least privilege — list only the tools the job needs; leaving this out grants every tool
 model: inherit  # inherit (use the session's model), or an alias such as sonnet, opus or haiku
 isolation: worktree  # only for an agent that changes files; leave it out otherwise
 ---
-<!-- version: 0.1.0 -->
+<!-- version: 1.0.0 -->
 <!-- created: YYYY-MM-DD -->
 <!-- updated: YYYY-MM-DD -->
 
@@ -15,13 +14,12 @@ isolation: worktree  # only for an agent that changes files; leave it out otherw
 **Frontmatter guide:**
 - `name` — identifier matching `<domain>_<purpose>` pattern (e.g., `technical_writer`, `code_analyzer`)
 - `description` — one sentence saying when Claude should delegate to this agent, since Claude Code decides from it alone
-- `maturity` — draft | tactical | strategic (same model as skills), a house field that Claude Code ignores
 - `tools` — comma-separated allowlist of only the tools the job needs (e.g. add `Write` only if it writes files) — leaving it out grants every tool
 - `model` — `inherit` (use the session's model), or an alias such as `sonnet`, `opus` or `haiku`, which never goes stale the way a full model ID does
 - `isolation` — `worktree`, the only value, runs the agent in its own git worktree, so leave it out for a read-only agent
-- **Other fields:** Claude Code ignores unrecognised fields without an error, so add one only for people reading the file, as `maturity` is
+- **Other fields:** Claude Code ignores unrecognised fields without an error, so add one only for people reading the file
 
-**Metadata header** (straight after the frontmatter): `version` (0.x = draft, 1.x = tactical, 2.x = strategic), `created`, `updated` — see `_claude_config_metadata.md`.
+**Metadata header** (straight after the frontmatter): `version`, `created`, `updated` — see `_claude_config_metadata.md`.
 
 ---
 
@@ -141,13 +139,12 @@ Link to supporting documentation:
 
 ## Creating your agent — Next steps
 
-1. **Fill in frontmatter** — name, description, maturity, tools and model, then the version/created/updated header
+1. **Fill in frontmatter** — name, description, tools and model, then the version/created/updated header
 2. **Write Purpose** — one-liner value prop
 3. **Write When to use** — concrete scenarios + NOT use cases
 4. **Write Role & Principles** — persona (3-5 lines) + 5-7 core principles
 5. **Write Constraints** — explicit boundaries (what agent does NOT do)
-6. **Create evals.yaml** — the scenario count its maturity needs (Draft 5–8, Tactical 8–12, Strategic 12+)
-7. **Justify maturity** — document why this maturity level, with evidence
+6. **Create evals.yaml** — scenarios covering its main triggers and one case where it shouldn't fire
 
 **See also:** `_rules_on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory, for the full creation guidelines and hard gates.
 
@@ -156,7 +153,7 @@ Link to supporting documentation:
 ## Quality checklist
 
 Before finalizing:
-- [ ] Frontmatter complete (name, description, maturity, tools, model, and isolation if the agent changes files)
+- [ ] Frontmatter complete (name, description, tools, model, and isolation if the agent changes files)
 - [ ] Metadata header straight after the frontmatter (version, created, updated)
 - [ ] Purpose: one-liner, non-technical, user-focused
 - [ ] When to use: 3+ concrete scenarios + 2+ NOT use cases
@@ -164,8 +161,7 @@ Before finalizing:
 - [ ] Principles: 5-7 core behavioral guidelines
 - [ ] Constraints: explicit boundaries (what agent does NOT do)
 - [ ] Total length: ~40-60 lines (lean, scannable)
-- [ ] evals.yaml created (5-8 for Draft, 8-12 for Tactical, 12+ for Strategic)
-- [ ] Maturity justified with evidence
+- [ ] evals.yaml created, covering the main triggers and one case where it shouldn't fire
 
 **Resources:**
 - Full guidance and hard gates: `_rules_on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory

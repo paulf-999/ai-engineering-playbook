@@ -7,9 +7,8 @@
 
 name: <domain>_<action>          # [REQUIRED] must match directory prefix
                                  # Example: git_create_pr, confluence_create_page
-version: 0.1.0                   # [REQUIRED] semver: 0.x (draft) · 1.x (tactical) · 2.x+ (strategic)
+version: 1.0.0                   # [REQUIRED] semver, starting at 1.0.0
 summary: One-line description    # [REQUIRED] plain-language description
-maturity: draft                  # [REQUIRED] draft, tactical, or strategic
 test_coverage_level: none        # [REQUIRED] none, basic, or comprehensive
 
 dispatch:

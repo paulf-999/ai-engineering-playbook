@@ -1,13 +1,12 @@
 ---
 name: <domain>_<action>
 description: One-line description of what the skill does, using the phrases users type to ask for it
-maturity: draft
 tags:
   criticality: should
   status: active
   tested: false
 ---
-<!-- version: 0.1.0 -->
+<!-- version: 1.0.0 -->
 <!-- created: YYYY-MM-DD -->
 <!-- updated: YYYY-MM-DD -->
 
@@ -36,7 +35,7 @@ and what the user gets back. Keep it to 10–15 lines.]
 
 ## ✨ Best For
 
-[The situations this skill is built for, in one or two sentences.] Currently at the **draft** development stage — [the one or two things this stage doesn't cover yet].
+[The situations this skill is built for, in one or two sentences.]
 
 **Caveats:** [When not to use it, and what to use instead.]
 
@@ -51,5 +50,4 @@ and what the user gets back. Keep it to 10–15 lines.]
 **Notes:**
 - Keep `SKILL.md` to about 60 lines, not counting Instructions for Claude — detail belongs in `reference/`, not here
 - Use only these five headed sections, in this order, each with its emoji
-- Put the maturity justification in the Best For line
 - One sentence per bullet, each opening with a bold keyword

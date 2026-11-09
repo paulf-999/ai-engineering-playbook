@@ -1,4 +1,4 @@
-<!-- version: 1.2.4 -->
+<!-- version: 1.2.5 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-09 -->
 # 📋 Templates Directory
@@ -31,12 +31,11 @@ _templates/
 **`skills/SKILL.md.template`**
 
 - Standard skill documentation template: frontmatter, metadata header and 5 sections (Instructions for Claude, Purpose, Example Usage, Best For, References)
-- Maturity stage is stated in the Best For line (draft → tactical → strategic)
 - Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
 
 **`skills/skill.contract.yaml.template`**
 
-- Contract definition for skills (name, version, maturity, triggers, requirements)
+- Contract definition for skills (name, version, triggers, requirements)
 - Enforces contract-first design pattern
 - Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`, filled in before `SKILL.md`
 

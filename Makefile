@@ -1,6 +1,6 @@
-# version: 1.1.4
+# version: 1.1.5
 # created: 2022-11-04
-# updated: 2026-11-04
+# updated: 2026-11-09
 SHELL = /bin/sh
 
 #================================================================
@@ -11,7 +11,6 @@ SHELL = /bin/sh
 # make install		# copy src/claude/ into your Claude config directory
 # make run		# launch the service
 # make test		# run the tests (pytest)
-# make context_cost	# rewrite docs/maintenance/context_cost.md from src/claude/
 # make clean		# perform a housekeeping cleanup
 
 #=======================================================================
@@ -44,9 +43,6 @@ install:
 run:
 	@echo "${INFO}\nCalled makefile target 'run'. Launch service.${COLOUR_OFF}\n"
 
-context_cost:
-	@bash src/sh/claude_report_context_cost.sh
-
 test:
 	@echo "${INFO}\nCalled makefile target 'test'. Perform any required tests.${COLOUR_OFF}\n"
 	@pytest
@@ -55,7 +51,7 @@ clean:
 	@echo "${INFO}\nCalled makefile target 'clean'. Restoring the repository to its initial state.${COLOUR_OFF}\n"
 
 # Phony targets
-.PHONY: all help deps install run test clean context_cost
+.PHONY: all help deps install run test clean
 
 # .PHONY tells Make that these targets don't represent files
 # This prevents conflicts with any files named "all" or "clean"

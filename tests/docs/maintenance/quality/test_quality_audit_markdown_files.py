@@ -1,6 +1,6 @@
-# version: 1.5.3
+# version: 1.5.4
 # created: 2026-10-31
-# updated: 2026-11-08
+# updated: 2026-11-09
 """Checks the markdown files quality audit lists every doc once, its scores add up, and no score is out of date.
 
 Also checks the placeholder cap, and that each check below can fail.
@@ -17,6 +17,8 @@ from _paths import REPO_ROOT
 
 AUDIT = REPO_ROOT / "docs" / "maintenance" / "quality" / "audits" / "quality_audit_markdown_files.md"
 RUBRIC = REPO_ROOT / "docs" / "maintenance" / "quality" / "themes" / "quality_themes_markdown_files.md"
+REPO_AUDIT = REPO_ROOT / "docs" / "maintenance" / "quality" / "audits" / "quality_audit_repo.md"
+REPO_RUBRIC = REPO_ROOT / "docs" / "maintenance" / "quality" / "themes" / "quality_themes_repo.md"
 
 # the themes in quality/themes/quality_themes_markdown_files.md, as the audit's column headings
 THEMES = ("Core coverage", "Leanness", "Clarity", "Maintainability", "Accuracy")
@@ -34,8 +36,8 @@ def tracked_docs():
     env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
     command = ["git", "ls-files", "*.md"]
     output = subprocess.run(command, cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=True)
-    # the audit and its rubric can't fairly score themselves
-    skipped = {str(AUDIT.relative_to(REPO_ROOT)), str(RUBRIC.relative_to(REPO_ROOT))}
+    # the audit and its rubric can't fairly score themselves, and the repo audit and its rubric are review records
+    skipped = {str(path.relative_to(REPO_ROOT)) for path in (AUDIT, RUBRIC, REPO_AUDIT, REPO_RUBRIC)}
     return {
         path for path in output.stdout.splitlines() if not path.startswith(TEMPLATES + RECORDS) and path not in skipped
     }

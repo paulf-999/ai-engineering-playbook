@@ -1,18 +1,18 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🤖 Claude Code docs: Create custom subagents
 
 **Purpose:** what Anthropic's Claude Code docs say about defining subagents, the helper agents Claude hands tasks to, and what that means for this repo's agent template.
 
-It's one of the summaries listed in this repo's [reference material](README.md).
+It's one of the summaries listed in this repo's [reference material](../README.md).
 
 ## 📋 Executive Summary
 
 - 📘 **What it is:** the official page on subagents, each a Markdown file with YAML frontmatter that runs in its own context window.
 - 💡 **Core idea:** Claude decides when to delegate from each subagent's `description` alone.
 - 🏷️ **Names:** a `name` can be up to 256 characters and needn't match its file, so no open standard fixes the format the way the [Agent Skills standard](agent_skills_spec.md) does for skills.
-- 🎯 **For this repo:** it's the source for the fields in the [agent template](../../../src/claude/_templates/AGENT.md.template).
+- 🎯 **For this repo:** it's the source for the fields in the [agent template](../../../../src/claude/_templates/AGENT.md.template).
 
 ## 🔗 Source
 
@@ -39,6 +39,6 @@ The page makes these points, by section:
 
 This section is this repo's reading, not the page's:
 
-- 🏷️ **Naming:** hyphenated agent names would follow the page's examples and match the skills, but the page doesn't require them.
+- 🏷️ **Naming:** this repo's hyphenated agent names follow the page's examples and match the skills, but the page doesn't require them.
 - 🧾 **House fields:** the template's `maturity` field is safe, since unknown fields are ignored.
 - 🔒 **Least privilege:** the template's advice to list `tools` follows from the default that grants every tool.

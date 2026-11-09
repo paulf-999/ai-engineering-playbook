@@ -1,18 +1,18 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🧩 Agent Skills: the open skill format
 
 **Purpose:** what the Agent Skills standard, the open format for skill folders that Claude Code and other agents load, requires of a skill, and what it means for this repo's skills.
 
-It's one of the summaries listed in this repo's [reference material](README.md).
+It's one of the summaries listed in this repo's [reference material](../README.md).
 
 ## 📋 Executive Summary
 
 - 📐 **What it is:** an open standard for packaging a skill as a folder with a `SKILL.md` file, first developed by Anthropic.
 - 💡 **Core idea:** agents load only each skill's name and description at startup, and read the rest when a task needs it.
 - 🏷️ **Names:** a skill's `name` uses lowercase letters, digits and hyphens, and matches its folder.
-- 🎯 **For this repo:** a snake_case skill name breaks its naming rule, and it caps what a `SKILL.md` should hold.
+- 🎯 **For this repo:** it's why skill names here use hyphens, and it caps what a `SKILL.md` should hold.
 
 ## 🔗 Source
 
@@ -40,6 +40,6 @@ The pages make these points, by section:
 
 This section is this repo's reading, not the pages':
 
-- 🏷️ **Naming:** a snake_case name such as `git_create_pr`, which the [naming standards](../../../src/claude/rules/01_standards/naming_standards.md) would give, breaks the `name` rule, so skills need hyphens.
-- 🧾 **House fields:** this repo's [skill template](../../../src/claude/_templates/skills/SKILL.md.template) adds `maturity` and `tags`, which aren't among the spec's six, so a strict validator would reject them.
+- 🏷️ **Naming:** the [naming standards](../../../../src/claude/rules/01_standards/naming_standards.md) make skills an exception to snake_case because of the `name` rule.
+- 🧾 **House fields:** this repo's [skill template](../../../../src/claude/_templates/skills/SKILL.md.template) adds `maturity` and `tags`, which aren't among the spec's six, so a strict validator would reject them.
 - ⚠️ **Limit:** the standard covers skills only, and says nothing about agents.

@@ -1,11 +1,11 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🛠️ Claude Code docs: Extend Claude with skills
 
 **Purpose:** what Anthropic's Claude Code docs say about how skills are named, described and loaded, and where Claude Code goes beyond the Agent Skills standard.
 
-It's one of the summaries listed in this repo's [reference material](README.md).
+It's one of the summaries listed in this repo's [reference material](../README.md).
 
 ## 📋 Executive Summary
 
@@ -38,5 +38,5 @@ The page makes these points, by section:
 
 This section is this repo's reading, not the page's:
 
-- 🏷️ **Naming:** Claude Code itself accepts snake_case, so hyphenated names are for the standard and portability, not for making skills load.
-- 🧾 **House fields:** the `maturity` and `tags` fields in this repo's [skill template](../../../src/claude/_templates/skills/SKILL.md.template) are fine locally, but would have to go before a skill is uploaded to claude.ai.
+- 🏷️ **Naming:** Claude Code itself accepts snake_case, so this repo's hyphenated names are for the standard and portability, not for making skills load.
+- 🧾 **House fields:** the `maturity` and `tags` fields in this repo's [skill template](../../../../src/claude/_templates/skills/SKILL.md.template) are fine locally, but would have to go before a skill is uploaded to claude.ai.

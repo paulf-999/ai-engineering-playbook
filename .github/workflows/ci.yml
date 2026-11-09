@@ -1,7 +1,7 @@
 ---
-# version: 1.2.4
+# version: 1.2.5
 # created: 2026-10-30
-# updated: 2026-11-02
+# updated: 2026-11-09
 # Re-run the local git hooks and tests on every PR, so `git commit --no-verify` can't skip them,
 # and check the PR's title and size
 name: CI
@@ -97,8 +97,8 @@ jobs:
                   python-version: '3.13'
                   cache: pip
                   cache-dependency-path: requirements.txt
-            # The tests only need pytest, at the version pinned in requirements.txt
-            - name: Install pytest
-              run: pip install "$(grep -oE '^pytest==[^ ]+' requirements.txt)"
+            # The tests only need pytest and pyyaml, at the versions pinned in requirements.txt
+            - name: Install pytest and pyyaml
+              run: pip install $(grep -oE '^(pytest|pyyaml)==[^ ]+' requirements.txt)
             - name: Run tests
               run: pytest

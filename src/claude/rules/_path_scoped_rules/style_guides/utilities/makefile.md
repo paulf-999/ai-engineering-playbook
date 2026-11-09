@@ -1,8 +1,8 @@
 ---
-<!-- version: 1.3.1 -->
+<!-- version: 1.3.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
-<!-- applies_to: **/Makefile, **/*.mk -->
+<!-- updated: 2026-11-09 -->
+<!-- applies_to: Makefiles -->
 <!-- miss_cost: low — Makefiles drift from the house style -->
 <!-- loading: path-scoped — loads with Makefiles -->
 paths:

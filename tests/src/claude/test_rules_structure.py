@@ -1,4 +1,4 @@
-# version: 1.1.1
+# version: 1.1.2
 # created: 2026-11-05
 # updated: 2026-11-09
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -9,6 +9,7 @@ Also checks that each gate can fail, using small broken examples.
 import re
 
 import pytest
+import yaml
 from _paths import REPO_ROOT
 
 CONFIG_DIR = REPO_ROOT / "src" / "claude"
@@ -162,6 +163,22 @@ def usage_problems(text, rule_path):
     return problems
 
 
+def frontmatter_problems(text):
+    """Return problems with a path-scoped rule's '---' block: YAML that won't parse, or no 'paths' list."""
+    frontmatter, _ = split_frontmatter(text.split("\n"))
+    if not frontmatter:
+        return ["a path-scoped rule needs a '---' frontmatter block"]
+    try:
+        data = yaml.safe_load("\n".join(frontmatter))
+    except yaml.YAMLError as error:
+        # Claude Code can't read 'paths' from YAML that won't parse, so it loads the rule in every session
+        return [f"the frontmatter isn't valid YAML, so the rule loads everywhere: {error}"]
+    paths = data.get("paths") if isinstance(data, dict) else None
+    if not isinstance(paths, list) or not paths:
+        return ["the frontmatter needs a non-empty 'paths' list"]
+    return []
+
+
 def is_entry_point(path):
     """Succeed for a rule that isn't a child, since children start with '_' and inherit their parent's fields."""
     return not path.name.startswith("_")
@@ -216,6 +233,18 @@ def test_rule_lists_are_short(path):
 def test_entry_point_has_usage_lines(path):
     """Each entry-point rule has applies_to, miss_cost and loading lines, with loading matching its folder."""
     problems = usage_problems(path.read_text(), relative(path))
+    assert not problems, f"{relative(path)}: " + "; ".join(problems)
+
+
+# MoSCoW: Must — frontmatter that won't parse makes a path-scoped rule load in every session
+@pytest.mark.parametrize(
+    "path",
+    [path for path in RULE_FILES if relative(path).startswith("_path_scoped_rules/")],
+    ids=relative,
+)
+def test_path_scoped_frontmatter_parses(path):
+    """Each path-scoped rule's '---' block is valid YAML with a non-empty 'paths' list."""
+    problems = frontmatter_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
@@ -356,18 +385,36 @@ def test_usage_check_can_fail(text, rule_path, expected):
     assert any(expected in problem for problem in problems), f"missed it: {problems}"
 
 
+# inside the '---' block, applies_to is in plain words, since a value starting with '*' breaks the YAML
 PATH_SCOPED_RULE = "---\n" + GOOD_RULE.replace("# 🧪", "paths:\n  - '*.sql'\n---\n# 🧪").replace(
     "on demand — read on demand", "path-scoped — loads with SQL files"
-)
+).replace("applies_to: *", "applies_to: SQL files")
 
 
 # MoSCoW: Should — path-scoped rules keep their header inside the '---' block, and must still pass
 def test_path_scoped_rule_passes_the_checks():
     """A rule with a 'paths:' block, header and usage lines inside it, passes the opening and usage checks."""
+    assert not frontmatter_problems(PATH_SCOPED_RULE), frontmatter_problems(PATH_SCOPED_RULE)
     assert not opening_problems(PATH_SCOPED_RULE), opening_problems(PATH_SCOPED_RULE)
     assert not usage_problems(PATH_SCOPED_RULE, "_path_scoped_rules/x.md"), "a correct path-scoped rule should pass"
     problems = usage_problems(PATH_SCOPED_RULE, "_rules_on_demand/x.md")
     assert any("loading must be 'on demand'" in problem for problem in problems), f"missed it: {problems}"
+
+
+# MoSCoW: Must — the frontmatter check must fail for YAML that won't parse, a missing list or no block at all
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        (PATH_SCOPED_RULE.replace("applies_to: SQL files", "applies_to: **/*.sql"), "isn't valid YAML"),
+        (PATH_SCOPED_RULE.replace("paths:\n  - '*.sql'\n", ""), "non-empty 'paths' list"),
+        (PATH_SCOPED_RULE.replace("  - '*.sql'\n", ""), "non-empty 'paths' list"),
+        (GOOD_RULE, "needs a '---' frontmatter block"),
+    ],
+)
+def test_frontmatter_check_can_fail(text, expected):
+    """The frontmatter check flags each broken example."""
+    problems = frontmatter_problems(text)
+    assert any(expected in problem for problem in problems), f"missed it: {problems}"
 
 
 # MoSCoW: Must — the child check must fail for a lone or unnamed child

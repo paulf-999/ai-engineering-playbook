@@ -1,4 +1,4 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-09 -->
 # 🏗️ Repo Quality Audit
@@ -18,6 +18,16 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 | Date | Proportionality | Evidence of need | Single source | Cross-file consistency | Upkeep cost | Score |
 |---|---|---|---|---|---|---|
 | 🏁 2026-11-09 | ✅ 2 | ❌ 0 | ❌ 0 | ❌ 0 | 🟡 1 | **3/10** |
+
+### 🔍 Why the latest scores
+
+| Theme | Why it scores this | To improve it |
+|---|---|---|
+| ⚖️ **Proportionality** | 72 support files against 143 product files, so well within the limit | Keep support growing no faster than the product |
+| 🧾 **Evidence of need** | Scorecard folders and templates exist for agents, hooks and skills the repo doesn't have | Remove them, or mark the folders "planned" (findings 1 and 2) |
+| 🎯 **Single source** | Two test-scoring systems, and duplicate shell helpers and bash templates | Keep one of each (findings 3 and 4) |
+| 🔗 **Cross-file consistency** | The scorecard READMEs contradict each other and the score history | Fix or remove those files (finding 5) |
+| 🔁 **Upkeep cost** | 26% of recent commits touch `docs/maintenance/`, mostly to re-score docs | Drop the version-staleness gate, so edits stop forcing re-scores |
 
 ## 🎯 Current findings
 

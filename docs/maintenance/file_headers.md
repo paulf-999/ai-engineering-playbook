@@ -1,6 +1,6 @@
-<!-- version: 1.5.0 -->
+<!-- version: 1.5.1 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-09 -->
 # 🏷️ File Headers
 
 **Purpose:** how the version header at the top of each file works, and how a commit check keeps it up to date.
@@ -14,6 +14,8 @@ Every file opens with a three-line header, placed after any shebang or YAML `---
 <!-- created: 2026-10-30 -->
 <!-- updated: 2026-11-05 -->
 ```
+
+Entry-point rules in `src/claude/rules/` add three usage lines after it, `applies_to`, `miss_cost` and `loading`, set out in [`_authoring_rules.md`](../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md).
 
 ## 📏 Rules
 

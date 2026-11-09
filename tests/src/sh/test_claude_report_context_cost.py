@@ -1,6 +1,6 @@
-# version: 1.1.1
+# version: 1.1.2
 # created: 2026-11-04
-# updated: 2026-11-05
+# updated: 2026-11-09
 """Tests for the context cost report, which tables each src/claude/ file's tokens and when it loads."""
 
 import subprocess
@@ -15,7 +15,7 @@ HUNDRED_TOKENS = "x" * 399 + "\n"
 
 
 def config_repo(tmp_path):
-    """Make a git repo holding one always-on, one path-scoped and two on-demand files, and return its env."""
+    """Make a git repo holding one always-on, one path-scoped and three on-demand files, and return its env."""
     env = isolated_git_repo(tmp_path)
     files = {
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
@@ -23,6 +23,8 @@ def config_repo(tmp_path):
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/_rules_on_demand/guide.md": HUNDRED_TOKENS,
         "src/claude/_templates/README.md": HUNDRED_TOKENS,
+        # a README is for people browsing the repo, so Claude never loads it on its own
+        "src/claude/README.md": HUNDRED_TOKENS,
     }
     for path, text in files.items():
         (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
@@ -32,8 +34,12 @@ def config_repo(tmp_path):
     return env
 
 
-# the fixture's two on-demand files, numbered in byte order, which puts _templates/ before rules/
-ON_DEMAND_ROWS = ("| 1 | `_templates/README.md` | ~100 |", "| 2 | `rules/_rules_on_demand/guide.md` | ~100 |")
+# the fixture's three on-demand files, numbered in byte order, which puts README.md before _templates/ and rules/
+ON_DEMAND_ROWS = (
+    "| 1 | `README.md` | ~100 |",
+    "| 2 | `_templates/README.md` | ~100 |",
+    "| 3 | `rules/_rules_on_demand/guide.md` | ~100 |",
+)
 
 
 def run_report(tmp_path, env, *args):
@@ -53,15 +59,19 @@ def write_report(tmp_path, env):
 def test_report_puts_each_file_in_its_load_tables(tmp_path):
     """Every-session, path-scoped and on-demand files each get their own table, with a subtotal of only those files."""
     report = write_report(tmp_path, config_repo(tmp_path))
-    assert "## 📂 With matching files" in report and "## 💤 On demand" in report, "each load type needs a table"
-    every, rest = report.split("## 📂 With matching files")
+    assert "## 📂 Path-scoped rules" in report and "## 💤 On demand" in report, "each load type needs a table"
+    every, rest = report.split("## 📂 Path-scoped rules")
     scoped, lazy = rest.split("## 💤 On demand")
     assert "| 1 | `CLAUDE.md` | ~100 |" in every and "| | **Subtotal** | **~100** |" in every, (
         "CLAUDE.md loads every session"
     )
     assert "| 1 | `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
-    assert all(row in lazy for row in ON_DEMAND_ROWS), "templates and lazy rules should sit in the on-demand table"
-    assert "guide.md" not in every and "scoped.md" not in every, "only every-session files belong in the first table"
+    assert all(row in lazy for row in ON_DEMAND_ROWS), (
+        "the README, templates and lazy rules should sit in the on-demand table"
+    )
+    assert all(name not in every for name in ("guide.md", "scoped.md", "`README.md`")), (
+        "only every-session files belong in the first table"
+    )
 
 
 # MoSCoW: Must — the check must fail when the table no longer matches the files

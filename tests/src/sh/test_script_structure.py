@@ -1,6 +1,6 @@
-# version: 1.2.2
+# version: 1.2.3
 # created: 2026-10-31
-# updated: 2026-11-05
+# updated: 2026-11-09
 """Checks every script in src/sh/, shell_utils.sh and the bash script template follow the template's structure."""
 
 import re
@@ -8,15 +8,14 @@ import re
 import pytest
 from _paths import REPO_ROOT, SCRIPTS_DIR
 
-TEMPLATE = REPO_ROOT / "src" / "templates" / "bash_script_template.sh"
 # the copy make install puts in the Claude config, for repos with no template of their own
-INSTALLED_TEMPLATE = REPO_ROOT / "src" / "claude" / "_templates" / "utils" / "template_bash_script.sh"
+TEMPLATE = REPO_ROOT / "src" / "claude" / "_templates" / "utils" / "template_bash_script.sh"
 # shell_utils.sh is a library that other scripts source, not a script that runs on its own
 LIBRARIES = {"shell_utils.sh"}
 SCRIPTS = sorted(path for path in SCRIPTS_DIR.rglob("*.sh") if path.name not in LIBRARIES)
 LIBRARY_PATHS = sorted(SCRIPTS_DIR / name for name in LIBRARIES)
 
-# the parts of src/templates/bash_script_template.sh every script must keep, in this order
+# the parts of the bash script template every script must keep, in this order
 REQUIRED_PARTS = [
     ("shebang", r"#!/bin/bash"),
     ("version header", r"# version: \S+"),
@@ -73,15 +72,6 @@ def test_script_follows_the_template(path, parts):
     """Each script keeps every template part, and each library the parts it can, in the template's order."""
     problems = problems_with(path, parts)
     assert not problems, f"{path.relative_to(REPO_ROOT)} doesn't follow {TEMPLATE.relative_to(REPO_ROOT)}: {problems}"
-
-
-# MoSCoW: Should — the installed copy mustn't drift from the template it copies
-def test_installed_template_matches_the_template():
-    """Below the shebang and its own version header, the installed copy matches the template line for line."""
-    body = TEMPLATE.read_text().splitlines()[4:]
-    assert INSTALLED_TEMPLATE.read_text().splitlines()[4:] == body, (
-        f"copy {TEMPLATE.relative_to(REPO_ROOT)} into {INSTALLED_TEMPLATE.relative_to(REPO_ROOT)}, keeping its header"
-    )
 
 
 # MoSCoW: Should — proves the check catches a missing part

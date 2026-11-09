@@ -13,6 +13,7 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 |---|---|---|---|---|---|---|
 | 🏁 2026-11-09 | 143 | 72 | 30 (21%) | 13 of 50 (26%) | 28 | ~2,664 (89%) |
 | ✂️ 2026-11-09 | 141 | 55 | 12 (9%) | 18 of 50 (36%) | 0 | ~2,664 (89%) |
+| 🧹 2026-11-09 | 142 | 50 | 10 (7%) | 19 of 50 (38%) | 0 | ~2,245 (75%) |
 
 ## 🧪 Outcomes by review
 
@@ -29,6 +30,7 @@ The [measures](../../../target_architecture/target_architecture.md#-measures) fo
 |---|---|---|---|---|---|---|
 | 🏁 2026-11-09 | ✅ 2 | ❌ 0 | ❌ 0 | 🟡 1 | ❌ 0 | **3/10** |
 | ✂️ 2026-11-09 | ✅ 2 | 🟡 1 | ❌ 0 | 🟡 1 | ✅ 2 | **6/10** |
+| 🧹 2026-11-09 | ✅ 2 | ✅ 2 | ❌ 0 | ✅ 2 | ✅ 2 | **8/10** |
 
 ## 🏗️ Over-engineering by run
 
@@ -36,6 +38,7 @@ The [measures](../../../target_architecture/target_architecture.md#-measures) fo
 |---|---|---|---|---|---|---|
 | 🏁 2026-11-09 | ❌ 0 | 🟡 1 | 🟡 1 | ❌ 0 | ❌ 0 | **2/10** |
 | ✂️ 2026-11-09 | ❌ 0 | 🟡 1 | ✅ 2 | ❌ 0 | ❌ 0 | **3/10** |
+| 🧹 2026-11-09 | ❌ 0 | 🟡 1 | ✅ 2 | ❌ 0 | ❌ 0 | **3/10** |
 
 ## 🔍 Why the latest scores
 
@@ -43,20 +46,18 @@ Each theme below ✅, with what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🧾 **Evidence of need** | `src/templates/jinja/` is an empty folder nothing uses | Delete it (finding 3) |
-| 🎯 **Single source** | The shell helpers and bash templates each exist twice | Keep one of each (finding 3) |
-| 📦 **Always-on headroom** | Always-on context is 89% of the budget | Cut about 415 tokens, or move sections on demand (finding 4) |
-| 🔗 **Cross-file consistency** | The agent and skill templates start at 0.x where the header rules say 1.0.0, and the script test checks a different bash template from the one the rules name | Findings 2 and 3 |
-| 🔁 **Upkeep cost** | 12 of the 18 maintenance commits regenerate `context_cost.md` | Stop committing the generated report (finding 1) |
-| 🪜 **Simplest mechanism** | A committed, freshness-checked token report repeats what the budget check prints | Finding 1 |
-| 🔮 **Built for today** | Agent and skill templates carry maturity stages and eval counts for components that don't exist | Finding 2 |
+| 🎯 **Single source** | Rule points repeat each other: `naming_standards.md` "Offer options" and `behaviour.md` "Present options", `authoring_guidelines.md` and `guiding_principles.md`, and `code_complexity.md` and its size-limits child | Keep each point in one place (finding 3) |
+| 🔗 **Cross-file consistency** | `AGENT.md.template` links a missing `_claude_config_metadata.md`, `claude_naming_patterns.md` cites files that don't exist, `code_complexity.md` gives nesting as "< 3" against a limit of 3, and `behaviour.md` says "several files" where `reporting.md` says "many files or turns" | Findings 1, 3 and 5 |
+| 🔁 **Upkeep cost** | 19 of the last 50 commits touch `docs/maintenance/` | Findings 2 and 3 |
+| 🪜 **Simplest mechanism** | The test audit's hand-kept count table and its checker repeat a one-line grep, and three rule templates do one template's job | Findings 2 and 4 |
+| 🔮 **Built for today** | Agent and skill templates and authoring rules serve components that don't exist, and the `Makefile` keeps empty `run` and `clean` targets | Findings 1 and 5 |
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 🧮 **Generated token report:** stop committing `docs/maintenance/context_cost.md` and drop its pre-commit freshness check, since `claude_validate_always_on_budget.sh` already prints the numbers.
-2. 📋 **Templates without components:** remove `AGENT.md.template` and the `skills/` templates, with their maturity stages, from [`src/claude/_templates/`](../../../../src/claude/_templates/README.md).
-3. 🐚 **Duplicate shell files:** keep one `shell_utils.sh` and one bash template, and delete `src/templates/`, including its empty `jinja/` folder.
-4. 📦 **Always-on headroom:** trim `src/claude/CLAUDE.md` and `behaviour.md`, the two largest always-on files, to get under 75% of the budget.
-5. 🔁 **Per-doc scoring:** consider scoring docs at each regular review rather than in every PR, since the markdown audit was touched in 8 of the last 50 commits.
+1. 📋 **Agent and skill scaffolding:** delete `AGENT.md.template`, the `skills/` templates, `_authoring_agents.md` and `_authoring_skills.md`, and the agent, skill and hook rows in `claude_naming_patterns.md`, since no agent, skill or hook exists.
+2. 📊 **Hand-kept test audit:** replace the MoSCoW count table in `quality_audit_test_files.md` and its checker with the grep in `test_maintenance.md`.
+3. 🎯 **Duplicated rule points:** keep "Before you start" only in `guiding_principles.md`, drop "Offer options" from `naming_standards.md`, and cut `code_complexity.md`'s Quick Reference to a pointer.
+4. 🧩 **Three rule templates:** merge `rule.md.template` and the two `rules/` templates into one, since `test_rules_structure.py` enforces the shape.
+5. 🛠️ **Empty targets and thresholds:** remove the empty `run` and `clean` targets from `Makefile`, and give `behaviour.md` and `reporting.md` one threshold.

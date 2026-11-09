@@ -1,6 +1,6 @@
-# version: 1.3.3
+# version: 1.3.4
 # created: 2026-10-30
-# updated: 2026-11-05
+# updated: 2026-11-09
 """Checks every tracked file opens with a version/created/updated header (see docs/maintenance/file_headers.md)."""
 
 import os
@@ -19,7 +19,6 @@ EXEMPT = {
     ".github/pull_request_template.md",
     ".github/ISSUE_TEMPLATE/bug_report.md",
     ".github/ISSUE_TEMPLATE/feature_request.md",
-    "src/templates/jinja/.gitkeep",
 }
 
 # no header either: a .template file is copied into each new file made from it, like the PR template

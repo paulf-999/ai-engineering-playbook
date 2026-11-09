@@ -1,12 +1,12 @@
-<!-- version: 2.3.2 -->
+<!-- version: 2.3.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-09 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — Claude acts on guesses or claims unchecked work, which needs redoing -->
 <!-- loading: always-on — every task needs it -->
 # 🛡️ Behaviour
 
-**Purpose:** how Claude decides, checks and reports while it works on a task.
+**Purpose:** how Claude decides while it works on a task.
 
 ## 🤔 Deciding
 
@@ -18,11 +18,6 @@
 
 - **Read on demand:** `_rules_on_demand/02_conduct/automation_controls.md`, in your Claude config directory, before proposing or starting a loop, such as `/loop`, `/goal`, `/batch` or a multi-agent workflow.
 
-## 📣 Reporting
-
-- ✅ **Report checks:** when saying a task is done, name the checks that ran and what they showed.
-- 🚩 **Pre-existing issues:** name any problem the task didn't cause, say how you confirmed it predates the task, and say whether it was fixed or left.
-- 🤝 **Corrections:** treat an explicit correction as settled for the rest of the session, rather than drifting back to the earlier approach.
-- 💾 **Checkpoints:** once a task spans many files or turns, write its decisions and open items to `~/_sessions/YYYY_MM_DD_<topic>.md`, so a later session can resume it.
-
+- **Read on demand:** `_rules_on_demand/03_workflows/git.md`, before running any git command.
+- **Read on demand:** `_rules_on_demand/02_conduct/reporting.md`, before saying a task is done, or once a task spans many files or turns.
 - **Read on demand:** `_rules_on_demand/02_conduct/todo_logging.md`, in your Claude config directory, when the user asks to add something to their TODOs.

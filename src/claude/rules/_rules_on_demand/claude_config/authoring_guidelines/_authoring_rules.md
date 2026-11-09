@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-09 -->
 # 📝 Authoring rules
 
 **Purpose:** how to place, write, wire up and check a new rule for Claude's config.
@@ -27,5 +27,5 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 🛡️ **Enforcement:** a rule backed by a hook, test or CI check gets a test in the repo's `tests/` folder.
 - 🔎 **Checks:** run `make test` and `pre-commit run --all-files`, which include the rule structure test and the always-on budget check.
 - 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section for each file, including its evidence of need.
-- 🏅 **Review:** have one fresh-context reviewer on Sonnet score every rule the PR changes, per `docs/maintenance/quality/themes/quality_scorecards/README.md`, in the playbook repo.
+- 🏅 **Review:** have one fresh-context reviewer on Sonnet score every rule the PR changes, per `docs/maintenance/quality/themes/quality_themes_rules.md`, in the playbook repo.
 - 🔁 **Trial:** log its use in the task log, and remove it at the next review if it hasn't paid its way.

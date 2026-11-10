@@ -1,4 +1,4 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.0.2 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-10 -->
 # 📈 DORA: State of AI-assisted Software Development 2025
@@ -11,7 +11,7 @@ It's one of the summaries listed in this repo's [reference material](../README.m
 
 - 📊 **What it is:** DORA's annual survey, run from 13 June to 21 July 2025, with 4,867 respondents and 78 interviews (pp. 4, 103, 115).
 - 📈 **Finding:** higher AI adoption goes with more throughput and better individual, team and product outcomes, but also more delivery instability (p. 38).
-- 🎯 **For this repo:** speed at the keyboard reaches outcomes only if checking keeps up, so measure outcomes rather than feel.
+- 🎯 **For this repo:** speed at the keyboard reaches outcomes only if checking keeps up, so check component feedback against session transcripts and git history rather than feel.
 
 ## 🔗 Source
 
@@ -37,6 +37,6 @@ It's one of the summaries listed in this repo's [reference material](../README.m
 
 This section is this repo's reading, not the report's:
 
-- 📏 **Outcomes over feel:** high felt productivity beside rising instability backs logging [rework and interventions](../../target_architecture.md#-measures), not just whether Claude seemed helpful.
+- 📏 **Outcomes over feel:** high felt productivity beside rising instability backs checking [component feedback](../../target_architecture.md#-measures) against session transcripts and git history, not just whether Claude seemed helpful.
 - 🧾 **Config needs evidence:** the Berkeley advice fits a `CLAUDE.md`, but that study never tested config files, so each component still has to earn its place.
 - ⚖️ **Contrast with METR:** the report cites [METR's trial](metr_developer_productivity_trial.md), where timed tasks showed developers felt faster while being slower, a gap a survey can't rule out (p. 35).

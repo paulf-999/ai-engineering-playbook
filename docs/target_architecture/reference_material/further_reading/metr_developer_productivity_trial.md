@@ -1,4 +1,4 @@
-<!-- version: 1.3.2 -->
+<!-- version: 1.3.3 -->
 <!-- created: 2026-11-03 -->
 <!-- updated: 2026-11-10 -->
 # ⚖️ METR: AI and experienced open-source developers
@@ -39,7 +39,7 @@ The paper reports these points, by section:
 
 This section is this repo's reading, not the paper's:
 
-- 📏 **Measure, don't ask:** log each task's [outcome and overhead](../../target_architecture.md#-measures), and pair any component feedback, itself a self-report, with a measure such as rework or time.
+- 📏 **Measure, don't ask:** pair [component feedback](../../target_architecture.md#-measures), itself a self-report, with evidence from session transcripts and git history.
 - 🧠 **Unwritten knowledge:** AI lacking tacit project knowledge supports writing it into `CLAUDE.md`.
 - 🔄 **Contrast with DORA:** the [DORA research summarised here](../core/dora_ai_capabilities.md) rests on surveys, while this trial timed real tasks directly.
 - ⚠️ **Limit:** 16 developers on 2025 tools, so a caution, not evidence that current tools slow anyone down.

@@ -1,4 +1,4 @@
-<!-- version: 1.7.0 -->
+<!-- version: 1.8.0 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture
@@ -6,6 +6,8 @@
 **Purpose:** what the new Claude configuration contains, what loads when, and how its cost and benefit are measured.
 
 This page describes the design, and the [design principles' status section](design_principles.md#-status-and-terms) says which parts are built so far.
+
+The design rests on the [reference material](reference_material/README.md), and each choice follows the Source column of the [principles](design_principles/01_principles.md).
 
 ## 📋 Executive Summary
 
@@ -28,6 +30,18 @@ Every component sits in one of three tiers:
 
 - 🧭 **Choosing a tier:** the [evaluation criteria](design_principles/02_evaluation_criteria.md#-what-shape) match each need to a mechanism, which sets its tier.
 - 🛑 **Hooks and always-on rules:** porting one into the required tier raises a [red flag](design_principles/02_evaluation_criteria.md#-review-each-file), and the always-on budget still caps them.
+
+## 🔄 Workflow
+
+The design takes these plays, the course's recommended practices, from the [SDLC course's relevance page](reference_material/core/anthropic_ai_native_sdlc/05_relevance.md):
+
+| Play | In this design |
+|---|---|
+| 🗺️ **Plan first** | Plan mode, with each approved plan committed as `plan.md` |
+| 📝 **Intent and spec** | Deferred, so plans carry the intent until a review shows a separate file pays |
+| 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md) |
+| 🧪 **Evals** | Deferred until their API cost and upkeep are weighed |
+| 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service |
 
 ## 💰 Always-on budget
 
@@ -59,4 +73,5 @@ Each [regular review](design_principles/01_principles.md#-numbers-and-tests) tak
 | 💰 **Always-on tokens** | The budget estimate above | Tokens |
 | 🧰 **Upkeep** | Time spent changing the configuration | Hours |
 
+- 📈 **Indicators:** each measure serves as a play's early or later indicator, as the [course overview](reference_material/core/anthropic_ai_native_sdlc/01_overview.md) describes.
 - 🗑️ **Acting on feedback:** each review removes [components that don't pay](design_principles/01_principles.md) and runs the [halving test](design_principles/01_principles.md#-numbers-and-tests).

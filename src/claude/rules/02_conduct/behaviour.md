@@ -1,9 +1,8 @@
-<!-- version: 2.3.4 -->
+<!-- version: 2.3.5 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — Claude acts on guesses or claims unchecked work, which needs redoing -->
-<!-- loading: always-on — every task needs it -->
 # 🛡️ Behaviour
 
 **Purpose:** how Claude decides while it works on a task.

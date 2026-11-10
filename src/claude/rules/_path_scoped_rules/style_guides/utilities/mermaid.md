@@ -1,10 +1,9 @@
 ---
-<!-- version: 1.2.2 -->
+<!-- version: 1.2.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: Mermaid diagram files -->
 <!-- miss_cost: low — diagrams get harder to read -->
-<!-- loading: path-scoped — loads with Mermaid files -->
 paths:
   - "**/*.mmd"
 ---

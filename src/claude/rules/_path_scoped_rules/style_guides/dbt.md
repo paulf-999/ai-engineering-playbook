@@ -1,10 +1,9 @@
 ---
-<!-- version: 1.7.0 -->
+<!-- version: 1.7.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: dbt models and project files -->
 <!-- miss_cost: medium — models drift from the project's layout and need reworking -->
-<!-- loading: path-scoped — loads with dbt files -->
 paths:
   - "**/models/**/*.sql"
   - "**/models/**/*.yml"

@@ -1,7 +1,7 @@
 ---
-<!-- version: 1.5.2 -->
+<!-- version: 1.6.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: shell scripts -->
 <!-- miss_cost: medium — scripts fail silently or break on unexpected input -->
 <!-- loading: path-scoped — loads with shell scripts -->
@@ -11,53 +11,17 @@ paths:
 
 # 🖥️ Bash Style Guide
 
-**Purpose:** Establish shell scripting conventions for safety, consistency, and maintainability across all Bash scripts in the team.
+**Purpose:** shell scripting conventions for safety and consistency that `shellcheck` doesn't enforce.
 
 ## 📄 Script structure
 
-Start each new script from the repo's own script template, if it has one, so its sections come in the right order: shebang, safety flags, description and usage lines, shared utilities, trap, section headers and logging.
+Start each new script from the repo's own script template, if it has one.
 
 - **Read on demand:** `_templates/utils/template_bash_script.sh`, in your Claude config directory, when the repo has no script template of its own.
 
 ## 🛡️ Safety flags
 
-All scripts must begin with:
-
-```bash
-#!/bin/bash
-set -euo pipefail
-```
-
-- **`-e`:** stop on the first command that fails.
-- **`-u`:** stop on an unset variable instead of treating it as empty.
-- **`-o pipefail`:** fail a pipeline when any command in it fails, not only the last.
-
-## 🔧 Shell utilities
-
-If the repo has a shared utilities file, source it at the top of every script, by a path built from the script's own location:
-
-```bash
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${SCRIPT_DIR}/shell_utils.sh"  # adjust the path from SCRIPT_DIR to where the file sits
-```
-
-- **Provides:** `log_message`, `print_section_header`, `dir_exists`, `file_exists`, `handle_interruption`
-- **Log levels:** use the correct constant for the severity:
-  - `${DEBUG}` (cyan) — script start/end, general flow
-  - `${DEBUG_DETAILS}` (purple) — lower-level detail
-  - `${INFO}` (green) — informational messages
-  - `${WARNING}` (yellow) — non-fatal warnings
-  - `${ERROR}` (red) — errors
-  - `${CRITICAL}` (bold red) — critical failures
-
-## 🔩 Tooling
-
-- **Linting:** all scripts must pass `shellcheck` before committing
-- **Suppression:** only suppress warnings with a documented reason:
-
-```bash
-# shellcheck disable=SC2034  # intentionally unused: template placeholder
-```
+Start every script with `#!/bin/bash` then `set -euo pipefail`, so it stops on a failed command, an unset variable or a failed pipe.
 
 ## 🏷️ Naming conventions
 
@@ -65,18 +29,16 @@ source "${SCRIPT_DIR}/shell_utils.sh"  # adjust the path from SCRIPT_DIR to wher
 - **Variables:** `UPPER_SNAKE_CASE`
 - **Script files:** `snake_case.sh`
 
-## 📦 Variables
+## 📦 Variables and conditionals
 
-- **Quote all references:** use `"${VAR}"` not `$VAR`
-- **Function scope:** declare local variables with `local`
-
-## 🔀 Conditionals
-
-- **Prefer `[[ ]]`** over `[ ]` — safer and more expressive
-- **Quote variables:** inside all conditionals
+- **Quote all references:** use `"${VAR}"`, not `$VAR`, including inside conditionals.
+- **Function scope:** declare local variables with `local`.
+- **Prefer `[[ ]]`** over `[ ]`, which is safer and more expressive.
 
 ## 📌 General
 
-- **Absolute paths:** use them where the working directory may vary
-- **Avoid `ls` parsing:** use globs or `find` instead
-- **Comments:** place above the code they describe, not at the end — keep them accurate and up to date
+- **Suppressions:** disable a `shellcheck` warning only with a reason, such as `# shellcheck disable=SC2034  # template placeholder`.
+- **Absolute paths:** use them where the working directory may vary.
+- **Comments:** place above the code they describe, and keep them accurate.
+
+- **Read on demand:** `_templates/utils/shell_utils.sh`, in your Claude config directory, for its functions and which log level suits each message, when the repo has a shared `shell_utils.sh`.

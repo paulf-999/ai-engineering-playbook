@@ -1,11 +1,11 @@
-<!-- version: 2.0.0 -->
+<!-- version: 2.0.1 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 📏 Rule Quality Rubric
 
 **Purpose:** how a reviewer scores each Claude rule out of 10 for whether it earns its place and reads correctly, so each rule has one score.
 
-Right place and No duplicate apply the [evaluation criteria](../../../target_architecture/design_principles/02_evaluation_criteria.md) to one rule at a time, and Clarity and Accuracy follow the [markdown rubric](quality_themes_markdown_files.md). A rule here means an entry-point rule in `src/claude/rules/` together with its children, the `_`-prefixed files it points to.
+Right place and No duplicate apply the [evaluation criteria](../../../target_architecture/design_principles/02_evaluation_criteria.md) to one rule at a time. A rule here means an entry-point rule in `src/claude/rules/` together with its children, the `_`-prefixed files it points to.
 
 ## 🏷️ Themes
 

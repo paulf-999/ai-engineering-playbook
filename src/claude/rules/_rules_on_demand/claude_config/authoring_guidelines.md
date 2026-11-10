@@ -1,4 +1,4 @@
-<!-- version: 3.0.4 -->
+<!-- version: 3.0.5 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
@@ -31,5 +31,5 @@ This page is the entry point for authoring, and its rules, skills and agents gui
 - **Read on demand:** `_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md`, in your Claude config directory, before writing or reviewing a rule.
 - **Read on demand:** `_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md`, before writing or reviewing a skill, planned since none exist yet.
 - **Read on demand:** `_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md`, before writing or reviewing an agent, planned since none exist yet.
-- **Read on demand:** `_rules_on_demand/claude_config/claude_naming_patterns.md`, before naming a new rule, skill, hook or agent.
+- **Read on demand:** `_rules_on_demand/claude_config/claude_naming_patterns.md`, before naming a new rule, skill or agent.
 - **Read on demand:** `_templates/README.md`, for the template each kind of file starts from.

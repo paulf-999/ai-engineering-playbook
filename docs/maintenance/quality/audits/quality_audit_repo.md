@@ -1,4 +1,4 @@
-<!-- version: 1.0.7 -->
+<!-- version: 1.0.9 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Audit
@@ -6,21 +6,6 @@
 **Purpose:** for maintainers, how bloated and how over-engineered the repo is as a whole, each scored out of 10 at each regular review.
 
 Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-context reviewer runs its measures and scores its themes, and this page keeps the latest run's scores, with earlier runs in git history.
-
-## 🔢 Measures
-
-| Date | Product files | Support files | `docs/maintenance/` files | Commits touching `docs/maintenance/` | Placeholders | Always-on tokens |
-|---|---|---|---|---|---|---|
-| 2026-11-10 | 147 | 52 | 10 (7%) | 21 of 50 (42%) | 0 | ~2,304 (77%) |
-
-## 🧪 Outcomes by review
-
-The [measures](../../../target_architecture/target_architecture.md#-measures) for the tasks since the previous review:
-
-| Date | Tasks | Time to acceptance (median minutes) | Rework (fix commits) | Interventions | Upkeep (hours) | Notes |
-|---|---|---|---|---|---|---|
-| 🏁 2026-11-03 | 1 | 17 | 0 | 0 | — | Starting point, at 887 always-on tokens before any component was added; PR links pointed to the branch, so broke after merge |
-| 🔧 2026-11-04 | — | — | — | — | 2.3 | Porting session, not a regular review: five files ported, at 2,077 always-on tokens |
 
 ## 🎈 Bloat
 
@@ -32,7 +17,7 @@ The [measures](../../../target_architecture/target_architecture.md#-measures) fo
 
 | Date | Cross-file consistency | Upkeep cost | Process weight | Simplest mechanism | Built for today | **Over-engineering** |
 |---|---|---|---|---|---|---|
-| 2026-11-10 | ❌ 0 | ❌ 0 | ✅ 2 | ❌ 0 | ❌ 0 | **2/10** |
+| 2026-11-10 | ❌ 0 | ❌ 0 | ✅ 2 | 🟡 1 | 🟡 1 | **4/10** |
 
 ## 🔍 Why the latest scores
 
@@ -40,19 +25,19 @@ Each theme below ✅, with what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | `naming_standards.md` "Offer options" repeats `behaviour.md` "Present options", `authoring_guidelines.md` repeats `guiding_principles.md`, skill and agent name patterns sit in four files, and `rule.md.template` repeats `file_headers.md` | Findings 3 and 4 |
-| 📦 **Always-on headroom** | ~2,304 tokens is 77% of the budget, over the 75% line | Trim about 60 tokens (finding 4) |
-| 🔗 **Cross-file consistency** | Rule size is "about 100 lines" in `guiding_principles.md` but 110 in `rule.md.template`, `_templates/README.md` names `~/claude/_templates/` against the installer's config directory, `AGENT.md.template` links a missing `_claude_config_metadata.md`, `code_complexity.md` gives nesting as "< 3", and `behaviour.md` and `reporting.md` set different "big change" thresholds | Findings 2, 3 and 5 |
-| 🔁 **Upkeep cost** | 21 of the last 50 commits touch `docs/maintenance/` | Finding 1 |
-| 🪜 **Simplest mechanism** | The test audit's hand-kept count table and its checker repeat a one-line grep, three rule templates do one template's job, and `rule.md.template`'s checklist repeats what tests enforce | Findings 1 and 3 |
-| 🔮 **Built for today** | Agent and skill templates and authoring rules aren't marked "planned", `claude_naming_patterns.md` has a Hook row with no hooks, and the `Makefile` keeps empty `run` and `clean` targets | Findings 2 and 5 |
+| 🎯 **Single source** | 4 duplicates: `authoring_guidelines.md` repeats three `guiding_principles.md` points, the 110-line limit is written in four files, `naming_standards.md` "Offer options" repeats `behaviour.md` "Present options", and the skill and agent name patterns sit in `claude_naming_patterns.md`, `_authoring_skills.md`, `_authoring_agents.md` and the templates | Finding 3 |
+| 📦 **Always-on headroom** | ~2,278 tokens is 76% of the budget, just over the 75% line | Trim about 30 tokens (finding 2) |
+| 🔗 **Cross-file consistency** | 4 contradictions: `target_architecture.md`'s tiers have no place for always-on rules, `behaviour.md` "several files" against its `reporting.md` pointer's "many files or turns", `reporting.md` writes to `~/_sessions/` against `portable_paths.md`, and `authoring_guidelines.md` points to a hook pattern that `claude_naming_patterns.md` no longer has | Finding 5 |
+| 🔁 **Upkeep cost** | 26 of the last 50 commits touch `docs/maintenance/` other than to record a review | Finding 1 |
+| 🪜 **Simplest mechanism** | 2 heavier than needed: the rules and test audits each keep a hand-scored table and checker, where `test_rules_structure.py` and the MoSCoW grep already cover most of it | Finding 1 |
+| 🔮 **Built for today** | 3 unused: five of the seven colours in `variables.mk`, `dir_exists` in `shell_utils.sh`, and the untracked `.claude/` root in `claude_validate_always_on_budget.sh` | Finding 4 |
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 📊 **Hand-kept test audit:** replace the MoSCoW count table in `quality_audit_test_files.md` and `test_quality_audit_test_files.py` with the grep in `test_maintenance.md`.
-2. 📋 **Agent and skill scaffolding:** mark the agent and skill templates "planned" in `_templates/README.md`, since they're coming soon, and fix the missing link in `AGENT.md.template`.
-3. 🧩 **One rule template:** merge `rule.md.template` and the two `rules/` templates, drop checklist items that `test_rules_structure.py` enforces, and settle on one rule size limit.
-4. 🎯 **Duplicated rule points:** keep "Before you start" only in `guiding_principles.md`, drop "Offer options" from `naming_standards.md`, and keep name patterns only in `claude_naming_patterns.md`.
-5. 🛠️ **Small inconsistencies:** cut `code_complexity.md`'s Quick Reference to a pointer, remove the empty `Makefile` targets, fix the `~/claude/_templates/` path, and give `behaviour.md` and `reporting.md` one threshold.
+1. 🗑️ **Per-file audits:** retire `quality_audit_rules.md`, `quality_audit_test_files.md`, their rubrics, checkers and `_audit_tables.py`, keeping the MoSCoW grep and test in `test_maintenance.md`.
+2. 📦 **Always-on trim:** move `naming_standards.md` on demand, or at least drop its "Offer options", which `behaviour.md` "Present options" covers.
+3. 🎯 **One place per point:** cut the `authoring_guidelines.md` bullets that repeat `guiding_principles.md`, and keep name patterns only in `claude_naming_patterns.md`.
+4. 🔮 **Unused capacity:** drop the five unused colours in `variables.mk`, `dir_exists` and its test, and the `.claude/` root in `claude_validate_always_on_budget.sh`.
+5. 🔗 **Contradictions:** give always-on rules a tier in `target_architecture.md`, give `behaviour.md` and `reporting.md` one threshold, move the `reporting.md` checkpoints into the config directory, and drop "hook" from the naming pointer in `authoring_guidelines.md`.

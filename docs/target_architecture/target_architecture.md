@@ -1,4 +1,4 @@
-<!-- version: 1.8.0 -->
+<!-- version: 1.8.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture
@@ -24,8 +24,8 @@ Every component sits in one of three tiers:
 
 | Tier | Contains | Loads |
 |---|---|---|
-| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md), `make test` and the CI checks, including the guards below | Every session, or every PR |
-| 🧰 **Optional** | Skills, which are step-by-step procedures, and agents, which work in a separate context | When the engineer or Claude asks for one |
+| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md) and the always-on rules it loads, `make test` and the CI checks, including the guards below | Every session, or every PR |
+| 🧰 **Optional** | Skills, which are step-by-step procedures, agents, which work in a separate context, and on-demand rules | When the engineer or Claude asks for one |
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 
 - 🧭 **Choosing a tier:** the [evaluation criteria](design_principles/02_evaluation_criteria.md#-what-shape) match each need to a mechanism, which sets its tier.
@@ -35,13 +35,13 @@ Every component sits in one of three tiers:
 
 The design takes these plays, the course's recommended practices, from the [SDLC course's relevance page](reference_material/core/anthropic_ai_native_sdlc/05_relevance.md):
 
-| Play | In this design |
-|---|---|
-| 🗺️ **Plan first** | Plan mode, with each approved plan committed as `plan.md` |
-| 📝 **Intent and spec** | Deferred, so plans carry the intent until a review shows a separate file pays |
-| 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md) |
-| 🧪 **Evals** | Deferred until their API cost and upkeep are weighed |
-| 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service |
+| Play | In this design | Source |
+|---|---|---|
+| 🗺️ **Plan first** | Plan mode, with each approved plan committed as `plan.md` | [Plan mode as the default](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 📝 **Intent and spec** | Deferred, so plans carry the intent until a review shows a separate file pays | [Capture as intent.md, and Requirements and design](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md) | [Give Claude a feedback loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 🧪 **Evals** | Deferred until their API cost and upkeep are weighed | [Continuous evals in CI](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 
 ## 💰 Always-on budget
 
@@ -62,7 +62,7 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 
 ## 📏 Measures
 
-Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts and git history since the last review, and records them in the [repo audit](../maintenance/quality/audits/quality_audit_repo.md):
+Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts and git history since the last review:
 
 | Measure | Definition | Unit |
 |---|---|---|

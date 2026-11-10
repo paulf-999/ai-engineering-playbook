@@ -1,6 +1,6 @@
-<!-- version: 3.1.0 -->
+<!-- version: 3.1.1 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 🧪 Test Quality Rubric
 
 **Purpose:** how to score the tests for each script out of 10, where 10 means enough tests that stay easy to read, not the most tests.
@@ -19,7 +19,7 @@ The tests for a script are scored on five themes:
 
 ## 🔢 Scores
 
-Each theme scores ✅ 2 when fully met, 🟡 1 when partly met and ❌ 0 when not met. The five add up to a score out of 10, graded as in the [markdown rubric](quality_themes_markdown_files.md#-themes), so four ✅ and one 🟡 show as **A · 9/10**.
+Each theme scores ✅ 2 when fully met, 🟡 1 when partly met and ❌ 0 when not met. The five add up to a score out of 10, graded A for 9 or more, B for 8, C for 7, D for 6 and F below 6, so four ✅ and one 🟡 show as **A · 9/10**.
 
 ## 📏 How to score
 

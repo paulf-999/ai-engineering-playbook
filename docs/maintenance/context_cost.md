@@ -1,4 +1,4 @@
-<!-- version: 1.0.45 -->
+<!-- version: 1.0.46 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-10 -->
 # 💰 Context cost
@@ -17,12 +17,12 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|
 | 1 | `CLAUDE.md` | ~544 |
 | 2 | `rules/01_standards/claude_response_standards.md` | ~219 |
-| 3 | `rules/01_standards/naming_standards.md` | ~292 |
-| 4 | `rules/02_conduct/behaviour.md` | ~356 |
+| 3 | `rules/01_standards/naming_standards.md` | ~256 |
+| 4 | `rules/02_conduct/behaviour.md` | ~354 |
 | 5 | `rules/02_conduct/security.md` | ~205 |
 | 6 | `rules/02_conduct/writing_style.md` | ~340 |
 | 7 | `rules/03_workflows/claude_plans.md` | ~161 |
-| | **Subtotal** | **~2120** |
+| | **Subtotal** | **~2082** |
 
 ## 📂 Path-scoped rules
 
@@ -49,14 +49,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `README.md` | ~475 |
 | 2 | `_templates/README.md` | ~827 |
 | 3 | `rules/_rules_on_demand/02_conduct/automation_controls.md` | ~719 |
-| 4 | `rules/_rules_on_demand/02_conduct/reporting.md` | ~165 |
+| 4 | `rules/_rules_on_demand/02_conduct/reporting.md` | ~174 |
 | 5 | `rules/_rules_on_demand/02_conduct/todo_logging.md` | ~179 |
 | 6 | `rules/_rules_on_demand/02_conduct/writing_style/_audience_and_depth.md` | ~324 |
 | 7 | `rules/_rules_on_demand/02_conduct/writing_style/_drafts_and_errors.md` | ~199 |
 | 8 | `rules/_rules_on_demand/02_conduct/writing_style/_markdown_layout.md` | ~264 |
 | 9 | `rules/_rules_on_demand/03_workflows/git.md` | ~325 |
 | 10 | `rules/_rules_on_demand/03_workflows/saving_plans.md` | ~170 |
-| 11 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~567 |
+| 11 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~566 |
 | 12 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~410 |
 | 13 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~560 |
 | 14 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~474 |
@@ -126,4 +126,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 78 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 79 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 80 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42774** |
+| | **Subtotal** | **~42782** |

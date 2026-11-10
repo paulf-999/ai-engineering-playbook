@@ -1,4 +1,4 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.0.3 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 # 🚪 Complexity Exceptions
@@ -48,10 +48,6 @@ def complex_operation():
 
 Before submitting code for review:
 
-- [ ] CC < 10 (or documented exception)
-- [ ] LOC < 30-40 (or documented exception)
-- [ ] Nesting depth 3 or fewer (or documented exception)
-- [ ] Parameters < 5 (or documented exception)
-- [ ] Line length < 120 chars
+- [ ] Within every limit in `code_complexity.md`, or the exception documented as above
 - [ ] One-sentence summary: Can you explain it?
 - [ ] If complex: Exception documented with reasoning

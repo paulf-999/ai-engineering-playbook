@@ -1,4 +1,4 @@
-<!-- version: 1.8.1 -->
+<!-- version: 1.8.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture
@@ -13,7 +13,7 @@ The design rests on the [reference material](reference_material/README.md), and 
 
 A small required core loads in every session, and every other component loads only when needed and is removed if a regular review shows it doesn't pay.
 
-- 🌱 **Small core:** only `CLAUDE.md`, the tests and the CI checks are required.
+- 🌱 **Small core:** only `CLAUDE.md`, the always-on rules, the tests and the CI checks are required.
 - 📥 **On demand:** everything else loads only when a task calls for it.
 - 💰 **Budget:** a CI check caps the text loaded into every session.
 - 📏 **Measures:** each regular review measures outcomes and overhead from session transcripts and git history.

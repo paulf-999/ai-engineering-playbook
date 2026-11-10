@@ -1,4 +1,4 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
@@ -46,7 +46,7 @@ Process and machinery heavier than the repo needs:
 
 ## 🔢 Measures
 
-Run these from the repo root on `main`, and score the measured themes from them:
+Run these from the repo root on `main` under `bash`, since another shell's `grep` wrapper can change the counts, and score the measured themes from them:
 
 ```bash
 # product and support file counts

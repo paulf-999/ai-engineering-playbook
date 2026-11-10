@@ -1,9 +1,9 @@
-<!-- version: 1.2.5 -->
+<!-- version: 1.2.6 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 📋 Templates Directory
 
-Centralized templates for skills and other Claude configuration artifacts. This directory is copied to `~/claude/_templates/` by `make install`.
+Centralized templates for skills and other Claude configuration artifacts. `make install` copies this directory to `_templates/` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset).
 
 ## Directory Structure
 
@@ -84,5 +84,5 @@ Copy the template you need next to the file you're creating, fill it in, and fol
 
 ## Maintenance
 
-- **Sync with global:** After updating templates here, run `make install` to copy them to `~/claude/_templates/`
-- **Keep in sync:** The playbook repo is the source of truth. Updates to `~/claude/_templates/` should be backported here.
+- **Sync with global:** After updating templates here, run `make install` to copy them to your Claude config directory
+- **Keep in sync:** The playbook repo is the source of truth. Updates to the installed `_templates/` should be backported here.

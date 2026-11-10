@@ -1,4 +1,4 @@
-<!-- version: 1.0.42 -->
+<!-- version: 1.0.43 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-10 -->
 # 💰 Context cost
@@ -47,7 +47,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `README.md` | ~475 |
-| 2 | `_templates/README.md` | ~869 |
+| 2 | `_templates/README.md` | ~889 |
 | 3 | `rules/_rules_on_demand/02_conduct/automation_controls.md` | ~719 |
 | 4 | `rules/_rules_on_demand/02_conduct/reporting.md` | ~165 |
 | 5 | `rules/_rules_on_demand/02_conduct/todo_logging.md` | ~179 |
@@ -95,8 +95,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 47 | `rules/_rules_on_demand/style_guides/jira/_ticket_conventions.md` | ~573 |
 | 48 | `rules/_rules_on_demand/style_guides/python/_comments.md` | ~258 |
 | 49 | `rules/_rules_on_demand/style_guides/python/_python_environment.md` | ~479 |
-| 50 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~890 |
-| 51 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~331 |
+| 50 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~892 |
+| 51 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~333 |
 | 52 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~332 |
 | 53 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~575 |
 | 54 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~509 |
@@ -126,4 +126,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 78 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 79 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 80 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42834** |
+| | **Subtotal** | **~42858** |

@@ -20,7 +20,7 @@ isolation: worktree  # only for an agent that changes files; leave it out otherw
 - `isolation` — `worktree`, the only value, runs the agent in its own git worktree, so leave it out for a read-only agent
 - **Other fields:** Claude Code ignores unrecognised fields without an error, so add one only for people reading the file
 
-**Metadata header** (straight after the frontmatter): `version`, `created`, `updated` — see `_claude_config_metadata.md`.
+**Metadata header** (straight after the frontmatter): `version`, `created`, `updated`, each an HTML comment such as `<!-- version: 1.0.0 -->`.
 
 ---
 

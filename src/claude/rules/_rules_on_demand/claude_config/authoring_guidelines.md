@@ -1,6 +1,6 @@
-<!-- version: 3.0.2 -->
+<!-- version: 3.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
 <!-- miss_cost: medium — a new rule, skill or agent drifts from the house structure -->
 <!-- loading: on demand — read when guiding_principles.md points here, once an addition is worth making -->
@@ -22,7 +22,7 @@ This page is the entry point for authoring, and its rules, skills and agents gui
 
 - 🏷️ **Header:** lines 1 to 3 hold `version`, `created` and `updated`, and every edit bumps `version` and `updated`.
 - 🎯 **Opening:** an H1 with an emoji, then a one-line **Purpose:** saying what the file does.
-- 1️⃣ **One concept:** keep each file to one concept and about 100 lines, and split anything longer into a parent and 2 or more `<parent>/_<aspect>.md` children.
+- 1️⃣ **One concept:** keep each file to one concept and about 110 lines, and split anything longer into a parent and 2 or more `<parent>/_<aspect>.md` children.
 - 🔑 **Bullets:** open each with a bold keyword and keep it to one sentence.
 - 🌍 **Paths:** hard-code no home folder or username, per `portable_paths.md`.
 

@@ -1,6 +1,6 @@
-<!-- version: 1.1.4 -->
+<!-- version: 1.1.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — functions grow harder to read and change -->
 <!-- loading: on demand — read when python.md's complexity pointer sends Claude here -->
@@ -83,7 +83,7 @@ def process_data(items, config, output_dir):
 |--------|--------|------|
 | **Cyclomatic Complexity** | < 10 | `radon cc` |
 | **Lines of Code** | < 30-40 | ruff `PLR0915` |
-| **Nesting Depth** | < 3 | Manual review |
+| **Nesting Depth** | 3 or fewer | ruff `PLR1702` |
 | **Parameters** | < 5 | Manual review |
 | **Line Length** | < 120 chars | `ruff check` |
 

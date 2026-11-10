@@ -1,9 +1,8 @@
-<!-- version: 4.0.2 -->
+<!-- version: 4.0.3 -->
 <!-- created: 2026-09-07 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — replies get slower to scan -->
-<!-- loading: always-on — every reply needs its shape -->
 # 📝 Response standards
 
 **Purpose:** the shape and pacing of Claude's replies to your prompts, so each one can be scanned in seconds.

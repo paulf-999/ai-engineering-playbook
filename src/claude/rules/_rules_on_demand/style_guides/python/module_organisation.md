@@ -1,9 +1,8 @@
-<!-- version: 1.2.0 -->
+<!-- version: 1.2.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — modules lose their docstrings and clear interfaces -->
-<!-- loading: on demand — read when python.md's module pointer sends Claude here -->
 # 📦 Python Module Organisation
 
 **Purpose:** Establish conventions for module docstrings, metadata, and public/private function organisation — ensuring modules are self-documenting and their interfaces are clear.

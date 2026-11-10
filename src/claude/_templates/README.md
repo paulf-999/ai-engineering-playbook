@@ -1,4 +1,4 @@
-<!-- version: 1.2.6 -->
+<!-- version: 1.2.7 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-10 -->
 # 📋 Templates Directory
@@ -14,9 +14,6 @@ _templates/
 │   └── skill.contract.yaml.template
 ├── AGENT.md.template        # Starting point for a new agent
 ├── rule.md.template         # Starting point for a new rule
-├── rules/                   # Lean rule shapes, chosen by bullet count
-│   ├── short_rule.md.template
-│   └── sectioned_rule.md.template
 ├── TODO.md.template         # Starting point for a project TODO list
 ├── utils/
 │   ├── shell_utils.sh           # Shared shell helpers: log colours and common variables
@@ -49,17 +46,9 @@ _templates/
 
 **`rule.md.template`**
 
-- Decision tree for a new rule: picks the short or sectioned shape below by bullet count
-- Ends with a quality checklist that applies to both shapes
+- Starting point for a new rule: metadata and usage header, H1, Purpose, emoji `##` sections and `Read on demand` pointers
+- Its closing comments say when to drop the sections, when to split, and the checks the tests don't cover
 - Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
-
-**`rules/short_rule.md.template`**
-
-- Lean rule of 5 labelled bullets or fewer: metadata and usage header, H1, Purpose, bullets and optional `Read on demand` pointers
-
-**`rules/sectioned_rule.md.template`**
-
-- Lean rule of more than 5 labelled bullets: the same opening, then 2 to 4 emoji `##` sections of up to 5 bullets each
 
 **`TODO.md.template`**
 

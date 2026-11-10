@@ -1,14 +1,14 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 🔍 Current architecture: Alignment with the reference material
 
 **Purpose:** how far the old Claude configuration already follows Anthropic's SDLC course and DORA's research.
 
 This page is part of the [current architecture](../current_architecture.md) review of commit `915685f`. It uses two sources:
 
-- 🔄 **SDLC course:** Anthropic's [course on the AI-native software development lifecycle](../reference_material/anthropic_ai_native_sdlc.md), built from short practices it calls plays.
-- 📊 **DORA:** the [AI Capabilities Model from DevOps Research and Assessment](../reference_material/dora_ai_capabilities.md), cited by printed page.
+- 🔄 **SDLC course:** Anthropic's [course on the AI-native software development lifecycle](../reference_material/core/anthropic_ai_native_sdlc.md), built from short practices it calls plays.
+- 📊 **DORA:** the [AI Capabilities Model from DevOps Research and Assessment](../reference_material/core/dora_ai_capabilities.md), cited by printed page.
 
 ## ✅ In place
 

@@ -1,11 +1,11 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🧰 Böckeler: Harness engineering for coding agent users
 
 **Purpose:** what Birgitta Böckeler's article on building controls around a coding agent argues, where its limits are, and what it means for this repo.
 
-It's one of the summaries listed in this repo's [reference material](README.md).
+It's one of the summaries listed in this repo's [reference material](../README.md).
 
 ## 📋 Executive Summary
 
@@ -36,10 +36,10 @@ The article makes these points, by section:
 
 ## 🎯 What it means for this repo
 
-This section is this repo's reading, not the article's, and the principles named are in this repo's [design principles](../design_principles/01_principles.md):
+This section is this repo's reading, not the article's, and the principles named are in this repo's [design principles](../../design_principles/01_principles.md):
 
 - 🗺️ **Mapping:** `CLAUDE.md`, rules and skills are inferential guides, while pre-commit hooks, tests and CI are computational sensors.
 - 🔒 **Enforcement:** preferring computational sensors for what must hold is "Enforce what must hold", with a source outside Anthropic.
-- 🔁 **Regular review:** the steering loop matches adding a component only after a gap recurs across the session transcripts each [regular review](../design_principles/01_principles.md#-numbers-and-tests) reads.
+- 🔁 **Regular review:** the steering loop matches adding a component only after a gap recurs across the session transcripts each [regular review](../../design_principles/01_principles.md#-numbers-and-tests) reads.
 - 🗑️ **Retiring:** a check that never fires may be working, so retiring parts unused between reviews should apply to guidance, not sensors.
 - ⚠️ **Limit:** it's one practitioner's model, written for teams, with no measured results.

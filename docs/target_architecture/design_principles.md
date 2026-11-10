@@ -1,13 +1,13 @@
-<!-- version: 1.7.2 -->
+<!-- version: 1.7.3 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🧭 Design principles
 
 **Purpose:** the principles every part of this repo's Claude configuration follows, and the checks a new part must pass.
 
 ## 📋 Executive Summary
 
-- 🌱 **Stance:** a small required core, with skills and agents used only when a task needs them, as the [handover review](reference_material/handover_review.md) recommends.
+- 🌱 **Stance:** a small required core, with skills and agents used only when a task needs them, as the [handover review](reference_material/core/handover_review.md) recommends.
 - ⚖️ **Bar:** the configuration must beat a near-bare setup of `CLAUDE.md`, tests and CI on results, effort or consistency.
 - ➕ **Adding:** a component (a rule, skill, hook or agent) from the [old configuration](current_architecture.md) is reviewed one file at a time for the bloat that made the old setup costly, then ported, slimmed or left out.
 - 🗑️ **Keeping:** a component is removed once a [regular review](design_principles/01_principles.md#-numbers-and-tests) finds it getting in the way, or going unused.

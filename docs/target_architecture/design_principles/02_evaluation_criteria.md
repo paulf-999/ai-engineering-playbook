@@ -1,6 +1,6 @@
-<!-- version: 1.8.0 -->
+<!-- version: 1.8.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-10 -->
 # ✅ Design principles: Evaluation criteria
 
 **Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), faces when it's added and while it's on trial.
@@ -16,7 +16,7 @@ Each file from the old configuration is reviewed on its own for bloat, and you d
 - [ ] 🚩 **Red flags:** for each file, the PR lists every hit below and every failed [What shape?](#-what-shape) check, with the decision and why.
   - **Ports vs new:** for a port these inform the decision but never block it, while a new component must pass every check.
 
-The flags come from the [review of the old setup](../current_architecture/03_complexity_without_evidence.md) and the [handover review](../reference_material/handover_review.md), and cover how a component loads and enforces, not its topic.
+The flags come from the [review of the old setup](../current_architecture/03_complexity_without_evidence.md) and the [handover review](../reference_material/core/handover_review.md), and cover how a component loads and enforces, not its topic.
 
 | Red flag | Spotted by | Suggested fix |
 |---|---|---|

@@ -1,11 +1,11 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 📈 DORA: State of AI-assisted Software Development 2025
 
 **Purpose:** what DORA's 2025 survey found about AI adoption and its outcomes, where its limits are, and what it means for this repo.
 
-It's one of the summaries listed in this repo's [reference material](README.md), and leaves out the report's seven capabilities, which have their [own summary](dora_ai_capabilities.md).
+It's one of the summaries listed in this repo's [reference material](../README.md), and leaves out the report's seven capabilities, which have their [own summary](../core/dora_ai_capabilities.md).
 
 ## 📋 Executive Summary
 
@@ -37,6 +37,6 @@ It's one of the summaries listed in this repo's [reference material](README.md),
 
 This section is this repo's reading, not the report's:
 
-- 📏 **Outcomes over feel:** high felt productivity beside rising instability backs logging [rework and interventions](../target_architecture.md#-measures), not just whether Claude seemed helpful.
+- 📏 **Outcomes over feel:** high felt productivity beside rising instability backs logging [rework and interventions](../../target_architecture.md#-measures), not just whether Claude seemed helpful.
 - 🧾 **Config needs evidence:** the Berkeley advice fits a `CLAUDE.md`, but that study never tested config files, so each component still has to earn its place.
 - ⚖️ **Contrast with METR:** the report cites [METR's trial](metr_developer_productivity_trial.md), where timed tasks showed developers felt faster while being slower, a gap a survey can't rule out (p. 35).

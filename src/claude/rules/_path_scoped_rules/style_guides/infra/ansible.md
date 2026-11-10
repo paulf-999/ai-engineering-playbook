@@ -1,5 +1,5 @@
 ---
-<!-- version: 1.5.0 -->
+<!-- version: 1.5.1 -->
 <!-- created: 2026-04-08 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: Ansible playbooks and roles -->
@@ -34,7 +34,7 @@ Use FQCN for all modules: `ansible.builtin.apt`, not `apt`.
 ## 🔩 Linting
 
 - All playbooks and roles must pass `ansible-lint` (production profile) before committing.
-- Both are enforced via pre-commit hooks — fix the underlying issue rather than suppressing warnings.
+- It's enforced via a pre-commit hook — fix the underlying issue rather than suppressing warnings.
 - Ansible-lint skips: `role-name[path]`, which nested capability directories need, and no others.
 
 ## 📚 Read on demand

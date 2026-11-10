@@ -1,4 +1,4 @@
-<!-- version: 1.0.40 -->
+<!-- version: 1.0.41 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-10 -->
 # 💰 Context cost
@@ -30,9 +30,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|---|
 | 1 | `rules/_path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~196 |
 | 2 | `rules/_path_scoped_rules/style_guides/airflow.md` | `**/dags/**/*.py` | ~348 |
-| 3 | `rules/_path_scoped_rules/style_guides/bash.md` | `**/*.sh` | ~357 |
+| 3 | `rules/_path_scoped_rules/style_guides/bash.md` | `**/*.sh` | ~358 |
 | 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/dbt_project.yml` | ~426 |
-| 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~488 |
+| 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~487 |
 | 6 | `rules/_path_scoped_rules/style_guides/infra/docker.md` | `**/Dockerfile*` | ~143 |
 | 7 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~479 |
 | 8 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~460 |

@@ -1,5 +1,5 @@
 ---
-<!-- version: 1.6.0 -->
+<!-- version: 1.6.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: shell scripts -->
@@ -11,7 +11,7 @@ paths:
 
 # 🖥️ Bash Style Guide
 
-**Purpose:** shell scripting conventions for safety and consistency that `shellcheck` doesn't enforce.
+**Purpose:** shell scripting conventions for safety and consistency, alongside what `shellcheck` checks.
 
 ## 📄 Script structure
 

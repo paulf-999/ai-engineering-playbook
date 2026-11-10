@@ -1,6 +1,6 @@
-# version: 1.1.2
+# version: 1.2.0
 # created: 2026-11-05
-# updated: 2026-11-09
+# updated: 2026-11-10
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
 
 Also checks that each gate can fail, using small broken examples.
@@ -19,6 +19,9 @@ MAX_LINES = 110
 # the most an on-demand rule may cost to read, in tokens estimated as characters ÷ 4, as in context_cost.md
 MAX_READ_TOKENS = 1200
 ON_DEMAND_FILES = sorted((RULES_DIR / "_rules_on_demand").rglob("*.md"))
+# the most a path-scoped rule may cost, since it loads unasked with every matching file and stacks with others
+MAX_PATH_SCOPED_TOKENS = 500
+PATH_SCOPED_FILES = sorted((RULES_DIR / "_path_scoped_rules").rglob("*.md"))
 MAX_BULLETS = 5
 # emoji blocks: pictographs and symbols, misc symbols and dingbats, arrows and technical symbols
 EMOJI = re.compile("[\U0001f300-\U0001faff☀-➿⬀-⯿⌀-⏿←-⇿]")
@@ -97,11 +100,27 @@ def size_problems(text):
     return problems
 
 
+def token_estimate(text):
+    """Return the file's cost in tokens, estimated as characters ÷ 4 without HTML comments, as in context_cost.md."""
+    return round(len(re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)) / 4)
+
+
 def read_cost_problems(text):
     """Return a problem if reading the file costs more than the per-read cap, leaving out HTML comments."""
-    tokens = round(len(re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)) / 4)
+    tokens = token_estimate(text)
     if tokens > MAX_READ_TOKENS:
         return [f"about {tokens:,} tokens to read, over the {MAX_READ_TOKENS:,}-token cap, so split it into children"]
+    return []
+
+
+def path_scoped_cost_problems(text):
+    """Return a problem if a path-scoped rule costs more than its cap, leaving out HTML comments."""
+    tokens = token_estimate(text)
+    if tokens > MAX_PATH_SCOPED_TOKENS:
+        return [
+            f"about {tokens:,} tokens, over the {MAX_PATH_SCOPED_TOKENS:,}-token path-scoped cap, "
+            "so move detail to an on-demand child"
+        ]
     return []
 
 
@@ -205,6 +224,14 @@ def test_rule_size_and_ending(path):
 def test_on_demand_rule_read_cost(path):
     """Each on-demand rule costs 1,200 tokens or fewer to read, not counting HTML comments."""
     problems = read_cost_problems(path.read_text())
+    assert not problems, f"{relative(path)}: " + "; ".join(problems)
+
+
+# MoSCoW: Must — a path-scoped rule loads unasked with every matching file, and stacks with the others that match
+@pytest.mark.parametrize("path", PATH_SCOPED_FILES, ids=relative)
+def test_path_scoped_rule_load_cost(path):
+    """Each path-scoped rule costs 500 tokens or fewer, not counting HTML comments."""
+    problems = path_scoped_cost_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
@@ -335,6 +362,7 @@ GOOD_RULE = (
         (size_problems, GOOD_RULE + "line\n" * MAX_LINES, "over the 110-line limit"),
         (size_problems, GOOD_RULE + "\n", "exactly one newline"),
         (read_cost_problems, GOOD_RULE + "x" * 4 * MAX_READ_TOKENS, "over the 1,200-token cap"),
+        (path_scoped_cost_problems, GOOD_RULE + "x" * 4 * MAX_PATH_SCOPED_TOKENS, "over the 500-token path-scoped cap"),
         (heading_problems, GOOD_RULE.replace("## 🔢 Points", "## Points"), "heading needs an emoji"),
         (heading_problems, GOOD_RULE + "\n## 📋 Contents\n", "Contents section needs 3"),
         (heading_problems, GOOD_RULE + "\n## 🔗 Related\n", "Related section"),

@@ -1,6 +1,6 @@
-<!-- version: 1.6.1 -->
+<!-- version: 1.7.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture
 
 **Purpose:** what the new Claude configuration contains, what loads when, and how its cost and benefit are measured.
@@ -43,7 +43,7 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 | Guard | Fails when | How it runs |
 |---|---|---|
 | 💰 **Always-on budget** | The estimate exceeds the ceiling | [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh), as a pre-commit hook that CI also runs |
-| 📖 **On-demand read cap** | An on-demand rule costs more than the [read cap](design_principles/01_principles.md#-numbers-and-tests) to read | [`test_rules_structure.py`](../../tests/src/claude/test_rules_structure.py), in the pytest run that CI also runs |
+| 📖 **Per-file caps** | An on-demand rule costs more than its [read cap](design_principles/01_principles.md#-numbers-and-tests) to read, or a path-scoped rule more than its cap | [`test_rules_structure.py`](../../tests/src/claude/test_rules_structure.py), in the pytest run that CI also runs |
 | 📦 **PR size** | A PR changes more files than its limit allows, except on a `release/` branch | Runs [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) |
 
 ## 📏 Measures

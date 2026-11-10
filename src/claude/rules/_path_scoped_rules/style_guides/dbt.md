@@ -1,5 +1,5 @@
 ---
-<!-- version: 1.6.0 -->
+<!-- version: 1.7.0 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: dbt models and project files -->
@@ -7,6 +7,7 @@
 <!-- loading: path-scoped — loads with dbt files -->
 paths:
   - "**/models/**/*.sql"
+  - "**/models/**/*.yml"
   - "**/dbt_project.yml"
 ---
 
@@ -18,7 +19,7 @@ paths:
 
 - **Lineage:** reference every table with `{{ ref('model') }}` or `{{ source('raw', 'table') }}`, never `schema.table`, so the lineage graph stays correct.
 - **Documentation:** give every model and column a `description:` in YAML, since descriptions are the source of truth for downstream teams.
-- **Tests:** put `unique` and `not_null` on every model's `KEY`, `relationships` on foreign keys, and `freshness` on every source with a loaded-at column.
+- **Tests:** put `unique` and `not_null` on every model's `KEY`, its surrogate key column, `relationships` on foreign keys, and `freshness` on every source with a loaded-at column.
 - **Materialisation:** start from each layer's default and justify any change, since the wrong choice wastes compute or leaves data stale.
 - **Before a PR:** `dbt parse` and `dbt test` pass, as no hook runs them.
 

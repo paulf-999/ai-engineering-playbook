@@ -1,4 +1,4 @@
-<!-- version: 1.0.8 -->
+<!-- version: 1.0.9 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Audit
@@ -6,21 +6,6 @@
 **Purpose:** for maintainers, how bloated and how over-engineered the repo is as a whole, each scored out of 10 at each regular review.
 
 Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-context reviewer runs its measures and scores its themes, and this page keeps the latest run's scores, with earlier runs in git history.
-
-## 🔢 Measures
-
-| Date | Product files | Support files | `docs/maintenance/` files | Commits touching `docs/maintenance/` | Placeholders | Always-on tokens |
-|---|---|---|---|---|---|---|
-| 2026-11-10 | 145 | 51 | 9 (6%) | 26 of 50 (52%) | 0 | ~2,278 (76%) |
-
-## 🧪 Outcomes by review
-
-The [measures](../../../target_architecture/target_architecture.md#-measures) for the tasks since the previous review:
-
-| Date | Tasks | Time to acceptance (median minutes) | Rework (fix commits) | Interventions | Upkeep (hours) | Notes |
-|---|---|---|---|---|---|---|
-| 🏁 2026-11-03 | 1 | 17 | 0 | 0 | — | Starting point, at 887 always-on tokens before any component was added; PR links pointed to the branch, so broke after merge |
-| 🔧 2026-11-04 | — | — | — | — | 2.3 | Porting session, not a regular review: five files ported, at 2,077 always-on tokens |
 
 ## 🎈 Bloat
 

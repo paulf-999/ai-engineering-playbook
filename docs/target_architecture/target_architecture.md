@@ -1,4 +1,4 @@
-<!-- version: 1.7.0 -->
+<!-- version: 1.7.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture
@@ -22,8 +22,8 @@ Every component sits in one of three tiers:
 
 | Tier | Contains | Loads |
 |---|---|---|
-| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md), `make test` and the CI checks, including the guards below | Every session, or every PR |
-| 🧰 **Optional** | Skills, which are step-by-step procedures, and agents, which work in a separate context | When the engineer or Claude asks for one |
+| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md) and the always-on rules it loads, `make test` and the CI checks, including the guards below | Every session, or every PR |
+| 🧰 **Optional** | Skills, which are step-by-step procedures, agents, which work in a separate context, and on-demand rules | When the engineer or Claude asks for one |
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 
 - 🧭 **Choosing a tier:** the [evaluation criteria](design_principles/02_evaluation_criteria.md#-what-shape) match each need to a mechanism, which sets its tier.
@@ -48,7 +48,7 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 
 ## 📏 Measures
 
-Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts and git history since the last review, and records them in the [repo audit](../maintenance/quality/audits/quality_audit_repo.md):
+Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts and git history since the last review:
 
 | Measure | Definition | Unit |
 |---|---|---|

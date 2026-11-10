@@ -1,4 +1,4 @@
-<!-- version: 1.8.2 -->
+<!-- version: 1.8.3 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture
@@ -16,7 +16,7 @@ A small required core loads in every session, and every other component loads on
 - 🌱 **Small core:** only `CLAUDE.md`, the always-on rules, the tests and the CI checks are required.
 - 📥 **On demand:** everything else loads only when a task calls for it.
 - 💰 **Budget:** a CI check caps the text loaded into every session.
-- 📏 **Measures:** each regular review measures outcomes and overhead from session transcripts and git history.
+- 📏 **Measures:** each regular review records component feedback from session transcripts and git history, and CI measures always-on tokens.
 
 ## 🎚️ Tiers
 
@@ -62,16 +62,11 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 
 ## 📏 Measures
 
-Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts and git history since the last review:
+Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts, git history and budget check since the last review:
 
 | Measure | Definition | Unit |
 |---|---|---|
-| ⏱️ **Time to acceptance** | Working time from first prompt to accepted change | Minutes |
-| 🔁 **Rework** | Later fixes for defects in the accepted change | Count of fix commits |
-| ✋ **Interventions** | Times the engineer corrected Claude or redid its work | Count |
 | 💬 **Component feedback** | Components that helped, hindered or went unused | One line each |
 | 💰 **Always-on tokens** | The budget estimate above | Tokens |
-| 🧰 **Upkeep** | Time spent changing the configuration | Hours |
 
-- 📈 **Indicators:** each measure serves as a play's early or later indicator, as the [course overview](reference_material/core/anthropic_ai_native_sdlc/01_overview.md) describes.
 - 🗑️ **Acting on feedback:** each review removes [components that don't pay](design_principles/01_principles.md) and runs the [halving test](design_principles/01_principles.md#-numbers-and-tests).

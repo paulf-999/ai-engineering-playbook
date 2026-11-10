@@ -1,4 +1,4 @@
-<!-- version: 1.8.3 -->
+<!-- version: 1.8.4 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # ✅ Design principles: Evaluation criteria
@@ -51,5 +51,5 @@ Its shape passes when:
 Once it's in use, it passes when:
 
 - [ ] 🧪 **Trial:** at the next [review](01_principles.md#-numbers-and-tests), it has been used and hasn't got in the way.
-- [ ] 📈 **Signals:** the PR names an early signal and a later result to watch, such as fewer corrections and less rework.
+- [ ] 📈 **Signals:** the PR names an early signal and a later result to watch, such as the component being used as intended, then helpful feedback at the next review.
 - [ ] ↩️ **Clean exit:** one small PR could remove it without breaking anything else.

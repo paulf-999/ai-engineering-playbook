@@ -1,8 +1,9 @@
-# version: 1.1.5
+# version: 1.1.6
 # created: 2026-11-04
-# updated: 2026-11-05
+# updated: 2026-11-10
 """Tests for the install script, which copies src/claude/ into a Claude config directory after a typed 'install'."""
 
+import json
 import os
 import pty
 import subprocess
@@ -161,3 +162,52 @@ def test_manifest_paths_outside_the_target_are_ignored(tmp_path):
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert outside.read_text() == "keep me\n", "a file outside the config directory must never be removed"
+
+
+def plan_hook_commands(target):
+    """Return the PreToolUse hook commands in the target's settings.json that run the plan sections hook."""
+    settings = json.loads((target / "settings.json").read_text())
+    return [
+        hook["command"]
+        for entry in settings.get("hooks", {}).get("PreToolUse", [])
+        if entry.get("matcher") == "ExitPlanMode"
+        for hook in entry.get("hooks", [])
+        if "hook_enforcement_plan_sections.sh" in hook.get("command", "")
+    ]
+
+
+# MoSCoW: Must — a hook does nothing until settings.json lists it, so install must register it
+def test_install_registers_the_plan_hook_and_keeps_existing_settings(tmp_path):
+    """Install adds the ExitPlanMode hook by its absolute path, keeps other settings and backs up the old file."""
+    (tmp_path / "settings.json").write_text(json.dumps({"model": "opus", "permissions": {"allow": ["Bash(ls)"]}}))
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    settings = json.loads((tmp_path / "settings.json").read_text())
+    assert settings["model"] == "opus" and settings["permissions"] == {"allow": ["Bash(ls)"]}, "settings must be kept"
+    assert plan_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_plan_sections.sh"']
+    assert list((tmp_path / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"
+
+
+# MoSCoW: Should — rerunning install must not stack duplicate hooks
+def test_reinstalling_registers_the_plan_hook_once(tmp_path):
+    """A second install leaves exactly one plan sections hook, and makes no backup of settings.json."""
+    run_install(tmp_path, answer="install")
+    result = run_install(tmp_path, answer="install")
+    assert result.returncode == 0, f"the second install should succeed:\n{result.stdout}{result.stderr}"
+    assert len(plan_hook_commands(tmp_path)) == 1, "the hook should be registered once"
+    assert not (tmp_path / "backups").exists(), "an unchanged settings.json should not be backed up"
+
+
+# MoSCoW: Should — a settings.json the merge can't safely change must be left as it was
+def test_unmergeable_settings_are_left_alone(tmp_path):
+    """A settings.json whose hooks.PreToolUse isn't a list is kept unchanged, and the install still succeeds."""
+    original = json.dumps({"hooks": {"PreToolUse": "not a list"}})
+    (tmp_path / "settings.json").write_text(original)
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should still succeed:\n{result.stdout}{result.stderr}"
+    assert (tmp_path / "settings.json").read_text() == original, "an unmergeable settings.json must be unchanged"
+    assert "wasn't added" in result.stdout, "the install should say the hook wasn't added"

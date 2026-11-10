@@ -1,4 +1,4 @@
-<!-- version: 4.0.0 -->
+<!-- version: 4.0.1 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-10 -->
 # 📊 Test Coverage Audit
@@ -24,7 +24,8 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [PR description](../../../../src/sh/git/git_validate_pr_description.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [PR title](../../../../src/sh/git/git_validate_pr_title.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Always-on budget](../../../../src/sh/claude_validate_always_on_budget.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the "over the 150-token budget" message is asserted in two tests, so rewording it breaks both |
-| [Install](../../../../src/sh/claude_install_config.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
+| [Install](../../../../src/sh/claude_install_config.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: `test_files_the_repo_removed_are_backed_up_then_removed` runs about 13 lines and checks removal, backup and manifest together, and `test_install_registers_the_plan_hook_and_keeps_existing_settings` checks kept settings, the hook command and the backup in one test |
+| [Plan sections hook](../../../../src/claude/hooks/hook_enforcement_plan_sections.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Context cost report](../../../../src/sh/claude_report_context_cost.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | **A · 9/10** | Reliability: the version-header test never checks its replace changed the report |
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`Makefile`](../../../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

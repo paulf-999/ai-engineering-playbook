@@ -1,6 +1,6 @@
-<!-- version: 2.1.0 -->
+<!-- version: 2.1.1 -->
 <!-- created: 2022-11-04 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 🌿 Git Branching Strategy
 
 **Purpose:** which branches to use in this repo, and how to name them.
@@ -18,7 +18,7 @@ Every branch starts from `main` and merges back into it through a PR, and a [pre
 
 ## 📦 Exceptions for Large Changes — Use the `release/` Prefix
 
-CI fails a PR that changes more than 20 files, because small PRs are quicker and safer to review. A `release/` branch is exempt, for changes that must land together:
+CI fails a PR that changes more files than the limit below, because small PRs are quicker and safer to review. A `release/` branch is exempt, for changes that must land together:
 
 - 🔖 **Prefix:** start the branch name with `release/`.
 - 🔁 **Same change:** apply one kind of change in bulk, such as formatting or a consistent rename.

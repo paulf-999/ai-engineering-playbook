@@ -1,9 +1,9 @@
-<!-- version: 1.2.9 -->
+<!-- version: 1.2.10 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-10 -->
 # 📋 Templates Directory
 
-Centralized templates for skills and other Claude configuration artifacts. `make install` copies this directory to `_templates/` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset).
+Centralized templates for skills and other Claude configuration artifacts. `make install` installs it to `_templates/` in your Claude config directory, as `src/README.md` describes.
 
 - 🗓️ **Planned:** the skill and agent templates are kept for the skills and agents coming soon, since none exist yet.
 

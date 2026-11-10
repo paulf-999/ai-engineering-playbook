@@ -58,7 +58,7 @@ This table checks the change against the [evaluation criteria for Claude config 
 ## :white_check_mark: Checklist
 
 - [ ] Pre-commit hooks pass
-- [ ] 20 files or fewer changed, or on a `release/` branch (see `docs/guides/git_branching_strategy.md`)
+- [ ] Within the PR file limit, or on a `release/` branch (see `docs/guides/git_branching_strategy.md`)
 
 ## :bulb: Best Practices
 

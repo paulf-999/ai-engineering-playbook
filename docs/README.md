@@ -1,6 +1,6 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 📚 Docs folder guide
 
 **Purpose:** what each folder under `docs/` holds, and where a new doc goes.
@@ -18,4 +18,4 @@ The folders, by reader:
 
 1. Put it in the folder for its reader, from the list above.
 2. Open it with the [version header](maintenance/file_headers.md).
-3. Start it with a **Purpose:** line, per the [markdown rubric](maintenance/quality/themes/quality_themes_markdown_files.md).
+3. Start it with a **Purpose:** line.

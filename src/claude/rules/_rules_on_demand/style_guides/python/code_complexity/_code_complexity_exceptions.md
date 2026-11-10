@@ -1,6 +1,6 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-09-29 -->
+<!-- updated: 2026-11-10 -->
 # 🚪 Complexity Exceptions
 
 **Purpose:** Document when complex code is acceptable and how to justify it.
@@ -50,7 +50,7 @@ Before submitting code for review:
 
 - [ ] CC < 10 (or documented exception)
 - [ ] LOC < 30-40 (or documented exception)
-- [ ] Nesting depth < 3 (or documented exception)
+- [ ] Nesting depth 3 or fewer (or documented exception)
 - [ ] Parameters < 5 (or documented exception)
 - [ ] Line length < 120 chars
 - [ ] One-sentence summary: Can you explain it?

@@ -1,4 +1,4 @@
-<!-- version: 3.3.7 -->
+<!-- version: 3.3.8 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-10 -->
 # 🤝 Contributing
@@ -29,7 +29,7 @@ Two valid messages:
 
 - 📄 **Template:** fill in the [PR template](pull_request_template.md).
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
-- 📏 **Size:** keep each PR to 20 files or fewer, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
+- 📏 **Size:** keep each PR within the file limit CI checks, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
 - 🗒️ **Optional details:** keep the template's Additional Details section to 5 bullets, with full GitHub URLs, since CI checks both.
 - ⚖️ **Evaluation criteria:** when the PR changes `src/claude/`, have a fresh-context reviewer agent fill the template's Evaluation criteria section, which CI checks is answered.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.

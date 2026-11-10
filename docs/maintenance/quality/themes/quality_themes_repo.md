@@ -1,4 +1,4 @@
-<!-- version: 1.1.6 -->
+<!-- version: 1.1.7 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
@@ -42,7 +42,12 @@ Process and machinery heavier than the repo needs:
 - 🧊 **Frozen between reviews:** change this rubric only at a regular review, so runs stay comparable and its edits don't drive up Upkeep cost.
 - 🔢 **Count issues:** score a judged theme by how many distinct issues it has, since a fresh reviewer always finds one or two.
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
-- 🤝 **Kept by choice:** don't mark down a folder or file that its README or parent rule marks "planned", the separate `shell_utils.sh` copies, the [tests audit](../audits/quality_audit_test_files.md) and [rules audit](../audits/quality_audit_rules.md) with their rubrics and checkers, the per-file version headers and `bump_file_headers.sh`, the budget script's scanning of skills, agents, `@` imports and a project `.claude/`, kept for the planned skills and agents, or the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
+- 🤝 **Kept by choice:** don't mark down any of these, which the user keeps on purpose:
+  - **Planned:** a folder or file that its README or parent rule marks "planned", and the budget script's scanning of skills, agents, `@` imports and a project `.claude/`.
+  - **Audits:** the [tests audit](../audits/quality_audit_test_files.md) and [rules audit](../audits/quality_audit_rules.md), with their rubrics and checkers.
+  - **Headers:** the per-file version headers and `bump_file_headers.sh`.
+  - **Review and seams:** the fresh-context reviewer that fills each config PR's evaluation criteria, and the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides the tests use.
+  - **Copies and lists:** the separate `shell_utils.sh` copies, the further-reading list in `reference_material/README.md`, and the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
 - 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `docs/maintenance/` and `.github/`.
 
 ## 🔢 Measures

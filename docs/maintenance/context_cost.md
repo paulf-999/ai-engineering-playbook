@@ -1,4 +1,4 @@
-<!-- version: 1.0.43 -->
+<!-- version: 1.0.44 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-10 -->
 # 💰 Context cost
@@ -47,7 +47,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `README.md` | ~475 |
-| 2 | `_templates/README.md` | ~889 |
+| 2 | `_templates/README.md` | ~924 |
 | 3 | `rules/_rules_on_demand/02_conduct/automation_controls.md` | ~719 |
 | 4 | `rules/_rules_on_demand/02_conduct/reporting.md` | ~165 |
 | 5 | `rules/_rules_on_demand/02_conduct/todo_logging.md` | ~179 |
@@ -56,11 +56,11 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 8 | `rules/_rules_on_demand/02_conduct/writing_style/_markdown_layout.md` | ~264 |
 | 9 | `rules/_rules_on_demand/03_workflows/git.md` | ~325 |
 | 10 | `rules/_rules_on_demand/03_workflows/saving_plans.md` | ~170 |
-| 11 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~552 |
+| 11 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~567 |
 | 12 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~410 |
 | 13 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~560 |
 | 14 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~474 |
-| 15 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~224 |
+| 15 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~187 |
 | 16 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~447 |
 | 17 | `rules/_rules_on_demand/claude_config/permission_recommendations.md` | ~154 |
 | 18 | `rules/_rules_on_demand/claude_config/portable_paths.md` | ~190 |
@@ -126,4 +126,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 78 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 79 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 80 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42858** |
+| | **Subtotal** | **~42870** |

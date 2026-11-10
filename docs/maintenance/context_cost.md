@@ -1,4 +1,4 @@
-<!-- version: 1.0.41 -->
+<!-- version: 1.0.42 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-10 -->
 # 💰 Context cost
@@ -31,16 +31,16 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `rules/_path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~196 |
 | 2 | `rules/_path_scoped_rules/style_guides/airflow.md` | `**/dags/**/*.py` | ~348 |
 | 3 | `rules/_path_scoped_rules/style_guides/bash.md` | `**/*.sh` | ~358 |
-| 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/dbt_project.yml` | ~426 |
+| 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/models/**/*.yml`, `**/dbt_project.yml` | ~439 |
 | 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~487 |
 | 6 | `rules/_path_scoped_rules/style_guides/infra/docker.md` | `**/Dockerfile*` | ~143 |
 | 7 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~479 |
 | 8 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~460 |
-| 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~440 |
+| 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~350 |
 | 10 | `rules/_path_scoped_rules/style_guides/utilities/makefile.md` | `**/Makefile`, `**/*.mk` | ~247 |
 | 11 | `rules/_path_scoped_rules/style_guides/utilities/mermaid.md` | `**/*.mmd` | ~198 |
 | 12 | `rules/_path_scoped_rules/testing.md` | `**/*.py`, `**/*.sh`, `**/*.sql` | ~216 |
-| | **Subtotal** | | **~4002** |
+| | **Subtotal** | | **~3925** |
 
 ## 💤 On demand
 
@@ -114,15 +114,16 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 66 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~500 |
 | 67 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~745 |
 | 68 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~593 |
-| 69 | `rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
-| 70 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~930 |
-| 71 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
-| 72 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~432 |
-| 73 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~464 |
-| 74 | `rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
-| 75 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
-| 76 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
-| 77 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
-| 78 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
-| 79 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42686** |
+| 69 | `rules/_rules_on_demand/style_guides/sql/_cost_guardrails.md` | ~148 |
+| 70 | `rules/_rules_on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
+| 71 | `rules/_rules_on_demand/style_guides/sql/_formatting.md` | ~930 |
+| 72 | `rules/_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
+| 73 | `rules/_rules_on_demand/style_guides/sql/_sqlfluff.md` | ~432 |
+| 74 | `rules/_rules_on_demand/style_guides/utilities/datetime.md` | ~464 |
+| 75 | `rules/_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
+| 76 | `rules/_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
+| 77 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
+| 78 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
+| 79 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
+| 80 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
+| | **Subtotal** | **~42834** |

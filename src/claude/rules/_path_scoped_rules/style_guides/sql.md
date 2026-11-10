@@ -1,5 +1,5 @@
 ---
-<!-- version: 1.6.0 -->
+<!-- version: 1.7.0 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: SQL files -->
@@ -25,22 +25,10 @@ paths:
 
 ---
 
-## 💰 Cost guardrails
-
-- **`AUTO_SUSPEND = 60`:** set on all pipeline warehouses (idle warehouses are the largest spend leak)
-- **Match warehouse size to query complexity:**
-  - XS: Simple aggregations, tests, dbt runs in dev
-  - S: Standard dbt runs in CI/prod
-  - M+: Complex transformations, join-heavy queries (should be rare)
-
-- **Validate query scans:** check query profile before merging large refactors
-  - Increased scans = increased cost; flag in the PR if bytes scanned rise by more than 20%
-
----
-
 ## 📚 Read on demand
 
 - **Read on demand:** `_rules_on_demand/style_guides/sql/_formatting.md`, in your Claude config directory, before writing or reformatting a query.
 - **Read on demand:** `_rules_on_demand/style_guides/sql/_cte_style_guide.md`, when structuring a query or model into CTEs.
 - **Read on demand:** `_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md`, when choosing a column's data type.
 - **Read on demand:** `_rules_on_demand/style_guides/sql/_sqlfluff.md`, when a SQLFluff rule fails or the config changes.
+- **Read on demand:** `_rules_on_demand/style_guides/sql/_cost_guardrails.md`, when creating or resizing a warehouse, or refactoring a large query.

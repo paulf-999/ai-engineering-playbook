@@ -1,4 +1,4 @@
-<!-- version: 3.4.28 -->
+<!-- version: 3.4.29 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-10 -->
 # 📊 Test Coverage Audit
@@ -31,11 +31,11 @@ This table counts each script's tests by their [priority score](../../test_maint
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | 2 | 1 | 2 | 0 | 5 | **13** |
 | [`Makefile`](../../../../Makefile) | 2 | 0 | 0 | 0 | 2 | **2** |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 2 | 1 | 0 | 4 | **14** |
-| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | 14 | 4 | 0 | 0 | 18 | **622** |
+| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | 14 | 4 | 0 | 0 | 18 | **628** |
 | [Rules quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_rules.py) | 2 | 1 | 0 | 0 | 3 | **5** |
 | [This audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py) | 0 | 2 | 0 | 0 | 2 | **2** |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 2 | 0 | 0 | 0 | 2 | **4** |
-| **Totals** | | | | | **102** | **780** |
+| **Totals** | | | | | **102** | **786** |
 
 ## ⭐ Quality by script
 
@@ -56,6 +56,6 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [`Makefile`](../../../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the shared good-rule example adds a moving part |
+| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | **B · 8/10** | Leanness: `test_rule_headings`, `test_rule_lists_are_short` and the emoji-H1 check in `opening_problems` check layout only; Simplicity: `PATH_SCOPED_RULE` is built by chained `.replace()` calls on the shared `GOOD_RULE` (a moving part), `test_path_scoped_rule_passes_the_checks` and `test_child_check_can_fail` each assert several things |
 | [Rules quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_rules.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Core coverage: no bad-header case for a markdown file or one with YAML front matter |

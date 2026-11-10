@@ -1,10 +1,9 @@
 ---
-<!-- version: 1.7.0 -->
+<!-- version: 1.7.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: SQL files -->
 <!-- miss_cost: low — SQL drifts from the house style and needs reformatting -->
-<!-- loading: path-scoped — loads with SQL files -->
 paths:
   - "**/*.sql"
 ---

@@ -1,4 +1,4 @@
-<!-- version: 1.1.3 -->
+<!-- version: 1.1.4 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-10 -->
 # 📝 Authoring rules
@@ -20,7 +20,7 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 - 🆕 **New-file gap:** a path-scoped rule loads only once a matching file is open, so point to it on demand too, for the first file of its kind.
 - 🧩 **Children:** name each child in its parent, and keep links to other files in those pointer lines rather than a Related section.
 - 🧪 **Test the pointer:** run a lean session on a matching task, and check Claude reads the file before acting.
-- 🧾 **Usage lines:** give each entry-point rule `applies_to`, `miss_cost` and `loading` lines straight after its header, with `loading` set to `always-on`, `path-scoped` or `on demand` to match its folder, and its children inherit them.
+- 🧾 **Usage lines:** give each entry-point rule `applies_to` and `miss_cost` lines straight after its header, since its folder already sets how it loads, and its children inherit them.
 
 ## ✅ Before merging
 

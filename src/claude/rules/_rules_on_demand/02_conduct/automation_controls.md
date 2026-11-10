@@ -1,9 +1,8 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-07 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — an unattended loop runs on and overspends -->
-<!-- loading: on demand — read when behaviour.md's loop pointer sends Claude here -->
 # ⚙️ Automation controls
 
 **Purpose:** when to hand a task to a loop, such as `/loop`, `/goal`, `/batch` or a multi-agent workflow, and the caps and stop steps that keep one from overspending.

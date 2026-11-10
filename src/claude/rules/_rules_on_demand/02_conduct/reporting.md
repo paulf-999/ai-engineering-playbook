@@ -1,9 +1,8 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.0.2 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — Claude claims unchecked work, or a long task can't be resumed -->
-<!-- loading: on demand — read when behaviour.md's reporting pointer sends Claude here -->
 # 📣 Reporting
 
 **Purpose:** how Claude reports on a task while it works and when it finishes.

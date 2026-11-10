@@ -1,4 +1,4 @@
-<!-- version: 1.7.1 -->
+<!-- version: 1.7.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🧱 Design principles: Principles
@@ -9,7 +9,7 @@ They're part of this repo's [design principles](../design_principles.md), which 
 
 | Principle | What it means | Checked by | Source |
 |---|---|---|---|
-| 🌱 **Minimal by default** | Beyond the [required core](../target_architecture.md#-tiers) of `CLAUDE.md`, tests and CI, everything is optional. | A budget check on context loaded every session | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md) |
+| 🌱 **Minimal by default** | Beyond the [required core](../target_architecture.md#-tiers) of `CLAUDE.md`, the always-on rules, tests and CI, everything is optional. | A budget check on context loaded every session | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md) |
 | 💰 **Every component earns its cost** | It earns its place during a trial that ends at the next review, and each old file is reviewed for bloat first. | Its PR's answers to the [evaluation criteria](02_evaluation_criteria.md) | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md), plus [DORA research](../reference_material/core/dora_ai_capabilities/03_findings.md) on irrelevant context |
 | 🔒 **Enforce what must hold** | Use a hook, test or CI check, not prose. | The PR naming that check | [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc/04_our_reading.md) |
 | 🔁 **No duplicate controls** | A rule never restates a CI or pre-commit check. | The "No duplicate" criterion | [Handover review](../reference_material/core/handover_review.md) |

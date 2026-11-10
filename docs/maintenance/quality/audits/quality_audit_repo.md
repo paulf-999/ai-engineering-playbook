@@ -1,4 +1,4 @@
-<!-- version: 1.0.9 -->
+<!-- version: 1.0.10 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Audit
@@ -11,13 +11,13 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 
 | Date | Proportionality | Evidence of need | Single source | Always-on headroom | Placeholders | **Bloat** |
 |---|---|---|---|---|---|---|
-| 2026-11-10 | ✅ 2 | ✅ 2 | ❌ 0 | 🟡 1 | ✅ 2 | **7/10** |
+| 2026-11-10 | ✅ 2 | ❌ 0 | ❌ 0 | ✅ 2 | ✅ 2 | **6/10** |
 
 ## 🏗️ Over-engineering
 
 | Date | Cross-file consistency | Upkeep cost | Process weight | Simplest mechanism | Built for today | **Over-engineering** |
 |---|---|---|---|---|---|---|
-| 2026-11-10 | ❌ 0 | ❌ 0 | ✅ 2 | 🟡 1 | 🟡 1 | **4/10** |
+| 2026-11-10 | ❌ 0 | ❌ 0 | ✅ 2 | 🟡 1 | ❌ 0 | **3/10** |
 
 ## 🔍 Why the latest scores
 
@@ -25,19 +25,19 @@ Each theme below ✅, with what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | 4 duplicates: `authoring_guidelines.md` repeats three `guiding_principles.md` points, the 110-line limit is written in four files, `naming_standards.md` "Offer options" repeats `behaviour.md` "Present options", and the skill and agent name patterns sit in `claude_naming_patterns.md`, `_authoring_skills.md`, `_authoring_agents.md` and the templates | Finding 3 |
-| 📦 **Always-on headroom** | ~2,278 tokens is 76% of the budget, just over the 75% line | Trim about 30 tokens (finding 2) |
-| 🔗 **Cross-file consistency** | 4 contradictions: `target_architecture.md`'s tiers have no place for always-on rules, `behaviour.md` "several files" against its `reporting.md` pointer's "many files or turns", `reporting.md` writes to `~/_sessions/` against `portable_paths.md`, and `authoring_guidelines.md` points to a hook pattern that `claude_naming_patterns.md` no longer has | Finding 5 |
-| 🔁 **Upkeep cost** | 26 of the last 50 commits touch `docs/maintenance/` other than to record a review | Finding 1 |
-| 🪜 **Simplest mechanism** | 2 heavier than needed: the rules and test audits each keep a hand-scored table and checker, where `test_rules_structure.py` and the MoSCoW grep already cover most of it | Finding 1 |
-| 🔮 **Built for today** | 3 unused: five of the seven colours in `variables.mk`, `dir_exists` in `shell_utils.sh`, and the untracked `.claude/` root in `claude_validate_always_on_budget.sh` | Finding 4 |
+| 🧾 **Evidence of need** | 10 further-reading summaries under `reference_material/further_reading/`, which their own README says nothing in the design links to yet | Finding 1 |
+| 🎯 **Single source** | 7 duplicates, among them the 20-file PR limit in five files, the 110-line limit in three, and the parent and child repeats in `airflow.md`, `ansible.md` and the `code_complexity` family | Finding 4 |
+| 🔗 **Cross-file consistency** | 5 contradictions: the PR template names a `code_reviewer` agent that doesn't exist, `target_architecture.md` and `01_principles.md` leave always-on rules out of the required core, `test_maintenance.md` says "every few months" against the regular review, the budget script's env var raises the ceiling without a PR, and `01_principles.md` says the repo review checks outcomes it no longer records | Finding 5 |
+| 🔁 **Upkeep cost** | 28 of the last 50 commits touch `docs/maintenance/` other than to record a review | Fewer audit edits per PR |
+| 🪜 **Simplest mechanism** | 3 heavier than needed: rule scoring, the PR evaluation table, whose author rows repeat checked numbers, and the version-header machinery | Findings 2 and 3 |
+| 🔮 **Built for today** | 5 unused: the budget script's `.claude/` root, the hook row in the PR criteria, the `applies_to` and `miss_cost` header lines, `MAX_FILES_ALLOWED`, and the PR template's UAT checkbox | Finding 3 |
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 🗑️ **Per-file audits:** retire `quality_audit_rules.md`, `quality_audit_test_files.md`, their rubrics, checkers and `_audit_tables.py`, keeping the MoSCoW grep and test in `test_maintenance.md`.
-2. 📦 **Always-on trim:** move `naming_standards.md` on demand, or at least drop its "Offer options", which `behaviour.md` "Present options" covers.
-3. 🎯 **One place per point:** cut the `authoring_guidelines.md` bullets that repeat `guiding_principles.md`, and keep name patterns only in `claude_naming_patterns.md`.
-4. 🔮 **Unused capacity:** drop the five unused colours in `variables.mk`, `dir_exists` and its test, and the `.claude/` root in `claude_validate_always_on_budget.sh`.
-5. 🔗 **Contradictions:** give always-on rules a tier in `target_architecture.md`, give `behaviour.md` and `reporting.md` one threshold, move the `reporting.md` checkpoints into the config directory, and drop "hook" from the naming pointer in `authoring_guidelines.md`.
+1. 📚 **Further reading:** cut the 10 summaries under `reference_material/further_reading/`, or link them from the design.
+2. 🏷️ **Version headers:** replace `bump_file_headers.sh`, its test, `test_file_metadata_headers.py` and `file_headers.md` with git history.
+3. 🧮 **PR evaluation table:** drop the author rows the budget check already covers, merge Cost into Always-on weight, and drop the hook row and UAT checkbox.
+4. 🎯 **One place per fact:** keep the 20-file and 110-line limits in one place each, and trim the parent and child repeats.
+5. 🔗 **Contradictions:** fix the reviewer name, the required core, the review timing, the budget override and the outcomes claim.

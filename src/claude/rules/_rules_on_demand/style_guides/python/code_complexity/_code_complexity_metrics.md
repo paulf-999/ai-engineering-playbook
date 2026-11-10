@@ -1,6 +1,6 @@
-<!-- version: 1.0.3 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-08 -->
+<!-- updated: 2026-11-10 -->
 # 📐 Complexity Metrics
 
 **Purpose:** Explain the cyclomatic and cognitive complexity scores, their thresholds and how to measure them.
@@ -19,7 +19,7 @@
 - **6-10**: Moderate, acceptable
 - **11+**: Complex, refactor needed
 
-**Tool:** `radon cc src/py/airbyte_manager/ -a`
+**Tool:** `radon cc <package> -a`, or ruff's `C901` rule.
 
 **Example (CC=3):**
 

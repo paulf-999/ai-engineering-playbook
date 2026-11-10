@@ -1,4 +1,4 @@
-<!-- version: 1.1.5 -->
+<!-- version: 2.0.0 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: **/*.py -->
@@ -6,111 +6,24 @@
 <!-- loading: on demand — read when python.md's complexity pointer sends Claude here -->
 # 📊 Code Complexity
 
-**Purpose:** Establish metrics to identify and prevent overly complex Python code. Reduces mental load and improves maintainability.
+**Purpose:** the limits that keep a Python function easy to read and change, and the ruff and radon checks that measure each.
 
----
+## ⚡ Limits
 
-## 📋 Contents
+| Metric | Limit | Check |
+|---|---|---|
+| **Cyclomatic complexity** | 10 or fewer | ruff `C901`, whose default `max-complexity` is 10, or `radon cc` |
+| **Function length** | Aim for 30 lines, and split past 40 | ruff `PLR0915`, which counts statements rather than lines, so set `max-statements` to match |
+| **Nesting depth** | 3 levels or fewer | ruff `PLR1702`, a preview rule |
+| **Parameters** | 4 or fewer | ruff `PLR0913`, with `max-args = 4` |
+| **Line length** | 120 characters or fewer | ruff `E501` |
 
-- [Overview](#-overview)
-- [Single responsibility](#-single-responsibility-principle)
-- [Quick reference](#-quick-reference)
-- [Detailed metrics](#-detailed-metrics) — See `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`
-- [Escape hatches](#-escape-hatches) — See `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md`
+- 🗣️ **One-sentence test:** if you can't say what a function does in one sentence, split it.
+- 🔧 **Check, don't eyeball:** where a repo's ruff config lacks these rules, add them rather than checking by hand.
+- 🚪 **Over a limit:** refactor, or say why in the docstring, as the exceptions file shows.
 
----
+## 📚 Read on demand
 
-## 🎯 Overview
-
-**Why it matters:** Complex code is hard to understand, maintain, and test. Mental load increases risk of bugs.
-
-**Two types of complexity:**
-
-1. **Structural** — decision points, nesting, parameters (measured by metrics)
-2. **Cognitive** — how hard it is for humans to understand (measured by readability)
-
-**Approach:** Use metrics as early warning signs. When metrics exceed thresholds, refactor or document why.
-
----
-
-## 🎯 Single Responsibility Principle
-
-**Each function should do one thing and do it well.**
-
-**Indicators that a function does too much:**
-
-- **High LOC:** > 30-40 lines suggests multiple responsibilities
-- **High CC:** > 10 suggests multiple decision paths
-- **Hard to name:** Can't explain in one sentence = too many responsibilities
-- **Multiple reasons to change:** Each reason suggests a separate responsibility
-
-**How to split:**
-
-- Extract helpers for distinct concerns (e.g., setup logic separate from main logic)
-- Use descriptive function names to clarify purpose
-- Group related parameters together
-
-**Example (too much responsibility):**
-
-```python
-def process_data(items, config, output_dir):
-    # Validate items
-    for item in items:
-        if not validate(item):
-            raise ValueError(...)
-
-    # Transform items
-    transformed = [transform(item) for item in items]
-
-    # Write output
-    write_results(transformed, output_dir)
-```
-
-**Better (split into helpers):**
-
-```python
-def process_data(items, config, output_dir):
-    validate_items(items)
-    transformed = transform_items(items)
-    write_results(transformed, output_dir)
-```
-
----
-
-## ⚡ Quick Reference
-
-| Metric | Target | Tool |
-|--------|--------|------|
-| **Cyclomatic Complexity** | < 10 | `radon cc` |
-| **Lines of Code** | < 30-40 | ruff `PLR0915` |
-| **Nesting Depth** | 3 or fewer | ruff `PLR1702` |
-| **Parameters** | < 5 | Manual review |
-| **Line Length** | < 120 chars | `ruff check` |
-
-**Readability test:** Can you explain the function in one sentence?
-
----
-
-## 📐 Detailed Metrics
-
-Full explanation of each metric, thresholds, and examples:
-
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for cyclomatic and cognitive complexity.
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for the length, nesting, parameter and line-length limits.
-
----
-
-## 🚪 Escape Hatches
-
-When complex code is acceptable and how to document it:
-
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md`, in your Claude config directory, for the detail of this section.
-
----
-
-## 🛠️ Workflow
-
-1. **Before submitting:** Run `radon cc` and `ruff check`
-2. **If metrics exceed thresholds:** Refactor or document exception
-3. **If documented:** Add comments explaining why complexity is necessary
-4. **Review checklist:** Use scorecard in exceptions doc
+- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for what cyclomatic and cognitive complexity measure.
+- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for why each size limit exists and how to get under it.
+- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md`, in your Claude config directory, before accepting code over a limit.

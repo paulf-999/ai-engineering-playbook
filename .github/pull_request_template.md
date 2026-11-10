@@ -24,7 +24,7 @@ Choose one:
 > [!TIP]
 > **✅ Safe to approve:** [the reviewer's one-sentence verdict, such as "no red flags, and always-on context stays within budget". If a red flag or failed check is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]
 
-[Needed when the PR changes `src/claude/`: the verdict callout above, then the table, with one row per standard. The author fills the Author rows with numbers from the scripts, and a fresh-context reviewer, such as the `code_reviewer` agent, given only the diff and the evaluation criteria, fills the Reviewer rows and the verdict. Result is ✅ Aligned, ❌ Misaligned or ⏳ Not yet due. Otherwise, write "Not applicable" in place of the callout, the sentences above the table and the table.]
+[Needed when the PR changes `src/claude/`: the verdict callout above, then the table, with one row per standard. The author fills the Author rows with numbers from the scripts, and a fresh-context reviewer agent, given only the diff and the evaluation criteria, fills the Reviewer rows and the verdict. Result is ✅ Aligned, ❌ Misaligned or ⏳ Not yet due. Otherwise, write "Not applicable" in place of the callout, the sentences above the table and the table.]
 
 This table checks the change against the [evaluation criteria for Claude config components](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md), the standards each rule, skill, hook or agent in `src/claude/` must meet to keep the config lean and evidence-led. Each row is one standard, and Result says whether the change meets it.
 

@@ -75,6 +75,8 @@ Run its measures, score each theme, and cite a path for each judged 🟡 or ❌.
 Return the measures, the ten theme scores with a reason each,
 the Bloat and Over-engineering totals, and up to 5 findings ranked by how much
 they would cut, each naming the files involved.
+Don't open docs/maintenance/quality/audits/quality_audit_repo.md, which holds
+the last run's scores.
 ```
 
 ## 📊 Where scores live

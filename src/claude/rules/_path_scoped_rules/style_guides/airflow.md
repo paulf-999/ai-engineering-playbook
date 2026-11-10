@@ -1,10 +1,9 @@
 ---
-<!-- version: 1.6.0 -->
+<!-- version: 1.6.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: Airflow DAG files -->
 <!-- miss_cost: medium — DAGs fail or retry badly and need reworking -->
-<!-- loading: path-scoped — loads with DAG files -->
 paths:
   - "**/dags/**/*.py"
 ---

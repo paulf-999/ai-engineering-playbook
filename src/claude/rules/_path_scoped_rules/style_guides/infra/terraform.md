@@ -1,10 +1,9 @@
 ---
-<!-- version: 1.5.2 -->
+<!-- version: 1.5.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: Terraform files -->
 <!-- miss_cost: medium — infrastructure code drifts from the team's layout and needs reworking -->
-<!-- loading: path-scoped — loads with Terraform files -->
 paths:
   - "**/*.tf"
 ---

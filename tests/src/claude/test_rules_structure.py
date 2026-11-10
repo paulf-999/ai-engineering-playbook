@@ -1,4 +1,4 @@
-# version: 1.2.0
+# version: 1.2.1
 # created: 2026-11-05
 # updated: 2026-11-10
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -7,12 +7,16 @@ Also checks that each gate can fail, using small broken examples.
 """
 
 import re
+import subprocess
 
 import pytest
 import yaml
 from _paths import REPO_ROOT
 
 CONFIG_DIR = REPO_ROOT / "src" / "claude"
+
+# the shared shell helpers, whose count_loaded_chars is the one token estimate the scripts and this test use
+SHELL_UTILS = REPO_ROOT / "src" / "sh" / "shell_utils.sh"
 RULES_DIR = CONFIG_DIR / "rules"
 RULE_FILES = sorted(RULES_DIR.rglob("*.md"))
 MAX_LINES = 110
@@ -49,8 +53,8 @@ def header_block(lines):
     frontmatter, body = split_frontmatter(lines)
     # this repo puts a path-scoped rule's header inside its '---' block, as the file-header test expects
     source = frontmatter if frontmatter else body
-    # the 3 header lines, then up to 3 usage lines: applies_to, miss_cost and loading
-    return [line for line in source if line.startswith("<!--")][: len(HEADER_FIELDS) + 3]
+    # the 3 header lines, then up to 2 usage lines: applies_to and miss_cost
+    return [line for line in source if line.startswith("<!--")][: len(HEADER_FIELDS) + 2]
 
 
 def prose_lines(lines):
@@ -101,8 +105,17 @@ def size_problems(text):
 
 
 def token_estimate(text):
-    """Return the file's cost in tokens, estimated as characters ÷ 4 without HTML comments, as in context_cost.md."""
-    return round(len(re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)) / 4)
+    """Return the text's cost in tokens, from the shell's count_loaded_chars, divided by 4 as context_cost.md is."""
+    # sourcing shell_utils.sh and reading stdin keeps the comment-stripping in one place, shared with the scripts,
+    # and use_utf8_locale makes wc count characters rather than bytes, as the scripts do
+    result = subprocess.run(
+        ["bash", "-c", f'source "{SHELL_UTILS}" && use_utf8_locale && count_loaded_chars /dev/stdin'],
+        input=text,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return int(result.stdout) // 4
 
 
 def read_cost_problems(text):
@@ -152,33 +165,20 @@ def list_problems(text):
     return problems
 
 
-def expected_loading(rule_path):
-    """Return the loading value a rule's folder implies."""
-    if rule_path.startswith("_rules_on_demand/"):
-        return "on demand"
-    if rule_path.startswith("_path_scoped_rules/"):
-        return "path-scoped"
-    return "always-on"
-
-
-def usage_problems(text, rule_path):
-    """Return problems with an entry-point rule's applies_to, miss_cost and loading lines."""
+def usage_problems(text):
+    """Return problems with an entry-point rule's applies_to and miss_cost lines."""
     lines = text.split("\n")
     header = header_block(lines)
     # each usage line reads <!-- field: value -->, so collect them as a field-to-value mapping
-    values = dict(re.findall(r"<!-- (applies_to|miss_cost|loading): (.+?) -->", "\n".join(header)))
+    values = dict(re.findall(r"<!-- (applies_to|miss_cost): (.+?) -->", "\n".join(header)))
     problems = [
         f"an entry-point rule needs a '{field}' line after its header"
-        for field in ("applies_to", "miss_cost", "loading")
+        for field in ("applies_to", "miss_cost")
         if field not in values
     ]
     # a value is the allowed word, then an em-dash and a reason, such as "low — style drift"
     if "miss_cost" in values and not re.fullmatch(rf"({'|'.join(MISS_COSTS)}) — .+", values["miss_cost"]):
         problems.append(f"miss_cost must be low, medium or high, then ' — ' and a reason: {values['miss_cost']!r}")
-    if "loading" in values:
-        expected = expected_loading(rule_path)
-        if not re.fullmatch(rf"{expected} — .+", values["loading"]):
-            problems.append(f"loading must be '{expected}', then ' — ' and a reason, for a rule in this folder")
     return problems
 
 
@@ -251,15 +251,15 @@ def test_rule_lists_are_short(path):
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Must — the loading line must match where the rule lives, so it can't drift
+# MoSCoW: Must — every entry-point rule must say what it applies to and what missing it costs
 @pytest.mark.parametrize(
     "path",
     [path for path in RULE_FILES if is_entry_point(path)],
     ids=relative,
 )
 def test_entry_point_has_usage_lines(path):
-    """Each entry-point rule has applies_to, miss_cost and loading lines, with loading matching its folder."""
-    problems = usage_problems(path.read_text(), relative(path))
+    """Each entry-point rule has applies_to and miss_cost lines, with miss_cost giving a level and a reason."""
+    problems = usage_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
@@ -347,7 +347,7 @@ def test_every_pointer_target_exists():
 
 GOOD_RULE = (
     "<!-- version: 1.0.0 -->\n<!-- created: 2026-11-05 -->\n<!-- updated: 2026-11-05 -->\n"
-    "<!-- applies_to: * -->\n<!-- miss_cost: low — style drift -->\n<!-- loading: on demand — read on demand -->\n"
+    "<!-- applies_to: * -->\n<!-- miss_cost: low — style drift -->\n"
     "# 🧪 Example\n\n**Purpose:** an example rule.\n\n## 🔢 Points\n\n- **One:** a point.\n"
 )
 
@@ -393,30 +393,25 @@ def test_list_check_skips_uncounted_bullets(bullet):
     assert not list_problems(GOOD_RULE + (bullet + "\n") * 6 + "- **P:** x.\n" * 4)
 
 
-# MoSCoW: Must — usage lines must fail when missing or when loading disagrees with the folder
+# MoSCoW: Must — usage lines must fail when missing or malformed
 @pytest.mark.parametrize(
-    ("text", "rule_path", "expected"),
+    ("text", "expected"),
     [
-        (
-            GOOD_RULE.replace("<!-- loading: on demand — read on demand -->\n", ""),
-            "_rules_on_demand/x.md",
-            "'loading' line",
-        ),
-        (GOOD_RULE, "01_standards/x.md", "loading must be 'always-on'"),
-        (GOOD_RULE.replace("low — style drift", "tiny"), "_rules_on_demand/x.md", "miss_cost must be"),
+        (GOOD_RULE.replace("<!-- applies_to: * -->\n", ""), "'applies_to' line"),
+        (GOOD_RULE.replace("low — style drift", "tiny"), "miss_cost must be"),
     ],
 )
-def test_usage_check_can_fail(text, rule_path, expected):
-    """The usage-line check passes a correct on-demand rule and flags each broken example."""
-    assert not usage_problems(GOOD_RULE, "_rules_on_demand/x.md"), "a correct on-demand rule should pass"
-    problems = usage_problems(text, rule_path)
+def test_usage_check_can_fail(text, expected):
+    """The usage-line check passes a correct rule and flags each broken example."""
+    assert not usage_problems(GOOD_RULE), "a correct rule should pass"
+    problems = usage_problems(text)
     assert any(expected in problem for problem in problems), f"missed it: {problems}"
 
 
 # inside the '---' block, applies_to is in plain words, since a value starting with '*' breaks the YAML
 PATH_SCOPED_RULE = "---\n" + GOOD_RULE.replace("# 🧪", "paths:\n  - '*.sql'\n---\n# 🧪").replace(
-    "on demand — read on demand", "path-scoped — loads with SQL files"
-).replace("applies_to: *", "applies_to: SQL files")
+    "applies_to: *", "applies_to: SQL files"
+)
 
 
 # MoSCoW: Should — path-scoped rules keep their header inside the '---' block, and must still pass
@@ -424,9 +419,7 @@ def test_path_scoped_rule_passes_the_checks():
     """A rule with a 'paths:' block, header and usage lines inside it, passes the opening and usage checks."""
     assert not frontmatter_problems(PATH_SCOPED_RULE), frontmatter_problems(PATH_SCOPED_RULE)
     assert not opening_problems(PATH_SCOPED_RULE), opening_problems(PATH_SCOPED_RULE)
-    assert not usage_problems(PATH_SCOPED_RULE, "_path_scoped_rules/x.md"), "a correct path-scoped rule should pass"
-    problems = usage_problems(PATH_SCOPED_RULE, "_rules_on_demand/x.md")
-    assert any("loading must be 'on demand'" in problem for problem in problems), f"missed it: {problems}"
+    assert not usage_problems(PATH_SCOPED_RULE), "a correct path-scoped rule should pass"
 
 
 # MoSCoW: Must — the frontmatter check must fail for YAML that won't parse, a missing list or no block at all

@@ -1,4 +1,4 @@
-<!-- version: 1.0.4 -->
+<!-- version: 1.0.5 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
@@ -79,4 +79,4 @@ they would cut, each naming the files involved.
 
 ## 📊 Where scores live
 
-The [audit](../audits/quality_audit_repo.md) holds one row per run and the current findings.
+The [audit](../audits/quality_audit_repo.md) holds the latest run's scores, the outcomes by review and the current findings.

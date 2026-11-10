@@ -1,4 +1,4 @@
-<!-- version: 1.8.6 -->
+<!-- version: 1.8.7 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # ✅ Design principles: Evaluation criteria
@@ -10,7 +10,7 @@ This page is part of the [design principles](../design_principles.md), which als
 A PR that changes `src/claude/` answers these checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), which sets the table and verdict format, and CI fails it if that section is unanswered.
 
 - 🕵️ **Reviewer judges:** a fresh-context reviewer agent gets only the diff and this page, and fills the table and the verdict, so no author marks their own change.
-- 🧮 **CI measures:** pre-commit and the tests already check Cost and On-demand cost, so the table leaves them out, along with Per-turn overhead until the config has a hook.
+- 🧮 **CI measures:** pre-commit and the tests already check Cost and On-demand cost, so the table leaves them out, along with Per-turn overhead while no hook fires every turn.
 
 ## 🚪 Review each file
 

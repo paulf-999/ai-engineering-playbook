@@ -1,12 +1,13 @@
 #!/bin/bash
-# version: 1.2.2
+# version: 1.3.0
 # created: 2026-11-04
-# updated: 2026-11-05
+# updated: 2026-11-10
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
 #              On-demand files in rules/_rules_on_demand/ go beside rules/, since Claude Code loads everything under rules/
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed
+#              It also registers the config's hooks in settings.json, keeping every setting already there
 # Usage: src/sh/claude_install_config.sh (run from the repo root, at your own terminal; make install calls it)
 
 # Load reusable shell script vars & functions
@@ -33,6 +34,10 @@ SOURCE_FILES=()
 TARGET_PATHS=""
 # files the last install wrote that the repo no longer has, set by list_removed_files
 REMOVED_FILES=()
+# settings.json holds personal settings, so install merges the hook into it rather than copying a file over it
+SETTINGS="${TARGET_DIR}/settings.json"
+# an absolute path, since hook commands in user settings can't refer to CLAUDE_CONFIG_DIR
+PLAN_HOOK_COMMAND="bash \"${TARGET_DIR}/hooks/hook_enforcement_plan_sections.sh\""
 
 #=======================================================================
 # Functions
@@ -90,6 +95,7 @@ confirm_install() {
             echo "  ${file}"
         done
     fi
+    echo "It also adds the plan sections hook to ${SETTINGS}, if it isn't there yet."
     echo "Each file it overwrites or removes is backed up to ${BACKUP_DIR} first."
     read -r -p "Type 'install' to continue: " answer || true
     if [[ "${answer}" != "install" ]]; then
@@ -131,6 +137,40 @@ remove_old_files() {
     printf '%s' "${TARGET_PATHS}" > "${MANIFEST}"
 }
 
+# Add the plan sections hook to settings.json, backing up the old file, unless it's already registered
+register_hooks() {
+    local current updated
+    if ! command -v jq > /dev/null; then
+        log_message "${WARNING}" "jq isn't installed, so the plan sections hook wasn't added to ${SETTINGS}."
+        return 0
+    fi
+    current="{}"
+    if file_exists "${SETTINGS}"; then
+        # a settings file jq can't read is left alone, rather than replaced
+        if ! current="$(jq '.' "${SETTINGS}" 2> /dev/null)"; then
+            log_message "${WARNING}" "${SETTINGS} isn't valid JSON, so the plan sections hook wasn't added."
+            return 0
+        fi
+        if jq -e --arg command "${PLAN_HOOK_COMMAND}" \
+            '[.hooks.PreToolUse[]?.hooks[]?.command] | index($command)' <<< "${current}" > /dev/null; then
+            return 0
+        fi
+        mkdir -p "${BACKUP_DIR}"
+        cp -p "${SETTINGS}" "${BACKUP_DIR}/settings.json"
+    fi
+    # a PreToolUse value that isn't a list can't take the hook, so it's reported rather than aborting the install
+    if ! updated="$(jq --arg command "${PLAN_HOOK_COMMAND}" \
+        '.hooks.PreToolUse += [{matcher: "ExitPlanMode", hooks: [{type: "command", command: $command}]}]' \
+        <<< "${current}" 2> /dev/null)"; then
+        log_message "${WARNING}" "${SETTINGS} has a hooks.PreToolUse that isn't a list, so the hook wasn't added."
+        return 0
+    fi
+    # write a temporary file, then move it, so a failed write can't leave settings.json half written
+    printf '%s\n' "${updated}" > "${SETTINGS}.tmp"
+    mv "${SETTINGS}.tmp" "${SETTINGS}"
+    log_message "${INFO}" "Added the plan sections hook to ${SETTINGS}."
+}
+
 #=======================================================================
 # Main script logic
 #=======================================================================
@@ -141,5 +181,6 @@ list_removed_files
 confirm_install
 install_files
 remove_old_files
+register_hooks
 
 print_section_header "${DEBUG}" "Script execution completed." && echo

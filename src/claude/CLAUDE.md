@@ -1,6 +1,6 @@
-<!-- version: 1.3.3 -->
+<!-- version: 1.4.0 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🧠 Global Claude configuration
 
 ## 🧭 Behavioural Guidelines
@@ -39,7 +39,7 @@
 **Define success criteria, then loop until they're verified.**
 
 - 🧪 **Make it checkable:** turn each task into a test, such as one that reproduces a bug, then make it pass, and confirm a refactor passes before and after.
-- 📋 **Plan with checks:** for multi-step work, list each step with the check that proves it's done.
+- 📋 **Plan with checks:** for multi-step work, open the plan with its intent, the why and the success criteria, and its spec, the requirements, then list each step with the check that proves it's done.
 
 ## ⚙️ Changing Claude's config
 

@@ -15,14 +15,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `CLAUDE.md` | ~544 |
+| 1 | `CLAUDE.md` | ~570 |
 | 2 | `rules/01_standards/claude_response_standards.md` | ~219 |
 | 3 | `rules/01_standards/naming_standards.md` | ~256 |
 | 4 | `rules/02_conduct/behaviour.md` | ~354 |
 | 5 | `rules/02_conduct/security.md` | ~205 |
 | 6 | `rules/02_conduct/writing_style.md` | ~340 |
 | 7 | `rules/03_workflows/claude_plans.md` | ~161 |
-| | **Subtotal** | **~2082** |
+| | **Subtotal** | **~2107** |
 
 ## 📂 Path-scoped rules
 

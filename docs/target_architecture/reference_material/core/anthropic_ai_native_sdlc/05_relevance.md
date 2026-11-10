@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 🎯 AI-native SDLC course: Relevance to this playbook
 
 **Purpose:** which of the course's plays suit this repo, as a proposal not yet adopted.
@@ -9,8 +9,8 @@ This page is part of the [summary of Anthropic's SDLC course](../anthropic_ai_na
 
 | Play | Proposed | Why |
 |---|---|---|
-| 📝 Capture intent, requirements and design | Adapt | One intent-and-spec file per change suits a single maintainer, who also acts as product owner |
-| 🗺️ Plan mode and `plan.md` | Adopt | Committing each plan as `plan.md` is the missing step |
+| 📝 Capture intent, requirements and design | Adapt | Intent and Spec sections at the top of each plan suit a single maintainer, who also acts as product owner |
+| 🗺️ Plan mode and `plan.md` | Adapt | Plans stay in the Claude config directory, since this repo's config is installed there rather than worked on in each repo |
 | 📘 `CLAUDE.md` | Adopt | Its one-page limit, and adding a fix once Claude repeats a mistake, are both easy to check |
 | 🧠 Skills | Adapt | Only for knowledge that must be applied consistently, backed by a hook or CI check |
 | 🔀 Parallel sessions and subagents | Adapt | Separate checkouts fit, but one reviewer limits how many sessions help |

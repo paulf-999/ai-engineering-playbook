@@ -1,4 +1,4 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
@@ -41,7 +41,7 @@ Process and machinery heavier than the repo needs:
 - 📍 **Judged themes:** each 🟡 or ❌ for the other five must cite a path.
 - 🔢 **Count issues:** score a judged theme by how many distinct issues it has, since a fresh reviewer always finds one or two.
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
-- 🤝 **Kept by choice:** don't mark down a folder or file that its README or parent rule marks "planned", the separate `shell_utils.sh` copies, or the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
+- 🤝 **Kept by choice:** don't mark down a folder or file that its README or parent rule marks "planned", the separate `shell_utils.sh` copies, the [tests audit](../audits/quality_audit_test_files.md) and its checker, or the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
 - 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `docs/maintenance/` and `.github/`.
 
 ## 🔢 Measures

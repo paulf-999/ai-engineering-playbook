@@ -1,6 +1,6 @@
-# version: 1.1.4
+# version: 1.1.5
 # created: 2022-11-04
-# updated: 2026-11-09
+# updated: 2026-11-10
 SHELL = /bin/sh
 
 #================================================================
@@ -9,10 +9,9 @@ SHELL = /bin/sh
 # make help		# list the available targets
 # make deps		# install the dependencies and git hooks
 # make install		# copy src/claude/ into your Claude config directory
-# make run		# launch the service
 # make test		# run the tests (pytest)
 # make context_cost	# rewrite docs/maintenance/context_cost.md from src/claude/
-# make clean		# perform a housekeeping cleanup
+# make clean		# delete the pytest, ruff and Python caches
 
 #=======================================================================
 # Variables
@@ -41,9 +40,6 @@ install:
 	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${CLAUDE_CONFIG_DIR:-$$HOME/.claude}.${COLOUR_OFF}"
 	@bash src/sh/claude_install_config.sh
 
-run:
-	@echo "${INFO}\nCalled makefile target 'run'. Launch service.${COLOUR_OFF}\n"
-
 context_cost:
 	@bash src/sh/claude_report_context_cost.sh
 
@@ -52,10 +48,11 @@ test:
 	@pytest
 
 clean:
-	@echo "${INFO}\nCalled makefile target 'clean'. Restoring the repository to its initial state.${COLOUR_OFF}\n"
+	@rm -rf .pytest_cache .ruff_cache
+	@find src tests -name __pycache__ -type d -prune -exec rm -rf {} +
 
 # Phony targets
-.PHONY: all help deps install run test clean context_cost
+.PHONY: all help deps install test clean context_cost
 
 # .PHONY tells Make that these targets don't represent files
 # This prevents conflicts with any files named "all" or "clean"

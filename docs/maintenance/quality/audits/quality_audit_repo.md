@@ -1,4 +1,4 @@
-<!-- version: 1.0.12 -->
+<!-- version: 1.0.13 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Audit
@@ -9,25 +9,27 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 
 ## 💬 Component feedback
 
-How each Claude config component fared in the session transcripts since the last review, as the [target architecture](../../../target_architecture/target_architecture.md#-measures) asks:
+How each Claude config component fared in the session transcripts since the last review, as the [target architecture](../../../target_architecture/target_architecture.md#-measures) asks. The installed config was from before #135, so newer components had no runtime trial:
 
 | Component | Effect | Evidence |
 |---|---|---|
-| `02_conduct/behaviour.md` | Helped | "Ask before big changes" and "Present options" led to plans and naming choices confirmed before multi-file edits |
-| `_rules_on_demand/03_workflows/git.md` | Helped | "Clean index" and "Unfamiliar changes" kept other sessions' branches and files out of this session's commits |
-| `_rules_on_demand/02_conduct/reporting.md`, Checkpoints | Unused | "Checkpoints" never fired, though one session spanned more than 15 PRs |
+| `03_workflows/claude_plans.md`, phase gates | Helped | The user drove multi-phase work one phase at a time, such as "i've merged 24, start phase 4" |
+| `_rules_on_demand/03_workflows/saving_plans.md` | Helped | Read from the installed path twice, and approved plans landed in `_plans/` |
+| `hooks/hook_enforcement_plan_sections.sh` | Unused | Not registered in the installed `settings.json`, and no block appears in any transcript |
+| `_rules_on_demand/03_workflows/sdlc_workflow.md` | Unused | Appears only in the 2 sessions that wrote it |
+| `_rules_on_demand/style_guides/**` and `_path_scoped_rules/style_guides/**` | Unused | No transcript reads an installed copy, though they hold over 70% of `src/claude/`'s KB |
 
 ## 🎈 Bloat
 
 | Date | Proportionality | Evidence of need | Single source | Always-on headroom | Placeholders | **Bloat** |
 |---|---|---|---|---|---|---|
-| 2026-11-10 | ✅ 2 | ✅ 2 | ❌ 0 | ✅ 2 | ✅ 2 | **8/10** |
+| 2026-11-10 | ✅ 2 | ✅ 2 | ❌ 0 | 🟡 1 | ✅ 2 | **7/10** |
 
 ## 🏗️ Over-engineering
 
 | Date | Cross-file consistency | Upkeep cost | Process weight | Simplest mechanism | Built for today | **Over-engineering** |
 |---|---|---|---|---|---|---|
-| 2026-11-10 | ❌ 0 | ❌ 0 | ✅ 2 | 🟡 1 | 🟡 1 | **4/10** |
+| 2026-11-10 | ❌ 0 | ❌ 0 | ✅ 2 | 🟡 1 | ✅ 2 | **5/10** |
 
 ## 🔍 Why the latest scores
 
@@ -35,18 +37,18 @@ Each theme below ✅, with what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | 5 duplicates: the token estimate coded in both `shell_utils.sh` and `test_rules_structure.py`, the evaluation standards in both `02_evaluation_criteria.md` and the PR template, the 20-file PR limit in five files, the install location in six, and principles restated in `05_proposed_changes.md` | Findings 1, 2 and 4 |
-| 🔗 **Cross-file consistency** | 6 contradictions: component feedback said to be recorded but never measured, a CI warning pointing to a tests reviewer brief that doesn't exist, an evidence-of-need row the PR template lacks, per-file red flags against a per-standard table, `05_proposed_changes.md` calling adopted changes unadopted, and `CLAUDE.md` leaving out `src/claude/` | Findings 1, 2 and 5 |
-| 🔁 **Upkeep cost** | 32 of the last 50 commits touch `docs/maintenance/` other than to record a review, many retuning the rubric itself | Finding 3 |
-| 🪜 **Simplest mechanism** | 2 heavier than needed: a reviewer agent for every config PR on top of the tests, and the `loading:` header line that repeats its folder | Findings 1 and 4 |
-| 🔮 **Built for today** | 3 unused: the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides, the per-turn overhead red flag with no hooks, and the six further-reading sources nothing links to | Findings 2 and 5 |
+| 🎯 **Single source** | 4 duplicates: the fresh-context reviewer in `02_evaluation_criteria.md`, `CONTRIBUTING.md` and the PR template, running `make test` before a PR in `CLAUDE.md`, `tests/README.md` and `CONTRIBUTING.md`, where `_rules_on_demand/` installs in `src/README.md`, `src/claude/README.md` and `target_architecture.md`, and `sdlc_workflow.md` restating `CLAUDE.md`'s plan-with-checks loop | Finding 4 |
+| 📦 **Always-on headroom** | About 2,301 of 3,000 tokens, or 76.7%, just over the 75% line | Trim an always-on rule |
+| 🔗 **Cross-file consistency** | 4 contradictions: `05_relevance.md` calls adopted plays a proposal not yet adopted, and says project hooks only though a global hook ships, `target_architecture.md` puts every component in a tier but no tier lists hooks, and `file_headers.md` exempts empty placeholder files that `test_file_metadata_headers.py` doesn't | Finding 5 |
+| 🔁 **Upkeep cost** | 38 of the last 50 commits touch `docs/maintenance/` other than to record a review, including feature commits that only re-score an audit row, and the repo rubric changed in 14 of them | Finding 5 |
+| 🪜 **Simplest mechanism** | 3 heavier than needed: Intent and Spec handled by a pointer, an on-demand rule and a hook, `git_commit.sh` building messages that commitlint already checks, and `git_validate_pr_description.sh` machine-checking bullet counts and URLs | Findings 2 and 3 |
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. ⚖️ **One home for the evaluation criteria:** keep the table in the PR template, link to it from `02_evaluation_criteria.md`, settle the per-file red flags and evidence-of-need row, and cut the restated instruction in `CONTRIBUTING.md`.
-2. 🗑️ **Old proposals and further reading:** retire `current_architecture/05_proposed_changes.md`, and decide whether the six further-reading sources stay in `reference_material/README.md`.
-3. 🧊 **Rubric churn:** freeze the repo rubric between regular reviews, and point the CI warning only to rubrics that have a reviewer brief.
-4. 🧮 **One token estimator:** share the comment-stripping and ÷ 4 logic between `shell_utils.sh` and `test_rules_structure.py`, and drop the `loading:` line that repeats the folder.
-5. 🔗 **Measures and restatements:** square the component-feedback claim with the rubric, state the 20-file limit and install path once, drop the unused env overrides, and add `src/claude/` to `CLAUDE.md`'s project line.
+1. 🧪 **Trial the style guides:** run `make install` so the about 69 style-guide files get a real trial, then retire whichever stacks stay unread.
+2. 🪜 **One Intent and Spec mechanism:** keep either the hook, with its guidance in the block message, or `sdlc_workflow.md`, and drop the other along with its pointer and tests.
+3. 🗑️ **Scripts that repeat checks:** drop `git_commit.sh`, which commitlint covers, and the bullet and URL checks in `git_validate_pr_description.sh`, with their tests and `CONTRIBUTING.md` mentions.
+4. 🎯 **One home per fact:** state the fresh-context reviewer, `make test` before a PR and the `_rules_on_demand/` install location once each, and link to them.
+5. 🔗 **Contradictions and upkeep:** fix the 4 contradictions, and decide at the next regular review whether feature commits that re-score an audit row should count towards Upkeep cost.

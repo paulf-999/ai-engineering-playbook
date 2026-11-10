@@ -1,4 +1,4 @@
-<!-- version: 1.2.8 -->
+<!-- version: 1.2.9 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-10 -->
 # 📋 Templates Directory
@@ -16,7 +16,7 @@ _templates/
 │   └── skill.contract.yaml.template
 ├── AGENT.md.template        # Starting point for a new agent
 ├── rule.md.template         # Starting point for a new rule
-├── TODO.md.template         # Starting point for a project TODO list
+├── TODO.md.template         # Starting point for your TODO list
 ├── utils/
 │   ├── shell_utils.sh           # Shared shell helpers: log colours and common variables
 │   └── template_bash_script.sh  # Starting point for a new bash script
@@ -54,7 +54,7 @@ _templates/
 
 **`TODO.md.template`**
 
-- Table layout for a project's `TODO.md`, with pending and completed items
+- Table layout for the `TODO.md` in your Claude config directory, with pending and completed items
 - Keeps its uppercase name because it mirrors the `TODO.md` file it produces
 
 ### Scripts
@@ -76,4 +76,3 @@ Copy the template you need next to the file you're creating, fill it in, and fol
 ## Maintenance
 
 - **Sync with global:** After updating templates here, run `make install` to copy them to your Claude config directory
-- **Keep in sync:** The playbook repo is the source of truth. Updates to the installed `_templates/` should be backported here.

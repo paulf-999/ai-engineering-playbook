@@ -1,4 +1,4 @@
-<!-- version: 3.3.6 -->
+<!-- version: 3.3.7 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-10 -->
 # 🤝 Contributing
@@ -31,7 +31,7 @@ Two valid messages:
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
 - 📏 **Size:** keep each PR to 20 files or fewer, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
 - 🗒️ **Optional details:** keep the template's Additional Details section to 5 bullets, with full GitHub URLs, since CI checks both.
-- ⚖️ **Evaluation criteria:** when the PR changes `src/claude/`, fill the measured rows of the template's Evaluation criteria section yourself, and have a fresh-context reviewer fill the rest, which CI checks are answered.
+- ⚖️ **Evaluation criteria:** when the PR changes `src/claude/`, have a fresh-context reviewer agent fill the template's Evaluation criteria section, which CI checks is answered.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR
@@ -42,6 +42,6 @@ Two valid messages:
 
 ## 🏷️ File naming
 
-- 🔡 **Rule:** name every file and folder in lowercase snake_case, such as `design_principles.md`.
-- ❓ **Why:** Python can't import a module with a hyphen in its name, so the whole repo uses underscores to match.
+- 🔡 **Rule:** name every file and folder in lowercase snake_case, such as `design_principles.md`, except skills and agents, which use hyphens.
+- ❓ **Why:** Python can't import a module with a hyphen in its name, so the repo uses underscores to match, while the Agent Skills spec allows only hyphens in skill names, and agents match skills.
 - 📌 **Exceptions:** conventional names such as `README.md`, `CLAUDE.md` and `Makefile`.

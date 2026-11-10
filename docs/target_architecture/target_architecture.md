@@ -1,4 +1,4 @@
-<!-- version: 1.8.2 -->
+<!-- version: 1.8.3 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture
@@ -62,7 +62,7 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 
 ## 📏 Measures
 
-Each [regular review](design_principles/01_principles.md#-numbers-and-tests) takes these from the session transcripts and git history since the last review:
+Each [regular review](design_principles/01_principles.md#-numbers-and-tests) reads these from the session transcripts and git history since the last review, to decide what to cut, without keeping a record:
 
 | Measure | Definition | Unit |
 |---|---|---|

@@ -38,7 +38,7 @@
 
 ## How to Use This Template
 
-1. **Copy for a new project:** `cp "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/_templates/TODO.md.template" <project>/.claude/TODO.md`
+1. **Create your TODO list:** `cp "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/_templates/TODO.md.template" "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/TODO.md"`
 2. **Update Active Month:** Replace YYYY-MM with current month (e.g., 2026-09)
 3. **Add items:** Start filling in pending items as they emerge
 4. **Mark as done:** Move items to Completed table and apply strikethrough
@@ -75,6 +75,6 @@
 ## Reference
 
 - **Format guide:** This file (`_templates/TODO.md.template`)
-- **Active TODO:** `<project>/.claude/TODO.md`
+- **Active TODO:** `TODO.md` in your Claude config directory
 
 ---

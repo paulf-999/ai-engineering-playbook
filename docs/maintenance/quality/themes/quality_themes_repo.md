@@ -1,4 +1,4 @@
-<!-- version: 1.0.6 -->
+<!-- version: 1.1.0 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
@@ -18,8 +18,8 @@ Files and text the repo doesn't need:
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
 | ⚖️ **Proportionality** | Support files are no more than product files | Up to double | More than double |
-| 🧾 **Evidence of need** | Every file has a current user or inbound link | One file has none | Several have none |
-| 🎯 **Single source** | Each fact, rule or check lives in one place | One duplicate | Several duplicates |
+| 🧾 **Evidence of need** | At most 1 file has no current user or inbound link | 2 or 3 have none | 4 or more have none |
+| 🎯 **Single source** | At most 1 fact, rule or check lives in more than one place | 2 or 3 duplicates | 4 or more duplicates |
 | 📦 **Always-on headroom** | Always-on tokens are 75% of the budget or less | Up to 90% | Over 90% |
 | 🚧 **Placeholders** | No "not built yet" or "Nothing scored yet" text | 1 to 5 | More than 5 |
 
@@ -29,16 +29,17 @@ Process and machinery heavier than the repo needs:
 
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
-| 🔗 **Cross-file consistency** | No file contradicts another | One contradiction | Several contradictions |
-| 🔁 **Upkeep cost** | 20% or fewer of the last 50 commits touch `docs/maintenance/` | Up to 40% | Over 40% |
+| 🔗 **Cross-file consistency** | At most 1 contradiction between files | 2 or 3 contradictions | 4 or more contradictions |
+| 🔁 **Upkeep cost** | 20% or fewer of the last 50 commits touch `docs/maintenance/`, other than to record a review | Up to 40% | Over 40% |
 | 🗃️ **Process weight** | `docs/maintenance/` files are a tenth of product files or fewer | Up to a quarter | More than a quarter |
-| 🪜 **Simplest mechanism** | Each check or process is the simplest that works, such as a test before a scored rubric | One heavier than needed | Several |
-| 🔮 **Built for today** | No levels, stages or extension points for needs that haven't arisen | One | Several |
+| 🪜 **Simplest mechanism** | At most 1 check or process is heavier than the simplest that works, such as a scored rubric where a test would do | 2 or 3 | 4 or more |
+| 🔮 **Built for today** | At most 1 level, stage or extension point for a need that hasn't arisen | 2 or 3 | 4 or more |
 
 ## 📏 How to score
 
 - 📐 **Measured themes:** Proportionality, Always-on headroom, Placeholders, Upkeep cost and Process weight come from the measures below, not judgement, so they can't drift upwards.
 - 📍 **Judged themes:** each 🟡 or ❌ for the other five must cite a path.
+- 🔢 **Count issues:** score a judged theme by how many distinct issues it has, since a fresh reviewer always finds one or two.
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
 - 🤝 **Kept by choice:** don't mark down a folder or file that its README or parent rule marks "planned", the separate `shell_utils.sh` copies, or the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
 - 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `docs/maintenance/` and `.github/`.
@@ -53,8 +54,9 @@ git ls-files src/claude docs/target_architecture | wc -l
 git ls-files tests src/sh docs/maintenance .github | wc -l
 # files and KB by area
 for area in src/claude docs tests src/sh; do echo "${area}: $(git ls-files "${area}" | wc -l) files, $(git ls-files -z "${area}" | xargs -0 cat | wc -c | awk '{print int($1 / 1024)}') KB"; done
-# commits of the last 50 on main that touch docs/maintenance/, other than the kept token report
-git log --first-parent -50 --format=%h origin/main | while read -r commit; do git show --name-only --format= "${commit}" | grep '^docs/maintenance/' | grep -qv '^docs/maintenance/context_cost\.md$' && echo "${commit}"; done | wc -l
+# commits of the last 50 on main that touch docs/maintenance/, other than the kept token report,
+# leaving out commits that only record a review, by changing nothing outside quality/audits/
+git log --first-parent -50 --format=%h origin/main | while read -r commit; do files=$(git show --name-only --format= "${commit}" | grep -v '^docs/maintenance/context_cost\.md$'); grep -q '^docs/maintenance/' <<< "${files}" && grep -qv '^docs/maintenance/quality/audits/' <<< "${files}" && echo "${commit}"; done | wc -l
 # docs/maintenance/ files
 git ls-files docs/maintenance | wc -l
 # placeholder phrases, leaving out this rubric and its audit

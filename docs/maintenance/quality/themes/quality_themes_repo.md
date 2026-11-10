@@ -1,4 +1,4 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
@@ -46,7 +46,7 @@ Process and machinery heavier than the repo needs:
 
 ## 🔢 Measures
 
-Run these from the repo root on `main`, and record each result:
+Run these from the repo root on `main`, and score the measured themes from them:
 
 ```bash
 # product and support file counts
@@ -65,8 +65,6 @@ git grep -ciE 'not built yet|nothing scored yet' -- '*.md' ':!docs/maintenance/q
 src/sh/claude_validate_always_on_budget.sh
 ```
 
-For the audit's Outcomes table, read the session transcripts since the last review, in the `projects/` folder of the Claude config directory, and count fix commits with `git log`.
-
 ## 🕵️ Reviewer brief
 
 At each [regular review](../../../target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores:
@@ -74,11 +72,11 @@ At each [regular review](../../../target_architecture/design_principles/01_princ
 ```text
 Score this repo against docs/maintenance/quality/themes/quality_themes_repo.md.
 Run its measures, score each theme, and cite a path for each judged 🟡 or ❌.
-Return the measures, the Outcomes row, the ten theme scores with a reason each,
+Return the measures, the ten theme scores with a reason each,
 the Bloat and Over-engineering totals, and up to 5 findings ranked by how much
 they would cut, each naming the files involved.
 ```
 
 ## 📊 Where scores live
 
-The [audit](../audits/quality_audit_repo.md) holds the latest run's scores, the outcomes by review and the current findings.
+The [audit](../audits/quality_audit_repo.md) holds the latest run's scores and the current findings.

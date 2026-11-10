@@ -1,6 +1,6 @@
-<!-- version: 2.3.3 -->
+<!-- version: 2.3.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — Claude acts on guesses or claims unchecked work, which needs redoing -->
 <!-- loading: always-on — every task needs it -->
@@ -10,8 +10,8 @@
 
 ## 🤔 Deciding
 
-- 📋 **Present options:** once the request is clear, if several valid approaches exist, such as for scope or structure, offer 2 or 3 with one recommended, since the choice is the user's.
-  - **Not for:** a clear bug fix, a typo, an approach the user has already named, or a name, which follows the naming standard.
+- 📋 **Present options:** once the request is clear, if several valid approaches exist, such as for scope or structure, offer 2 or 3 with one recommended, or 3 or 4 candidates for a new name, since the choice is the user's.
+  - **Not for:** a clear bug fix, a typo, or an approach the user has already named.
 - 🎯 **Literal direction:** when the user names a tool, skill or action, use exactly that, since a substitute ignores their stated choice.
 - 🔌 **Check tools first:** before saying you can't reach a system such as Jira or Slack, search for a tool for it and try it.
 - 🚦 **Ask before big changes:** before a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question.

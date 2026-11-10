@@ -1,9 +1,8 @@
-<!-- version: 3.0.5 -->
+<!-- version: 3.0.6 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
 <!-- miss_cost: medium — a new rule, skill or agent drifts from the house structure -->
-<!-- loading: on demand — read when guiding_principles.md points here, once an addition is worth making -->
 # 🛠️ Authoring guidelines
 
 **Purpose:** how to build a new rule, skill or agent for Claude's config, once the guiding principles say it's worth adding.

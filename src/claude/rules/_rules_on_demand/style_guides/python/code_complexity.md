@@ -1,9 +1,8 @@
-<!-- version: 2.0.0 -->
+<!-- version: 2.0.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — functions grow harder to read and change -->
-<!-- loading: on demand — read when python.md's complexity pointer sends Claude here -->
 # 📊 Code Complexity
 
 **Purpose:** the limits that keep a Python function easy to read and change, and the ruff and radon checks that measure each.

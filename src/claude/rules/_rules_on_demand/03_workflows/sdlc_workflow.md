@@ -1,9 +1,8 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-10 -->
 <!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — a plan skips its intent or spec, and the change drifts from what was wanted -->
-<!-- loading: on demand — read when claude_plans.md's pointer sends Claude here, while drafting a plan -->
 # 🔄 SDLC workflow
 
 **Purpose:** the stages a change moves through, named as in Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook), so plans and PRs share one vocabulary.

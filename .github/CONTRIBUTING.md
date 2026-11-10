@@ -1,6 +1,6 @@
-<!-- version: 3.3.5 -->
+<!-- version: 3.3.6 -->
 <!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🤝 Contributing
 
 **Purpose:** the branch, commit and PR conventions every contribution to this repo follows.
@@ -31,7 +31,7 @@ Two valid messages:
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
 - 📏 **Size:** keep each PR to 20 files or fewer, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
 - 🗒️ **Optional details:** keep the template's Additional Details section to 5 bullets, with full GitHub URLs, since CI checks both.
-- ⚖️ **Evaluation criteria:** when the PR changes `src/claude/`, answer each check in the template's Evaluation criteria section, which CI also checks.
+- ⚖️ **Evaluation criteria:** when the PR changes `src/claude/`, fill the measured rows of the template's Evaluation criteria section yourself, and have a fresh-context reviewer fill the rest, which CI checks are answered.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR

@@ -1,6 +1,6 @@
-<!-- version: 1.0.3 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
 
 **Purpose:** how a reviewer gives the whole repo a bloat score and an over-engineering score, each out of 10, which per-file scores can't see.
@@ -40,7 +40,7 @@ Process and machinery heavier than the repo needs:
 - 📐 **Measured themes:** Proportionality, Always-on headroom, Placeholders, Upkeep cost and Process weight come from the measures below, not judgement, so they can't drift upwards.
 - 📍 **Judged themes:** each 🟡 or ❌ for the other five must cite a path.
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
-- 🗓️ **Planned folders:** a folder its README marks "planned" doesn't count against Evidence of need.
+- 🤝 **Kept by choice:** don't mark down a folder its README marks "planned", the separate `shell_utils.sh` copies, or the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
 - 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `docs/maintenance/` and `.github/`.
 
 ## 🔢 Measures
@@ -53,8 +53,8 @@ git ls-files src/claude docs/target_architecture | wc -l
 git ls-files tests src/sh docs/maintenance .github | wc -l
 # files and KB by area
 for area in src/claude docs tests src/sh; do echo "${area}: $(git ls-files "${area}" | wc -l) files, $(git ls-files -z "${area}" | xargs -0 cat | wc -c | awk '{print int($1 / 1024)}') KB"; done
-# commits of the last 50 on main that touch docs/maintenance/
-for commit in $(git log --first-parent -50 --format=%h origin/main); do git show --name-only --format= "${commit}" | grep -q '^docs/maintenance/' && echo "${commit}"; done | wc -l
+# commits of the last 50 on main that touch docs/maintenance/, other than the kept token report
+git log --first-parent -50 --format=%h origin/main | while read -r commit; do git show --name-only --format= "${commit}" | grep '^docs/maintenance/' | grep -qv '^docs/maintenance/context_cost\.md$' && echo "${commit}"; done | wc -l
 # docs/maintenance/ files
 git ls-files docs/maintenance | wc -l
 # placeholder phrases, leaving out this rubric and its audit

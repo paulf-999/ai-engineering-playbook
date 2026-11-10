@@ -1,4 +1,4 @@
-<!-- version: 1.8.3 -->
+<!-- version: 1.8.4 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Target architecture

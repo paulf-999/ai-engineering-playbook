@@ -1,4 +1,4 @@
-<!-- version: 1.1.5 -->
+<!-- version: 1.1.6 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Rubric
@@ -39,6 +39,7 @@ Process and machinery heavier than the repo needs:
 
 - 📐 **Measured themes:** Proportionality, Always-on headroom, Placeholders, Upkeep cost and Process weight come from the measures below, not judgement, so they can't drift upwards.
 - 📍 **Judged themes:** each 🟡 or ❌ for the other five must cite a path.
+- 🧊 **Frozen between reviews:** change this rubric only at a regular review, so runs stay comparable and its edits don't drive up Upkeep cost.
 - 🔢 **Count issues:** score a judged theme by how many distinct issues it has, since a fresh reviewer always finds one or two.
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
 - 🤝 **Kept by choice:** don't mark down a folder or file that its README or parent rule marks "planned", the separate `shell_utils.sh` copies, the [tests audit](../audits/quality_audit_test_files.md) and [rules audit](../audits/quality_audit_rules.md) with their rubrics and checkers, the per-file version headers and `bump_file_headers.sh`, the budget script's scanning of skills, agents, `@` imports and a project `.claude/`, kept for the planned skills and agents, or the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
@@ -72,7 +73,8 @@ At each [regular review](../../../target_architecture/design_principles/01_princ
 ```text
 Score this repo against docs/maintenance/quality/themes/quality_themes_repo.md.
 Run its measures, score each theme, and cite a path for each judged 🟡 or ❌.
-Return the measures, the ten theme scores with a reason each,
+Return the measures, the ten theme scores with a reason each, one line of
+feedback per component the transcripts show helping, hindering or going unused,
 the Bloat and Over-engineering totals, and up to 5 findings ranked by how much
 they would cut, each naming the files involved.
 Don't open docs/maintenance/quality/audits/quality_audit_repo.md, which holds
@@ -81,4 +83,4 @@ the last run's scores.
 
 ## 📊 Where scores live
 
-The [audit](../audits/quality_audit_repo.md) holds the latest run's scores and the current findings.
+The [audit](../audits/quality_audit_repo.md) holds the latest run's scores, its component feedback and the current findings.

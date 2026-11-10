@@ -1,4 +1,4 @@
-<!-- version: 1.0.11 -->
+<!-- version: 1.0.12 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-10 -->
 # 🏗️ Repo Quality Audit
@@ -6,6 +6,16 @@
 **Purpose:** for maintainers, how bloated and how over-engineered the repo is as a whole, each scored out of 10 at each regular review.
 
 Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-context reviewer runs its measures and scores its themes, and this page keeps the latest run's scores, with earlier runs in git history.
+
+## 💬 Component feedback
+
+How each Claude config component fared in the session transcripts since the last review, as the [target architecture](../../../target_architecture/target_architecture.md#-measures) asks:
+
+| Component | Effect | Evidence |
+|---|---|---|
+| `02_conduct/behaviour.md` | Helped | "Ask before big changes" and "Present options" led to plans and naming choices confirmed before multi-file edits |
+| `_rules_on_demand/03_workflows/git.md` | Helped | "Clean index" and "Unfamiliar changes" kept other sessions' branches and files out of this session's commits |
+| `_rules_on_demand/02_conduct/reporting.md`, Checkpoints | Unused | "Checkpoints" never fired, though one session spanned more than 15 PRs |
 
 ## 🎈 Bloat
 

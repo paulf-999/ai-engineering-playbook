@@ -1,6 +1,6 @@
-<!-- version: 2.1.2 -->
+<!-- version: 2.1.3 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-04 -->
+<!-- updated: 2026-11-10 -->
 # 🏛️ Current architecture
 
 **Purpose:** what the Claude configuration this repo replaces contains, what works well in it, and the lessons the new design carries forward.
@@ -22,7 +22,6 @@ Read them in this order:
 2. [Strengths to keep](current_architecture/02_what_works_well.md).
 3. [Where complexity outran evidence](current_architecture/03_complexity_without_evidence.md).
 4. [Alignment with Anthropic's SDLC course and DORA research](current_architecture/04_reference_alignment.md).
-5. [Proposed changes to two core rule files](current_architecture/05_proposed_changes.md).
 
 ## 🎓 Lessons for the new design
 

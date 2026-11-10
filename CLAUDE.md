@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 🤖 CLAUDE.md — AI Engineering Playbook
 
 ## 🎯 Project
@@ -15,5 +15,4 @@ A playbook for a lean, evidence-led Claude Code setup: design docs in `docs/targ
 
 - 🏁 **Done means:** `make test` and `pre-commit run --all-files` both pass.
 - 📜 **Conventions:** follow `.github/CONTRIBUTING.md` for branching, commits and PRs.
-- 📝 **Docs:** follow the rubric in `docs/maintenance/quality/themes/quality_themes_markdown_files.md`.
 - 🧪 **Tests:** maintain tests per `docs/maintenance/test_maintenance.md`.

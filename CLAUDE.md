@@ -1,11 +1,11 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-10 -->
 # 🤖 CLAUDE.md — AI Engineering Playbook
 
 ## 🎯 Project
 
-A playbook for a lean, evidence-led Claude Code setup: design docs in `docs/target_architecture/`, plus shell helpers and their tests. Most changes are markdown docs.
+A playbook for a lean, evidence-led Claude Code setup: design docs in `docs/target_architecture/`, the Claude config in `src/claude/`, plus shell helpers and their tests. Most changes are markdown docs.
 
 | Task | Command |
 |---|---|

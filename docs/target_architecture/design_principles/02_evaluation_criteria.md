@@ -1,4 +1,4 @@
-<!-- version: 1.8.5 -->
+<!-- version: 1.8.6 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # ✅ Design principles: Evaluation criteria
@@ -16,7 +16,7 @@ A PR that changes `src/claude/` answers these checks in the Evaluation criteria 
 
 Each file from the old configuration is reviewed on its own for bloat, and you decide whether to port it as is, port a slimmed version or leave it out. Reviewed files can then share a PR.
 
-- [ ] 🚩 **Red flags:** for each file, the PR lists every hit below and every failed [What shape?](#-what-shape) check, with the decision and why.
+- [ ] 🚩 **Red flags:** the PR names each file that hits a red flag below, or fails a [What shape?](#-what-shape) check, in that standard's Why, with the decision and why.
   - **Ports vs new:** for a port these inform the decision but never block it, while a new component must pass every check.
 
 The flags come from the [review of the old setup](../current_architecture/03_complexity_without_evidence.md) and the [handover review](../reference_material/core/handover_review.md), and cover how a component loads and enforces, not its topic.

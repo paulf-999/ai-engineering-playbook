@@ -1,4 +1,4 @@
-<!-- version: 3.1.1 -->
+<!-- version: 3.1.2 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-10 -->
 # 🧪 Test Quality Rubric
@@ -41,6 +41,16 @@ Each theme scores ✅ 2 when fully met, 🟡 1 when partly met and ❌ 0 when no
 - 📉 **Could tests:** more `Could` tests than `Must` tests costs a Leanness point, as the [periodic review](../../test_maintenance.md#-periodic-review) explains.
 - 🙅 **Lower scores don't mean add tests:** if a new test would cost Leanness or Simplicity points, leave it out.
 - ✂️ **Removing tests can raise the score:** deleting a duplicate or cosmetic test improves Leanness.
+
+## 🕵️ Reviewer brief
+
+A PR that changes a test file refreshes that script's row. One fresh-context reviewer on Sonnet gets only this brief, since a primed brief inflates scores:
+
+```text
+Score each script listed after this brief against docs/maintenance/quality/themes/quality_themes_test_files.md.
+Read each script with its tests, and run them to check they pass.
+Return one audit row per script: the five theme scores, the grade and total, and Gaps.
+```
 
 ## 📊 Where scores live
 

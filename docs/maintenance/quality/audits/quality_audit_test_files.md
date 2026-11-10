@@ -1,41 +1,14 @@
-<!-- version: 3.4.29 -->
+<!-- version: 4.0.0 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-10 -->
 # 📊 Test Coverage Audit
 
-**Purpose:** how many tests each script has, and how good those tests are.
+**Purpose:** how good each script's tests are, scored against the test rubric.
 
-- 🧪 **Kept accurate by:** [this audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py), which fails if either table falls out of step with the test files.
-- 🪞 **Own checker:** the checker counts its own tests but gets no quality score, since it can't fairly score itself.
+- 🧪 **Kept accurate by:** [this audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py), which fails if a test file has no row or a score doesn't add up.
+- 🔢 **Counts by score:** run the grep in the [periodic review](../../test_maintenance.md#-periodic-review), rather than keeping a table by hand.
+- 🪞 **Own checker:** the checker gets no quality score, since it can't fairly score itself.
 - 🕳️ **Gaps:** written by hand when a script is scored, so recheck a script's gaps whenever its tests change.
-
-## 🏷️ MoSCoW scores by script
-
-This table counts each script's tests by their [priority score](../../test_maintenance.md#-priority-scores):
-
-- 🔢 **Total (functions):** the test functions, each of which carries one score.
-- 🧪 **Test Cases:** the cases pytest runs, since a parametrised function runs once per input.
-  - **Totals:** this figure matches what `make test` reports.
-
-| Script or check | Must | Should | Could | Won't | Total (functions) | **Test Cases** |
-|---|---|---|---|---|---|---|
-| [`bump_file_headers.sh`](../../../../src/sh/bump_file_headers.sh) | 3 | 9 | 2 | 0 | 14 | **14** |
-| [`git_commit.sh`](../../../../src/sh/git/git_commit.sh) | 3 | 8 | 2 | 0 | 13 | **17** |
-| [`git_validate_branch_name.sh`](../../../../src/sh/git/git_validate_branch_name.sh) | 3 | 0 | 1 | 0 | 4 | **10** |
-| [`git_validate_num_file_changes.sh`](../../../../src/sh/git/git_validate_num_file_changes.sh) | 3 | 4 | 3 | 0 | 10 | **12** |
-| [`git_validate_pr_description.sh`](../../../../src/sh/git/git_validate_pr_description.sh) | 6 | 0 | 0 | 0 | 6 | **22** |
-| [`git_validate_pr_title.sh`](../../../../src/sh/git/git_validate_pr_title.sh) | 3 | 0 | 0 | 0 | 3 | **14** |
-| [`claude_validate_always_on_budget.sh`](../../../../src/sh/claude_validate_always_on_budget.sh) | 4 | 1 | 0 | 0 | 5 | **18** |
-| [`claude_install_config.sh`](../../../../src/sh/claude_install_config.sh) | 7 | 1 | 0 | 0 | 8 | **8** |
-| [`claude_report_context_cost.sh`](../../../../src/sh/claude_report_context_cost.sh) | 2 | 1 | 0 | 0 | 3 | **3** |
-| [`shell_utils.sh`](../../../../src/sh/shell_utils.sh) | 2 | 1 | 2 | 0 | 5 | **13** |
-| [`Makefile`](../../../../Makefile) | 2 | 0 | 0 | 0 | 2 | **2** |
-| [Every script's structure](../../../../tests/src/sh/test_script_structure.py) | 1 | 2 | 1 | 0 | 4 | **14** |
-| [Every rule's structure](../../../../tests/src/claude/test_rules_structure.py) | 14 | 4 | 0 | 0 | 18 | **628** |
-| [Rules quality audit](../../../../tests/docs/maintenance/quality/test_quality_audit_rules.py) | 2 | 1 | 0 | 0 | 3 | **5** |
-| [This audit's checker](../../../../tests/docs/maintenance/quality/test_quality_audit_test_files.py) | 0 | 2 | 0 | 0 | 2 | **2** |
-| [Every tracked file's header](../../../../tests/test_file_metadata_headers.py) | 2 | 0 | 0 | 0 | 2 | **4** |
-| **Totals** | | | | | **102** | **786** |
 
 ## ⭐ Quality by script
 

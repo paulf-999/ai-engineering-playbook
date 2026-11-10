@@ -1,41 +1,32 @@
-# 🧭 Rule Template — Decision Tree
+<!-- version: 1.0.0 -->
+<!-- created: YYYY-MM-DD -->
+<!-- updated: YYYY-MM-DD -->
+<!-- applies_to: [globs for the files whose sessions need it, or * for every session; plain words in a path-scoped rule, as YAML rejects a leading *] -->
+<!-- miss_cost: [high, medium or low] — [what goes wrong if it's missed] -->
+<!-- loading: [always-on, path-scoped or on demand] — [why it loads that way] -->
+# 🔤 [Rule name]
 
-**Purpose:** pick the shape a new rule starts from, then check it against the quality checklist before merging.
+**Purpose:** [one sentence on what the rule covers, and why a reader needs it].
 
-## 🧩 Pick a shape
+## 🎯 [First action heading, such as "Before you start"]
 
-Count the labelled bullets the rule needs, not counting `Read on demand` pointers, then copy the matching file from `_templates/rules/`.
+- 🔑 **[Keyword]:** [one sentence stating the rule].
+- 🔧 **[Keyword]:** [one sentence on how to apply it].
 
-- 🪶 **Short shape:** `short_rule.md.template`, for 5 labelled bullets or fewer, with an optional table.
-- 🗂️ **Sectioned shape:** `sectioned_rule.md.template`, for more than 5, split into 2 to 4 emoji `##` sections of up to 5 bullets each.
-- ✂️ **Too big for either:** past 4 sections or about 110 lines, split it into a parent and 2 or more `<parent>/_<aspect>.md` children, each starting from a shape.
-- 🏷️ **Usage header:** an entry-point rule keeps the `applies_to`, `miss_cost` and `loading` lines, and a child file deletes them.
+## 🛠️ [Second action heading, such as "Before merging"]
 
-## ✅ Quality Checklist — Both Shapes
+- 🔑 **[Keyword]:** [one sentence stating the rule].
+- 📅 **Why:** [optional: one sentence on the problem or incident it prevents, when the reason isn't obvious].
 
-This checklist runs past 5 items, since, like numbered steps, it needs every check.
+## 📚 Read on demand
 
-- [ ] **Metadata header:** Lines 1–3 are `<!-- version: X.Y.Z -->`, `<!-- created: YYYY-MM-DD -->`, `<!-- updated: YYYY-MM-DD -->`
-  - **New rule:** Version `1.0.0`, with `created` and `updated` both set to today.
-  - **Every edit:** Set `updated` to today and bump `version`.
-  - **MAJOR:** Guidance reversed or removed.
-  - **MINOR:** Guidance added.
-  - **PATCH:** Wording or typo fix only.
-- [ ] **Usage header:** An entry-point rule, unlike a child file, has `applies_to`, `miss_cost` and `loading` on lines 4–6, with `loading` matching its folder (`always-on`, `path-scoped` or `on demand`)
-- [ ] **Purpose present:** One-line statement at top
-- [ ] **H1 emoji header:** File title with emoji
-- [ ] **H2 section headers:** All start with emoji (scannability)
-- [ ] **Bold keywords:** Bullets open with an emoji, then `**term:**`
-- [ ] **One sentence per bullet:** No multi-sentence bullets (use sub-bullets instead)
-- [ ] **Five per list:** No list has more than 5 top-level bullets
-- [ ] **Size limit:** About 110 lines at most, split if needed
-- [ ] **Trailing newline:** File ends with exactly one `\n`
-- [ ] **No H1 duplicates:** Only one `#` header per file
-- [ ] **Clear scope:** One concept per file, related patterns grouped
-- [ ] **British spelling:** Prose uses -ise and other British forms, while existing identifiers keep their spelling
-- [ ] **Enforcement test:** A rule backed by a hook, test or CI check has a test in the repo's `tests/` folder
-- [ ] **Contents only when earned:** Add a `## 📋 Contents` section only when the rule has 3 or more real `##` headings, not counting `## 📚 Read on demand`
-- [ ] **No Related section:** Link other files only through a `**Read on demand:**` line that says when to read them, never a list of related links
-  - **Why:** a rule under `rules/` with no `paths:` setting loads every session, so every line costs always-on context.
+- **Read on demand:** `_rules_on_demand/<domain>/<file>.md`, in your Claude config directory, [when to read it].
 
-- **Read on demand:** `_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md`, in your Claude config directory, before merging, for the tier, pointers, scorecard and trial.
+<!-- 5 labelled bullets or fewer, not counting Read on demand pointers: delete the ## headings and keep one list. -->
+<!-- More than 5: keep 2 to 4 emoji ## sections of up to 5 bullets each. Past 4 sections or about 110 lines, split into a parent and 2 or more <parent>/_<aspect>.md children. -->
+<!-- Child file: delete the applies_to, miss_cost and loading lines, since it inherits its parent's. -->
+<!-- Optional: one table between bullets, when two or more items share the same fields, and the Read on demand section. -->
+<!-- Tests check the header, H1, Purpose, headings, list length, size and pointers. Before merging, also check that: -->
+<!-- each bullet opens with an emoji and a **term:**, and is one sentence; the rule covers one concept; prose uses British spelling; -->
+<!-- and a rule backed by a hook, test or CI check has a test in tests/. Then read _authoring_rules.md for the tier, pointers and trial. -->
+<!-- Delete these comments. -->

@@ -1,4 +1,4 @@
-<!-- version: 1.9.1 -->
+<!-- version: 1.9.2 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 📚 Reference Material
@@ -7,7 +7,7 @@
 
 ## 📋 Source register
 
-Sources are grouped by how much the design depends on them. Each one links to its summary, Access says which were read in full, and an old Captured date flags a summary to recheck.
+Sources are grouped by how much the design depends on them. Each core and supporting source links to its summary, Access says which were read in full, and an old Captured date flags a summary to recheck.
 
 ### 🥇 Core
 
@@ -32,19 +32,19 @@ These back specific limits and naming rules:
 
 ### 📖 Further reading
 
-Nothing in the design links to these yet, but each gives a view the others don't:
+Nothing in the design links to these yet, so they keep only their outside links, but each gives a view the others don't:
 
 <details>
 <summary>Show the 6 further-reading sources</summary>
 
 | # | Source | Publisher | Version or date | Access | Captured | Used for |
 |---|---|---|---|---|---|---|
-| 8️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) · [summary](further_reading/dora_state_of_ai_2025.md) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | Report v. 2025.2, CC BY-NC-SA 4.0 | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), read in full | 2026-11-03 | Survey evidence on AI adoption and outcomes |
-| 9️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) · [summary](further_reading/metr_developer_productivity_trial.md) | METR (Model Evaluation & Threat Research): Becker, Rush, Barnes and Rein, on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
-| 🔟 | [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) · [summary](further_reading/bockeler_harness_engineering.md) | Birgitta Böckeler, on martinfowler.com | 2026-04-02 | Public, read in full | 2026-11-03 | When to guide Claude and when to enforce, from outside Anthropic |
-| 1️⃣1️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) · [summary](further_reading/anthropic_agent_evals.md) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of this repo's configuration still helps |
-| 1️⃣2️⃣ | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) · [summary](further_reading/claude_code_best_practices.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
-| 1️⃣3️⃣ | [The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf) · [summary](further_reading/togaf_standards.md) | The Open Group | 10th Edition, 2022, © The Open Group | Free download after registering, summary not yet checked against the full text | 2026-11-04 | A shared method and vocabulary for enterprise architecture |
+| 8️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | Report v. 2025.2, CC BY-NC-SA 4.0 | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), read in full | 2026-11-03 | Survey evidence on AI adoption and outcomes |
+| 9️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) | METR (Model Evaluation & Threat Research): Becker, Rush, Barnes and Rein, on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
+| 🔟 | [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) | Birgitta Böckeler, on martinfowler.com | 2026-04-02 | Public, read in full | 2026-11-03 | When to guide Claude and when to enforce, from outside Anthropic |
+| 1️⃣1️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of this repo's configuration still helps |
+| 1️⃣2️⃣ | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
+| 1️⃣3️⃣ | [The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf) | The Open Group | 10th Edition, 2022, © The Open Group | Free download after registering, summary not yet checked against the full text | 2026-11-04 | A shared method and vocabulary for enterprise architecture |
 
 </details>
 

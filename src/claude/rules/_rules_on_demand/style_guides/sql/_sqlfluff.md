@@ -1,6 +1,6 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.2.0 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
+<!-- updated: 2026-11-10 -->
 # 🔧 SQLFluff Configuration
 
 **Purpose:** Record the team's SQLFluff settings and excluded rules, so every SQL file is checked the same way.
@@ -31,3 +31,7 @@ The following SQLFluff rules are excluded in the team config, with reasons. Code
 | `RF06` (`L059`) | Identifiers aren't quoted unnecessarily | Unnecessary quoting is allowed |
 | `LT15` | No run of too many blank lines | Extra blank lines between CTEs are allowed |
 | `ST09` | Join conditions list the earlier table first | Join condition order is not enforced |
+
+## 🧩 Parse errors
+
+- 🔤 **Reserved words:** a `PRS` error often means a reserved keyword, such as `ORDER`, is an unquoted column name, so rename it or quote it as `"ORDER"`.

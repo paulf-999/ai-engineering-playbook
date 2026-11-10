@@ -1,7 +1,7 @@
 ---
-<!-- version: 1.4.2 -->
+<!-- version: 1.5.1 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: Ansible playbooks and roles -->
 <!-- miss_cost: medium — playbooks drift from the team's structure and need reworking -->
 <!-- loading: path-scoped — loads with Ansible files -->
@@ -13,48 +13,6 @@ paths:
 # 📦 Ansible Style Guide & Standards
 
 **Purpose:** Define the team's standards for writing and structuring Ansible projects.
-
-## 🗂️ Repo structure
-
-```text
-group_vars/                         # variable files shared across all playbooks
-  all.yml                           # global defaults and Vault lookups
-  l1_<env>.yml                      # environment-wide variables
-  l2_<env>_<site>.yml               # site-level within an environment
-  ...                               # l3–l6 files as needed (see the variables page)
-host_vars/                          # host-specific variable files
-  <inventory_hostname>.yml
-inventory/
-  <scope>/                          # one subdirectory per inventory scope
-    ansible.cfg                     # scope-specific configuration
-    vars.yaml                       # scope metadata/variables
-    <provider>_<account>_<plugin>.yml  # dynamic inventory plugin config
-playbooks/
-  <dept_or_app>/                    # one subdirectory per owner or application
-    [<team>/]                       # optional team-level nesting
-      <app>_<asset_role>_<descriptor>.yml
-      group_vars -> ../../group_vars  # symlink, one more ../ under a team folder
-      roles -> ../../roles            # symlink, one more ../ under a team folder
-roles/
-  <technical_capability>/           # functional grouping (e.g. application, systems)
-    <role_name>/
-      defaults/
-        main.yml
-      tasks/
-        main.yml
-      handlers/
-      templates/
-      files/
-      meta/
-filter_plugins/                     # custom Jinja2 filters
-pipelines/                          # CI/CD pipeline definitions
-```
-
-- No `inputs/` directory — this repo does not use a config-driven YAML inputs pattern.
-- No single root-level `ansible.cfg` — each inventory scope has its own.
-- No static `.ini` inventory files — all inventories use dynamic plugins.
-
----
 
 ## 🏷️ Naming conventions
 
@@ -75,13 +33,13 @@ Use FQCN for all modules: `ansible.builtin.apt`, not `apt`.
 
 ## 🔩 Linting
 
-- All YAML files must pass `yamllint --strict` before committing.
 - All playbooks and roles must pass `ansible-lint` (production profile) before committing.
-- Both are enforced via pre-commit hooks — fix the underlying issue rather than suppressing warnings.
+- It's enforced via a pre-commit hook — fix the underlying issue rather than suppressing warnings.
 - Ansible-lint skips: `role-name[path]`, which nested capability directories need, and no others.
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_playbooks.md`, in your Claude config directory, when adding a playbook or its folder, tags or play settings.
+- **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_repo_structure.md`, in your Claude config directory, before adding a file or folder to the repo.
+- **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_playbooks.md`, when adding a playbook or its folder, tags or play settings.
 - **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md`, when creating a role or writing its tasks.
 - **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_variables.md`, when adding variables to `group_vars`, `host_vars` or role defaults.

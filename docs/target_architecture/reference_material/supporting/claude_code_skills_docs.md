@@ -1,6 +1,6 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.0.2 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🛠️ Claude Code docs: Extend Claude with skills
 
 **Purpose:** what Anthropic's Claude Code docs say about how skills are named, described and loaded, and where Claude Code goes beyond the Agent Skills standard.
@@ -10,7 +10,7 @@ It's one of the summaries listed in this repo's [reference material](../README.m
 ## 📋 Executive Summary
 
 - 📘 **What it is:** the official page on skills in Claude Code, the folders of instructions Claude loads when a task needs them.
-- 💡 **Core idea:** Claude Code follows the [Agent Skills standard](agent_skills_spec.md) and adds fields of its own.
+- 💡 **Core idea:** Claude Code follows the [Agent Skills standard](../core/agent_skills_spec.md) and adds fields of its own.
 - 📦 **Portability:** a skill with only the standard's six fields loads in Claude Code, claude.ai and the Skills API alike.
 - 🎯 **For this repo:** its extra frontmatter works in Claude Code but would block uploading a skill to claude.ai.
 

@@ -1,6 +1,6 @@
-<!-- version: 1.0.1 -->
+<!-- version: 1.0.2 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-09 -->
+<!-- updated: 2026-11-10 -->
 # 🤖 Claude Code docs: Create custom subagents
 
 **Purpose:** what Anthropic's Claude Code docs say about defining subagents, the helper agents Claude hands tasks to, and what that means for this repo's agent template.
@@ -11,7 +11,7 @@ It's one of the summaries listed in this repo's [reference material](../README.m
 
 - 📘 **What it is:** the official page on subagents, each a Markdown file with YAML frontmatter that runs in its own context window.
 - 💡 **Core idea:** Claude decides when to delegate from each subagent's `description` alone.
-- 🏷️ **Names:** a `name` can be up to 256 characters and needn't match its file, so no open standard fixes the format the way the [Agent Skills standard](agent_skills_spec.md) does for skills.
+- 🏷️ **Names:** a `name` can be up to 256 characters and needn't match its file, so no open standard fixes the format the way the [Agent Skills standard](../core/agent_skills_spec.md) does for skills.
 - 🎯 **For this repo:** it's the source for the fields in the [agent template](../../../../src/claude/_templates/AGENT.md.template).
 
 ## 🔗 Source

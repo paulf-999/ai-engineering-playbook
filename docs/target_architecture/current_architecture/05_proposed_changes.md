@@ -1,6 +1,6 @@
-<!-- version: 1.2.1 -->
+<!-- version: 1.2.2 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 🛠️ Current architecture: Proposed changes
 
 **Purpose:** changes proposed for two core rule files in the old Claude configuration, which aren't yet adopted.
@@ -12,8 +12,8 @@ This page is part of the [current architecture](../current_architecture.md) revi
 The [guiding principles file](https://github.com/paulf-999/claude_ai_playbook/blob/915685f/src/claude/rules/01_essentials/guiding_principles.md) would change like this:
 
 - 🔗 **Merge overlaps:** combine the three rows on real need, token cost and automation payback into "Every component earns its cost".
-- 🎯 **Curated context:** add [DORA's finding](../reference_material/dora_ai_capabilities/03_findings.md) that irrelevant context degrades answers.
-- 🛡️ **Enforce what must hold:** add [Anthropic's SDLC course](../reference_material/anthropic_ai_native_sdlc.md)'s point that written guidance can be ignored, while hooks and CI checks can't.
+- 🎯 **Curated context:** add [DORA's finding](../reference_material/core/dora_ai_capabilities/03_findings.md) that irrelevant context degrades answers.
+- 🛡️ **Enforce what must hold:** add [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc.md)'s point that written guidance can be ignored, while hooks and CI checks can't.
 - 📏 **Measure outcomes:** give each component an early signal and a later result to watch, as every play, or recommended practice, in the SDLC course does.
 - 🧑 **Human accountability:** state that people own every judgement call, as the SDLC course insists.
 

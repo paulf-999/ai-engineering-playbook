@@ -1,4 +1,4 @@
-<!-- version: 1.9.0 -->
+<!-- version: 1.9.1 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 📚 Reference Material
@@ -15,10 +15,10 @@ The design is built on these, and its docs or config cite each one:
 
 | # | Source | Publisher | Version or date | Access | Captured | Used for |
 |---|---|---|---|---|---|---|
-| 1️⃣ | [The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook) · [summary](anthropic_ai_native_sdlc.md) | Anthropic (Claude Academy) | Not stated, © 2026 | Public, sign-in optional, read in full | 2026-11-02 | Lifecycle and workflow guidance |
-| 2️⃣ | [DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/) · [summary](dora_ai_capabilities.md) | DORA (DevOps Research and Assessment), a Google Cloud programme | Report v. 2025.1, CC BY-NC-SA 4.0 | Full report from [Google Cloud](https://cloud.google.com/resources/content/2025-dora-ai-capabilities-model-report), read in full | 2026-11-02 | The seven capabilities and how to build them |
-| 3️⃣ | [Handover review](handover_review.md), sections 4 and 6 | An outside reviewer of the [old Claude configuration](../current_architecture.md) | Not dated | Quoted in this repo | 2026-11-03 | The design's stance and priorities |
-| 4️⃣ | [Agent Skills specification](https://agentskills.io/specification), with its [overview](https://agentskills.io/home) · [summary](skill_and_agent_formats/agent_skills_spec.md) | agentskills.io, an open standard first developed by Anthropic | Live pages, no version or date | Public, read in full | 2026-11-09 | The required format and naming of a skill |
+| 1️⃣ | [The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook) · [summary](core/anthropic_ai_native_sdlc.md) | Anthropic (Claude Academy) | Not stated, © 2026 | Public, sign-in optional, read in full | 2026-11-02 | Lifecycle and workflow guidance |
+| 2️⃣ | [DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/) · [summary](core/dora_ai_capabilities.md) | DORA (DevOps Research and Assessment), a Google Cloud programme | Report v. 2025.1, CC BY-NC-SA 4.0 | Full report from [Google Cloud](https://cloud.google.com/resources/content/2025-dora-ai-capabilities-model-report), read in full | 2026-11-02 | The seven capabilities and how to build them |
+| 3️⃣ | [Handover review](core/handover_review.md), sections 4 and 6 | An outside reviewer of the [old Claude configuration](../current_architecture.md) | Not dated | Quoted in this repo | 2026-11-03 | The design's stance and priorities |
+| 4️⃣ | [Agent Skills specification](https://agentskills.io/specification), with its [overview](https://agentskills.io/home) · [summary](core/agent_skills_spec.md) | agentskills.io, an open standard first developed by Anthropic | Live pages, no version or date | Public, read in full | 2026-11-09 | The required format and naming of a skill |
 
 ### 🥈 Supporting
 
@@ -26,9 +26,9 @@ These back specific limits and naming rules:
 
 | # | Source | Publisher | Version or date | Access | Captured | Used for |
 |---|---|---|---|---|---|---|
-| 5️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) · [summary](claude_code_memory_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | What loading context into every session costs, and how imports and path-scoped rules load |
-| 6️⃣ | [Extend Claude with skills](https://code.claude.com/docs/en/skills) · [summary](skill_and_agent_formats/claude_code_skills_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and naming sections read | 2026-11-09 | Where Claude Code's skills go beyond the standard |
-| 7️⃣ | [Create custom subagents](https://code.claude.com/docs/en/sub-agents) · [summary](skill_and_agent_formats/claude_code_subagents_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and delegation sections read | 2026-11-09 | The fields and naming of an agent file |
+| 5️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) · [summary](supporting/claude_code_memory_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | What loading context into every session costs, and how imports and path-scoped rules load |
+| 6️⃣ | [Extend Claude with skills](https://code.claude.com/docs/en/skills) · [summary](supporting/claude_code_skills_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and naming sections read | 2026-11-09 | Where Claude Code's skills go beyond the standard |
+| 7️⃣ | [Create custom subagents](https://code.claude.com/docs/en/sub-agents) · [summary](supporting/claude_code_subagents_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and delegation sections read | 2026-11-09 | The fields and naming of an agent file |
 
 ### 📖 Further reading
 
@@ -39,12 +39,12 @@ Nothing in the design links to these yet, but each gives a view the others don't
 
 | # | Source | Publisher | Version or date | Access | Captured | Used for |
 |---|---|---|---|---|---|---|
-| 8️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) · [summary](dora_state_of_ai_2025.md) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | Report v. 2025.2, CC BY-NC-SA 4.0 | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), read in full | 2026-11-03 | Survey evidence on AI adoption and outcomes |
-| 9️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) · [summary](metr_developer_productivity_trial.md) | METR (Model Evaluation & Threat Research): Becker, Rush, Barnes and Rein, on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
-| 🔟 | [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) · [summary](bockeler_harness_engineering.md) | Birgitta Böckeler, on martinfowler.com | 2026-04-02 | Public, read in full | 2026-11-03 | When to guide Claude and when to enforce, from outside Anthropic |
-| 1️⃣1️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) · [summary](anthropic_agent_evals.md) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of this repo's configuration still helps |
-| 1️⃣2️⃣ | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) · [summary](claude_code_best_practices.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
-| 1️⃣3️⃣ | [The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf) · [summary](togaf_standards.md) | The Open Group | 10th Edition, 2022, © The Open Group | Free download after registering, summary not yet checked against the full text | 2026-11-04 | A shared method and vocabulary for enterprise architecture |
+| 8️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) · [summary](further_reading/dora_state_of_ai_2025.md) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | Report v. 2025.2, CC BY-NC-SA 4.0 | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), read in full | 2026-11-03 | Survey evidence on AI adoption and outcomes |
+| 9️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) · [summary](further_reading/metr_developer_productivity_trial.md) | METR (Model Evaluation & Threat Research): Becker, Rush, Barnes and Rein, on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
+| 🔟 | [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) · [summary](further_reading/bockeler_harness_engineering.md) | Birgitta Böckeler, on martinfowler.com | 2026-04-02 | Public, read in full | 2026-11-03 | When to guide Claude and when to enforce, from outside Anthropic |
+| 1️⃣1️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) · [summary](further_reading/anthropic_agent_evals.md) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of this repo's configuration still helps |
+| 1️⃣2️⃣ | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) · [summary](further_reading/claude_code_best_practices.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
+| 1️⃣3️⃣ | [The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf) · [summary](further_reading/togaf_standards.md) | The Open Group | 10th Edition, 2022, © The Open Group | Free download after registering, summary not yet checked against the full text | 2026-11-04 | A shared method and vocabulary for enterprise architecture |
 
 </details>
 

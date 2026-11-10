@@ -1,11 +1,11 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-10 -->
 # 🛠️ Claude Code docs: Best practices
 
 **Purpose:** what Anthropic's best-practices page for Claude Code recommends on guiding, checking and enforcing Claude's work, and what that means for this repo.
 
-It's one of the summaries listed in this repo's [reference material](README.md).
+It's one of the summaries listed in this repo's [reference material](../README.md).
 
 ## 📋 Executive Summary
 
@@ -36,7 +36,7 @@ The page makes these points, by section:
 
 ## 🎯 What it means for this repo
 
-This section is this repo's reading, not the page's, and the principles named are in this repo's [design principles](../design_principles/01_principles.md):
+This section is this repo's reading, not the page's, and the principles named are in this repo's [design principles](../../design_principles/01_principles.md):
 
 - 🔒 **Enforcement:** it backs "Enforce what must hold" in Anthropic's own words.
 - 🗑️ **Retiring hooks:** under "Retire what doesn't pay", each regular review could ask whether every hook holds a real "never".

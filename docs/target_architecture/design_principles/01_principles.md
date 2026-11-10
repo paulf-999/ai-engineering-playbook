@@ -1,4 +1,4 @@
-<!-- version: 1.7.3 -->
+<!-- version: 1.7.4 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-10 -->
 # 🧱 Design principles: Principles
@@ -14,7 +14,7 @@ They're part of this repo's [design principles](../design_principles.md), which 
 | 🔒 **Enforce what must hold** | Use a hook, test or CI check, not prose. | The PR naming that check | [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc/04_our_reading.md) |
 | 🔁 **No duplicate controls** | A rule never restates a CI or pre-commit check. | The "No duplicate" criterion | [Handover review](../reference_material/core/handover_review.md) |
 | 🔌 **Opt-in, never mandatory** | No workflow requires a skill or agent. | The "No orchestration" criterion | [Handover review](../reference_material/core/handover_review.md) |
-| 📏 **Measure outcomes and overhead** | Measure tasks' [outcomes and overhead](../target_architecture.md#-measures) at each review. | The [repo review](../../maintenance/quality/audits/quality_audit_repo.md) reads them from session transcripts and git history, to decide what to cut, without keeping a record | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md), plus [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc/01_overview.md) on indicators |
+| 📏 **Measure use and overhead** | Record [component feedback and always-on tokens](../target_architecture.md#-measures) at each review. | The [repo review](../../maintenance/quality/audits/quality_audit_repo.md), from session transcripts and git history | [Review of the old setup](../current_architecture/03_complexity_without_evidence.md), plus [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc/01_overview.md) on measuring each play |
 | 🗑️ **Retire what doesn't pay** | Remove a component after two sessions show it got in the way, or if it's unused between reviews. | The regular review | [Handover review](../reference_material/core/handover_review.md) |
 | 🧑 **Humans own judgement calls** | A person merges every PR and decides scope and design. | Changes reach `main` only by PR, though approval isn't enforced | [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc/01_overview.md) |
 

@@ -1,4 +1,4 @@
-# version: 1.5.1
+# version: 1.5.2
 # created: 2026-11-05
 # updated: 2026-11-11
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates."""
@@ -19,8 +19,8 @@ MAX_BULLETS = 5
 EMOJI = re.compile("[\U0001f300-\U0001faff☀-➿⬀-⯿⌀-⏿←-⇿]")
 HEADER_FIELDS = ("version", "created", "updated")
 MISS_COSTS = ("low", "medium", "high")
-# a pointer line names its target in backticks, such as **Read on demand:** `_templates/README.md`
-POINTER = re.compile(r"\*\*Read on demand:\*\* `([^`]+)`")
+# a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`
+POINTER = re.compile(r"^- `((?:_rules_on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
 
 
 def relative(path):
@@ -103,7 +103,7 @@ def heading_problems(text):
 
 
 # bullets the 5-item cap skips: checklist items, Contents links and Read on demand pointers
-UNCOUNTED_BULLET = re.compile(r"[-*] (\[[ x]\] |\[[^]]*\]\(#|\*\*Read on demand:\*\*)")
+UNCOUNTED_BULLET = re.compile(r"[-*] (\[[ x]\] |\[[^]]*\]\(#|`(?:_rules_on_demand/|_templates/|README\.md`))")
 
 
 def list_problems(text):
@@ -270,7 +270,7 @@ def test_on_demand_rule_has_an_inbound_pointer(path):
     """Each on-demand entry-point rule is named in a pointer elsewhere in the config, or in a hook's block message."""
     names_it = [source for target, source in pointer_targets() if target == relative(path) and source != path]
     names_it += [hook for hook in (CONFIG_DIR / "hooks").glob("*.sh") if relative(path) in hook.read_text()]
-    assert names_it, f"{relative(path)}: add a **Read on demand:** pointer to it from another config file"
+    assert names_it, f"{relative(path)}: point to it from another config file's '## 📚 Read on demand' section"
 
 
 def loose_pointers(text):
@@ -279,7 +279,7 @@ def loose_pointers(text):
     for line in text.splitlines():
         if line.startswith("## "):
             heading = line
-        elif line.startswith("- **Read on demand:**") and "read on demand" not in heading.lower():
+        elif POINTER.match(line) and "read on demand" not in heading.lower():
             loose.append(line)
     return loose
 

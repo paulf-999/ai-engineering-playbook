@@ -1,4 +1,4 @@
-<!-- version: 2.1.3 -->
+<!-- version: 2.1.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
@@ -14,4 +14,4 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_templates/TODO.md.template`, in your Claude config directory, when creating a missing `TODO.md`, for its table layout.
+- `_templates/TODO.md.template`, in your Claude config directory, when creating a missing `TODO.md`, for its table layout.

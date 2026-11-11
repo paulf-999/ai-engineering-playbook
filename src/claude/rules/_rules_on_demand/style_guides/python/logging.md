@@ -1,4 +1,4 @@
-<!-- version: 1.1.6 -->
+<!-- version: 1.1.7 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: **/*.py -->
@@ -22,8 +22,8 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_setup_and_levels.md`, in your Claude config directory, for logger setup and levels.
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_what_to_log.md`, in your Claude config directory, for what to log.
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_what_not_to_log.md`, in your Claude config directory, for what to leave out of logs.
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_error_handling.md`, in your Claude config directory, for the patterns to follow.
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md`, in your Claude config directory, for the patterns to avoid.
+- `_rules_on_demand/style_guides/python/logging/_setup_and_levels.md`, in your Claude config directory, for logger setup and levels.
+- `_rules_on_demand/style_guides/python/logging/_what_to_log.md`, in your Claude config directory, for what to log.
+- `_rules_on_demand/style_guides/python/logging/_what_not_to_log.md`, in your Claude config directory, for what to leave out of logs.
+- `_rules_on_demand/style_guides/python/logging/_error_handling.md`, in your Claude config directory, for the patterns to follow.
+- `_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md`, in your Claude config directory, for the patterns to avoid.

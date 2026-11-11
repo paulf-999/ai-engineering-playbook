@@ -2,7 +2,7 @@
 paths:
   - "**/*.sh"
 ---
-<!-- version: 1.6.3 -->
+<!-- version: 1.6.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: shell scripts -->
@@ -39,5 +39,5 @@ Start every script with `#!/bin/bash` then `set -euo pipefail`, so it stops on a
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_templates/utils/template_bash_script.sh`, in your Claude config directory, when the repo has no script template of its own.
-- **Read on demand:** `_templates/utils/shell_utils.sh`, in your Claude config directory, for its functions and which log level suits each message, when the repo has a shared `shell_utils.sh`.
+- `_templates/utils/template_bash_script.sh`, in your Claude config directory, when the repo has no script template of its own.
+- `_templates/utils/shell_utils.sh`, in your Claude config directory, for its functions and which log level suits each message, when the repo has a shared `shell_utils.sh`.

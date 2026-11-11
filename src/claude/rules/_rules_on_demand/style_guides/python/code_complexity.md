@@ -1,6 +1,6 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — functions grow harder to read and change -->
 # 📊 Code Complexity
@@ -23,6 +23,6 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for what cyclomatic and cognitive complexity measure.
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for why each size limit exists and how to get under it.
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md`, in your Claude config directory, before accepting code over a limit.
+- `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for what cyclomatic and cognitive complexity measure.
+- `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for why each size limit exists and how to get under it.
+- `_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md`, in your Claude config directory, before accepting code over a limit.

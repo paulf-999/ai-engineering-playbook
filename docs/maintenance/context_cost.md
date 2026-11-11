@@ -1,4 +1,4 @@
-<!-- version: 1.0.62 -->
+<!-- version: 1.0.63 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-11 -->
 # 💰 Context cost
@@ -15,32 +15,32 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `CLAUDE.md` | ~541 |
+| 1 | `CLAUDE.md` | ~536 |
 | 2 | `rules/01_standards/claude_response_standards.md` | ~218 |
-| 3 | `rules/01_standards/naming_standards.md` | ~261 |
-| 4 | `rules/02_conduct/behaviour.md` | ~342 |
-| 5 | `rules/02_conduct/security.md` | ~210 |
-| 6 | `rules/02_conduct/writing_style.md` | ~340 |
-| 7 | `rules/03_workflows/claude_plans.md` | ~184 |
-| | **Subtotal** | **~2098** |
+| 3 | `rules/01_standards/naming_standards.md` | ~251 |
+| 4 | `rules/02_conduct/behaviour.md` | ~322 |
+| 5 | `rules/02_conduct/security.md` | ~205 |
+| 6 | `rules/02_conduct/writing_style.md` | ~320 |
+| 7 | `rules/03_workflows/claude_plans.md` | ~179 |
+| | **Subtotal** | **~2033** |
 
 ## 📂 Path-scoped rules
 
 | # | File | Globs | Tokens |
 |---|---|---|---|
 | 1 | `rules/_path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
-| 2 | `rules/_path_scoped_rules/style_guides/airflow.md` | `**/dags/**/*.py` | ~348 |
-| 3 | `rules/_path_scoped_rules/style_guides/bash.md` | `**/*.sh` | ~362 |
-| 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/models/**/*.yml`, `**/dbt_project.yml` | ~438 |
-| 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~486 |
-| 6 | `rules/_path_scoped_rules/style_guides/infra/docker.md` | `**/Dockerfile*` | ~142 |
-| 7 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~478 |
-| 8 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~460 |
-| 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~349 |
-| 10 | `rules/_path_scoped_rules/style_guides/utilities/makefile.md` | `**/Makefile`, `**/*.mk` | ~247 |
-| 11 | `rules/_path_scoped_rules/style_guides/utilities/mermaid.md` | `**/*.mmd` | ~198 |
-| 12 | `rules/_path_scoped_rules/testing.md` | `**/*.py`, `**/*.sh`, `**/*.sql` | ~215 |
-| | **Subtotal** | | **~3924** |
+| 2 | `rules/_path_scoped_rules/style_guides/airflow.md` | `**/dags/**/*.py` | ~328 |
+| 3 | `rules/_path_scoped_rules/style_guides/bash.md` | `**/*.sh` | ~352 |
+| 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/models/**/*.yml`, `**/dbt_project.yml` | ~413 |
+| 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~466 |
+| 6 | `rules/_path_scoped_rules/style_guides/infra/docker.md` | `**/Dockerfile*` | ~132 |
+| 7 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~448 |
+| 8 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~430 |
+| 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~324 |
+| 10 | `rules/_path_scoped_rules/style_guides/utilities/makefile.md` | `**/Makefile`, `**/*.mk` | ~237 |
+| 11 | `rules/_path_scoped_rules/style_guides/utilities/mermaid.md` | `**/*.mmd` | ~188 |
+| 12 | `rules/_path_scoped_rules/testing.md` | `**/*.py`, `**/*.sh`, `**/*.sql` | ~205 |
+| | **Subtotal** | | **~3724** |
 
 ## 💤 On demand
 
@@ -50,19 +50,19 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 2 | `_templates/README.md` | ~797 |
 | 3 | `rules/_rules_on_demand/02_conduct/automation_controls.md` | ~719 |
 | 4 | `rules/_rules_on_demand/02_conduct/reporting.md` | ~174 |
-| 5 | `rules/_rules_on_demand/02_conduct/todo_logging.md` | ~184 |
+| 5 | `rules/_rules_on_demand/02_conduct/todo_logging.md` | ~179 |
 | 6 | `rules/_rules_on_demand/02_conduct/writing_style/_audience_and_depth.md` | ~324 |
 | 7 | `rules/_rules_on_demand/02_conduct/writing_style/_drafts_and_errors.md` | ~199 |
 | 8 | `rules/_rules_on_demand/02_conduct/writing_style/_markdown_layout.md` | ~264 |
 | 9 | `rules/_rules_on_demand/03_workflows/git.md` | ~325 |
 | 10 | `rules/_rules_on_demand/03_workflows/saving_plans.md` | ~235 |
 | 11 | `rules/_rules_on_demand/03_workflows/sdlc_workflow.md` | ~244 |
-| 12 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~393 |
+| 12 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~373 |
 | 13 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~410 |
-| 14 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~552 |
+| 14 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~541 |
 | 15 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~474 |
 | 16 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~187 |
-| 17 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~417 |
+| 17 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~402 |
 | 18 | `rules/_rules_on_demand/claude_config/permission_recommendations.md` | ~154 |
 | 19 | `rules/_rules_on_demand/claude_config/portable_paths.md` | ~189 |
 | 20 | `rules/_rules_on_demand/claude_config/turn_budgets.md` | ~174 |
@@ -87,7 +87,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 39 | `rules/_rules_on_demand/style_guides/infra/terraform/_modules.md` | ~740 |
 | 40 | `rules/_rules_on_demand/style_guides/infra/terraform/_providers.md` | ~535 |
 | 41 | `rules/_rules_on_demand/style_guides/infra/terraform/_structure.md` | ~613 |
-| 42 | `rules/_rules_on_demand/style_guides/jira.md` | ~385 |
+| 42 | `rules/_rules_on_demand/style_guides/jira.md` | ~355 |
 | 43 | `rules/_rules_on_demand/style_guides/jira/_business_value.md` | ~898 |
 | 44 | `rules/_rules_on_demand/style_guides/jira/_definition_of_ready.md` | ~272 |
 | 45 | `rules/_rules_on_demand/style_guides/jira/_field_standards.md` | ~662 |
@@ -96,22 +96,22 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 48 | `rules/_rules_on_demand/style_guides/jira/_ticket_conventions.md` | ~573 |
 | 49 | `rules/_rules_on_demand/style_guides/python/_comments.md` | ~258 |
 | 50 | `rules/_rules_on_demand/style_guides/python/_python_environment.md` | ~479 |
-| 51 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~392 |
+| 51 | `rules/_rules_on_demand/style_guides/python/code_complexity.md` | ~377 |
 | 52 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~300 |
 | 53 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~335 |
 | 54 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~459 |
-| 55 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~372 |
+| 55 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~347 |
 | 56 | `rules/_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md` | ~639 |
 | 57 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~669 |
 | 58 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
 | 59 | `rules/_rules_on_demand/style_guides/python/logging/_what_not_to_log.md` | ~704 |
 | 60 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~417 |
-| 61 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~399 |
+| 61 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~379 |
 | 62 | `rules/_rules_on_demand/style_guides/python/module_organisation/_constants.md` | ~376 |
 | 63 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~222 |
 | 64 | `rules/_rules_on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md` | ~417 |
 | 65 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~590 |
-| 66 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~333 |
+| 66 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~318 |
 | 67 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~500 |
 | 68 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~745 |
 | 69 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~593 |
@@ -127,4 +127,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 80 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 81 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~41874** |
+| | **Subtotal** | **~41718** |

@@ -11,6 +11,10 @@ This page is part of the [repo quality audit](../quality_audit_repo.md). Each re
 
 | Date | Run | Component | Evidence |
 |---|---|---|---|
+| 2026-11-11 | #168 | `hooks/hook_enforcement_plan_sections.sh` | Blocked plans with no Intent or Spec heading, and each was resubmitted |
+| 2026-11-11 | #168 | `_rules_on_demand/03_workflows/sdlc_workflow.md` | Read after each of the hook's block messages pointed to it |
+| 2026-11-11 | #168 | `_rules_on_demand/03_workflows/saving_plans.md` | Read after plan approval, and 39 `_plans/active/` folders were written |
+| 2026-11-11 | #168 | `src/sh/claude_validate_always_on_budget.sh` | Runs on every commit and passes |
 | 2026-11-11 | #161 | `hooks/hook_enforcement_plan_sections.sh` | Blocked 16 plans that lacked Intent or Spec, each sent to `sdlc_workflow.md`, at one resubmit each |
 | 2026-11-11 | #161 | `_rules_on_demand/03_workflows/sdlc_workflow.md` and `saving_plans.md` | Read about 6 and 12 times, through the hook and after plan approval |
 | 2026-11-11 | #161 | `_rules_on_demand/03_workflows/git.md`, `reporting.md` and `portable_paths.md` | Read about 16, 6 and 5 times |
@@ -25,4 +29,4 @@ This page is part of the [repo quality audit](../quality_audit_repo.md). Each re
 
 | Date | Run | Component | Effect | Evidence |
 |---|---|---|---|---|
-| 2026-11-11 | #161 | Other stacks' path-scoped and on-demand rules | Unused | Never loaded, since almost all sessions were in this repo |
+| 2026-11-11 | #168 | Other on-demand rules, style guides and templates | Unused | No installed copy was read, and the skill and agent templates are planned |

@@ -1,4 +1,4 @@
-<!-- version: 1.0.59 -->
+<!-- version: 1.0.60 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-11 -->
 # 💰 Context cost
@@ -18,11 +18,11 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `CLAUDE.md` | ~544 |
 | 2 | `rules/01_standards/claude_response_standards.md` | ~218 |
 | 3 | `rules/01_standards/naming_standards.md` | ~255 |
-| 4 | `rules/02_conduct/behaviour.md` | ~354 |
+| 4 | `rules/02_conduct/behaviour.md` | ~337 |
 | 5 | `rules/02_conduct/security.md` | ~205 |
 | 6 | `rules/02_conduct/writing_style.md` | ~340 |
 | 7 | `rules/03_workflows/claude_plans.md` | ~178 |
-| | **Subtotal** | **~2098** |
+| | **Subtotal** | **~2080** |
 
 ## 📂 Path-scoped rules
 
@@ -57,7 +57,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 9 | `rules/_rules_on_demand/03_workflows/git.md` | ~325 |
 | 10 | `rules/_rules_on_demand/03_workflows/saving_plans.md` | ~235 |
 | 11 | `rules/_rules_on_demand/03_workflows/sdlc_workflow.md` | ~244 |
-| 12 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~512 |
+| 12 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~393 |
 | 13 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~410 |
 | 14 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~531 |
 | 15 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~474 |
@@ -127,4 +127,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 80 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 81 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42346** |
+| | **Subtotal** | **~42227** |

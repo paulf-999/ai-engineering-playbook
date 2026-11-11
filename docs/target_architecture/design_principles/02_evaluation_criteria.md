@@ -1,4 +1,4 @@
-<!-- version: 1.8.8 -->
+<!-- version: 1.8.9 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # ✅ Design principles: Evaluation criteria
@@ -10,7 +10,7 @@ This page is part of the [design principles](../design_principles.md), which als
 A PR that changes `src/claude/` answers these checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), which sets the table and verdict format, and CI fails it if that section is unanswered.
 
 - 🕵️ **Reviewer judges:** a fresh-context reviewer agent gets only the diff and this page, and fills the table and the verdict, so no author marks their own change.
-- 🧮 **CI measures:** pre-commit and the tests already check Cost and Rule size, so the table leaves them out, along with Per-turn overhead while no hook fires every turn.
+- 🧮 **CI measures:** pre-commit and the tests already check Cost and Rule size, so the table leaves them out.
 
 ## 🚪 Review each file
 
@@ -24,7 +24,6 @@ The flags come from the [review of the old setup](../current_architecture/03_com
 | Red flag | Spotted by | Suggested fix |
 |---|---|---|
 | 🏋️ **Always-on weight** | No `paths:` setting, or imported into `CLAUDE.md` | Make it path-scoped or on demand |
-| ⏱️ **Per-turn overhead** | A hook that fires on every prompt, such as `UserPromptSubmit` | Fire on a narrower event |
 | 🗣️ **Advisory-only control** | Prose for something that must always hold, such as "never commit to main" | Keep the prose, and consider adding a hook or CI check |
 
 ## 🧰 What shape?

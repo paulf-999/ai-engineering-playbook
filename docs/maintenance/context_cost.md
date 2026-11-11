@@ -1,4 +1,4 @@
-<!-- version: 1.0.61 -->
+<!-- version: 1.0.62 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-11 -->
 # 💰 Context cost
@@ -100,18 +100,18 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 52 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~300 |
 | 53 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~335 |
 | 54 | `rules/_rules_on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~459 |
-| 55 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~514 |
+| 55 | `rules/_rules_on_demand/style_guides/python/logging.md` | ~372 |
 | 56 | `rules/_rules_on_demand/style_guides/python/logging/_error_anti_patterns.md` | ~639 |
 | 57 | `rules/_rules_on_demand/style_guides/python/logging/_error_handling.md` | ~669 |
 | 58 | `rules/_rules_on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
 | 59 | `rules/_rules_on_demand/style_guides/python/logging/_what_not_to_log.md` | ~704 |
 | 60 | `rules/_rules_on_demand/style_guides/python/logging/_what_to_log.md` | ~417 |
-| 61 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~505 |
+| 61 | `rules/_rules_on_demand/style_guides/python/module_organisation.md` | ~399 |
 | 62 | `rules/_rules_on_demand/style_guides/python/module_organisation/_constants.md` | ~376 |
 | 63 | `rules/_rules_on_demand/style_guides/python/module_organisation/_docstrings.md` | ~222 |
 | 64 | `rules/_rules_on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md` | ~417 |
 | 65 | `rules/_rules_on_demand/style_guides/python/module_organisation/_public_private.md` | ~590 |
-| 66 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~473 |
+| 66 | `rules/_rules_on_demand/style_guides/python/testing.md` | ~333 |
 | 67 | `rules/_rules_on_demand/style_guides/python/testing/_assertions.md` | ~500 |
 | 68 | `rules/_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~745 |
 | 69 | `rules/_rules_on_demand/style_guides/python/testing/_naming_structure.md` | ~593 |
@@ -127,4 +127,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 80 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 81 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42260** |
+| | **Subtotal** | **~41874** |

@@ -1,4 +1,4 @@
-<!-- version: 1.2.2 -->
+<!-- version: 1.2.3 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: **/*.py -->
@@ -6,22 +6,6 @@
 # 📦 Python Module Organisation
 
 **Purpose:** Establish conventions for module docstrings, metadata, and public/private function organisation — ensuring modules are self-documenting and their interfaces are clear.
-
----
-
-## 📋 Contents
-
-- [Module docstrings & metadata](#-module-docstrings--metadata) — `_rules_on_demand/style_guides/python/module_organisation/_docstrings.md`
-- [Public vs private functions](#-public-vs-private-functions) — `_rules_on_demand/style_guides/python/module_organisation/_public_private.md`
-- [Quick reference](#-quick-reference)
-
----
-
-## 📝 Module docstrings & metadata
-
----
-
-## 🔒 Public vs private functions
 
 ---
 

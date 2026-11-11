@@ -1,4 +1,4 @@
-<!-- version: 1.1.4 -->
+<!-- version: 1.1.5 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: **/test_*.py, **/conftest.py -->
@@ -6,27 +6,6 @@
 # 🧪 Python Testing Conventions
 
 **Purpose:** Establish pytest conventions for test naming, structure, fixtures, mocking, and assertions — preventing testing debt and validating intended behaviour.
-
----
-
-## 📋 Contents
-
-- [Test naming & structure](#-test-naming--structure) — `_rules_on_demand/style_guides/python/testing/_naming_structure.md`
-- [Pytest fixtures & mocking](#-pytest-fixtures--mocking) — `_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md`
-- [Assertions & exception testing](#-assertions--exception-testing) — `_rules_on_demand/style_guides/python/testing/_assertions.md`
-- [Quick reference](#-quick-reference)
-
----
-
-## 📝 Test naming & structure
-
----
-
-## 🔧 Pytest fixtures & mocking
-
----
-
-## ✅ Assertions & exception testing
 
 ---
 
@@ -43,6 +22,6 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/testing/_naming_structure.md`, in your Claude config directory, for the detail of this section.
-- **Read on demand:** `_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md`, in your Claude config directory, for the detail of this section.
-- **Read on demand:** `_rules_on_demand/style_guides/python/testing/_assertions.md`, in your Claude config directory, for the detail of this section.
+- **Read on demand:** `_rules_on_demand/style_guides/python/testing/_naming_structure.md`, in your Claude config directory, for test naming & structure.
+- **Read on demand:** `_rules_on_demand/style_guides/python/testing/_fixtures_mocking.md`, in your Claude config directory, for pytest fixtures & mocking.
+- **Read on demand:** `_rules_on_demand/style_guides/python/testing/_assertions.md`, in your Claude config directory, for assertions & exception testing.

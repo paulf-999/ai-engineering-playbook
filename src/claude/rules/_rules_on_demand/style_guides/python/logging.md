@@ -1,4 +1,4 @@
-<!-- version: 1.1.5 -->
+<!-- version: 1.1.6 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: **/*.py -->
@@ -6,27 +6,6 @@
 # 📝 Python Logging Conventions
 
 **Purpose:** Establish logging standards for debugging, monitoring, and auditing — ensuring logs are useful, secure, and structured.
-
----
-
-## 📋 Contents
-
-- [Logger setup and levels](#-logger-setup-and-levels) — `_rules_on_demand/style_guides/python/logging/_setup_and_levels.md`
-- [What to log and what not to log](#-what-to-log-and-what-not-to-log) — `_rules_on_demand/style_guides/python/logging/_what_to_log.md`
-- [Logging in error handling](#-logging-in-error-handling) — `_rules_on_demand/style_guides/python/logging/_error_handling.md`
-- [Quick reference](#-quick-reference)
-
----
-
-## 🔧 Logger setup and levels
-
----
-
-## ✅ What to log and what not to log
-
----
-
-## 🚨 Logging in error handling
 
 ---
 
@@ -43,7 +22,7 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_setup_and_levels.md`, in your Claude config directory, for the detail of this section.
+- **Read on demand:** `_rules_on_demand/style_guides/python/logging/_setup_and_levels.md`, in your Claude config directory, for logger setup and levels.
 - **Read on demand:** `_rules_on_demand/style_guides/python/logging/_what_to_log.md`, in your Claude config directory, for what to log.
 - **Read on demand:** `_rules_on_demand/style_guides/python/logging/_what_not_to_log.md`, in your Claude config directory, for what to leave out of logs.
 - **Read on demand:** `_rules_on_demand/style_guides/python/logging/_error_handling.md`, in your Claude config directory, for the patterns to follow.

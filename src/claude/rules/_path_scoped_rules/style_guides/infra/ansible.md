@@ -1,14 +1,13 @@
 ---
-<!-- version: 1.5.2 -->
-<!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: Ansible playbooks and roles -->
-<!-- miss_cost: medium — playbooks drift from the team's structure and need reworking -->
 paths:
   - "**/playbooks/**/*.yml"
   - "**/roles/**/*.yml"
 ---
-
+<!-- version: 1.5.2 -->
+<!-- created: 2026-04-08 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: Ansible playbooks and roles -->
+<!-- miss_cost: medium — playbooks drift from the team's structure and need reworking -->
 # 📦 Ansible Style Guide & Standards
 
 **Purpose:** Define the team's standards for writing and structuring Ansible projects.

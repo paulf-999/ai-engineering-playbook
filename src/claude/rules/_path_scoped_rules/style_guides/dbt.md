@@ -1,15 +1,14 @@
 ---
-<!-- version: 1.7.1 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: dbt models and project files -->
-<!-- miss_cost: medium — models drift from the project's layout and need reworking -->
 paths:
   - "**/models/**/*.sql"
   - "**/models/**/*.yml"
   - "**/dbt_project.yml"
 ---
-
+<!-- version: 1.7.1 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: dbt models and project files -->
+<!-- miss_cost: medium — models drift from the project's layout and need reworking -->
 # 🔵 dbt Style Guide & Standards
 
 **Purpose:** the dbt project's standards for lineage, documentation, tests and materialisation, building on [dbt Labs' style guide](https://docs.getdbt.com/best-practices/how-we-style/0-how-we-style-our-dbt-projects).

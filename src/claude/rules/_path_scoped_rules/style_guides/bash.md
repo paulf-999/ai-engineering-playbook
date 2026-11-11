@@ -1,13 +1,12 @@
 ---
-<!-- version: 1.6.2 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: shell scripts -->
-<!-- miss_cost: medium — scripts fail silently or break on unexpected input -->
 paths:
   - "**/*.sh"
 ---
-
+<!-- version: 1.6.2 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: shell scripts -->
+<!-- miss_cost: medium — scripts fail silently or break on unexpected input -->
 # 🖥️ Bash Style Guide
 
 **Purpose:** shell scripting conventions for safety and consistency, alongside what `shellcheck` checks.

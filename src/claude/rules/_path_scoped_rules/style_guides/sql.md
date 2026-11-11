@@ -1,13 +1,12 @@
 ---
-<!-- version: 1.7.1 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: SQL files -->
-<!-- miss_cost: low — SQL drifts from the house style and needs reformatting -->
 paths:
   - "**/*.sql"
 ---
-
+<!-- version: 1.7.1 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: SQL files -->
+<!-- miss_cost: low — SQL drifts from the house style and needs reformatting -->
 # 🗄️ SQL Style Guide & Standards
 
 **Purpose:** Define team SQL standards for consistency, readability, and cost optimization. Standards apply to all SQL written in the warehouse (dbt, Airflow, ad-hoc queries).

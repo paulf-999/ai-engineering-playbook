@@ -1,7 +1,7 @@
 #!/bin/bash
-# version: 1.3.1
+# version: 1.4.0
 # created: 2026-10-31
-# updated: 2026-11-05
+# updated: 2026-11-11
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Bump the version header of each changed file (PATCH +1, updated = today), unless its version was already raised
@@ -33,15 +33,30 @@ FILE_CHANGED=false
 # Functions
 #=======================================================================
 
-# Print the line number of a header field within a file's first 5 lines, or nothing if it's missing
-header_line_number() {
-    local file="${1}" field="${2}"
-    head -n 5 "${file}" | grep -nE "${HEADER_PREFIX}${field}: " | head -n 1 | cut -d: -f1 || true
+# Print the lines where the header belongs, from file content on stdin, as '<line number>:<text>': the first
+# 5 lines, or for markdown (extension 'md') opening with '---', the 5 lines after its frontmatter, keeping real numbers
+header_region() {
+    local extension="${1}" markdown=0
+    if [[ "${extension}" == md ]]; then
+        markdown=1
+    fi
+    awk -v md="${markdown}" '
+        NR == 1 && md && $0 == "---" { in_frontmatter = 1; next }
+        in_frontmatter { if ($0 == "---") { in_frontmatter = 0; start = NR }; next }
+        NR > start && NR <= start + 5 { print NR ":" $0 }
+    '
 }
 
-# Print a header field's value from file content on stdin, or nothing if it's missing
+# Print the line number of a header field in a file's header region, or nothing if it's missing
+header_line_number() {
+    local file="${1}" field="${2}"
+    header_region "${file##*.}" < "${file}" | grep -E "^[0-9]+:${HEADER_PREFIX#^}${field}: " | head -n 1 | cut -d: -f1 || true
+}
+
+# Print a header field's value from file content on stdin, given the file's extension, or nothing if it's missing
 field_value() {
-    head -n 5 | grep -oE "${HEADER_PREFIX}${1}: [^ ]+" | head -n 1 | sed -E 's/.*: //' || true
+    local field="${1}" extension="${2}"
+    header_region "${extension}" | cut -d: -f2- | grep -oE "${HEADER_PREFIX}${field}: [^ ]+" | head -n 1 | sed -E 's/.*: //' || true
 }
 
 # Replace one header field's value on its own line, keeping the file's permissions
@@ -79,7 +94,7 @@ needs_header_check() {
 # Stop with an error, before anything is edited, if the header can't be bumped safely
 validate_header() {
     local file="${1}" version
-    version="$(field_value version < "${file}")"
+    version="$(field_value version "${file##*.}" < "${file}")"
     if [[ ! "${version}" =~ ${VERSION_FORMAT} ]]; then
         log_message "${ERROR}" "${file}: version '${version}' isn't MAJOR.MINOR.PATCH - fix the header (see docs/maintenance/file_headers.md)."
         exit 1
@@ -93,8 +108,8 @@ validate_header() {
 # Raise the PATCH version, unless it was already raised by hand (e.g. to a new MINOR or MAJOR)
 bump_version() {
     local file="${1}" old_version new_version major minor patch
-    old_version="$(git show "HEAD:${HEAD_PATH}" | field_value version)"
-    new_version="$(field_value version < "${file}")"
+    old_version="$(git show "HEAD:${HEAD_PATH}" | field_value version "${file##*.}")"
+    new_version="$(field_value version "${file##*.}" < "${file}")"
     if [[ "${new_version}" != "${old_version}" ]]; then
         return 0
     fi
@@ -110,7 +125,7 @@ bump_version() {
 # Set the updated date to today, if it isn't already
 bump_updated() {
     local file="${1}"
-    if [[ "$(field_value updated < "${file}")" == "${TODAY}" ]]; then
+    if [[ "$(field_value updated "${file##*.}" < "${file}")" == "${TODAY}" ]]; then
         return 0
     fi
     set_field "${file}" updated "${TODAY}"

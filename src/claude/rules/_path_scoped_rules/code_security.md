@@ -1,9 +1,4 @@
 ---
-<!-- version: 2.0.3 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: Python, shell, SQL, JavaScript and TypeScript files -->
-<!-- miss_cost: high — code ships with a secret or an injection hole -->
 paths:
   - "**/*.py"
   - "**/*.sh"
@@ -11,6 +6,11 @@ paths:
   - "**/*.js"
   - "**/*.ts"
 ---
+<!-- version: 2.0.3 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: Python, shell, SQL, JavaScript and TypeScript files -->
+<!-- miss_cost: high — code ships with a secret or an injection hole -->
 # 🛡️ Code security
 
 **Purpose:** secure coding standards that load whenever a code file is open.

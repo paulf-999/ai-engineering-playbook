@@ -1,4 +1,4 @@
-<!-- version: 1.5.3 -->
+<!-- version: 1.6.1 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-11 -->
 # 🏷️ File Headers
@@ -7,7 +7,7 @@
 
 ## 📄 Format
 
-Every file opens with a three-line header, placed after any shebang or YAML `---` line. Markdown uses HTML comments, and other files use `#` comments:
+Every file opens with a three-line header, placed after any shebang, a YAML file's opening `---` line, or a markdown file's frontmatter block, so YAML never reads it. Markdown uses HTML comments, and other files use `#` comments:
 
 ```markdown
 <!-- version: 1.0.0 -->

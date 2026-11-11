@@ -1,6 +1,6 @@
-<!-- version: 1.8.4 -->
+<!-- version: 1.8.5 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
 
 **Purpose:** what the new Claude configuration contains, what loads when, and how its cost and benefit are measured.
@@ -24,7 +24,7 @@ Every component sits in one of three tiers:
 
 | Tier | Contains | Loads |
 |---|---|---|
-| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md) and the always-on rules it loads, `make test` and the CI checks, including the guards below | Every session, or every PR |
+| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md) and the always-on rules it loads, the hooks `make install` registers, `make test` and the CI checks, including the guards below | Every session, or every PR |
 | 🧰 **Optional** | Skills, which are step-by-step procedures, agents, which work in a separate context, and on-demand rules | When the engineer or Claude asks for one |
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 

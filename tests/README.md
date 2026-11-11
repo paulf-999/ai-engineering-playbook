@@ -1,13 +1,13 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.3 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🧪 tests
 
 **Purpose:** how the `tests/` folder is laid out, and where a new test goes.
 
 Tests follow these layout rules:
 
-- 🪞 **Mirrored paths:** a test sits at the same path as the file it checks, so tests for `src/sh/git/git_commit.sh` live in `tests/src/sh/git/test_git_commit.py`.
+- 🪞 **Mirrored paths:** a test sits at the same path as the file it checks, so tests for `src/sh/git/git_validate_pr_description.sh` live in `tests/src/sh/git/test_git_validate_pr_description.py`.
   - **Docs too:** the tests that keep the doc quality audits accurate mirror `docs/maintenance/quality/`.
 - 🌐 **Repo-wide tests:** a test that checks the whole repo, such as every file's header, sits at the top of `tests/`.
 - 🤝 **Shared helpers:** modules that start with `_`, such as `_paths.py`, hold code several tests share, and aren't tests themselves.

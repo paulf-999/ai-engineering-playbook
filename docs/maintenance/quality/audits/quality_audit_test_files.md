@@ -1,6 +1,6 @@
-<!-- version: 4.0.1 -->
+<!-- version: 4.0.2 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 📊 Test Coverage Audit
 
 **Purpose:** how good each script's tests are, scored against the test rubric.
@@ -18,7 +18,6 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 |---|---|---|---|---|---|---|---|
 | | *Must paths tested* | *No extra tests* | *Easy to follow* | *Short, plain, robust to change* | *Repeatable, clear failures* | | |
 | [Header bump](../../../../src/sh/bump_file_headers.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [`git_commit.sh`](../../../../src/sh/git/git_commit.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Branch name](../../../../src/sh/git/git_validate_branch_name.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [PR size](../../../../src/sh/git/git_validate_num_file_changes.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [PR description](../../../../src/sh/git/git_validate_pr_description.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |

@@ -1,6 +1,6 @@
-# version: 5.0.0
+# version: 5.0.1
 # created: 2026-10-31
-# updated: 2026-11-10
+# updated: 2026-11-11
 """Checks every test is scored, and docs/maintenance/quality/audits/quality_audit_test_files.md fits the rubric."""
 
 import re
@@ -27,7 +27,7 @@ def find_test_file(row):
     if target.name.startswith("test_"):
         return row["link"]
 
-    # a script's tests live in the matching test_<name>.py, e.g. git_commit.sh -> test_git_commit.py
+    # a script's tests live in the matching test_<name>.py, e.g. bump_file_headers.sh -> test_bump_file_headers.py
     # (lowercased, so the Makefile maps to test_makefile.py)
     test_name = f"test_{target.stem.lower()}.py"
     matches = list((REPO_ROOT / "tests").rglob(test_name))

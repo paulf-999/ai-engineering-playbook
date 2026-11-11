@@ -1,6 +1,6 @@
-<!-- version: 3.3.8 -->
+<!-- version: 3.3.9 -->
 <!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🤝 Contributing
 
 **Purpose:** the branch, commit and PR conventions every contribution to this repo follows.
@@ -18,7 +18,6 @@ Before your first commit, activate a virtualenv (see the [virtualenv setup guide
   - **Type:** the kind of change, such as `feat`, `fix` or `docs`.
   - **Scope:** the area of the repo affected, such as `makefile` or `ci`.
 - 🛂 **Checked:** a commit-message hook rejects any message that doesn't match the format.
-- 🧰 **Helper:** stage your files and run `src/sh/git/git_commit.sh` to build a valid message step by step.
 
 Two valid messages:
 

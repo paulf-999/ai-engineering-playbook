@@ -1,4 +1,4 @@
-<!-- version: 1.8.10 -->
+<!-- version: 1.8.11 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
@@ -30,6 +30,7 @@ Every component sits in one of three tiers:
 
 - 🧭 **Choosing a tier:** the [evaluation criteria](design_principles/02_evaluation_criteria.md#-what-shape) match each need to a mechanism, which sets its tier.
 - 🛑 **Hooks and always-on rules:** a hook that fires on every prompt, or a rule made always-on, raises a [red flag](design_principles/02_evaluation_criteria.md#-review-each-file), and the always-on budget still caps always-on rules.
+- 🔐 **Tool access:** the config ships no MCP servers or permission allowlist, so each engineer connects their own tools. A PR that ships one gives it the least access it needs, per [`permission_recommendations.md`](../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md), as [DORA advises](reference_material/core/dora_ai_capabilities/03_findings.md).
 
 ## 🔄 Workflow
 

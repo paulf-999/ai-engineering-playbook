@@ -1,6 +1,6 @@
-<!-- version: 1.0.10 -->
+<!-- version: 1.0.11 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 📏 Rule Quality Audit
 
 **Purpose:** for maintainers, whether each Claude rule earns its place and reads correctly, scored out of 10.
@@ -36,7 +36,7 @@
 | [`_rules_on_demand/02_conduct/todo_logging.md`](../../../../src/claude/rules/_rules_on_demand/02_conduct/todo_logging.md) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | A · 10/10 | — |
 | [`_rules_on_demand/03_workflows/git.md`](../../../../src/claude/rules/_rules_on_demand/03_workflows/git.md) | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | B · 8/10 | Changes behaviour: "Repo conventions" (line 14) and "Flag complex operations" are close to default; Right place: "Clean index" and "Untrusted repos" are must-hold safety points left as prose only, with no hook, and the `behaviour.md` pointer "before running any git command" loads it for every trivial git call |
 | [`_rules_on_demand/03_workflows/saving_plans.md`](../../../../src/claude/rules/_rules_on_demand/03_workflows/saving_plans.md) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | A · 10/10 | — |
-| [`_rules_on_demand/03_workflows/sdlc_workflow.md`](../../../../src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | B · 8/10 | Changes behaviour: "Feedback loop" and "Review" (lines 15-16) are largely default behaviour; No duplicate: "Plan" (line 14) repeats `src/claude/CLAUDE.md` "Plan with checks" and "Feedback loop" repeats the root `CLAUDE.md` "Done means" |
+| [`_rules_on_demand/03_workflows/sdlc_workflow.md`](../../../../src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | B · 8/10 | Changes behaviour: "Feedback loop" and "Review" (lines 13-14) are largely default behaviour; No duplicate: "Plan" (line 12) repeats `src/claude/CLAUDE.md` "Plan with checks" and "Feedback loop" repeats the root `CLAUDE.md` "Done means" |
 | [`_rules_on_demand/claude_config/authoring_guidelines.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/authoring_guidelines.md) | ✅ 2 | ✅ 2 | ❌ 0 | 🟡 1 | ✅ 2 | C · 7/10 | No duplicate: four of five "Before you start" bullets restate `guiding_principles.md`, and the 110-line gate is also there and in `test_rules_structure.py`; Clarity: "per `portable_paths.md`" names a file with no path or pointer |
 | [`_rules_on_demand/claude_config/claude_naming_patterns.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/claude_naming_patterns.md) | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | A · 9/10 | No duplicate: the hyphenated skill and agent naming and the rule row repeat `naming_standards.md` |
 | [`_rules_on_demand/claude_config/guiding_principles.md`](../../../../src/claude/rules/_rules_on_demand/claude_config/guiding_principles.md) | 🟡 1 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | C · 7/10 | Changes behaviour: "Start small", "Easy to remove" and "Live sources" are generic practice; No duplicate: overlaps `authoring_guidelines.md`, and "Size" repeats the test-enforced 110-line limit; Clarity: "an engineer would have built it anyway" is vague, and "import" is undefined |

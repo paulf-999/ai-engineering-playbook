@@ -1,4 +1,4 @@
-<!-- version: 1.0.17 -->
+<!-- version: 1.0.18 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Audit
@@ -15,32 +15,32 @@ How each Claude config component fared in the session transcripts, kept across r
 
 | Date | Proportionality | Evidence of need | Single source | Always-on headroom | Placeholders | **Bloat** |
 |---|---|---|---|---|---|---|
-| 2026-11-11 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **8/10** |
+| 2026-11-11 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | ✅ 2 | **9/10** |
 
 ## 🏗️ Over-engineering
 
 | Date | Cross-file consistency | Upkeep cost | Process weight | Simplest mechanism | Built for today | **Over-engineering** |
 |---|---|---|---|---|---|---|
-| 2026-11-11 | 🟡 1 | 🟡 1 | ✅ 2 | ✅ 2 | 🟡 1 | **7/10** |
+| 2026-11-11 | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | **8/10** |
 
 ## 🔍 Why the latest scores
 
-The blind run of `main` at #165, with each theme below ✅ and what would raise it:
+The blind run of `main` at #170, with each theme below ✅ and what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | 3 duplicates: "Right mechanism" in `authoring_guidelines.md` and `guiding_principles.md`, the 110-line limit in `authoring_guidelines.md` and the tests, and the `claude_naming_patterns.md` pointer in `naming_standards.md` and `authoring_guidelines.md` | Finding 3 |
-| 📦 **Always-on headroom** | About 2,265 of 3,000 tokens, or 75.5%, just over the 75% line | Trim about 15 tokens |
-| 🔗 **Cross-file consistency** | 2 contradictions: `test_maintenance.md` re-scores each test at the regular review where CONTRIBUTING uses a follow-up PR, and `authoring_guidelines.md` restates the line cap and header rules that checks enforce | Findings 4 and 5 |
-| 🔁 **Upkeep cost** | 16 of the last 50 commits, or 32% | Leave `docs/maintenance/` alone outside reviews |
-| 🔮 **Built for today** | 2 cases: the `applies_to` and `miss_cost` usage lines that nothing reads, and the "Per-turn overhead" red flag while no hook fires every turn | Findings 2 and 5 |
+| 🎯 **Single source** | 3 duplicates: the grade scale in `quality_themes_rules.md` and `quality_themes_test_files.md`, turning Intent and Spec into `intent.md` and `spec.md` in `sdlc_workflow.md`, `saving_plans.md` and `target_architecture.md`, and running `make test` before a PR in `CLAUDE.md`, `tests/README.md` and `CONTRIBUTING.md` | Findings 3 and 5 |
+| 🔁 **Upkeep cost** | 16 of the last 50 commits, or 32%, of which 11 edit the repo rubric between reviews | Finding 1 |
+| 🪜 **Simplest mechanism** | 2 issues: about 7 tests in `test_rules_structure.py` that test the checks themselves, and a `# MoSCoW:` label on each of the 96 test functions per `test_maintenance.md` | Findings 2 and 4 |
+
+The one contradiction left, `target_architecture.md` still naming a per-prompt hook red flag that `02_evaluation_criteria.md` no longer lists, is within ✅. Always-on headroom is ✅ at about 2,248 of 3,000 tokens, only 2 tokens under the 75% line.
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 🧪 **Unread style guides:** the run proposed retiring the on-demand style guides no transcript read. This repo holds the intended setup rather than one project's usage, so this one is left as information.
-2. 🧾 **Unread usage lines:** drop the `applies_to` and `miss_cost` lines from 38 rules, with their check in `test_rules_structure.py` and their mentions in `_authoring_rules.md`, `file_headers.md` and `rule.md.template`.
-3. 🎯 **One checklist:** keep "Right mechanism" and "No duplicate" once, and drop the duplicate naming pointer from `authoring_guidelines.md`.
-4. 🧪 **No restated checks:** drop the 110-line and Header gates from `authoring_guidelines.md`, leaving the tests and `file_headers.md` as their homes.
-5. ✂️ **Small cuts:** delete the "Rescore" bullet in `test_maintenance.md`, and the "Per-turn overhead" red flag row in `02_evaluation_criteria.md`.
+1. 🧊 **Freeze the rubric:** save edits to `quality_themes_repo.md`, `quality_themes_rules.md` and `quality_themes_test_files.md` for the regular review, which would take Upkeep to about 5 of 50.
+2. 🧪 **Tests of the checks:** drop the 7 or so tests in `test_rules_structure.py` that only show each check can fail, and rely on the checks running against the real rules.
+3. 📝 **One home for Intent and Spec:** fold `saving_plans.md` into `sdlc_workflow.md`, or have one point to the other, and have `target_architecture.md` link rather than restate.
+4. 🏷️ **Fewer MoSCoW labels:** keep `# MoSCoW:` labels only where the tests audit's Core coverage needs them.
+5. 🎯 **Small fixes:** keep the grade scale in one rubric, align the per-prompt hook line in `target_architecture.md` with `02_evaluation_criteria.md`, and optionally drop the Evals and CI/CD rows from the Workflow table.

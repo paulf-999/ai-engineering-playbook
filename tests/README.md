@@ -1,4 +1,4 @@
-<!-- version: 1.1.3 -->
+<!-- version: 1.1.4 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-11 -->
 # 🧪 tests
@@ -18,5 +18,5 @@ Tests follow these layout rules:
 ## 🏃 Running and scoring
 
 - ▶️ **Running:** `make test` runs every test.
-- ⚠️ **Not in pre-commit:** the hooks don't run tests, so run `make test` as well as `pre-commit run --all-files` before a PR.
+- ⚠️ **Not in pre-commit:** the hooks don't run tests, so `make test` is a separate part of [Done means](../CLAUDE.md).
 - 📊 **Scoring:** each test gets a priority, explained in [test maintenance](../docs/maintenance/test_maintenance.md) and recorded as a `# MoSCoW:` comment above it, and the [tests audit](../docs/maintenance/quality/audits/quality_audit_test_files.md) scores each script's tests.

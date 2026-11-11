@@ -1,4 +1,4 @@
-<!-- version: 3.3.12 -->
+<!-- version: 3.3.13 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-11 -->
 # 🤝 Contributing
@@ -35,7 +35,7 @@ Two valid messages:
 ### ✅ Before raising a PR
 
 - 🪝 **Pre-commit hooks:** fix what they flag, rather than skipping them with `--no-verify`.
-- 🧪 **Tests:** run `make test`, which must pass.
+- 🧪 **Done:** meet [Done means](../CLAUDE.md) in `CLAUDE.md` before raising the PR.
 - 📊 **Scores:** once the PR merges, have a new Sonnet session re-score each changed test or rule in its [quality audit](../docs/maintenance/quality/audits/), in a follow-up PR that changes only the audit, and CI warns about any row due.
 
 ## 🏷️ File naming

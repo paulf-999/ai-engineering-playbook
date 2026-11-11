@@ -1,4 +1,4 @@
-<!-- version: 3.3.9 -->
+<!-- version: 3.3.10 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-11 -->
 # 🤝 Contributing
@@ -37,7 +37,7 @@ Two valid messages:
 
 - 🪝 **Pre-commit hooks:** fix what they flag, rather than skipping them with `--no-verify`.
 - 🧪 **Tests:** run `make test`, which must pass.
-- 📊 **Scores:** for each test or rule you change, have a new Sonnet session re-score its row in its [quality audit](../docs/maintenance/quality/audits/), and CI warns about any you miss.
+- 📊 **Scores:** once the PR merges, have a new Sonnet session re-score each changed test or rule in its [quality audit](../docs/maintenance/quality/audits/), in a follow-up PR that changes only the audit, and CI warns about any row due.
 
 ## 🏷️ File naming
 

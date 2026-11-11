@@ -1,6 +1,6 @@
-<!-- version: 1.8.7 -->
+<!-- version: 1.8.8 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # ✅ Design principles: Evaluation criteria
 
 **Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), faces when it's added and while it's on trial.
@@ -10,7 +10,7 @@ This page is part of the [design principles](../design_principles.md), which als
 A PR that changes `src/claude/` answers these checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), which sets the table and verdict format, and CI fails it if that section is unanswered.
 
 - 🕵️ **Reviewer judges:** a fresh-context reviewer agent gets only the diff and this page, and fills the table and the verdict, so no author marks their own change.
-- 🧮 **CI measures:** pre-commit and the tests already check Cost and On-demand cost, so the table leaves them out, along with Per-turn overhead while no hook fires every turn.
+- 🧮 **CI measures:** pre-commit and the tests already check Cost and Rule size, so the table leaves them out, along with Per-turn overhead while no hook fires every turn.
 
 ## 🚪 Review each file
 
@@ -35,7 +35,7 @@ Its shape passes when:
 - [ ] 🧭 **Right mechanism:** its form fits the need, per the table below.
 - [ ] 🎚️ **Tier:** it sits in a [tier](../target_architecture.md#-tiers) that loads only for the tasks that need it, unless every engineer needs it on every task.
 - [ ] 💰 **Cost:** always-on context stays within the [always-on budget](../target_architecture.md#-always-on-budget).
-- [ ] 📖 **On-demand cost:** each on-demand rule stays within the [read cap](01_principles.md#-numbers-and-tests) for one read.
+- [ ] 📏 **Rule size:** each rule stays within the [rule size guard](../target_architecture.md#-design-guards).
 - [ ] 🔌 **No orchestration:** no workflow requires it, so it stays [opt-in](01_principles.md).
 
 | Need | Mechanism |

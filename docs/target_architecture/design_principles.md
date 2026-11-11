@@ -1,6 +1,6 @@
-<!-- version: 1.7.3 -->
+<!-- version: 1.7.4 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🧭 Design principles
 
 **Purpose:** the principles every part of this repo's Claude configuration follows, and the checks a new part must pass.
@@ -22,7 +22,7 @@ Read them in this order:
 
 ## 📌 Status and terms
 
-- 🚧 **Status:** adopted, with the always-on budget check and the [repo review](../maintenance/quality/audits/quality_audit_repo.md) in place.
+- 🚧 **Status:** adopted, with what is built tracked in the [implementation status](implementation_status.md).
 
 This page defines the terms its child pages use:
 

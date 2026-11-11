@@ -1,11 +1,11 @@
-<!-- version: 1.8.12 -->
+<!-- version: 1.8.13 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
 
 **Purpose:** what the new Claude configuration contains, what loads when, and how its cost and benefit are measured.
 
-This page describes the design, and the [design principles' status section](design_principles.md#-status-and-terms) says which parts are built so far.
+This page describes the design, and the [implementation status](implementation_status.md) says which parts are built so far.
 
 The design rests on the [reference material](reference_material/README.md), and each choice follows the Source column of the [principles](design_principles/01_principles.md).
 

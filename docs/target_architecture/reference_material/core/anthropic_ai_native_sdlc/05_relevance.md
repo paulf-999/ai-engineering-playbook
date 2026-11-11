@@ -1,9 +1,9 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🎯 AI-native SDLC course: Relevance to this playbook
 
-**Purpose:** which of the course's plays suit this repo, as a proposal not yet adopted.
+**Purpose:** which of the course's plays suit this repo, as proposals, with the ones it has adopted recorded in the [target architecture's workflow](../../../target_architecture.md#-workflow).
 
 This page is part of the [summary of Anthropic's SDLC course](../anthropic_ai_native_sdlc.md). Each row proposes adopting a play as it is, adapting it, or leaving it out:
 
@@ -17,5 +17,5 @@ This page is part of the [summary of Anthropic's SDLC course](../anthropic_ai_na
 | 🔁 Feedback loop | Adopt | `make test` and `pre-commit run --all-files` already give one command each |
 | 🧪 Continuous evals | Adapt | A small set of repeatable test tasks is feasible, once API cost and upkeep are weighed |
 | 👀 PR review loop | Adapt | A review checklist fits, though a solo maintainer can't separate author and approver |
-| 🚧 Hooks as approval gates | Adapt | Project hooks only, since a personal setup has no admin-locked settings |
+| 🚧 Hooks as approval gates | Adapt | User-level hooks that `make install` registers, since a personal setup has no admin-locked settings |
 | 🚀 CI/CD integration, closing the loop on metrics | Out of scope for now | Both need a deployed service, which this repo doesn't have |

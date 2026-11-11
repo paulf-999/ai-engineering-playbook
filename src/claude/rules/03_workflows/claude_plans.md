@@ -1,4 +1,4 @@
-<!-- version: 2.1.9 -->
+<!-- version: 2.1.10 -->
 <!-- created: 2026-09-17 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
@@ -13,4 +13,4 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/03_workflows/saving_plans.md`, in your Claude config directory, once a plan is approved.
+- `_rules_on_demand/03_workflows/saving_plans.md`, in your Claude config directory, once a plan is approved.

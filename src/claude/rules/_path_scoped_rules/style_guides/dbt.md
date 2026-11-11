@@ -4,7 +4,7 @@ paths:
   - "**/models/**/*.yml"
   - "**/dbt_project.yml"
 ---
-<!-- version: 1.7.1 -->
+<!-- version: 1.7.2 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: dbt models and project files -->
@@ -23,8 +23,8 @@ paths:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/dbt/_model_organisation.md`, in your Claude config directory, when adding a model or choosing its layer, prefix or materialisation.
-- **Read on demand:** `_rules_on_demand/style_guides/dbt/_naming_conventions.md`, when naming a model, column, key or CTE.
-- **Read on demand:** `_rules_on_demand/style_guides/dbt/_yaml_resource_properties.md`, when writing model or source YAML.
-- **Read on demand:** `_rules_on_demand/style_guides/dbt/_macros.md`, before writing logic a team macro or package may already cover.
-- **Read on demand:** `_rules_on_demand/style_guides/dbt/_snapshots.md`, when adding or changing a snapshot.
+- `_rules_on_demand/style_guides/dbt/_model_organisation.md`, in your Claude config directory, when adding a model or choosing its layer, prefix or materialisation.
+- `_rules_on_demand/style_guides/dbt/_naming_conventions.md`, when naming a model, column, key or CTE.
+- `_rules_on_demand/style_guides/dbt/_yaml_resource_properties.md`, when writing model or source YAML.
+- `_rules_on_demand/style_guides/dbt/_macros.md`, before writing logic a team macro or package may already cover.
+- `_rules_on_demand/style_guides/dbt/_snapshots.md`, when adding or changing a snapshot.

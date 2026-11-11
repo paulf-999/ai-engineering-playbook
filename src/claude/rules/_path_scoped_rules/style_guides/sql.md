@@ -2,7 +2,7 @@
 paths:
   - "**/*.sql"
 ---
-<!-- version: 1.7.1 -->
+<!-- version: 1.7.2 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: SQL files -->
@@ -25,8 +25,8 @@ paths:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/sql/_formatting.md`, in your Claude config directory, before writing or reformatting a query.
-- **Read on demand:** `_rules_on_demand/style_guides/sql/_cte_style_guide.md`, when structuring a query or model into CTEs.
-- **Read on demand:** `_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md`, when choosing a column's data type.
-- **Read on demand:** `_rules_on_demand/style_guides/sql/_sqlfluff.md`, when a SQLFluff rule fails or the config changes.
-- **Read on demand:** `_rules_on_demand/style_guides/sql/_cost_guardrails.md`, when creating or resizing a warehouse, or refactoring a large query.
+- `_rules_on_demand/style_guides/sql/_formatting.md`, in your Claude config directory, before writing or reformatting a query.
+- `_rules_on_demand/style_guides/sql/_cte_style_guide.md`, when structuring a query or model into CTEs.
+- `_rules_on_demand/style_guides/sql/_snowflake_data_type_standards.md`, when choosing a column's data type.
+- `_rules_on_demand/style_guides/sql/_sqlfluff.md`, when a SQLFluff rule fails or the config changes.
+- `_rules_on_demand/style_guides/sql/_cost_guardrails.md`, when creating or resizing a warehouse, or refactoring a large query.

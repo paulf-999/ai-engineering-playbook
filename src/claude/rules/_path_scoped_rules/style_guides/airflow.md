@@ -2,7 +2,7 @@
 paths:
   - "**/dags/**/*.py"
 ---
-<!-- version: 1.6.1 -->
+<!-- version: 1.6.2 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Airflow DAG files -->
@@ -20,7 +20,7 @@ paths:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/airflow/_dag_design.md`, in your Claude config directory, when creating a DAG folder or naming a DAG.
-- **Read on demand:** `_rules_on_demand/style_guides/airflow/_dag_configuration.md`, when editing a DAG's `config.yaml`, schedule or tags.
-- **Read on demand:** `_rules_on_demand/style_guides/airflow/_tasks_and_operators.md`, when writing `dag.py`, choosing an operator or wiring tasks.
-- **Read on demand:** `_rules_on_demand/style_guides/airflow/_best_practices.md`, before changing retries, callbacks, tests or Variables.
+- `_rules_on_demand/style_guides/airflow/_dag_design.md`, in your Claude config directory, when creating a DAG folder or naming a DAG.
+- `_rules_on_demand/style_guides/airflow/_dag_configuration.md`, when editing a DAG's `config.yaml`, schedule or tags.
+- `_rules_on_demand/style_guides/airflow/_tasks_and_operators.md`, when writing `dag.py`, choosing an operator or wiring tasks.
+- `_rules_on_demand/style_guides/airflow/_best_practices.md`, before changing retries, callbacks, tests or Variables.

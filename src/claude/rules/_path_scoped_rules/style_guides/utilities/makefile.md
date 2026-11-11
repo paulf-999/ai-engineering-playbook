@@ -3,7 +3,7 @@ paths:
   - "**/Makefile"
   - "**/*.mk"
 ---
-<!-- version: 1.3.3 -->
+<!-- version: 1.3.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Makefiles -->
@@ -22,5 +22,5 @@ A Makefile may break three of these rules on purpose:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md`, in your Claude config directory, when naming a target or variable.
-- **Read on demand:** `_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md`, when setting `SHELL`, printing output, assigning variables or silencing commands.
+- `_rules_on_demand/style_guides/utilities/makefile/_naming_conventions.md`, in your Claude config directory, when naming a target or variable.
+- `_rules_on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md`, when setting `SHELL`, printing output, assigning variables or silencing commands.

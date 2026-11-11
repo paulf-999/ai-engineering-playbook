@@ -4,7 +4,7 @@ paths:
   - "**/*.sh"
   - "**/*.sql"
 ---
-<!-- version: 4.0.3 -->
+<!-- version: 4.0.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Python, shell and SQL files -->
@@ -20,5 +20,5 @@ paths:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/testing/_testing_design_pattern.md`, in your Claude config directory, before writing a new test.
-- **Read on demand:** `_rules_on_demand/testing/_testing_anti_patterns.md`, before writing or reviewing a test, for the mistakes that make tests mislead.
+- `_rules_on_demand/testing/_testing_design_pattern.md`, in your Claude config directory, before writing a new test.
+- `_rules_on_demand/testing/_testing_anti_patterns.md`, before writing or reviewing a test, for the mistakes that make tests mislead.

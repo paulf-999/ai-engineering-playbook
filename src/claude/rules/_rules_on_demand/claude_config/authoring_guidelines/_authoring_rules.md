@@ -1,4 +1,4 @@
-<!-- version: 1.1.9 -->
+<!-- version: 1.1.10 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-11 -->
 # 📝 Authoring rules
@@ -15,7 +15,7 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 
 ## 🔗 Wire it up
 
-- 👉 **Pointers:** reach an on-demand file with a `**Read on demand:**` line naming its path, in your Claude config directory, and when to read it, all in a `## 📚 Read on demand` section at the end of the file, or name it in a hook's block message.
+- 👉 **Pointers:** reach an on-demand file with a bullet in a `## 📚 Read on demand` section at the end of the file, naming its path, in your Claude config directory, and when to read it, or name it in a hook's block message.
 - 🆕 **New-file gap:** a path-scoped rule loads only once a matching file is open, so point to it on demand too, for the first file of its kind.
 - 🧩 **Children:** name each child in its parent, and keep links to other files in those pointer lines rather than a Related section.
 - 🧪 **Test the pointer:** run a lean session on a matching task, and check Claude reads the file before acting.
@@ -31,4 +31,4 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 
 ## 📚 Read on demand
 
-- **Read on demand:** `README.md`, in your Claude config directory, for the folder each tier lives in.
+- `README.md`, in your Claude config directory, for the folder each tier lives in.

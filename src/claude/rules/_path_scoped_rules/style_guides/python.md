@@ -2,7 +2,7 @@
 paths:
   - "**/*.py"
 ---
-<!-- version: 1.6.1 -->
+<!-- version: 1.6.2 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Python files -->
@@ -34,9 +34,9 @@ paths:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/python/_python_environment.md`, in your Claude config directory, when setting up a virtual environment or dependencies.
-- **Read on demand:** `_rules_on_demand/style_guides/python/testing.md`, before writing or changing pytest tests.
-- **Read on demand:** `_rules_on_demand/style_guides/python/logging.md`, before adding logging or error handling.
-- **Read on demand:** `_rules_on_demand/style_guides/python/_comments.md`, when deciding whether or how to comment code.
-- **Read on demand:** `_rules_on_demand/style_guides/python/code_complexity.md`, when a function grows long or deeply nested.
-- **Read on demand:** `_rules_on_demand/style_guides/python/module_organisation.md`, when writing docstrings or splitting public and private code.
+- `_rules_on_demand/style_guides/python/_python_environment.md`, in your Claude config directory, when setting up a virtual environment or dependencies.
+- `_rules_on_demand/style_guides/python/testing.md`, before writing or changing pytest tests.
+- `_rules_on_demand/style_guides/python/logging.md`, before adding logging or error handling.
+- `_rules_on_demand/style_guides/python/_comments.md`, when deciding whether or how to comment code.
+- `_rules_on_demand/style_guides/python/code_complexity.md`, when a function grows long or deeply nested.
+- `_rules_on_demand/style_guides/python/module_organisation.md`, when writing docstrings or splitting public and private code.

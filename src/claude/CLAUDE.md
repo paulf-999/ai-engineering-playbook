@@ -1,4 +1,4 @@
-<!-- version: 1.4.2 -->
+<!-- version: 1.4.3 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-11 -->
 # 🧠 Global Claude configuration
@@ -43,4 +43,4 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/claude_config/guiding_principles.md`, in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.
+- `_rules_on_demand/claude_config/guiding_principles.md`, in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.

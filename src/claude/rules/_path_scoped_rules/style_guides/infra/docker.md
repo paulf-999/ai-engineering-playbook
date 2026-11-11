@@ -2,7 +2,7 @@
 paths:
   - "**/Dockerfile*"
 ---
-<!-- version: 1.4.3 -->
+<!-- version: 1.4.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Dockerfiles -->
@@ -13,5 +13,5 @@ paths:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/infra/docker/_fundamentals.md`, in your Claude config directory, when choosing a base image or ordering a Dockerfile's sections.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/docker/_advanced.md`, when optimising layers, hardening an image, writing `.dockerignore` or using a multi-stage build.
+- `_rules_on_demand/style_guides/infra/docker/_fundamentals.md`, in your Claude config directory, when choosing a base image or ordering a Dockerfile's sections.
+- `_rules_on_demand/style_guides/infra/docker/_advanced.md`, when optimising layers, hardening an image, writing `.dockerignore` or using a multi-stage build.

@@ -2,7 +2,7 @@
 paths:
   - "**/*.mmd"
 ---
-<!-- version: 1.2.3 -->
+<!-- version: 1.2.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Mermaid diagram files -->
@@ -17,5 +17,5 @@ These standards apply to every Mermaid diagram: `.mmd` files load this guide aut
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md`, in your Claude config directory, when deciding whether, where and at what level to add a diagram.
-- **Read on demand:** `_rules_on_demand/style_guides/utilities/mermaid/_advanced.md`, when choosing node shapes, styling or subgraphs.
+- `_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md`, in your Claude config directory, when deciding whether, where and at what level to add a diagram.
+- `_rules_on_demand/style_guides/utilities/mermaid/_advanced.md`, when choosing node shapes, styling or subgraphs.

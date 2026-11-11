@@ -1,6 +1,6 @@
-<!-- version: 3.1.3 -->
+<!-- version: 3.1.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — prose drifts from the house style -->
 # ✏️ Writing style
@@ -15,7 +15,7 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/02_conduct/writing_style/_markdown_layout.md`, in your Claude config directory, before writing or restructuring a markdown doc.
-- **Read on demand:** `_rules_on_demand/02_conduct/writing_style/_audience_and_depth.md`, before writing for people outside the repo, such as a Confluence page, ticket or email.
-- **Read on demand:** `_rules_on_demand/02_conduct/writing_style/_drafts_and_errors.md`, before saving a draft or an error write-up.
-- **Read on demand:** `_rules_on_demand/style_guides/jira.md`, before writing or changing a Jira ticket.
+- `_rules_on_demand/02_conduct/writing_style/_markdown_layout.md`, in your Claude config directory, before writing or restructuring a markdown doc.
+- `_rules_on_demand/02_conduct/writing_style/_audience_and_depth.md`, before writing for people outside the repo, such as a Confluence page, ticket or email.
+- `_rules_on_demand/02_conduct/writing_style/_drafts_and_errors.md`, before saving a draft or an error write-up.
+- `_rules_on_demand/style_guides/jira.md`, before writing or changing a Jira ticket.

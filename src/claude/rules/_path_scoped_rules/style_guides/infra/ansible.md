@@ -3,7 +3,7 @@ paths:
   - "**/playbooks/**/*.yml"
   - "**/roles/**/*.yml"
 ---
-<!-- version: 1.5.2 -->
+<!-- version: 1.5.3 -->
 <!-- created: 2026-04-08 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Ansible playbooks and roles -->
@@ -37,7 +37,7 @@ Use FQCN for all modules: `ansible.builtin.apt`, not `apt`.
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_repo_structure.md`, in your Claude config directory, before adding a file or folder to the repo.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_playbooks.md`, when adding a playbook or its folder, tags or play settings.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md`, when creating a role or writing its tasks.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/ansible/_variables.md`, when adding variables to `group_vars`, `host_vars` or role defaults.
+- `_rules_on_demand/style_guides/infra/ansible/_repo_structure.md`, in your Claude config directory, before adding a file or folder to the repo.
+- `_rules_on_demand/style_guides/infra/ansible/_playbooks.md`, when adding a playbook or its folder, tags or play settings.
+- `_rules_on_demand/style_guides/infra/ansible/_roles_and_tasks.md`, when creating a role or writing its tasks.
+- `_rules_on_demand/style_guides/infra/ansible/_variables.md`, when adding variables to `group_vars`, `host_vars` or role defaults.

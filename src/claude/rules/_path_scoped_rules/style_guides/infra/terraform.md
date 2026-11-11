@@ -2,7 +2,7 @@
 paths:
   - "**/*.tf"
 ---
-<!-- version: 1.5.3 -->
+<!-- version: 1.5.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: Terraform files -->
@@ -21,9 +21,9 @@ paths:
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/style_guides/infra/terraform/_structure.md`, in your Claude config directory, when adding a module or environment, or deciding what to commit.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/terraform/_conventions.md`, when naming a Snowflake object, resource, module, variable or output.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/terraform/_declarations.md`, when declaring a variable or output, or adding a validation block.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/terraform/_modules.md`, when composing modules, using `for_each` or adding a `lifecycle` block.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/terraform/_providers.md`, when pinning, authenticating or configuring the Snowflake provider.
-- **Read on demand:** `_rules_on_demand/style_guides/infra/terraform/_ci_and_tooling.md`, when a pre-commit hook or pipeline stage fails.
+- `_rules_on_demand/style_guides/infra/terraform/_structure.md`, in your Claude config directory, when adding a module or environment, or deciding what to commit.
+- `_rules_on_demand/style_guides/infra/terraform/_conventions.md`, when naming a Snowflake object, resource, module, variable or output.
+- `_rules_on_demand/style_guides/infra/terraform/_declarations.md`, when declaring a variable or output, or adding a validation block.
+- `_rules_on_demand/style_guides/infra/terraform/_modules.md`, when composing modules, using `for_each` or adding a `lifecycle` block.
+- `_rules_on_demand/style_guides/infra/terraform/_providers.md`, when pinning, authenticating or configuring the Snowflake provider.
+- `_rules_on_demand/style_guides/infra/terraform/_ci_and_tooling.md`, when a pre-commit hook or pipeline stage fails.

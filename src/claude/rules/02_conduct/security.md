@@ -1,4 +1,4 @@
-<!-- version: 2.0.5 -->
+<!-- version: 2.0.6 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
@@ -14,4 +14,4 @@
 
 ## 📚 Read on demand
 
-- **Read on demand:** `_rules_on_demand/claude_config/permission_recommendations.md`, in your Claude config directory, before recommending a permission or allowlist change.
+- `_rules_on_demand/claude_config/permission_recommendations.md`, in your Claude config directory, before recommending a permission or allowlist change.

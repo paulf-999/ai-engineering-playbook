@@ -1,13 +1,13 @@
 #!/bin/bash
-# version: 1.3.0
+# version: 1.4.0
 # created: 2026-11-04
-# updated: 2026-11-10
+# updated: 2026-11-11
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
 #              On-demand files in rules/_rules_on_demand/ go beside rules/, since Claude Code loads everything under rules/
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed
-#              It also registers the config's hooks in settings.json, keeping every setting already there
+#              It also keeps the config's hooks in settings.json in step with the install, keeping every other setting
 # Usage: src/sh/claude_install_config.sh (run from the repo root, at your own terminal; make install calls it)
 
 # Load reusable shell script vars & functions
@@ -37,7 +37,8 @@ REMOVED_FILES=()
 # settings.json holds personal settings, so install merges the hook into it rather than copying a file over it
 SETTINGS="${TARGET_DIR}/settings.json"
 # an absolute path, since hook commands in user settings can't refer to CLAUDE_CONFIG_DIR
-PLAN_HOOK_COMMAND="bash \"${TARGET_DIR}/hooks/hook_enforcement_plan_sections.sh\""
+PLAN_HOOK="hooks/hook_enforcement_plan_sections.sh"
+PLAN_HOOK_COMMAND="bash \"${TARGET_DIR}/${PLAN_HOOK}\""
 
 #=======================================================================
 # Functions
@@ -95,7 +96,7 @@ confirm_install() {
             echo "  ${file}"
         done
     fi
-    echo "It also adds the plan sections hook to ${SETTINGS}, if it isn't there yet."
+    echo "It also updates the plan sections hook in ${SETTINGS} to match the install."
     echo "Each file it overwrites or removes is backed up to ${BACKUP_DIR} first."
     read -r -p "Type 'install' to continue: " answer || true
     if [[ "${answer}" != "install" ]]; then
@@ -137,38 +138,45 @@ remove_old_files() {
     printf '%s' "${TARGET_PATHS}" > "${MANIFEST}"
 }
 
-# Add the plan sections hook to settings.json, backing up the old file, unless it's already registered
+# Keep one plan sections hook in settings.json at the current path, or none if it isn't shipped, backing up the old file
 register_hooks() {
-    local current updated
+    local current updated ship=false
     if ! command -v jq > /dev/null; then
         log_message "${WARNING}" "jq isn't installed, so the plan sections hook wasn't added to ${SETTINGS}."
         return 0
     fi
+    grep -Fxq -- "${PLAN_HOOK}" <<< "${TARGET_PATHS}" && ship=true
     current="{}"
-    if file_exists "${SETTINGS}"; then
-        # a settings file jq can't read is left alone, rather than replaced
-        if ! current="$(jq '.' "${SETTINGS}" 2> /dev/null)"; then
-            log_message "${WARNING}" "${SETTINGS} isn't valid JSON, so the plan sections hook wasn't added."
-            return 0
-        fi
-        if jq -e --arg command "${PLAN_HOOK_COMMAND}" \
-            '[.hooks.PreToolUse[]?.hooks[]?.command] | index($command)' <<< "${current}" > /dev/null; then
-            return 0
-        fi
-        mkdir -p "${BACKUP_DIR}"
-        cp -p "${SETTINGS}" "${BACKUP_DIR}/settings.json"
+    # a settings file jq can't read is left alone, rather than replaced
+    if file_exists "${SETTINGS}" && ! current="$(jq '.' "${SETTINGS}" 2> /dev/null)"; then
+        log_message "${WARNING}" "${SETTINGS} isn't valid JSON, so the plan sections hook wasn't added."
+        return 0
     fi
+    # strip the hook wherever it's registered, matched by file name so an old path counts, then re-add it if shipped
     # a PreToolUse value that isn't a list can't take the hook, so it's reported rather than aborting the install
-    if ! updated="$(jq --arg command "${PLAN_HOOK_COMMAND}" \
-        '.hooks.PreToolUse += [{matcher: "ExitPlanMode", hooks: [{type: "command", command: $command}]}]' \
-        <<< "${current}" 2> /dev/null)"; then
+    if ! updated="$(jq --arg command "${PLAN_HOOK_COMMAND}" --arg suffix "/${PLAN_HOOK}\"" --argjson ship "${ship}" '
+        def ours: (.command? // "") as $c | ($c | type) == "string" and ($c | endswith($suffix));
+        (.hooks.PreToolUse // []) as $old
+        | if ($old | type) != "array" then error("hooks.PreToolUse is not a list") else . end
+        | ($old
+            | map(if (.hooks? | type) == "array" and any(.hooks[]; ours)
+                then .hooks |= map(select(ours | not)) | select(.hooks != [])
+                else . end)
+            | . + (if $ship then [{matcher: "ExitPlanMode", hooks: [{type: "command", command: $command}]}] else [] end)
+          ) as $new
+        | if $new == $old then . else .hooks.PreToolUse = $new end' <<< "${current}" 2> /dev/null)"; then
         log_message "${WARNING}" "${SETTINGS} has a hooks.PreToolUse that isn't a list, so the hook wasn't added."
         return 0
+    fi
+    [[ "${updated}" == "${current}" ]] && return 0
+    if file_exists "${SETTINGS}"; then
+        mkdir -p "${BACKUP_DIR}"
+        cp -p "${SETTINGS}" "${BACKUP_DIR}/settings.json"
     fi
     # write a temporary file, then move it, so a failed write can't leave settings.json half written
     printf '%s\n' "${updated}" > "${SETTINGS}.tmp"
     mv "${SETTINGS}.tmp" "${SETTINGS}"
-    log_message "${INFO}" "Added the plan sections hook to ${SETTINGS}."
+    log_message "${INFO}" "Updated the plan sections hook in ${SETTINGS}."
 }
 
 #=======================================================================

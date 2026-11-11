@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-11 -->
 # 📋 AI-native SDLC course: Overview
 
 **Purpose:** how Anthropic's SDLC course is structured, and where it suggests starting.
@@ -13,7 +13,8 @@ The course's structure comes down to these points:
 
 - 🧩 **Stages:** the plays are grouped by stage: plan, design, build, test, deploy and maintain.
 - 📈 **Measures:** each play names a leading indicator, an early sign it's working, and a lagging indicator, a later measure of its outcome.
-- 🧵 **Thread:** each stage leaves a versioned file for the next, from `intent.md` to `spec.md` to `plan.md`, then code, tests and review findings.
+- 🧵 **Thread:** read across the lessons, each stage commits a file the next one uses, from `intent.md` to `spec.md` to `plan.md`. This is the repo's synthesis, since no lesson states it.
 - 🙋 **Accountability:** "Humans remain accountable for every decision that requires judgment" ([Introduction](https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction)).
-- 🚦 **Where to start:** with the plays that need nothing else first, such as capturing intent, plan mode and `CLAUDE.md` ([Introduction](https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction)).
+- 🚦 **Where to start:** with the six plays that have no prerequisites: capturing intent, plan mode, `CLAUDE.md`, skills, the feedback loop and hooks as approval gates ([Introduction](https://academy.claude.com/courses/ai-native-sdlc-playbook/introduction)).
+  - **Later plays:** the rest build on these, so the introduction's dependency graph gives an order for adopting them.
   - **Plan mode:** Claude proposes a plan before changing anything.

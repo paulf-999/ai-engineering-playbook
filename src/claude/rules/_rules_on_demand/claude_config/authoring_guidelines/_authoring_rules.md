@@ -1,4 +1,4 @@
-<!-- version: 1.1.7 -->
+<!-- version: 1.1.8 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-11 -->
 # 📝 Authoring rules
@@ -9,10 +9,11 @@ This page is part of the authoring guidelines, `_rules_on_demand/claude_config/a
 
 ## 🚪 Pick the tier
 
-- 🔒 **Every session:** put a rule in `rules/01_standards/`, `02_conduct/` or `03_workflows/` only if every task needs it, and check the always-on budget still holds.
-- 📂 **Certain files:** put a rule tied to one kind of file in `rules/_path_scoped_rules/`, with a `paths:` setting naming the files.
-- 💤 **On demand:** put everything else in `rules/_rules_on_demand/`, which `make install` moves beside `rules/`, so it never loads by itself.
-- 🧭 **When unsure:** choose on demand, since an always-on rule is the exception, not the default.
+- 🔒 **Every session:** only for a rule every task needs, and only while the always-on budget still holds.
+- 📂 **Certain files:** for a rule tied to one kind of file, with a `paths:` setting naming the files.
+- 💤 **On demand:** for everything else, and whenever you're unsure, since an always-on rule is the exception.
+
+- **Read on demand:** `README.md`, in your Claude config directory, for the folder each tier lives in.
 
 ## 🔗 Wire it up
 

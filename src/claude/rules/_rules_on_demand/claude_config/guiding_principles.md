@@ -1,6 +1,6 @@
-<!-- version: 2.4.6 -->
+<!-- version: 2.4.7 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 <!-- applies_to: src/claude/**, **/.claude/**, **/CLAUDE.md -->
 <!-- miss_cost: medium — a config change lands without its cost being weighed -->
 # 🧭 Guiding principles for Claude config
@@ -21,7 +21,6 @@
 - ↩️ **Easy to remove:** keep each piece small and single-purpose, so one small PR can take it out.
 - 💸 **Automation pays back:** automate only work done about 5 or more times a month.
 - 🔗 **Live sources:** link to the source of truth rather than keeping lists that go stale.
-- 📐 **Size:** keep a rule to about 110 lines and one concept, and split anything longer into a parent and child files.
 
 ## 📚 Read on demand
 

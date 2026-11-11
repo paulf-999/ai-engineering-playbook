@@ -1,6 +1,6 @@
-# version: 1.1.6
+# version: 1.2.0
 # created: 2026-11-04
-# updated: 2026-11-10
+# updated: 2026-11-11
 """Tests for the install script, which copies src/claude/ into a Claude config directory after a typed 'install'."""
 
 import json
@@ -8,6 +8,7 @@ import os
 import pty
 import subprocess
 
+from _git_repo import isolated_git_repo
 from _paths import REPO_ROOT, SCRIPTS_DIR
 
 SCRIPT = SCRIPTS_DIR / "claude_install_config.sh"
@@ -16,12 +17,12 @@ SOURCE = REPO_ROOT / "src" / "claude"
 GIT_ENV = {"GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
 
 
-def run_install(target, answer=None):
-    """Run the script against a test target, typing answer at a pseudo-terminal, or with no terminal if it's None."""
+def run_install(target, answer=None, cwd=REPO_ROOT):
+    """Run the script from cwd against a target, typing answer at a pseudo-terminal, or with no terminal if None."""
     env = {**os.environ, **GIT_ENV, "CLAUDE_CONFIG_DIR": str(target)}
     if answer is None:
         return subprocess.run(
-            [str(SCRIPT)], cwd=REPO_ROOT, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, check=False
+            [str(SCRIPT)], cwd=cwd, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, check=False
         )
     # a pseudo-terminal makes [[ -t 0 ]] true, as it is when a person runs make install
     controller, terminal = pty.openpty()
@@ -29,7 +30,7 @@ def run_install(target, answer=None):
         os.write(controller, f"{answer}\n".encode())
         return subprocess.run(
             [str(SCRIPT)],
-            cwd=REPO_ROOT,
+            cwd=cwd,
             env=env,
             stdin=terminal,
             capture_output=True,
@@ -211,3 +212,52 @@ def test_unmergeable_settings_are_left_alone(tmp_path):
     assert result.returncode == 0, f"install should still succeed:\n{result.stdout}{result.stderr}"
     assert (tmp_path / "settings.json").read_text() == original, "an unmergeable settings.json must be unchanged"
     assert "wasn't added" in result.stdout, "the install should say the hook wasn't added"
+
+
+# an unrelated PreToolUse hook, which install must keep whatever it does to the plan sections hook
+OTHER_HOOK = {"matcher": "Bash", "hooks": [{"type": "command", "command": "bash /my/own/hook.sh"}]}
+
+
+def seed_settings(target, plan_hook_dir):
+    """Write a settings.json holding the plan sections hook installed under plan_hook_dir, plus OTHER_HOOK."""
+    plan_hook = {"type": "command", "command": f'bash "{plan_hook_dir}/hooks/hook_enforcement_plan_sections.sh"'}
+    settings = {"hooks": {"PreToolUse": [{"matcher": "ExitPlanMode", "hooks": [plan_hook]}, OTHER_HOOK]}}
+    (target / "settings.json").write_text(json.dumps(settings))
+
+
+def pre_tool_use(target):
+    """Return the PreToolUse list in the target's settings.json."""
+    return json.loads((target / "settings.json").read_text())["hooks"]["PreToolUse"]
+
+
+# MoSCoW: Must — a moved config directory must not leave the hook registered twice
+def test_install_replaces_the_plan_hook_from_an_old_path(tmp_path):
+    """A plan sections hook registered under another path is replaced by the current one, and other hooks are kept."""
+    seed_settings(tmp_path, "/old/path")
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert plan_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_plan_sections.sh"']
+    assert OTHER_HOOK in pre_tool_use(tmp_path), "an unrelated hook must be kept"
+
+
+# MoSCoW: Must — a hook the repo no longer ships must not stay registered, running a missing script
+def test_install_removes_the_plan_hook_when_it_isnt_shipped(tmp_path):
+    """From a repo that doesn't ship the hook, install removes its entry, keeps other hooks and backs up settings."""
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    env = isolated_git_repo(repo)
+    (repo / "src" / "claude").mkdir()
+    (repo / "src" / "claude" / "CLAUDE.md").write_text("config\n")
+    subprocess.run(["git", "add", "src/claude/CLAUDE.md"], cwd=repo, env=env, check=True)
+    target = tmp_path / "config"
+    target.mkdir()
+    seed_settings(target, target)
+
+    result = run_install(target, answer="install", cwd=repo)
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert plan_hook_commands(target) == [], "an unshipped hook should be removed"
+    assert pre_tool_use(target) == [OTHER_HOOK], "an unrelated hook must be kept"
+    assert list((target / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"

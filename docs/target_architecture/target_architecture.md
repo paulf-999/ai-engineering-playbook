@@ -1,4 +1,4 @@
-<!-- version: 1.8.9 -->
+<!-- version: 1.8.10 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
@@ -42,6 +42,8 @@ The design takes these plays, the course's recommended practices, from the [SDLC
 | 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md) | Most PRs pass CI on the first push | [Give Claude a feedback loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🧪 **Evals** | Deferred until their API cost and upkeep are weighed | None while deferred | [Continuous evals in CI](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | None while out of scope | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+
+- 🧭 **Adoption order:** a play is taken up only once its prerequisites in the [course's graph](reference_material/core/anthropic_ai_native_sdlc/01_overview.md) are in place. Evals come next, since `CLAUDE.md` and the feedback loop already are. The PR review adaptation runs ahead of evals, since it checks a PR against the evaluation criteria rather than reviewing the code.
 
 ## 💰 Always-on budget
 

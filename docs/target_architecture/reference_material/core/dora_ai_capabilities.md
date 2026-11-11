@@ -1,6 +1,6 @@
-<!-- version: 2.2.0 -->
+<!-- version: 2.2.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-11 -->
 # 📊 DORA: AI Capabilities Model
 
 **Purpose:** what the AI Capabilities Model from DORA (DevOps Research and Assessment) found, where its limits are, and how far it applies to this repo's design.
@@ -21,6 +21,7 @@ The report and how to cite it:
 - ⚖️ **Licence:** CC BY-NC-SA 4.0, so it can be quoted with attribution for non-commercial use.
 - 🗓️ **Captured:** 2026-11-02, after reading in full the PDF the report page links to.
 - 🔢 **Page numbers:** "p." means the report's printed page number, which is one less than the PDF page.
+- 🔎 **Reviewed:** 2026-11-11, with each quote, figure and page number checked against the PDF.
 - 🧪 **Methods:** the report defers to [*State of AI-assisted Software Development 2025*](https://dora.dev/research/2025/dora-report/) for how it was run (p. 94).
 
 ## 📖 The pages
@@ -31,4 +32,4 @@ Read them in order, from what DORA says to this repo's view:
 2. [The seven capabilities](dora_ai_capabilities/02_seven_capabilities.md)
 3. [Findings worth carrying into this repo's design](dora_ai_capabilities/03_findings.md)
 4. [What the evidence can and can't show](dora_ai_capabilities/04_limitations.md)
-5. [How far each capability applies here, as a proposal](dora_ai_capabilities/05_applicability.md)
+5. [How far each capability applies here](dora_ai_capabilities/05_applicability.md)

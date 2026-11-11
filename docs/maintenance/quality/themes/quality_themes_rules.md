@@ -1,6 +1,6 @@
-<!-- version: 2.0.1 -->
+<!-- version: 2.0.2 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 📏 Rule Quality Rubric
 
 **Purpose:** how a reviewer scores each Claude rule out of 10 for whether it earns its place and reads correctly, so each rule has one score.
@@ -29,7 +29,7 @@ Each theme scores ✅ 2, 🟡 1 or ❌ 0, and the totals map to grades: A for 9 
 
 ## 🕵️ Reviewer brief
 
-A PR that changes a rule refreshes that rule's row. One fresh-context reviewer on Sonnet gets only this brief, since a primed brief inflates scores:
+Once a PR that changes a rule merges, a follow-up audit-only PR refreshes that rule's row. One fresh-context reviewer on Sonnet gets only this brief, since a primed brief inflates scores:
 
 ```text
 Score each rule below against docs/maintenance/quality/themes/quality_themes_rules.md.

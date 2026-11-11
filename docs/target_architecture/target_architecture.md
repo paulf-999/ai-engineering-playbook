@@ -1,4 +1,4 @@
-<!-- version: 1.8.7 -->
+<!-- version: 1.8.8 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
@@ -29,7 +29,7 @@ Every component sits in one of three tiers:
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 
 - 🧭 **Choosing a tier:** the [evaluation criteria](design_principles/02_evaluation_criteria.md#-what-shape) match each need to a mechanism, which sets its tier.
-- 🛑 **Hooks and always-on rules:** porting one into the required tier raises a [red flag](design_principles/02_evaluation_criteria.md#-review-each-file), and the always-on budget still caps them.
+- 🛑 **Hooks and always-on rules:** a hook that fires on every prompt, or a rule made always-on, raises a [red flag](design_principles/02_evaluation_criteria.md#-review-each-file), and the always-on budget still caps always-on rules.
 
 ## 🔄 Workflow
 

@@ -1,4 +1,4 @@
-<!-- version: 1.0.56 -->
+<!-- version: 1.0.57 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-11 -->
 # 💰 Context cost
@@ -47,7 +47,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `README.md` | ~517 |
-| 2 | `_templates/README.md` | ~792 |
+| 2 | `_templates/README.md` | ~797 |
 | 3 | `rules/_rules_on_demand/02_conduct/automation_controls.md` | ~719 |
 | 4 | `rules/_rules_on_demand/02_conduct/reporting.md` | ~174 |
 | 5 | `rules/_rules_on_demand/02_conduct/todo_logging.md` | ~179 |
@@ -127,4 +127,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 80 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 81 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~42444** |
+| | **Subtotal** | **~42448** |

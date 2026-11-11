@@ -1,6 +1,6 @@
-<!-- version: 2.2.2 -->
+<!-- version: 2.2.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — names stop saying what a file holds -->
 # 📛 Naming standards
@@ -11,6 +11,8 @@
   - **Except skills and agents:** join their words with hyphens, such as `git-create-pr`, since the [Agent Skills spec](https://agentskills.io/specification) allows only lowercase letters, digits and hyphens, and agents match skills.
 - 🎯 **Self-describing:** make the name say what it holds, so `naming_standards.md` beats `standards.md`.
 - 📈 **Name for scale:** fit the wider group it belongs to, so `naming_standards.md` beats `hook_naming.md`.
+
+## 📚 Read on demand
 
 - **Read on demand:** `_rules_on_demand/claude_config/claude_naming_patterns.md`, in your Claude config directory, before naming a new rule, skill or agent.
 - **Read on demand:** `_rules_on_demand/style_guides/utilities/datetime.md`, when writing a date or time into a name, code, metadata or a log.

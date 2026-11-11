@@ -1,4 +1,4 @@
-# version: 1.5.0
+# version: 1.5.1
 # created: 2026-11-05
 # updated: 2026-11-11
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates."""
@@ -271,6 +271,27 @@ def test_on_demand_rule_has_an_inbound_pointer(path):
     names_it = [source for target, source in pointer_targets() if target == relative(path) and source != path]
     names_it += [hook for hook in (CONFIG_DIR / "hooks").glob("*.sh") if relative(path) in hook.read_text()]
     assert names_it, f"{relative(path)}: add a **Read on demand:** pointer to it from another config file"
+
+
+def loose_pointers(text):
+    """Return each 'Read on demand' line that sits outside a ## Read on demand section."""
+    heading, loose = "", []
+    for line in text.splitlines():
+        if line.startswith("## "):
+            heading = line
+        elif line.startswith("- **Read on demand:**") and "read on demand" not in heading.lower():
+            loose.append(line)
+    return loose
+
+
+# MoSCoW: Should — keeping every pointer in one section lets a reader see what a file links to at a glance
+@pytest.mark.parametrize(
+    "path", [*RULE_FILES, CONFIG_DIR / "CLAUDE.md"], ids=lambda path: path.relative_to(CONFIG_DIR).as_posix()
+)
+def test_pointers_sit_in_read_on_demand_section(path):
+    """Each 'Read on demand' pointer sits under a ## Read on demand section, so pointers aren't scattered."""
+    loose = loose_pointers(path.read_text())
+    assert not loose, f"{path.name}: move these pointers under a '## 📚 Read on demand' section: {loose}"
 
 
 # MoSCoW: Must — a pointer to a missing file sends Claude nowhere

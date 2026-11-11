@@ -1,4 +1,4 @@
-<!-- version: 2.1.8 -->
+<!-- version: 2.1.9 -->
 <!-- created: 2026-09-17 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
@@ -10,5 +10,7 @@
 - 🛑 **Phase gates:** for work of 3 or more phases, each a stage that ends in something the user can check, such as a PR, stop after each phase, say what it delivered, and wait for a go-ahead, since early feedback stops wasted phases.
   - **Skip when:** the user waives gates, or the work has a single phase.
 - 🗂️ **Plan approval:** the "Implement the following plan:" message Claude Code sends after you accept a plan isn't a go-ahead, so wait for an explicit one.
+
+## 📚 Read on demand
 
 - **Read on demand:** `_rules_on_demand/03_workflows/saving_plans.md`, in your Claude config directory, once a plan is approved.

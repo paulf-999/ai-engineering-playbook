@@ -1,13 +1,12 @@
 ---
-<!-- version: 1.6.1 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: Python files -->
-<!-- miss_cost: low — Python drifts from the house style -->
 paths:
   - "**/*.py"
 ---
-
+<!-- version: 1.6.1 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: Python files -->
+<!-- miss_cost: low — Python drifts from the house style -->
 # 🐍 Python Coding Standards
 
 **Purpose:** Python conventions that extend PEP 8, covering only what `ruff` and `ruff format` don't already enforce.

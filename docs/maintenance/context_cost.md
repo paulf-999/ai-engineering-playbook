@@ -1,6 +1,6 @@
-<!-- version: 1.0.51 -->
+<!-- version: 1.0.52 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
@@ -31,16 +31,16 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `rules/_path_scoped_rules/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
 | 2 | `rules/_path_scoped_rules/style_guides/airflow.md` | `**/dags/**/*.py` | ~348 |
 | 3 | `rules/_path_scoped_rules/style_guides/bash.md` | `**/*.sh` | ~357 |
-| 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/models/**/*.yml`, `**/dbt_project.yml` | ~439 |
-| 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~487 |
+| 4 | `rules/_path_scoped_rules/style_guides/dbt.md` | `**/models/**/*.sql`, `**/models/**/*.yml`, `**/dbt_project.yml` | ~438 |
+| 5 | `rules/_path_scoped_rules/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~486 |
 | 6 | `rules/_path_scoped_rules/style_guides/infra/docker.md` | `**/Dockerfile*` | ~142 |
-| 7 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~479 |
+| 7 | `rules/_path_scoped_rules/style_guides/infra/terraform.md` | `**/*.tf` | ~478 |
 | 8 | `rules/_path_scoped_rules/style_guides/python.md` | `**/*.py` | ~460 |
-| 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~350 |
+| 9 | `rules/_path_scoped_rules/style_guides/sql.md` | `**/*.sql` | ~349 |
 | 10 | `rules/_path_scoped_rules/style_guides/utilities/makefile.md` | `**/Makefile`, `**/*.mk` | ~247 |
 | 11 | `rules/_path_scoped_rules/style_guides/utilities/mermaid.md` | `**/*.mmd` | ~198 |
 | 12 | `rules/_path_scoped_rules/testing.md` | `**/*.py`, `**/*.sh`, `**/*.sql` | ~215 |
-| | **Subtotal** | | **~3922** |
+| | **Subtotal** | | **~3919** |
 
 ## 💤 On demand
 

@@ -1,6 +1,6 @@
-# version: 1.2.1
+# version: 1.3.0
 # created: 2026-11-05
-# updated: 2026-11-10
+# updated: 2026-11-11
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
 
 Also checks that each gate can fail, using small broken examples.
@@ -50,11 +50,10 @@ def split_frontmatter(lines):
 
 def header_block(lines):
     """Return the comment lines that open the file: the metadata header and any usage lines after it."""
-    frontmatter, body = split_frontmatter(lines)
-    # this repo puts a path-scoped rule's header inside its '---' block, as the file-header test expects
-    source = frontmatter if frontmatter else body
+    # a path-scoped rule's header follows its '---' block, so YAML never reads the comments as keys
+    _, body = split_frontmatter(lines)
     # the 3 header lines, then up to 2 usage lines: applies_to and miss_cost
-    return [line for line in source if line.startswith("<!--")][: len(HEADER_FIELDS) + 2]
+    return [line for line in body if line.startswith("<!--")][: len(HEADER_FIELDS) + 2]
 
 
 def prose_lines(lines):
@@ -408,15 +407,13 @@ def test_usage_check_can_fail(text, expected):
     assert any(expected in problem for problem in problems), f"missed it: {problems}"
 
 
-# inside the '---' block, applies_to is in plain words, since a value starting with '*' breaks the YAML
-PATH_SCOPED_RULE = "---\n" + GOOD_RULE.replace("# 🧪", "paths:\n  - '*.sql'\n---\n# 🧪").replace(
-    "applies_to: *", "applies_to: SQL files"
-)
+# a path-scoped rule: the 'paths:' block, then the header and usage lines straight after its closing '---'
+PATH_SCOPED_RULE = "---\npaths:\n  - '*.sql'\n---\n" + GOOD_RULE.replace("applies_to: *", "applies_to: SQL files")
 
 
-# MoSCoW: Should — path-scoped rules keep their header inside the '---' block, and must still pass
+# MoSCoW: Should — path-scoped rules keep their header after the '---' block, and must still pass
 def test_path_scoped_rule_passes_the_checks():
-    """A rule with a 'paths:' block, header and usage lines inside it, passes the opening and usage checks."""
+    """A rule with a 'paths:' block, then its header and usage lines, passes the opening and usage checks."""
     assert not frontmatter_problems(PATH_SCOPED_RULE), frontmatter_problems(PATH_SCOPED_RULE)
     assert not opening_problems(PATH_SCOPED_RULE), opening_problems(PATH_SCOPED_RULE)
     assert not usage_problems(PATH_SCOPED_RULE), "a correct path-scoped rule should pass"
@@ -426,8 +423,9 @@ def test_path_scoped_rule_passes_the_checks():
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
-        (PATH_SCOPED_RULE.replace("applies_to: SQL files", "applies_to: **/*.sql"), "isn't valid YAML"),
-        (PATH_SCOPED_RULE.replace("paths:\n  - '*.sql'\n", ""), "non-empty 'paths' list"),
+        # an unquoted glob starting with '*' reads as a YAML alias, so the block won't parse
+        (PATH_SCOPED_RULE.replace("  - '*.sql'", "  - *.sql"), "isn't valid YAML"),
+        (PATH_SCOPED_RULE.replace("paths:\n  - '*.sql'\n", "globs: '*.sql'\n"), "non-empty 'paths' list"),
         (PATH_SCOPED_RULE.replace("  - '*.sql'\n", ""), "non-empty 'paths' list"),
         (GOOD_RULE, "needs a '---' frontmatter block"),
     ],

@@ -1,15 +1,14 @@
 ---
-<!-- version: 4.0.3 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: Python, shell and SQL files -->
-<!-- miss_cost: medium — code changes ship untested or tests fall out of step -->
 paths:
   - "**/*.py"
   - "**/*.sh"
   - "**/*.sql"
 ---
-
+<!-- version: 4.0.3 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: Python, shell and SQL files -->
+<!-- miss_cost: medium — code changes ship untested or tests fall out of step -->
 # 🧪 Testing
 
 **Purpose:** when code needs a test, and how tests stay in step with it.

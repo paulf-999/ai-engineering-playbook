@@ -1,14 +1,13 @@
 ---
-<!-- version: 1.3.3 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: Makefiles -->
-<!-- miss_cost: low — Makefiles drift from the house style -->
 paths:
   - "**/Makefile"
   - "**/*.mk"
 ---
-
+<!-- version: 1.3.3 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: Makefiles -->
+<!-- miss_cost: low — Makefiles drift from the house style -->
 # 🛠️ Makefile Style Guide & Standards
 
 **Purpose:** Define the team's standards for writing and structuring Makefiles.

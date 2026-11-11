@@ -1,13 +1,12 @@
 ---
-<!-- version: 1.4.3 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: Dockerfiles -->
-<!-- miss_cost: low — images grow larger and slower to build -->
 paths:
   - "**/Dockerfile*"
 ---
-
+<!-- version: 1.4.3 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: Dockerfiles -->
+<!-- miss_cost: low — images grow larger and slower to build -->
 # 🐳 Docker & Dockerfile Style Guide & Standards
 
 **Purpose:** Define the team's standards for writing Dockerfiles and working with Docker images.

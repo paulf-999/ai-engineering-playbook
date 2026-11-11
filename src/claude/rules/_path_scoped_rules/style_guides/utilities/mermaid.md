@@ -1,13 +1,12 @@
 ---
-<!-- version: 1.2.3 -->
-<!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
-<!-- applies_to: Mermaid diagram files -->
-<!-- miss_cost: low — diagrams get harder to read -->
 paths:
   - "**/*.mmd"
 ---
-
+<!-- version: 1.2.3 -->
+<!-- created: 2026-08-28 -->
+<!-- updated: 2026-11-11 -->
+<!-- applies_to: Mermaid diagram files -->
+<!-- miss_cost: low — diagrams get harder to read -->
 # 🔀 Mermaid Diagram Standards
 
 **Purpose:** Keep Mermaid diagrams consistent and readable across skills and READMEs.

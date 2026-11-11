@@ -1,6 +1,6 @@
-# version: 1.4.0
+# version: 1.5.0
 # created: 2026-10-31
-# updated: 2026-10-31
+# updated: 2026-11-11
 """Tests for the pre-commit hook that bumps each changed file's version header."""
 
 import os
@@ -64,6 +64,20 @@ def test_changed_file_gets_a_patch_bump_and_todays_date(git_repo):
     assert (repo / "app.py").read_text() == header(version="1.0.1", updated=TODAY) + "x = 2\n", (
         "expected the next PATCH version and today's date"
     )
+
+
+# MoSCoW: Must — path-scoped rules keep their header after the frontmatter, past the first 5 lines
+def test_markdown_header_after_frontmatter_gets_a_patch_bump(git_repo):
+    """An edited markdown file whose header follows a 5-line frontmatter block gets the next PATCH and today's date."""
+    repo, env = git_repo
+    frontmatter = "---\npaths:\n  - '*.py'\n  - '*.sh'\n---\n"
+    commit(repo, env, {"rule.md": frontmatter + header(markdown=True) + "# Rule\n"})
+    (repo / "rule.md").write_text(frontmatter + header(markdown=True) + "# Rule, edited\n")
+    result = run_hook(repo, env, "rule.md")
+    assert result.returncode == 1, f"an edited rule should stop the commit, so the bump can be staged: {result.stdout}"
+    assert (repo / "rule.md").read_text() == (
+        frontmatter + header(version="1.0.1", updated=TODAY, markdown=True) + "# Rule, edited\n"
+    ), "expected the next PATCH and today's date in the header after the frontmatter, with the frontmatter unchanged"
 
 
 # MoSCoW: Must — a bumped file must commit, or every commit is blocked

@@ -1,6 +1,6 @@
-# version: 1.3.4
+# version: 1.4.0
 # created: 2026-10-30
-# updated: 2026-11-09
+# updated: 2026-11-11
 """Checks every tracked file opens with a version/created/updated header (see docs/maintenance/file_headers.md)."""
 
 import os
@@ -35,9 +35,13 @@ def tracked_files():
 
 
 def header_lines(path, root):
-    """Return the three lines where the header belongs: line 1, or after a shebang or YAML '---'."""
+    """Return the three lines where the header belongs: line 1, after a shebang or YAML '---', or after frontmatter."""
     lines = (root / path).read_text().splitlines()
-    start = 1 if lines and (lines[0].startswith("#!") or lines[0] == "---") else 0
+    if path.endswith(".md") and lines and lines[0] == "---":
+        # a markdown file's frontmatter is YAML, so the header follows its closing '---' to stay out of the YAML
+        start = lines.index("---", 1) + 1
+    else:
+        start = 1 if lines and (lines[0].startswith("#!") or lines[0] == "---") else 0
     return lines[start : start + 3]
 
 
@@ -89,3 +93,23 @@ def test_a_bad_header_is_reported(tmp_path, header, problem):
     """A missing header, an impossible date, and an updated date before created are each reported as that problem."""
     (tmp_path / "script.sh").write_text(f"#!/bin/bash\n{header}\n")
     assert problem in (header_problem("script.sh", tmp_path) or ""), f"this header should be reported as {problem!r}"
+
+
+MARKDOWN_HEADER = "<!-- version: 1.0.0 -->\n<!-- created: 2026-11-11 -->\n<!-- updated: 2026-11-11 -->\n"
+FRONTMATTER = "---\npaths:\n  - '*.sql'\n---\n"
+
+
+# MoSCoW: Must — path-scoped rules keep their header after the frontmatter, and must pass
+def test_a_markdown_header_after_the_frontmatter_passes(tmp_path):
+    """A markdown header straight after the frontmatter's closing '---' is accepted."""
+    (tmp_path / "rule.md").write_text(FRONTMATTER + MARKDOWN_HEADER + "# Title\n")
+    reported = header_problem("rule.md", tmp_path)
+    assert reported is None, f"a header after the frontmatter should pass, got {reported!r}"
+
+
+# MoSCoW: Must — a header inside the frontmatter is parsed as YAML keys and shown by GitHub
+def test_a_markdown_header_inside_the_frontmatter_is_reported(tmp_path):
+    """A markdown header inside the '---' block is reported, so it can't land in the YAML."""
+    (tmp_path / "rule.md").write_text("---\n" + MARKDOWN_HEADER + "paths:\n  - '*.sql'\n---\n# Title\n")
+    reported = header_problem("rule.md", tmp_path) or ""
+    assert "expected the 'version' header line" in reported, f"a header in the frontmatter should fail: {reported!r}"

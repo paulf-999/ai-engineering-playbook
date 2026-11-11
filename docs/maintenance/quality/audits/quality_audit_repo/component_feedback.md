@@ -1,28 +1,33 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-11-11 -->
 <!-- updated: 2026-11-11 -->
 # 💬 Component feedback
 
 **Purpose:** how each Claude config component fared in the session transcripts at each regular review, as the [target architecture](../../../../target_architecture/target_architecture.md#-measures) asks.
 
-This page is part of the [repo quality audit](../quality_audit_repo.md). Each review adds its Helped rows at the top and keeps the earlier ones, but replaces the Unused and Hindered rows, since those are what it acts on.
+This page is part of the [repo quality audit](../quality_audit_repo.md). Rows are sorted by path. Each component that helped has one row, and each review adds its PR to that row, or adds a row, but replaces the Unused and Hindered rows, since those are what it acts on.
 
 ## ✅ Helped
 
-| Date | Run | Component | Evidence |
-|---|---|---|---|
-| 2026-11-11 | #161 | `hooks/hook_enforcement_plan_sections.sh` | Blocked 16 plans that lacked Intent or Spec, each sent to `sdlc_workflow.md`, at one resubmit each |
-| 2026-11-11 | #161 | `_rules_on_demand/03_workflows/sdlc_workflow.md` and `saving_plans.md` | Read about 6 and 12 times, through the hook and after plan approval |
-| 2026-11-11 | #161 | `_rules_on_demand/03_workflows/git.md`, `reporting.md` and `portable_paths.md` | Read about 16, 6 and 5 times |
-| 2026-11-11 | #161 | `_path_scoped_rules/testing.md`, `code_security.md` and `python.md` | Loaded in 13 or 14 sessions each, where matching files were open |
-| 2026-11-11 | #149 | `hooks/hook_enforcement_plan_sections.sh` | Blocked a plan with no Intent or Spec in 3 sessions and sent Claude to `sdlc_workflow.md`, which was then read |
-| 2026-11-11 | #149 | `_rules_on_demand/03_workflows/saving_plans.md` | The most-read on-demand rule, and approved plans landed in `_plans/active/` |
-| 2026-11-11 | #149 | `_rules_on_demand/03_workflows/git.md` | Read 6 times |
-| 2026-11-10 | #143 | `03_workflows/claude_plans.md`, phase gates | The user drove multi-phase work one phase at a time, such as "i've merged 24, start phase 4" |
-| 2026-11-10 | #143 | `_rules_on_demand/03_workflows/saving_plans.md` | Read from the installed path twice, and approved plans landed in `_plans/` |
+| Component | Helped in | Latest evidence |
+|---|---|---|
+| [`src/claude/hooks/hook_enforcement_plan_sections.sh`](../../../../../src/claude/hooks/hook_enforcement_plan_sections.sh) | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149) | Blocked plans with no Intent or Spec heading in 4 sessions, and Claude fixed and resubmitted each |
+| [`src/claude/rules/03_workflows/claude_plans.md`](../../../../../src/claude/rules/03_workflows/claude_plans.md), phase gates | [#143](https://github.com/paulf-999/ai-engineering-playbook/pull/143) | The user drove multi-phase work one phase at a time, such as "i've merged 24, start phase 4" |
+| [`src/claude/rules/_path_scoped_rules/code_security.md`](../../../../../src/claude/rules/_path_scoped_rules/code_security.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Loaded in about 14 sessions, where matching files were open |
+| [`src/claude/rules/_path_scoped_rules/style_guides/python.md`](../../../../../src/claude/rules/_path_scoped_rules/style_guides/python.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Loaded in about 13 sessions, where Python files were open |
+| [`src/claude/rules/_path_scoped_rules/testing.md`](../../../../../src/claude/rules/_path_scoped_rules/testing.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Loaded in about 14 sessions, where matching files were open |
+| [`src/claude/rules/_rules_on_demand/02_conduct/reporting.md`](../../../../../src/claude/rules/_rules_on_demand/02_conduct/reporting.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Read about 6 times |
+| [`src/claude/rules/_rules_on_demand/03_workflows/git.md`](../../../../../src/claude/rules/_rules_on_demand/03_workflows/git.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149) | Read about 16 times before git work |
+| [`src/claude/rules/_rules_on_demand/03_workflows/saving_plans.md`](../../../../../src/claude/rules/_rules_on_demand/03_workflows/saving_plans.md) | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149), [#143](https://github.com/paulf-999/ai-engineering-playbook/pull/143) | Read after a plan was approved |
+| [`src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md`](../../../../../src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Read twice, each time after the hook's block message pointed to it |
+| [`src/claude/rules/_rules_on_demand/claude_config/portable_paths.md`](../../../../../src/claude/rules/_rules_on_demand/claude_config/portable_paths.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Read about 5 times |
+| [`src/sh/claude_validate_always_on_budget.sh`](../../../../../src/sh/claude_validate_always_on_budget.sh) | [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168) | Runs on every commit and passes |
+| [`src/sh/git/git_validate_branch_name.sh`](../../../../../src/sh/git/git_validate_branch_name.sh) | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172) | Caught 6 bad branch names before push |
 
 ## ⚠️ Unused or hindered, latest run
 
-| Date | Run | Component | Effect | Evidence |
-|---|---|---|---|---|
-| 2026-11-11 | #161 | Other stacks' path-scoped and on-demand rules | Unused | Never loaded, since almost all sessions were in this repo |
+| Component | Run | Effect | Evidence |
+|---|---|---|---|
+| [`.github/workflows/pr_description.yml`](../../../../../.github/workflows/pr_description.yml), score-row warning | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172) | Mixed | 34 warnings in 4 sessions, which prompt the audit-only re-score PRs |
+| Other stacks' style guides in [`src/claude/rules/_path_scoped_rules/style_guides/`](../../../../../src/claude/rules/_path_scoped_rules/style_guides/), and the planned templates in [`src/claude/_templates/`](../../../../../src/claude/_templates/) | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172) | Unused | No sign they loaded in this repo's sessions, which have none of those files, and the skill and agent templates are planned |
+| [`src/sh/bump_file_headers.sh`](../../../../../src/sh/bump_file_headers.sh) | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172) | Hindered | Its "review, re-stage and commit again" stop adds a second commit attempt to nearly every commit, 51 times, though headers are kept by choice |

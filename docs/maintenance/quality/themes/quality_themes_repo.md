@@ -1,6 +1,6 @@
-<!-- version: 1.1.7 -->
+<!-- version: 1.1.8 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Rubric
 
 **Purpose:** how a reviewer gives the whole repo a bloat score and an over-engineering score, each out of 10, which per-file scores can't see.
@@ -30,7 +30,7 @@ Process and machinery heavier than the repo needs:
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
 | 🔗 **Cross-file consistency** | At most 1 contradiction between files | 2 or 3 contradictions | 4 or more contradictions |
-| 🔁 **Upkeep cost** | 20% or fewer of the last 50 commits touch `docs/maintenance/`, other than to record a review | Up to 40% | Over 40% |
+| 🔁 **Upkeep cost** | 20% or fewer of the last 50 commits touch `docs/maintenance/`, other than to record a review or cut process | Up to 40% | Over 40% |
 | 🗃️ **Process weight** | `docs/maintenance/` files are a tenth of product files or fewer | Up to a quarter | More than a quarter |
 | 🪜 **Simplest mechanism** | At most 1 check or process is heavier than the simplest that works, such as a scored rubric where a test would do | 2 or 3 | 4 or more |
 | 🔮 **Built for today** | At most 1 level, stage or extension point for a need that hasn't arisen | 2 or 3 | 4 or more |
@@ -61,8 +61,14 @@ git ls-files tests src/sh docs/maintenance .github | wc -l
 # files and KB by area
 for area in src/claude docs tests src/sh; do echo "${area}: $(git ls-files "${area}" | wc -l) files, $(git ls-files -z "${area}" | xargs -0 cat | wc -c | awk '{print int($1 / 1024)}') KB"; done
 # commits of the last 50 on main that touch docs/maintenance/, other than the kept token report,
-# leaving out commits that only record a review, by changing nothing outside quality/audits/
-git log --first-parent -50 --format=%h origin/main | while read -r commit; do files=$(git show --name-only --format= "${commit}" | grep -v '^docs/maintenance/context_cost\.md$'); grep -q '^docs/maintenance/' <<< "${files}" && grep -qv '^docs/maintenance/quality/audits/' <<< "${files}" && echo "${commit}"; done | wc -l
+# leaving out commits that only record a review, by changing nothing outside quality/audits/,
+# and commits that cut process, by removing more lines than they add there outside quality/audits/
+git log --first-parent -50 --format=%h origin/main | while read -r commit; do
+    files=$(git show --name-only --format= "${commit}" | grep -v '^docs/maintenance/context_cost\.md$')
+    grep -q '^docs/maintenance/' <<< "${files}" && grep -qv '^docs/maintenance/quality/audits/' <<< "${files}" || continue
+    git show --numstat --format= "${commit}" -- docs/maintenance ':!docs/maintenance/quality/audits' ':!docs/maintenance/context_cost.md' \
+        | awk '{added += $1; removed += $2} END {exit !(removed <= added)}' && echo "${commit}"
+done | wc -l
 # docs/maintenance/ files
 git ls-files docs/maintenance | wc -l
 # placeholder phrases, leaving out this rubric and its audit

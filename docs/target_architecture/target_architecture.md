@@ -1,6 +1,6 @@
-<!-- version: 1.8.4 -->
+<!-- version: 1.8.5 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
 
 **Purpose:** what the new Claude configuration contains, what loads when, and how its cost and benefit are measured.
@@ -24,7 +24,7 @@ Every component sits in one of three tiers:
 
 | Tier | Contains | Loads |
 |---|---|---|
-| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md) and the always-on rules it loads, `make test` and the CI checks, including the guards below | Every session, or every PR |
+| 🔒 **Required** | [`CLAUDE.md`](../../CLAUDE.md), the [global `CLAUDE.md` template](../../src/claude/CLAUDE.md) and the always-on rules it loads, the hooks `make install` registers, `make test` and the CI checks, including the guards below | Every session, or every PR |
 | 🧰 **Optional** | Skills, which are step-by-step procedures, agents, which work in a separate context, and on-demand rules | When the engineer or Claude asks for one |
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 
@@ -37,8 +37,8 @@ The design takes these plays, the course's recommended practices, from the [SDLC
 
 | Play | In this design | Source |
 |---|---|---|
-| 🗺️ **Plan first** | Plan mode, with each approved plan saved to `_plans/active/` in the Claude config directory, outside any repo | [Plan mode as the default](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
-| 📝 **Intent and spec** | Each plan opens with Intent and Spec sections, standing in for the course's `intent.md` and `spec.md` | [Capture as intent.md, and Requirements and design](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 🗺️ **Plan first** | Plan mode, with each approved plan saved to its own folder in `_plans/active/` in the Claude config directory, outside any repo | [Plan mode as the default](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 📝 **Intent and spec** | Each plan opens with Intent and Spec sections, which become the change's `intent.md` and `spec.md` once the plan is approved | [Capture as intent.md, and Requirements and design](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md) | [Give Claude a feedback loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🧪 **Evals** | Deferred until their API cost and upkeep are weighed | [Continuous evals in CI](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |

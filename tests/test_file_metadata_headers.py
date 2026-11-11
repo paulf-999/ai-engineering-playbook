@@ -1,4 +1,4 @@
-# version: 1.4.0
+# version: 1.4.1
 # created: 2026-10-30
 # updated: 2026-11-11
 """Checks every tracked file opens with a version/created/updated header (see docs/maintenance/file_headers.md)."""
@@ -13,7 +13,7 @@ from _paths import REPO_ROOT
 
 HEADER_FIELDS = ("version", "created", "updated")
 
-# no header: copied into every new PR or issue body, kept empty, or kept verbatim so GitHub detects the licence
+# no header: copied into every new PR or issue body, or kept verbatim so GitHub detects the licence
 EXEMPT = {
     "LICENSE",
     ".github/pull_request_template.md",

@@ -1,6 +1,6 @@
-<!-- version: 1.3.0 -->
+<!-- version: 1.3.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-03 -->
+<!-- updated: 2026-11-11 -->
 # 🔎 DORA report: Findings worth carrying forward
 
 **Purpose:** specific findings from DORA's report that are worth using in this repo's design.
@@ -23,7 +23,8 @@ The report recommends these habits:
 These findings cover what to give AI:
 
 - 🧠 **Curate it:** give AI relevant context rather than volume, since irrelevant context degrades its answers (pp. 32–33).
-  - **Code:** index only gold-standard code.
+  - **Code:** index only gold-standard code (p. 32).
+  - **Size:** "a 20-page standards document is often too much for a model" to attend to while solving a task (p. 32).
 - 📚 **Distil it:** have AI summarise a key source, then have a human expert check the summary (p. 32).
 
 ## 🏢 Stance, users and planning
@@ -33,4 +34,6 @@ These findings sit beyond the code itself:
 - 🚦 **AI stance:** sort uses into prohibited, permitted with guardrails, and allowed (p. 18).
 - 📝 **Spec-driven development:** writing requirements before code, named as an emerging way to keep AI-written code aligned with users (p. 55).
 - 🗺️ **Value stream mapping:** drawing every step from idea to production to find where work waits, which strengthens AI's effect on organisational performance (p. 74).
+- 🔐 **Tool access:** connect AI to internal data through a "least privilege" model, using only vetted tools (p. 33).
+- ✍️ **Agent commits:** decide whether AI may commit changes directly, and commit each change as a distinct, atomic unit (pp. 38–40).
 - 🎯 **Prioritisation:** the report's guide to choosing what to improve first weighs what a team can change by itself (p. 90), which in a one-person repo is almost everything.

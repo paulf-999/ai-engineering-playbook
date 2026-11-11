@@ -1,4 +1,4 @@
-<!-- version: 1.8.5 -->
+<!-- version: 1.8.6 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
@@ -57,7 +57,7 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 | Guard | Fails when | How it runs |
 |---|---|---|
 | 💰 **Always-on budget** | The estimate exceeds the ceiling | [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh), as a pre-commit hook that CI also runs |
-| 📖 **Per-file caps** | An on-demand rule costs more than its [read cap](design_principles/01_principles.md#-numbers-and-tests) to read, or a path-scoped rule more than its cap | [`test_rules_structure.py`](../../tests/src/claude/test_rules_structure.py), in the pytest run that CI also runs |
+| 📏 **Rule size** | A rule runs over 110 lines, not counting comments or frontmatter | [`test_rules_structure.py`](../../tests/src/claude/test_rules_structure.py), in the pytest run that CI also runs |
 | 📦 **PR size** | A PR changes more files than its limit allows, except on a `release/` branch | Runs [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) |
 
 ## 📏 Measures

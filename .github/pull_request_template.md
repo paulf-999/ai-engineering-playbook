@@ -40,17 +40,12 @@ This table checks the change against the [evaluation criteria for Claude config 
 | :test_tube: Working | Clean exit | [✅ Aligned or ❌ Misaligned] | [how one small PR would remove it] |
 | :test_tube: Working | Trial | ⏳ Not yet due | Checked at the next review, once it's been used |
 
-## :link: Related Issue(s)
-
-[Link related issues or tickets here]
-
 ## :microscope: How Has This Been Tested?
 
 <details>
 <summary>Testing checklist</summary>
 
 - [ ] DEV / Local testing by developer
-- [ ] UAT testing
 - [ ] Other (please specify)
 
 </details>

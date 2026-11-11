@@ -1,6 +1,6 @@
-<!-- version: 3.0.6 -->
+<!-- version: 3.0.7 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
 <!-- miss_cost: medium — a new rule, skill or agent drifts from the house structure -->
 # 🛠️ Authoring guidelines
@@ -19,7 +19,7 @@ This page is the entry point for authoring, and its rules, skills and agents gui
 
 ## 📏 Quality gates for every file
 
-- 🏷️ **Header:** lines 1 to 3 hold `version`, `created` and `updated`, and every edit bumps `version` and `updated`.
+- 🏷️ **Header:** place and bump the `version`, `created` and `updated` lines as the playbook repo's `docs/maintenance/file_headers.md` says.
 - 🎯 **Opening:** an H1 with an emoji, then a one-line **Purpose:** saying what the file does.
 - 1️⃣ **One concept:** keep each file to one concept and about 110 lines, and split anything longer into a parent and 2 or more `<parent>/_<aspect>.md` children.
 - 🔑 **Bullets:** open each with a bold keyword and keep it to one sentence.

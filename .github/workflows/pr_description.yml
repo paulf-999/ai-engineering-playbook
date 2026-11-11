@@ -1,9 +1,9 @@
 ---
-# version: 1.1.3
+# version: 1.1.4
 # created: 2026-11-02
 # updated: 2026-11-11
-# Check each PR description stays short and only uses full links, re-checking whenever it's edited,
-# that a PR changing src/claude/ answers the evaluation criteria, and warn when a scored file changes without its row.
+# Check that a PR changing src/claude/ answers the evaluation criteria, re-checking whenever its description is edited,
+# and warn when a scored file changes without its row.
 # A separate workflow from ci.yml, so editing a description doesn't re-run the tests.
 name: PR description
 
@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
     pr_description:
-        name: 'PR description: check details and links'
+        name: 'PR description: check evaluation criteria'
         runs-on: ubuntu-latest
         timeout-minutes: 10
         steps:

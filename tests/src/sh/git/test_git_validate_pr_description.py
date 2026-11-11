@@ -1,7 +1,7 @@
-# version: 1.2.2
+# version: 1.3.0
 # created: 2026-11-02
-# updated: 2026-11-05
-"""Tests for the PR description check, which keeps PR descriptions short and their links working."""
+# updated: 2026-11-11
+"""Tests for the PR description check, which makes a PR that changes src/claude/ answer the evaluation criteria."""
 
 import os
 import subprocess
@@ -24,46 +24,6 @@ def run_check(description, changed_files=""):
 def bullets(count):
     """Return a list of top-level markdown bullets."""
     return "".join(f"- **Point {n}:** detail.\n" for n in range(1, count + 1))
-
-
-# MoSCoW: Must — good PR descriptions must not be blocked
-@pytest.mark.parametrize(
-    "description",
-    [
-        # exactly 5 bullets, the most allowed
-        DETAILS + bullets(5) + NEXT_SECTION,
-        # child bullets and other sections' bullets don't count
-        DETAILS + bullets(5) + "  - **Child:** detail.\n" + NEXT_SECTION + bullets(3),
-        # no details section at all, such as a Dependabot PR
-        "Bumps a dependency.",
-        "",
-        # full links, in-page anchors and links shown as code are fine
-        DETAILS + "- See [#7](https://github.com/o/r/issues/7) and [scores](#-scores).\n- Never `[x](docs/a.md)`.\n",
-        # bullets and links inside a fenced code block are an example, not content
-        DETAILS + "- **Example:** a bad description.\n\n```markdown\n" + bullets(6) + "[x](docs/a.md)\n```\n",
-    ],
-)
-def test_valid_descriptions_pass(description):
-    """A description with 5 or fewer detail bullets and only full links exits 0."""
-    result = run_check(description)
-    assert result.returncode == 0, result.stdout
-
-
-# MoSCoW: Must — bad PR descriptions must be blocked with a reason
-@pytest.mark.parametrize(
-    ("description", "expected_error"),
-    [
-        (DETAILS + bullets(6) + NEXT_SECTION, "5 top-level bullets or fewer (it has 6)"),
-        (DETAILS + "- See [the page](docs/a.md).\n", "relative links don't work in a PR description: docs/a.md"),
-        # links are checked in every section, not just the details
-        ("Fixes [the script](../src/sh/x.sh).", "../src/sh/x.sh"),
-    ],
-)
-def test_invalid_descriptions_fail_with_a_reason(description, expected_error):
-    """Too many detail bullets, or a relative link anywhere, exits 1 and says what to fix."""
-    result = run_check(description)
-    assert result.returncode == 1, f"{description!r} should be blocked"
-    assert expected_error in result.stdout, f"expected '{expected_error}' in the reason: {result.stdout}"
 
 
 # MoSCoW: Must — security: a PR description must never run as code
@@ -91,7 +51,7 @@ PLACEHOLDER = "\n## :balance_scale: Evaluation criteria\n\n[Three bullets, one p
 @pytest.mark.parametrize(
     ("description", "changed_files", "expected_code"),
     [
-        # a config change with answered criteria passes, and its bullets don't count towards the details limit
+        # a config change with answered criteria passes
         (DETAILS + bullets(5) + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
         # a config change without the section fails
         (DETAILS + bullets(4) + NEXT_SECTION, CONFIG_FILE, 1),

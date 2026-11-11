@@ -1,4 +1,4 @@
-<!-- version: 1.0.16 -->
+<!-- version: 1.0.17 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Audit
@@ -9,15 +9,7 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 
 ## 💬 Component feedback
 
-How each Claude config component fared in the session transcripts since the last review, as the [target architecture](../../../target_architecture/target_architecture.md#-measures) asks:
-
-| Component | Effect | Evidence |
-|---|---|---|
-| `hooks/hook_enforcement_plan_sections.sh` | Helped | Blocked plans with no Intent or Spec heading, and each was resubmitted |
-| `_rules_on_demand/03_workflows/sdlc_workflow.md` | Helped | Read after each of the hook's block messages pointed to it |
-| `_rules_on_demand/03_workflows/saving_plans.md` | Helped | Read after plan approval, and 39 `_plans/active/` folders were written |
-| `src/sh/claude_validate_always_on_budget.sh` | Helped | Runs on every commit and passes |
-| Other on-demand rules, style guides and templates | Unused | No installed copy was read, and the skill and agent templates are planned |
+How each Claude config component fared in the session transcripts, kept across reviews on the [component feedback page](quality_audit_repo/component_feedback.md).
 
 ## 🎈 Bloat
 

@@ -1,4 +1,4 @@
-<!-- version: 1.0.14 -->
+<!-- version: 1.0.15 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Audit
@@ -13,13 +13,11 @@ How each Claude config component fared in the session transcripts since the last
 
 | Component | Effect | Evidence |
 |---|---|---|
-| `hooks/hook_enforcement_plan_sections.sh` | Helped | Blocked a plan with no Intent or Spec in 3 sessions and sent Claude to `sdlc_workflow.md`, which was then read |
-| `03_workflows/claude_plans.md`, the `sdlc_workflow.md` pointer | Unused | All 3 blocked plans were drafted without reading it first, so the hook did the work |
-| `_rules_on_demand/03_workflows/saving_plans.md` | Helped | The most-read on-demand rule, and approved plans landed in `_plans/active/` |
-| `_rules_on_demand/03_workflows/git.md` | Helped | Read 6 times |
-| `_path_scoped_rules/**` | Hindered | Before #146 all 12 loaded in every session, such as `terraform.md` about 27 times in this repo, and the 2 latest sessions show none |
-| `_rules_on_demand/claude_config/guiding_principles.md` | Unused | Always-on pointer, but no session read the installed copy |
-| Other on-demand rules and style guides | Unused | No session in any project read an installed copy |
+| `hooks/hook_enforcement_plan_sections.sh` | Helped | Blocked 16 plans that lacked Intent or Spec, each sent to `sdlc_workflow.md`, at one resubmit each |
+| `_rules_on_demand/03_workflows/sdlc_workflow.md` and `saving_plans.md` | Helped | Read about 6 and 12 times, through the hook and after plan approval |
+| `_rules_on_demand/03_workflows/git.md`, `reporting.md` and `portable_paths.md` | Helped | Read about 16, 6 and 5 times |
+| `_path_scoped_rules/testing.md`, `code_security.md` and `python.md` | Helped | Loaded in 13 or 14 sessions each, where matching files were open |
+| Other stacks' path-scoped and on-demand rules | Unused | Never loaded, since almost all sessions were in this repo |
 
 ## 🎈 Bloat
 
@@ -31,7 +29,7 @@ How each Claude config component fared in the session transcripts since the last
 
 | Date | Cross-file consistency | Upkeep cost | Process weight | Simplest mechanism | Built for today | **Over-engineering** |
 |---|---|---|---|---|---|---|
-| 2026-11-11 | 🟡 1 | ❌ 0 | ✅ 2 | 🟡 1 | 🟡 1 | **5/10** |
+| 2026-11-11 | 🟡 1 | ❌ 0 | ✅ 2 | ✅ 2 | ✅ 2 | **7/10** |
 
 ## 🔍 Why the latest scores
 
@@ -39,19 +37,17 @@ Each theme below ✅, with what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | 5 duplicates: mechanism and no-duplicate advice in both `guiding_principles.md` and `authoring_guidelines.md`, the 110-line limit in both, `authoring_guidelines.md`'s Header bullet restating `file_headers.md`, the `intent.md` and `spec.md` split in `sdlc_workflow.md`, `saving_plans.md`, `target_architecture.md` and the hook message, and when each rule folder loads in `src/claude/README.md`, `_authoring_rules.md` and `src/README.md` | Findings 3 and 4 |
-| 📦 **Always-on headroom** | About 2,301 of 3,000 tokens, or 76.7%, about 51 tokens over the 75% line | Finding 3 |
-| 🔗 **Cross-file consistency** | 3 contradictions: `authoring_guidelines.md` puts the header on lines 1 to 3 where `file_headers.md` and the path-scoped rules put it after the frontmatter, `target_architecture.md` red-flags porting any hook where `02_evaluation_criteria.md` flags only every-prompt hooks, and `tests/README.md` mirrors source paths where `test_hook_enforcement_plan_sections.py` and the `test_quality_audit_*.py` files don't | Findings 4 and 5 |
-| 🔁 **Upkeep cost** | 39 of the last 50 commits, or 78%, touch `docs/maintenance/` other than to record a review, and the repo rubric changed 14 times in two days | Finding 2 |
-| 🪜 **Simplest mechanism** | 3 heavier than needed: a scored repo rubric and audit run about 5 times in 50 commits, Intent and Spec handled by a pointer, an on-demand rule and a hook, and rules capped by both 110 lines and token limits in `test_rules_structure.py` | Findings 2, 3 and 4 |
-| 🔮 **Built for today** | 2 cases: `src/make/variables.mk` defines 7 colours where `Makefile` uses 2, and `.worktreeinclude` copies a `.env` nothing uses | Finding 5 |
+| 🎯 **Single source** | 4 duplicates: the 110-line limit in `guiding_principles.md`, `authoring_guidelines.md` and `rule.md.template`, the config-change checklist in those 2 rules and `02_evaluation_criteria.md`, the naming rule in `naming_standards.md` and `CONTRIBUTING.md`, and the rule-loading tiers in `src/claude/README.md`, `target_architecture.md` and `_authoring_rules.md` | Finding 4 |
+| 📦 **Always-on headroom** | About 2,265 of 3,000 tokens, or 75.5%, about 15 tokens over the 75% line | Finding 5 |
+| 🔗 **Cross-file consistency** | 2 contradictions: `target_architecture.md` red-flags porting any hook where `02_evaluation_criteria.md` flags only every-prompt hooks, and `quality_themes_rules.md` and `quality_themes_test_files.md` re-score inside the PR where `CONTRIBUTING.md` uses a follow-up audit-only PR | Fix both lines |
+| 🔁 **Upkeep cost** | 25 of the last 50 commits, or 50%, of which 12 edit this rubric and 9 count only because a product commit also re-scored an audit row | Finding 3 |
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 🧪 **Unread style guides:** retire or trial the 33 data and infra style-guide files, about 89 KB, in `_rules_on_demand/style_guides/` and their path-scoped parents, since no session in any project read them.
-2. 🧊 **Repo review at the regular review only:** run this rubric only at each regular review and keep it frozen between them, since it drives most of the upkeep.
-3. 🪝 **Let the hook carry Intent and Spec:** drop the `sdlc_workflow.md` pointer from `claude_plans.md`, and state the `intent.md` and `spec.md` split once, in `saving_plans.md`.
-4. 🎯 **Merge shared authoring guidance:** keep one copy of what `guiding_principles.md` and `authoring_guidelines.md` share, link the Header bullet to `file_headers.md`, and keep one size cap in `test_rules_structure.py`.
-5. 🧹 **Small fixes:** remove the unused colours and the `.env` line, move or reword the mismatched test paths, and align the hook red-flag line in `target_architecture.md` with `02_evaluation_criteria.md`.
+1. 📚 **Merge split reference docs:** fold the numbered pages under `reference_material/core/anthropic_ai_native_sdlc/`, `reference_material/core/dora_ai_capabilities/` and `current_architecture/` into their parent pages, about 14 files.
+2. 🧾 **Unread usage lines:** drop the `applies_to` and `miss_cost` lines from 36 rules, with their check in `test_rules_structure.py` and their mentions in `file_headers.md`, `_authoring_rules.md` and `rule.md.template`.
+3. 🔁 **Upkeep measure:** count only commits that change `docs/maintenance/` outside `quality/audits/`, so a product commit that also re-scores an audit row doesn't count.
+4. 🎯 **One home per fact:** keep the 110-line limit, the config-change checklist, the naming rule and the rule-loading tiers in one place each, and link to them.
+5. ✂️ **Trim always-on text:** cut about 20 tokens where `behaviour.md` overlaps `src/claude/CLAUDE.md` and `claude_plans.md`.

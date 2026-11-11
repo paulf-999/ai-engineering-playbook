@@ -1,4 +1,4 @@
-# version: 1.3.0
+# version: 1.3.1
 # created: 2026-11-05
 # updated: 2026-11-11
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates.
@@ -328,8 +328,9 @@ def test_child_is_named_by_its_parent(path):
     ids=relative,
 )
 def test_on_demand_rule_has_an_inbound_pointer(path):
-    """Each on-demand entry-point rule is named in a pointer somewhere else in the config."""
+    """Each on-demand entry-point rule is named in a pointer elsewhere in the config, or in a hook's block message."""
     names_it = [source for target, source in pointer_targets() if target == relative(path) and source != path]
+    names_it += [hook for hook in (CONFIG_DIR / "hooks").glob("*.sh") if relative(path) in hook.read_text()]
     assert names_it, f"{relative(path)}: add a **Read on demand:** pointer to it from another config file"
 
 

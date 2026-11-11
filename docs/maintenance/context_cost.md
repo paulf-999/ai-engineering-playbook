@@ -1,4 +1,4 @@
-<!-- version: 1.0.53 -->
+<!-- version: 1.0.54 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-11 -->
 # 💰 Context cost
@@ -21,8 +21,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 4 | `rules/02_conduct/behaviour.md` | ~354 |
 | 5 | `rules/02_conduct/security.md` | ~205 |
 | 6 | `rules/02_conduct/writing_style.md` | ~340 |
-| 7 | `rules/03_workflows/claude_plans.md` | ~214 |
-| | **Subtotal** | **~2133** |
+| 7 | `rules/03_workflows/claude_plans.md` | ~178 |
+| | **Subtotal** | **~2098** |
 
 ## 📂 Path-scoped rules
 

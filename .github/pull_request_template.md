@@ -22,23 +22,18 @@ Choose one:
 ## :balance_scale: Evaluation criteria for Claude config changes
 
 > [!TIP]
-> **✅ Safe to approve:** [the reviewer's one-sentence verdict, such as "no red flags, and always-on context stays within budget". If a red flag or failed check is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]
+> **✅ Safe to approve:** [one-sentence verdict, such as "no red flags; always-on context unchanged". If a red flag is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]
 
-[Needed when the PR changes `src/claude/`: the verdict callout above, then the table, with one row per standard, both filled by a fresh-context reviewer agent given only the diff and the evaluation criteria. Result is ✅ Aligned, ❌ Misaligned or ⏳ Not yet due. Otherwise, write "Not applicable" in place of the callout, the sentences above the table and the table.]
+[Needed when the PR changes `src/claude/`, filled by a fresh-context reviewer agent given only the diff and the criteria. Add a row for each ❌ Misaligned standard. Keep each Why under 10 words. Otherwise, replace this section's content with "Not applicable".]
 
-This table checks the change against the [evaluation criteria for Claude config components](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md), the standards each rule, skill, hook or agent in `src/claude/` must meet to keep the config lean and evidence-led. Each row is one standard, and Result says whether the change meets it.
+Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md).
 
-| Review area | Standard | Result | Why |
-|---|---|---|---|
-| :triangular_flag_on_post: Red flags | Always-on weight | [✅ Aligned or ❌ Misaligned] | [each file it makes or keeps always-on, with why, or "no hits"] |
-| :triangular_flag_on_post: Red flags | Advisory-only control | [✅ Aligned or ❌ Misaligned] | [why] |
-| :toolbox: Shape | No duplicate | [✅ Aligned or ❌ Misaligned] | [why] |
-| :toolbox: Shape | Right mechanism | [✅ Aligned or ❌ Misaligned] | [why] |
-| :toolbox: Shape | Tier | [✅ Aligned or ❌ Misaligned] | [why] |
-| :toolbox: Shape | No orchestration | [✅ Aligned or ❌ Misaligned] | [why] |
-| :test_tube: Working | Signals | [✅ Aligned or ❌ Misaligned] | [the early signal and later result to watch] |
-| :test_tube: Working | Clean exit | [✅ Aligned or ❌ Misaligned] | [how one small PR would remove it] |
-| :test_tube: Working | Trial | ⏳ Not yet due | Checked at the next review, once it's been used |
+| Standard | Result | Why |
+|---|---|---|
+| :triangular_flag_on_post: Always-on weight | [✅ or ❌] | [files made always-on, or "none"] |
+| :test_tube: Clean exit | [✅ or ❌] | [how one small PR would remove it] |
+
+All other standards ✅ Aligned. Trial ⏳ due at the next review.
 
 ## :microscope: How Has This Been Tested?
 

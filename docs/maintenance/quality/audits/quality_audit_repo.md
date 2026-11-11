@@ -1,4 +1,4 @@
-<!-- version: 1.0.15 -->
+<!-- version: 1.0.16 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Audit
@@ -9,15 +9,7 @@ Each run follows the [repo rubric](../themes/quality_themes_repo.md): one fresh-
 
 ## 💬 Component feedback
 
-How each Claude config component fared in the session transcripts since the last review, as the [target architecture](../../../target_architecture/target_architecture.md#-measures) asks:
-
-| Component | Effect | Evidence |
-|---|---|---|
-| `hooks/hook_enforcement_plan_sections.sh` | Helped | Blocked 16 plans that lacked Intent or Spec, each sent to `sdlc_workflow.md`, at one resubmit each |
-| `_rules_on_demand/03_workflows/sdlc_workflow.md` and `saving_plans.md` | Helped | Read about 6 and 12 times, through the hook and after plan approval |
-| `_rules_on_demand/03_workflows/git.md`, `reporting.md` and `portable_paths.md` | Helped | Read about 16, 6 and 5 times |
-| `_path_scoped_rules/testing.md`, `code_security.md` and `python.md` | Helped | Loaded in 13 or 14 sessions each, where matching files were open |
-| Other stacks' path-scoped and on-demand rules | Unused | Never loaded, since almost all sessions were in this repo |
+How each Claude config component fared in the session transcripts, kept across reviews on the [component feedback page](quality_audit_repo/component_feedback.md).
 
 ## 🎈 Bloat
 

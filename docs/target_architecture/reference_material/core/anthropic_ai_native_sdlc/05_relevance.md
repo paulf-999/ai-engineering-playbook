@@ -9,7 +9,7 @@ This page is part of the [summary of Anthropic's SDLC course](../anthropic_ai_na
 
 | Play | Proposed | Why |
 |---|---|---|
-| 📝 Capture intent, requirements and design | Adapt | Intent and Spec sections at the top of each plan suit a single maintainer, who also acts as product owner |
+| 📝 Capture intent, requirements and design | Adapt | Intent and Spec sections at the top of each plan, saved as `intent.md` and `spec.md` once it is approved, suit a single maintainer, who also acts as product owner |
 | 🗺️ Plan mode and `plan.md` | Adapt | Plans stay in the Claude config directory, since this repo's config is installed there rather than worked on in each repo |
 | 📘 `CLAUDE.md` | Adopt | Its one-page limit, and adding a fix once Claude repeats a mistake, are both easy to check |
 | 🧠 Skills | Adapt | Only for knowledge that must be applied consistently, backed by a hook or CI check |

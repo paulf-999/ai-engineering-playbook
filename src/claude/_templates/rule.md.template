@@ -21,7 +21,7 @@
 
 - **Read on demand:** `_rules_on_demand/<domain>/<file>.md`, in your Claude config directory, [when to read it].
 
-<!-- 5 labelled bullets or fewer, not counting Read on demand pointers: delete the ## headings and keep one list. -->
+<!-- 5 labelled bullets or fewer, not counting Read on demand pointers: delete the other ## headings and keep one list. -->
 <!-- More than 5: keep 2 to 4 emoji ## sections of up to 5 bullets each. Past 4 sections, split into a parent and 2 or more <parent>/_<aspect>.md children. -->
 <!-- Child file: delete the applies_to and miss_cost lines, since it inherits its parent's. -->
 <!-- Optional: one table between bullets, when two or more items share the same fields, and the Read on demand section. -->

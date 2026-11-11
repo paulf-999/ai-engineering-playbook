@@ -1,6 +1,6 @@
-<!-- version: 1.4.1 -->
+<!-- version: 1.4.2 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🧠 Global Claude configuration
 
 ## 🧭 Behavioural Guidelines
@@ -41,6 +41,6 @@
 - 🧪 **Make it checkable:** turn each task into a test, such as one that reproduces a bug, then make it pass, and confirm a refactor passes before and after.
 - 📋 **Plan with checks:** for multi-step work, list each step with the check that proves it's done.
 
-## ⚙️ Changing Claude's config
+## 📚 Read on demand
 
 - **Read on demand:** `_rules_on_demand/claude_config/guiding_principles.md`, in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.

@@ -1,6 +1,6 @@
-<!-- version: 1.0.2 -->
+<!-- version: 1.0.3 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-10 -->
+<!-- updated: 2026-11-11 -->
 # 🧠 Claude config
 
 **Purpose:** a high-level map of the Claude Code config in this folder, for someone new to the repo.
@@ -24,7 +24,7 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 |---|---|
 | 🔁 `01_standards/`, `02_conduct/`, `03_workflows/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
 | 📂 `_path_scoped_rules/` | Only when Claude works on a matching file, such as the Python guide for `.py` files, set by each rule's `paths:` list |
-| 💤 `_rules_on_demand/` | Only when another rule's "Read on demand" pointer sends Claude there, since the install moves this folder out of `rules/` |
+| 💤 `_rules_on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there, since the install moves this folder out of `rules/` |
 
 A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it.
 

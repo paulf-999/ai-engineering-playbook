@@ -1,4 +1,4 @@
-<!-- version: 1.1.8 -->
+<!-- version: 1.1.9 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Rubric
@@ -79,7 +79,7 @@ src/sh/claude_validate_always_on_budget.sh
 
 ## 🕵️ Reviewer brief
 
-At each [regular review](../../../target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores:
+At each [regular review](../../../target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores. It runs in a scratch worktree of `main` with the audit deleted, so no search can show it the last run's scores:
 
 ```text
 Score this repo against docs/maintenance/quality/themes/quality_themes_repo.md.
@@ -88,8 +88,6 @@ Return the measures, the ten theme scores with a reason each, one line of
 feedback per component the transcripts show helping, hindering or going unused,
 the Bloat and Over-engineering totals, and up to 5 findings ranked by how much
 they would cut, each naming the files involved.
-Don't open docs/maintenance/quality/audits/quality_audit_repo.md, which holds
-the last run's scores.
 ```
 
 ## 📊 Where scores live

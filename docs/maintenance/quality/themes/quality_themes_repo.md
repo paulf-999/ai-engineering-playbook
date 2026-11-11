@@ -1,4 +1,4 @@
-<!-- version: 1.1.9 -->
+<!-- version: 1.1.10 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Rubric
@@ -61,11 +61,11 @@ git ls-files tests src/sh docs/maintenance .github | wc -l
 # files and KB by area
 for area in src/claude docs tests src/sh; do echo "${area}: $(git ls-files "${area}" | wc -l) files, $(git ls-files -z "${area}" | xargs -0 cat | wc -c | awk '{print int($1 / 1024)}') KB"; done
 # commits of the last 50 on main that touch docs/maintenance/, other than the kept token report,
-# leaving out commits that only record a review, by changing nothing outside quality/audits/,
+# leaving out commits that only record a review, by changing nothing in it outside quality/audits/,
 # and commits that cut process, by removing more lines than they add there outside quality/audits/
 git log --first-parent -50 --format=%h origin/main | while read -r commit; do
     files=$(git show --name-only --format= "${commit}" | grep -v '^docs/maintenance/context_cost\.md$')
-    grep -q '^docs/maintenance/' <<< "${files}" && grep -qv '^docs/maintenance/quality/audits/' <<< "${files}" || continue
+    grep '^docs/maintenance/' <<< "${files}" | grep -qv '^docs/maintenance/quality/audits/' || continue
     git show --numstat --format= "${commit}" -- docs/maintenance ':!docs/maintenance/quality/audits' ':!docs/maintenance/context_cost.md' \
         | awk '{added += $1; removed += $2} END {exit !(removed <= added)}' && echo "${commit}"
 done | wc -l

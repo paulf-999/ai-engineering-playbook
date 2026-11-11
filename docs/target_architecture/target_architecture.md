@@ -43,7 +43,7 @@ The design takes these plays, the course's recommended practices, from the [SDLC
 | 🧪 **Evals** | Deferred until their API cost and upkeep are weighed | None while deferred | [Continuous evals in CI](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | None while out of scope | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 
-- ✍️ **Agent commits:** Claude commits and pushes only when asked, one commit per finished task, as [DORA advises deciding](reference_material/core/dora_ai_capabilities/03_findings.md), and a pre-commit hook blocks commits to `main`. Its signal at each review is that no commit in the transcripts lands without the user's go-ahead.
+- ✍️ **Agent commits:** Claude commits as [`git.md`](../../src/claude/rules/_rules_on_demand/03_workflows/git.md) sets out: once a task is done and its checks pass, one commit per task, as [DORA advises deciding](reference_material/core/dora_ai_capabilities/03_findings.md), and a pre-commit hook blocks commits to `main`. Its signal at each review is that each commit in git history holds one finished task.
 
 ## 💰 Always-on budget
 

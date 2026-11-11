@@ -1,6 +1,6 @@
-<!-- version: 2.0.4 -->
+<!-- version: 2.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — a commit picks up another session's files or runs in the wrong repo -->
 # 🌿 Git
@@ -9,7 +9,7 @@
 
 ## 📝 Commits
 
-- 🎯 **Logical boundary:** when asked to commit, commit once a task is done and its checks pass, not after every edit, since follow-ups mean the work is still in flight, and push only when asked.
+- 🎯 **Logical boundary:** commit once a task is done and its checks pass, not after every edit, since follow-ups mean the work is still in flight.
 - 📜 **Repo conventions:** follow each repo's `CONTRIBUTING.md` and CI for branch names, commit messages and PRs, rather than a global copy.
 - 🧩 **Flag complex operations:** say so before a stash, reset or cross-branch reconcile, and offer the simplest option, such as redoing a small edit.
 

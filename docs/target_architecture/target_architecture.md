@@ -1,4 +1,4 @@
-<!-- version: 1.8.10 -->
+<!-- version: 1.8.11 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
@@ -44,6 +44,7 @@ The design takes these plays, the course's recommended practices, from the [SDLC
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | None while out of scope | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 
 - 🧭 **Adoption order:** a play is taken up only once its prerequisites in the [course's graph](reference_material/core/anthropic_ai_native_sdlc/01_overview.md) are in place. Evals come next, since `CLAUDE.md` and the feedback loop already are. The PR review adaptation runs ahead of evals, since it checks a PR against the evaluation criteria rather than reviewing the code.
+- ✍️ **Agent commits:** Claude commits as [`git.md`](../../src/claude/rules/_rules_on_demand/03_workflows/git.md) sets out: once a task is done and its checks pass, one commit per task, as [DORA advises deciding](reference_material/core/dora_ai_capabilities/03_findings.md), and a pre-commit hook blocks commits to `main`. Its signal at each review is that each commit in git history holds one finished task.
 
 ## 💰 Always-on budget
 

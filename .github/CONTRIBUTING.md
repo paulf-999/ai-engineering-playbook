@@ -1,4 +1,4 @@
-<!-- version: 3.3.11 -->
+<!-- version: 3.3.12 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-11 -->
 # 🤝 Contributing
@@ -40,6 +40,5 @@ Two valid messages:
 
 ## 🏷️ File naming
 
-- 🔡 **Rule:** name every file and folder in lowercase snake_case, such as `design_principles.md`, except skills and agents, which use hyphens.
-- ❓ **Why:** Python can't import a module with a hyphen in its name, so the repo uses underscores to match, while the Agent Skills spec allows only hyphens in skill names, and agents match skills.
+- 🔡 **Rule:** follow the [naming standards](../src/claude/rules/01_standards/naming_standards.md), which the Claude config also loads in every session.
 - 📌 **Exceptions:** conventional names such as `README.md`, `CLAUDE.md` and `Makefile`.

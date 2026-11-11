@@ -1,4 +1,4 @@
-<!-- version: 3.0.7 -->
+<!-- version: 3.0.8 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-11 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
@@ -12,10 +12,8 @@ This page is the entry point for authoring, and its rules, skills and agents gui
 ## ✅ Before you start
 
 - 🧭 **Right mechanism:** put a fact for every session in `CLAUDE.md`, guidance for certain files in a path-scoped rule, a procedure in a skill, and work that needs its own context in an agent.
-- 🛡️ **Must always hold:** back anything that must never slip with a hook, test or CI check, since prose only advises.
 - 🔁 **No duplicate:** search the rules, skills and agents for one that already covers the need, and extend it rather than adding another.
 - 📋 **Start from a template:** copy the matching file from `_templates/`, rather than starting from a blank page.
-- 📈 **Evidence:** record the incident, PR or repeated failure it fixes, since "might be useful someday" isn't a reason.
 
 ## 📏 Quality gates for every file
 

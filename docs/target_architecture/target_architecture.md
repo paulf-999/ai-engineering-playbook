@@ -1,4 +1,4 @@
-<!-- version: 1.8.9 -->
+<!-- version: 1.8.10 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
@@ -42,6 +42,8 @@ The design takes these plays, the course's recommended practices, from the [SDLC
 | 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md) | Most PRs pass CI on the first push | [Give Claude a feedback loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🧪 **Evals** | Deferred until their API cost and upkeep are weighed | None while deferred | [Continuous evals in CI](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | None while out of scope | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+
+- ✍️ **Agent commits:** Claude commits and pushes only when asked, one commit per finished task, as [DORA advises deciding](reference_material/core/dora_ai_capabilities/03_findings.md), and a pre-commit hook blocks commits to `main`. Its signal at each review is that no commit in the transcripts lands without the user's go-ahead.
 
 ## 💰 Always-on budget
 

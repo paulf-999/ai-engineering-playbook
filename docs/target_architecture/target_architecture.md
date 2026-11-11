@@ -1,4 +1,4 @@
-<!-- version: 1.8.11 -->
+<!-- version: 1.8.12 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-11 -->
 # 🏗️ Target architecture
@@ -63,6 +63,8 @@ These checks protect the design itself, alongside the repo's other [CI checks](.
 | 💰 **Always-on budget** | The estimate exceeds the ceiling | [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh), as a pre-commit hook that CI also runs |
 | 📏 **Rule size** | A rule runs over 110 lines, not counting comments or frontmatter | [`test_rules_structure.py`](../../tests/src/claude/test_rules_structure.py), in the pytest run that CI also runs |
 | 📦 **PR size** | A PR changes more files than its limit allows, except on a `release/` branch | Runs [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) |
+
+- 📄 **Context size:** the Rule size guard caps every rule at 110 lines, including on-demand and path-scoped rules, so a single read stays at about 2 pages, far below the 20-page standards document [DORA warns](reference_material/core/dora_ai_capabilities/03_findings.md) is too much for a model. On-demand files need no limit of their own.
 
 ## 📏 Measures
 

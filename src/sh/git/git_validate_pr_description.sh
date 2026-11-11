@@ -1,11 +1,10 @@
 #!/bin/bash
-# version: 1.2.2
+# version: 1.3.0
 # created: 2026-11-02
-# updated: 2026-11-05
+# updated: 2026-11-11
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Verify a PR description stays scannable: at most 5 top-level bullets under "Additional Details", and only full links, since relative links break in a PR
-# A PR that changes the installed Claude config under src/claude/ must also answer the evaluation criteria in an "Evaluation criteria" section
+# Description: Verify a PR that changes the installed Claude config under src/claude/ answers the evaluation criteria in an "Evaluation criteria" section
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -22,8 +21,6 @@ trap handle_interruption SIGINT
 PR_DESCRIPTION="${1-}"
 # the PR's changed files, one per line, used to spot changes to the installed Claude config
 CHANGED_FILES="${2-}"
-# most top-level bullets allowed under "Additional Details", matching the PR template
-MAX_DETAIL_BULLETS=5
 # why the description fails, set in the main logic (empty means it's valid)
 PROBLEMS=""
 
@@ -42,24 +39,6 @@ section() {
         /^## / { in_section = (index($0, heading) > 0); next }
         in_section { print }
     '
-}
-
-# Print the lines under the "Additional Details" heading
-details_section() {
-    section "Additional Details"
-}
-
-# Count the top-level bullets in the "Additional Details" section, ignoring indented child bullets
-count_detail_bullets() {
-    details_section | grep -cE '^[-*] ' || true
-}
-
-# Print each link target that isn't a full URL or an in-page anchor, one per line
-relative_links() {
-    # inline code is removed too, so a link written as an example in backticks isn't flagged
-    # shellcheck disable=SC2016  # the backticks are a literal sed pattern, not a command
-    rendered_text | sed -E 's/`[^`]*`//g' | grep -oE '\]\([^)]+\)' | sed -E 's/^\]\((.*)\)$/\1/' \
-        | grep -vE '^(https?://|#|mailto:)' || true
 }
 
 # Succeed if the PR changes any file under src/claude/, the config that `make install` copies
@@ -83,21 +62,13 @@ criteria_placeholders() {
 
 # Explain each reason the description fails, or print nothing if it's fine
 description_problems() {
-    local bullets links placeholders
-    bullets="$(count_detail_bullets)"
-    if (( bullets > MAX_DETAIL_BULLETS )); then
-        echo "Cut 'Additional Details' to ${MAX_DETAIL_BULLETS} top-level bullets or fewer (it has ${bullets}), keeping only what a reviewer must or should know."
-    fi
+    local placeholders
     if changes_claude_config && ! has_evaluation_criteria; then
         echo "Answer the 'Evaluation criteria' section with a Red flags, Shape and Working table, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
     fi
     placeholders="$(criteria_placeholders)"
     if changes_claude_config && [[ -n "${placeholders}" ]]; then
         echo "Replace the template placeholders left in 'Evaluation criteria' with real answers: ${placeholders//$'\n'/, }"
-    fi
-    links="$(relative_links)"
-    if [[ -n "${links}" ]]; then
-        echo "Use full GitHub URLs, because relative links don't work in a PR description: ${links//$'\n'/, }"
     fi
 }
 

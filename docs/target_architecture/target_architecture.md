@@ -1,6 +1,6 @@
-<!-- version: 1.8.13 -->
+<!-- version: 1.8.14 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-12 -->
 # 🏗️ Target architecture
 
 **Purpose:** what the new Claude configuration contains, what loads when, and how its cost and benefit are measured.
@@ -40,7 +40,7 @@ The design takes these plays, the course's recommended practices, from the [SDLC
 |---|---|---|---|
 | 🗺️ **Plan first** | Plan mode, with each approved plan saved to its own folder in `_plans/active/` in the Claude config directory, outside any repo | Few PRs need a follow-up fix PR | [Plan mode as the default](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 📝 **Intent and spec** | Each plan opens with Intent and Spec sections, which become the change's `intent.md` and `spec.md` once the plan is approved | Plans rarely change scope after approval | [Capture as intent.md, and Requirements and design](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
-| 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md) | Most PRs pass CI on the first push | [Give Claude a feedback loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md), and a [Stop hook](../../src/claude/hooks/hook_enforcement_done_checks.sh) that sends Claude back once to run them after files change | Most PRs pass CI on the first push | [Give Claude a feedback loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🧪 **Evals** | Deferred until their API cost and upkeep are weighed | None while deferred | [Continuous evals in CI](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | None while out of scope | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 

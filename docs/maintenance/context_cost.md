@@ -1,6 +1,6 @@
-<!-- version: 1.0.63 -->
+<!-- version: 1.0.64 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-12 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
@@ -46,7 +46,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `README.md` | ~524 |
+| 1 | `README.md` | ~530 |
 | 2 | `_templates/README.md` | ~797 |
 | 3 | `rules/_rules_on_demand/02_conduct/automation_controls.md` | ~719 |
 | 4 | `rules/_rules_on_demand/02_conduct/reporting.md` | ~174 |
@@ -127,4 +127,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 80 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 81 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~41718** |
+| | **Subtotal** | **~41723** |

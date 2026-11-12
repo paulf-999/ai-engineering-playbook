@@ -1,6 +1,6 @@
-<!-- version: 1.0.0 -->
+<!-- version: 1.0.1 -->
 <!-- created: 2026-11-11 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-12 -->
 # 🚧 Implementation status
 
 **Purpose:** which parts of the [target architecture](target_architecture.md) are built, which are outstanding, and the effort each outstanding part needs.
@@ -15,14 +15,14 @@ Status is ✅ Built, 🟡 Partly, ❌ Not built, ⏸️ Deferred or 🚫 Out of 
 
 | Component | Section | Status | Evidence | Outstanding | Effort |
 |---|---|---|---|---|---|
-| 🔒 **Required tier** | [Tiers](target_architecture.md#️-tiers) | ✅ Built | [`CLAUDE.md`](../../CLAUDE.md), [global `CLAUDE.md`](../../src/claude/CLAUDE.md), and [`hook_enforcement_plan_sections.sh`](../../src/claude/hooks/hook_enforcement_plan_sections.sh), which `make install` registers | — | — |
+| 🔒 **Required tier** | [Tiers](target_architecture.md#️-tiers) | ✅ Built | [`CLAUDE.md`](../../CLAUDE.md), [global `CLAUDE.md`](../../src/claude/CLAUDE.md), and the [plan sections](../../src/claude/hooks/hook_enforcement_plan_sections.sh) and [done checks](../../src/claude/hooks/hook_enforcement_done_checks.sh) hooks, which `make install` registers | — | — |
 | 💤 **On-demand rules** | [Tiers](target_architecture.md#️-tiers) | ✅ Built | [`src/claude/rules/_rules_on_demand/`](../../src/claude/rules/_rules_on_demand/) | — | — |
 | 🧰 **Skills and agents** | [Tiers](target_architecture.md#️-tiers) | ❌ Not built | Only the templates in [`src/claude/_templates/`](../../src/claude/_templates/) | Port or write each one, after its bloat review | L |
 | 📂 **Task-specific tier** | [Tiers](target_architecture.md#️-tiers) | ✅ Built | [`src/claude/rules/_path_scoped_rules/`](../../src/claude/rules/_path_scoped_rules/) | — | — |
 | 🔐 **Tool access** | [Tiers](target_architecture.md#️-tiers) | ✅ Built | No MCP servers or permission allowlist in `src/claude/`, and [`permission_recommendations.md`](../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md) | — | — |
 | 🗺️ **Plan first** | [Workflow](target_architecture.md#-workflow) | ✅ Built | [`saving_plans.md`](../../src/claude/rules/_rules_on_demand/03_workflows/saving_plans.md) | — | — |
 | 📝 **Intent and spec** | [Workflow](target_architecture.md#-workflow) | ✅ Built | [`sdlc_workflow.md`](../../src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md), enforced by the plan-sections hook | — | — |
-| 🔁 **Feedback loop** | [Workflow](target_architecture.md#-workflow) | ✅ Built | The [`Makefile`](../../Makefile), [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml) and [CI](../../.github/workflows/ci.yml) | — | — |
+| 🔁 **Feedback loop** | [Workflow](target_architecture.md#-workflow) | ✅ Built | The [`Makefile`](../../Makefile), [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml), [CI](../../.github/workflows/ci.yml) and the done checks hook | — | — |
 | 👀 **PR review loop** | [Workflow](target_architecture.md#-workflow) | ❌ Not built | No reviewer agent in `src/claude/` | Port a fresh-context reviewer agent that fills a PR's evaluation criteria | M |
 | 🧪 **Evals** | [Workflow](target_architecture.md#-workflow) | ⏸️ Deferred | Deferred until their API cost and upkeep are weighed | — | — |
 | 🚀 **CI/CD metrics** | [Workflow](target_architecture.md#-workflow) | 🚫 Out of scope | The repo has no deployed service | — | — |

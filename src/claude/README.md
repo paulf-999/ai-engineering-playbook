@@ -1,6 +1,6 @@
-<!-- version: 1.0.3 -->
+<!-- version: 1.0.4 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-12 -->
 # 🧠 Claude config
 
 **Purpose:** a high-level map of the Claude Code config in this folder, for someone new to the repo.
@@ -13,7 +13,7 @@ This folder is the source of a global Claude Code config, the instructions that 
 |---|---|
 | 🧭 [`CLAUDE.md`](CLAUDE.md) | The behavioural guidelines Claude reads at the start of every session |
 | 📏 [`rules/`](rules/) | Short rule files, grouped by when they load |
-| 🪝 [`hooks/`](hooks/) | Scripts Claude Code runs on a tool call, which `make install` registers in `settings.json`, such as the check that a plan opens with Intent and Spec |
+| 🪝 [`hooks/`](hooks/) | Scripts Claude Code runs on a tool call or when Claude stops, which `make install` registers in `settings.json`, such as the check that a plan opens with Intent and Spec |
 | 📋 [`_templates/`](_templates/README.md) | Starting points for new rules, skills, agents and scripts |
 
 ## ⏱️ When rules load

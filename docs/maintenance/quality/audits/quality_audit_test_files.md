@@ -1,4 +1,4 @@
-<!-- version: 4.0.5 -->
+<!-- version: 4.0.6 -->
 <!-- created: 2026-10-31 -->
 <!-- updated: 2026-11-13 -->
 # 📊 Test Coverage Audit
@@ -20,7 +20,7 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [Header bump](../../../../src/sh/bump_file_headers.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Branch name](../../../../src/sh/git/git_validate_branch_name.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [PR size](../../../../src/sh/git/git_validate_num_file_changes.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [PR description](../../../../src/sh/git/git_validate_pr_description.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the "Evaluation criteria" section name is asserted in the failure branch of both `test_config_changes_require_evaluation_criteria` and `test_config_changes_reject_unfilled_criteria`, so renaming the section in the message breaks both |
+| [PR description](../../../../src/sh/git/git_validate_pr_description.sh) | 🟡 1 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | **C · 7/10** | Core coverage: no test covers fenced code blocks being skipped, or the reason listing Plan Spec placeholders. Simplicity: section names are asserted in three failure branches, and shared constants feed most cases. Reliability: most assertions fail with only `result.stdout`, not a message saying what broke |
 | [PR title](../../../../src/sh/git/git_validate_pr_title.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Always-on budget](../../../../src/sh/claude_validate_always_on_budget.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the "over the 150-token budget" message is asserted in two tests, so rewording it breaks both |
 | [Install](../../../../src/sh/claude_install_config.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: `test_files_the_repo_removed_are_backed_up_then_removed` and `test_install_removes_the_plan_hook_when_it_isnt_shipped` each run about 13 to 14 lines and check several things together (removal, backup and manifest; hook removal, kept hooks and backup), and `test_install_registers_the_hooks_and_keeps_existing_settings` checks kept settings, both hook commands and the backup in one test |

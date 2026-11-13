@@ -1,10 +1,10 @@
 # :pencil2: Pull Request Summary
 
-[Summary of the change in 1–2 sentences, linking each file, issue or PR it names with a full GitHub URL.]
+[What the change does, in one sentence of about 20 words or up to 3 bullets. Link each file, issue or PR it names with a full GitHub URL.]
 
 ## :mag: (Optional) Additional Details
 
-[If needed, only what a reviewer must or should know, in 5 bullets or fewer, with full GitHub URLs for any file, issue or PR.]
+[If needed, only what a reviewer must or should know, in 5 bullets or fewer. Open each with an emoji and a bold keyword, keep it to about 20 words, per [`writing_style.md`](https://github.com/paulf-999/ai-engineering-playbook/blob/main/src/claude/rules/02_conduct/writing_style.md), and link any file, issue or PR with a full GitHub URL.]
 
 ## :hammer_and_wrench: Type of PR Change
 
@@ -41,7 +41,7 @@ Choose one:
 
 </details>
 
-## :balance_scale: Claude: Evaluation Criteria for Config Changes
+## :balance_scale: Claude: Evaluation Criteria for Claude Config Changes
 
 > [!TIP]
 > **✅ Safe to approve:** [one-sentence verdict, such as "no red flags; always-on context unchanged". If a red flag is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]

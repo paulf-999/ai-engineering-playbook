@@ -1,4 +1,4 @@
-<!-- version: 3.3.14 -->
+<!-- version: 3.3.15 -->
 <!-- created: 2025-09-18 -->
 <!-- updated: 2026-11-13 -->
 # 🤝 Contributing
@@ -29,14 +29,14 @@ Two valid messages:
 - 📄 **Template:** fill in the [PR template](pull_request_template.md).
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
 - 📏 **Size:** keep each PR within the file limit CI checks, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
-- ⚖️ **Evaluation criteria:** when the PR changes `src/claude/`, have a fresh-context reviewer agent fill the template's Evaluation criteria section, which CI checks is answered.
+- ⚖️ **Evaluation criteria:** when the PR changes an always-on or enforcing file, such as `src/claude/CLAUDE.md`, a rule in a numbered folder or a hook, have a fresh-context reviewer agent fill the template's Evaluation criteria section, which CI checks is answered.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR
 
 - 🪝 **Pre-commit hooks:** fix what they flag, rather than skipping them with `--no-verify`.
 - 🧪 **Done:** meet [Done means](../CLAUDE.md) in `CLAUDE.md` before raising the PR.
-- 📊 **Scores:** once the PR merges, have a new Sonnet session re-score each changed test or rule in its [quality audit](../docs/maintenance/quality/audits/), in a follow-up PR that changes only the audit, and CI warns about any row due.
+- 📊 **Scores:** leave the [quality audits](../docs/maintenance/quality/audits/) as they are, since each regular review re-scores every test and rule changed since the last one, in one PR.
 
 ## 🚀 Releases
 

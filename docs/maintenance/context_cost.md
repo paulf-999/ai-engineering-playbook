@@ -1,4 +1,4 @@
-<!-- version: 1.0.68 -->
+<!-- version: 1.0.69 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 💰 Context cost
@@ -59,7 +59,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 11 | `rules/_rules_on_demand/03_workflows/sdlc_workflow.md` | ~255 |
 | 12 | `rules/_rules_on_demand/claude_config/authoring_guidelines.md` | ~373 |
 | 13 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~410 |
-| 14 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~541 |
+| 14 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~509 |
 | 15 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~474 |
 | 16 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~187 |
 | 17 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~402 |
@@ -127,4 +127,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 80 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 81 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~41761** |
+| | **Subtotal** | **~41729** |

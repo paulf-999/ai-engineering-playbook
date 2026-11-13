@@ -12,4 +12,4 @@ A playbook for a lean, evidence-led Claude Code setup: design docs in `docs/targ
 
 - 🏁 **Done means:** `make test` and `pre-commit run --all-files` both pass.
 - 📜 **Conventions:** follow `.github/CONTRIBUTING.md` for branching, commits and PRs.
-- 🧪 **Tests:** maintain tests per `docs/maintenance/test_maintenance.md`.
+- 🧪 **Tests:** maintain tests per `maintenance/test_maintenance.md`.

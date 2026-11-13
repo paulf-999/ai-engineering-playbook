@@ -7,7 +7,7 @@ SHELL = /bin/sh
 # make deps		# install the dependencies and git hooks
 # make install		# copy src/claude/ into your Claude config directory
 # make test		# run the tests (pytest)
-# make context_cost	# rewrite docs/maintenance/context_cost.md from src/claude/
+# make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
 
 #=======================================================================

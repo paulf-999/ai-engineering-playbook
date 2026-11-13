@@ -46,9 +46,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `README.md` | ~582 |
 | 2 | `_templates/README.md` | ~786 |
 | 3 | `rules/on_demand/claude_config/authoring_guidelines.md` | ~367 |
-| 4 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~408 |
+| 4 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~407 |
 | 5 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~507 |
-| 6 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~472 |
+| 6 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~471 |
 | 7 | `rules/on_demand/claude_config/claude_naming_patterns.md` | ~185 |
 | 8 | `rules/on_demand/claude_config/guiding_principles.md` | ~397 |
 | 9 | `rules/on_demand/claude_config/permission_recommendations.md` | ~182 |
@@ -124,4 +124,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/on_demand/workflows/git.md` | ~325 |
 | 80 | `rules/on_demand/workflows/saving_plans.md` | ~235 |
 | 81 | `rules/on_demand/workflows/sdlc_workflow.md` | ~255 |
-| | **Subtotal** | **~41713** |
+| | **Subtotal** | **~41710** |

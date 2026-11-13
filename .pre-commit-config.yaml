@@ -71,11 +71,11 @@ repos:
             files: ^(CLAUDE\.md|src/claude/.*|\.claude/.*)$
           - id: claude_report_context_cost  # Keep the per-file token table in step with src/claude/
             name: Claude checks — context cost table up to date?
-            description: Fails when docs/maintenance/context_cost.md doesn't match src/claude/; run make context_cost to fix.
+            description: Fails when maintenance/context_cost.md doesn't match src/claude/; run make context_cost to fix.
             entry: src/sh/claude_report_context_cost.sh --check
             language: script
             pass_filenames: false
-            files: ^(src/claude/.*|docs/maintenance/context_cost\.md)$
+            files: ^(src/claude/.*|maintenance/context_cost\.md)$
     # Shell script validation hook - ensures shell scripts conform to shellcheck
     - repo: https://github.com/jumanjihouse/pre-commit-hooks
       rev: 3.0.0

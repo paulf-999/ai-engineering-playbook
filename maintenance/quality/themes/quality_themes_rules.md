@@ -2,7 +2,7 @@
 
 **Purpose:** how a reviewer scores each Claude rule out of 10 for whether it earns its place and reads correctly, so each rule has one score.
 
-Right place and No duplicate apply the [evaluation criteria](../../../target_architecture/design_principles/02_evaluation_criteria.md) to one rule at a time. A rule here means an entry-point rule in `src/claude/rules/` together with its children, the `_`-prefixed files it points to.
+Right place and No duplicate apply the [evaluation criteria](../../../docs/target_architecture/design_principles/02_evaluation_criteria.md) to one rule at a time. A rule here means an entry-point rule in `src/claude/rules/` together with its children, the `_`-prefixed files it points to.
 
 ## 🏷️ Themes
 
@@ -29,7 +29,7 @@ Each theme scores ✅ 2, 🟡 1 or ❌ 0, and the totals map to grades: A for 9 
 Each regular review refreshes the row of every rule changed since the last one, in one PR. One fresh-context reviewer on Sonnet gets only this brief, since a primed brief inflates scores:
 
 ```text
-Score each rule below against docs/maintenance/quality/themes/quality_themes_rules.md.
+Score each rule below against maintenance/quality/themes/quality_themes_rules.md.
 Read each rule with its children, and search the repo for duplicates and to check its claims.
 Return one audit row per rule: the five theme scores, the grade and total, and Gaps.
 ```

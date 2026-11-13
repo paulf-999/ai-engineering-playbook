@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Write docs/maintenance/context_cost.md, a table of each src/claude/ file's estimated tokens and when it loads
+# Description: Write maintenance/context_cost.md, a table of each src/claude/ file's estimated tokens and when it loads
 #              With --check, write nothing and exit 1 if the committed table is out of date
 # Usage: src/sh/claude_report_context_cost.sh [--check] [repo directory, default .] (run from the repo root)
 
@@ -23,7 +23,7 @@ if [[ "${1:-}" == "--check" ]]; then
 fi
 REPO_DIR="${1:-.}"
 CONFIG_DIR="src/claude"
-REPORT="docs/maintenance/context_cost.md"
+REPORT="maintenance/context_cost.md"
 
 #=======================================================================
 # Functions

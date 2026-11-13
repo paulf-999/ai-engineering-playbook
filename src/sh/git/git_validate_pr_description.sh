@@ -1,11 +1,11 @@
 #!/bin/bash
-# version: 1.5.2
+# version: 1.6.0
 # created: 2026-11-02
 # updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Plan Spec" section and answers
-#              the evaluation criteria in an "Evaluation Criteria" section
+# Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Plan Spec" section, and that
+#              one changing an always-on or enforcing file also answers the "Evaluation Criteria" section
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -49,6 +49,12 @@ changes_claude_config() {
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'
 }
 
+# Succeed if the PR changes a file that loads in every session or enforces behaviour: CLAUDE.md, a rule outside the
+# path-scoped and on-demand folders, or a hook
+changes_always_on_or_enforcing() {
+    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/[^_/][^/]*/|hooks/)'
+}
+
 # Succeed if the "Evaluation Criteria" section has at least one top-level bullet or table body row
 has_evaluation_criteria() {
     # a table's separator row, such as |---|---|, holds no answer, so it doesn't count
@@ -81,8 +87,9 @@ description_problems() {
     if [[ -n "${placeholders}" ]]; then
         echo "Replace the template placeholders left in '${SPEC_HEADING}' with the change's spec: ${placeholders//$'\n'/, }"
     fi
+    changes_always_on_or_enforcing || return 0
     if ! has_evaluation_criteria; then
-        echo "Answer the 'Evaluation Criteria' section with a Red flags, Shape and Working table, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
+        echo "Answer the 'Evaluation Criteria' section, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes an always-on or enforcing file."
     fi
     placeholders="$(placeholders "Evaluation Criteria")"
     if [[ -n "${placeholders}" ]]; then

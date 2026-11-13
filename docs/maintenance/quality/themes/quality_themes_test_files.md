@@ -1,6 +1,6 @@
-<!-- version: 3.1.3 -->
+<!-- version: 3.1.4 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 # 🧪 Test Quality Rubric
 
 **Purpose:** how to score the tests for each script out of 10, where 10 means enough tests that stay easy to read, not the most tests.
@@ -44,7 +44,7 @@ Each theme scores ✅ 2 when fully met, 🟡 1 when partly met and ❌ 0 when no
 
 ## 🕵️ Reviewer brief
 
-Once a PR that changes a test file merges, a follow-up audit-only PR refreshes that script's row. One fresh-context reviewer on Sonnet gets only this brief, since a primed brief inflates scores:
+Each [periodic review](../../test_maintenance.md#-periodic-review) refreshes the row of every script whose tests changed since the last one, in one PR. One fresh-context reviewer on Sonnet gets only this brief, since a primed brief inflates scores:
 
 ```text
 Score each script listed after this brief against docs/maintenance/quality/themes/quality_themes_test_files.md.

@@ -1,7 +1,7 @@
-# version: 1.5.3
+# version: 1.6.0
 # created: 2026-11-02
 # updated: 2026-11-13
-"""Tests for the PR description check, which makes a PR that changes src/claude/ answer the evaluation criteria."""
+"""Tests for the PR description check: a src/claude/ PR carries its spec, and an always-on one the criteria."""
 
 import os
 import subprocess
@@ -42,7 +42,10 @@ def test_description_with_shell_characters_is_not_executed(tmp_path):
     assert not marker.exists(), "shell syntax in the description was run as a command"
 
 
-CONFIG_FILE = "src/claude/rules/example.md\ndocs/other.md"
+# an always-on rule, which needs the spec and the evaluation criteria
+CONFIG_FILE = "src/claude/rules/02_conduct/example.md\ndocs/other.md"
+# an on-demand rule, which needs the spec but not the criteria
+ON_DEMAND_FILE = "src/claude/rules/_rules_on_demand/example.md"
 CRITERIA = (
     "\n## :balance_scale: Evaluation criteria\n\n- :triangular_flag_on_post: **Red flags:** none.\n"
     "- :toolbox: **Shape:** on demand.\n- :test_tube: **Working:** trial at the next review.\n"
@@ -53,7 +56,7 @@ SPEC_HEADING = "\n## :robot: Claude: Plan Spec (spec.md) - Requirements and Desi
 SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
 
 
-# MoSCoW: Must — a PR changing the installed Claude config must answer the evaluation criteria
+# MoSCoW: Must — a PR changing an always-on or enforcing file must answer the evaluation criteria
 @pytest.mark.parametrize(
     ("description", "changed_files", "expected_code"),
     [
@@ -68,13 +71,19 @@ SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
         (DETAILS + bullets(1) + PLACEHOLDER + "  - **Cost:** none.\n" + NEXT_SECTION, CONFIG_FILE, 1),
         # the old bullet inside Additional Details no longer counts
         (DETAILS + "- **Evaluation criteria:**\n  - **Red flags:** none.\n" + NEXT_SECTION, CONFIG_FILE, 1),
+        # CLAUDE.md and hooks count as always-on or enforcing, so they need the section too
+        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/CLAUDE.md", 1),
+        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/hooks/example.sh", 1),
+        # an on-demand or path-scoped change needs only the spec
+        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, ON_DEMAND_FILE, 0),
+        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/rules/_path_scoped_rules/x.md", 0),
         # a PR that doesn't touch src/claude/ needs no section, and nor does a run without a file list
         (DETAILS + bullets(4) + NEXT_SECTION, "docs/other.md\nsrc/sh/x.sh", 0),
         (DETAILS + bullets(4) + NEXT_SECTION, "", 0),
     ],
 )
-def test_config_changes_require_evaluation_criteria(description, changed_files, expected_code):
-    """Only a PR that changes src/claude/ must answer the Evaluation criteria section with a bullet."""
+def test_always_on_changes_require_evaluation_criteria(description, changed_files, expected_code):
+    """Only a PR that changes an always-on or enforcing file must answer the Evaluation criteria with a bullet."""
     result = run_check(description, changed_files)
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
@@ -106,8 +115,9 @@ SEPARATOR_ONLY = "\n## :balance_scale: Evaluation criteria\n\n|---|---|\n"
         (DETAILS + bullets(1) + SPEC + FILLED_CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
         # a table separator alone holds no answer
         (DETAILS + bullets(1) + SEPARATOR_ONLY + NEXT_SECTION, CONFIG_FILE, 1),
-        # a PR that doesn't touch src/claude/ isn't checked for placeholders
+        # a PR that doesn't touch an always-on or enforcing file isn't checked for criteria placeholders
         (DETAILS + bullets(1) + TEMPLATE_CRITERIA + NEXT_SECTION, "docs/other.md", 0),
+        (DETAILS + bullets(1) + SPEC + TEMPLATE_CRITERIA + NEXT_SECTION, ON_DEMAND_FILE, 0),
     ],
 )
 def test_config_changes_reject_unfilled_criteria(description, changed_files, expected_code):
@@ -145,7 +155,8 @@ SPEC_PLACEHOLDER = SPEC_HEADING + "[Paste the change's spec.md.]\n"
         (SPEC_HEADING + SPEC_DETAILS, CONFIG_FILE, 1),
         # an example inside a fenced code block isn't an answer
         (SPEC_HEADING + "```markdown\n- **Hook:** an example.\n```\n", CONFIG_FILE, 1),
-        # a PR that doesn't touch src/claude/ needs no spec
+        # an on-demand change still needs a spec, but a PR that doesn't touch src/claude/ doesn't
+        ("", ON_DEMAND_FILE, 1),
         ("", "docs/other.md", 0),
     ],
 )

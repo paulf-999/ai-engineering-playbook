@@ -1,13 +1,13 @@
-<!-- version: 1.8.9 -->
+<!-- version: 1.8.10 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 # ✅ Design principles: Evaluation criteria
 
 **Purpose:** the checks a new component, or one ported from the [old configuration](../current_architecture.md), faces when it's added and while it's on trial.
 
 This page is part of the [design principles](../design_principles.md), which also define always-on.
 
-A PR that changes `src/claude/` answers these checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), which sets the table and verdict format, and CI fails it if that section is unanswered.
+A PR that changes an always-on or enforcing file, meaning `src/claude/CLAUDE.md`, a rule in a numbered folder or a hook, answers these checks in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), which sets the table and verdict format, and CI fails it if that section is unanswered.
 
 - 🕵️ **Reviewer judges:** a fresh-context reviewer agent gets only the diff and this page, and fills the table and the verdict, so no author marks their own change.
 - 🧮 **CI measures:** pre-commit and the tests already check Cost and Rule size, so the table leaves them out.

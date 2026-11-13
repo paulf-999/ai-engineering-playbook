@@ -1,9 +1,9 @@
 ---
-# version: 1.1.4
+# version: 1.1.5
 # created: 2026-11-02
-# updated: 2026-11-11
-# Check that a PR changing src/claude/ answers the evaluation criteria, re-checking whenever its description is edited,
-# and warn when a scored file changes without its row.
+# updated: 2026-11-13
+# Check that a PR changing src/claude/ carries its spec, and one changing an always-on or enforcing file answers the
+# evaluation criteria, re-checking whenever its description is edited.
 # A separate workflow from ci.yml, so editing a description doesn't re-run the tests.
 name: PR description
 
@@ -38,21 +38,3 @@ jobs:
               run: |
                   CHANGED_FILES="$(gh pr diff "${PR_NUMBER}" --name-only --repo "${GITHUB_REPOSITORY}")"
                   src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "${CHANGED_FILES}"
-            # Warn, never fail, when a changed file has a row in a quality audit the PR leaves untouched,
-            # since a failing gate is what forced a re-score after every edit
-            - name: Warn about score rows left out of date
-              if: always()
-              env:
-                  PR_NUMBER: ${{ github.event.pull_request.number }}
-                  GH_TOKEN: ${{ github.token }}
-              run: |
-                  CHANGED_FILES="$(gh pr diff "${PR_NUMBER}" --name-only --repo "${GITHUB_REPOSITORY}")"
-                  while IFS= read -r file; do
-                      [[ -n "${file}" ]] || continue
-                      for audit in $(git ls-files 'docs/maintenance/quality/audits/*.md'); do
-                          # each audit row links to its file as ../<repo path>)
-                          if grep -qF "../${file})" "${audit}" && ! grep -qxF "${audit}" <<<"${CHANGED_FILES}"; then
-                              echo "::warning file=${file}::${file} has a score row in ${audit}, which this PR doesn't update: once it merges, re-score it in an audit-only PR with the reviewer brief in its rubric"
-                          fi
-                      done
-                  done <<<"${CHANGED_FILES}"

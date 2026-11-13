@@ -1,6 +1,6 @@
-<!-- version: 1.3.2 -->
+<!-- version: 1.3.3 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 # 🧪 Test Maintenance
 
 **Purpose:** how many tests to write, how to rate each one's importance, and when to delete one.
@@ -57,3 +57,4 @@ grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
 
 - 📉 **Balance:** more `Could` than `Must` tests means upkeep goes on rare cases rather than what matters.
 - ✂️ **Cut:** delete slow `Could` tests that no longer earn their run time.
+- 🏅 **Re-score:** refresh the [test audit](quality/audits/quality_audit_test_files.md) row of every script whose tests changed since the last review, in one PR, using the [reviewer brief](quality/themes/quality_themes_test_files.md#-reviewer-brief).

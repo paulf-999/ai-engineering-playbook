@@ -1,4 +1,4 @@
-<!-- version: 2.0.3 -->
+<!-- version: 2.0.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-13 -->
 <!-- applies_to: **/*.py -->
@@ -23,6 +23,6 @@
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for what cyclomatic and cognitive complexity measure.
-- `on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for why each size limit exists and how to get under it.
-- `on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md`, in your Claude config directory, before accepting code over a limit.
+- `on_demand/style_guides/python_code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for what cyclomatic and cognitive complexity measure.
+- `on_demand/style_guides/python_code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for why each size limit exists and how to get under it.
+- `on_demand/style_guides/python_code_complexity/_code_complexity_exceptions.md`, in your Claude config directory, before accepting code over a limit.

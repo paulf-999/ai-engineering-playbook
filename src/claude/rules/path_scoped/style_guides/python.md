@@ -2,7 +2,7 @@
 paths:
   - "**/*.py"
 ---
-<!-- version: 1.6.3 -->
+<!-- version: 1.6.4 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-13 -->
 <!-- applies_to: Python files -->
@@ -35,8 +35,8 @@ paths:
 ## 📚 Read on demand
 
 - `on_demand/style_guides/python/_python_environment.md`, in your Claude config directory, when setting up a virtual environment or dependencies.
-- `on_demand/style_guides/python/testing.md`, before writing or changing pytest tests.
-- `on_demand/style_guides/python/logging.md`, before adding logging or error handling.
+- `on_demand/style_guides/python_testing.md`, before writing or changing pytest tests.
+- `on_demand/style_guides/python_logging.md`, before adding logging or error handling.
 - `on_demand/style_guides/python/_comments.md`, when deciding whether or how to comment code.
-- `on_demand/style_guides/python/code_complexity.md`, when a function grows long or deeply nested.
-- `on_demand/style_guides/python/module_organisation.md`, when writing docstrings or splitting public and private code.
+- `on_demand/style_guides/python_code_complexity.md`, when a function grows long or deeply nested.
+- `on_demand/style_guides/python_module_organisation.md`, when writing docstrings or splitting public and private code.

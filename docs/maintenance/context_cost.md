@@ -1,4 +1,4 @@
-<!-- version: 1.0.70 -->
+<!-- version: 1.0.71 -->
 <!-- created: 2026-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 💰 Context cost
@@ -96,25 +96,25 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 48 | `rules/on_demand/style_guides/jira/_ticket_conventions.md` | ~573 |
 | 49 | `rules/on_demand/style_guides/python/_comments.md` | ~258 |
 | 50 | `rules/on_demand/style_guides/python/_python_environment.md` | ~478 |
-| 51 | `rules/on_demand/style_guides/python/code_complexity.md` | ~372 |
-| 52 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~300 |
-| 53 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~335 |
-| 54 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~459 |
-| 55 | `rules/on_demand/style_guides/python/logging.md` | ~339 |
-| 56 | `rules/on_demand/style_guides/python/logging/_error_anti_patterns.md` | ~639 |
-| 57 | `rules/on_demand/style_guides/python/logging/_error_handling.md` | ~669 |
-| 58 | `rules/on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
-| 59 | `rules/on_demand/style_guides/python/logging/_what_not_to_log.md` | ~704 |
-| 60 | `rules/on_demand/style_guides/python/logging/_what_to_log.md` | ~417 |
-| 61 | `rules/on_demand/style_guides/python/module_organisation.md` | ~372 |
-| 62 | `rules/on_demand/style_guides/python/module_organisation/_constants.md` | ~376 |
-| 63 | `rules/on_demand/style_guides/python/module_organisation/_docstrings.md` | ~222 |
-| 64 | `rules/on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md` | ~417 |
-| 65 | `rules/on_demand/style_guides/python/module_organisation/_public_private.md` | ~590 |
-| 66 | `rules/on_demand/style_guides/python/testing.md` | ~313 |
-| 67 | `rules/on_demand/style_guides/python/testing/_assertions.md` | ~500 |
-| 68 | `rules/on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~745 |
-| 69 | `rules/on_demand/style_guides/python/testing/_naming_structure.md` | ~593 |
+| 51 | `rules/on_demand/style_guides/python_code_complexity.md` | ~372 |
+| 52 | `rules/on_demand/style_guides/python_code_complexity/_code_complexity_exceptions.md` | ~300 |
+| 53 | `rules/on_demand/style_guides/python_code_complexity/_code_complexity_metrics.md` | ~335 |
+| 54 | `rules/on_demand/style_guides/python_code_complexity/_code_complexity_size_limits.md` | ~459 |
+| 55 | `rules/on_demand/style_guides/python_logging.md` | ~339 |
+| 56 | `rules/on_demand/style_guides/python_logging/_error_anti_patterns.md` | ~639 |
+| 57 | `rules/on_demand/style_guides/python_logging/_error_handling.md` | ~669 |
+| 58 | `rules/on_demand/style_guides/python_logging/_setup_and_levels.md` | ~854 |
+| 59 | `rules/on_demand/style_guides/python_logging/_what_not_to_log.md` | ~704 |
+| 60 | `rules/on_demand/style_guides/python_logging/_what_to_log.md` | ~417 |
+| 61 | `rules/on_demand/style_guides/python_module_organisation.md` | ~372 |
+| 62 | `rules/on_demand/style_guides/python_module_organisation/_constants.md` | ~376 |
+| 63 | `rules/on_demand/style_guides/python_module_organisation/_docstrings.md` | ~222 |
+| 64 | `rules/on_demand/style_guides/python_module_organisation/_metadata_and_ordering.md` | ~417 |
+| 65 | `rules/on_demand/style_guides/python_module_organisation/_public_private.md` | ~590 |
+| 66 | `rules/on_demand/style_guides/python_testing.md` | ~313 |
+| 67 | `rules/on_demand/style_guides/python_testing/_assertions.md` | ~500 |
+| 68 | `rules/on_demand/style_guides/python_testing/_fixtures_mocking.md` | ~745 |
+| 69 | `rules/on_demand/style_guides/python_testing/_naming_structure.md` | ~593 |
 | 70 | `rules/on_demand/style_guides/sql/_cost_guardrails.md` | ~148 |
 | 71 | `rules/on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
 | 72 | `rules/on_demand/style_guides/sql/_formatting.md` | ~930 |

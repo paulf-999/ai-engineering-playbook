@@ -1,6 +1,6 @@
-<!-- version: 3.3.13 -->
+<!-- version: 3.3.14 -->
 <!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 # 🤝 Contributing
 
 **Purpose:** the branch, commit and PR conventions every contribution to this repo follows.
@@ -37,6 +37,15 @@ Two valid messages:
 - 🪝 **Pre-commit hooks:** fix what they flag, rather than skipping them with `--no-verify`.
 - 🧪 **Done:** meet [Done means](../CLAUDE.md) in `CLAUDE.md` before raising the PR.
 - 📊 **Scores:** once the PR merges, have a new Sonnet session re-score each changed test or rule in its [quality audit](../docs/maintenance/quality/audits/), in a follow-up PR that changes only the audit, and CI warns about any row due.
+
+## 🚀 Releases
+
+A release tags `main` once merged PRs are worth installing together.
+
+- 🔢 **Version:** tag `vMAJOR.MINOR.PATCH`, per [Semantic Versioning](https://semver.org/). Below `1.0.0`, bump MINOR for features or breaking changes and PATCH for fixes only.
+- 📝 **Notes:** open with one line on what the release delivers, then up to 5 emoji bullets, with file links pinned to the tag.
+- 🛠️ **Publish:** run `gh release create vX.Y.Z --target main --title vX.Y.Z --notes-file <notes.md>`.
+- 🔀 **Not a `release/` branch:** that prefix is for one bulk change over the PR file limit, not for versions.
 
 ## 🏷️ File naming
 

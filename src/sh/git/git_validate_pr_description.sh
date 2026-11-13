@@ -46,10 +46,10 @@ changes_claude_config() {
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'
 }
 
-# Succeed if the PR changes a file that loads in every session or enforces behaviour: CLAUDE.md, a rule outside the
-# path-scoped and on-demand folders, or a hook
+# Succeed if the PR changes a file that loads in every session or enforces behaviour: CLAUDE.md, a rule in
+# rules/always/, or a hook
 changes_always_on_or_enforcing() {
-    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/[0-9][^/]*/|hooks/)'
+    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/always/|hooks/)'
 }
 
 # Succeed if the "Evaluation Criteria" section has at least one top-level bullet or table body row

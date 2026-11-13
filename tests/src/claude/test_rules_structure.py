@@ -215,11 +215,11 @@ def find_parent(path, rules_dir=RULES_DIR):
     beside = path.parent.with_suffix(".md")
     candidates = [beside]
     on_demand = rules_dir / "on_demand"
-    # a loaded parent keeps its bulky children on demand: path_scoped/ at the same path, or a numbered folder
-    # without its number, so on_demand/conduct/writing_style/ belongs to 02_conduct/writing_style.md
+    # a loaded parent keeps its bulky children on demand, at the same path under always/ or path_scoped/,
+    # so on_demand/conduct/writing_style/ belongs to always/conduct/writing_style.md
     if beside.is_relative_to(on_demand):
         rest = beside.relative_to(on_demand)
-        candidates += [rules_dir / "path_scoped" / rest, *sorted(rules_dir.glob(f"[0-9]*_{rest}"))]
+        candidates += [rules_dir / "always" / rest, rules_dir / "path_scoped" / rest]
     return next((candidate for candidate in candidates if candidate.exists()), beside)
 
 

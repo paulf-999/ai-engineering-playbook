@@ -13,12 +13,12 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~535 |
-| 2 | `rules/01_standards/claude_response_standards.md` | ~218 |
-| 3 | `rules/01_standards/naming_standards.md` | ~247 |
-| 4 | `rules/02_conduct/behaviour.md` | ~312 |
-| 5 | `rules/02_conduct/security.md` | ~203 |
-| 6 | `rules/02_conduct/writing_style.md` | ~311 |
-| 7 | `rules/03_workflows/claude_plans.md` | ~176 |
+| 2 | `rules/always/conduct/behaviour.md` | ~312 |
+| 3 | `rules/always/conduct/security.md` | ~203 |
+| 4 | `rules/always/conduct/writing_style.md` | ~311 |
+| 5 | `rules/always/standards/claude_response_standards.md` | ~218 |
+| 6 | `rules/always/standards/naming_standards.md` | ~247 |
+| 7 | `rules/always/workflows/claude_plans.md` | ~176 |
 | | **Subtotal** | **~2004** |
 
 ## 📂 Path-scoped rules
@@ -43,7 +43,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `README.md` | ~582 |
+| 1 | `README.md` | ~574 |
 | 2 | `_templates/README.md` | ~786 |
 | 3 | `rules/on_demand/claude_config/authoring_guidelines.md` | ~367 |
 | 4 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~407 |
@@ -124,4 +124,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/on_demand/workflows/git.md` | ~325 |
 | 80 | `rules/on_demand/workflows/saving_plans.md` | ~235 |
 | 81 | `rules/on_demand/workflows/sdlc_workflow.md` | ~255 |
-| | **Subtotal** | **~41710** |
+| | **Subtotal** | **~41703** |

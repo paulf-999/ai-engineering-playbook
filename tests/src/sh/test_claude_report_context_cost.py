@@ -1,6 +1,6 @@
-# version: 1.1.2
+# version: 1.1.3
 # created: 2026-11-04
-# updated: 2026-11-09
+# updated: 2026-11-13
 """Tests for the context cost report, which tables each src/claude/ file's tokens and when it loads."""
 
 import subprocess
@@ -21,7 +21,7 @@ def config_repo(tmp_path):
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- version: 1.0.0 -->\n" + HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
-        "src/claude/rules/_rules_on_demand/guide.md": HUNDRED_TOKENS,
+        "src/claude/rules/on_demand/guide.md": HUNDRED_TOKENS,
         "src/claude/_templates/README.md": HUNDRED_TOKENS,
         # a README is for people browsing the repo, so Claude never loads it on its own
         "src/claude/README.md": HUNDRED_TOKENS,
@@ -38,7 +38,7 @@ def config_repo(tmp_path):
 ON_DEMAND_ROWS = (
     "| 1 | `README.md` | ~100 |",
     "| 2 | `_templates/README.md` | ~100 |",
-    "| 3 | `rules/_rules_on_demand/guide.md` | ~100 |",
+    "| 3 | `rules/on_demand/guide.md` | ~100 |",
 )
 
 

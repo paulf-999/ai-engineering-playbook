@@ -1,4 +1,4 @@
-<!-- version: 1.9.5 -->
+<!-- version: 1.9.6 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-13 -->
 # 🏗️ Target architecture
@@ -30,7 +30,7 @@ Every component, meaning one file of instructions or one automatic check, sits i
 
 - 🧭 **Choosing a tier:** the [evaluation criteria](design_principles/02_evaluation_criteria.md#-what-shape) match each need to a mechanism, which sets its tier.
 - 🛑 **Hooks and every-session rules:** a hook, a script Claude Code runs automatically, that fires on every prompt, or a rule made to load in every session, raises a [red flag](design_principles/02_evaluation_criteria.md#-review-each-file), and the always-on budget still caps always-on rules.
-- 🔐 **Tool access:** the config ships no MCP servers, which connect Claude to outside tools, and no list of pre-approved actions, so each engineer connects their own tools. `make install` adds deny rules that keep Claude's file tools out of `.env` files, though a shell command such as `cat` can still read one. Pushes aren't gated, since a prompt would stall unattended loops and the `protect_main` ruleset already requires a PR to change `main`. A PR that ships one gives it the least access it needs, per [`permission_recommendations.md`](../../src/claude/rules/_rules_on_demand/claude_config/permission_recommendations.md), as [DORA advises](reference_material/core/dora_ai_capabilities/03_findings.md).
+- 🔐 **Tool access:** the config ships no MCP servers, which connect Claude to outside tools, and no list of pre-approved actions, so each engineer connects their own tools. `make install` adds deny rules that keep Claude's file tools out of `.env` files, though a shell command such as `cat` can still read one. Pushes aren't gated, since a prompt would stall unattended loops and the `protect_main` ruleset already requires a PR to change `main`. A PR that ships one gives it the least access it needs, per [`permission_recommendations.md`](../../src/claude/rules/on_demand/claude_config/permission_recommendations.md), as [DORA advises](reference_material/core/dora_ai_capabilities/03_findings.md).
 
 ## 🔄 Workflow
 
@@ -46,7 +46,7 @@ The design adopts these practices from Anthropic's course on AI-native software 
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | None while out of scope | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 
 - 🧭 **Adoption order:** a practice is taken up only once its prerequisites in the [course's graph](reference_material/core/anthropic_ai_native_sdlc/01_overview.md) are in place. Evals come next, since their prerequisites, `CLAUDE.md` and the feedback loop, are in place. The PR review loop runs ahead of evals, its own prerequisite, since it checks a PR against the evaluation criteria rather than reviewing the code.
-- ✍️ **Agent commits:** Claude commits as [`git.md`](../../src/claude/rules/_rules_on_demand/03_workflows/git.md) sets out: once a task is done and its checks pass, one commit per task, as [DORA advises deciding](reference_material/core/dora_ai_capabilities/03_findings.md), and a pre-commit hook blocks commits to `main`. Its sign of working is that each commit in git history holds one finished task.
+- ✍️ **Agent commits:** Claude commits as [`git.md`](../../src/claude/rules/on_demand/03_workflows/git.md) sets out: once a task is done and its checks pass, one commit per task, as [DORA advises deciding](reference_material/core/dora_ai_capabilities/03_findings.md), and a pre-commit hook blocks commits to `main`. Its sign of working is that each commit in git history holds one finished task.
 
 ## 💰 Always-on budget
 

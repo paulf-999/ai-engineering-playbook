@@ -1,6 +1,6 @@
-<!-- version: 1.0.4 -->
+<!-- version: 1.0.5 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-12 -->
+<!-- updated: 2026-11-13 -->
 # 🧠 Claude config
 
 **Purpose:** a high-level map of the Claude Code config in this folder, for someone new to the repo.
@@ -23,13 +23,13 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 | Folder | Loads |
 |---|---|
 | 🔁 `01_standards/`, `02_conduct/`, `03_workflows/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
-| 📂 `_path_scoped_rules/` | Only when Claude works on a matching file, such as the Python guide for `.py` files, set by each rule's `paths:` list |
-| 💤 `_rules_on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there, since the install moves this folder out of `rules/` |
+| 📂 `path_scoped/` | Only when Claude works on a matching file, such as the Python guide for `.py` files, set by each rule's `paths:` list |
+| 💤 `on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there, since the install moves this folder out of `rules/` |
 
 A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it.
 
 ## 🛠️ Changing it
 
-- 📐 **Shape:** the [authoring guidelines](rules/_rules_on_demand/claude_config/authoring_guidelines.md) cover how to write a rule, skill or agent.
+- 📐 **Shape:** the [authoring guidelines](rules/on_demand/claude_config/authoring_guidelines.md) cover how to write a rule, skill or agent.
 - ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide whether a new component earns its context cost.
 - ✅ **Checks:** `make test` checks each rule's structure, and pre-commit keeps the always-on context within budget.

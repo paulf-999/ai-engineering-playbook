@@ -1,7 +1,7 @@
 #!/bin/bash
-# version: 1.2.1
+# version: 1.2.2
 # created: 2026-11-04
-# updated: 2026-11-09
+# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Write docs/maintenance/context_cost.md, a table of each src/claude/ file's estimated tokens and when it loads
@@ -38,7 +38,7 @@ HEADER_LINES=3
 # the config's README is for people browsing the repo, so like the templates it's read only when opened
 load_condition() {
     local file="${1}" globs
-    if [[ "${file}" == "${CONFIG_DIR}/rules/_rules_on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* \
+    if [[ "${file}" == "${CONFIG_DIR}/rules/on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* \
         || "${file}" == "${CONFIG_DIR}/README.md" ]]; then
         echo "On demand, via a pointer"
         return

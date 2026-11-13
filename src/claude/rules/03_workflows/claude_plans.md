@@ -1,6 +1,6 @@
-<!-- version: 2.1.10 -->
+<!-- version: 2.1.11 -->
 <!-- created: 2026-09-17 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — multi-phase work runs past a wrong turn and needs redoing -->
 # 🗂️ Claude plans
@@ -13,4 +13,4 @@
 
 ## 📚 Read on demand
 
-- `_rules_on_demand/03_workflows/saving_plans.md`, in your Claude config directory, once a plan is approved.
+- `on_demand/03_workflows/saving_plans.md`, in your Claude config directory, once a plan is approved.

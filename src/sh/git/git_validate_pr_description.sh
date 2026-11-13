@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.6.0
+# version: 1.6.1
 # created: 2026-11-02
 # updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -52,7 +52,7 @@ changes_claude_config() {
 # Succeed if the PR changes a file that loads in every session or enforces behaviour: CLAUDE.md, a rule outside the
 # path-scoped and on-demand folders, or a hook
 changes_always_on_or_enforcing() {
-    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/[^_/][^/]*/|hooks/)'
+    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/[0-9][^/]*/|hooks/)'
 }
 
 # Succeed if the "Evaluation Criteria" section has at least one top-level bullet or table body row

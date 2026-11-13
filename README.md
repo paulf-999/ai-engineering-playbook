@@ -1,4 +1,4 @@
-<!-- version: 2.3.20 -->
+<!-- version: 2.3.21 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -27,12 +27,12 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 
 ## 📦 What you get
 
-Claude Code reads instruction files before it works. A few of these apply to every task, and the rest are read only when a task needs them, so Claude isn't slowed down by instructions it doesn't need. You get:
+Claude Code reads a few instruction files on every task, and the rest only when a task needs them. You get:
 
-- A boilerplate [`CLAUDE.md`](src/claude/CLAUDE.md) to use as your own, the main instructions file Claude Code reads in every session
-- [Rules](src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) that take each change through the stages of Anthropic's [AI-native software development lifecycle (AI-SDLC)](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md): why it matters, what to build, the plan, building and testing, then review
-- The [design](docs/target_architecture/target_architecture.md) behind it, with its [principles](docs/target_architecture/design_principles.md) and the [research from Anthropic and DORA (Google's DevOps research programme)](docs/target_architecture/reference_material/README.md) that it draws on
-- Automatic [checks](.github/workflows/ci.yml) that stop the every-task instructions growing too long
+- 📄 **Starter `CLAUDE.md`:** the main instructions file, ready to use as your own, in [`src/claude/CLAUDE.md`](src/claude/CLAUDE.md).
+- 🏗️ **Design:** the [design](docs/target_architecture/target_architecture.md) and [principles](docs/target_architecture/design_principles.md) behind it, and the [research from Anthropic and DORA (Google's DevOps research programme)](docs/target_architecture/reference_material/README.md) it draws on.
+- 🔄 **Workflow rules:** [rules](src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) that take each change through Anthropic's [AI-native software development lifecycle (AI-SDLC)](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md), from why it matters and what to build, to the plan, building, testing and review.
+- ✅ **Checks:** automatic [checks](.github/workflows/ci.yml) that keep the every-task instructions short.
 
 ---
 

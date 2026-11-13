@@ -1,4 +1,4 @@
-<!-- version: 2.3.26 -->
+<!-- version: 2.3.27 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -19,9 +19,7 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
    cd ai-engineering-playbook
    ```
 
-2. Create and activate a virtualenv (see the [virtualenv setup guide](docs/guides/virtualenv_setup.md)).
-3. Run `make deps` to install the requirements and the pre-commit git hooks.
-4. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`.
+2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`.
 
 ---
 
@@ -38,4 +36,4 @@ Claude reads only the instructions each task needs, so it stays fast and focused
 
 ## 📝 Contributing
 
-Before raising a PR, read the [contributing guidelines](.github/CONTRIBUTING.md), which cover branches, commit messages and PRs.
+Before raising a PR, read the [contributing guidelines](.github/CONTRIBUTING.md), which cover setup, branches, commit messages and PRs.

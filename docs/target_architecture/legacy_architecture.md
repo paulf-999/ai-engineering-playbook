@@ -1,7 +1,7 @@
-<!-- version: 2.1.4 -->
+<!-- version: 2.1.5 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-13 -->
-# 🏛️ Current architecture
+# 🏛️ Legacy architecture
 
 **Purpose:** what the Claude configuration this repo replaces contains, what works well in it, and the lessons the new design carries forward.
 

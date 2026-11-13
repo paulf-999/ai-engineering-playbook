@@ -1,4 +1,4 @@
-<!-- version: 1.1.3 -->
+<!-- version: 1.1.4 -->
 <!-- created: 2026-11-11 -->
 <!-- updated: 2026-11-13 -->
 # 🚧 Implementation status
@@ -21,9 +21,9 @@ Status is ✅ Built, 🟡 Partly, ❌ Not built, ⏸️ Deferred or 🚫 Out of 
 | 📂 **[Task-specific tier](target_architecture.md#️-tiers)** | ✅ Built | [`src/claude/rules/_path_scoped_rules/`](../../src/claude/rules/_path_scoped_rules/) | — | — |
 | 🔐 **[Tool access](target_architecture.md#️-tiers)** | ✅ Built | No MCP servers or allowlist shipped, and the `.env` deny rules in [`claude_install_config.sh`](../../src/sh/claude_install_config.sh) | — | — |
 | 🗺️ **[Plan first](target_architecture.md#-workflow)** | ✅ Built | [`saving_plans.md`](../../src/claude/rules/_rules_on_demand/03_workflows/saving_plans.md) | — | — |
-| 📝 **[Intent and spec](target_architecture.md#-workflow)** | ✅ Built | [`sdlc_workflow.md`](../../src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md), the plan sections hook, and the PR template's Claude plan spec section | — | — |
+| 📝 **[Intent and spec](target_architecture.md#-workflow)** | ✅ Built | [`sdlc_workflow.md`](../../src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md), the plan sections hook, and the PR template's Plan Spec section | — | — |
 | 🔁 **[Feedback loop](target_architecture.md#-workflow)** | ✅ Built | The [`Makefile`](../../Makefile), [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml), [CI](../../.github/workflows/ci.yml) and the done checks hook | — | — |
-| 👀 **[PR review loop](target_architecture.md#-workflow)** | 🟡 Partly | The [PR template](../../.github/pull_request_template.md)'s Claude plan spec and criteria sections, checked by [`pr_description.yml`](../../.github/workflows/pr_description.yml) | Port the reviewer agent ([#7](https://github.com/paulf-999/ai-engineering-playbook/issues/7)) | M |
+| 👀 **[PR review loop](target_architecture.md#-workflow)** | 🟡 Partly | The [PR template](../../.github/pull_request_template.md)'s Plan Spec and criteria sections, checked by [`pr_description.yml`](../../.github/workflows/pr_description.yml) | Port the reviewer agent ([#7](https://github.com/paulf-999/ai-engineering-playbook/issues/7)) | M |
 | 🧪 **[Evals](target_architecture.md#-workflow)** | ⏸️ Deferred | — | — | — |
 | 🚀 **[CI/CD metrics](target_architecture.md#-workflow)** | 🚫 Out of scope | — | — | — |
 | ✍️ **[Agent commits](target_architecture.md#-workflow)** | ✅ Built | [`git.md`](../../src/claude/rules/_rules_on_demand/03_workflows/git.md) and the `no-commit-to-branch` hook in [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml) | — | — |

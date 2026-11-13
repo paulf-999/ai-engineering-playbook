@@ -1,11 +1,11 @@
 #!/bin/bash
-# version: 1.4.1
+# version: 1.5.0
 # created: 2026-11-02
 # updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Claude plan spec" section and answers
-#              the evaluation criteria in an "Evaluation criteria" section
+# Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Plan Spec" section and answers
+#              the evaluation criteria in an "Evaluation Criteria" section
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -22,9 +22,8 @@ trap handle_interruption SIGINT
 PR_DESCRIPTION="${1-}"
 # the PR's changed files, one per line, used to spot changes to the installed Claude config
 CHANGED_FILES="${2-}"
-# the heading of the section that carries the change's spec, and the start of its fixed intro line, which isn't an answer
-SPEC_HEADING="Claude plan spec"
-SPEC_INTRO="The spec Claude built this change to"
+# the heading of the section that carries the change's spec
+SPEC_HEADING="Plan Spec"
 # why the description fails, set in the main logic (empty means it's valid)
 PROBLEMS=""
 
@@ -37,10 +36,10 @@ rendered_text() {
     printf '%s\n' "${PR_DESCRIPTION}" | awk '/^ *```/ { fenced = !fenced; next } !fenced'
 }
 
-# Print the lines under the first "## " heading that contains the given text, up to the next "## " heading
+# Print the lines under the first "## " heading that contains the given text, in any case, up to the next "## " heading
 section() {
     rendered_text | awk -v heading="${1}" '
-        /^## / { in_section = (index($0, heading) > 0); next }
+        /^## / { in_section = (index(tolower($0), tolower(heading)) > 0); next }
         in_section { print }
     '
 }
@@ -50,15 +49,17 @@ changes_claude_config() {
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'
 }
 
-# Succeed if the "Evaluation criteria" section has at least one top-level bullet or table body row
+# Succeed if the "Evaluation Criteria" section has at least one top-level bullet or table body row
 has_evaluation_criteria() {
     # a table's separator row, such as |---|---|, holds no answer, so it doesn't count
-    section "Evaluation criteria" | grep -E '^([-*] |\|)' | grep -qvE '^\|[-: |]+\|$'
+    section "Evaluation Criteria" | grep -E '^([-*] |\|)' | grep -qvE '^\|[-: |]+\|$'
 }
 
-# Succeed if the spec section has a line that isn't blank or the template's intro
+# Succeed if the spec section has a line that isn't blank or part of the template's show/hide wrapper and callout
 has_spec() {
-    section "${SPEC_HEADING}" | grep -vF -- "${SPEC_INTRO}" | grep -q '[^[:space:]]'
+    # shellcheck disable=SC2016  # the backticks are a literal grep pattern, not a command
+    section "${SPEC_HEADING}" | grep -vE '^ *(</?(details|summary)>|> \[!NOTE\]|> \*\*What is `spec\.md`)' \
+        | grep -q '[^[:space:]]'
 }
 
 # Print each square-bracket placeholder left in the section whose heading contains $1, one per line
@@ -81,11 +82,11 @@ description_problems() {
         echo "Replace the template placeholders left in '${SPEC_HEADING}' with the change's spec: ${placeholders//$'\n'/, }"
     fi
     if ! has_evaluation_criteria; then
-        echo "Answer the 'Evaluation criteria' section with a Red flags, Shape and Working table, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
+        echo "Answer the 'Evaluation Criteria' section with a Red flags, Shape and Working table, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
     fi
-    placeholders="$(placeholders "Evaluation criteria")"
+    placeholders="$(placeholders "Evaluation Criteria")"
     if [[ -n "${placeholders}" ]]; then
-        echo "Replace the template placeholders left in 'Evaluation criteria' with real answers: ${placeholders//$'\n'/, }"
+        echo "Replace the template placeholders left in 'Evaluation Criteria' with real answers: ${placeholders//$'\n'/, }"
     fi
 }
 

@@ -19,13 +19,29 @@ Choose one:
 
 [If there are breaking changes, provide details here.]
 
-## :robot: Claude plan spec: requirements and design
+## :microscope: How Has This Been Tested?
 
-The spec Claude built this change to, from the approved plan's Spec section, so a reviewer can check the diff against it.
+<details>
+<summary>Testing checklist</summary>
 
-[Needed when the PR changes `src/claude/`: paste the change's `spec.md`. Otherwise, say "Not applicable" and why.]
+- [ ] DEV / Local testing by developer
+- [ ] Other (please specify)
 
-## :balance_scale: Evaluation criteria for Claude config changes
+</details>
+
+## :robot: Claude: Plan Spec (spec.md) - Requirements and Design
+
+<details>
+<summary>Approved plan's spec</summary>
+
+> [!NOTE]
+> **What is `spec.md`?** The requirements and design from Claude's approved plan, which the diff is built to.
+
+[For a `src/claude/` change, paste its `spec.md`, so a reviewer can check the diff against it. Otherwise, say "Not applicable" and why.]
+
+</details>
+
+## :balance_scale: Claude: Evaluation Criteria for Config Changes
 
 > [!TIP]
 > **✅ Safe to approve:** [one-sentence verdict, such as "no red flags; always-on context unchanged". If a red flag is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]
@@ -40,16 +56,6 @@ Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engine
 | :test_tube: Clean exit | [✅ or ❌] | [how one small PR would remove it] |
 
 All other standards ✅ Aligned. Trial ⏳ due at the next review.
-
-## :microscope: How Has This Been Tested?
-
-<details>
-<summary>Testing checklist</summary>
-
-- [ ] DEV / Local testing by developer
-- [ ] Other (please specify)
-
-</details>
 
 ## :white_check_mark: Checklist
 

@@ -1,4 +1,4 @@
-<!-- version: 2.3.9 -->
+<!-- version: 2.3.10 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -15,8 +15,6 @@
 Claude Code reads instruction files before it works. A few of these apply to every task, and the rest are read only when a task needs them, so Claude isn't slowed down by instructions it doesn't need. You get:
 
 - [Core guidelines](src/claude/CLAUDE.md): a short page of good working habits Claude follows on every task
-- [Style guides](src/claude/rules/_path_scoped_rules/style_guides/) for SQL, dbt, Python, Airflow, Terraform and more, each used only when Claude works on that kind of file
-- Guidance Claude looks up only when a task calls for it, such as using git, writing tests or planning work
 - The [design](docs/target_architecture/target_architecture.md) behind it, with its [principles](docs/target_architecture/design_principles.md) and the [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md), Google's DevOps research programme, that it draws on
 - Automatic [checks](.github/workflows/ci.yml) that stop the every-task instructions growing too long
 

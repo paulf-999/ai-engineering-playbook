@@ -1,6 +1,3 @@
-<!-- version: 1.1.0 -->
-<!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-03 -->
 # 🐍 Virtual Environment Setup
 
 **Purpose:** how to create the Python virtual environment this repo needs, so its packages stay separate from your system Python.

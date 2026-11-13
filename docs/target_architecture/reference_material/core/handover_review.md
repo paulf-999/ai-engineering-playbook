@@ -1,6 +1,3 @@
-<!-- version: 1.0.1 -->
-<!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-10 -->
 # 📝 Handover review
 
 **Purpose:** two sections of an outside review of the maintainer's old Claude setup, written as a handover, which shaped this repo's design.

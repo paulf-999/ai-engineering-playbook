@@ -1,6 +1,3 @@
-<!-- version: 1.1.6 -->
-<!-- created: 2026-11-11 -->
-<!-- updated: 2026-11-13 -->
 # 🚧 Implementation status
 
 **Purpose:** which parts of the [target architecture](target_architecture.md) are built, which are outstanding, and the effort each outstanding part needs.

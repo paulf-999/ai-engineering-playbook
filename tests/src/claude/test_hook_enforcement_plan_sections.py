@@ -1,6 +1,3 @@
-# version: 1.1.0
-# created: 2026-11-10
-# updated: 2026-11-13
 """Tests for the plan sections hook, which blocks a plan that has no Intent or Spec heading."""
 
 import json

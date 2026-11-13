@@ -1,6 +1,3 @@
-# version: 1.0.5
-# created: 2026-10-31
-# updated: 2026-11-04
 """Tests for the Makefile's deps target, which must only install into an active virtualenv."""
 
 import os

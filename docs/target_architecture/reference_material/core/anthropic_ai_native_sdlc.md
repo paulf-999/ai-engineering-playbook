@@ -1,6 +1,3 @@
-<!-- version: 2.2.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 🧭 Anthropic: The AI-native SDLC Playbook
 
 **Purpose:** what Anthropic's course on the AI-native software development lifecycle (SDLC) recommends, where its limits are, and which parts fit this repo.

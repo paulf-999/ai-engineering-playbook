@@ -1,6 +1,3 @@
-<!-- version: 1.1.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 🧩 DORA report: The seven capabilities
 
 **Purpose:** what each of DORA's seven capabilities means, what it strengthens, and where the report covers it.

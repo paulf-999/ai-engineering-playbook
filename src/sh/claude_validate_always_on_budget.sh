@@ -1,7 +1,4 @@
 #!/bin/bash
-# version: 1.2.4
-# created: 2026-11-03
-# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Fail when the Claude context loaded into every session is estimated at over the token budget

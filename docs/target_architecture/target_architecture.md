@@ -1,6 +1,3 @@
-<!-- version: 1.9.7 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-13 -->
 # 🏗️ Target architecture
 
 **Purpose:** what the new set of Claude Code instructions contains, which parts Claude reads in every session and which only when needed, and how their cost and benefit are measured.

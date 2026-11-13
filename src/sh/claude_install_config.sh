@@ -1,7 +1,4 @@
 #!/bin/bash
-# version: 1.6.1
-# created: 2026-11-04
-# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites

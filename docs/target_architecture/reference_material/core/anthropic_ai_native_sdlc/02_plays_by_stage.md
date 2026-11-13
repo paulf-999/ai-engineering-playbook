@@ -1,6 +1,3 @@
-<!-- version: 1.1.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 🔄 AI-native SDLC course: Plays by stage
 
 **Purpose:** each of the course's plays, grouped by stage, with its core practice and how to tell it's working.

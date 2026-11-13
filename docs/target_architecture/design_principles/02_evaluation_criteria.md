@@ -1,6 +1,3 @@
-<!-- version: 1.8.12 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-13 -->
 # ✅ Design principles: Evaluation criteria
 
 **Purpose:** the checks a new component, or one ported from the [old configuration](../legacy_architecture.md), faces when it's added and while it's on trial.

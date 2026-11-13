@@ -1,6 +1,3 @@
-<!-- version: 1.1.5 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-13 -->
 # 🔍 AI-native SDLC course: Our reading
 
 **Purpose:** what Anthropic's SDLC course means for the design of this repo's Claude configuration.

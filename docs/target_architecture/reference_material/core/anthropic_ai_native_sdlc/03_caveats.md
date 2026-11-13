@@ -1,6 +1,3 @@
-<!-- version: 1.1.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # ⚠️ AI-native SDLC course: Caveats
 
 **Purpose:** the limits of Anthropic's SDLC course: who it's for, how strong its evidence is, and what it assumes.

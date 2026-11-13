@@ -1,7 +1,4 @@
 ---
-# version: 1.1.5
-# created: 2026-11-02
-# updated: 2026-11-13
 # Check that a PR changing src/claude/ carries its spec, and one changing an always-on or enforcing file answers the
 # evaluation criteria, re-checking whenever its description is edited.
 # A separate workflow from ci.yml, so editing a description doesn't re-run the tests.

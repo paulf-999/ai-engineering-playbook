@@ -1,6 +1,3 @@
-<!-- version: 1.1.5 -->
-<!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-13 -->
 # 📚 Docs folder guide
 
 **Purpose:** what each folder under `docs/` holds, and where a new doc goes.
@@ -13,8 +10,5 @@ The folders, starting with the one most readers want:
 
 ## 🆕 Adding a doc
 
-`make test` fails on a new doc that misses step 2:
-
 1. Put it in the folder for its reader, from the list above.
-2. Open it with the [version header](maintenance/file_headers.md).
-3. Start it with a **Purpose:** line.
+2. Start it with a **Purpose:** line.

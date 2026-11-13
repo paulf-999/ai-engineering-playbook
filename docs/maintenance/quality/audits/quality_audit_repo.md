@@ -1,6 +1,3 @@
-<!-- version: 1.0.18 -->
-<!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Audit
 
 **Purpose:** for maintainers, how bloated and how over-engineered the repo is as a whole, each scored out of 10 at each regular review.

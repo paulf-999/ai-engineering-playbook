@@ -1,6 +1,3 @@
-<!-- version: 1.3.3 -->
-<!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-13 -->
 # 🧪 Test Maintenance
 
 **Purpose:** how many tests to write, how to rate each one's importance, and when to delete one.

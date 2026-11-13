@@ -1,6 +1,3 @@
-<!-- version: 4.0.7 -->
-<!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-13 -->
 # 📊 Test Coverage Audit
 
 **Purpose:** how good each script's tests are, scored against the test rubric.

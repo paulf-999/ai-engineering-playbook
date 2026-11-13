@@ -1,7 +1,4 @@
 #!/bin/bash
-# version: 1.6.1
-# created: 2026-11-02
-# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Plan Spec" section, and that

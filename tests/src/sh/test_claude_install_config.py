@@ -1,6 +1,3 @@
-# version: 1.4.1
-# created: 2026-11-04
-# updated: 2026-11-13
 """Tests for the install script, which copies src/claude/ into a Claude config directory after a typed 'install'."""
 
 import json

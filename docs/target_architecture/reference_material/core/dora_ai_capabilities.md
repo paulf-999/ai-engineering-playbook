@@ -1,6 +1,3 @@
-<!-- version: 2.2.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 📊 DORA: AI Capabilities Model
 
 **Purpose:** what the AI Capabilities Model from DORA (DevOps Research and Assessment) found, where its limits are, and how far it applies to this repo's design.

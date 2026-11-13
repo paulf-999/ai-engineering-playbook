@@ -1,6 +1,3 @@
-# version: 1.2.5
-# created: 2026-10-30
-# updated: 2026-11-02
 """Tests for the PR file-count check, which skips release/ branches."""
 
 import subprocess

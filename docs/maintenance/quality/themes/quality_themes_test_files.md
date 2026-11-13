@@ -1,6 +1,3 @@
-<!-- version: 3.1.4 -->
-<!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-13 -->
 # 🧪 Test Quality Rubric
 
 **Purpose:** how to score the tests for each script out of 10, where 10 means enough tests that stay easy to read, not the most tests.

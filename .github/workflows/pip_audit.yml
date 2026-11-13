@@ -1,7 +1,4 @@
 ---
-# version: 1.0.0
-# created: 2026-10-31
-# updated: 2026-10-31
 # Check the pinned requirements for known vulnerabilities, weekly and on any PR that changes them,
 # so the CI that runs on every PR stays fast
 name: pip-audit

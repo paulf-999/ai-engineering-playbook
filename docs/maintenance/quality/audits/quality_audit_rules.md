@@ -1,6 +1,3 @@
-<!-- version: 1.0.13 -->
-<!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-13 -->
 # 📏 Rule Quality Audit
 
 **Purpose:** for maintainers, whether each Claude rule earns its place and reads correctly, scored out of 10.

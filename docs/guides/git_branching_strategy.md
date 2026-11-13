@@ -1,6 +1,3 @@
-<!-- version: 2.1.1 -->
-<!-- created: 2022-11-04 -->
-<!-- updated: 2026-11-10 -->
 # 🌿 Git Branching Strategy
 
 **Purpose:** which branches to use in this repo, and how to name them.

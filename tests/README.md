@@ -1,6 +1,3 @@
-<!-- version: 1.1.4 -->
-<!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-11 -->
 # 🧪 tests
 
 **Purpose:** how the `tests/` folder is laid out, and where a new test goes.

@@ -1,7 +1,4 @@
 ---
-# version: 1.0.1
-# created: 2022-11-24
-# updated: 2026-10-31
 
 yaml-files:
     - '*.yaml'

@@ -1,6 +1,3 @@
-<!-- version: 1.7.6 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-13 -->
 # 🧭 Design principles
 
 **Purpose:** the principles every part of this repo's Claude Code instructions follows, and the checks a new part must pass.

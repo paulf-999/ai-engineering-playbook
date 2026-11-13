@@ -1,6 +1,3 @@
-<!-- version: 1.0.2 -->
-<!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-10 -->
 # 🤖 Claude Code docs: Create custom subagents
 
 **Purpose:** what Anthropic's Claude Code docs say about defining subagents, the helper agents Claude hands tasks to, and what that means for this repo's agent template.

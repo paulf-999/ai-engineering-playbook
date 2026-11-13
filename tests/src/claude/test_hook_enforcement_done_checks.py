@@ -1,6 +1,3 @@
-# version: 1.0.0
-# created: 2026-11-12
-# updated: 2026-11-12
 """Tests for the done checks hook, which stops Claude once to run the repo's checks after files change."""
 
 import json

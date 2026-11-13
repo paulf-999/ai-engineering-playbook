@@ -1,6 +1,3 @@
-<!-- version: 1.9.4 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-13 -->
 # 📚 Reference Material
 
 **Purpose:** the outside sources behind this repo's target architecture, the design for its new Claude configuration, and how to use and cite them.

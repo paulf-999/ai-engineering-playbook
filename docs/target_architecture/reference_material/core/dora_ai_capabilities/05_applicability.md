@@ -1,6 +1,3 @@
-<!-- version: 1.1.2 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 🎯 DORA report: Applicability to this playbook
 
 **Purpose:** how far each of DORA's capabilities applies to this repo's personal Claude setup, as decided at the maintainer's review.

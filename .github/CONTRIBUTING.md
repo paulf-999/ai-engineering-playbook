@@ -1,6 +1,3 @@
-<!-- version: 3.3.15 -->
-<!-- created: 2025-09-18 -->
-<!-- updated: 2026-11-13 -->
 # 🤝 Contributing
 
 **Purpose:** the branch, commit and PR conventions every contribution to this repo follows.

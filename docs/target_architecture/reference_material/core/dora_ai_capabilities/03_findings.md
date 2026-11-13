@@ -1,6 +1,3 @@
-<!-- version: 1.3.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 🔎 DORA report: Findings worth carrying forward
 
 **Purpose:** specific findings from DORA's report that are worth using in this repo's design.

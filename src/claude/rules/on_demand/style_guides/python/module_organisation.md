@@ -1,4 +1,4 @@
-<!-- version: 1.2.6 -->
+<!-- version: 1.2.5 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-13 -->
 <!-- applies_to: **/*.py -->
@@ -24,7 +24,7 @@
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/python_module_organisation/_docstrings.md`, in your Claude config directory, for module docstrings.
-- `on_demand/style_guides/python_module_organisation/_metadata_and_ordering.md`, in your Claude config directory, for module metadata and function ordering.
-- `on_demand/style_guides/python_module_organisation/_public_private.md`, in your Claude config directory, for public and private functions.
-- `on_demand/style_guides/python_module_organisation/_constants.md`, in your Claude config directory, for module-level constants.
+- `on_demand/style_guides/python/module_organisation/_docstrings.md`, in your Claude config directory, for module docstrings.
+- `on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md`, in your Claude config directory, for module metadata and function ordering.
+- `on_demand/style_guides/python/module_organisation/_public_private.md`, in your Claude config directory, for public and private functions.
+- `on_demand/style_guides/python/module_organisation/_constants.md`, in your Claude config directory, for module-level constants.

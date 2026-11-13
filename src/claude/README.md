@@ -1,4 +1,4 @@
-<!-- version: 1.0.7 -->
+<!-- version: 1.0.8 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-13 -->
 # 🧠 Claude config
@@ -22,13 +22,13 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 
 | Folder | Loads |
 |---|---|
-| 🔁 `01_standards/`, `02_conduct/`, `03_workflows/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
+| 🔁 `always/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
 | 📂 `path_scoped/` | Only when Claude works on a matching file, such as the Python guide for `.py` files, set by each rule's `paths:` list |
 | 💤 `on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there, since the install moves this folder out of `rules/` |
 
 A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it.
 
-Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `02_conduct/` and `03_workflows/` point to.
+Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `always/conduct/` and `always/workflows/` point to.
 
 ## 🛠️ Changing it
 

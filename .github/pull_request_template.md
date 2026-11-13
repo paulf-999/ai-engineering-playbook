@@ -4,7 +4,7 @@
 
 ## :mag: (Optional) Additional Details
 
-[If needed, only what a reviewer must or should know, in 5 bullets or fewer. Open each with an emoji and a bold keyword, keep it to about 20 words, per [`writing_style.md`](https://github.com/paulf-999/ai-engineering-playbook/blob/main/src/claude/rules/02_conduct/writing_style.md), and link any file, issue or PR with a full GitHub URL.]
+[If needed, only what a reviewer must or should know, in 5 bullets or fewer. Open each with an emoji and a bold keyword, keep it to about 20 words, per [`writing_style.md`](https://github.com/paulf-999/ai-engineering-playbook/blob/main/src/claude/rules/always/conduct/writing_style.md), and link any file, issue or PR with a full GitHub URL.]
 
 ## :hammer_and_wrench: Type of PR Change
 
@@ -52,7 +52,7 @@ Choose one:
 <details>
 <summary>Criteria results</summary>
 
-[Needed when the PR changes an always-on or enforcing file, such as `src/claude/CLAUDE.md`, a rule in a numbered folder or a hook, filled by a fresh-context reviewer agent given only the diff and the criteria. Add a row for each ❌ Misaligned standard. Keep each Why under 10 words. Otherwise, replace this section's content with "Not applicable".]
+[Needed when the PR changes an always-on or enforcing file, such as `src/claude/CLAUDE.md`, a rule in `rules/always/` or a hook, filled by a fresh-context reviewer agent given only the diff and the criteria. Add a row for each ❌ Misaligned standard. Keep each Why under 10 words. Otherwise, replace this section's content with "Not applicable".]
 
 Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md).
 

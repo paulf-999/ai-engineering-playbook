@@ -40,7 +40,7 @@ def test_description_with_shell_characters_is_not_executed(tmp_path):
 
 
 # an always-on rule, which needs the spec and the evaluation criteria
-CONFIG_FILE = "src/claude/rules/02_conduct/example.md\ndocs/other.md"
+CONFIG_FILE = "src/claude/rules/always/conduct/example.md\ndocs/other.md"
 # an on-demand rule, which needs the spec but not the criteria
 ON_DEMAND_FILE = "src/claude/rules/on_demand/example.md"
 CRITERIA = (

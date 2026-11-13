@@ -1,12 +1,12 @@
-<!-- version: 2.3.18 -->
+<!-- version: 2.3.19 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
 
-A practical playbook for consistent, repeatable work with AI coding assistants, starting with a lean set of instructions for Claude Code.
-
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
+
+A practical playbook for consistent, repeatable work with AI coding assistants, starting with a lean set of instructions for Claude Code.
 
 ---
 

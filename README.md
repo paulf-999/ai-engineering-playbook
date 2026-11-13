@@ -1,4 +1,4 @@
-<!-- version: 2.3.25 -->
+<!-- version: 2.3.26 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -29,7 +29,7 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 
 Claude reads only the instructions each task needs, so it stays fast and focused.
 
-- 📄 **`CLAUDE.md`:** cuts the most common AI coding mistakes, since [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md): think before coding, keep it simple, make surgical changes and work to checkable goals.
+- 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
 - 🔬 **Research-led:** every part of the [design](docs/target_architecture/target_architecture.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).
 - 🔄 **AI-SDLC:** Claude [agrees what to build and how](src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) before coding, then checks the result against that plan, following [Anthropic's AI-native software development lifecycle](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md).
 - ✅ **Stays lean:** automatic [checks](.github/workflows/ci.yml) stop the always-read instructions growing.

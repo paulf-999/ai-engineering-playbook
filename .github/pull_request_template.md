@@ -6,6 +6,10 @@
 
 [If needed, only what a reviewer must or should know, in 5 bullets or fewer, with full GitHub URLs for any file, issue or PR.]
 
+## :triangular_ruler: Spec
+
+[Needed when the PR changes `src/claude/`: paste the change's `spec.md`, its requirements and design, so the reviewer can check the diff against it. Otherwise, or for a change with no spec, say "Not applicable" and why.]
+
 ## :hammer_and_wrench: Type of PR Change
 
 Choose one:

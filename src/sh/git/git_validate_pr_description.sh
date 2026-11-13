@@ -1,10 +1,11 @@
 #!/bin/bash
-# version: 1.3.0
+# version: 1.4.0
 # created: 2026-11-02
-# updated: 2026-11-11
+# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Verify a PR that changes the installed Claude config under src/claude/ answers the evaluation criteria in an "Evaluation criteria" section
+# Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Spec" section and answers
+#              the evaluation criteria in an "Evaluation criteria" section
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -52,22 +53,35 @@ has_evaluation_criteria() {
     section "Evaluation criteria" | grep -E '^([-*] |\|)' | grep -qvE '^\|[-: |]+\|$'
 }
 
-# Print each square-bracket placeholder left in the "Evaluation criteria" section, one per line
+# Succeed if the "Spec" section has a line that isn't blank
+has_spec() {
+    section "Spec" | grep -q '[^[:space:]]'
+}
+
+# Print each square-bracket placeholder left in the section whose heading contains $1, one per line
 # inline code, links, checkboxes and alert markers such as [!TIP] are removed first, since they're real content
-criteria_placeholders() {
+placeholders() {
     # shellcheck disable=SC2016  # the backticks are a literal sed pattern, not a command
-    section "Evaluation criteria" | sed -E 's/`[^`]*`//g; s/\[[^]]*\]\([^)]*\)//g; s/\[![A-Z]+\]//g; s/\[[ xX]\]//g' \
+    section "${1}" | sed -E 's/`[^`]*`//g; s/\[[^]]*\]\([^)]*\)//g; s/\[![A-Z]+\]//g; s/\[[ xX]\]//g' \
         | grep -oE '\[[^]]+\]' || true
 }
 
 # Explain each reason the description fails, or print nothing if it's fine
 description_problems() {
     local placeholders
-    if changes_claude_config && ! has_evaluation_criteria; then
+    changes_claude_config || return 0
+    if ! has_spec; then
+        echo "Fill the 'Spec' section with the change's spec.md, or say why it has none, since this PR changes src/claude/."
+    fi
+    placeholders="$(placeholders "Spec")"
+    if [[ -n "${placeholders}" ]]; then
+        echo "Replace the template placeholders left in 'Spec' with the change's spec: ${placeholders//$'\n'/, }"
+    fi
+    if ! has_evaluation_criteria; then
         echo "Answer the 'Evaluation criteria' section with a Red flags, Shape and Working table, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."
     fi
-    placeholders="$(criteria_placeholders)"
-    if changes_claude_config && [[ -n "${placeholders}" ]]; then
+    placeholders="$(placeholders "Evaluation criteria")"
+    if [[ -n "${placeholders}" ]]; then
         echo "Replace the template placeholders left in 'Evaluation criteria' with real answers: ${placeholders//$'\n'/, }"
     fi
 }

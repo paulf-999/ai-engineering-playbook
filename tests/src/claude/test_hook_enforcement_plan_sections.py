@@ -1,6 +1,6 @@
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-10
-# updated: 2026-11-10
+# updated: 2026-11-13
 """Tests for the plan sections hook, which blocks a plan that has no Intent or Spec heading."""
 
 import json
@@ -62,3 +62,19 @@ def test_input_with_no_plan_is_allowed(payload):
     """Empty input, input that isn't JSON, or input with no plan text exits 0."""
     result = run_hook(payload)
     assert result.returncode == 0, f"input with no plan should be allowed:\n{result.stderr}"
+
+
+# MoSCoW: Must — without jq the hook can't read the plan, so it must block rather than wave every plan through
+def test_a_plan_is_blocked_when_jq_is_missing(tmp_path):
+    """With no jq on PATH, the hook exits 2 and says to install jq."""
+    result = subprocess.run(
+        ["/bin/bash", str(HOOK)],
+        input=exit_plan_input("## Intent\n\nWhy.\n\n## Spec\n\nWhat.\n"),
+        env={"PATH": str(tmp_path)},
+        capture_output=True,
+        text=True,
+        check=False,
+        timeout=10,
+    )
+    assert result.returncode == BLOCKED, f"the plan should be blocked without jq:\n{result.stderr}"
+    assert "install jq" in result.stderr, "the reason should say to install jq"

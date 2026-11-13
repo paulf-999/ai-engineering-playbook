@@ -1,6 +1,6 @@
-<!-- version: 1.0.64 -->
+<!-- version: 1.0.65 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-12 -->
+<!-- updated: 2026-11-13 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
@@ -63,7 +63,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 15 | `rules/_rules_on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~474 |
 | 16 | `rules/_rules_on_demand/claude_config/claude_naming_patterns.md` | ~187 |
 | 17 | `rules/_rules_on_demand/claude_config/guiding_principles.md` | ~402 |
-| 18 | `rules/_rules_on_demand/claude_config/permission_recommendations.md` | ~154 |
+| 18 | `rules/_rules_on_demand/claude_config/permission_recommendations.md` | ~182 |
 | 19 | `rules/_rules_on_demand/claude_config/portable_paths.md` | ~189 |
 | 20 | `rules/_rules_on_demand/claude_config/turn_budgets.md` | ~174 |
 | 21 | `rules/_rules_on_demand/style_guides/airflow/_best_practices.md` | ~1071 |
@@ -127,4 +127,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/_rules_on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
 | 80 | `rules/_rules_on_demand/testing/_testing_anti_patterns.md` | ~692 |
 | 81 | `rules/_rules_on_demand/testing/_testing_design_pattern.md` | ~473 |
-| | **Subtotal** | **~41723** |
+| | **Subtotal** | **~41750** |

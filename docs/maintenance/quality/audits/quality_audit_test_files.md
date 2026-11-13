@@ -1,6 +1,6 @@
-<!-- version: 4.0.3 -->
+<!-- version: 4.0.4 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-12 -->
+<!-- updated: 2026-11-13 -->
 # 📊 Test Coverage Audit
 
 **Purpose:** how good each script's tests are, scored against the test rubric.
@@ -23,7 +23,7 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [PR description](../../../../src/sh/git/git_validate_pr_description.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [PR title](../../../../src/sh/git/git_validate_pr_title.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Always-on budget](../../../../src/sh/claude_validate_always_on_budget.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: the "over the 150-token budget" message is asserted in two tests, so rewording it breaks both |
-| [Install](../../../../src/sh/claude_install_config.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: `test_files_the_repo_removed_are_backed_up_then_removed` runs about 13 lines and checks removal, backup and manifest together, and `test_install_registers_the_plan_hook_and_keeps_existing_settings` checks kept settings, the hook command and the backup in one test |
+| [Install](../../../../src/sh/claude_install_config.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: `test_files_the_repo_removed_are_backed_up_then_removed` and `test_install_removes_the_plan_hook_when_it_isnt_shipped` each run about 13 to 14 lines and check several things together (removal, backup and manifest; hook removal, kept hooks and backup), and `test_install_registers_the_hooks_and_keeps_existing_settings` checks kept settings, both hook commands and the backup in one test |
 | [Plan sections hook](../../../../src/claude/hooks/hook_enforcement_plan_sections.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Done checks hook](../../../../src/claude/hooks/hook_enforcement_done_checks.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Context cost report](../../../../src/sh/claude_report_context_cost.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | **A · 9/10** | Reliability: the version-header test never checks its replace changed the report |

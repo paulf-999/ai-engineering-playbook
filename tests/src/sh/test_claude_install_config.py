@@ -1,6 +1,6 @@
-# version: 1.3.0
+# version: 1.4.0
 # created: 2026-11-04
-# updated: 2026-11-12
+# updated: 2026-11-13
 """Tests for the install script, which copies src/claude/ into a Claude config directory after a typed 'install'."""
 
 import json
@@ -8,6 +8,7 @@ import os
 import pty
 import subprocess
 
+import pytest
 from _git_repo import isolated_git_repo
 from _paths import REPO_ROOT, SCRIPTS_DIR
 
@@ -198,10 +199,39 @@ def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     settings = json.loads((tmp_path / "settings.json").read_text())
-    assert settings["model"] == "opus" and settings["permissions"] == {"allow": ["Bash(ls)"]}, "settings must be kept"
+    assert settings["model"] == "opus" and settings["permissions"]["allow"] == ["Bash(ls)"], "settings must be kept"
     assert plan_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_plan_sections.sh"']
     assert stop_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_done_checks.sh"']
     assert list((tmp_path / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"
+
+
+# the deny rules install keeps last in permissions.deny, in order, so the carve-out follows the rules it narrows
+ENV_DENY_RULES = ["Read(.env)", "Read(.env.*)", "Read(!.env.example)"]
+
+
+# MoSCoW: Must — the point of the rules: Claude's file tools must not read .env files, whatever else is denied
+def test_install_adds_the_env_deny_rules_after_existing_ones(tmp_path):
+    """Install appends the .env deny rules to permissions.deny and keeps the rules already there."""
+    (tmp_path / "settings.json").write_text(json.dumps({"permissions": {"deny": ["Bash(rm:*)"]}}))
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    deny = json.loads((tmp_path / "settings.json").read_text())["permissions"]["deny"]
+    assert deny == ["Bash(rm:*)", *ENV_DENY_RULES], "existing rules come first, then the .env rules in order"
+
+
+# MoSCoW: Must — a deny rule the config stops shipping must not stay in settings.json, so a revert is clean
+def test_install_removes_a_deny_rule_it_no_longer_ships(tmp_path):
+    """A deny rule the last install added but the config dropped is removed, and the user's own rules are kept."""
+    (tmp_path / ".playbook_install_deny_rules").write_text(json.dumps(["Read(old)"]))
+    (tmp_path / "settings.json").write_text(json.dumps({"permissions": {"deny": ["Bash(rm:*)", "Read(old)"]}}))
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    deny = json.loads((tmp_path / "settings.json").read_text())["permissions"]["deny"]
+    assert deny == ["Bash(rm:*)", *ENV_DENY_RULES], "the dropped rule should go and the user's rule stay"
 
 
 # MoSCoW: Should — rerunning install must not stack duplicate hooks
@@ -212,20 +242,23 @@ def test_reinstalling_registers_each_hook_once(tmp_path):
     assert result.returncode == 0, f"the second install should succeed:\n{result.stdout}{result.stderr}"
     assert len(plan_hook_commands(tmp_path)) == 1, "the plan hook should be registered once"
     assert len(stop_hook_commands(tmp_path)) == 1, "the stop hook should be registered once"
+    deny = json.loads((tmp_path / "settings.json").read_text())["permissions"]["deny"]
+    assert deny == ENV_DENY_RULES, "each .env deny rule should be added once"
     assert not (tmp_path / "backups").exists(), "an unchanged settings.json should not be backed up"
 
 
 # MoSCoW: Should — a settings.json the merge can't safely change must be left as it was
-def test_unmergeable_settings_are_left_alone(tmp_path):
-    """A settings.json whose hooks.PreToolUse isn't a list is kept unchanged, and the install still succeeds."""
-    original = json.dumps({"hooks": {"PreToolUse": "not a list"}})
+@pytest.mark.parametrize("settings", [{"hooks": {"PreToolUse": "not a list"}}, {"permissions": {"deny": "not a list"}}])
+def test_unmergeable_settings_are_left_alone(tmp_path, settings):
+    """A settings.json whose hooks.PreToolUse or permissions.deny isn't a list is kept, and the install succeeds."""
+    original = json.dumps(settings)
     (tmp_path / "settings.json").write_text(original)
 
     result = run_install(tmp_path, answer="install")
 
     assert result.returncode == 0, f"install should still succeed:\n{result.stdout}{result.stderr}"
     assert (tmp_path / "settings.json").read_text() == original, "an unmergeable settings.json must be unchanged"
-    assert "weren't added" in result.stdout, "the install should say the hooks weren't added"
+    assert "weren't added" in result.stdout, "the install should say the settings weren't added"
 
 
 # an unrelated PreToolUse hook, which install must keep whatever it does to the plan sections hook

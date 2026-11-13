@@ -1,7 +1,7 @@
 #!/bin/bash
-# version: 1.0.0
+# version: 1.1.0
 # created: 2026-11-10
-# updated: 2026-11-10
+# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: PreToolUse hook on ExitPlanMode that blocks a plan with no Intent or Spec heading
@@ -35,8 +35,11 @@ missing_sections() {
 # Main script logic
 #=======================================================================
 
-# without jq the plan can't be read, so allow the call rather than block every plan
-command -v jq > /dev/null || exit 0
+# without jq the plan can't be read, so block rather than let an unchecked plan through
+if ! command -v jq > /dev/null; then
+    echo "The plan sections hook needs jq to read the plan. Ask the user to install jq, then submit the plan again." >&2
+    exit "${BLOCK}"
+fi
 
 PLAN="$(jq -r '.tool_input.plan // empty' 2> /dev/null || true)"
 # no plan text means there's nothing to check

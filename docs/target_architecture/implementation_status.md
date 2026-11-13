@@ -1,6 +1,6 @@
-<!-- version: 1.1.0 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-11-11 -->
-<!-- updated: 2026-11-12 -->
+<!-- updated: 2026-11-13 -->
 # 🚧 Implementation status
 
 **Purpose:** which parts of the [target architecture](target_architecture.md) are built, which are outstanding, and the effort each outstanding part needs.
@@ -19,7 +19,7 @@ Status is ✅ Built, 🟡 Partly, ❌ Not built, ⏸️ Deferred or 🚫 Out of 
 | 💤 **[On-demand rules](target_architecture.md#️-tiers)** | ✅ Built | [`src/claude/rules/_rules_on_demand/`](../../src/claude/rules/_rules_on_demand/) | — | — |
 | 🧰 **[Skills and agents](target_architecture.md#️-tiers)** | ❌ Not built | Only the templates in [`src/claude/_templates/`](../../src/claude/_templates/) | Review each old-config file, then port, slim or drop it ([#7](https://github.com/paulf-999/ai-engineering-playbook/issues/7), [#85](https://github.com/paulf-999/ai-engineering-playbook/issues/85)) | L |
 | 📂 **[Task-specific tier](target_architecture.md#️-tiers)** | ✅ Built | [`src/claude/rules/_path_scoped_rules/`](../../src/claude/rules/_path_scoped_rules/) | — | — |
-| 🔐 **[Tool access](target_architecture.md#️-tiers)** | ✅ Built | A stance: `src/claude/` ships no MCP servers or permission allowlist | — | — |
+| 🔐 **[Tool access](target_architecture.md#️-tiers)** | ✅ Built | No MCP servers or allowlist shipped, and the `.env` deny rules in [`claude_install_config.sh`](../../src/sh/claude_install_config.sh) | — | — |
 | 🗺️ **[Plan first](target_architecture.md#-workflow)** | ✅ Built | [`saving_plans.md`](../../src/claude/rules/_rules_on_demand/03_workflows/saving_plans.md) | — | — |
 | 📝 **[Intent and spec](target_architecture.md#-workflow)** | ✅ Built | [`sdlc_workflow.md`](../../src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) and the plan sections hook | — | — |
 | 🔁 **[Feedback loop](target_architecture.md#-workflow)** | ✅ Built | The [`Makefile`](../../Makefile), [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml), [CI](../../.github/workflows/ci.yml) and the done checks hook | — | — |

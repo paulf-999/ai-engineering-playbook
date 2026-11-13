@@ -1,13 +1,13 @@
 #!/bin/bash
-# version: 1.5.0
+# version: 1.6.0
 # created: 2026-11-04
-# updated: 2026-11-12
+# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
 #              On-demand files in rules/_rules_on_demand/ go beside rules/, since Claude Code loads everything under rules/
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed
-#              It also keeps the config's hooks in settings.json in step with the install, keeping every other setting
+#              It also keeps the config's hooks and deny rules in settings.json in step, keeping every other setting
 # Usage: src/sh/claude_install_config.sh (run from the repo root, at your own terminal; make install calls it)
 
 # Load reusable shell script vars & functions
@@ -41,6 +41,10 @@ HOOKS=(
     "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_sections.sh"
     "Stop||hooks/hook_enforcement_done_checks.sh"
 )
+# deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
+DENY_RULES=("Read(.env)" "Read(.env.*)" "Read(!.env.example)")
+# the deny rules the last install added, as a JSON list, so the next install can remove any the config has since dropped
+DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
 
 #=======================================================================
 # Functions
@@ -140,9 +144,10 @@ remove_old_files() {
     printf '%s' "${TARGET_PATHS}" > "${MANIFEST}"
 }
 
-# Keep one entry per hook in settings.json at the current path, or none if it isn't shipped, backing up the old file
-register_hooks() {
-    local current updated entry event matcher hook ship
+# Keep one entry per hook in settings.json at the current path, or none if it isn't shipped, then the deny rules,
+# backing up the old file
+register_settings() {
+    local current updated entry event matcher hook ship previous
     if ! command -v jq > /dev/null; then
         log_message "${WARNING}" "jq isn't installed, so the config's hooks weren't added to ${SETTINGS}."
         return 0
@@ -180,6 +185,19 @@ register_hooks() {
             return 0
         fi
     done
+    # an unreadable deny manifest counts as empty, so install still adds the current rules
+    previous="$(jq -c 'if type == "array" then . else [] end' "${DENY_MANIFEST}" 2> /dev/null || echo "[]")"
+    # drop the rules the last install added, then put the config's rules at the end, in order, keeping every other rule
+    if ! updated="$(jq --argjson previous "${previous}" --args '
+        (.permissions.deny // []) as $old
+        | if ($old | type) != "array" then error("permissions.deny is not a list") else . end
+        | ($previous + $ARGS.positional) as $ours
+        | ($old | map(select(. as $rule | $ours | index($rule) | not)) + $ARGS.positional) as $new
+        | if $new == $old then . else .permissions.deny = $new end' "${DENY_RULES[@]}" <<< "${updated}" 2> /dev/null)"; then
+        log_message "${WARNING}" "${SETTINGS} has a permissions.deny that isn't a list, so the settings weren't added."
+        return 0
+    fi
+    jq -cn '$ARGS.positional' --args "${DENY_RULES[@]}" > "${DENY_MANIFEST}"
     [[ "${updated}" == "${current}" ]] && return 0
     if file_exists "${SETTINGS}"; then
         mkdir -p "${BACKUP_DIR}"
@@ -188,7 +206,7 @@ register_hooks() {
     # write a temporary file, then move it, so a failed write can't leave settings.json half written
     printf '%s\n' "${updated}" > "${SETTINGS}.tmp"
     mv "${SETTINGS}.tmp" "${SETTINGS}"
-    log_message "${INFO}" "Updated the config's hooks in ${SETTINGS}."
+    log_message "${INFO}" "Updated the config's hooks and deny rules in ${SETTINGS}."
 }
 
 #=======================================================================
@@ -201,6 +219,6 @@ list_removed_files
 confirm_install
 install_files
 remove_old_files
-register_hooks
+register_settings
 
 print_section_header "${DEBUG}" "Script execution completed." && echo

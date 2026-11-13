@@ -1,6 +1,6 @@
 # 💬 Component feedback
 
-**Purpose:** how each Claude config component fared in the session transcripts at each regular review, as the [target architecture](../../../../docs/target_architecture/target_architecture.md#-measures) asks.
+**Purpose:** how each Claude config component fared in the session transcripts at each regular review, as the [target architecture](../../../../docs/target_architecture/README.md#-measures) asks.
 
 This page is part of the [repo quality audit](../quality_audit_repo.md). Rows are sorted by path. Each component that helped has one row, and each review adds its PR to that row, or adds a row, but replaces the Unused and Hindered rows, since those are what it acts on.
 

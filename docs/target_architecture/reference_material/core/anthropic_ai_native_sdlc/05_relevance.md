@@ -1,6 +1,6 @@
 # 🎯 AI-native SDLC course: Relevance to this playbook
 
-**Purpose:** which of the course's plays suit this repo, as decided at the maintainer's review, with the ones it has adopted recorded in the [target architecture's workflow](../../../target_architecture.md#-workflow).
+**Purpose:** which of the course's plays suit this repo, as decided at the maintainer's review, with the ones it has adopted recorded in the [target architecture's workflow](../../../README.md#-workflow).
 
 This page is part of the [summary of Anthropic's SDLC course](../anthropic_ai_native_sdlc.md). Each row adopts a play as it is, adapts it, defers it or leaves it out:
 

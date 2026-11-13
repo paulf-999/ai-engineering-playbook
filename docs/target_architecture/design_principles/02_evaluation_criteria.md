@@ -29,9 +29,9 @@ Its shape passes when:
 
 - [ ] 🔁 **No duplicate:** CI, pre-commit and existing components don't already handle it.
 - [ ] 🧭 **Right mechanism:** its form fits the need, per the table below.
-- [ ] 🎚️ **Tier:** it sits in a [tier](../target_architecture.md#-tiers) that loads only for the tasks that need it, unless every engineer needs it on every task.
-- [ ] 💰 **Cost:** always-on context stays within the [always-on budget](../target_architecture.md#-always-on-budget).
-- [ ] 📏 **Rule size:** each rule stays within the [rule size guard](../target_architecture.md#-design-guards).
+- [ ] 🎚️ **Tier:** it sits in a [tier](../README.md#-tiers) that loads only for the tasks that need it, unless every engineer needs it on every task.
+- [ ] 💰 **Cost:** always-on context stays within the [always-on budget](../README.md#-always-on-budget).
+- [ ] 📏 **Rule size:** each rule stays within the [rule size guard](../README.md#-design-guards).
 - [ ] 🔌 **No orchestration:** no workflow requires it, so it stays [opt-in](01_principles.md).
 
 | Need | Mechanism |

@@ -1,4 +1,4 @@
-<!-- version: 2.3.6 -->
+<!-- version: 2.3.7 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -24,8 +24,6 @@ Claude Code reads instruction files before it works. A few of these apply to eve
 
 ## 🪄 Getting Started
 
-To try it, copy [`src/claude/CLAUDE.md`](src/claude/CLAUDE.md) into the `.claude` folder in your home folder, where Claude Code looks for your instructions. To install everything:
-
 1. Clone the repository:
 
    ```bash
@@ -33,8 +31,9 @@ To try it, copy [`src/claude/CLAUDE.md`](src/claude/CLAUDE.md) into the `.claude
    cd ai-engineering-playbook
    ```
 
-2. Set up Python (see the [virtualenv setup guide](docs/guides/virtualenv_setup.md)), then run `make deps` to install the tools and `make test` to check they work.
-3. Run `make install` in your own terminal. It copies the instructions into `~/.claude`, or `$CLAUDE_CONFIG_DIR` if you've set it, backs up every file it changes to `~/.claude/backups/`, and removes only files an earlier install added.
+2. Create and activate a virtualenv (see the [virtualenv setup guide](docs/guides/virtualenv_setup.md)), then run `make deps` to install the requirements and the pre-commit git hooks.
+3. Run `make test` to check everything works.
+4. Run `make install` from your own terminal to copy [`src/claude/`](src/claude/) into your Claude config directory, `$CLAUDE_CONFIG_DIR` or `~/.claude`, backing up any file it replaces or removes, since it also removes files an earlier install added that the repo has since dropped.
 
 ---
 

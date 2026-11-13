@@ -1,4 +1,4 @@
-<!-- version: 1.1.2 -->
+<!-- version: 1.1.1 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-13 -->
 # 🐍 Python — environment & tooling
@@ -38,7 +38,7 @@ pytest --cov=src --cov-report=term-missing         # run with coverage report
 
 Coverage must be run and reviewed before committing.
 
-**Test conventions:** See `on_demand/style_guides/python_testing.md` for test naming, structure, fixtures, mocking, and assertions — this covers all pytest standards in detail.
+**Test conventions:** See `on_demand/style_guides/python/testing.md` for test naming, structure, fixtures, mocking, and assertions — this covers all pytest standards in detail.
 
 ## 📦 Virtual environment
 

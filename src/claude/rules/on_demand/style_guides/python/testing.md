@@ -1,4 +1,4 @@
-<!-- version: 1.1.8 -->
+<!-- version: 1.1.7 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-13 -->
 <!-- applies_to: **/test_*.py, **/conftest.py -->
@@ -22,6 +22,6 @@
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/python_testing/_naming_structure.md`, in your Claude config directory, for test naming & structure.
-- `on_demand/style_guides/python_testing/_fixtures_mocking.md`, in your Claude config directory, for pytest fixtures & mocking.
-- `on_demand/style_guides/python_testing/_assertions.md`, in your Claude config directory, for assertions & exception testing.
+- `on_demand/style_guides/python/testing/_naming_structure.md`, in your Claude config directory, for test naming & structure.
+- `on_demand/style_guides/python/testing/_fixtures_mocking.md`, in your Claude config directory, for pytest fixtures & mocking.
+- `on_demand/style_guides/python/testing/_assertions.md`, in your Claude config directory, for assertions & exception testing.

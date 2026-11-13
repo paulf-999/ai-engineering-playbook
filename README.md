@@ -1,4 +1,4 @@
-<!-- version: 2.3.15 -->
+<!-- version: 2.3.16 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -23,7 +23,6 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 3. Run `make deps` to install the requirements and the pre-commit git hooks.
 4. Run `make test` to check everything works.
 5. Run `make install` from your own terminal to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude` (or `$CLAUDE_CONFIG_DIR` if you've set it).
-   - It backs up each file before replacing or removing it, and only removes files an earlier install added that the repo has since dropped.
 
 ---
 

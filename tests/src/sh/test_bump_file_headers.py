@@ -1,6 +1,3 @@
-# version: 1.5.0
-# created: 2026-10-31
-# updated: 2026-11-11
 """Tests for the pre-commit hook that bumps each changed file's version header."""
 
 import os

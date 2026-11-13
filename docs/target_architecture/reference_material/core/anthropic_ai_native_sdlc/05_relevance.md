@@ -1,6 +1,3 @@
-<!-- version: 1.1.3 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 🎯 AI-native SDLC course: Relevance to this playbook
 
 **Purpose:** which of the course's plays suit this repo, as decided at the maintainer's review, with the ones it has adopted recorded in the [target architecture's workflow](../../../target_architecture.md#-workflow).

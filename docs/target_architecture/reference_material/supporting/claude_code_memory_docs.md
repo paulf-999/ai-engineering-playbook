@@ -1,6 +1,3 @@
-<!-- version: 1.4.1 -->
-<!-- created: 2026-11-03 -->
-<!-- updated: 2026-11-10 -->
 # 🧠 Claude Code docs: How Claude remembers your project
 
 **Purpose:** what Anthropic's Claude Code docs say about the files Claude loads into every session, and what that means for this repo's always-on budget.

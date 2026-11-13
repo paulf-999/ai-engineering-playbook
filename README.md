@@ -1,6 +1,3 @@
-<!-- version: 2.3.30 -->
-<!-- created: 2022-11-04 -->
-<!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
 
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)

@@ -1,6 +1,3 @@
-# version: 1.0.0
-# created: 2026-10-31
-# updated: 2026-10-31
 """Isolated git repo setup shared by the shell script tests, so each test file keeps only its own extras."""
 
 import os

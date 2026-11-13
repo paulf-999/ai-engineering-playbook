@@ -1,6 +1,3 @@
-<!-- version: 1.1.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 📋 DORA report: Overview
 
 **Purpose:** the evidence behind DORA's AI Capabilities Model, its central claim, and how the report means it to be used.

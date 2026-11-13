@@ -1,6 +1,3 @@
-# version: 1.5.4
-# created: 2026-11-05
-# updated: 2026-11-13
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates."""
 
 import re

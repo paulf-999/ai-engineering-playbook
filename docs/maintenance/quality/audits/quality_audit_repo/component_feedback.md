@@ -1,6 +1,3 @@
-<!-- version: 1.0.6 -->
-<!-- created: 2026-11-11 -->
-<!-- updated: 2026-11-13 -->
 # 💬 Component feedback
 
 **Purpose:** how each Claude config component fared in the session transcripts at each regular review, as the [target architecture](../../../../target_architecture/target_architecture.md#-measures) asks.

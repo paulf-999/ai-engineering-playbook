@@ -1,6 +1,3 @@
-# version: 5.0.1
-# created: 2026-10-31
-# updated: 2026-11-11
 """Checks every test is scored, and docs/maintenance/quality/audits/quality_audit_test_files.md fits the rubric."""
 
 import re

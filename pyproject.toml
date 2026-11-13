@@ -1,6 +1,3 @@
-# version: 1.0.1
-# created: 2026-10-31
-# updated: 2026-11-05
 # Tool settings for pytest and Ruff, shared by make test, the pre-commit hooks and editor integrations
 
 [tool.pytest.ini_options]

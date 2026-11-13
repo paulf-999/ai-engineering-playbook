@@ -1,6 +1,3 @@
-<!-- version: 1.1.12 -->
-<!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-11 -->
 # 🏗️ Repo Quality Rubric
 
 **Purpose:** how a reviewer gives the whole repo a bloat score and an over-engineering score, each out of 10, which per-file scores can't see.

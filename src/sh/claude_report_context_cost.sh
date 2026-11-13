@@ -1,7 +1,4 @@
 #!/bin/bash
-# version: 1.2.2
-# created: 2026-11-04
-# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Write docs/maintenance/context_cost.md, a table of each src/claude/ file's estimated tokens and when it loads
@@ -27,8 +24,6 @@ fi
 REPO_DIR="${1:-.}"
 CONFIG_DIR="src/claude"
 REPORT="docs/maintenance/context_cost.md"
-# the report's version header, kept as it is so the header bump doesn't make the table look stale
-HEADER_LINES=3
 
 #=======================================================================
 # Functions
@@ -108,21 +103,16 @@ EXPECTED="$(report_body)"
 REPORT_PATH="${REPO_DIR}/${REPORT}"
 
 if [[ "${CHECK_ONLY}" == true ]]; then
-    if [[ ! -f "${REPORT_PATH}" ]] || [[ "$(tail -n +$((HEADER_LINES + 1)) "${REPORT_PATH}")" != "${EXPECTED}" ]]; then
+    if [[ ! -f "${REPORT_PATH}" ]] || [[ "$(cat "${REPORT_PATH}")" != "${EXPECTED}" ]]; then
         print_section_header "${ERROR}" "ERROR: ${REPORT} is out of date. Run make context_cost and commit the result."
         if [[ -f "${REPORT_PATH}" ]]; then
-            diff <(tail -n +$((HEADER_LINES + 1)) "${REPORT_PATH}") <(echo "${EXPECTED}") || true
+            diff "${REPORT_PATH}" <(echo "${EXPECTED}") || true
         fi
         exit 1
     fi
     print_section_header "${INFO}" "SUCCESS: ${REPORT} matches src/claude/."
 else
-    TODAY="$(date +%F)"
-    HEADER="<!-- version: 1.0.0 -->"$'\n'"<!-- created: ${TODAY} -->"$'\n'"<!-- updated: ${TODAY} -->"
-    if [[ -f "${REPORT_PATH}" ]]; then
-        HEADER="$(head -n "${HEADER_LINES}" "${REPORT_PATH}")"
-    fi
-    printf '%s\n%s\n' "${HEADER}" "${EXPECTED}" > "${REPORT_PATH}"
+    printf '%s\n' "${EXPECTED}" > "${REPORT_PATH}"
     print_section_header "${INFO}" "Wrote ${REPORT}."
 fi
 

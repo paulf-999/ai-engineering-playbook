@@ -1,6 +1,3 @@
-# version: 1.1.0
-# created: 2026-10-31
-# updated: 2026-10-31
 """Shared helpers for the quality audits: read their tables, and check their links and scores."""
 
 import re

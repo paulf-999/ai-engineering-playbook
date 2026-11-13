@@ -1,6 +1,3 @@
-<!-- version: 1.7.8 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-13 -->
 # 🧱 Design principles: Principles
 
 **Purpose:** the principles every new or changed component (a rule, skill, hook or agent) must follow, and how each one is checked.

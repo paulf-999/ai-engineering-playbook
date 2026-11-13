@@ -1,6 +1,3 @@
-# version: 1.1.3
-# created: 2026-11-04
-# updated: 2026-11-13
 """Tests for the context cost report, which tables each src/claude/ file's tokens and when it loads."""
 
 import subprocess
@@ -88,13 +85,3 @@ def test_check_fails_once_a_file_changes(tmp_path):
     assert result.returncode == 1, f"a stale report should fail the check:\n{result.stdout}"
     assert "make context_cost" in result.stdout, "the failure should say how to fix it"
     assert (tmp_path / REPORT).read_text() == before, "--check must not rewrite the report"
-
-
-# MoSCoW: Should — a header bump alone mustn't make the report look stale
-def test_check_ignores_the_version_header(tmp_path):
-    """Changing only the report's version header still passes the check."""
-    env = config_repo(tmp_path)
-    write_report(tmp_path, env)
-    report = tmp_path / REPORT
-    report.write_text(report.read_text().replace("version: 1.0.0", "version: 1.0.7", 1))
-    assert run_report(tmp_path, env, "--check").returncode == 0, "a header-only change should pass the check"

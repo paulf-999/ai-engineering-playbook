@@ -1,6 +1,3 @@
-<!-- version: 2.0.3 -->
-<!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-13 -->
 # 📏 Rule Quality Rubric
 
 **Purpose:** how a reviewer scores each Claude rule out of 10 for whether it earns its place and reads correctly, so each rule has one score.

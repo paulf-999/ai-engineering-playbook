@@ -1,6 +1,3 @@
-<!-- version: 1.0.1 -->
-<!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-09 -->
 # 🧩 Agent Skills: the open skill format
 
 **Purpose:** what the Agent Skills standard, the open format for skill folders that Claude Code and other agents load, requires of a skill, and what it means for this repo's skills.

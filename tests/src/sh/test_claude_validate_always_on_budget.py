@@ -1,6 +1,3 @@
-# version: 1.0.7
-# created: 2026-11-03
-# updated: 2026-11-13
 """Tests for the always-on budget check, which caps the Claude context loaded into every session."""
 
 import os

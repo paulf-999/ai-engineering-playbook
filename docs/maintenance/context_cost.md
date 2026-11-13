@@ -1,6 +1,3 @@
-<!-- version: 1.0.72 -->
-<!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-13 -->
 # 💰 Context cost
 
 **Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.

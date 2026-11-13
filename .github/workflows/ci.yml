@@ -1,7 +1,4 @@
 ---
-# version: 1.2.6
-# created: 2026-10-30
-# updated: 2026-11-10
 # Re-run the local git hooks and tests on every PR, so `git commit --no-verify` can't skip them,
 # and check the PR's title and size
 name: CI

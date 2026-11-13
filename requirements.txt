@@ -1,6 +1,3 @@
-# version: 1.1.0
-# created: 2022-11-04
-# updated: 2026-10-31
 # Starter libraries for projects built from this template
 
 # Core tooling

@@ -1,6 +1,3 @@
-# version: 1.1.0
-# created: 2026-11-09
-# updated: 2026-11-09
 """Checks the rules quality audit has one row per entry-point rule, and that each row's scores add up."""
 
 import pytest

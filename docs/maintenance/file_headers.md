@@ -1,13 +1,10 @@
-<!-- version: 1.6.2 -->
-<!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-13 -->
 # 🏷️ File Headers
 
-**Purpose:** how the version header at the top of each file works, and how a commit check keeps it up to date.
+**Purpose:** how the version header at the top of each installed file works, and how a commit check keeps it up to date.
 
 ## 📄 Format
 
-Every file opens with a three-line header, placed after any shebang, a YAML file's opening `---` line, or a markdown file's frontmatter block, so YAML never reads it. Markdown uses HTML comments, and other files use `#` comments:
+Every file under `src/claude/`, which `make install` copies into your Claude config directory, opens with a three-line header, so you can see what changed in an installed file. Other files have none, since git history records their changes. The header sits after any shebang, a YAML file's opening `---` line, or a markdown file's frontmatter block, so YAML never reads it. Markdown uses HTML comments, and other files use `#` comments:
 
 ```markdown
 <!-- version: 1.0.0 -->
@@ -24,12 +21,11 @@ A pre-commit check, described below, does most of the work:
 - 🆕 **New file:** start at `version: 1.0.0`, with `created` and `updated` both set to today.
 - ✏️ **Every edit:** leave `created` alone, and let the check handle the rest.
 - 🙋 **By hand:** raise MINOR when you add guidance or behaviour, and MAJOR when you reverse or remove it.
-- 🚫 **Exempt:** the PR and issue templates, any `.template` file and `LICENSE`.
-  - **Full list:** the `EXEMPT` set and `.template` check in `tests/test_file_metadata_headers.py`.
+- 🚫 **Exempt:** any `.template` file, whose header holds placeholders.
 
 ## ⚙️ Automation
 
-The check runs on every commit, once `make deps` has installed the git hooks:
+The check runs on every commit that changes a file under `src/claude/`, once `make deps` has installed the git hooks:
 
 | When you commit a file that… | The check… |
 |---|---|

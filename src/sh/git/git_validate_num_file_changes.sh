@@ -1,7 +1,4 @@
 #!/bin/bash
-# version: 1.4.4
-# created: 2026-10-30
-# updated: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Fail a PR that changes more than the max number of files, unless it's on a release/ branch

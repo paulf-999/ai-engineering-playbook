@@ -1,7 +1,4 @@
-# version: 1.4.1
-# created: 2026-10-30
-# updated: 2026-11-11
-"""Checks every tracked file opens with a version/created/updated header (see docs/maintenance/file_headers.md)."""
+"""Checks each installed file under src/claude/ opens with a version header (see docs/maintenance/file_headers.md)."""
 
 import os
 import re
@@ -13,25 +10,17 @@ from _paths import REPO_ROOT
 
 HEADER_FIELDS = ("version", "created", "updated")
 
-# no header: copied into every new PR or issue body, or kept verbatim so GitHub detects the licence
-EXEMPT = {
-    "LICENSE",
-    ".github/pull_request_template.md",
-    ".github/ISSUE_TEMPLATE/bug_report.md",
-    ".github/ISSUE_TEMPLATE/feature_request.md",
-}
-
-# no header either: a .template file is copied into each new file made from it, like the PR template
+# no header: a .template file is copied into each new file made from it
 TEMPLATE_SUFFIX = ".template"
 
 
 def tracked_files():
-    """Return every file git tracks in the repo, minus the exempt ones and any .template file."""
+    """Return every file git tracks under src/claude/, which make install copies, minus any .template file."""
     # ignore the user's git config, so a setting like core.quotePath can't change the paths listed
     env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
-    command = ["git", "ls-files"]
+    command = ["git", "ls-files", "src/claude"]
     output = subprocess.run(command, cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=True).stdout
-    return [path for path in output.splitlines() if path not in EXEMPT and not path.endswith(TEMPLATE_SUFFIX)]
+    return [path for path in output.splitlines() if not path.endswith(TEMPLATE_SUFFIX)]
 
 
 def header_lines(path, root):

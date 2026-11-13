@@ -1,6 +1,3 @@
-<!-- version: 1.1.1 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # ⚠️ DORA report: Limitations
 
 **Purpose:** what DORA's evidence can and can't show.

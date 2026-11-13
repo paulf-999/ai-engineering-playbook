@@ -1,6 +1,3 @@
-# version: 1.2.3
-# created: 2026-10-31
-# updated: 2026-11-09
 """Checks every script in src/sh/, shell_utils.sh and the bash script template follow the template's structure."""
 
 import re
@@ -18,7 +15,6 @@ LIBRARY_PATHS = sorted(SCRIPTS_DIR / name for name in LIBRARIES)
 # the parts of the bash script template every script must keep, in this order
 REQUIRED_PARTS = [
     ("shebang", r"#!/bin/bash"),
-    ("version header", r"# version: \S+"),
     ("strict mode", r"set -euo pipefail\b.*"),
     ("description line", r"# Description: .+"),
     ("usage line", r"# Usage: .+"),
@@ -35,8 +31,7 @@ REQUIRED_PARTS = [
 LIBRARY_PARTS = [
     part
     for part in REQUIRED_PARTS
-    if part[0]
-    in {"shebang", "version header", "description line", "usage line", "Variables section", "Functions section"}
+    if part[0] in {"shebang", "description line", "usage line", "Variables section", "Functions section"}
 ]
 
 

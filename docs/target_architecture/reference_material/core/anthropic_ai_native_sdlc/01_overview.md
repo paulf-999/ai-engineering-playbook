@@ -1,6 +1,3 @@
-<!-- version: 1.1.2 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-11 -->
 # 📋 AI-native SDLC course: Overview
 
 **Purpose:** how Anthropic's SDLC course is structured, and where it suggests starting.

@@ -1,6 +1,3 @@
-<!-- version: 1.1.2 -->
-<!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-10 -->
 # 🤖 CLAUDE.md — AI Engineering Playbook
 
 ## 🎯 Project

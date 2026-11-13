@@ -1,6 +1,3 @@
-# version: 1.6.1
-# created: 2026-11-02
-# updated: 2026-11-13
 """Tests for the PR description check: a src/claude/ PR carries its spec, and an always-on one the criteria."""
 
 import os

@@ -1,6 +1,3 @@
-# version: 1.1.4
-# created: 2026-10-30
-# updated: 2026-10-31
 """Tests for the shared shell helper functions."""
 
 import subprocess

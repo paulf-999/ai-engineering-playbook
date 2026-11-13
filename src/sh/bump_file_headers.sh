@@ -1,7 +1,4 @@
 #!/bin/bash
-# version: 1.4.0
-# created: 2026-10-31
-# updated: 2026-11-11
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Bump the version header of each changed file (PATCH +1, updated = today), unless its version was already raised

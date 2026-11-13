@@ -1,6 +1,3 @@
-<!-- version: 1.3.3 -->
-<!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-13 -->
 # 🏗️ Target architecture docs
 
 **Purpose:** what the docs in this folder cover, and the order to read them in.

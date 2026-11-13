@@ -1,6 +1,3 @@
-<!-- version: 1.0.2 -->
-<!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-10 -->
 # 🛠️ Claude Code docs: Extend Claude with skills
 
 **Purpose:** what Anthropic's Claude Code docs say about how skills are named, described and loaded, and where Claude Code goes beyond the Agent Skills standard.

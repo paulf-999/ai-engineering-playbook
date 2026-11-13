@@ -1,4 +1,4 @@
-# version: 1.4.0
+# version: 1.4.1
 # created: 2026-11-02
 # updated: 2026-11-13
 """Tests for the PR description check, which makes a PR that changes src/claude/ answer the evaluation criteria."""
@@ -46,7 +46,7 @@ CRITERIA = (
 )
 PLACEHOLDER = "\n## :balance_scale: Evaluation criteria\n\n[Three bullets, one per stage.]\n"
 # a filled Spec section, which a config PR also needs
-SPEC = "\n## :triangular_ruler: Spec\n\n- **Hook:** blocks a stop once after files change.\n"
+SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:** blocks a stop once after files change.\n"
 
 
 # MoSCoW: Must — a PR changing the installed Claude config must answer the evaluation criteria
@@ -121,8 +121,12 @@ def test_unfilled_criteria_reason_lists_each_placeholder():
         assert placeholder in result.stdout, f"the reason should list {placeholder}: {result.stdout}"
 
 
-SPEC_PLACEHOLDER = "\n## :triangular_ruler: Spec\n\n[Paste the change's spec.md.]\n"
-EMPTY_SPEC = "\n## :triangular_ruler: Spec\n\n"
+# the template's fixed intro line, which authors keep, so it isn't an answer on its own
+SPEC_INTRO = (
+    "The spec Claude built this change to, from the approved plan's Spec section, so a reviewer can check it.\n"
+)
+SPEC_PLACEHOLDER = "\n## :robot: Claude plan spec: requirements and design\n\n[Paste the change's spec.md.]\n"
+EMPTY_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n"
 
 
 # MoSCoW: Must — a reviewer can only check a config PR against its spec if the PR carries one
@@ -131,11 +135,12 @@ EMPTY_SPEC = "\n## :triangular_ruler: Spec\n\n"
     [
         # a filled spec, or a stated "Not applicable", passes
         (SPEC, CONFIG_FILE, 0),
-        ("\n## :triangular_ruler: Spec\n\nNot applicable: a typo fix.\n", CONFIG_FILE, 0),
+        ("\n## :robot: Claude plan spec: requirements and design\n\nNot applicable: a typo fix.\n", CONFIG_FILE, 0),
         # a missing, empty or unfilled spec fails a config PR
         ("", CONFIG_FILE, 1),
         (EMPTY_SPEC, CONFIG_FILE, 1),
         (SPEC_PLACEHOLDER, CONFIG_FILE, 1),
+        (EMPTY_SPEC + SPEC_INTRO, CONFIG_FILE, 1),
         # a PR that doesn't touch src/claude/ needs no spec
         ("", "docs/other.md", 0),
     ],
@@ -145,4 +150,4 @@ def test_config_changes_require_a_spec(spec, changed_files, expected_code):
     result = run_check(DETAILS + bullets(1) + spec + CRITERIA + NEXT_SECTION, changed_files)
     assert result.returncode == expected_code, result.stdout
     if expected_code == 1:
-        assert "Spec" in result.stdout, f"the reason should name the Spec section: {result.stdout}"
+        assert "Claude plan spec" in result.stdout, f"the reason should name the spec section: {result.stdout}"

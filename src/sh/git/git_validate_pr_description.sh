@@ -1,10 +1,10 @@
 #!/bin/bash
-# version: 1.4.0
+# version: 1.4.1
 # created: 2026-11-02
 # updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Spec" section and answers
+# Description: Verify a PR that changes the installed Claude config under src/claude/ fills its "Claude plan spec" section and answers
 #              the evaluation criteria in an "Evaluation criteria" section
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
@@ -22,6 +22,9 @@ trap handle_interruption SIGINT
 PR_DESCRIPTION="${1-}"
 # the PR's changed files, one per line, used to spot changes to the installed Claude config
 CHANGED_FILES="${2-}"
+# the heading of the section that carries the change's spec, and the start of its fixed intro line, which isn't an answer
+SPEC_HEADING="Claude plan spec"
+SPEC_INTRO="The spec Claude built this change to"
 # why the description fails, set in the main logic (empty means it's valid)
 PROBLEMS=""
 
@@ -53,9 +56,9 @@ has_evaluation_criteria() {
     section "Evaluation criteria" | grep -E '^([-*] |\|)' | grep -qvE '^\|[-: |]+\|$'
 }
 
-# Succeed if the "Spec" section has a line that isn't blank
+# Succeed if the spec section has a line that isn't blank or the template's intro
 has_spec() {
-    section "Spec" | grep -q '[^[:space:]]'
+    section "${SPEC_HEADING}" | grep -vF -- "${SPEC_INTRO}" | grep -q '[^[:space:]]'
 }
 
 # Print each square-bracket placeholder left in the section whose heading contains $1, one per line
@@ -71,11 +74,11 @@ description_problems() {
     local placeholders
     changes_claude_config || return 0
     if ! has_spec; then
-        echo "Fill the 'Spec' section with the change's spec.md, or say why it has none, since this PR changes src/claude/."
+        echo "Fill the '${SPEC_HEADING}' section with the change's spec.md, or say why it has none, since this PR changes src/claude/."
     fi
-    placeholders="$(placeholders "Spec")"
+    placeholders="$(placeholders "${SPEC_HEADING}")"
     if [[ -n "${placeholders}" ]]; then
-        echo "Replace the template placeholders left in 'Spec' with the change's spec: ${placeholders//$'\n'/, }"
+        echo "Replace the template placeholders left in '${SPEC_HEADING}' with the change's spec: ${placeholders//$'\n'/, }"
     fi
     if ! has_evaluation_criteria; then
         echo "Answer the 'Evaluation criteria' section with a Red flags, Shape and Working table, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes src/claude/."

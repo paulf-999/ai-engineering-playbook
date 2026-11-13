@@ -6,10 +6,6 @@
 
 [If needed, only what a reviewer must or should know, in 5 bullets or fewer, with full GitHub URLs for any file, issue or PR.]
 
-## :triangular_ruler: Spec
-
-[Needed when the PR changes `src/claude/`: paste the change's `spec.md`, its requirements and design, so the reviewer can check the diff against it. Otherwise, or for a change with no spec, say "Not applicable" and why.]
-
 ## :hammer_and_wrench: Type of PR Change
 
 Choose one:
@@ -22,6 +18,12 @@ Choose one:
 - [ ] :boom: **Breaking Change**: Changes existing functionality; rollout may require coordination.
 
 [If there are breaking changes, provide details here.]
+
+## :robot: Claude plan spec: requirements and design
+
+The spec Claude built this change to, from the approved plan's Spec section, so a reviewer can check the diff against it.
+
+[Needed when the PR changes `src/claude/`: paste the change's `spec.md`. Otherwise, say "Not applicable" and why.]
 
 ## :balance_scale: Evaluation criteria for Claude config changes
 

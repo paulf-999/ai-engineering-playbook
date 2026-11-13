@@ -43,7 +43,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `README.md` | ~574 |
+| 1 | `README.md` | ~743 |
 | 2 | `_templates/README.md` | ~786 |
 | 3 | `rules/on_demand/claude_config/authoring_guidelines.md` | ~367 |
 | 4 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~407 |
@@ -124,4 +124,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 79 | `rules/on_demand/workflows/git.md` | ~325 |
 | 80 | `rules/on_demand/workflows/saving_plans.md` | ~235 |
 | 81 | `rules/on_demand/workflows/sdlc_workflow.md` | ~255 |
-| | **Subtotal** | **~41703** |
+| | **Subtotal** | **~41872** |

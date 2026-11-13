@@ -21,8 +21,8 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
-> [!NOTE]
-> **What goes here?** How you checked the change works, such as the tests or checks you ran and what they showed.
+> [!TIP]
+> **✅ Adequately tested:** [one-sentence verdict, such as "`make test` and pre-commit pass, with new cases for the change". If testing has gaps, use `> [!WARNING]` and **⚠️ Testing gaps:** instead.]
 
 <details>
 <summary>Testing checklist</summary>

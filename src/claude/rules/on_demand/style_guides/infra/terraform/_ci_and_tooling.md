@@ -1,6 +1,4 @@
-<!-- version: 1.0.5 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
 # 🔁 CI & Tooling
 
 **Purpose:** Set the standards for pre-commit hooks, code formatting, and the Azure Pipelines CI/CD workflow.

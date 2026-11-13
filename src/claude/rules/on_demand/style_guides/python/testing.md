@@ -1,6 +1,4 @@
-<!-- version: 1.1.7 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: **/test_*.py, **/conftest.py -->
 <!-- miss_cost: medium — tests miss intended behaviour and need rewriting -->
 # 🧪 Python Testing Conventions

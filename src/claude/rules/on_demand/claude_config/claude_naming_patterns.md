@@ -1,6 +1,4 @@
-<!-- version: 2.1.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
 <!-- miss_cost: low — names drift from the house patterns -->
 # 🏷️ Claude naming patterns

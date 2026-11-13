@@ -2,9 +2,7 @@
 paths:
   - "**/*.py"
 ---
-<!-- version: 1.6.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Python files -->
 <!-- miss_cost: low — Python drifts from the house style -->
 # 🐍 Python Coding Standards

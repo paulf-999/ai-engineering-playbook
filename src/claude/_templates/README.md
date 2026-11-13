@@ -1,6 +1,4 @@
-<!-- version: 1.2.12 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-13 -->
 # 📋 Templates Directory
 
 Centralized templates for skills and other Claude configuration artifacts. `make install` installs it to `_templates/` in your Claude config directory, as the [config README](../README.md) describes.

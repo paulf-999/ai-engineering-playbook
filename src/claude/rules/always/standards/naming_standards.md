@@ -1,6 +1,4 @@
-<!-- version: 2.2.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — names stop saying what a file holds -->
 # 📛 Naming standards

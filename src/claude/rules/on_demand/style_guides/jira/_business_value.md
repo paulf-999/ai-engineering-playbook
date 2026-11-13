@@ -1,6 +1,4 @@
-<!-- version: 2.0.5 -->
 <!-- created: 2026-06-07 -->
-<!-- updated: 2026-11-05 -->
 # 💼 Business Value Tab
 
 **Purpose:** Set the standards for populating the Business Value tab on Jira tickets — covering format, audience, scoring framework, and a worked example.

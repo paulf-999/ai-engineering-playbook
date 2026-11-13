@@ -1,6 +1,4 @@
-<!-- version: 1.0.1 -->
 <!-- created: 2026-11-08 -->
-<!-- updated: 2026-11-08 -->
 # 🏷️ Constants
 
 **Purpose:** How to group, name and use module-level constants.

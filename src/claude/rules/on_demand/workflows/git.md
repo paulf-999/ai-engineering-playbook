@@ -1,6 +1,4 @@
-<!-- version: 2.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — a commit picks up another session's files or runs in the wrong repo -->
 # 🌿 Git

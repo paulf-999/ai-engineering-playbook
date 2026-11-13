@@ -1,6 +1,4 @@
-<!-- version: 1.4.0 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
 # 📝 Module Docstrings
 
 **Purpose:** how to write a module's docstring, so `help(module)` and IDE tooltips show what it's for.

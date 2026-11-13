@@ -1,6 +1,4 @@
-<!-- version: 2.1.12 -->
 <!-- created: 2026-09-17 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — multi-phase work runs past a wrong turn and needs redoing -->
 # 🗂️ Claude plans

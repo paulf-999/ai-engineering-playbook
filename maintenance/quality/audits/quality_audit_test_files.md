@@ -14,7 +14,6 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | Script or check | Core coverage | Leanness | Clarity | Simplicity | Reliability | Score | Gaps |
 |---|---|---|---|---|---|---|---|
 | | *Must paths tested* | *No extra tests* | *Easy to follow* | *Short, plain, robust to change* | *Repeatable, clear failures* | | |
-| [Header bump](../../../src/sh/bump_file_headers.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Branch name](../../../src/sh/git/git_validate_branch_name.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [PR size](../../../src/sh/git/git_validate_num_file_changes.sh) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [PR description](../../../src/sh/git/git_validate_pr_description.sh) | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | ✅ 2 | **A · 9/10** | Simplicity: `CRITERIA_NAME` is asserted in the failure branch of two tests, and the shared `CRITERIA`, `SPEC` and `DETAILS` constants feed most cases, so one harmless edit to them breaks many cases at once |
@@ -29,4 +28,4 @@ Each script's tests are scored against the [test rubric](../themes/quality_theme
 | [Every script's structure](../../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every rule's structure](../../../tests/src/claude/test_rules_structure.py) | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | **B · 8/10** | Leanness: `test_rule_headings`, `test_rule_lists_are_short` and the emoji-H1 check in `opening_problems` check layout only; Simplicity: `PATH_SCOPED_RULE` is built by chained `.replace()` calls on the shared `GOOD_RULE` (a moving part), `test_path_scoped_rule_passes_the_checks` and `test_child_check_can_fail` each assert several things |
 | [Rules quality audit](../../../tests/maintenance/quality/test_quality_audit_rules.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
-| [Every tracked file's header](../../../tests/test_file_metadata_headers.py) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Core coverage: no bad-header case for a markdown file or one with YAML front matter |
+| [Every installed file's created line](../../../tests/test_file_metadata_headers.py) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Core coverage: no bad-header case for a markdown file or one with YAML front matter |

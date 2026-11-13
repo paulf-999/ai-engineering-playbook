@@ -2,9 +2,7 @@
 paths:
   - "**/*.mmd"
 ---
-<!-- version: 1.2.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Mermaid diagram files -->
 <!-- miss_cost: low — diagrams get harder to read -->
 # 🔀 Mermaid Diagram Standards

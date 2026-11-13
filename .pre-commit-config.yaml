@@ -55,13 +55,6 @@ repos:
             entry: src/sh/git/git_validate_branch_name.sh
             language: script
             pass_filenames: false
-          - id: bump_file_headers  # Bump the version header of each changed file
-            name: General fixes — bump file version headers
-            description: Bumps each changed file's header (PATCH +1, updated = today), unless raised by hand.
-            entry: src/sh/bump_file_headers.sh
-            language: script
-            files: ^(src/claude/|src/sh/shell_utils\.sh$)  # only installed files carry a header; shell_utils.sh installs via a link
-            exclude: \.template$  # a template's header holds placeholders, copied into each new file made from it
           - id: claude_validate_always_on_budget  # Cap the Claude context loaded into every session
             name: Claude checks — always-on context within budget?
             description: Fails when CLAUDE.md files, their imports, always-on rules and skill descriptions exceed the token budget.

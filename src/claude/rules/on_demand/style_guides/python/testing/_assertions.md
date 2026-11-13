@@ -1,6 +1,4 @@
-<!-- version: 1.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-08 -->
 # ✅ Assertions & Exception Testing
 
 **Purpose:** Establish assertion and exception testing conventions for validating expected behaviour.

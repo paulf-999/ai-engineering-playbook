@@ -2,9 +2,7 @@
 paths:
   - "**/*.sql"
 ---
-<!-- version: 1.7.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: SQL files -->
 <!-- miss_cost: low — SQL drifts from the house style and needs reformatting -->
 # 🗄️ SQL Style Guide & Standards

@@ -1,6 +1,4 @@
-<!-- version: 2.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — functions grow harder to read and change -->
 # 📊 Code Complexity

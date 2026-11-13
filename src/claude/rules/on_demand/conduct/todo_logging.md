@@ -1,6 +1,4 @@
-<!-- version: 2.1.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — TODO rows drift from the table layout -->
 # 📝 TODO logging

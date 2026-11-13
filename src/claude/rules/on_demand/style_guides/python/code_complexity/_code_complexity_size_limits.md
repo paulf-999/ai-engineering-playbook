@@ -1,6 +1,4 @@
-<!-- version: 1.2.1 -->
 <!-- created: 2026-11-08 -->
-<!-- updated: 2026-11-10 -->
 # 📏 Complexity size limits
 
 **Purpose:** why each size limit in `code_complexity.md` exists and how to get under it, with the limits and ruff checks themselves kept in that file's table.

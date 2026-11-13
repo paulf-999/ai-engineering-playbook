@@ -1,6 +1,4 @@
-<!-- version: 1.1.1 -->
 <!-- created: 2026-09-17 -->
-<!-- updated: 2026-11-11 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — an approved plan is lost in the scratch folder -->
 # 📤 Saving plans

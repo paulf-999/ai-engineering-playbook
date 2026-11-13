@@ -1,6 +1,4 @@
-<!-- version: 1.0.4 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-07 -->
 # 🏷️ dbt Naming Conventions
 
 **Purpose:** Set naming standards for models, files, keys, data types, audit fields, CTEs, and null handling across all layers of the dbt project.

@@ -4,9 +4,7 @@ paths:
   - "**/models/**/*.yml"
   - "**/dbt_project.yml"
 ---
-<!-- version: 1.7.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: dbt models and project files -->
 <!-- miss_cost: medium — models drift from the project's layout and need reworking -->
 # 🔵 dbt Style Guide & Standards

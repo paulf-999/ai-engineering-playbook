@@ -1,6 +1,4 @@
-<!-- version: 1.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
 # 🗂️ DAG Design
 
 **Purpose:** Establish folder structure, naming conventions, and mandatory attributes for Airflow DAG files and configuration.

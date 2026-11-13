@@ -1,6 +1,4 @@
-<!-- version: 1.0.5 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
 # 📸 dbt Snapshots
 
 **Purpose:** Cover naming conventions, configuration standards, best practices, and guidance on building downstream models on top of snapshots.

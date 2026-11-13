@@ -1,6 +1,4 @@
-<!-- version: 1.1.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
 # ⚙️ Makefile Variables, Operators & Commands
 
 **Purpose:** Set how Makefiles define `SHELL`, print output, assign variables and silence commands.

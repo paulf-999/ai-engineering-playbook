@@ -1,6 +1,4 @@
-<!-- version: 1.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-08 -->
 # 🔒 Public vs Private Functions
 
 **Purpose:** Establish conventions for distinguishing public API from internal helpers — ensuring module interfaces are clear and changes to internals don't break users.

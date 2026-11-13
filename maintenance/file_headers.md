@@ -1,40 +1,20 @@
 # 🏷️ File Headers
 
-**Purpose:** how the version header at the top of each installed file works, and how a commit check keeps it up to date.
+**Purpose:** what the header at the top of each installed file records, and how a test keeps it valid.
 
 ## 📄 Format
 
-Every file under `src/claude/`, which `make install` copies into your Claude config directory, opens with a three-line header, so you can see what changed in an installed file. Other files have none, since git history records their changes. The header sits after any shebang, a YAML file's opening `---` line, or a markdown file's frontmatter block, so YAML never reads it. Markdown uses HTML comments, and other files use `#` comments:
+Every file under `src/claude/`, which `make install` copies into your Claude config directory, opens with a `created` line, so you can see how long ago it was added. Other files have none, and git history records every file's changes. The line sits after any shebang, a YAML file's opening `---` line, or a markdown file's frontmatter block, so YAML never reads it. Markdown uses an HTML comment, and other files use a `#` comment:
 
 ```markdown
-<!-- version: 1.0.0 -->
 <!-- created: 2026-10-30 -->
-<!-- updated: 2026-11-05 -->
 ```
 
 Entry-point rules in `src/claude/rules/` add two usage lines after it, `applies_to` and `miss_cost`, set out in [`_authoring_rules.md`](../src/claude/rules/on_demand/claude_config/authoring_guidelines/_authoring_rules.md).
 
 ## 📏 Rules
 
-A pre-commit check, described below, does most of the work:
-
-- 🆕 **New file:** start at `version: 1.0.0`, with `created` and `updated` both set to today.
-- ✏️ **Every edit:** leave `created` alone, and let the check handle the rest.
-- 🙋 **By hand:** raise MINOR when you add guidance or behaviour, and MAJOR when you reverse or remove it.
-- 🚫 **Exempt:** any `.template` file, whose header holds placeholders.
-
-## ⚙️ Automation
-
-The check runs on every commit that changes a file under `src/claude/`, once `make deps` has installed the git hooks:
-
-| When you commit a file that… | The check… |
-|---|---|
-| 🔄 Has changed, including a file moved with `git mv` and edited | Sets `updated` to today and raises PATCH by 1 |
-| ✋ Has a version you already raised by hand | Keeps your version and only updates the date |
-| ⏸️ Is new, has no header, or was only moved | Leaves it alone |
-| 🛑 Has no `updated` line, or a version like `1.0` | Stops the commit and says what to fix |
-
-- 🔁 **After a bump:** the commit stops so you can review it, then re-add the file and commit again.
-- 📍 **Where it lives:** `src/sh/bump_file_headers.sh`, run by the `bump_file_headers` hook in `.pre-commit-config.yaml`.
-- ✅ **Checked by:** `tests/test_file_metadata_headers.py`, which fails on a missing or malformed header.
-- ⚠️ **Gap:** CI can't spot a missed bump, so a commit made with `--no-verify` can skip one.
+- 🆕 **New file:** set `created` to today.
+- ✏️ **Every edit:** leave the line alone, since git records when a file last changed.
+- 🚫 **Exempt:** any `.template` file, whose header holds a placeholder.
+- ✅ **Checked by:** `tests/test_file_metadata_headers.py`, which fails on a missing line, an impossible date or a date in the future.

@@ -1,6 +1,4 @@
-<!-- version: 2.0.3 -->
 <!-- created: 2026-09-18 -->
-<!-- updated: 2026-11-10 -->
 <!-- applies_to: **/*.sh, **/*.py -->
 <!-- miss_cost: medium — a hook, script or test breaks on another machine, often silently -->
 # 🌍 Portable paths

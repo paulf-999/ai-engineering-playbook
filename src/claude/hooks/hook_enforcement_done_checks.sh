@@ -1,7 +1,5 @@
 #!/bin/bash
-# version: 1.0.0
 # created: 2026-11-12
-# updated: 2026-11-12
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Stop hook that sends Claude back once to run the repo's done checks when tracked files changed since its last stop

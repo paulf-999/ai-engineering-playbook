@@ -1,6 +1,4 @@
-<!-- version: 3.1.6 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — prose drifts from the house style -->
 # ✏️ Writing style

@@ -1,6 +1,4 @@
-<!-- version: 1.1.2 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-13 -->
 # 🛠️ Authoring skills
 
 **Purpose:** how to lay out, describe and test a new skill for Claude's config.

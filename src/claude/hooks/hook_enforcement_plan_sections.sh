@@ -1,7 +1,5 @@
 #!/bin/bash
-# version: 1.1.2
 # created: 2026-11-10
-# updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: PreToolUse hook on ExitPlanMode that blocks a plan with no Intent or Spec heading

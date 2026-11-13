@@ -16,7 +16,7 @@ def config_repo(tmp_path):
     env = isolated_git_repo(tmp_path)
     files = {
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
-        "src/claude/CLAUDE.md": "<!-- version: 1.0.0 -->\n" + HUNDRED_TOKENS,
+        "src/claude/CLAUDE.md": "<!-- created: 2026-11-13 -->\n" + HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/on_demand/guide.md": HUNDRED_TOKENS,
         "src/claude/_templates/README.md": HUNDRED_TOKENS,

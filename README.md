@@ -1,9 +1,9 @@
-<!-- version: 2.3.8 -->
+<!-- version: 2.3.9 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
 
-**Purpose:** a ready-made set of instructions for Claude Code, kept small so Claude stays focused on your task.
+**Purpose:** a practical playbook for consistent, repeatable work with AI coding assistants, starting with a lean set of instructions for Claude Code.
 
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)

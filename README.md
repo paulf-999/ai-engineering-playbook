@@ -1,4 +1,4 @@
-<!-- version: 2.3.28 -->
+<!-- version: 2.3.29 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -25,7 +25,7 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 
 ## 📦 What you get
 
-Claude reads only the instructions each task needs, so it stays fast and focused.
+Claude reads only the instructions each task needs, so it stays fast and focused. Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load). Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
 
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
 - 🔬 **Research-led:** every part of the [design](docs/target_architecture/target_architecture.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).

@@ -44,11 +44,11 @@ Each theme scores ✅ 2 when fully met, 🟡 1 when partly met and ❌ 0 when no
 Each [periodic review](../../test_maintenance.md#-periodic-review) refreshes the row of every script whose tests changed since the last one, in one PR. One fresh-context reviewer on Sonnet gets only this brief, since a primed brief inflates scores:
 
 ```text
-Score each script listed after this brief against docs/maintenance/quality/themes/quality_themes_test_files.md.
+Score each script listed after this brief against maintenance/quality/themes/quality_themes_test_files.md.
 Read each script with its tests, and run them to check they pass.
 Return one audit row per script: the five theme scores, the grade and total, and Gaps.
 ```
 
 ## 📊 Where scores live
 
-The [tests audit](../audits/quality_audit_test_files.md) holds each script's scores and gaps, and `tests/docs/maintenance/quality/test_quality_audit_test_files.py` fails if a score doesn't add up.
+The [tests audit](../audits/quality_audit_test_files.md) holds each script's scores and gaps, and `tests/maintenance/quality/test_quality_audit_test_files.py` fails if a score doesn't add up.

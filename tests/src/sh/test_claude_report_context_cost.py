@@ -6,7 +6,7 @@ from _git_repo import isolated_git_repo
 from _paths import SCRIPTS_DIR
 
 SCRIPT = SCRIPTS_DIR / "claude_report_context_cost.sh"
-REPORT = "docs/maintenance/context_cost.md"
+REPORT = "maintenance/context_cost.md"
 # 400 characters is an estimated 100 tokens
 HUNDRED_TOKENS = "x" * 399 + "\n"
 
@@ -26,7 +26,7 @@ def config_repo(tmp_path):
     for path, text in files.items():
         (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / path).write_text(text)
-    (tmp_path / "docs" / "maintenance").mkdir(parents=True)
+    (tmp_path / "maintenance").mkdir(parents=True)
     subprocess.run(["git", "add", "."], cwd=tmp_path, env=env, check=True)
     return env
 

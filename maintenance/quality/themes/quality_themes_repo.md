@@ -27,8 +27,8 @@ Process and machinery heavier than the repo needs:
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
 | 🔗 **Cross-file consistency** | At most 1 contradiction between files | 2 or 3 contradictions | 4 or more contradictions |
-| 🔁 **Upkeep cost** | 20% or fewer of the last 50 commits touch `docs/maintenance/`, other than to record a review or cut process | Up to 40% | Over 40% |
-| 🗃️ **Process weight** | `docs/maintenance/` files are a tenth of product files or fewer | Up to a quarter | More than a quarter |
+| 🔁 **Upkeep cost** | 20% or fewer of the last 50 commits touch `maintenance/`, other than to record a review or cut process | Up to 40% | Over 40% |
+| 🗃️ **Process weight** | `maintenance/` files are a tenth of product files or fewer | Up to a quarter | More than a quarter |
 | 🪜 **Simplest mechanism** | At most 1 check or process is heavier than the simplest that works, such as a scored rubric where a test would do | 2 or 3 | 4 or more |
 | 🔮 **Built for today** | At most 1 level, stage or extension point for a need that hasn't arisen | 2 or 3 | 4 or more |
 
@@ -44,8 +44,8 @@ Process and machinery heavier than the repo needs:
   - **Audits:** the [tests audit](../audits/quality_audit_test_files.md) and [rules audit](../audits/quality_audit_rules.md), with their rubrics and checkers.
   - **Headers:** the per-file version headers and `bump_file_headers.sh`.
   - **Review and seams:** the fresh-context reviewer that fills each config PR's evaluation criteria, and the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides the tests use.
-  - **Copies and lists:** the separate `shell_utils.sh` copies, the further-reading list in `reference_material/README.md`, and the token report, `docs/maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
-- 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `docs/maintenance/` and `.github/`.
+  - **Copies and lists:** the separate `shell_utils.sh` copies, the further-reading list in `reference_material/README.md`, and the token report, `maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
+- 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `maintenance/` and `.github/`.
 
 ## 🔢 Measures
 
@@ -54,32 +54,32 @@ Run these from the repo root on `main` under `bash`, since another shell's `grep
 ```bash
 # product and support file counts
 git ls-files src/claude docs/target_architecture | wc -l
-git ls-files tests src/sh docs/maintenance .github | wc -l
+git ls-files tests src/sh maintenance .github | wc -l
 # files and KB by area
 for area in src/claude docs tests src/sh; do echo "${area}: $(git ls-files "${area}" | wc -l) files, $(git ls-files -z "${area}" | xargs -0 cat | wc -c | awk '{print int($1 / 1024)}') KB"; done
-# commits of the last 50 on main that touch docs/maintenance/, other than the kept token report,
+# commits of the last 50 on main that touch maintenance/, other than the kept token report,
 # leaving out commits that only record a review, by changing nothing in it outside quality/audits/,
 # and commits that cut process, by removing more lines than they add there outside quality/audits/
 git log --first-parent -50 --format=%h origin/main | while read -r commit; do
-    files=$(git show --name-only --format= "${commit}" | grep -v '^docs/maintenance/context_cost\.md$')
-    grep '^docs/maintenance/' <<< "${files}" | grep -qv '^docs/maintenance/quality/audits/' || continue
-    git show --numstat --format= "${commit}" -- docs/maintenance ':!docs/maintenance/quality/audits' ':!docs/maintenance/context_cost.md' \
+    files=$(git show --name-only --format= "${commit}" | grep -v '^maintenance/context_cost\.md$')
+    grep '^maintenance/' <<< "${files}" | grep -qv '^maintenance/quality/audits/' || continue
+    git show --numstat --format= "${commit}" -- maintenance ':!maintenance/quality/audits' ':!maintenance/context_cost.md' \
         | awk '{added += $1; removed += $2} END {exit !(removed <= added)}' && echo "${commit}"
 done | wc -l
-# docs/maintenance/ files
-git ls-files docs/maintenance | wc -l
+# maintenance/ files
+git ls-files maintenance | wc -l
 # placeholder phrases, leaving out this rubric and its audit
-git grep -ciE 'not built yet|nothing scored yet' -- '*.md' ':!docs/maintenance/quality/*/quality_*_repo.md' | awk -F: '{sum += $2} END {print sum + 0}'
+git grep -ciE 'not built yet|nothing scored yet' -- '*.md' ':!maintenance/quality/*/quality_*_repo.md' | awk -F: '{sum += $2} END {print sum + 0}'
 # always-on tokens, against the 3,000-token budget
 src/sh/claude_validate_always_on_budget.sh
 ```
 
 ## 🕵️ Reviewer brief
 
-At each [regular review](../../../target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores. It runs in a scratch worktree of `main` with the audit deleted, so no search can show it the last run's scores:
+At each [regular review](../../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores. It runs in a scratch worktree of `main` with the audit deleted, so no search can show it the last run's scores:
 
 ```text
-Score this repo against docs/maintenance/quality/themes/quality_themes_repo.md.
+Score this repo against maintenance/quality/themes/quality_themes_repo.md.
 Run its measures, score each theme, and cite a path for each judged 🟡 or ❌.
 Return the measures, the ten theme scores with a reason each, one line of
 feedback per component the transcripts show helping, hindering or going unused,

@@ -1,4 +1,4 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.1.2 -->
 <!-- created: 2026-11-05 -->
 <!-- updated: 2026-11-13 -->
 # 🛠️ Authoring skills
@@ -27,4 +27,4 @@ This page is part of the authoring guidelines, `on_demand/claude_config/authorin
 - 🧪 **Evals:** add evals that cover its main triggers and one case where it shouldn't fire.
 - 🔐 **Safety:** read secrets from the environment, validate input before it reaches a shell or API, and hard-code no paths.
 - 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section.
-- 🏅 **Review:** have a fresh-context reviewer score it against a rubric for its type, modelled on `docs/maintenance/quality/themes/quality_themes_rules.md`, in the playbook repo.
+- 🏅 **Review:** have a fresh-context reviewer score it against a rubric for its type, modelled on `maintenance/quality/themes/quality_themes_rules.md`, in the playbook repo.

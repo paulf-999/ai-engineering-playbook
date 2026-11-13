@@ -4,7 +4,7 @@ import pytest
 from _audit_tables import assert_links_work, assert_quality_scores, read_table
 from _paths import REPO_ROOT
 
-AUDIT = REPO_ROOT / "docs" / "maintenance" / "quality" / "audits" / "quality_audit_rules.md"
+AUDIT = REPO_ROOT / "maintenance" / "quality" / "audits" / "quality_audit_rules.md"
 RULES_DIR = REPO_ROOT / "src" / "claude" / "rules"
 
 # the themes in quality/themes/quality_themes_rules.md, as the audit's column headings

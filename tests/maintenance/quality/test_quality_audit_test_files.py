@@ -1,4 +1,4 @@
-"""Checks every test is scored, and docs/maintenance/quality/audits/quality_audit_test_files.md fits the rubric."""
+"""Checks every test is scored, and maintenance/quality/audits/quality_audit_test_files.md fits the rubric."""
 
 import re
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 from _audit_tables import assert_links_work, assert_quality_scores, read_table
 from _paths import REPO_ROOT
 
-AUDIT = REPO_ROOT / "docs" / "maintenance" / "quality" / "audits" / "quality_audit_test_files.md"
+AUDIT = REPO_ROOT / "maintenance" / "quality" / "audits" / "quality_audit_test_files.md"
 
 # this file, which the audit doesn't score, since it can't fairly score its own checker
 THIS_FILE = str(Path(__file__).relative_to(REPO_ROOT))

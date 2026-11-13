@@ -1,4 +1,4 @@
-"""Checks each installed file under src/claude/ opens with a version header (see docs/maintenance/file_headers.md)."""
+"""Checks each installed file under src/claude/ opens with a version header (see maintenance/file_headers.md)."""
 
 import os
 import re

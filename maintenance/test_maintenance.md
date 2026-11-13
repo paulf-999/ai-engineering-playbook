@@ -46,7 +46,7 @@ A stale test checks behaviour the code no longer has, so it passes but protects 
 
 ## 🔍 Periodic review
 
-At each [regular review](../target_architecture/design_principles/01_principles.md#-numbers-and-tests), count the tests by score:
+At each [regular review](../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), count the tests by score:
 
 ```bash
 grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c

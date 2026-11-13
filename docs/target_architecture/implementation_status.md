@@ -27,6 +27,6 @@ Status is ✅ Built, 🟡 Partly, ❌ Not built, ⏸️ Deferred or 🚫 Out of 
 | 💰 **[Always-on budget](target_architecture.md#-always-on-budget)** | ✅ Built | [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh) | — | — |
 | 📏 **[Rule size guard](target_architecture.md#️-design-guards)** | ✅ Built | [`test_rules_structure.py`](../../tests/src/claude/test_rules_structure.py) | — | — |
 | 📦 **[PR size guard](target_architecture.md#️-design-guards)** | ✅ Built | [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) | — | — |
-| 💬 **[Component feedback](target_architecture.md#-measures)** | ✅ Built | [`component_feedback.md`](../maintenance/quality/audits/quality_audit_repo/component_feedback.md) | — | — |
-| 💰 **[Always-on tokens](target_architecture.md#-measures)** | ✅ Built | [`context_cost.md`](../maintenance/context_cost.md) | — | — |
+| 💬 **[Component feedback](target_architecture.md#-measures)** | ✅ Built | [`component_feedback.md`](../../maintenance/quality/audits/quality_audit_repo/component_feedback.md) | — | — |
+| 💰 **[Always-on tokens](target_architecture.md#-measures)** | ✅ Built | [`context_cost.md`](../../maintenance/context_cost.md) | — | — |
 | 🔪 **[Halving test](target_architecture.md#-measures)** | ❌ Not built | No review records running it | Run it at the next review and record the answer | S |

@@ -4,7 +4,7 @@
 
 This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/`, and a pre-commit check fails if it's out of date, so don't edit the tables by hand.
 
-- 🔒 **Every session:** counts towards the [always-on budget](../target_architecture/target_architecture.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
+- 🔒 **Every session:** counts towards the [always-on budget](../docs/target_architecture/README.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
 - 📂 **Path-scoped rules:** loads only once Claude opens a file that matches one of its globs.
 - 💤 **On demand:** loads only when Claude follows a pointer to it.
 

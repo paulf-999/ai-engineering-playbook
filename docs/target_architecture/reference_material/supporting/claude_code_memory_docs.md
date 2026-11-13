@@ -9,7 +9,7 @@ It's one of the summaries listed in this repo's [reference material](../README.m
 - 📘 **What it is:** the official page on `CLAUDE.md` and rules files, the instructions Claude Code loads for itself.
 - 💡 **Core idea:** these files are context Claude reads, not settings Claude Code enforces.
 - 📏 **Size:** keep each `CLAUDE.md` under 200 lines, and use path-scoped rules for anything that matters to only part of a repo.
-- 🎯 **For this repo:** it backs the [always-on budget](../../target_architecture.md#-always-on-budget), a cap on the text loaded into every session, and shows what the cap must count.
+- 🎯 **For this repo:** it backs the [always-on budget](../../README.md#-always-on-budget), a cap on the text loaded into every session, and shows what the cap must count.
 
 ## 🔗 Source
 
@@ -38,6 +38,6 @@ The page makes these points, by section:
 This section is this repo's reading, not the page's:
 
 - 📏 **Budget basis:** the 200-line guidance is the basis of the budget's [ceiling](../../design_principles/01_principles.md#-numbers-and-tests).
-- 🧮 **What to count:** the budget's [Counted list](../../target_architecture.md#-always-on-budget) follows the page for files in the repo, and leaves out auto memory on purpose, since it lives on each machine.
+- 🧮 **What to count:** the budget's [Counted list](../../README.md#-always-on-budget) follows the page for files in the repo, and leaves out auto memory on purpose, since it lives on each machine.
   - **Skills:** the live best-practices page says that for a skill Claude can start on its own, Claude sees its name and description in each session ("[Put team procedures in skills](https://code.claude.com/docs/en/best-practices#put-team-procedures-in-skills)").
 - 🏷️ **Version headers:** this repo's `<!-- version -->` headers cost nothing in `CLAUDE.md` files, but the page doesn't say the same for rule files.

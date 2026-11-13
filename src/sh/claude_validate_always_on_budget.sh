@@ -114,7 +114,7 @@ check_budget() {
     local tokens=$((TOTAL_CHARS / 4))
     if [[ "${tokens}" -gt "${TOKEN_BUDGET}" ]]; then
         print_section_header "${ERROR}" "ERROR: always-on context is ~${tokens} tokens, over the ${TOKEN_BUDGET}-token budget."
-        echo -e "Trim it, move detail to a file loaded on demand, or raise the budget in a PR that links logged evidence (see docs/target_architecture/target_architecture.md)."
+        echo -e "Trim it, move detail to a file loaded on demand, or raise the budget in a PR that links logged evidence (see docs/target_architecture/README.md)."
         exit 1
     fi
     print_section_header "${INFO}" "SUCCESS: always-on context is ~${tokens} tokens, within the ${TOKEN_BUDGET}-token budget."

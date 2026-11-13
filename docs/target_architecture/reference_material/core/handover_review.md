@@ -42,4 +42,4 @@ This page is part of the [reference material](../README.md). It quotes both sect
 The two sections shaped these pages:
 
 - 🧭 **Stance:** the [design principles](../../design_principles.md) take their small required core, and their warnings, from section 4.
-- 📏 **Priorities:** the [target architecture](../../target_architecture.md) follows section 6, with its tiers, measures and regular reviews.
+- 📏 **Priorities:** the [target architecture](../../README.md) follows section 6, with its tiers, measures and regular reviews.

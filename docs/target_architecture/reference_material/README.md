@@ -1,4 +1,4 @@
-<!-- version: 1.9.3 -->
+<!-- version: 1.9.4 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-13 -->
 # 📚 Reference Material
@@ -19,7 +19,7 @@ The design is built on these, and its docs or config cite each one:
 |---|---|---|---|---|---|---|
 | 1️⃣ | [The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook) · [summary](core/anthropic_ai_native_sdlc.md) | Anthropic (Claude Academy) | Not stated, © 2026 | Public, sign-in optional, read in full | 2026-11-02 | Lifecycle and workflow guidance |
 | 2️⃣ | [DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/) · [summary](core/dora_ai_capabilities.md) | DORA (DevOps Research and Assessment), a Google Cloud programme | Report v. 2025.1, CC BY-NC-SA 4.0 | Full report from [Google Cloud](https://cloud.google.com/resources/content/2025-dora-ai-capabilities-model-report), read in full | 2026-11-02 | The seven capabilities and how to build them |
-| 3️⃣ | [Handover review](core/handover_review.md), sections 4 and 6 | An outside reviewer of the [old Claude configuration](../current_architecture.md) | Not dated | Quoted in this repo | 2026-11-03 | The design's stance and priorities |
+| 3️⃣ | [Handover review](core/handover_review.md), sections 4 and 6 | An outside reviewer of the [old Claude configuration](../legacy_architecture.md) | Not dated | Quoted in this repo | 2026-11-03 | The design's stance and priorities |
 | 4️⃣ | [Agent Skills specification](https://agentskills.io/specification), with its [overview](https://agentskills.io/home) · [summary](core/agent_skills_spec.md) | agentskills.io, an open standard first developed by Anthropic | Live pages, no version or date | Public, read in full | 2026-11-09 | The required format and naming of a skill |
 
 ### 🥈 Supporting

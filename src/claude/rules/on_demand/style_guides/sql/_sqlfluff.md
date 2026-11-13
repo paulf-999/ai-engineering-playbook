@@ -1,6 +1,4 @@
-<!-- version: 1.2.0 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-10 -->
 # 🔧 SQLFluff Configuration
 
 **Purpose:** Record the team's SQLFluff settings and excluded rules, so every SQL file is checked the same way.

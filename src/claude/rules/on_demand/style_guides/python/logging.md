@@ -1,6 +1,4 @@
-<!-- version: 1.1.8 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: medium — logs leak secrets or miss what's needed to debug -->
 # 📝 Python Logging Conventions

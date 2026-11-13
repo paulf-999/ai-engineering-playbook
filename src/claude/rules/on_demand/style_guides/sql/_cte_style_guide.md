@@ -1,6 +1,4 @@
-<!-- version: 1.0.6 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
 # 🔁 CTE Style Guide
 
 **Purpose:** Establish CTE patterns and grouping conventions for dbt models and SQL queries to improve readability and maintainability.

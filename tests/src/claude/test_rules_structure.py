@@ -14,7 +14,7 @@ MAX_LINES = 110
 MAX_BULLETS = 5
 # emoji blocks: pictographs and symbols, misc symbols and dingbats, arrows and technical symbols
 EMOJI = re.compile("[\U0001f300-\U0001faff☀-➿⬀-⯿⌀-⏿←-⇿]")
-HEADER_FIELDS = ("version", "created", "updated")
+HEADER_FIELDS = ("created",)
 MISS_COSTS = ("low", "medium", "high")
 # a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`
 POINTER = re.compile(r"^- `((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
@@ -37,7 +37,7 @@ def header_block(lines):
     """Return the comment lines that open the file: the metadata header and any usage lines after it."""
     # a path-scoped rule's header follows its '---' block, so YAML never reads the comments as keys
     _, body = split_frontmatter(lines)
-    # the 3 header lines, then up to 2 usage lines: applies_to and miss_cost
+    # the created line, then up to 2 usage lines: applies_to and miss_cost
     return [line for line in body if line.startswith("<!--")][: len(HEADER_FIELDS) + 2]
 
 
@@ -62,7 +62,7 @@ def opening_problems(text):
         if not line.startswith(f"<!-- {field}: "):
             problems.append(f"expected the '{field}' header line, got {line!r}")
     if len(header) < len(HEADER_FIELDS):
-        problems.append("the header needs version, created and updated lines")
+        problems.append("the header needs a created line")
     h1 = [line for line in prose_lines(lines) if line.startswith("# ")]
     if len(h1) != 1:
         problems.append(f"needs exactly one H1, found {len(h1)}")

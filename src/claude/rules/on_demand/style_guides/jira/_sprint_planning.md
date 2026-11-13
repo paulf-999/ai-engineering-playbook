@@ -1,6 +1,4 @@
-<!-- version: 2.0.3 -->
 <!-- created: 2026-05-20 -->
-<!-- updated: 2026-11-05 -->
 # 📅 Sprint Planning
 
 **Purpose:** Set sprint IDs, quarter-to-component mapping, parent epic references, and capacity conventions.

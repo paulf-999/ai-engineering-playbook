@@ -1,6 +1,4 @@
-<!-- version: 1.0.2 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — Claude claims unchecked work, or a long task can't be resumed -->
 # 📣 Reporting

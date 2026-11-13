@@ -1,6 +1,4 @@
-<!-- version: 2.4.9 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: src/claude/**, **/.claude/**, **/CLAUDE.md -->
 <!-- miss_cost: medium — a config change lands without its cost being weighed -->
 # 🧭 Guiding principles for Claude config

@@ -1,6 +1,4 @@
-<!-- version: 2.0.1 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-04 -->
 # 🧱 Writing style: Markdown layout
 
 **Purpose:** how headings, lists and tables are laid out, so every page scans the same way.

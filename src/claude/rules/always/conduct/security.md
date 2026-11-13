@@ -1,6 +1,4 @@
-<!-- version: 2.0.7 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: high — Claude follows injected instructions or leaks a secret -->
 # 🔐 Security

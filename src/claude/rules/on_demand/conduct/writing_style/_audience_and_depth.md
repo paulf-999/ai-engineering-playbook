@@ -1,6 +1,4 @@
-<!-- version: 2.0.0 -->
 <!-- created: 2026-11-02 -->
-<!-- updated: 2026-11-04 -->
 # 👥 Writing style: Audience and depth
 
 **Purpose:** how to match technical depth to the reader, and open a page so a newcomer can follow it.

@@ -1,6 +1,4 @@
-<!-- version: 2.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
 <!-- applies_to: **/*.sh, **/.github/workflows/** -->
 <!-- miss_cost: medium — an unattended run loops and overspends -->
 # 🔄 Turn budgets

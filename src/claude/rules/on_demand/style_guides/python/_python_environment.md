@@ -1,6 +1,4 @@
-<!-- version: 1.1.1 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 # 🐍 Python — environment & tooling
 
 **Purpose:** Set the Python version, virtual environment and tooling every project uses.

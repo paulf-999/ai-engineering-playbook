@@ -4,9 +4,7 @@ paths:
   - "**/*.sh"
   - "**/*.sql"
 ---
-<!-- version: 4.0.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Python, shell and SQL files -->
 <!-- miss_cost: medium — code changes ship untested or tests fall out of step -->
 # 🧪 Testing

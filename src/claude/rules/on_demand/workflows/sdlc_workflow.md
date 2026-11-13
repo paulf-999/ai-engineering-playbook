@@ -1,6 +1,4 @@
-<!-- version: 1.2.2 -->
 <!-- created: 2026-11-10 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — a plan skips its intent or spec, and the change drifts from what was wanted -->
 # 🔄 SDLC workflow

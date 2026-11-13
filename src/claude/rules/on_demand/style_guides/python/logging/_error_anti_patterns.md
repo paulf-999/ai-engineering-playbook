@@ -1,6 +1,4 @@
-<!-- version: 1.2.0 -->
 <!-- created: 2026-11-08 -->
-<!-- updated: 2026-11-09 -->
 # ❌ Error handling anti-patterns
 
 **Purpose:** The exception-handling patterns that lose errors or their context, and when to log or re-raise.

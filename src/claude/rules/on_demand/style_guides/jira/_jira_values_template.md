@@ -1,6 +1,4 @@
-<!-- version: 1.0.0 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-05 -->
 # 🧩 Jira values template
 
 **Purpose:** the organisation-specific Jira values the Jira style guide needs, as placeholders to copy and fill in.

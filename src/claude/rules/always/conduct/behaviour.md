@@ -1,6 +1,4 @@
-<!-- version: 2.3.10 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — Claude acts on guesses or claims unchecked work, which needs redoing -->
 # 🛡️ Behaviour

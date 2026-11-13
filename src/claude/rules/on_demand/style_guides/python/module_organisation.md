@@ -1,6 +1,4 @@
-<!-- version: 1.2.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: **/*.py -->
 <!-- miss_cost: low — modules lose their docstrings and clear interfaces -->
 # 📦 Python Module Organisation

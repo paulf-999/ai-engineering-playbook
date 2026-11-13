@@ -1,6 +1,4 @@
-<!-- version: 2.0.3 -->
 <!-- created: 2026-05-20 -->
-<!-- updated: 2026-11-05 -->
 # ✅ Definition of Ready
 
 **Purpose:** Give the validation checklist for Jira tickets before sprint entry.

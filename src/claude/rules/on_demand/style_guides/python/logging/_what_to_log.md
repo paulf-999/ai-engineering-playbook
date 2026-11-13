@@ -1,6 +1,4 @@
-<!-- version: 1.0.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-08 -->
 # ✅ What to Log
 
 **Purpose:** Establish guidelines for useful logging — what information should be logged for debugging.

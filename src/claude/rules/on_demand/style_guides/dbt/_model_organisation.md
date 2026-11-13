@@ -1,6 +1,4 @@
-<!-- version: 1.0.2 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
 # 🗂️ dbt Model Organisation
 
 **Purpose:** Define the four-layer model architecture, folder structure, and the minimum requirements that every dbt model in the project must satisfy.

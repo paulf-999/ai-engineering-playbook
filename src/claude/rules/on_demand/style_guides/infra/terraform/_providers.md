@@ -1,6 +1,4 @@
-<!-- version: 1.1.1 -->
 <!-- created: 2026-10-27 -->
-<!-- updated: 2026-11-05 -->
 # 🔌 Providers
 
 **Purpose:** Set provider version pinning, authentication and preview features, split from [`_structure.md`](_structure.md).

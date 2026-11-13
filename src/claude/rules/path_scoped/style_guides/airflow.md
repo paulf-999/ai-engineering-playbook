@@ -2,9 +2,7 @@
 paths:
   - "**/dags/**/*.py"
 ---
-<!-- version: 1.6.3 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Airflow DAG files -->
 <!-- miss_cost: medium — DAGs fail or retry badly and need reworking -->
 # 🌬️ Airflow Style Guide & Standards

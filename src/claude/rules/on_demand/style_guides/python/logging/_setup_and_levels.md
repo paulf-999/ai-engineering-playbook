@@ -1,6 +1,4 @@
-<!-- version: 1.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-04 -->
 # 🔧 Logger Setup & Log Levels
 
 **Purpose:** Establish logger initialization and log level conventions for different message types.

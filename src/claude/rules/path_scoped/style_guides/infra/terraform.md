@@ -2,9 +2,7 @@
 paths:
   - "**/*.tf"
 ---
-<!-- version: 1.5.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Terraform files -->
 <!-- miss_cost: medium — infrastructure code drifts from the team's layout and needs reworking -->
 # 🏗️ Terraform Style Guide & Standards

@@ -1,6 +1,4 @@
-<!-- version: 1.1.12 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-13 -->
 # 📝 Authoring rules
 
 **Purpose:** how to place, write, wire up and check a new rule for Claude's config.

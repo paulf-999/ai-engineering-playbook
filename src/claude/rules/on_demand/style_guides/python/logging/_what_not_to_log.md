@@ -1,6 +1,4 @@
-<!-- version: 1.0.1 -->
 <!-- created: 2026-11-08 -->
-<!-- updated: 2026-11-08 -->
 # 🚫 What not to log
 
 **Purpose:** What logs must leave out, such as secrets, personal data and full tracebacks, and a security checklist.

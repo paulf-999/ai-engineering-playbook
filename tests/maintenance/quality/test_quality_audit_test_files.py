@@ -24,7 +24,7 @@ def find_test_file(row):
     if target.name.startswith("test_"):
         return row["link"]
 
-    # a script's tests live in the matching test_<name>.py, e.g. bump_file_headers.sh -> test_bump_file_headers.py
+    # a script's tests live in the matching test_<name>.py, e.g. shell_utils.sh -> test_shell_utils.py
     # (lowercased, so the Makefile maps to test_makefile.py)
     test_name = f"test_{target.stem.lower()}.py"
     matches = list((REPO_ROOT / "tests").rglob(test_name))

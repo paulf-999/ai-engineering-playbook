@@ -1,6 +1,4 @@
-<!-- version: 1.0.0 -->
 <!-- created: YYYY-MM-DD -->
-<!-- updated: YYYY-MM-DD -->
 <!-- applies_to: [globs for the files whose sessions need it, or * for every session] -->
 <!-- miss_cost: [high, medium or low] — [what goes wrong if it's missed] -->
 # 🔤 [Rule name]

@@ -1,6 +1,4 @@
-<!-- version: 2.0.6 -->
 <!-- created: 2026-04-11 -->
-<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — dates drift between formats -->
 # 📅 Date & Time Standards
@@ -41,7 +39,7 @@ it makes the timezone explicit and avoids ambiguity.
 
 Use ISO format where dates are machine-readable, sortable, or stored:
 
-- Metadata headers (e.g. the `created` and `updated` comment lines)
+- Metadata headers (e.g. the `created` comment line)
 - Changelog and release note dates
 - Log entries and audit outputs
 - Code files and technical documentation

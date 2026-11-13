@@ -2,9 +2,7 @@
 paths:
   - "**/*.sh"
 ---
-<!-- version: 1.6.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-11 -->
 <!-- applies_to: shell scripts -->
 <!-- miss_cost: medium — scripts fail silently or break on unexpected input -->
 # 🖥️ Bash Style Guide

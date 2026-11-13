@@ -1,6 +1,4 @@
-<!-- version: 1.0.4 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-10 -->
 # 📐 Complexity Metrics
 
 **Purpose:** Explain the cyclomatic and cognitive complexity scores, their thresholds and how to measure them.

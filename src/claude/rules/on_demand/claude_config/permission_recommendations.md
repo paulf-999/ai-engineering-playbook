@@ -1,6 +1,4 @@
-<!-- version: 1.1.0 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: **/settings.json, **/settings.local.json -->
 <!-- miss_cost: high — a broad allowlist lets destructive commands run unasked -->
 # 🔐 Permission recommendations

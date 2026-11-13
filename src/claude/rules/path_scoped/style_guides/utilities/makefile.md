@@ -3,9 +3,7 @@ paths:
   - "**/Makefile"
   - "**/*.mk"
 ---
-<!-- version: 1.3.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Makefiles -->
 <!-- miss_cost: low — Makefiles drift from the house style -->
 # 🛠️ Makefile Style Guide & Standards

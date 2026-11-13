@@ -1,6 +1,4 @@
-<!-- version: 1.0.6 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
 # ⚙️ dbt Macros
 
 **Purpose:** Document the team's custom macros, third-party packages, and the macro directory structure — so engineers know what is available before writing equivalent logic from scratch.

@@ -1,6 +1,4 @@
-<!-- version: 1.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-08 -->
 # 🏷️ Test Naming & Structure
 
 **Purpose:** Establish test naming conventions and test structure patterns for readable, maintainable tests.

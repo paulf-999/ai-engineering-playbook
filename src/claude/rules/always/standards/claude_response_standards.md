@@ -1,6 +1,4 @@
-<!-- version: 4.0.3 -->
 <!-- created: 2026-09-07 -->
-<!-- updated: 2026-11-10 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — replies get slower to scan -->
 # 📝 Response standards

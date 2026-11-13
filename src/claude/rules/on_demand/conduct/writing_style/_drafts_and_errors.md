@@ -1,6 +1,4 @@
-<!-- version: 1.0.0 -->
 <!-- created: 2026-11-04 -->
-<!-- updated: 2026-11-04 -->
 # 📝 Writing style: Drafts and errors
 
 **Purpose:** where to save drafts and error write-ups, and how to name them.

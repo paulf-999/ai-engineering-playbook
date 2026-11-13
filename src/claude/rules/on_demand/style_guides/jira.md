@@ -1,6 +1,4 @@
-<!-- version: 2.1.6 -->
 <!-- created: 2026-05-20 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — tickets miss required fields and need fixing by hand -->
 # 🎫 Jira style guide

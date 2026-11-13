@@ -1,6 +1,4 @@
-<!-- version: 1.0.3 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
 # 📋 Ansible Playbooks
 
 **Purpose:** Set how playbooks are named, foldered, linked and tagged.

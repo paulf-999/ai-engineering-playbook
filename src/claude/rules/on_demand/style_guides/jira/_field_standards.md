@@ -1,6 +1,4 @@
-<!-- version: 2.0.3 -->
 <!-- created: 2026-05-20 -->
-<!-- updated: 2026-11-05 -->
 # 📋 Field Standards
 
 **Purpose:** Set the required fields, default values, custom fields, component conventions, label rules, and the business value field format.

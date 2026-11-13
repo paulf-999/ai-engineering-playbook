@@ -2,9 +2,7 @@
 paths:
   - "**/Dockerfile*"
 ---
-<!-- version: 1.4.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Dockerfiles -->
 <!-- miss_cost: low — images grow larger and slower to build -->
 # 🐳 Docker & Dockerfile Style Guide & Standards

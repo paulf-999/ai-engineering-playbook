@@ -3,9 +3,7 @@ paths:
   - "**/playbooks/**/*.yml"
   - "**/roles/**/*.yml"
 ---
-<!-- version: 1.5.4 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: Ansible playbooks and roles -->
 <!-- miss_cost: medium — playbooks drift from the team's structure and need reworking -->
 # 📦 Ansible Style Guide & Standards

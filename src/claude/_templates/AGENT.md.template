@@ -5,9 +5,7 @@ tools: Read, Grep, Glob  # least privilege — list only the tools the job needs
 model: inherit  # inherit (use the session's model), or an alias such as sonnet, opus or haiku
 isolation: worktree  # only for an agent that changes files; leave it out otherwise
 ---
-<!-- version: 1.0.0 -->
 <!-- created: YYYY-MM-DD -->
-<!-- updated: YYYY-MM-DD -->
 
 # 🎯 [Agent name]
 
@@ -20,7 +18,7 @@ isolation: worktree  # only for an agent that changes files; leave it out otherw
 - `isolation` — `worktree`, the only value, runs the agent in its own git worktree, so leave it out for a read-only agent
 - **Other fields:** Claude Code ignores unrecognised fields without an error, so add one only for people reading the file
 
-**Metadata header** (straight after the frontmatter): `version`, `created`, `updated`, each an HTML comment such as `<!-- version: 1.0.0 -->`.
+**Metadata header** (straight after the frontmatter): a `created` line, as an HTML comment such as `<!-- created: 2026-11-13 -->`.
 
 ---
 
@@ -140,7 +138,7 @@ Link to supporting documentation:
 
 ## Creating your agent — Next steps
 
-1. **Fill in frontmatter** — name, description, tools and model, then the version/created/updated header
+1. **Fill in frontmatter** — name, description, tools and model, then the `created` header
 2. **Write Purpose** — one-liner value prop
 3. **Write When to use** — concrete scenarios + NOT use cases
 4. **Write Role & Principles** — persona (3-5 lines) + 5-7 core principles

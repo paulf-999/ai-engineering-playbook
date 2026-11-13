@@ -1,6 +1,4 @@
-<!-- version: 1.1.2 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-13 -->
 # 🤖 Authoring agents
 
 **Purpose:** when to build an agent for Claude's config, and how to write and check one.

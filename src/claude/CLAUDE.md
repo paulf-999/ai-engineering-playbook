@@ -1,6 +1,4 @@
-<!-- version: 1.4.4 -->
 <!-- created: 2026-10-31 -->
-<!-- updated: 2026-11-13 -->
 # 🧠 Global Claude configuration
 
 ## 🧭 Behavioural Guidelines

@@ -12,32 +12,32 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `CLAUDE.md` | ~535 |
-| 2 | `rules/always/conduct/behaviour.md` | ~312 |
+| 1 | `CLAUDE.md` | ~534 |
+| 2 | `rules/always/conduct/behaviour.md` | ~311 |
 | 3 | `rules/always/conduct/security.md` | ~203 |
-| 4 | `rules/always/conduct/writing_style.md` | ~311 |
+| 4 | `rules/always/conduct/writing_style.md` | ~310 |
 | 5 | `rules/always/standards/claude_response_standards.md` | ~218 |
 | 6 | `rules/always/standards/naming_standards.md` | ~247 |
 | 7 | `rules/always/workflows/claude_plans.md` | ~176 |
-| | **Subtotal** | **~2004** |
+| | **Subtotal** | **~2001** |
 
 ## 📂 Path-scoped rules
 
 | # | File | Globs | Tokens |
 |---|---|---|---|
 | 1 | `rules/path_scoped/code_security.md` | `**/*.py`, `**/*.sh`, `**/*.sql`, `**/*.js`, `**/*.ts` | ~195 |
-| 2 | `rules/path_scoped/style_guides/airflow.md` | `**/dags/**/*.py` | ~321 |
+| 2 | `rules/path_scoped/style_guides/airflow.md` | `**/dags/**/*.py` | ~320 |
 | 3 | `rules/path_scoped/style_guides/bash.md` | `**/*.sh` | ~352 |
-| 4 | `rules/path_scoped/style_guides/dbt.md` | `**/models/**/*.sql`, `**/models/**/*.yml`, `**/dbt_project.yml` | ~405 |
+| 4 | `rules/path_scoped/style_guides/dbt.md` | `**/models/**/*.sql`, `**/models/**/*.yml`, `**/dbt_project.yml` | ~404 |
 | 5 | `rules/path_scoped/style_guides/infra/ansible.md` | `**/playbooks/**/*.yml`, `**/roles/**/*.yml` | ~459 |
-| 6 | `rules/path_scoped/style_guides/infra/docker.md` | `**/Dockerfile*` | ~129 |
-| 7 | `rules/path_scoped/style_guides/infra/terraform.md` | `**/*.tf` | ~438 |
+| 6 | `rules/path_scoped/style_guides/infra/docker.md` | `**/Dockerfile*` | ~128 |
+| 7 | `rules/path_scoped/style_guides/infra/terraform.md` | `**/*.tf` | ~437 |
 | 8 | `rules/path_scoped/style_guides/python.md` | `**/*.py` | ~419 |
-| 9 | `rules/path_scoped/style_guides/sql.md` | `**/*.sql` | ~316 |
+| 9 | `rules/path_scoped/style_guides/sql.md` | `**/*.sql` | ~315 |
 | 10 | `rules/path_scoped/style_guides/utilities/makefile.md` | `**/Makefile`, `**/*.mk` | ~233 |
 | 11 | `rules/path_scoped/style_guides/utilities/mermaid.md` | `**/*.mmd` | ~184 |
-| 12 | `rules/path_scoped/testing.md` | `**/*.py`, `**/*.sh`, `**/*.sql` | ~202 |
-| | **Subtotal** | | **~3657** |
+| 12 | `rules/path_scoped/testing.md` | `**/*.py`, `**/*.sh`, `**/*.sql` | ~201 |
+| | **Subtotal** | | **~3651** |
 
 ## 💤 On demand
 
@@ -46,82 +46,82 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `README.md` | ~743 |
 | 2 | `_templates/README.md` | ~786 |
 | 3 | `rules/on_demand/claude_config/authoring_guidelines.md` | ~367 |
-| 4 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~407 |
-| 5 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~507 |
-| 6 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~471 |
+| 4 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_agents.md` | ~406 |
+| 5 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_rules.md` | ~506 |
+| 6 | `rules/on_demand/claude_config/authoring_guidelines/_authoring_skills.md` | ~470 |
 | 7 | `rules/on_demand/claude_config/claude_naming_patterns.md` | ~185 |
 | 8 | `rules/on_demand/claude_config/guiding_principles.md` | ~397 |
-| 9 | `rules/on_demand/claude_config/permission_recommendations.md` | ~182 |
+| 9 | `rules/on_demand/claude_config/permission_recommendations.md` | ~181 |
 | 10 | `rules/on_demand/claude_config/portable_paths.md` | ~189 |
 | 11 | `rules/on_demand/claude_config/turn_budgets.md` | ~174 |
 | 12 | `rules/on_demand/conduct/automation_controls.md` | ~717 |
 | 13 | `rules/on_demand/conduct/reporting.md` | ~174 |
 | 14 | `rules/on_demand/conduct/todo_logging.md` | ~179 |
-| 15 | `rules/on_demand/conduct/writing_style/_audience_and_depth.md` | ~324 |
+| 15 | `rules/on_demand/conduct/writing_style/_audience_and_depth.md` | ~323 |
 | 16 | `rules/on_demand/conduct/writing_style/_drafts_and_errors.md` | ~199 |
 | 17 | `rules/on_demand/conduct/writing_style/_markdown_layout.md` | ~264 |
 | 18 | `rules/on_demand/style_guides/airflow/_best_practices.md` | ~1071 |
-| 19 | `rules/on_demand/style_guides/airflow/_dag_configuration.md` | ~609 |
+| 19 | `rules/on_demand/style_guides/airflow/_dag_configuration.md` | ~608 |
 | 20 | `rules/on_demand/style_guides/airflow/_dag_design.md` | ~876 |
 | 21 | `rules/on_demand/style_guides/airflow/_tasks_and_operators.md` | ~1077 |
 | 22 | `rules/on_demand/style_guides/dbt/_macros.md` | ~779 |
-| 23 | `rules/on_demand/style_guides/dbt/_model_organisation.md` | ~1034 |
+| 23 | `rules/on_demand/style_guides/dbt/_model_organisation.md` | ~1033 |
 | 24 | `rules/on_demand/style_guides/dbt/_naming_conventions.md` | ~969 |
 | 25 | `rules/on_demand/style_guides/dbt/_snapshots.md` | ~523 |
-| 26 | `rules/on_demand/style_guides/dbt/_yaml_resource_properties.md` | ~558 |
-| 27 | `rules/on_demand/style_guides/infra/ansible/_playbooks.md` | ~679 |
+| 26 | `rules/on_demand/style_guides/dbt/_yaml_resource_properties.md` | ~557 |
+| 27 | `rules/on_demand/style_guides/infra/ansible/_playbooks.md` | ~678 |
 | 28 | `rules/on_demand/style_guides/infra/ansible/_repo_structure.md` | ~456 |
-| 29 | `rules/on_demand/style_guides/infra/ansible/_roles_and_tasks.md` | ~1036 |
+| 29 | `rules/on_demand/style_guides/infra/ansible/_roles_and_tasks.md` | ~1035 |
 | 30 | `rules/on_demand/style_guides/infra/ansible/_variables.md` | ~795 |
 | 31 | `rules/on_demand/style_guides/infra/docker/_advanced.md` | ~768 |
-| 32 | `rules/on_demand/style_guides/infra/docker/_fundamentals.md` | ~444 |
+| 32 | `rules/on_demand/style_guides/infra/docker/_fundamentals.md` | ~443 |
 | 33 | `rules/on_demand/style_guides/infra/terraform/_ci_and_tooling.md` | ~603 |
-| 34 | `rules/on_demand/style_guides/infra/terraform/_conventions.md` | ~571 |
+| 34 | `rules/on_demand/style_guides/infra/terraform/_conventions.md` | ~570 |
 | 35 | `rules/on_demand/style_guides/infra/terraform/_declarations.md` | ~609 |
 | 36 | `rules/on_demand/style_guides/infra/terraform/_modules.md` | ~740 |
 | 37 | `rules/on_demand/style_guides/infra/terraform/_providers.md` | ~535 |
 | 38 | `rules/on_demand/style_guides/infra/terraform/_structure.md` | ~613 |
-| 39 | `rules/on_demand/style_guides/jira.md` | ~345 |
+| 39 | `rules/on_demand/style_guides/jira.md` | ~344 |
 | 40 | `rules/on_demand/style_guides/jira/_business_value.md` | ~898 |
-| 41 | `rules/on_demand/style_guides/jira/_definition_of_ready.md` | ~272 |
+| 41 | `rules/on_demand/style_guides/jira/_definition_of_ready.md` | ~271 |
 | 42 | `rules/on_demand/style_guides/jira/_field_standards.md` | ~662 |
-| 43 | `rules/on_demand/style_guides/jira/_jira_values_template.md` | ~359 |
-| 44 | `rules/on_demand/style_guides/jira/_sprint_planning.md` | ~586 |
-| 45 | `rules/on_demand/style_guides/jira/_ticket_conventions.md` | ~573 |
-| 46 | `rules/on_demand/style_guides/python/_comments.md` | ~258 |
-| 47 | `rules/on_demand/style_guides/python/_python_environment.md` | ~478 |
+| 43 | `rules/on_demand/style_guides/jira/_jira_values_template.md` | ~358 |
+| 44 | `rules/on_demand/style_guides/jira/_sprint_planning.md` | ~585 |
+| 45 | `rules/on_demand/style_guides/jira/_ticket_conventions.md` | ~572 |
+| 46 | `rules/on_demand/style_guides/python/_comments.md` | ~257 |
+| 47 | `rules/on_demand/style_guides/python/_python_environment.md` | ~477 |
 | 48 | `rules/on_demand/style_guides/python/code_complexity.md` | ~372 |
 | 49 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md` | ~300 |
-| 50 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~335 |
-| 51 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~459 |
-| 52 | `rules/on_demand/style_guides/python/logging.md` | ~339 |
+| 50 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md` | ~334 |
+| 51 | `rules/on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md` | ~458 |
+| 52 | `rules/on_demand/style_guides/python/logging.md` | ~338 |
 | 53 | `rules/on_demand/style_guides/python/logging/_error_anti_patterns.md` | ~639 |
 | 54 | `rules/on_demand/style_guides/python/logging/_error_handling.md` | ~669 |
 | 55 | `rules/on_demand/style_guides/python/logging/_setup_and_levels.md` | ~854 |
-| 56 | `rules/on_demand/style_guides/python/logging/_what_not_to_log.md` | ~704 |
+| 56 | `rules/on_demand/style_guides/python/logging/_what_not_to_log.md` | ~703 |
 | 57 | `rules/on_demand/style_guides/python/logging/_what_to_log.md` | ~417 |
 | 58 | `rules/on_demand/style_guides/python/module_organisation.md` | ~372 |
 | 59 | `rules/on_demand/style_guides/python/module_organisation/_constants.md` | ~376 |
-| 60 | `rules/on_demand/style_guides/python/module_organisation/_docstrings.md` | ~222 |
+| 60 | `rules/on_demand/style_guides/python/module_organisation/_docstrings.md` | ~221 |
 | 61 | `rules/on_demand/style_guides/python/module_organisation/_metadata_and_ordering.md` | ~417 |
-| 62 | `rules/on_demand/style_guides/python/module_organisation/_public_private.md` | ~590 |
-| 63 | `rules/on_demand/style_guides/python/testing.md` | ~313 |
-| 64 | `rules/on_demand/style_guides/python/testing/_assertions.md` | ~500 |
+| 62 | `rules/on_demand/style_guides/python/module_organisation/_public_private.md` | ~589 |
+| 63 | `rules/on_demand/style_guides/python/testing.md` | ~312 |
+| 64 | `rules/on_demand/style_guides/python/testing/_assertions.md` | ~499 |
 | 65 | `rules/on_demand/style_guides/python/testing/_fixtures_mocking.md` | ~745 |
-| 66 | `rules/on_demand/style_guides/python/testing/_naming_structure.md` | ~593 |
+| 66 | `rules/on_demand/style_guides/python/testing/_naming_structure.md` | ~592 |
 | 67 | `rules/on_demand/style_guides/sql/_cost_guardrails.md` | ~148 |
-| 68 | `rules/on_demand/style_guides/sql/_cte_style_guide.md` | ~523 |
+| 68 | `rules/on_demand/style_guides/sql/_cte_style_guide.md` | ~522 |
 | 69 | `rules/on_demand/style_guides/sql/_formatting.md` | ~930 |
-| 70 | `rules/on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~481 |
-| 71 | `rules/on_demand/style_guides/sql/_sqlfluff.md` | ~432 |
-| 72 | `rules/on_demand/style_guides/utilities/datetime.md` | ~463 |
-| 73 | `rules/on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~142 |
-| 74 | `rules/on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~529 |
-| 75 | `rules/on_demand/style_guides/utilities/mermaid/_advanced.md` | ~542 |
-| 76 | `rules/on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~414 |
+| 70 | `rules/on_demand/style_guides/sql/_snowflake_data_type_standards.md` | ~480 |
+| 71 | `rules/on_demand/style_guides/sql/_sqlfluff.md` | ~431 |
+| 72 | `rules/on_demand/style_guides/utilities/datetime.md` | ~459 |
+| 73 | `rules/on_demand/style_guides/utilities/makefile/_naming_conventions.md` | ~141 |
+| 74 | `rules/on_demand/style_guides/utilities/makefile/_variables_operators_and_commands.md` | ~528 |
+| 75 | `rules/on_demand/style_guides/utilities/mermaid/_advanced.md` | ~541 |
+| 76 | `rules/on_demand/style_guides/utilities/mermaid/_fundamentals.md` | ~413 |
 | 77 | `rules/on_demand/testing/_testing_anti_patterns.md` | ~692 |
-| 78 | `rules/on_demand/testing/_testing_design_pattern.md` | ~473 |
+| 78 | `rules/on_demand/testing/_testing_design_pattern.md` | ~472 |
 | 79 | `rules/on_demand/workflows/git.md` | ~325 |
-| 80 | `rules/on_demand/workflows/saving_plans.md` | ~235 |
-| 81 | `rules/on_demand/workflows/sdlc_workflow.md` | ~255 |
-| | **Subtotal** | **~41872** |
+| 80 | `rules/on_demand/workflows/saving_plans.md` | ~234 |
+| 81 | `rules/on_demand/workflows/sdlc_workflow.md` | ~254 |
+| | **Subtotal** | **~41828** |

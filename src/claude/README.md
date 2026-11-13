@@ -1,6 +1,4 @@
-<!-- version: 1.0.9 -->
 <!-- created: 2026-11-09 -->
-<!-- updated: 2026-11-13 -->
 # 🧠 Claude config
 
 **Purpose:** a high-level map of the Claude Code config in this folder, for someone new to the repo.

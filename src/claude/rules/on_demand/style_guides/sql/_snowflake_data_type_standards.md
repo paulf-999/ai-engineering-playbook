@@ -1,6 +1,4 @@
-<!-- version: 1.0.2 -->
 <!-- created: 2026-04-08 -->
-<!-- updated: 2026-11-05 -->
 # ❄️ Snowflake Data Type Standards
 
 **Purpose:** Define a simple, consistent standard for selecting Snowflake data types across all projects.

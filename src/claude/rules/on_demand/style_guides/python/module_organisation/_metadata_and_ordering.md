@@ -1,6 +1,4 @@
-<!-- version: 1.0.1 -->
 <!-- created: 2026-11-08 -->
-<!-- updated: 2026-11-08 -->
 # 🏷️ Module metadata and function ordering
 
 **Purpose:** The metadata a module declares after its docstring, and the order its functions go in.

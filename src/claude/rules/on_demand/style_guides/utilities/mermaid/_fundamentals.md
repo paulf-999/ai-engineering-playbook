@@ -1,6 +1,4 @@
-<!-- version: 1.0.2 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-05 -->
 # 🔀 Mermaid Fundamentals
 
 **Purpose:** Set when and where to add a diagram, at what level, and in which direction.

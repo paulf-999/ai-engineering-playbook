@@ -1,6 +1,4 @@
-<!-- version: 3.0.11 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-13 -->
 <!-- applies_to: src/claude/**, **/.claude/** -->
 <!-- miss_cost: medium — a new rule, skill or agent drifts from the house structure -->
 # 🛠️ Authoring guidelines

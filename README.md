@@ -1,4 +1,4 @@
-<!-- version: 2.3.13 -->
+<!-- version: 2.3.14 -->
 <!-- created: 2022-11-04 -->
 <!-- updated: 2026-11-13 -->
 # 🧭 AI Engineering Playbook
@@ -32,7 +32,7 @@ Claude Code reads instruction files before it works. A few of these apply to eve
 
 - A boilerplate [`CLAUDE.md`](src/claude/CLAUDE.md) to use as your own, the main instructions file Claude Code reads in every session
 - [Rules](src/claude/rules/_rules_on_demand/03_workflows/sdlc_workflow.md) that take each change through the stages of Anthropic's [AI-native software development lifecycle (AI-SDLC)](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md): why it matters, what to build, the plan, building and testing, then review
-- The [design](docs/target_architecture/target_architecture.md) behind it, with its [principles](docs/target_architecture/design_principles.md) and the [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md), Google's DevOps research programme, that it draws on
+- The [design](docs/target_architecture/target_architecture.md) behind it, with its [principles](docs/target_architecture/design_principles.md) and the [research from Anthropic and DORA (Google's DevOps research programme)](docs/target_architecture/reference_material/README.md) that it draws on
 - Automatic [checks](.github/workflows/ci.yml) that stop the every-task instructions growing too long
 
 ---

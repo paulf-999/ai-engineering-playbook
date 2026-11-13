@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.5.1
+# version: 1.5.2
 # created: 2026-11-02
 # updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -55,15 +55,15 @@ has_evaluation_criteria() {
     section "Evaluation Criteria" | grep -E '^([-*] |\|)' | grep -qvE '^\|[-: |]+\|$'
 }
 
-# Succeed if the spec section has a line that isn't blank or part of the template's show/hide wrapper and info note
+# Succeed if the spec section has a line that isn't blank or part of the template's note or show/hide wrapper
 has_spec() {
     # shellcheck disable=SC2016  # the backticks are a literal grep pattern, not a command
-    section "${SPEC_HEADING}" | grep -vE '^ *(</?(details|summary)>|> .*What is `spec\.md`)' \
+    section "${SPEC_HEADING}" | grep -vE '^ *(</?(details|summary)>|> \[!NOTE\]$|> .*What is `spec\.md`)' \
         | grep -q '[^[:space:]]'
 }
 
 # Print each square-bracket placeholder left in the section whose heading contains $1, one per line
-# inline code, links, checkboxes and alert markers such as [!TIP] are removed first, since they're real content
+# inline code, links, checkboxes and alert markers such as [!NOTE] are removed first, since they're real content
 placeholders() {
     # shellcheck disable=SC2016  # the backticks are a literal sed pattern, not a command
     section "${1}" | sed -E 's/`[^`]*`//g; s/\[[^]]*\]\([^)]*\)//g; s/\[![A-Z]+\]//g; s/\[[ xX]\]//g' \

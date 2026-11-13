@@ -1,4 +1,4 @@
-# version: 1.5.1
+# version: 1.5.2
 # created: 2026-11-02
 # updated: 2026-11-13
 """Tests for the PR description check, which makes a PR that changes src/claude/ answer the evaluation criteria."""
@@ -126,10 +126,10 @@ def test_unfilled_criteria_reason_lists_each_placeholder():
 
 # a heading still in the older sentence case, which matches too
 OLD_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:** blocks a stop once.\n"
-# the template's show/hide wrapper and info note, which authors keep, so they aren't an answer on their own
+# the template's note and show/hide wrapper, which authors keep, so they aren't an answer on their own
 SPEC_DETAILS = (
-    "<details>\n<summary>Approved plan's spec</summary>\n\n"
-    "> ℹ️ **What is `spec.md`?** The approved plan's requirements and design.\n\n</details>\n"
+    "> [!NOTE]\n> **What is `spec.md`?** The approved plan's requirements and design.\n\n"
+    "<details>\n<summary>Approved plan's spec</summary>\n\n</details>\n"
 )
 FILLED_DETAILS = SPEC_DETAILS.replace("</details>", "- **Hook:** blocks a stop once.\n\n</details>")
 SPEC_PLACEHOLDER = SPEC_HEADING + "[Paste the change's spec.md.]\n"

@@ -21,7 +21,7 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
-> [!TIP]
+> [!NOTE]
 > **✅ Adequately tested:** [one-sentence verdict, such as "`make test` and pre-commit pass, with new cases for the change". If testing has gaps, use `> [!WARNING]` and **⚠️ Testing gaps:** instead.]
 
 <details>
@@ -34,10 +34,11 @@ Choose one:
 
 ## :robot: Claude: Plan Spec (spec.md) - Requirements and Design
 
+> [!NOTE]
+> **What is `spec.md`?** The requirements and design from Claude's approved plan, which the diff is built to.
+
 <details>
 <summary>Approved plan's spec</summary>
-
-> ℹ️ **What is `spec.md`?** The requirements and design from Claude's approved plan, which the diff is built to.
 
 [For a `src/claude/` change, paste its `spec.md`, so a reviewer can check the diff against it. Otherwise, say "Not applicable" and why.]
 
@@ -45,8 +46,11 @@ Choose one:
 
 ## :balance_scale: Claude: Evaluation Criteria for Claude Config Changes
 
-> [!TIP]
+> [!NOTE]
 > **✅ Safe to approve:** [one-sentence verdict, such as "no red flags; always-on context unchanged". If a red flag is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]
+
+<details>
+<summary>Criteria results</summary>
 
 [Needed when the PR changes `src/claude/`, filled by a fresh-context reviewer agent given only the diff and the criteria. Add a row for each ❌ Misaligned standard. Keep each Why under 10 words. Otherwise, replace this section's content with "Not applicable".]
 
@@ -58,6 +62,8 @@ Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engine
 | :test_tube: Clean exit | [✅ or ❌] | [how one small PR would remove it] |
 
 All other standards ✅ Aligned. Trial ⏳ due at the next review.
+
+</details>
 
 ## :bulb: Best Practices
 

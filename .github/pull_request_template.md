@@ -21,6 +21,9 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
+> [!NOTE]
+> **What goes here?** How you checked the change works, such as the tests or checks you ran and what they showed.
+
 <details>
 <summary>Testing checklist</summary>
 

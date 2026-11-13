@@ -1,6 +1,6 @@
-# version: 1.3.0
+# version: 1.5.2
 # created: 2026-11-02
-# updated: 2026-11-11
+# updated: 2026-11-13
 """Tests for the PR description check, which makes a PR that changes src/claude/ answer the evaluation criteria."""
 
 import os
@@ -45,6 +45,9 @@ CRITERIA = (
     "- :toolbox: **Shape:** on demand.\n- :test_tube: **Working:** trial at the next review.\n"
 )
 PLACEHOLDER = "\n## :balance_scale: Evaluation criteria\n\n[Three bullets, one per stage.]\n"
+# the Spec section's heading, and a filled Spec section, which a config PR also needs
+SPEC_HEADING = "\n## :robot: Claude: Plan Spec (spec.md) - Requirements and Design\n\n"
+SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
 
 
 # MoSCoW: Must — a PR changing the installed Claude config must answer the evaluation criteria
@@ -52,7 +55,9 @@ PLACEHOLDER = "\n## :balance_scale: Evaluation criteria\n\n[Three bullets, one p
     ("description", "changed_files", "expected_code"),
     [
         # a config change with answered criteria passes
-        (DETAILS + bullets(5) + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
+        (DETAILS + bullets(5) + SPEC + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
+        # headings match whatever their case, so a Title Case heading passes
+        (DETAILS + bullets(1) + SPEC + CRITERIA.replace("criteria", "Criteria", 1) + NEXT_SECTION, CONFIG_FILE, 0),
         # a config change without the section fails
         (DETAILS + bullets(4) + NEXT_SECTION, CONFIG_FILE, 1),
         # the section must hold a top-level bullet, not just the template's placeholder or child bullets
@@ -70,7 +75,7 @@ def test_config_changes_require_evaluation_criteria(description, changed_files, 
     result = run_check(description, changed_files)
     assert result.returncode == expected_code, result.stdout
     if expected_code == 1:
-        assert "Evaluation criteria" in result.stdout, f"the reason should name the missing section: {result.stdout}"
+        assert "Evaluation Criteria" in result.stdout, f"the reason should name the missing section: {result.stdout}"
 
 
 TABLE_HEADER = "| Review area | Standard | Result | Why |\n|---|---|---|---|\n"
@@ -95,7 +100,7 @@ SEPARATOR_ONLY = "\n## :balance_scale: Evaluation criteria\n\n|---|---|\n"
         # the template's table and callout left as they are fail
         (DETAILS + bullets(1) + TEMPLATE_CRITERIA + NEXT_SECTION, CONFIG_FILE, 1),
         # a filled table passes, with links, inline code, checkboxes and the alert marker allowed
-        (DETAILS + bullets(1) + FILLED_CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
+        (DETAILS + bullets(1) + SPEC + FILLED_CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
         # a table separator alone holds no answer
         (DETAILS + bullets(1) + SEPARATOR_ONLY + NEXT_SECTION, CONFIG_FILE, 1),
         # a PR that doesn't touch src/claude/ isn't checked for placeholders
@@ -107,7 +112,7 @@ def test_config_changes_reject_unfilled_criteria(description, changed_files, exp
     result = run_check(description, changed_files)
     assert result.returncode == expected_code, result.stdout
     if expected_code == 1:
-        assert "Evaluation criteria" in result.stdout, f"the reason should name the section: {result.stdout}"
+        assert "Evaluation Criteria" in result.stdout, f"the reason should name the section: {result.stdout}"
 
 
 # MoSCoW: Must — the reason must name each placeholder left in, so the author knows what to fill
@@ -117,3 +122,40 @@ def test_unfilled_criteria_reason_lists_each_placeholder():
     assert result.returncode == 1, result.stdout
     for placeholder in ("[one sentence saying why.]", "[✅ Aligned or ❌ Misaligned]", "[why]"):
         assert placeholder in result.stdout, f"the reason should list {placeholder}: {result.stdout}"
+
+
+# a heading still in the older sentence case, which matches too
+OLD_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:** blocks a stop once.\n"
+# the template's note and show/hide wrapper, which authors keep, so they aren't an answer on their own
+SPEC_DETAILS = (
+    "> [!NOTE]\n> **What is `spec.md`?** The approved plan's requirements and design.\n\n"
+    "<details>\n<summary>Approved plan's spec</summary>\n\n</details>\n"
+)
+FILLED_DETAILS = SPEC_DETAILS.replace("</details>", "- **Hook:** blocks a stop once.\n\n</details>")
+SPEC_PLACEHOLDER = SPEC_HEADING + "[Paste the change's spec.md.]\n"
+
+
+# MoSCoW: Must — a reviewer can only check a config PR against its spec if the PR carries one
+@pytest.mark.parametrize(
+    ("spec", "changed_files", "expected_code"),
+    [
+        # a filled spec, a stated "Not applicable", an older sentence-case heading or a spec in the wrapper passes
+        (SPEC, CONFIG_FILE, 0),
+        (SPEC_HEADING + "Not applicable: a typo fix.\n", CONFIG_FILE, 0),
+        (OLD_SPEC, CONFIG_FILE, 0),
+        (SPEC_HEADING + FILLED_DETAILS, CONFIG_FILE, 0),
+        # a missing, empty or unfilled spec fails a config PR, as does the wrapper and callout alone
+        ("", CONFIG_FILE, 1),
+        (SPEC_HEADING, CONFIG_FILE, 1),
+        (SPEC_PLACEHOLDER, CONFIG_FILE, 1),
+        (SPEC_HEADING + SPEC_DETAILS, CONFIG_FILE, 1),
+        # a PR that doesn't touch src/claude/ needs no spec
+        ("", "docs/other.md", 0),
+    ],
+)
+def test_config_changes_require_a_spec(spec, changed_files, expected_code):
+    """A PR that changes src/claude/ must fill the Spec section, so the reviewer can check the diff against it."""
+    result = run_check(DETAILS + bullets(1) + spec + CRITERIA + NEXT_SECTION, changed_files)
+    assert result.returncode == expected_code, result.stdout
+    if expected_code == 1:
+        assert "Plan Spec" in result.stdout, f"the reason should name the spec section: {result.stdout}"

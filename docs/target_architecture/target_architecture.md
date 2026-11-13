@@ -1,4 +1,4 @@
-<!-- version: 1.9.1 -->
+<!-- version: 1.9.4 -->
 <!-- created: 2026-11-02 -->
 <!-- updated: 2026-11-13 -->
 # 🏗️ Target architecture
@@ -39,9 +39,9 @@ The design takes these plays, the course's recommended practices, from the [SDLC
 | Play | In this design | Signal at each review | Source |
 |---|---|---|---|
 | 🗺️ **Plan first** | Plan mode, with each approved plan saved to its own folder in `_plans/active/` in the Claude config directory, outside any repo | Few PRs need a follow-up fix PR | [Plan mode as the default](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
-| 📝 **Intent and spec** | Each plan opens with Intent and Spec sections, which become the change's `intent.md` and `spec.md` once the plan is approved | Plans rarely change scope after approval | [Capture as intent.md, and Requirements and design](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 📝 **Intent and spec** | Each plan opens with Intent and Spec sections, which become the change's `intent.md` and `spec.md` once the plan is approved, and the spec is pasted into the PR so the reviewer can check the diff against it | Plans rarely change scope after approval | [Capture as intent.md, and Requirements and design](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🔁 **Feedback loop** | `make test` and `pre-commit run --all-files`, which define done in [`CLAUDE.md`](../../CLAUDE.md), and a [Stop hook](../../src/claude/hooks/hook_enforcement_done_checks.sh) that sends Claude back once to run them after files change | Most PRs pass CI on the first push | [Give Claude a feedback loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
-| 👀 **PR review loop** | A fresh-context reviewer agent fills each config PR's evaluation criteria in place of a `REVIEW.md`, and a CI check confirms they're answered | Red flags are caught before merge | [AI in the PR review loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
+| 👀 **PR review loop** | A fresh-context reviewer agent fills each config PR's evaluation criteria in place of a `REVIEW.md`, and a CI check confirms they and the PR's Plan Spec are answered | Red flags are caught before merge | [AI in the PR review loop](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🧪 **Evals** | Deferred until their API cost and upkeep are weighed | None while deferred | [Continuous evals in CI](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 | 🚀 **CI/CD metrics** | Out of scope, since the repo has no deployed service | None while out of scope | [CI/CD integration, and Closing the loop on metrics](reference_material/core/anthropic_ai_native_sdlc/02_plays_by_stage.md) |
 

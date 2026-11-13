@@ -1,6 +1,6 @@
-<!-- version: 1.1.1 -->
+<!-- version: 1.2.2 -->
 <!-- created: 2026-11-10 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: medium — a plan skips its intent or spec, and the change drifts from what was wanted -->
 # 🔄 SDLC workflow
@@ -11,4 +11,4 @@
 - 📐 **Spec:** follow with a Spec section on the requirements and design, agreed before building, which becomes its `spec.md`.
 - 🗺️ **Plan:** then give the steps, each with its check as `CLAUDE.md`'s "Plan with checks" asks, and refine the plan until someone new to the repo could build from it alone.
 - 🔁 **Feedback loop:** run the repo's test command, such as `make test`, before calling a step done, and fix what fails rather than skip it.
-- 👀 **Review:** before merge, check the PR's diff against the change's `spec.md`.
+- 👀 **Review:** paste the change's `spec.md` into the PR's "Plan Spec" section, then before merge check the diff against it.

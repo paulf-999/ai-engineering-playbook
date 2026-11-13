@@ -28,7 +28,7 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 
 A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it.
 
-Inside `on_demand/`, the `02_conduct/` and `03_workflows/` folders hold the detail that the every-session rules in the folders of the same name point to.
+Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `02_conduct/` and `03_workflows/` point to.
 
 ## 🛠️ Changing it
 

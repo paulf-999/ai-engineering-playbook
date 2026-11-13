@@ -30,7 +30,7 @@ Claude reads only the instructions each task needs, so it stays fast and focused
 
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
 - 🔬 **Research-led:** every part of the [design](docs/target_architecture/target_architecture.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).
-- 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/on_demand/03_workflows/sdlc_workflow.md) before coding, then checks the result against that plan, following [Anthropic's AI-native software development lifecycle](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md).
+- 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/on_demand/workflows/sdlc_workflow.md) before coding, then checks the result against that plan, following [Anthropic's AI-native software development lifecycle](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md).
 - ✅ **Stays lean:** automatic [checks](.github/workflows/ci.yml) stop the always-read instructions growing.
 
 ---

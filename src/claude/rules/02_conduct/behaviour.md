@@ -1,4 +1,4 @@
-<!-- version: 2.3.9 -->
+<!-- version: 2.3.10 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
@@ -17,7 +17,7 @@
 
 ## 📚 Read on demand
 
-- `on_demand/02_conduct/automation_controls.md`, in your Claude config directory, before proposing or starting a loop, such as `/loop`, `/goal`, `/batch` or a multi-agent workflow.
-- `on_demand/03_workflows/git.md`, before running any git command.
-- `on_demand/02_conduct/reporting.md`, before saying a task is done, or once a task spans many files or turns.
-- `on_demand/02_conduct/todo_logging.md`, when the user asks to add something to their TODOs.
+- `on_demand/conduct/automation_controls.md`, in your Claude config directory, before proposing or starting a loop, such as `/loop`, `/goal`, `/batch` or a multi-agent workflow.
+- `on_demand/workflows/git.md`, before running any git command.
+- `on_demand/conduct/reporting.md`, before saying a task is done, or once a task spans many files or turns.
+- `on_demand/conduct/todo_logging.md`, when the user asks to add something to their TODOs.

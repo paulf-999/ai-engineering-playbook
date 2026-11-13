@@ -1,4 +1,4 @@
-<!-- version: 1.0.5 -->
+<!-- version: 1.0.6 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-13 -->
 # 🧠 Claude config
@@ -27,6 +27,8 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 | 💤 `on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there, since the install moves this folder out of `rules/` |
 
 A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it.
+
+Inside `on_demand/`, the `02_conduct/` and `03_workflows/` folders hold the detail that the every-session rules in the folders of the same name point to.
 
 ## 🛠️ Changing it
 

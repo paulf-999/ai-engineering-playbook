@@ -1,4 +1,4 @@
-# version: 1.5.2
+# version: 1.5.3
 # created: 2026-11-02
 # updated: 2026-11-13
 """Tests for the PR description check, which makes a PR that changes src/claude/ answer the evaluation criteria."""
@@ -12,6 +12,9 @@ from _paths import REPO_ROOT, SCRIPTS_DIR
 SCRIPT = SCRIPTS_DIR / "git" / "git_validate_pr_description.sh"
 DETAILS = "## :mag: (Optional) Additional Details\n\n"
 NEXT_SECTION = "\n## :hammer_and_wrench: Type of PR Change\n\n- [x] Documentation\n"
+# the section names the script's reasons quote, kept here so renaming a section changes one line
+CRITERIA_NAME = "Evaluation Criteria"
+SPEC_NAME = "Plan Spec"
 
 
 def run_check(description, changed_files=""):
@@ -73,9 +76,9 @@ SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
 def test_config_changes_require_evaluation_criteria(description, changed_files, expected_code):
     """Only a PR that changes src/claude/ must answer the Evaluation criteria section with a bullet."""
     result = run_check(description, changed_files)
-    assert result.returncode == expected_code, result.stdout
+    assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
-        assert "Evaluation Criteria" in result.stdout, f"the reason should name the missing section: {result.stdout}"
+        assert CRITERIA_NAME in result.stdout, f"the reason should name the missing section: {result.stdout}"
 
 
 TABLE_HEADER = "| Review area | Standard | Result | Why |\n|---|---|---|---|\n"
@@ -110,18 +113,9 @@ SEPARATOR_ONLY = "\n## :balance_scale: Evaluation criteria\n\n|---|---|\n"
 def test_config_changes_reject_unfilled_criteria(description, changed_files, expected_code):
     """A config PR whose Evaluation criteria still holds the template's placeholders, or no answer, exits 1."""
     result = run_check(description, changed_files)
-    assert result.returncode == expected_code, result.stdout
+    assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
-        assert "Evaluation Criteria" in result.stdout, f"the reason should name the section: {result.stdout}"
-
-
-# MoSCoW: Must — the reason must name each placeholder left in, so the author knows what to fill
-def test_unfilled_criteria_reason_lists_each_placeholder():
-    """The failure reason quotes every square-bracket placeholder left in the Evaluation criteria table."""
-    result = run_check(DETAILS + bullets(1) + TEMPLATE_CRITERIA + NEXT_SECTION, CONFIG_FILE)
-    assert result.returncode == 1, result.stdout
-    for placeholder in ("[one sentence saying why.]", "[✅ Aligned or ❌ Misaligned]", "[why]"):
-        assert placeholder in result.stdout, f"the reason should list {placeholder}: {result.stdout}"
+        assert CRITERIA_NAME in result.stdout, f"the reason should name the section: {result.stdout}"
 
 
 # a heading still in the older sentence case, which matches too
@@ -149,6 +143,8 @@ SPEC_PLACEHOLDER = SPEC_HEADING + "[Paste the change's spec.md.]\n"
         (SPEC_HEADING, CONFIG_FILE, 1),
         (SPEC_PLACEHOLDER, CONFIG_FILE, 1),
         (SPEC_HEADING + SPEC_DETAILS, CONFIG_FILE, 1),
+        # an example inside a fenced code block isn't an answer
+        (SPEC_HEADING + "```markdown\n- **Hook:** an example.\n```\n", CONFIG_FILE, 1),
         # a PR that doesn't touch src/claude/ needs no spec
         ("", "docs/other.md", 0),
     ],
@@ -156,6 +152,22 @@ SPEC_PLACEHOLDER = SPEC_HEADING + "[Paste the change's spec.md.]\n"
 def test_config_changes_require_a_spec(spec, changed_files, expected_code):
     """A PR that changes src/claude/ must fill the Spec section, so the reviewer can check the diff against it."""
     result = run_check(DETAILS + bullets(1) + spec + CRITERIA + NEXT_SECTION, changed_files)
-    assert result.returncode == expected_code, result.stdout
+    assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
-        assert "Plan Spec" in result.stdout, f"the reason should name the spec section: {result.stdout}"
+        assert SPEC_NAME in result.stdout, f"the reason should name the spec section: {result.stdout}"
+
+
+# MoSCoW: Must — the reason must name each placeholder left in, so the author knows what to fill
+@pytest.mark.parametrize(
+    ("description", "placeholders"),
+    [
+        (SPEC + TEMPLATE_CRITERIA, ("[one sentence saying why.]", "[✅ Aligned or ❌ Misaligned]", "[why]")),
+        (SPEC_PLACEHOLDER + CRITERIA, ("[Paste the change's spec.md.]",)),
+    ],
+)
+def test_unfilled_reason_lists_each_placeholder(description, placeholders):
+    """The failure reason quotes every square-bracket placeholder left in the Plan Spec or Evaluation Criteria."""
+    result = run_check(DETAILS + bullets(1) + description + NEXT_SECTION, CONFIG_FILE)
+    assert result.returncode == 1, f"a section with placeholders left in should fail: {result.stdout}"
+    for placeholder in placeholders:
+        assert placeholder in result.stdout, f"the reason should list {placeholder}: {result.stdout}"

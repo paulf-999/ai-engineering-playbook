@@ -1,4 +1,4 @@
-<!-- version: 1.0.8 -->
+<!-- version: 1.0.9 -->
 <!-- created: 2026-11-09 -->
 <!-- updated: 2026-11-13 -->
 # 🧠 Claude config
@@ -29,6 +29,19 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it.
 
 Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `always/conduct/` and `always/workflows/` point to.
+
+## 🍒 Copying one style guide
+
+To use one guide without `make install`, copy it and its children into your Claude config directory, keeping the same folders. For the SQL guide:
+
+```bash
+mkdir -p ~/.claude/rules/path_scoped/style_guides ~/.claude/on_demand/style_guides
+cp src/claude/rules/path_scoped/style_guides/sql.md ~/.claude/rules/path_scoped/style_guides/
+cp -R src/claude/rules/on_demand/style_guides/sql ~/.claude/on_demand/style_guides/
+```
+
+- 📂 **The guide:** goes under `rules/`, so Claude loads it whenever you open a matching file.
+- 💤 **Its children:** go in `on_demand/`, beside `rules/` rather than inside it, so they load only when the guide points to them.
 
 ## 🛠️ Changing it
 

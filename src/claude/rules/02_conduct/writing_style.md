@@ -1,4 +1,4 @@
-<!-- version: 3.1.5 -->
+<!-- version: 3.1.6 -->
 <!-- created: 2026-08-28 -->
 <!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
@@ -15,7 +15,7 @@
 
 ## 📚 Read on demand
 
-- `on_demand/02_conduct/writing_style/_markdown_layout.md`, in your Claude config directory, before writing or restructuring a markdown doc.
-- `on_demand/02_conduct/writing_style/_audience_and_depth.md`, before writing for people outside the repo, such as a Confluence page, ticket or email.
-- `on_demand/02_conduct/writing_style/_drafts_and_errors.md`, before saving a draft or an error write-up.
+- `on_demand/conduct/writing_style/_markdown_layout.md`, in your Claude config directory, before writing or restructuring a markdown doc.
+- `on_demand/conduct/writing_style/_audience_and_depth.md`, before writing for people outside the repo, such as a Confluence page, ticket or email.
+- `on_demand/conduct/writing_style/_drafts_and_errors.md`, before saving a draft or an error write-up.
 - `on_demand/style_guides/jira.md`, before writing or changing a Jira ticket.

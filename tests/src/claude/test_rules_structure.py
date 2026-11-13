@@ -1,4 +1,4 @@
-# version: 1.5.3
+# version: 1.5.4
 # created: 2026-11-05
 # updated: 2026-11-13
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates."""
@@ -218,10 +218,11 @@ def find_parent(path, rules_dir=RULES_DIR):
     beside = path.parent.with_suffix(".md")
     candidates = [beside]
     on_demand = rules_dir / "on_demand"
-    # a loaded parent, such as 02_conduct/writing_style.md, keeps its bulky children on demand
+    # a loaded parent keeps its bulky children on demand: path_scoped/ at the same path, or a numbered folder
+    # without its number, so on_demand/conduct/writing_style/ belongs to 02_conduct/writing_style.md
     if beside.is_relative_to(on_demand):
         rest = beside.relative_to(on_demand)
-        candidates += [rules_dir / rest, rules_dir / "path_scoped" / rest]
+        candidates += [rules_dir / "path_scoped" / rest, *sorted(rules_dir.glob(f"[0-9]*_{rest}"))]
     return next((candidate for candidate in candidates if candidate.exists()), beside)
 
 

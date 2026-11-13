@@ -34,8 +34,7 @@ Choose one:
 <details>
 <summary>Approved plan's spec</summary>
 
-> [!NOTE]
-> **What is `spec.md`?** The requirements and design from Claude's approved plan, which the diff is built to.
+> ℹ️ **What is `spec.md`?** The requirements and design from Claude's approved plan, which the diff is built to.
 
 [For a `src/claude/` change, paste its `spec.md`, so a reviewer can check the diff against it. Otherwise, say "Not applicable" and why.]
 
@@ -56,11 +55,6 @@ Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engine
 | :test_tube: Clean exit | [✅ or ❌] | [how one small PR would remove it] |
 
 All other standards ✅ Aligned. Trial ⏳ due at the next review.
-
-## :white_check_mark: Checklist
-
-- [ ] Pre-commit hooks pass
-- [ ] Within the PR file limit, or on a `release/` branch (see `docs/guides/git_branching_strategy.md`)
 
 ## :bulb: Best Practices
 

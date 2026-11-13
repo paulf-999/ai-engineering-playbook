@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.5.0
+# version: 1.5.1
 # created: 2026-11-02
 # updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -55,10 +55,10 @@ has_evaluation_criteria() {
     section "Evaluation Criteria" | grep -E '^([-*] |\|)' | grep -qvE '^\|[-: |]+\|$'
 }
 
-# Succeed if the spec section has a line that isn't blank or part of the template's show/hide wrapper and callout
+# Succeed if the spec section has a line that isn't blank or part of the template's show/hide wrapper and info note
 has_spec() {
     # shellcheck disable=SC2016  # the backticks are a literal grep pattern, not a command
-    section "${SPEC_HEADING}" | grep -vE '^ *(</?(details|summary)>|> \[!NOTE\]|> \*\*What is `spec\.md`)' \
+    section "${SPEC_HEADING}" | grep -vE '^ *(</?(details|summary)>|> .*What is `spec\.md`)' \
         | grep -q '[^[:space:]]'
 }
 

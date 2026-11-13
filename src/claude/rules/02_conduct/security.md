@@ -1,6 +1,6 @@
-<!-- version: 2.0.6 -->
+<!-- version: 2.0.7 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: high — Claude follows injected instructions or leaks a secret -->
 # 🔐 Security
@@ -14,4 +14,4 @@
 
 ## 📚 Read on demand
 
-- `_rules_on_demand/claude_config/permission_recommendations.md`, in your Claude config directory, before recommending a permission or allowlist change.
+- `on_demand/claude_config/permission_recommendations.md`, in your Claude config directory, before recommending a permission or allowlist change.

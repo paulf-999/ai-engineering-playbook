@@ -1,6 +1,6 @@
-# version: 1.5.2
+# version: 1.5.3
 # created: 2026-11-05
-# updated: 2026-11-11
+# updated: 2026-11-13
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates."""
 
 import re
@@ -20,7 +20,7 @@ EMOJI = re.compile("[\U0001f300-\U0001faff☀-➿⬀-⯿⌀-⏿←-⇿]")
 HEADER_FIELDS = ("version", "created", "updated")
 MISS_COSTS = ("low", "medium", "high")
 # a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`
-POINTER = re.compile(r"^- `((?:_rules_on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
+POINTER = re.compile(r"^- `((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
 
 
 def relative(path):
@@ -103,7 +103,7 @@ def heading_problems(text):
 
 
 # bullets the 5-item cap skips: checklist items, Contents links and Read on demand pointers
-UNCOUNTED_BULLET = re.compile(r"[-*] (\[[ x]\] |\[[^]]*\]\(#|`(?:_rules_on_demand/|_templates/|README\.md`))")
+UNCOUNTED_BULLET = re.compile(r"[-*] (\[[ x]\] |\[[^]]*\]\(#|`(?:on_demand/|_templates/|README\.md`))")
 
 
 def list_problems(text):
@@ -204,7 +204,7 @@ def test_entry_point_has_usage_lines(path):
 # MoSCoW: Must — frontmatter that won't parse makes a path-scoped rule load in every session
 @pytest.mark.parametrize(
     "path",
-    [path for path in RULE_FILES if relative(path).startswith("_path_scoped_rules/")],
+    [path for path in RULE_FILES if relative(path).startswith("path_scoped/")],
     ids=relative,
 )
 def test_path_scoped_frontmatter_parses(path):
@@ -217,11 +217,11 @@ def find_parent(path, rules_dir=RULES_DIR):
     """Return a child's parent rule: beside its folder, or at the same path in the loaded tree."""
     beside = path.parent.with_suffix(".md")
     candidates = [beside]
-    on_demand = rules_dir / "_rules_on_demand"
+    on_demand = rules_dir / "on_demand"
     # a loaded parent, such as 02_conduct/writing_style.md, keeps its bulky children on demand
     if beside.is_relative_to(on_demand):
         rest = beside.relative_to(on_demand)
-        candidates += [rules_dir / rest, rules_dir / "_path_scoped_rules" / rest]
+        candidates += [rules_dir / rest, rules_dir / "path_scoped" / rest]
     return next((candidate for candidate in candidates if candidate.exists()), beside)
 
 
@@ -245,7 +245,7 @@ def pointer_targets():
 
 def resolve(target):
     """Return where a pointer's target lives in the repo, since on-demand files install beside rules/."""
-    return RULES_DIR / target if target.startswith("_rules_on_demand/") else CONFIG_DIR / target
+    return RULES_DIR / target if target.startswith("on_demand/") else CONFIG_DIR / target
 
 
 # MoSCoW: Must — a child no parent points to is never read
@@ -263,7 +263,7 @@ def test_child_is_named_by_its_parent(path):
 # MoSCoW: Must — an on-demand rule nothing points to is never read
 @pytest.mark.parametrize(
     "path",
-    [path for path in RULE_FILES if is_entry_point(path) and relative(path).startswith("_rules_on_demand/")],
+    [path for path in RULE_FILES if is_entry_point(path) and relative(path).startswith("on_demand/")],
     ids=relative,
 )
 def test_on_demand_rule_has_an_inbound_pointer(path):

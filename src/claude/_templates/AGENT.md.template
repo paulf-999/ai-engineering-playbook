@@ -147,7 +147,7 @@ Link to supporting documentation:
 5. **Write Constraints** — explicit boundaries (what agent does NOT do)
 6. **Create evals.yaml** — scenarios covering its main triggers and one case where it shouldn't fire
 
-**See also:** `_rules_on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory, for the full creation guidelines and hard gates.
+**See also:** `on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory, for the full creation guidelines and hard gates.
 
 ---
 
@@ -165,5 +165,5 @@ Before finalizing:
 - [ ] evals.yaml created, covering the main triggers and one case where it shouldn't fire
 
 **Resources:**
-- Full guidance and hard gates: `_rules_on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory
-- Testing: `_rules_on_demand/testing/_testing_design_pattern.md`, in your Claude config directory
+- Full guidance and hard gates: `on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory
+- Testing: `on_demand/testing/_testing_design_pattern.md`, in your Claude config directory

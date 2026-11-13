@@ -1,5 +1,5 @@
 #!/bin/bash
-# version: 1.1.0
+# version: 1.1.1
 # created: 2026-11-10
 # updated: 2026-11-13
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
@@ -49,6 +49,6 @@ MISSING="$(missing_sections <<< "${PLAN}")"
 [[ -z "${MISSING}" ]] && exit 0
 
 echo "This plan has no $(paste -sd '/' - <<< "${MISSING}") heading." \
-    "Read _rules_on_demand/03_workflows/sdlc_workflow.md in your Claude config directory," \
+    "Read on_demand/03_workflows/sdlc_workflow.md in your Claude config directory," \
     "then open the plan with an Intent section, then a Spec section, and submit it again." >&2
 exit "${BLOCK}"

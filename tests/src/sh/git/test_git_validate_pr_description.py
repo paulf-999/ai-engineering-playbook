@@ -1,4 +1,4 @@
-# version: 1.6.0
+# version: 1.6.1
 # created: 2026-11-02
 # updated: 2026-11-13
 """Tests for the PR description check: a src/claude/ PR carries its spec, and an always-on one the criteria."""
@@ -45,7 +45,7 @@ def test_description_with_shell_characters_is_not_executed(tmp_path):
 # an always-on rule, which needs the spec and the evaluation criteria
 CONFIG_FILE = "src/claude/rules/02_conduct/example.md\ndocs/other.md"
 # an on-demand rule, which needs the spec but not the criteria
-ON_DEMAND_FILE = "src/claude/rules/_rules_on_demand/example.md"
+ON_DEMAND_FILE = "src/claude/rules/on_demand/example.md"
 CRITERIA = (
     "\n## :balance_scale: Evaluation criteria\n\n- :triangular_flag_on_post: **Red flags:** none.\n"
     "- :toolbox: **Shape:** on demand.\n- :test_tube: **Working:** trial at the next review.\n"
@@ -76,7 +76,7 @@ SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
         (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/hooks/example.sh", 1),
         # an on-demand or path-scoped change needs only the spec
         (DETAILS + bullets(4) + SPEC + NEXT_SECTION, ON_DEMAND_FILE, 0),
-        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/rules/_path_scoped_rules/x.md", 0),
+        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/rules/path_scoped/x.md", 0),
         # a PR that doesn't touch src/claude/ needs no section, and nor does a run without a file list
         (DETAILS + bullets(4) + NEXT_SECTION, "docs/other.md\nsrc/sh/x.sh", 0),
         (DETAILS + bullets(4) + NEXT_SECTION, "", 0),

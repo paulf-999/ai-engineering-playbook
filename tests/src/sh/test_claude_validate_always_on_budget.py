@@ -1,6 +1,6 @@
-# version: 1.0.6
+# version: 1.0.7
 # created: 2026-11-03
-# updated: 2026-11-04
+# updated: 2026-11-13
 """Tests for the always-on budget check, which caps the Claude context loaded into every session."""
 
 import os
@@ -84,7 +84,7 @@ def test_each_kind_of_always_on_context_is_counted(tmp_path, path, text):
         (".claude/rules/scoped.md", "---\npaths:\n  - '*.sql'\n---\n" + HUNDRED_TOKENS),
         ("src/claude/rules/scoped.md", "---\npaths:\n  - '*.sql'\n---\n" + HUNDRED_TOKENS),
         # a file read on demand loads only when Claude follows a pointer to it
-        ("src/claude/rules/_rules_on_demand/guide.md", HUNDRED_TOKENS),
+        ("src/claude/rules/on_demand/guide.md", HUNDRED_TOKENS),
         # a skill's or agent's body loads only when it's used, so only its description counts
         (".claude/skills/example/SKILL.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),
         (".claude/agents/example.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),

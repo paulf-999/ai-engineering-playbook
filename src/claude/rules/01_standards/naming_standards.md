@@ -1,6 +1,6 @@
-<!-- version: 2.2.4 -->
+<!-- version: 2.2.5 -->
 <!-- created: 2026-08-28 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 <!-- applies_to: * -->
 <!-- miss_cost: low — names stop saying what a file holds -->
 # 📛 Naming standards
@@ -14,5 +14,5 @@
 
 ## 📚 Read on demand
 
-- `_rules_on_demand/claude_config/claude_naming_patterns.md`, in your Claude config directory, before naming a new rule, skill or agent.
-- `_rules_on_demand/style_guides/utilities/datetime.md`, when writing a date or time into a name, code, metadata or a log.
+- `on_demand/claude_config/claude_naming_patterns.md`, in your Claude config directory, before naming a new rule, skill or agent.
+- `on_demand/style_guides/utilities/datetime.md`, when writing a date or time into a name, code, metadata or a log.

@@ -1,6 +1,6 @@
-<!-- version: 1.2.11 -->
+<!-- version: 1.2.12 -->
 <!-- created: 2026-11-05 -->
-<!-- updated: 2026-11-11 -->
+<!-- updated: 2026-11-13 -->
 # 📋 Templates Directory
 
 Centralized templates for skills and other Claude configuration artifacts. `make install` installs it to `_templates/` in your Claude config directory, as the [config README](../README.md) describes.
@@ -30,13 +30,13 @@ _templates/
 **`skills/SKILL.md.template`**
 
 - Standard skill documentation template: frontmatter, metadata header and 5 sections (Instructions for Claude, Purpose, Example Usage, Best For, References)
-- Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
+- Used by: `on_demand/claude_config/authoring_guidelines.md`
 
 **`skills/skill.contract.yaml.template`**
 
 - Contract definition for skills (name, version, triggers, requirements)
 - Enforces contract-first design pattern
-- Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`, filled in before `SKILL.md`
+- Used by: `on_demand/claude_config/authoring_guidelines.md`, filled in before `SKILL.md`
 
 ### Agents, rules and TODOs
 
@@ -44,13 +44,13 @@ _templates/
 
 - Starting point for a new agent at `agents/<group>/<name>/AGENT.md`: frontmatter, metadata header and the standard sections
 - Keeps its uppercase name because it mirrors the `AGENT.md` file it produces
-- Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
+- Used by: `on_demand/claude_config/authoring_guidelines.md`
 
 **`rule.md.template`**
 
 - Starting point for a new rule: metadata and usage header, H1, Purpose, emoji `##` sections and `Read on demand` pointers
 - Its closing comments say when to drop the sections, when to split, and the checks the tests don't cover
-- Used by: `_rules_on_demand/claude_config/authoring_guidelines.md`
+- Used by: `on_demand/claude_config/authoring_guidelines.md`
 
 **`TODO.md.template`**
 
@@ -67,11 +67,11 @@ _templates/
 
 - Shared shell helpers the script template sources: log colours, `log_message`, `print_section_header` and `handle_interruption`
 - Copy it into the repo beside your scripts, since the template sources it from the script's own folder
-- Used by: `rules/_path_scoped_rules/style_guides/bash.md`, when the repo has no script template of its own
+- Used by: `rules/path_scoped/style_guides/bash.md`, when the repo has no script template of its own
 
 ## Usage
 
-Copy the template you need next to the file you're creating, fill it in, and follow `_rules_on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory.
+Copy the template you need next to the file you're creating, fill it in, and follow `on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory.
 
 ## Maintenance
 

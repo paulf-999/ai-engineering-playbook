@@ -32,6 +32,16 @@ Claude reads only the instructions each task needs, so it stays fast and focused
 
 ---
 
+## 🗺️ What's in this repo
+
+| Folder | What it holds |
+|---|---|
+| 📦 [`src/claude/`](src/claude/) | What you install: the instructions Claude reads |
+| 🏗️ [`docs/`](docs/) | Why it's built this way: the design and the research behind it |
+| 🛠️ [`maintenance/`](maintenance/), [`tests/`](tests/), [`.github/`](.github/) | How it stays healthy: quality scores, tests and CI. You don't need these to use it |
+
+---
+
 ## 📝 Contributing
 
 Before raising a PR, read the [contributing guidelines](.github/CONTRIBUTING.md), which cover setup, branches, commit messages and PRs.

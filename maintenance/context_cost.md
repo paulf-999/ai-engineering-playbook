@@ -18,12 +18,12 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 4 | `rules/always/conduct/writing_style.md` | ~310 |
 | 5 | `rules/always/standards/claude_response_standards.md` | ~218 |
 | 6 | `rules/always/standards/naming_standards.md` | ~247 |
-| 7 | `rules/always/workflows/claude_plans.md` | ~176 |
-| | **Subtotal** | **~2001** |
+| 7 | `rules/always/workflows/sdlc_workflow.md` | ~404 |
+| | **Subtotal** | **~2229** |
 
 ## 💤 Only when needed
 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 12 | ~3700 |
-| 💤 On demand, via a pointer | 81 | ~41800 |
+| 💤 On demand, via a pointer | 80 | ~41600 |

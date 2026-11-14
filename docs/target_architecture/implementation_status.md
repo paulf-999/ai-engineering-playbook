@@ -18,7 +18,7 @@ Status is ✅ Built, 🟡 Partly, ❌ Not built, ⏸️ Deferred or 🚫 Out of 
 | 📂 **[Task-specific tier](README.md#️-tiers)** | ✅ Built | [`src/claude/rules/path_scoped/`](../../src/claude/rules/path_scoped/) | — | — |
 | 🔐 **[Tool access](README.md#️-tiers)** | ✅ Built | No MCP servers or allowlist shipped, and the `.env` deny rules in [`claude_install_config.sh`](../../src/sh/claude_install_config.sh) | — | — |
 | 🗺️ **[Plan first](README.md#-workflow)** | ✅ Built | [`saving_plans.md`](../../src/claude/rules/on_demand/workflows/saving_plans.md) | — | — |
-| 📝 **[Intent and spec](README.md#-workflow)** | ✅ Built | [`sdlc_workflow.md`](../../src/claude/rules/on_demand/workflows/sdlc_workflow.md), the plan sections hook, and the PR template's Plan Spec section | — | — |
+| 📝 **[Intent and spec](README.md#-workflow)** | ✅ Built | [`sdlc_workflow.md`](../../src/claude/rules/always/workflows/sdlc_workflow.md), the plan sections hook, and the PR template's Plan Spec section | — | — |
 | 🔁 **[Feedback loop](README.md#-workflow)** | ✅ Built | The [`Makefile`](../../Makefile), [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml), [CI](../../.github/workflows/ci.yml) and the done checks hook | — | — |
 | 👀 **[PR review loop](README.md#-workflow)** | 🟡 Partly | The [PR template](../../.github/pull_request_template.md)'s Plan Spec and criteria sections, checked by [`pr_description.yml`](../../.github/workflows/pr_description.yml) | Port the reviewer agent ([#7](https://github.com/paulf-999/ai-engineering-playbook/issues/7)) | M |
 | 🧪 **[Evals](README.md#-workflow)** | ⏸️ Deferred | — | — | — |

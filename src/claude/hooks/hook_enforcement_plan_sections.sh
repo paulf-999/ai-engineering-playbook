@@ -47,6 +47,6 @@ MISSING="$(missing_sections <<< "${PLAN}")"
 [[ -z "${MISSING}" ]] && exit 0
 
 echo "This plan has no $(paste -sd '/' - <<< "${MISSING}") heading." \
-    "Read on_demand/workflows/sdlc_workflow.md in your Claude config directory," \
+    "Follow the SDLC workflow in rules/always/workflows/sdlc_workflow.md," \
     "then open the plan with an Intent section, then a Spec section, and submit it again." >&2
 exit "${BLOCK}"

@@ -54,4 +54,4 @@ grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
 
 - 📉 **Balance:** more `Could` than `Must` tests means upkeep goes on rare cases rather than what matters.
 - ✂️ **Cut:** delete slow `Could` tests that no longer earn their run time.
-- 🏅 **Re-score:** refresh the [test audit](quality/audits/quality_audit_test_files.md) row of every script whose tests changed since the last review, in one PR, using the [reviewer brief](quality/themes/quality_themes_test_files.md#-reviewer-brief).
+- 🏅 **Re-score:** refresh the [test audit](quality/quality_audit.md#-tests) row of every script whose tests changed since the last review, in one PR, using the [reviewer brief](quality/quality_rubrics.md#-tests).

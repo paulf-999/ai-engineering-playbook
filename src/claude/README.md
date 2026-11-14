@@ -22,9 +22,11 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 |---|---|
 | 🔁 `always/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
 | 📂 `path_scoped/` | Only when Claude works on a matching file, such as the Python guide for `.py` files, set by each rule's `paths:` list |
-| 💤 `on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there, since the install moves this folder out of `rules/` |
+| 💤 `on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there |
 
-A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it.
+`make install` puts `on_demand/` beside `rules/` in your Claude config directory, not inside it, because Claude Code loads everything under `rules/` in every session.
+
+A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it. Splitting a guide this way keeps it cheap to load, since Claude reads the detail only when a task needs it.
 
 Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `always/conduct/` and `always/workflows/` point to.
 

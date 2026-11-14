@@ -2,7 +2,7 @@
 
 **Purpose:** what the Claude configuration this repo replaces contains, what works well in it, and the lessons the new design carries forward.
 
-That configuration is [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook), a personal Claude Code setup installed on each machine with `make install`. This page describes it at commit `915685f`, dated 2026-10-31.
+That configuration is [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook), a personal Claude Code setup installed on each machine with `make install`. It came first, and this repo began replacing it in late October 2026, so "legacy" means the older setup, not an old date. This page describes it at commit `915685f`, dated 2026-10-31.
 
 ## 📋 Executive Summary
 

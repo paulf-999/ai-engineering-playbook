@@ -27,6 +27,6 @@ Status is ✅ Built, 🟡 Partly, ❌ Not built, ⏸️ Deferred or 🚫 Out of 
 | 💰 **[Always-on budget](README.md#-always-on-budget)** | ✅ Built | [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh) | — | — |
 | 📏 **[Rule size guard](README.md#️-design-guards)** | ✅ Built | [`test_rules_structure.py`](../../tests/src/claude/test_rules_structure.py) | — | — |
 | 📦 **[PR size guard](README.md#️-design-guards)** | ✅ Built | [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) | — | — |
-| 💬 **[Component feedback](README.md#-measures)** | ✅ Built | [`component_feedback.md`](../../maintenance/quality/audits/quality_audit_repo/component_feedback.md) | — | — |
+| 💬 **[Component feedback](README.md#-measures)** | ✅ Built | [Component feedback](../../maintenance/quality/quality_audit.md#-component-feedback) | — | — |
 | 💰 **[Always-on tokens](README.md#-measures)** | ✅ Built | [`context_cost.md`](../../maintenance/context_cost.md) | — | — |
 | 🔪 **[Halving test](README.md#-measures)** | ❌ Not built | No review records running it | Run it at the next review and record the answer | S |

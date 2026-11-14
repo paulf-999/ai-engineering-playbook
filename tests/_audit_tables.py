@@ -58,13 +58,13 @@ def read_table(audit, heading):
 
 
 def assert_links_work(audit):
-    """Check every relative link in the audit points at a file that exists."""
+    """Check every relative link in the audit points at a file or folder that exists."""
     for _, target in LINK.findall(audit.read_text()):
         if target.startswith("http"):
             continue
         # targets are relative to the audit's own folder, as GitHub resolves them
         path = audit.parent / target.split("#")[0]
-        assert path.is_file(), f"{audit.name} links to {target}, which doesn't exist"
+        assert path.exists(), f"{audit.name} links to {target}, which doesn't exist"
 
 
 def assert_quality_scores(rows, themes):

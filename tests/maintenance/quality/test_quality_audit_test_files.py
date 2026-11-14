@@ -1,4 +1,4 @@
-"""Checks every test is scored, and maintenance/quality/audits/quality_audit_test_files.md fits the rubric."""
+"""Checks every test is scored, and the Tests section of maintenance/quality/quality_audit.md fits the rubric."""
 
 import re
 from pathlib import Path
@@ -6,12 +6,12 @@ from pathlib import Path
 from _audit_tables import assert_links_work, assert_quality_scores, read_table
 from _paths import REPO_ROOT
 
-AUDIT = REPO_ROOT / "maintenance" / "quality" / "audits" / "quality_audit_test_files.md"
+AUDIT = REPO_ROOT / "maintenance" / "quality" / "quality_audit.md"
 
 # this file, which the audit doesn't score, since it can't fairly score its own checker
 THIS_FILE = str(Path(__file__).relative_to(REPO_ROOT))
 
-# the themes in quality/themes/quality_themes_test_files.md, as the audit's column headings
+# the themes in the Tests section of quality/quality_rubrics.md, as the audit's column headings
 THEMES = ("Core coverage", "Leanness", "Clarity", "Simplicity", "Reliability")
 
 

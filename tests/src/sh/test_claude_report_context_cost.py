@@ -52,23 +52,30 @@ def write_report(tmp_path, env):
     return (tmp_path / REPORT).read_text()
 
 
-# MoSCoW: Must — each file must sit in its load type's table, and each table must total only its own files
-def test_report_puts_each_file_in_its_load_tables(tmp_path):
-    """Every-session, path-scoped and on-demand files each get their own table, with a subtotal of only those files."""
+# MoSCoW: Must — every-session files are listed one by one, and the rest are totalled by load type
+def test_report_lists_every_session_files_and_totals_the_rest(tmp_path):
+    """The report lists each every-session file, and gives one rounded row each for path-scoped and on-demand files."""
     report = write_report(tmp_path, config_repo(tmp_path))
-    assert "## 📂 Path-scoped rules" in report and "## 💤 On demand" in report, "each load type needs a table"
-    every, rest = report.split("## 📂 Path-scoped rules")
-    scoped, lazy = rest.split("## 💤 On demand")
+    every, _, rest = report.partition("## 💤 Only when needed")
     assert "| 1 | `CLAUDE.md` | ~100 |" in every and "| | **Subtotal** | **~100** |" in every, (
         "CLAUDE.md loads every session"
     )
+    assert all(name not in report for name in ("guide.md", "scoped.md", "`README.md`")), (
+        "only every-session files are listed by name"
+    )
+    assert "| 📂 Path-scoped rules, with matching files | 1 | ~100 |" in rest, "the path-scoped file is totalled"
+    assert "| 💤 On demand, via a pointer | 3 | ~300 |" in rest, (
+        "the README, templates and lazy rules are totalled as on demand"
+    )
+
+
+# MoSCoW: Must — the terminal output still shows every file, with its load type and globs
+def test_terminal_lists_every_file_by_load_type(tmp_path):
+    """Writing the report prints every file's tokens, with path-scoped globs, grouped by load type."""
+    result = run_report(tmp_path, config_repo(tmp_path))
+    scoped, _, lazy = result.stdout.partition("## 💤 On demand")
     assert "| 1 | `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
-    assert all(row in lazy for row in ON_DEMAND_ROWS), (
-        "the README, templates and lazy rules should sit in the on-demand table"
-    )
-    assert all(name not in every for name in ("guide.md", "scoped.md", "`README.md`")), (
-        "only every-session files belong in the first table"
-    )
+    assert all(row in lazy for row in ON_DEMAND_ROWS), "each on-demand file should be listed in the terminal"
 
 
 # MoSCoW: Must — the check must fail when the table no longer matches the files

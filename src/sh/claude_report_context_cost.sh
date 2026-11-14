@@ -1,8 +1,9 @@
 #!/bin/bash
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Write maintenance/context_cost.md, a table of each src/claude/ file's estimated tokens and when it loads
-#              With --check, write nothing and exit 1 if the committed table is out of date
+# Description: Write maintenance/context_cost.md: every always-on file's estimated tokens, and a rounded total for
+#              the files that load only when needed, then print every file's tokens to the terminal
+#              With --check, write nothing and exit 1 if the committed report is out of date
 # Usage: src/sh/claude_report_context_cost.sh [--check] [repo directory, default .] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -47,8 +48,15 @@ load_condition() {
     fi
 }
 
+# Round a token count to the nearest 100, so small edits to rules that load only when needed don't change the report
+rounded() {
+    echo $(( ($1 + 50) / 100 * 100 ))
+}
+
 # Print one table per load type, each with a subtotal, so a total never mixes files that load differently
+# With "summary", print the every-session table in full, and one rounded row for each other load type
 table_body() {
+    local mode="${1:-full}"
     local file chars condition name
     local every="" scoped="" lazy="" every_chars=0 scoped_chars=0 lazy_chars=0 every_n=0 scoped_n=0 lazy_n=0
     while IFS= read -r file; do
@@ -72,6 +80,12 @@ table_body() {
     # sort by byte value, so the order is the same on every machine whatever its locale
     done < <(git -C "${REPO_DIR}" ls-files -- "${CONFIG_DIR}/*.md" | LC_ALL=C sort)
     printf '## 🔒 Every session\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' "${every}" "$((every_chars / 4))"
+    if [[ "${mode}" == summary ]]; then
+        printf '\n## 💤 Only when needed\n\n| Load type | Files | Tokens |\n|---|---|---|\n'
+        printf '| 📂 Path-scoped rules, with matching files | %s | ~%s |\n' "${scoped_n}" "$(rounded $((scoped_chars / 4)))"
+        printf '| 💤 On demand, via a pointer | %s | ~%s |\n' "${lazy_n}" "$(rounded $((lazy_chars / 4)))"
+        return
+    fi
     printf '\n## 📂 Path-scoped rules\n\n| # | File | Globs | Tokens |\n|---|---|---|---|\n%s| | **Subtotal** | | **~%s** |\n' "${scoped}" "$((scoped_chars / 4))"
     printf '\n## 💤 On demand\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' "${lazy}" "$((lazy_chars / 4))"
 }
@@ -81,16 +95,16 @@ report_body() {
     cat <<'EOF'
 # 💰 Context cost
 
-**Purpose:** how many tokens each file in the global Claude config adds, and when it loads, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
+**Purpose:** how many tokens the global Claude config adds to every session, and to the tasks that need more, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
 
-This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/`, and a pre-commit check fails if it's out of date, so don't edit the tables by hand.
+This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, and a pre-commit check fails if it's out of date, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../docs/target_architecture/README.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
 - 📂 **Path-scoped rules:** loads only once Claude opens a file that matches one of its globs.
 - 💤 **On demand:** loads only when Claude follows a pointer to it.
 
 EOF
-    table_body
+    table_body summary
 }
 
 #=======================================================================
@@ -113,7 +127,8 @@ if [[ "${CHECK_ONLY}" == true ]]; then
     print_section_header "${INFO}" "SUCCESS: ${REPORT} matches src/claude/."
 else
     printf '%s\n' "${EXPECTED}" > "${REPORT_PATH}"
-    print_section_header "${INFO}" "Wrote ${REPORT}."
+    print_section_header "${INFO}" "Wrote ${REPORT}. Every file's tokens:"
+    table_body
 fi
 
 print_section_header "${DEBUG}" "Script execution completed." && echo

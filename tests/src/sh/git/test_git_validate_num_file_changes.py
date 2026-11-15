@@ -95,12 +95,12 @@ def test_deleted_files_count_towards_the_limit(git_repo):
 
 # MoSCoW: Should — a missing base ref must fail clearly, not pass
 def test_missing_base_ref_fails(git_repo):
-    """A base ref that exists neither locally nor on origin exits 1 with an explanation."""
+    """A base ref that doesn't exist locally exits 1 and says to fetch it."""
     repo, env = git_repo
     commit_files(repo, env, "feature/small", 1)
     result = run_script(repo, env, "feature/small", base="does_not_exist")
     assert result.returncode == 1, "a missing base ref should fail"
-    assert "not found, locally or on origin" in result.stdout, f"expected the missing-ref explanation: {result.stdout}"
+    assert "not found. Fetch it first" in result.stdout, f"expected the missing-ref explanation: {result.stdout}"
 
 
 # MoSCoW: Should — a bad limit must fail clearly, not pass

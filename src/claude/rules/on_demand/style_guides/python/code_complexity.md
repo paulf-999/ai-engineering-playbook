@@ -3,7 +3,7 @@
 <!-- miss_cost: low — functions grow harder to read and change -->
 # 📊 Code Complexity
 
-**Purpose:** the limits that keep a Python function easy to read and change, and the ruff and radon checks that measure each.
+**Purpose:** the limits that keep a Python function easy to read and change, the ruff checks that measure each, and when going over one is acceptable.
 
 ## ⚡ Limits
 
@@ -11,16 +11,26 @@
 |---|---|---|
 | **Cyclomatic complexity** | 10 or fewer | ruff `C901`, whose default `max-complexity` is 10, or `radon cc` |
 | **Function length** | Aim for 30 lines, and split past 40 | ruff `PLR0915`, which counts statements rather than lines, so set `max-statements` to match |
-| **Nesting depth** | 3 levels or fewer | ruff `PLR1702`, a preview rule |
+| **Nesting depth** | 3 levels or fewer | ruff `PLR1702`, a preview rule, so it needs `preview = true` and `max-nested-blocks = 3` |
 | **Parameters** | 4 or fewer | ruff `PLR0913`, with `max-args = 4` |
 | **Line length** | 120 characters or fewer | ruff `E501` |
 
 - 🗣️ **One-sentence test:** if you can't say what a function does in one sentence, split it.
 - 🔧 **Check, don't eyeball:** where a repo's ruff config lacks these rules, add them rather than checking by hand.
-- 🚪 **Over a limit:** refactor, or say why in the docstring, as the exceptions file shows.
 
-## 📚 Read on demand
+## 🚪 Going over a limit
 
-- `on_demand/style_guides/python/code_complexity/_code_complexity_metrics.md`, in your Claude config directory, for what cyclomatic and cognitive complexity measure.
-- `on_demand/style_guides/python/code_complexity/_code_complexity_size_limits.md`, in your Claude config directory, for why each size limit exists and how to get under it.
-- `on_demand/style_guides/python/code_complexity/_code_complexity_exceptions.md`, in your Claude config directory, before accepting code over a limit.
+Refactor first. A function may stay over a limit only when its shape comes from the problem, such as a state machine, a long linear pipeline or setup code with many options. Then say why in its docstring:
+
+```python
+def complex_operation():
+    """Brief description of what it does.
+
+    NOTE: Cyclomatic complexity is X due to [reason].
+    This is acceptable because [justification].
+
+    Phases:
+    1. [Phase A]: what happens here
+    2. [Phase B]: what happens here
+    """
+```

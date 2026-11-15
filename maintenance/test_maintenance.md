@@ -1,5 +1,8 @@
 # 🧪 Test Maintenance
 
+> [!NOTE]
+> **For repo maintainers only:** you don't need this page to install or use the Claude Code instructions.
+
 **Purpose:** how many tests to write, how to rate each one's importance, and when to delete one.
 
 Size the suite by test functions, not pytest cases, since one parametrised function can produce dozens of cases.

@@ -1,5 +1,8 @@
 # 💰 Context cost
 
+> [!NOTE]
+> **For repo maintainers only:** you don't need this page to install or use the Claude Code instructions.
+
 **Purpose:** how many tokens the global Claude config adds to every session, and to the tasks that need more, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
 
 This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, and a pre-commit check fails if it's out of date, so don't edit the tables by hand.

@@ -1,5 +1,8 @@
 # 🏷️ File Headers
 
+> [!NOTE]
+> **For repo maintainers only:** you don't need this page to install or use the Claude Code instructions.
+
 **Purpose:** what the header at the top of each installed file records, and how a test keeps it valid.
 
 ## 📄 Format

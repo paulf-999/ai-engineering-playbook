@@ -25,11 +25,11 @@ The blind run of `main` at #244, with each theme below ✅ and what would raise 
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | 6 or more duplicates, such as the 110-line rule cap in 5 places, the 3,000-token budget in 3 and the fresh-context reviewer process in 5 | Findings 1 and 3 |
-| 📦 **Always-on headroom** | About 2,397 of 3,000 tokens, or 79.9%, just over the 75% line | Finding 3 |
+| 🎯 **Single source** | 6 or more duplicates, such as the 110-line rule cap in 5 places, the 3,000-token budget in 3 and the fresh-context reviewer process in 5 | Finding 1 |
+| 📦 **Always-on headroom** | About 2,397 of 3,000 tokens, or 79.9%, just over the 75% line | Move always-on detail to on-demand files |
 | 🚧 **Placeholders** | 1, "not built yet" in [`docs/target_architecture/README.md`](../../../docs/target_architecture/README.md) | Link the build progress issue without the phrase |
 | 🔗 **Cross-file consistency** | 8 or more contradictions, such as Ruff 0.17.4 in `requirements.txt` but v0.17.3 in `.pre-commit-config.yaml` | Finding 4 |
-| 🪜 **Simplest mechanism** | 3 issues: MoSCoW scoring of every test, the plan-sections hook blocking trivial plans, and a PR title check that repeats commitlint | Findings 2 and 3 |
+| 🪜 **Simplest mechanism** | 3 issues: MoSCoW scoring of every test, the plan-sections hook blocking trivial plans, and a PR title check that repeated commitlint, which #251 replaced | Findings 2 and 3 |
 
 Upkeep cost is ✅ at 10 of the last 50 commits, or exactly 20%, and Process weight is ✅ at 8 `maintenance/` files against 92 product files.
 
@@ -41,9 +41,9 @@ The latest run's findings, ranked by how much each would cut. Each run replaces 
    - **Line cap:** `test_rules_structure.py`, `_budget_and_guards.md`, `authoring_guide.md` and `rule.md.template`.
    - **Token budget:** `01_principles.md`, `claude_validate_always_on_budget.sh` and the repo rubric.
    - **Reviewer process:** `CONTRIBUTING.md`, `02_evaluation_criteria.md`, `pull_request_template.md`, `_workflow.md` and `authoring_guide/_rules.md`, plus the matching "Before merging" text in `authoring_guide/_agents.md` and `_skills.md`.
-2. 🏷️ **Lighter MoSCoW scoring:** cut `tests/test_moscow_tags.py`, the priority section of `maintenance/test_maintenance.md` and the per-test tags, which the transcripts show almost no use of.
-3. ✂️ **Trim enforced bullets:** shorten the Intent, Spec, Feedback loop and Review bullets in `sdlc_workflow.md` that a hook or CI already enforces, and let `hook_enforcement_plan_sections.sh` pass small plans.
-4. 🔗 **Fix the contradictions:** Ruff in `requirements.txt` and `.pre-commit-config.yaml`, the hooks named in `claude_install_config.sh` and `_tiers.md`, the pointer in `claude_validate_always_on_budget.sh`, `maturity` in `agent_skills_spec.md`, the H1 and `~` paths in `SKILL.md.template`, `~` paths in `_drafts_and_errors.md`, Python 3.10 and flake8 in `python_environment.md`, the skills and agents exclusion in `git_validate_pr_description.sh`, and the header lines in `AGENT.md.template`.
+2. 🏷️ **Fewer MoSCoW labels:** keep `# MoSCoW:` tags only where the tests audit's Core coverage needs them, since the transcripts show `maintenance/test_maintenance.md` almost unused.
+3. 🪶 **Let small plans pass:** have `hook_enforcement_plan_sections.sh` skip trivial plans, which it blocks today.
+4. 🔗 **Fix the contradictions:** #253 fixed the Ruff version, the hooks in `_tiers.md`, the budget script's pointer, `maturity` in `agent_skills_spec.md` and the `AGENT.md.template` checklist, and #245 the install note. Still open are the H1 and `~` paths in `SKILL.md.template`, `~` paths in `_drafts_and_errors.md`, Python 3.10 and flake8 in `python_environment.md`, and the skills and agents exclusion in `git_validate_pr_description.sh`.
 
 ## 💬 Component feedback
 
@@ -87,4 +87,3 @@ Rows are sorted by path. Each component that helped has one row, and each review
 | [`src/sh/claude_report_context_cost.sh`](../../../src/sh/claude_report_context_cost.sh) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Hindered | Its "out of date" check failed 13 times, including in CI |
 | [`src/sh/git/git_validate_branch_name.sh`](../../../src/sh/git/git_validate_branch_name.sh) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Hindered | Fired on `main` or a detached HEAD, so Claude skipped it with `SKIP=` |
 | [`src/sh/git/git_validate_num_file_changes.sh`](../../../src/sh/git/git_validate_num_file_changes.sh) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Unused | Never fired |
-| [`src/sh/git/git_validate_pr_title.sh`](../../../src/sh/git/git_validate_pr_title.sh) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Unused | Never rejected a real title |

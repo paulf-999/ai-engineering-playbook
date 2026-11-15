@@ -153,7 +153,7 @@ Link to supporting documentation:
 
 Before finalizing:
 - [ ] Frontmatter complete (name, description, tools, model, and isolation if the agent changes files)
-- [ ] Metadata header straight after the frontmatter (version, created, updated)
+- [ ] Metadata header straight after the frontmatter (created)
 - [ ] Purpose: one-liner, non-technical, user-focused
 - [ ] When to use: 3+ concrete scenarios + 2+ NOT use cases
 - [ ] Role: 3-5 lines describing persona

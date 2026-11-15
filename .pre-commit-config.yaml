@@ -102,7 +102,7 @@ repos:
             args: [--config, .github/linters/.markdownlint.yaml]
     # 🧹 Ruff — fast linter, formatter, and import sorter (rules live in pyproject.toml, so editors use them too)
     - repo: https://github.com/astral-sh/ruff-pre-commit
-      rev: v0.17.3
+      rev: v0.17.4
       hooks:
           - id: ruff
             name: Python fixes & lint — Ruff

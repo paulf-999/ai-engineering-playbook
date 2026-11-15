@@ -8,7 +8,7 @@ paths:
 <!-- miss_cost: medium — models drift from the project's layout and need reworking -->
 # 🔵 dbt Style Guide & Standards
 
-**Purpose:** the dbt project's standards for lineage, documentation, tests and materialisation, building on [dbt Labs' style guide](https://docs.getdbt.com/best-practices/how-we-style/0-how-we-style-our-dbt-projects).
+**Purpose:** the dbt project's standards for lineage, documentation, tests and materialisation. They adapt [dbt Labs' style guide](https://docs.getdbt.com/best-practices/how-we-style/0-how-we-style-our-dbt-projects) but use their own layers, prefixes and team macros, so edit those to fit your project.
 
 ## 🎯 Core principles
 

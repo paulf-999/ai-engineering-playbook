@@ -9,6 +9,8 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 
 ## 🪄 Getting Started
 
+You need `git`, `bash` and [`jq`](https://jqlang.org/) on macOS or Linux, and a git clone rather than a zip download, since the installer copies only tracked files.
+
 1. Clone the repository:
 
    ```bash
@@ -20,6 +22,17 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 
 > [!NOTE]
 > It backs up any file it replaces to `backups/` in that directory first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`.
+
+---
+
+## 🔧 What installing changes
+
+Besides adding instructions, installing changes how Claude works in every project:
+
+- 💬 **Replies:** Claude opens with a short summary, uses emoji bullets and British spelling, and offers options before big changes.
+- 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and Claude waits for your go-ahead even after you accept it.
+- 🪝 **Hooks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
+- 🔒 **Files:** Claude's file tools can't read `.env` files, and it saves plans to your Claude config directory and progress notes to your home folder.
 
 ---
 

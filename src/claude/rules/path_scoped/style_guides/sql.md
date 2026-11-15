@@ -6,7 +6,7 @@ paths:
 <!-- miss_cost: low — SQL drifts from the house style and needs reformatting -->
 # 🗄️ SQL Style Guide & Standards
 
-**Purpose:** Define team SQL standards for consistency, readability, and cost optimization. Standards apply to all SQL written in the warehouse (dbt, Airflow, ad-hoc queries).
+**Purpose:** Define team SQL standards for consistency, readability, and cost optimization. Standards apply to all SQL written in the warehouse (dbt, Airflow, ad-hoc queries), except where a repo's own `.sqlfluff` config differs, which wins.
 
 **dbt models:** the dbt style guide also loads for them and covers `ref()`, `source()` and YAML.
 

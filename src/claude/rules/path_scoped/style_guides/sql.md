@@ -3,7 +3,6 @@ paths:
   - "**/*.sql"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: SQL files -->
 <!-- miss_cost: low — SQL drifts from the house style and needs reformatting -->
 # 🗄️ SQL Style Guide & Standards
 

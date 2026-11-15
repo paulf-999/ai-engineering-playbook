@@ -5,7 +5,6 @@ paths:
   - "**/dbt_project.yml"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: dbt models and project files -->
 <!-- miss_cost: medium — models drift from the project's layout and need reworking -->
 # 🔵 dbt Style Guide & Standards
 

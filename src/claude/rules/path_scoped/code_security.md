@@ -7,7 +7,6 @@ paths:
   - "**/*.ts"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: Python, shell, SQL, JavaScript and TypeScript files -->
 <!-- miss_cost: high — code ships with a secret or an injection hole -->
 # 🛡️ Code security
 

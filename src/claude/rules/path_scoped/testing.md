@@ -5,7 +5,6 @@ paths:
   - "**/*.sql"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: Python, shell and SQL files -->
 <!-- miss_cost: medium — code changes ship untested or tests fall out of step -->
 # 🧪 Testing
 

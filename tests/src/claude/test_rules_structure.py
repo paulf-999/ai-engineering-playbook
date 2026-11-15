@@ -116,16 +116,19 @@ def list_problems(text):
 
 
 def usage_problems(text):
-    """Return problems with an entry-point rule's applies_to and miss_cost lines."""
+    """Return problems with an entry-point rule's usage lines: miss_cost, and applies_to unless paths: says it."""
     lines = text.split("\n")
     header = header_block(lines)
     # each usage line reads <!-- field: value -->, so collect them as a field-to-value mapping
     values = dict(re.findall(r"<!-- (applies_to|miss_cost): (.+?) -->", "\n".join(header)))
+    # a path-scoped rule's paths: list already says what it applies to, so an applies_to line would repeat it
+    path_scoped = bool(split_frontmatter(lines)[0])
+    needed = ("miss_cost",) if path_scoped else ("applies_to", "miss_cost")
     problems = [
-        f"an entry-point rule needs a '{field}' line after its header"
-        for field in ("applies_to", "miss_cost")
-        if field not in values
+        f"an entry-point rule needs a '{field}' line after its header" for field in needed if field not in values
     ]
+    if path_scoped and "applies_to" in values:
+        problems.append("a path-scoped rule's paths: list says what it applies to, so drop its applies_to line")
     # a value is the allowed word, then an em-dash and a reason, such as "low — style drift"
     if "miss_cost" in values and not re.fullmatch(rf"({'|'.join(MISS_COSTS)}) — .+", values["miss_cost"]):
         problems.append(f"miss_cost must be low, medium or high, then ' — ' and a reason: {values['miss_cost']!r}")
@@ -185,14 +188,14 @@ def test_rule_lists_are_short(path):
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Must — every entry-point rule must say what it applies to and what missing it costs
+# MoSCoW: Must — every entry-point rule must say what missing it costs, and what it applies to unless paths: does
 @pytest.mark.parametrize(
     "path",
     [path for path in RULE_FILES if is_entry_point(path)],
     ids=relative,
 )
 def test_entry_point_has_usage_lines(path):
-    """Each entry-point rule has applies_to and miss_cost lines, with miss_cost giving a level and a reason."""
+    """Each entry-point rule has a miss_cost line with a level and reason, and applies_to only without paths:."""
     problems = usage_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 

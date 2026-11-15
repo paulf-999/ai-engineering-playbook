@@ -3,7 +3,6 @@ paths:
   - "**/*.mmd"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: Mermaid diagram files -->
 <!-- miss_cost: low — diagrams get harder to read -->
 # 🔀 Mermaid Diagram Standards
 

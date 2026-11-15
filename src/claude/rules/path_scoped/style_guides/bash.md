@@ -3,7 +3,6 @@ paths:
   - "**/*.sh"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: shell scripts -->
 <!-- miss_cost: medium — scripts fail silently or break on unexpected input -->
 # 🖥️ Bash Style Guide
 

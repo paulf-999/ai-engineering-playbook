@@ -3,7 +3,6 @@ paths:
   - "**/*.py"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: Python files -->
 <!-- miss_cost: low — Python drifts from the house style -->
 # 🐍 Python Coding Standards
 

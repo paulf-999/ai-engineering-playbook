@@ -179,3 +179,32 @@ def test_unfilled_reason_lists_each_placeholder(description, placeholders):
     assert result.returncode == 1, f"a section with placeholders left in should fail: {result.stdout}"
     for placeholder in placeholders:
         assert placeholder in result.stdout, f"the reason should list {placeholder}: {result.stdout}"
+
+
+TEMPLATE = (REPO_ROOT / ".github" / "pull_request_template.md").read_text()
+
+
+# MoSCoW: Must — the template's defaults must suit a docs PR, but never let a config PR through unanswered
+@pytest.mark.parametrize(
+    ("changed_files", "expected_code", "reason"),
+    [
+        pytest.param("docs/other.md", 0, None, id="docs_pr_passes_as_is"),
+        pytest.param(ON_DEMAND_FILE, 1, f"default 'Not applicable' line in '{SPEC_NAME}'", id="config_spec"),
+        pytest.param(
+            CONFIG_FILE, 1, f"default 'Not applicable' line in '{CRITERIA_NAME}'", id="always_on_keeps_criteria"
+        ),
+    ],
+)
+def test_the_template_defaults_pass_only_when_the_section_isnt_needed(changed_files, expected_code, reason):
+    """The template, unedited, passes a docs-only PR, and fails a config PR that keeps a default 'Not applicable'."""
+    result = run_check(TEMPLATE, changed_files)
+    assert result.returncode == expected_code, f"unexpected result for {changed_files!r}:\n{result.stdout}"
+    assert reason is None or reason in result.stdout, f"the reason should name the default left in:\n{result.stdout}"
+
+
+# MoSCoW: Must — the hidden example table must not count as the PR's answers
+def test_criteria_left_in_a_comment_dont_count():
+    """A criteria table inside an HTML comment is ignored, so it can't stand in for real answers."""
+    hidden = "\n## :balance_scale: Evaluation criteria\n\n<!--\n" + TABLE_HEADER + "| a | b | ✅ | c |\n-->\n"
+    result = run_check(DETAILS + bullets(1) + SPEC + hidden + NEXT_SECTION, CONFIG_FILE)
+    assert result.returncode == 1, f"a commented-out table shouldn't count as answers:\n{result.stdout}"

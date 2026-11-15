@@ -40,11 +40,18 @@ Choose one:
 <details>
 <summary>Approved plan's spec</summary>
 
-[For a `src/claude/` change, paste its `spec.md`, so a reviewer can check the diff against it. Otherwise, say "Not applicable" and why.]
+Not applicable: this PR changes nothing under `src/claude/`.
+
+<!-- For a src/claude/ change, replace the line above with its spec.md, so a reviewer can check the diff against it, or say why it has none. -->
 
 </details>
 
 ## :balance_scale: Claude: Evaluation Criteria for Claude Config Changes
+
+Not applicable: this PR changes no always-on or enforcing file.
+
+<!-- For a change to src/claude/CLAUDE.md, a rule in rules/always/ or a hook, replace the line above with this block,
+filled by a fresh-context reviewer agent given only the diff and the criteria:
 
 > [!NOTE]
 > **✅ Safe to approve:** [one-sentence verdict, such as "no red flags; always-on context unchanged". If a red flag is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]
@@ -52,7 +59,7 @@ Choose one:
 <details>
 <summary>Criteria results</summary>
 
-[Needed when the PR changes an always-on or enforcing file, such as `src/claude/CLAUDE.md`, a rule in `rules/always/` or a hook, filled by a fresh-context reviewer agent given only the diff and the criteria. Add a row for each ❌ Misaligned standard. Keep each Why under 10 words. Otherwise, replace this section's content with "Not applicable".]
+[Add a row for each ❌ Misaligned standard, and keep each Why under 10 words.]
 
 Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md).
 
@@ -64,6 +71,7 @@ Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engine
 All other standards ✅ Aligned. Trial ⏳ due at the next review.
 
 </details>
+-->
 
 ## :bulb: Best Practices
 

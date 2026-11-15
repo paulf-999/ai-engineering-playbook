@@ -13,6 +13,8 @@ SCRIPT = SCRIPTS_DIR / "git" / "git_validate_num_file_changes.sh"
 def git_repo(tmp_path):
     """Create an isolated git repo with one commit on main, plus an env that ignores the user's git config."""
     env = isolated_git_repo(tmp_path, branch="main")
+    # an exported override would change the default 20-file limit these tests rely on
+    env.pop("MAX_FILES_ALLOWED", None)
     subprocess.run(["git", "add", "."], cwd=tmp_path, env=env, check=True)
     subprocess.run(["git", "commit", "-q", "-m", "base"], cwd=tmp_path, env=env, check=True)
     return tmp_path, env

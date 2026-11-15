@@ -19,7 +19,7 @@ Read them in this order:
 
 ## 📌 Status and terms
 
-- 🚧 **Status:** adopted, with what is built tracked in the [build progress](../../maintenance/build_progress.md).
+- 🚧 **Status:** adopted, with what's still outstanding tracked in the [build progress](../../maintenance/build_progress.md).
 
 This page defines the terms its child pages use:
 

@@ -33,7 +33,7 @@ Two valid messages:
 
 - 🪝 **Pre-commit hooks:** fix what they flag, rather than skipping them with `--no-verify`.
 - 🧪 **Done:** meet [Done means](../CLAUDE.md) in `CLAUDE.md` before raising the PR.
-- 📊 **Scores:** leave the [quality audit](../maintenance/quality/quality_audit.md) as it is, since each regular review re-scores every test and rule changed since the last one, in one PR.
+- 📊 **Scores:** leave the [quality audit](../maintenance/quality/quality_audit.md) as it is, since each regular review re-scores the repo, and checks tests and rules against their checklists, in one PR.
 
 ## 🚀 Releases
 

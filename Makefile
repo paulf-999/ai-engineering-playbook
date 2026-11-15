@@ -35,7 +35,7 @@ deps:
 	@python -m pre_commit install
 
 install:
-	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${PROJECT:+$$PROJECT/.claude}$${PROJECT:-$${CLAUDE_CONFIG_DIR:-$$HOME/.claude}}.${COLOUR_OFF}"
+	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${PROJECT:+$$PROJECT/.claude}$$([ -n "$${PROJECT:-}" ] || echo "$${CLAUDE_CONFIG_DIR:-$$HOME/.claude}").${COLOUR_OFF}"
 	@bash src/sh/claude_install_config.sh
 
 context_cost:

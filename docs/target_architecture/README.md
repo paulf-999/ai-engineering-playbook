@@ -2,7 +2,7 @@
 
 **Purpose:** what the new set of Claude Code instructions contains, which parts Claude reads in every session and which only when needed, and how their cost and benefit are measured.
 
-This page describes the design, and the [build progress](../../maintenance/build_progress.md) says which parts are built so far.
+This page describes the design, and the [build progress](../../maintenance/build_progress.md) lists the parts not built yet.
 
 The design rests on the [reference material](reference_material/README.md), and each choice follows the Source column of the [principles](design_principles/01_principles.md).
 

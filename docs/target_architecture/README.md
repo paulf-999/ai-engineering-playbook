@@ -2,7 +2,7 @@
 
 **Purpose:** what the new set of Claude Code instructions contains, which parts Claude reads in every session and which only when needed, and how their cost and benefit are measured.
 
-This page describes the design, and the [implementation status](implementation_status.md) says which parts are built so far.
+This page describes the design, and the [build progress](../../maintenance/build_progress.md) says which parts are built so far.
 
 The design rests on the [reference material](reference_material/README.md), and each choice follows the Source column of the [principles](design_principles/01_principles.md).
 
@@ -75,11 +75,11 @@ Each [regular review](design_principles/01_principles.md#-numbers-and-tests) tak
 
 - 🗑️ **Acting on feedback:** each review removes [components that don't pay](design_principles/01_principles.md) and runs the [halving test](design_principles/01_principles.md#-numbers-and-tests).
 
-## 📖 Other pages in this folder
+## 📖 Further reading
 
-After this page, read these in order. The implementation status and reference material are linked at the top.
+After this page, read these in order. The build progress and reference material are linked at the top.
 
 1. [Design principles](design_principles.md): the principles every part follows, and the checks a new part must pass.
-2. [Review of the old setup](legacy_architecture.md): what the earlier, larger set of instructions contained, what worked, and where it grew heavier than the evidence justified.
+2. [Review of the old setup](../../maintenance/old_setup_review.md): what the earlier, larger set of instructions contained, what worked, and where it grew heavier than the evidence justified.
 
 To add a rule, skill, hook or agent, go straight to the [evaluation criteria](design_principles/02_evaluation_criteria.md).

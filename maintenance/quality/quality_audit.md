@@ -9,9 +9,8 @@ Each section is scored against its rubric in [quality rubrics](quality_rubrics.m
 
 ## 🧪 Tests
 
-- 🧪 **Kept accurate by:** [this audit's checker](../../tests/maintenance/quality/test_quality_audit_test_files.py), which fails if a test file has no row.
 - 🔢 **Counts by score:** run the grep in the [periodic review](../test_maintenance.md#-periodic-review), rather than keeping a table by hand.
-- 🪞 **Own checker:** the checker gets no quality score, since it can't fairly score itself.
+- 🏷️ **Priorities:** [`test_moscow_tags.py`](../../tests/test_moscow_tags.py) fails if a test function has no `# MoSCoW:` comment.
 - 🕳️ **Gaps:** written by hand when a script is scored, so recheck a script's gaps whenever its tests change.
 
 ### ⭐ Quality by script
@@ -34,12 +33,10 @@ Each script's tests are scored against the [test rubric](quality_rubrics.md#-tes
 | [`Makefile`](../../Makefile) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every script's structure](../../tests/src/sh/test_script_structure.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every rule's structure](../../tests/src/claude/test_rules_structure.py) | ✅ 2 | 🟡 1 | ✅ 2 | 🟡 1 | ✅ 2 | **B · 8/10** | Leanness: `test_rule_headings`, `test_rule_lists_are_short` and the emoji-H1 check in `opening_problems` check layout only; Simplicity: `PATH_SCOPED_RULE` is built by chained `.replace()` calls on the shared `GOOD_RULE` (a moving part), `test_path_scoped_rule_passes_the_checks` and `test_child_check_can_fail` each assert several things |
-| [Rules quality audit](../../tests/maintenance/quality/test_quality_audit_rules.py) | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 10/10** | — |
 | [Every installed file's created line](../../tests/test_file_metadata_headers.py) | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | ✅ 2 | **A · 9/10** | Core coverage: no bad-header case for a markdown file or one with YAML front matter |
 
 ## 📏 Rules
 
-- **Kept accurate by:** [`test_quality_audit_rules.py`](../../tests/maintenance/quality/test_quality_audit_rules.py), which fails if an entry-point rule has no row or a score doesn't match its themes.
 - **Scored by:** one fresh-context reviewer on Sonnet, using the [rules rubric](quality_rubrics.md#-rules), never the model that wrote the rule.
 - **When:** a PR that changes a rule refreshes that rule's row, and each row covers the rule with its children.
 

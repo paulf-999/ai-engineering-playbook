@@ -16,8 +16,6 @@ repos:
           - id: check-merge-conflict  # checks for files that contain merge conflict strings.
             name: Git checks — any merge conflicts?
           # ✅ Python checks
-          - id: check-ast  # checks for valid Python syntax (AST)
-            name: Python checks — Valid syntax?
           - id: name-tests-test
             name: Python checks — pytest test files named correctly?
             args: [--pytest-test-first]

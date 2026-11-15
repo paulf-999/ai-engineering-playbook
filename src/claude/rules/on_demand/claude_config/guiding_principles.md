@@ -19,9 +19,8 @@
 - ↩️ **Easy to remove:** keep each piece small and single-purpose, so one small PR can take it out.
 - 💸 **Automation pays back:** automate only work done about 5 or more times a month.
 - 🔗 **Live sources:** link to the source of truth rather than keeping lists that go stale.
+- 🛠️ **Writing one:** follow the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), which also covers portable paths for hooks, scripts and tests.
 
 ## 📚 Read on demand
 
-- `on_demand/claude_config/authoring_guidelines.md`, in your Claude config directory, once a new rule, skill or agent is worth adding.
-- `on_demand/claude_config/portable_paths.md`, before writing a hook, script or test for the config.
-- `on_demand/claude_config/turn_budgets.md`, before testing a config change with `claude -p` or another unattended run.
+- `on_demand/claude_config/turn_budgets.md`, in your Claude config directory, before testing a config change with `claude -p` or another unattended run.

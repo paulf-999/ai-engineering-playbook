@@ -25,5 +25,5 @@
 <!-- Optional: one table between bullets, when two or more items share the same fields, and the Read on demand section. -->
 <!-- Tests check the header, H1, Purpose, headings, list length, size and pointers. Before merging, also check that: -->
 <!-- each bullet opens with an emoji and a **term:**, and is one sentence; the rule covers one concept; prose uses British spelling; -->
-<!-- and a rule backed by a hook, test or CI check has a test in tests/. Then read _authoring_rules.md for the tier, pointers and trial. -->
+<!-- and a rule backed by a hook, test or CI check has a test in tests/. Then read the playbook repo's docs/guides/authoring_guide.md for the tier, pointers and trial. -->
 <!-- Delete these comments. -->

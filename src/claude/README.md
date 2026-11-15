@@ -45,6 +45,6 @@ cp -R src/claude/rules/on_demand/style_guides/sql ~/.claude/on_demand/style_guid
 
 ## 🛠️ Changing it
 
-- 📐 **Shape:** the [authoring guidelines](rules/on_demand/claude_config/authoring_guidelines.md) cover how to write a rule, skill or agent.
+- 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers how to write a rule, skill or agent.
 - ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide whether a new component earns its context cost.
 - ✅ **Checks:** `make test` checks each rule's structure, and pre-commit keeps the always-on context within budget.

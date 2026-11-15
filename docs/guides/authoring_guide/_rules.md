@@ -1,0 +1,12 @@
+# 📝 Authoring rules
+
+**Purpose:** how to place, write, wire up and check a new rule, as part of the [authoring guide](../authoring_guide.md).
+
+- 🚪 **Pick the tier:** `always/` only for a rule every task needs while the always-on budget holds, `path_scoped/` with a `paths:` setting for a rule tied to one kind of file, and `on_demand/` for everything else, and whenever you're unsure.
+- 👉 **Pointers:** reach an on-demand file with a bullet in a `## 📚 Read on demand` section at the end of the file, naming its path, in your Claude config directory, and when to read it, or name it in a hook's block message.
+- 🆕 **New-file gap:** a path-scoped rule loads only once a matching file is open, so point to it on demand too, for the first file of its kind.
+- 🧩 **Children:** name each child in its parent, and keep links to other files in those pointer lines rather than a Related section.
+- 🧪 **Test the pointer:** run a lean session on a matching task, and check Claude reads the file before acting.
+- 🧾 **Usage lines:** give each entry-point rule `applies_to` and `miss_cost` lines straight after its header, since its folder already sets how it loads, and its children inherit them.
+- 🛡️ **Before merging:** a rule backed by a hook, test or CI check gets a test in `tests/`, and an always-on rule has a fresh-context reviewer fill the PR template's Evaluation criteria section.
+- 🔁 **Trial:** remove it at the next regular review if the session transcripts show it hasn't paid its way.

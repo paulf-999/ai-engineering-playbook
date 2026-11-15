@@ -21,8 +21,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 4 | `rules/always/conduct/writing_style.md` | ~310 |
 | 5 | `rules/always/standards/claude_response_standards.md` | ~218 |
 | 6 | `rules/always/standards/naming_standards.md` | ~247 |
-| 7 | `rules/always/workflows/sdlc_workflow.md` | ~404 |
-| | **Subtotal** | **~2232** |
+| 7 | `rules/always/workflows/sdlc_workflow.md` | ~408 |
+| | **Subtotal** | **~2236** |
 
 ## 💤 Only when needed
 

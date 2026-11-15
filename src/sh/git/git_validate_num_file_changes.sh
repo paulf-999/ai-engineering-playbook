@@ -52,10 +52,7 @@ resolve_base_ref() {
     # outside CI the base may not be fetched yet, so try fetching it from origin before giving up
     if ! ref_exists "${BASE_REF}"; then
         log_message "${DEBUG_DETAILS}" "Base ref ${BASE_REF} not found locally - fetching it from origin."
-        if git fetch --quiet --no-tags origin "${BASE_REF#origin/}" 2>/dev/null && ! ref_exists "${BASE_REF}"; then
-            # a local branch name that only exists on origin lands in FETCH_HEAD
-            BASE_REF="FETCH_HEAD"
-        fi
+        git fetch --quiet --no-tags origin "${BASE_REF#origin/}" 2>/dev/null || true
         if ! ref_exists "${BASE_REF}"; then
             print_section_header "${ERROR}" "ERROR: base ref ${BASE_REF} not found, locally or on origin."
             exit 1

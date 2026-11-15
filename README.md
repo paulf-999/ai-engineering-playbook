@@ -16,10 +16,10 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
    cd ai-engineering-playbook
    ```
 
-2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`.
+2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`, or `$CLAUDE_CONFIG_DIR` if set.
 
 > [!NOTE]
-> It backs up any file it replaces to `~/.claude/backups/` first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`.
+> It backs up any file it replaces to `backups/` in that directory first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`.
 
 ---
 

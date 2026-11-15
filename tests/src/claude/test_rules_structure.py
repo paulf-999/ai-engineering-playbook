@@ -159,7 +159,7 @@ def is_entry_point(path):
 # MoSCoW: Must — every rule must open with the header, an emoji H1 and a Purpose line
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_opens_with_header_h1_and_purpose(path):
-    """Each rule has the 3-line header, exactly one H1 with an emoji, and a Purpose line straight after it."""
+    """Each rule has a created header line, exactly one H1 with an emoji, and a Purpose line straight after it."""
     problems = opening_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 

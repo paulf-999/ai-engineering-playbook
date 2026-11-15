@@ -1,79 +1,19 @@
 # TODO
 
-## Active Month: YYYY-MM
-
----
-
 ## 📋 Pending Items
 
-| # | Created | Updated | Domain | Item | Group | Priority | Effort | Value | Description |
-|---|---------|---------|--------|------|-------|----------|--------|-------|-------------|
-|   |          |          |        |      |       |          |        |       | Start by adding items here. Created date (YYYY-MM-DD), Updated date, Domain (e.g., "Naming Audit", "File Structure"), Item title, Group (Foundation/Quick Win/Core Work/High Effort), Priority emoji (🔴 High / 🟡 Medium / 🟢 Low), Effort emoji (🟢 Low / 🟡 Medium / 🔴 High), Value emoji (💎 High / 💰 Medium / 💵 Low), and multi-line description with bullets. |
-
----
+| # | Created | Item | Priority | Description |
+|---|---------|------|----------|-------------|
+|   |         |      |          | Start by adding items here: Created date (YYYY-MM-DD), Item title, Priority emoji (🔴 High / 🟡 Medium / 🟢 Low), and a description with bullets joined by `<br>`. |
 
 ## ✅ Completed Items
 
-| # | Created | Updated | Domain | Item | Group | Priority | Effort | Value | Description |
-|---|---------|---------|--------|------|-------|----------|--------|-------|-------------|
-|   |          |          |        |      |       |          |        |       | Completed items appear here after moving from Pending. Use strikethrough (`~~text~~`) for all columns to mark as complete. Keep completed items for historical reference; they will be archived at month end. |
-
----
-
-## Summary (YYYY-MM)
-
-**Pending:** [N] items
-
-**Completed:** [N] items
-
-**Next priority:**
-- [List top 2-3 priorities for the month]
-
-**Notes:**
-- [Any meta-notes about this month's work]
-- [Dependencies or blockers]
-- [Scheduling notes]
-
----
+| # | Created | Item | Priority | Description |
+|---|---------|------|----------|-------------|
+|   |         |      |          | Move items here once done, with strikethrough (`~~text~~`) on every column. |
 
 ## How to Use This Template
 
 1. **Create your TODO list:** `cp "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/_templates/TODO.md.template" "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/TODO.md"`
-2. **Update Active Month:** Replace YYYY-MM with current month (e.g., 2026-09)
-3. **Add items:** Start filling in pending items as they emerge
-4. **Mark as done:** Move items to Completed table and apply strikethrough
-
----
-
-## Format Rules
-
-**Columns:**
-- `#` — Item number (sequential; reuse after archival)
-- `Created` — Date item was added (YYYY-MM-DD)
-- `Updated` — Date status last changed (YYYY-MM-DD)
-- `Domain` — Specific area (e.g., "Naming Audit", "File Structure")
-- `Item` — Descriptive title of the task
-- `Group` — Grouping strategy: Foundation, Quick Win, Core Work, High Effort
-- `Priority` — High, Medium, Low
-- `Effort` — Estimate: Low, Medium, High
-- `Value` — Impact if completed: High, Medium, Low
-- `Description` — Bullet-pointed details, context, success criteria, resolution notes
-
-**Status indicators:**
-- `📋 Pending` — Not started
-- `🔄 In Progress` — Currently being worked
-- `✅ Done` — Completed (with strikethrough on entire row: `~~text~~`)
-
-**Strikethrough completed items:**
-```markdown
-| ~~1~~ | ~~2026-08-20~~ | ~~2026-08-20~~ | ~~Naming Audit~~ | ~~Item~~ | ~~Quick Win~~ | ~~High~~ | ~~Low~~ | ~~High~~ | ~~Description~~ |
-```
-
----
-
-## Reference
-
-- **Format guide:** This file (`_templates/TODO.md.template`)
-- **Active TODO:** `TODO.md` in your Claude config directory
-
----
+2. **Add items:** fill in pending items as they emerge.
+3. **Mark as done:** move items to the Completed table and apply strikethrough.

@@ -5,7 +5,6 @@
 
 **Purpose:** how this repo maintains itself.
 
-- 🏷️ **[File headers](file_headers.md):** what the `created` line at the top of each installed file records.
 - 🧪 **[Test upkeep](test_maintenance.md):** how many tests to write, and when to delete one.
 - 💰 **[Context cost](context_cost.md):** how much text each part of the config adds, and when it loads.
 - 🏛️ **[Old setup review](old_setup_review.md):** what the earlier config contained, and the lessons this design carries forward.

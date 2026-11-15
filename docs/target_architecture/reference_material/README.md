@@ -10,7 +10,7 @@ The design is built on these, so each has a summary in this repo:
 
 - 🔄 **[The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook)** ([summary](core/anthropic_ai_native_sdlc.md)): lifecycle and workflow guidance, from Anthropic.
 - 📊 **[DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/)** ([summary](core/dora_ai_capabilities.md)): the seven capabilities and how to build them, from DORA.
-- 🧑‍💼 **[Handover review](core/handover_review.md)**, sections 4 and 6: an outside reviewer's view of the [old Claude configuration](../../../maintenance/old_setup_review.md), which sets the design's stance and priorities.
+- 🧑‍💼 **[Handover review](core/handover_review.md)**, sections 4 and 6: an outside reviewer's view of the [old Claude configuration](../README.md#️-the-old-setup), which sets the design's stance and priorities.
 - 🧩 **[Agent Skills specification](https://agentskills.io/specification)** ([summary](core/agent_skills_spec.md)): the required format and naming of a skill.
 
 ## 🥈 Supporting
@@ -21,19 +21,8 @@ These back specific limits and naming rules, so recheck the live page before rel
 - 🛠️ **[Extend Claude with skills](https://code.claude.com/docs/en/skills):** where Claude Code's skills go beyond the standard, so the template's `tags` field must go before a claude.ai upload.
 - 🤖 **[Create custom subagents](https://code.claude.com/docs/en/sub-agents):** the agent template's fields, and listing `tools`, since leaving it out grants every tool.
 
-## 📖 Further reading
-
-Nothing in the design links to these yet, but each gives a view the others don't:
-
-- 📈 **[State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/):** survey evidence on AI adoption and outcomes.
-- ⚖️ **[METR's trial of early-2025 AI on experienced developers](https://arxiv.org/abs/2507.09089):** a randomised trial showing felt speed-ups can hide real slowdowns.
-- 🧰 **[Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html):** when to guide Claude and when to enforce, from outside Anthropic.
-- 🧪 **[Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents):** a method for testing whether each part of the config still helps.
-- 📘 **[Best practices for Claude Code](https://code.claude.com/docs/en/best-practices):** Anthropic's split between guidance Claude may follow and rules that always hold.
-- 🏛️ **[The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf):** a shared method and vocabulary for enterprise architecture.
-
 ## 🧭 Weighing them
 
-- 🛠️ **Guidance and standards:** the SDLC course, the Claude Code docs, the harness engineering article, the handover review, TOGAF and the Agent Skills specification say what to do, but none shows that a practice works.
-- 🔬 **Evidence:** DORA's surveys show correlation rather than cause, and METR's trial shows cause, but on 16 developers in early 2025.
+- 🛠️ **Guidance and standards:** the SDLC course, the Claude Code docs, the handover review and the Agent Skills specification say what to do, but none shows that a practice works.
+- 🔬 **Evidence:** DORA's surveys show correlation rather than cause, so weigh them as signals, not proof.
 - 📝 **Citing:** record the page or section, and the version or access date, for every claim taken from a source.

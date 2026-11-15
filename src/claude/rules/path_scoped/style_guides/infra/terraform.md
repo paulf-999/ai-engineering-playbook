@@ -3,7 +3,6 @@ paths:
   - "**/*.tf"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: Terraform files -->
 <!-- miss_cost: medium — infrastructure code drifts from the team's layout and needs reworking -->
 # 🏗️ Terraform Style Guide & Standards
 

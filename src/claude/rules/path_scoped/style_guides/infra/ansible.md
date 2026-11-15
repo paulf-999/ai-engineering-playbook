@@ -4,7 +4,6 @@ paths:
   - "**/roles/**/*.yml"
 ---
 <!-- created: 2026-04-08 -->
-<!-- applies_to: Ansible playbooks and roles -->
 <!-- miss_cost: medium — playbooks drift from the team's structure and need reworking -->
 # 📦 Ansible Style Guide & Standards
 

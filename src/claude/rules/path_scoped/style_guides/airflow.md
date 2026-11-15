@@ -3,7 +3,6 @@ paths:
   - "**/dags/**/*.py"
 ---
 <!-- created: 2026-08-28 -->
-<!-- applies_to: Airflow DAG files -->
 <!-- miss_cost: medium — DAGs fail or retry badly and need reworking -->
 # 🌬️ Airflow Style Guide & Standards
 

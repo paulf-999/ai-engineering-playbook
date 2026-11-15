@@ -1,5 +1,5 @@
 <!-- created: YYYY-MM-DD -->
-<!-- applies_to: [globs for the files whose sessions need it, or * for every session] -->
+<!-- applies_to: [globs for the files whose sessions need it, or * for every session; delete this line in a path-scoped rule, whose paths: list says it] -->
 <!-- miss_cost: [high, medium or low] — [what goes wrong if it's missed] -->
 # 🔤 [Rule name]
 

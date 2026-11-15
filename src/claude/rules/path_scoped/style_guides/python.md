@@ -24,6 +24,11 @@ paths:
 - **Default:** one line saying what the function does, enough for most private helpers and tests.
 - **Fields:** reST only, such as `:param:`, and only when they add meaning, with no `:type:` or `:rtype:`.
 
+## 💬 Comments
+
+- **When:** comment anything a reader would pause on: non-obvious logic, the purpose of a non-trivial conditional, fallback behaviour, the phases of a function over about 10 lines, and every `TODO` or `FIXME`, with what and why.
+- **How:** put each comment above the code it describes, never at the end of a line, keep it accurate, and never restate the code, such as `i += 1  # increment i`.
+
 ## 🔖 Type hints
 
 - **When:** add them when the type is non-obvious or specific.
@@ -32,9 +37,8 @@ paths:
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/python/_python_environment.md`, in your Claude config directory, when setting up a virtual environment or dependencies.
+- `on_demand/style_guides/python/python_environment.md`, in your Claude config directory, when setting up a virtual environment or dependencies.
 - `on_demand/style_guides/python/testing.md`, before writing or changing pytest tests.
 - `on_demand/style_guides/python/logging.md`, before adding logging or error handling.
-- `on_demand/style_guides/python/_comments.md`, when deciding whether or how to comment code.
 - `on_demand/style_guides/python/code_complexity.md`, when a function grows long or deeply nested.
 - `on_demand/style_guides/python/module_organisation.md`, when writing docstrings or splitting public and private code.

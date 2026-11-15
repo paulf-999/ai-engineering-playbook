@@ -11,6 +11,8 @@ CONFIG_DIR = REPO_ROOT / "src" / "claude"
 RULES_DIR = CONFIG_DIR / "rules"
 RULE_FILES = sorted(RULES_DIR.rglob("*.md"))
 MAX_LINES = 110
+# a child shorter than this saves too little context to be worth its own file and pointer
+MIN_CHILD_LINES = 40
 MAX_BULLETS = 5
 # emoji blocks: pictographs and symbols, misc symbols and dingbats, arrows and technical symbols
 EMOJI = re.compile("[\U0001f300-\U0001faff☀-➿⬀-⯿⌀-⏿←-⇿]")
@@ -220,8 +222,14 @@ def find_parent(path, rules_dir=RULES_DIR):
     return next((candidate for candidate in candidates if candidate.exists()), beside)
 
 
+def body_lines(text):
+    """Return a rule's line count, leaving out frontmatter and comment lines, as the size limit counts them."""
+    _, body = split_frontmatter(text.rstrip("\n").split("\n"))
+    return len([line for line in body if not line.startswith("<!--")])
+
+
 def child_problems(path, rules_dir=RULES_DIR):
-    """Return problems with a child rule: no parent for its folder, no sibling, or not named by the parent."""
+    """Return problems with a child rule: no parent folder, no sibling, too short, or not named by the parent."""
     parent = find_parent(path, rules_dir)
     if not parent.exists():
         return ["a child must sit in a folder named after a parent rule"]
@@ -230,6 +238,10 @@ def child_problems(path, rules_dir=RULES_DIR):
         problems.append("a folder needs 2 or more children, so flatten a lone child")
     if path.name not in parent.read_text():
         problems.append("the parent must name this child in a pointer")
+    # an always-on parent splits to keep every session cheap, so its children may be short
+    is_always_on = parent.is_relative_to(rules_dir / "always")
+    if not is_always_on and body_lines(path.read_text()) < MIN_CHILD_LINES:
+        problems.append(f"a child needs {MIN_CHILD_LINES} or more lines, so fold it into its parent or a sibling")
     return problems
 
 
@@ -250,9 +262,25 @@ def resolve(target):
     ids=relative,
 )
 def test_child_is_named_by_its_parent(path):
-    """Each child sits in a folder named after its parent, has a sibling, and is named in the parent's text."""
+    """Each child sits in a folder named after its parent, has a sibling, is long enough, and is named by the parent."""
     problems = child_problems(path)
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
+
+
+# MoSCoW: Must — a size floor that never fails would let tiny children pile up again
+def test_a_short_child_is_reported_unless_its_parent_is_always_on(tmp_path):
+    """A child under the line floor fails beside an on-demand parent, and passes beside an always-on one."""
+    names = "parent.md\n- `_short.md`\n- `_other.md`\n"
+    for tier in ("on_demand", "always"):
+        (tmp_path / tier / "parent").mkdir(parents=True)
+        (tmp_path / tier / "parent.md").write_text(names)
+        for child in ("_short.md", "_other.md"):
+            (tmp_path / tier / "parent" / child).write_text("x\n" * 5)
+    floor = f"a child needs {MIN_CHILD_LINES} or more lines"
+    assert any(
+        floor in problem for problem in child_problems(tmp_path / "on_demand" / "parent" / "_short.md", tmp_path)
+    )
+    assert not child_problems(tmp_path / "always" / "parent" / "_short.md", tmp_path)
 
 
 # MoSCoW: Must — an on-demand rule nothing points to is never read

@@ -25,13 +25,7 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 
 An illustrative example: you ask Claude to *"add a dbt model that counts each customer's orders"*.
 
-**Without the playbook**, Claude might hard-code a table name and skip the tests:
-
-```sql
-SELECT customer_id, COUNT(*) AS order_count
-FROM raw.shop.orders
-GROUP BY customer_id
-```
+**Without the playbook**, Claude might hard-code `FROM raw.shop.orders` and add no tests.
 
 **With it**, the [dbt guide](src/claude/rules/path_scoped/style_guides/dbt.md) loads as soon as Claude opens a model, so it follows your team's style:
 

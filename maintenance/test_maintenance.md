@@ -56,4 +56,4 @@ grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
 ```
 
 - 📉 **Balance:** more `Should` than `Must` tests means upkeep goes on side paths rather than what matters.
-- 🏅 **Check:** run the [tests checklist](quality/quality_rubrics/_tests.md) on every script whose tests changed since the last review, and open an issue for each finding not fixed in that PR.
+- 🏅 **Check:** run the [tests checklist](quality/quality_rubrics/_repo.md#-rules-and-tests-checklists) on every script whose tests changed since the last review, and open an issue for each finding not fixed in that PR.

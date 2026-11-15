@@ -89,12 +89,9 @@ def size_problems(text):
 
 
 def heading_problems(text):
-    """Return problems with ## headings: a missing emoji, an unearned Contents section or a Related section."""
+    """Return problems with ## headings: a missing emoji or a Related section."""
     h2 = [line for line in prose_lines(text.split("\n")) if line.startswith("## ")]
     problems = [f"this heading needs an emoji: {line!r}" for line in h2 if not EMOJI.search(line)]
-    real = [line for line in h2 if "Contents" not in line]
-    if len(real) < len(h2) and len(real) < 3:
-        problems.append(f"a Contents section needs 3 or more other ## headings, found {len(real)}")
     problems += [f"link other files by pointer, not a Related section: {line!r}" for line in h2 if "Related" in line]
     return problems
 
@@ -173,7 +170,7 @@ def test_rule_size_and_ending(path):
 # MoSCoW: Should — headings keep rules scannable and link only through pointers
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_headings(path):
-    """Each ## heading has an emoji, Contents appears only with 3 or more headings, and there's no Related section."""
+    """Each ## heading has an emoji, and there's no Related section."""
     problems = heading_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 

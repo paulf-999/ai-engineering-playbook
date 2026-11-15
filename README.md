@@ -19,7 +19,7 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`.
 
 > [!NOTE]
-> It backs up any file it replaces to `~/.claude/backups/` first.
+> It backs up any file it replaces to `~/.claude/backups/` first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`.
 
 ---
 

@@ -30,6 +30,18 @@ A file whose name starts with `_` is a child: detail split out of a parent rule,
 
 Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `always/conduct/` and `always/workflows/` point to.
 
+## 🏢 Installing into one repo
+
+To share the config with a team, or try it without touching your own `~/.claude`, install it into a repo's `.claude/` folder and commit that folder:
+
+```bash
+make install PROJECT=../my_dbt_repo
+```
+
+- 📍 **Pointers:** every "in your Claude config directory" pointer becomes "in this project's `.claude/` folder", so Claude reads the detail from the repo.
+- 🪝 **Hooks:** left out by default, since they enforce one planning format and run `make test` and pre-commit, which not every repo has. Add `HOOKS=1` to include them.
+- 🛡️ **Backups:** anything it replaces is backed up to `~/.claude/backups/`, outside the repo, so backups are never committed.
+
 ## 🍒 Copying one style guide
 
 To use one guide without `make install`, copy it and its children into your Claude config directory, keeping the same folders. For the SQL guide:

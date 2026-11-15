@@ -22,13 +22,14 @@ GIT_ENV = {
 
 @pytest.fixture
 def repo(tmp_path):
-    """Return a git repo with one committed file."""
+    """Return a git repo with one committed file, and a CLAUDE.md naming its done checks."""
     path = tmp_path / "repo"
     path.mkdir()
     env = {**os.environ, **GIT_ENV}
     subprocess.run(["git", "init", "-q"], cwd=path, env=env, check=True)
     (path / "app.py").write_text("print('hi')\n")
-    subprocess.run(["git", "add", "app.py"], cwd=path, env=env, check=True)
+    (path / "CLAUDE.md").write_text("Done means `make test` passes.\n")
+    subprocess.run(["git", "add", "app.py", "CLAUDE.md"], cwd=path, env=env, check=True)
     subprocess.run(["git", "commit", "-q", "-m", "init"], cwd=path, env=env, check=True)
     return path
 
@@ -51,6 +52,19 @@ def test_a_stop_after_changes_is_blocked_with_the_reason(tmp_path, repo):
     result = run_hook(tmp_path, repo)
     assert result.returncode == BLOCKED, f"the stop should be blocked:\n{result.stderr}"
     assert "CLAUDE.md" in result.stderr, "the reason should point to the checks CLAUDE.md names"
+
+
+# MoSCoW: Must — a repo with no CLAUDE.md names no done checks, so the hook must not send Claude to guess at them
+@pytest.mark.parametrize("where", ["root", ".claude"])
+def test_a_repo_without_a_claude_md_is_left_alone_unless_one_is_added(tmp_path, repo, where):
+    """With CLAUDE.md removed, a stop after changes is allowed, and one in .claude/ counts like one at the root."""
+    (repo / "CLAUDE.md").unlink()
+    (repo / "app.py").write_text("print('changed')\n")
+    assert run_hook(tmp_path, repo).returncode == 0, "a repo with no CLAUDE.md shouldn't be blocked"
+    placed = repo / "CLAUDE.md" if where == "root" else repo / ".claude" / "CLAUDE.md"
+    placed.parent.mkdir(exist_ok=True)
+    placed.write_text("Done means `make test` passes.\n")
+    assert run_hook(tmp_path, repo).returncode == BLOCKED, f"a CLAUDE.md in {where} should turn the hook on"
 
 
 # MoSCoW: Must — the hook blocks once per change, so a read-only turn after it isn't blocked again

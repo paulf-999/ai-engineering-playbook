@@ -54,8 +54,8 @@ description_problems() {
     # src/claude/ is the config that `make install` copies
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/' || return 0
     section_problem "Plan Spec" "${DEFAULT_SPEC}" "this PR changes src/claude/"
-    # CLAUDE.md, a rule in rules/always/ and hooks load in every session or enforce behaviour
-    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/always/|hooks/)' || return 0
+    # CLAUDE.md, a rule in rules/always_on/ and hooks load in every session or enforce behaviour
+    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/always_on/|hooks/)' || return 0
     section_problem "Evaluation Criteria" "${DEFAULT_CRITERIA}" "this PR changes an always-on or enforcing file"
 }
 

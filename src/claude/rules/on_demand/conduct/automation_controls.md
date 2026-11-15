@@ -29,7 +29,7 @@ Stay interactive when neither column fits.
 
 1. 🔍 **Triage:** read every unit first, and list each decision it needs.
 2. 🤝 **Front-load:** ask all of those decisions in one prompt, with a recommended option for each.
-3. ✋ **Waiver:** start only once the user explicitly waives the phase gates and PR confirmations, and note whether they also allowed merging.
+3. ✋ **Waiver:** start only once the user explicitly waives the phase gates and PR confirmations, and note whether they also allowed merging, then carry every unit through to the end without offering next steps for work already allowed.
 4. 🔢 **Order:** run units that edit the same file far apart, or last, so their PRs conflict less.
 5. 🌿 **Per unit:** branch fresh from `origin/main`, pass the repo's checks, then open one PR that closes its issue, never stacked on another open PR.
 6. ⚡ **Overlap:** draft a unit's PR body in the background while the next unit starts.

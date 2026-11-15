@@ -2,7 +2,7 @@
 paths:
   - "**/*.py"
   - "**/*.sh"
-  - "**/*.sql"
+  - "**/models/**/*.sql"
 ---
 <!-- created: 2026-08-28 -->
 <!-- miss_cost: medium — code changes ship untested or tests fall out of step -->

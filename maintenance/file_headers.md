@@ -13,7 +13,7 @@ Every file under `src/claude/`, which `make install` copies into your Claude con
 <!-- created: 2026-10-30 -->
 ```
 
-Entry-point rules in `src/claude/rules/` add two usage lines after it, `applies_to` and `miss_cost`, set out in [`_authoring_rules.md`](../src/claude/rules/on_demand/claude_config/authoring_guidelines/_authoring_rules.md).
+Entry-point rules in `src/claude/rules/` add two usage lines after it, `applies_to` and `miss_cost`, set out in the [authoring guide](../.github/CONTRIBUTING.md#-rules).
 
 ## 📏 Rules
 

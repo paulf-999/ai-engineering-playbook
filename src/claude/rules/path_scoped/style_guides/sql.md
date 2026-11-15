@@ -13,11 +13,13 @@ paths:
 
 ---
 
-## 🎯 Core Principles
+## ⚡ Key rules
 
-- **Consistency:** All SQL follows the same style; code reviews focus on logic, not formatting
-- **Readability:** SQL is read more than written; prioritize clarity (CTEs > subqueries; explicit aliases)
-- **Cost control:** Write queries that minimize Snowflake warehouse spend (smallest warehouse sufficient, query scans optimized)
+- 🔠 **Case:** UPPERCASE keywords, functions and literals, such as `SELECT`, `COALESCE` and `NULL`.
+- 🏷️ **Names:** `snake_case`, singular and unabbreviated, with descriptive keys such as `order_id` rather than a bare `id`.
+- 🧱 **CTEs, not subqueries:** one CTE per logical step, grouped Import → Logical → Final → `SELECT`.
+- 📋 **Columns:** list them explicitly, one per line, with leading commas, rather than `SELECT *` from a table.
+- 🔗 **Joins:** name the join type, such as `LEFT JOIN`, use meaningful aliases and prefix every column with its table's alias.
 
 ---
 

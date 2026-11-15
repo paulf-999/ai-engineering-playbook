@@ -50,28 +50,10 @@ Not applicable: this PR changes nothing under `src/claude/`.
 
 Not applicable: this PR changes no always-on or enforcing file.
 
-<!-- For a change to src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook, replace the line above with this block,
-filled by a fresh-context reviewer agent given only the diff and the criteria:
-
-> [!NOTE]
-> **✅ Safe to approve:** [one-sentence verdict, such as "no red flags; always-on context unchanged". If a red flag is left unresolved, use `> [!WARNING]` and **⚠️ Needs a decision:** instead.]
-
-<details>
-<summary>Criteria results</summary>
-
-[Add a row for each ❌ Misaligned standard, and keep each Why under 10 words.]
-
-Checked against the [evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md).
-
-| Standard | Result | Why |
-|---|---|---|
-| :triangular_flag_on_post: Always-on weight | [✅ or ❌] | [files made always-on, or "none"] |
-| :test_tube: Clean exit | [✅ or ❌] | [how one small PR would remove it] |
-
-All other standards ✅ Aligned. Trial ⏳ due at the next review.
-
-</details>
--->
+<!-- For a change to src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook, replace the line above with one line:
+the always-on tokens before and after, from src/sh/claude_validate_always_on_budget.sh, and any red flag from the
+[evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md),
+such as "Always-on: ~2,324 → ~2,250 of 3,000 tokens; no red flags." -->
 
 ## :bulb: Best Practices
 

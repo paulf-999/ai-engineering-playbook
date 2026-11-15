@@ -38,4 +38,4 @@ A stale test checks behaviour the code no longer has, so it passes but protects 
 
 ## 🔍 Periodic review
 
-At each [regular review](../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), run the [tests checklist](quality/quality_rubrics/_tests.md) on every script whose tests changed since the last review, and open an issue for each finding not fixed in that PR.
+At each [regular review](../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), run the [tests checklist](quality/quality_rubrics/_repo.md#-rules-and-tests-checklists) on every script whose tests changed since the last review, and open an issue for each finding not fixed in that PR.

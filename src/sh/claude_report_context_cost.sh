@@ -4,7 +4,9 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 # Description: Write maintenance/context_cost.md: every always-on file's estimated tokens, and a rounded total for
 #              the files that load only when needed, then print every file's tokens to the terminal
 #              With --check, write nothing and exit 1 if the committed report is out of date
-# Usage: src/sh/claude_report_context_cost.sh [--check] [repo directory, default .] (run from the repo root)
+#              With --stage, the pre-commit hook's mode, rewrite a stale report and stage it, so the commit includes it,
+#              but behave like --check in CI, where a stale report means one was pushed without it
+# Usage: src/sh/claude_report_context_cost.sh [--check | --stage] [repo directory, default .] (run from the repo root)
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/shell_utils.sh
@@ -18,9 +20,18 @@ trap handle_interruption SIGINT
 #=======================================================================
 
 CHECK_ONLY=false
+STAGE=false
 if [[ "${1:-}" == "--check" ]]; then
     CHECK_ONLY=true
     shift
+elif [[ "${1:-}" == "--stage" ]]; then
+    STAGE=true
+    shift
+fi
+# CI sets CI=true, and there a stale report can't be fixed by staging it, so it must fail the run
+if [[ "${STAGE}" == true && "${CI:-}" == true ]]; then
+    CHECK_ONLY=true
+    STAGE=false
 fi
 REPO_DIR="${1:-.}"
 CONFIG_DIR="src/claude"
@@ -100,7 +111,7 @@ report_body() {
 
 **Purpose:** how many tokens the global Claude config adds to every session, and to the tasks that need more, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
 
-This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, and a pre-commit check fails if it's out of date, so don't edit the tables by hand.
+This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, a pre-commit hook rewrites and stages it when a commit changes `src/claude/`, and CI fails if it's out of date, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../docs/target_architecture/architecture/_budget_and_guards.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
 - 📂 **Path-scoped rules:** loads only once Claude opens a file that matches one of its globs.
@@ -128,6 +139,14 @@ if [[ "${CHECK_ONLY}" == true ]]; then
         exit 1
     fi
     print_section_header "${INFO}" "SUCCESS: ${REPORT} matches src/claude/."
+elif [[ "${STAGE}" == true ]]; then
+    if [[ ! -f "${REPORT_PATH}" ]] || [[ "$(cat "${REPORT_PATH}")" != "${EXPECTED}" ]]; then
+        printf '%s\n' "${EXPECTED}" > "${REPORT_PATH}"
+        git -C "${REPO_DIR}" add -- "${REPORT}"
+        print_section_header "${INFO}" "Rewrote ${REPORT} for this commit's changes, and staged it."
+    else
+        print_section_header "${INFO}" "SUCCESS: ${REPORT} matches src/claude/."
+    fi
 else
     printf '%s\n' "${EXPECTED}" > "${REPORT_PATH}"
     print_section_header "${INFO}" "Wrote ${REPORT}. Every file's tokens:"

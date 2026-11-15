@@ -92,3 +92,24 @@ def test_check_fails_once_a_file_changes(tmp_path):
     assert result.returncode == 1, f"a stale report should fail the check:\n{result.stdout}"
     assert "make context_cost" in result.stdout, "the failure should say how to fix it"
     assert (tmp_path / REPORT).read_text() == before, "--check must not rewrite the report"
+
+
+# MoSCoW: Must — a stale report must be fixed in the commit locally, but must still fail CI
+def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
+    """--stage rewrites a stale report and stages it, and with CI=true fails like --check, leaving the report alone."""
+    env = config_repo(tmp_path)
+    write_report(tmp_path, env)
+    subprocess.run(["git", "add", REPORT], cwd=tmp_path, env=env, check=True)
+    (tmp_path / "src" / "claude" / "CLAUDE.md").write_text(HUNDRED_TOKENS * 2)
+
+    stale = (tmp_path / REPORT).read_text()
+    in_ci = run_report(tmp_path, {**env, "CI": "true"}, "--stage")
+    assert in_ci.returncode == 1, f"a stale report should fail in CI:\n{in_ci.stdout}"
+    assert (tmp_path / REPORT).read_text() == stale, "CI must not rewrite the report"
+
+    local = run_report(tmp_path, {k: v for k, v in env.items() if k != "CI"}, "--stage")
+    assert local.returncode == 0, f"a stale report should be fixed locally:\n{local.stdout}"
+    assert "| 1 | `CLAUDE.md` | ~200 |" in (tmp_path / REPORT).read_text(), "the report should be rewritten"
+    staged_files = ["git", "diff", "--cached", "--name-only"]
+    staged = subprocess.run(staged_files, cwd=tmp_path, env=env, capture_output=True, text=True, check=True)
+    assert REPORT in staged.stdout.split(), "the rewritten report should be staged for the commit"

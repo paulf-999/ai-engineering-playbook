@@ -7,7 +7,7 @@
 
 ## 📋 Executive Summary
 
-Of the design's 18 components, 13 are built, 1 is partly built, 2 are not built, 1 is deferred and 1 is out of scope. The largest gap is skills and agents, since none has been ported yet.
+5 components are outstanding: 2 not built, 1 partly built, 1 deferred and 1 out of scope. The other 13 are built. The largest gap is skills and agents, since none has been ported yet.
 
 ## 📊 Outstanding components
 

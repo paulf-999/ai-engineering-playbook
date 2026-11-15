@@ -15,4 +15,4 @@
 
 - 🧪 **Evals:** add evals that cover its main triggers and one case where it shouldn't fire.
 - 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section.
-- 🏅 **Review:** have a fresh-context reviewer check it against a checklist for its type, modelled on the [rules checklist](../../../maintenance/quality/quality_rubrics/_rules.md).
+- 🏅 **Review:** have a fresh-context reviewer check it against a checklist for its type, modelled on the [rules checklist](../../../maintenance/quality/quality_rubrics/_repo.md#-rules-and-tests-checklists).

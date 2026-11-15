@@ -44,8 +44,8 @@ Process and machinery heavier than the repo needs:
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
 - 🤝 **Kept by choice:** don't mark down any of these, which the user keeps on purpose:
   - **Planned:** a folder or file that its README or parent rule marks "planned", and the budget script's scanning of skills, agents, `@` imports and a project `.claude/`.
-  - **Audits:** the repo audit and its rubric, the [tests](_tests.md) and [rules](_rules.md) checklists.
-  - **Review and seams:** the fresh-context reviewer that fills each config PR's evaluation criteria, and the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides the tests use.
+  - **Audits:** the repo audit, this rubric with its checklists, and the persona review.
+  - **Seams:** the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides the tests use.
   - **Copies and lists:** the separate `shell_utils.sh` copies, the further-reading list in `reference_material/README.md`, and the token report, `maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
 - 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `maintenance/` and `.github/`.
 
@@ -88,6 +88,30 @@ feedback per component the transcripts show helping, hindering or going unused,
 the Bloat and Over-engineering totals, and up to 5 findings ranked by how much
 they would cut, each naming the files involved.
 ```
+
+## ✅ Rules and tests checklists
+
+At each regular review, one fresh-context reviewer on Sonnet also checks every rule, with its children, and every script's tests changed since the last review:
+
+| Check | A rule passes when | A script's tests pass when |
+|---|---|---|
+| 🎯 **Need** | Every point tells Claude something it wouldn't do by default | Every core promise of a hook or CI check has a test |
+| 🔁 **No duplicate** | No other rule, doc, hook, test or CI check covers it | No duplicate tests, and none that check only wording or layout |
+| 📖 **Clarity** | Key point first, every term explained, and actionable alone | A newcomer can tell what each test checks from its name |
+| 🧩 **Right shape** | It loads only for tasks that need it, and must-hold points are also checked | Short, isolated plain pytest, where a harmless change breaks at most one test |
+| 🔍 **Accuracy** | Every path, command, link and claim checks out | Each assertion says what broke |
+
+The reviewer gets only this brief:
+
+```text
+Check each rule and script listed below against the checklists in maintenance/quality/quality_rubrics/_repo.md.
+Read each rule with its children, and each script with its tests, and run the tests.
+Return one finding per failed check: the file, the check, the line, and the fix.
+```
+
+### 🎫 Where findings go
+
+Open a GitHub issue for each finding the review doesn't fix in its own PR. Fix a test finding by changing or deleting a test, never by adding one.
 
 ## 📊 Where scores live
 

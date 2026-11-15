@@ -15,8 +15,9 @@ SHELL = /bin/sh
 #=======================================================================
 .EXPORT_ALL_VARIABLES:
 
-# load variables from separate file
-include src/make/variables.mk # load variables from a separate makefile file
+# ANSI colour codes for the target messages: green, then reset
+INFO := \033[0;32m
+COLOUR_OFF := \033[0m
 
 #=======================================================================
 # Targets

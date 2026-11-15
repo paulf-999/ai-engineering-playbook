@@ -1,18 +1,13 @@
-# Starter libraries for projects built from this template
+# Tools for developing and testing this repo
 
 # Core tooling
-yq==4.4.5            # YAML processor for config handling
 pre-commit==4.7.0    # Hook manager for git pre-commit
 ruff==0.17.4         # Fast Python linter & formatter
 yamllint==1.38.0     # YAML linter
 
 # Testing
 pytest==9.2.0        # Unit testing framework
-pytest-cov==7.1.0    # Test coverage plugin
+pyyaml==6.0.3        # YAML parsing, for the rule frontmatter tests
 
 # Security
 pip-audit==2.10.1    # Checks installed packages for known vulnerabilities
-
-# Developer utilities
-rich==15.0.0         # Better console output (colors, tables, tracebacks)
-pyyaml==6.0.3        # YAML parsing and writing

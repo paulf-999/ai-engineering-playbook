@@ -8,8 +8,9 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the done checks hook out unless HOOKS=1
 #              With UNINSTALL=1, it removes what the manifest lists, restores each file's pre-install backup and strips
 #              the config's hooks and deny rules from settings.json
-# Usage: [PROJECT=<repo> [HOOKS=1]] [UNINSTALL=1] src/sh/claude_install_config.sh (run from the repo root, at your own
-#        terminal; make install and make uninstall call it)
+#              With YES=1, install skips the typed confirmation for provisioning scripts, but never from Claude Code
+# Usage: [PROJECT=<repo> [HOOKS=1]] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
+#        your own terminal or in a provisioning script; make install and make uninstall call it)
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/shell_utils.sh
@@ -30,6 +31,8 @@ CONFIG_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
 PROJECT="${PROJECT:-}"
 WITH_HOOKS="${HOOKS:-}"
 UNINSTALL="${UNINSTALL:-}"
+# skips install's typed confirmation, for devcontainers and onboarding scripts that have no terminal
+ASSUME_YES="${YES:-}"
 if [[ -n "${PROJECT}" ]]; then
     if [[ ! -d "${PROJECT}" ]]; then
         echo "PROJECT=${PROJECT} isn't a folder - nothing changed." >&2
@@ -122,10 +125,15 @@ list_removed_files() {
     done < "${MANIFEST}"
 }
 
-# Show what will change and require 'install' typed at a real terminal, so Claude's Bash tool can't run it unattended
+# Show what will change and require 'install' typed at a real terminal, so Claude's Bash tool can't run it unattended,
+# unless YES=1 opts out outside Claude Code, which sets CLAUDECODE in its Bash tool
 confirm_install() {
     local answer file
-    if [[ ! -t 0 ]]; then
+    if [[ "${ASSUME_YES}" == 1 && -n "${CLAUDECODE:-}" ]]; then
+        log_message "${ERROR}" "YES=1 can't be used from Claude Code - run make install from your own terminal."
+        exit 1
+    fi
+    if [[ "${ASSUME_YES}" != 1 && ! -t 0 ]]; then
         log_message "${ERROR}" "Run make install from your own terminal - nothing changed."
         exit 1
     fi
@@ -141,6 +149,7 @@ confirm_install() {
     fi
     echo "It also updates the config's hooks and deny rules in ${SETTINGS} to match the install."
     echo "Each file it overwrites or removes is backed up to ${BACKUP_DIR} first."
+    [[ "${ASSUME_YES}" == 1 ]] && return 0
     read -r -p "Type 'install' to continue: " answer || true
     if [[ "${answer}" != "install" ]]; then
         log_message "${WARNING}" "Install cancelled - nothing changed."

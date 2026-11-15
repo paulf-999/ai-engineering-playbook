@@ -404,3 +404,24 @@ def test_uninstall_with_no_manifest_removes_nothing(tmp_path):
     assert result.returncode == 1, f"uninstall should stop:\n{result.stdout}"
     assert "nothing to uninstall" in result.stdout, "it should say there's nothing to uninstall"
     assert (tmp_path / "CLAUDE.md").read_text() == "my own config\n", "the user's file must be untouched"
+
+
+# MoSCoW: Must — a provisioning script has no terminal, so YES=1 must install without one
+def test_yes_installs_without_a_terminal(tmp_path, monkeypatch):
+    """Outside Claude Code, YES=1 installs with no terminal and no typed answer."""
+    monkeypatch.delenv("CLAUDECODE", raising=False)
+
+    result = run_install(tmp_path, YES="1")
+
+    assert result.returncode == 0, f"YES=1 should install without a terminal:\n{result.stdout}{result.stderr}"
+    assert (tmp_path / "CLAUDE.md").is_file(), "the config should be installed"
+
+
+# MoSCoW: Must — the opt-in must never let Claude's own Bash tool install unattended
+def test_yes_is_refused_inside_claude_code(tmp_path):
+    """With CLAUDECODE set, as in Claude's Bash tool, YES=1 exits 1 and writes nothing."""
+    result = run_install(tmp_path, YES="1", CLAUDECODE="1")
+
+    assert result.returncode == 1, f"YES=1 should be refused inside Claude Code:\n{result.stdout}"
+    assert "can't be used from Claude Code" in result.stdout, "the refusal should say why"
+    assert not any(tmp_path.iterdir()), "nothing should be written"

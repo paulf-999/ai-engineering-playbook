@@ -25,7 +25,7 @@ The team uses the **check strategy** — dbt compares a defined list of columns 
 | Setting | Value |
 |---------|-------|
 | `strategy` | `check` — monitors a defined list of columns for changes |
-| `unique_key` | `KEY` — the surrogate key of the source model |
+| `unique_key` | The surrogate key of the source model |
 | `target_schema` | `WAREHOUSE`, set as `schema` in dbt 1.9 and later |
 | `check_cols` | Explicit list of columns to watch — do not use `'all'` in production |
 
@@ -37,7 +37,7 @@ The team uses the **check strategy** — dbt compares a defined list of columns 
 |----------|-----------|
 | **Source** | Snapshots select from `ref()` on the corresponding `dim_` warehouse model — not directly from `source()` |
 | **Transformations** | Avoid transformations inside snapshots — clean data in the upstream dim model |
-| **Row limiting** | Always include `{{ limit_rows() }}` to support dev/CI execution |
+| **Row limiting** | Include the team's row-limiting macro, per [`_team_conventions.md`](_team_conventions.md) |
 | **Column list** | Define `check_cols` explicitly — avoids unintended snapshot triggers from irrelevant column changes |
 | **Idempotency** | Snapshots must be safe to re-run without duplicating or corrupting history |
 

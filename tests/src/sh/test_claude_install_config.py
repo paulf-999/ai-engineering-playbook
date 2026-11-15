@@ -335,16 +335,18 @@ def test_project_install_points_rules_at_the_project_folder(tmp_path):
     assert "in this project's `.claude/` folder" in (target / "CLAUDE.md").read_text(), "CLAUDE.md should name it"
 
 
-# MoSCoW: Must — the hooks enforce one planning format, so a shared repo gets them only when asked for
-def test_project_install_leaves_the_hooks_out_unless_asked(tmp_path):
-    """A project install ships no hooks by default, and with HOOKS=1 registers them through CLAUDE_PROJECT_DIR."""
+# MoSCoW: Must — every engineer plans the same way, but not every repo has done checks to run
+def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked(tmp_path):
+    """A project install always registers the plan hook, and the done checks hook only with HOOKS=1."""
+    plan = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_plan_sections.sh"'
     _, target = project_install(tmp_path / "without")
-    assert not (target / "hooks").exists(), "no hook should install by default"
-    assert not (target / "settings.json").exists() or not plan_hook_commands(target), "no hook should be registered"
+    assert plan_hook_commands(target) == [plan], "the plan hook should be registered through CLAUDE_PROJECT_DIR"
+    assert not (target / "hooks" / "hook_enforcement_done_checks.sh").exists(), "no done checks hook by default"
+    assert not stop_hook_commands(target), "no done checks hook should be registered by default"
 
     _, target = project_install(tmp_path / "with", HOOKS="1")
-    assert (target / "hooks" / "hook_enforcement_plan_sections.sh").is_file(), "HOOKS=1 should install the hooks"
-    assert plan_hook_commands(target) == ['bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_plan_sections.sh"']
+    done = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_done_checks.sh"'
+    assert stop_hook_commands(target) == [done], "HOOKS=1 should register the done checks hook"
 
 
 # MoSCoW: Must — a backup inside the repo would be committed with it

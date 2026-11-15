@@ -39,7 +39,7 @@ make install PROJECT=../my_dbt_repo
 ```
 
 - 📍 **Pointers:** every "in your Claude config directory" pointer becomes "in this project's `.claude/` folder", so Claude reads the detail from the repo.
-- 🪝 **Hooks:** left out by default, since they enforce one planning format and run `make test` and pre-commit, which not every repo has. Add `HOOKS=1` to include them.
+- 🪝 **Hooks:** the plan sections hook always installs, so every engineer plans the same way. The done checks hook is left out by default, since not every repo has done checks, so add `HOOKS=1` to include it.
 - 🛡️ **Backups:** anything it replaces is backed up to `~/.claude/backups/`, outside the repo, so backups are never committed.
 
 ## 🍒 Copying one style guide

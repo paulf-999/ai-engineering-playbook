@@ -38,7 +38,7 @@ Claude reads only the instructions each task needs, so it stays fast and focused
 |---|---|
 | 📦 [`src/claude/`](src/claude/) | What you install: the instructions Claude reads |
 | 🏗️ [`docs/`](docs/) | Why it's built this way: the design and the research behind it |
-| 🛠️ [`maintenance/`](maintenance/), [`tests/`](tests/), [`.github/`](.github/) | How it stays healthy: quality scores, tests and CI. You don't need these to use it |
+| 🛠️ [`maintenance/`](maintenance/), [`tests/`](tests/), [`.github/`](.github/) | How it stays healthy: tests for the installer, hooks and scripts, plus quality scores and CI. You don't need these to use it |
 
 ---
 

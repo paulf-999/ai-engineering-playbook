@@ -21,7 +21,7 @@ You need `git`, `bash` and [`jq`](https://jqlang.org/) on macOS or Linux, and a 
 2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`, or `$CLAUDE_CONFIG_DIR` if set.
 
 > [!NOTE]
-> It backs up any file it replaces to `backups/` in that directory first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`.
+> It backs up any file it replaces to `backups/` in that directory first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`. To undo an install, run `make uninstall`, with the same `PROJECT=` if you set one.
 
 ---
 

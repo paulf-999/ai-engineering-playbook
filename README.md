@@ -17,18 +17,25 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
    ```
 
 2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`.
-   - It backs up any file it replaces to `~/.claude/backups/` first.
+
+> [!NOTE]
+> It backs up any file it replaces to `~/.claude/backups/` first.
 
 ---
 
 ## 📦 What you get
 
-Claude reads only the instructions each task needs, so it stays fast and focused. Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load). Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it. See [a before-and-after example](docs/examples/dbt_before_and_after.md).
+- ⚡ Claude reads only the instructions each task needs, so it stays fast and focused.
+- 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load).
+- 📦 Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
+- 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md).
+
+<!-- separates the intro list from the feature list -->
 
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
-- 🔬 **Research-led:** every part of the [design](docs/target_architecture/README.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).
 - 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always/workflows/sdlc_workflow.md) before coding, then checks the result against that plan, following [Anthropic's AI-native software development lifecycle](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md).
-- ✅ **Stays lean:** automatic [checks](.github/workflows/ci.yml) stop the always-read instructions growing.
+- 🔬 **Research-led:** every part of the [design](docs/target_architecture/README.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).
+- ✅ **Stays lean:** automatic [checks](docs/target_architecture/README.md#️-design-guards) stop the always-read instructions growing.
 
 ---
 

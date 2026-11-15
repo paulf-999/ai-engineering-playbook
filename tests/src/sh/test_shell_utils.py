@@ -27,30 +27,6 @@ def test_handle_interruption_logs_and_exits():
     assert "command not found" not in result.stderr, f"a command it calls is missing: {result.stderr}"
 
 
-# MoSCoW: Could — template starter helpers, unused by the scripts today
-@pytest.mark.parametrize(("function", "kind"), [("dir_exists", "dir"), ("file_exists", "file")])
-def test_exists_helpers(tmp_path, function, kind):
-    """dir_exists and file_exists succeed only for a path of the right kind."""
-    folder = tmp_path / "folder"
-    folder.mkdir()
-    file = tmp_path / "file.txt"
-    file.write_text("x\n")
-    right, wrong = (folder, file) if kind == "dir" else (file, folder)
-    assert run_with_utils(f'{function} "{right}"').returncode == 0, f"{function} should succeed for a {kind}"
-    assert run_with_utils(f'{function} "{wrong}"').returncode == 1, f"{function} should fail for the wrong kind of path"
-    assert run_with_utils(f'{function} "{tmp_path / "missing"}"').returncode == 1, (
-        f"{function} should fail for a missing path"
-    )
-
-
-# MoSCoW: Could — guards against running the library by mistake
-def test_running_directly_is_refused():
-    """Running shell_utils.sh directly, rather than sourcing it, exits 1 with an explanation."""
-    result = subprocess.run(["bash", str(SCRIPT)], capture_output=True, text=True, check=False)
-    assert result.returncode == 1, "running shell_utils.sh directly should exit 1"
-    assert "meant to be sourced" in result.stderr, f"expected the 'meant to be sourced' explanation: {result.stderr}"
-
-
 # MoSCoW: Must — shared number parsing used by three scripts
 @pytest.mark.parametrize(("value", "expected"), [("7", "7"), ("010", "10"), ("08", "8"), ("123456789", "123456789")])
 def test_to_whole_number_reads_base_ten(value, expected):

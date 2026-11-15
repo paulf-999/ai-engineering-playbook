@@ -15,8 +15,10 @@ Each test function gets a priority on the MoSCoW scale (Must, Should, Could, Won
 |---|---|---|
 | 🔴 **Must** | A core promise of a hook or CI check, such as blocking a bad commit | A bad change gets through, or a good one is blocked |
 | 🟠 **Should** | Main options, common edge cases and clear error messages | A common path misbehaves, but the core check still works |
-| 🟡 **Could** | Rare edge cases and template helpers | Something unusual misbehaves |
+| 🟡 **Could** | Rare edge cases and template helpers | Something unusual misbehaves, so don't keep the test |
 | ⚪ **Won't** | A duplicate or cosmetic check | Nothing is lost, so delete the test |
+
+A `Could` test isn't kept either, since a test for a rare case doesn't earn its upkeep, and [`test_moscow_tags.py`](../tests/test_moscow_tags.py) fails on one.
 
 - 📝 **Format:** put `# MoSCoW: <score> — <reason>` on the line above the test's decorators, or above `def` when it has none.
 - 💬 **Reason:** about 12 words on what the test protects, not how it works.
@@ -44,7 +46,7 @@ Size each script's tests by these rules:
 A stale test checks behaviour the code no longer has, so it passes but protects nothing. A PR that changes a script also:
 
 - 🔗 **Updates its tests:** and deletes those for behaviour it removes.
-- 🔄 **Re-rates them:** since a change can turn a `Could` into a `Must`, or a test into a duplicate.
+- 🔄 **Re-rates them:** since a change can turn a `Should` into a `Must`, or a test into a duplicate.
 - 📛 **Keeps names current:** names and docstrings describe what the code does now, never what's "new" or "old".
 
 ## 🔍 Periodic review
@@ -55,6 +57,6 @@ At each [regular review](../docs/target_architecture/design_principles/01_princi
 grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
 ```
 
-- 📉 **Balance:** more `Could` than `Must` tests means upkeep goes on rare cases rather than what matters.
-- ✂️ **Cut:** delete slow `Could` tests that no longer earn their run time.
+- 📉 **Balance:** more `Should` than `Must` tests means upkeep goes on side paths rather than what matters.
+- ✂️ **Cut:** delete any `Won't` test the count turns up.
 - 🏅 **Re-score:** refresh the [test audit](quality/quality_audit.md#-tests) row of every script whose tests changed since the last review, in one PR, using the [reviewer brief](quality/quality_rubrics.md#-tests).

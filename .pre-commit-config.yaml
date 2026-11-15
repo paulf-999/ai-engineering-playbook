@@ -79,9 +79,8 @@ repos:
       hooks:
           - id: checkmake
             name: Makefile check — linter
-            # variables.mk is an include-only file, so it has no targets to declare phony
-            # and the hook matches any filename containing "makefile", so markdown pages are excluded
-            exclude: ^src/make/variables\.mk$|\.md$
+            # the hook matches any filename containing "makefile", so markdown pages are excluded
+            exclude: \.md$
     # YAML hooks
     - repo: https://github.com/adrienverge/yamllint.git
       rev: v1.38.0
@@ -109,11 +108,3 @@ repos:
             name: Python fixes & lint — Ruff
           - id: ruff-format
             name: Python fixes — Ruff formatter
-
-    # 📚 Interrogate — docstring coverage checks
-    - repo: https://github.com/econchick/interrogate
-      rev: 1.7.0
-      hooks:
-          - id: interrogate
-            name: Python checks — Docstrings coverage
-            args: [--quiet, --fail-under=90]

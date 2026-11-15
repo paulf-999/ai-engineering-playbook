@@ -9,6 +9,12 @@ paths:
 
 **Purpose:** Define the team's standards for writing Dockerfiles and working with Docker images.
 
+## ⚡ Key rules
+
+- 📦 **Base image:** an official or verified-publisher image, as minimal as the job allows, such as `slim` or distroless, with its tag pinned and never `:latest` outside local work.
+- 🧱 **Order:** base image, `WORKDIR`, OS packages, dependency files, then source and runtime config, so changing the source doesn't rebuild the dependency layers.
+- 🏷️ **Names:** `snake_case` image and container names that say what the image is for, with semantic-version tags such as `1.0.0`.
+
 ## 📚 Read on demand
 
 - `on_demand/style_guides/infra/docker/_fundamentals.md`, in your Claude config directory, when choosing a base image or ordering a Dockerfile's sections.

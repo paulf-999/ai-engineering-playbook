@@ -21,38 +21,9 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 
 ---
 
-## 👀 See the difference
-
-An illustrative example: you ask Claude to *"add a dbt model that counts each customer's orders"*.
-
-**Without the playbook**, Claude might hard-code `FROM raw.shop.orders` and add no tests.
-
-**With it**, the [dbt guide](src/claude/rules/path_scoped/style_guides/dbt.md) loads as soon as Claude opens a model, so it follows your team's style:
-
-```sql
-WITH orders AS (
-    SELECT * FROM {{ ref('staging_shop_orders') }}
-)
-
-, final_cte AS (
-    SELECT
-        {{ create_surrogate_key(['customer_id']) }} AS "KEY"
-        , customer_id
-        , COUNT(*) AS order_count
-    FROM orders
-    GROUP BY customer_id
-)
-
-SELECT * FROM final_cte
-```
-
-It also adds a YAML description for each column, with `unique` and `not_null` tests on `KEY`.
-
----
-
 ## 📦 What you get
 
-Claude reads only the instructions each task needs, so it stays fast and focused. Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load). Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
+Claude reads only the instructions each task needs, so it stays fast and focused. Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load). Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it. See [a before-and-after example](docs/examples/dbt_before_and_after.md).
 
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
 - 🔬 **Research-led:** every part of the [design](docs/target_architecture/README.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).

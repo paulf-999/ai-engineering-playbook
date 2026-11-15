@@ -59,4 +59,4 @@ grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
 
 - 📉 **Balance:** more `Should` than `Must` tests means upkeep goes on side paths rather than what matters.
 - ✂️ **Cut:** delete any `Won't` test the count turns up.
-- 🏅 **Re-score:** refresh the [test audit](quality/quality_audit.md#-tests) row of every script whose tests changed since the last review, in one PR, using the [reviewer brief](quality/quality_rubrics.md#-tests).
+- 🏅 **Re-score:** refresh the [test audit](quality/quality_audit/_tests.md) row of every script whose tests changed since the last review, in one PR, using the [reviewer brief](quality/quality_rubrics/_tests.md).

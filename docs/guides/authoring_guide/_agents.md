@@ -13,4 +13,4 @@
 
 - 🧪 **Evals:** add evals that cover its main triggers and one case where it shouldn't fire.
 - 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section.
-- 🏅 **Review:** have a fresh-context reviewer score it against a rubric for its type, modelled on the Rules rubric in [`quality_rubrics.md`](../../../maintenance/quality/quality_rubrics.md#-rules).
+- 🏅 **Review:** have a fresh-context reviewer score it against a rubric for its type, modelled on the [rules rubric](../../../maintenance/quality/quality_rubrics/_rules.md).

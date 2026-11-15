@@ -19,7 +19,7 @@ Read them in this order:
 
 ## 📌 Status and terms
 
-- 🚧 **Status:** adopted, with what's still outstanding tracked in the [build progress](../../maintenance/build_progress.md).
+- 🚧 **Status:** adopted, with what's still outstanding tracked in the [build progress issue](https://github.com/paulf-999/ai-engineering-playbook/issues/235).
 
 This page defines the terms its child pages use:
 

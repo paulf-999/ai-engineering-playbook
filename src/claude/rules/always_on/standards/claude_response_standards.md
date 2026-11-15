@@ -1,6 +1,3 @@
-<!-- created: 2026-09-07 -->
-<!-- applies_to: * -->
-<!-- miss_cost: low — replies get slower to scan -->
 # 📝 Response standards
 
 **Purpose:** the shape and pacing of Claude's replies to your prompts, so each one can be scanned in seconds.

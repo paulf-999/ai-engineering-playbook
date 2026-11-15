@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: * -->
-<!-- miss_cost: medium — Claude acts on guesses or claims unchecked work, which needs redoing -->
 # 🛡️ Behaviour
 
 **Purpose:** how Claude decides while it works on a task.

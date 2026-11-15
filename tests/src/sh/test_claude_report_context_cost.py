@@ -52,7 +52,6 @@ def write_report(tmp_path, env):
     return (tmp_path / REPORT).read_text()
 
 
-# MoSCoW: Must — every-session files are listed one by one, and the rest are totalled by load type
 def test_report_lists_every_session_files_and_totals_the_rest(tmp_path):
     """The report lists each every-session file, and gives one rounded row each for path-scoped and on-demand files."""
     report = write_report(tmp_path, config_repo(tmp_path))
@@ -69,7 +68,6 @@ def test_report_lists_every_session_files_and_totals_the_rest(tmp_path):
     )
 
 
-# MoSCoW: Must — the terminal output still shows every file, with its load type and globs
 def test_terminal_lists_every_file_by_load_type(tmp_path):
     """Writing the report prints every file's tokens, with path-scoped globs, grouped by load type."""
     result = run_report(tmp_path, config_repo(tmp_path))
@@ -78,7 +76,6 @@ def test_terminal_lists_every_file_by_load_type(tmp_path):
     assert all(row in lazy for row in ON_DEMAND_ROWS), "each on-demand file should be listed in the terminal"
 
 
-# MoSCoW: Must — the check must fail when the table no longer matches the files
 def test_check_fails_once_a_file_changes(tmp_path):
     """--check passes straight after writing, then fails once a file grows, without rewriting the report."""
     env = config_repo(tmp_path)
@@ -94,7 +91,6 @@ def test_check_fails_once_a_file_changes(tmp_path):
     assert (tmp_path / REPORT).read_text() == before, "--check must not rewrite the report"
 
 
-# MoSCoW: Must — a stale report must be fixed in the commit locally, but must still fail CI
 def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
     """--stage rewrites a stale report and stages it, and with CI=true fails like --check, leaving the report alone."""
     env = config_repo(tmp_path)

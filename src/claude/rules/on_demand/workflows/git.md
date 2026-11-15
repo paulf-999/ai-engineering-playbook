@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: * -->
-<!-- miss_cost: medium — a commit picks up another session's files or runs in the wrong repo -->
 # 🌿 Git
 
 **Purpose:** how Claude uses git safely, in any repo, alongside each repo's own conventions.

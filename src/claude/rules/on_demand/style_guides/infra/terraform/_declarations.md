@@ -1,4 +1,3 @@
-<!-- created: 2026-10-27 -->
 # 📋 Declarations
 
 **Purpose:** Set what every variable and output must declare, and how to validate inputs, split from [`_conventions.md`](_conventions.md).

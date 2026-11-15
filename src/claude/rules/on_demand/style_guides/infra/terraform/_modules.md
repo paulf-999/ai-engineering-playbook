@@ -1,4 +1,3 @@
-<!-- created: 2026-04-08 -->
 # 📦 Modules
 
 **Purpose:** Set the standards for module composition, provider passing, iteration patterns, and lifecycle management.

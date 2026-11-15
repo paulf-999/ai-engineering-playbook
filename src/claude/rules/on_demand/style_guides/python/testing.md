@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: **/test_*.py, **/conftest.py -->
-<!-- miss_cost: medium — tests miss intended behaviour and need rewriting -->
 # 🧪 Python Testing Conventions
 
 **Purpose:** Establish pytest conventions for test naming, structure, fixtures, mocking, and assertions — preventing testing debt and validating intended behaviour.

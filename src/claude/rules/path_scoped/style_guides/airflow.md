@@ -2,8 +2,6 @@
 paths:
   - "**/dags/**/*.py"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: medium — DAGs fail or retry badly and need reworking -->
 # 🌬️ Airflow Style Guide & Standards
 
 **Purpose:** the four principles every DAG in `dmt_airflow_dags/` follows, so pipelines stay reliable and easy to debug.

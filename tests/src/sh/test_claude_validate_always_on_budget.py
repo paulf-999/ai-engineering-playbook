@@ -26,7 +26,6 @@ def write(directory, path, text):
     target.write_text(text)
 
 
-# MoSCoW: Must — context at the budget must pass, and context one token over must fail
 @pytest.mark.parametrize(
     ("tokens", "exit_code", "message"),
     [
@@ -44,7 +43,6 @@ def test_the_budget_boundary(tmp_path, tokens, exit_code, message):
     assert message in result.stdout, "the estimate and verdict should be reported"
 
 
-# MoSCoW: Must — every kind of always-on context counts towards the budget
 @pytest.mark.parametrize(
     ("path", "text"),
     [
@@ -73,7 +71,6 @@ def test_each_kind_of_always_on_context_is_counted(tmp_path, path, text):
     assert "over the 150-token budget" in result.stdout, "the failure should say the budget was exceeded"
 
 
-# MoSCoW: Must — context that doesn't load in every session mustn't count against the budget
 @pytest.mark.parametrize(
     ("path", "text"),
     [
@@ -95,7 +92,6 @@ def test_context_loaded_only_on_demand_is_not_counted(tmp_path, path, text):
     assert result.returncode == 0, f"{path} shouldn't count towards the budget:\n{result.stdout}"
 
 
-# MoSCoW: Should — a bad budget value must fail clearly rather than be compared as text
 def test_a_budget_that_is_not_a_whole_number_fails(tmp_path):
     """An ALWAYS_ON_TOKEN_BUDGET like '3k' exits 1 and says what's wrong."""
     write(tmp_path, "CLAUDE.md", HUNDRED_TOKENS)
@@ -104,7 +100,6 @@ def test_a_budget_that_is_not_a_whole_number_fails(tmp_path):
     assert "must be a whole number" in result.stdout, "the error should say the budget must be a whole number"
 
 
-# MoSCoW: Must — HTML comments don't reach Claude, so they mustn't count towards the budget
 def test_html_comments_are_not_counted(tmp_path):
     """A 100-token CLAUDE.md plus 100 tokens of HTML comments, one over several lines, stays within 150 tokens."""
     comments = "<!-- " + "x" * 190 + " -->\n<!--\n" + "x" * 190 + "\n-->\n"

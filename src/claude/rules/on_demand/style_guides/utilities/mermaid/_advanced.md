@@ -1,4 +1,3 @@
-<!-- created: 2026-06-07 -->
 # 🎨 Mermaid Advanced Techniques
 
 **Purpose:** Set the node shapes, content format, styling and subgraph rules for Mermaid diagrams.

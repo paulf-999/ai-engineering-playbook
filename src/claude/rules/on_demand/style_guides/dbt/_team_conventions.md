@@ -1,4 +1,3 @@
-<!-- created: 2026-11-15 -->
 # 🧩 dbt team conventions
 
 **Purpose:** the team's macros, packages, key column, audit fields and folders, which the other dbt guides refer to.

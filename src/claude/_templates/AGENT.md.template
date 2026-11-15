@@ -5,7 +5,6 @@ tools: Read, Grep, Glob  # least privilege — list only the tools the job needs
 model: inherit  # inherit (use the session's model), or an alias such as sonnet, opus or haiku
 isolation: worktree  # only for an agent that changes files; leave it out otherwise
 ---
-<!-- created: YYYY-MM-DD -->
 
 # 🎯 [Agent name]
 
@@ -17,8 +16,6 @@ isolation: worktree  # only for an agent that changes files; leave it out otherw
 - `model` — `inherit` (use the session's model), or an alias such as `sonnet`, `opus` or `haiku`, which never goes stale the way a full model ID does
 - `isolation` — `worktree`, the only value, runs the agent in its own git worktree, so leave it out for a read-only agent
 - **Other fields:** Claude Code ignores unrecognised fields without an error, so add one only for people reading the file
-
-**Metadata header** (straight after the frontmatter): a `created` line, as an HTML comment such as `<!-- created: 2026-11-13 -->`.
 
 ---
 
@@ -153,7 +150,6 @@ Link to supporting documentation:
 
 Before finalizing:
 - [ ] Frontmatter complete (name, description, tools, model, and isolation if the agent changes files)
-- [ ] Metadata header straight after the frontmatter (created)
 - [ ] Purpose: one-liner, non-technical, user-focused
 - [ ] When to use: 3+ concrete scenarios + 2+ NOT use cases
 - [ ] Role: 3-5 lines describing persona

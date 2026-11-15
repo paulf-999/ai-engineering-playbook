@@ -1,6 +1,3 @@
-<!-- created: 2026-11-15 -->
-<!-- applies_to: * -->
-<!-- miss_cost: medium — an unattended run overspends, or the user is asked the same thing at every step -->
 # ⚙️ Automation controls
 
 **Purpose:** how to cut the user's replies on multi-step work, either with a loop for repeated units or with a front-loaded batch run for varied ones.

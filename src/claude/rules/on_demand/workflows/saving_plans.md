@@ -1,6 +1,3 @@
-<!-- created: 2026-09-17 -->
-<!-- applies_to: * -->
-<!-- miss_cost: medium — an approved plan is lost in the scratch folder -->
 # 📤 Saving plans
 
 **Purpose:** where to keep a plan, with its `intent.md` and `spec.md`, once the user approves it, so approved plans aren't lost in plan mode's scratch folder.

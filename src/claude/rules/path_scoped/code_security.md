@@ -6,8 +6,6 @@ paths:
   - "**/*.js"
   - "**/*.ts"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: high — code ships with a secret or an injection hole -->
 # 🛡️ Code security
 
 **Purpose:** secure coding standards that load whenever a code file is open.

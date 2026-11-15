@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: **/*.sh, **/.github/workflows/** -->
-<!-- miss_cost: medium — an unattended run loops and overspends -->
 # 🔄 Turn budgets
 
 **Purpose:** how to cap turns when running Claude Code without a person watching, so a run can't loop and overspend.

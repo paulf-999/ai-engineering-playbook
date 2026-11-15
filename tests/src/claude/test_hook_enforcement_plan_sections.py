@@ -28,7 +28,6 @@ def exit_plan_input(plan):
     return json.dumps({"hook_event_name": "PreToolUse", "tool_name": "ExitPlanMode", "tool_input": {"plan": plan}})
 
 
-# MoSCoW: Must — a plan with both sections must never be blocked
 @pytest.mark.parametrize(
     "plan",
     [
@@ -43,7 +42,6 @@ def test_a_plan_with_intent_and_spec_is_allowed(plan):
     assert result.stdout == "" and result.stderr == "", "an allowed plan should print nothing"
 
 
-# MoSCoW: Must — the point of the hook: a plan missing a section is sent back with the reason
 @pytest.mark.parametrize(
     ("plan", "missing"),
     [
@@ -60,7 +58,6 @@ def test_a_plan_missing_a_section_is_blocked(plan, missing):
     assert "sdlc_workflow.md" in result.stderr, "the reason should point to the SDLC workflow rule"
 
 
-# MoSCoW: Must — a small task's plan passes without the sections, and the limit is exact
 @pytest.mark.parametrize(("lines", "blocked"), [(MIN_PLAN_LINES - 1, False), (MIN_PLAN_LINES, True)])
 def test_only_a_plan_at_the_line_limit_needs_the_sections(lines, blocked):
     """A plan of 14 non-blank lines with no headings passes, and one of 15 is blocked, with blank lines not counted."""
@@ -70,7 +67,6 @@ def test_only_a_plan_at_the_line_limit_needs_the_sections(lines, blocked):
     )
 
 
-# MoSCoW: Should — the hook must fail open, so a malformed call never blocks every plan
 @pytest.mark.parametrize("payload", ["", "not json", json.dumps({"tool_input": {}})])
 def test_input_with_no_plan_is_allowed(payload):
     """Empty input, input that isn't JSON, or input with no plan text exits 0."""
@@ -78,7 +74,6 @@ def test_input_with_no_plan_is_allowed(payload):
     assert result.returncode == 0, f"input with no plan should be allowed:\n{result.stderr}"
 
 
-# MoSCoW: Must — without jq the hook can't read the plan, so it must block rather than wave every plan through
 def test_a_plan_is_blocked_when_jq_is_missing(tmp_path):
     """With no jq on PATH, the hook exits 2 and says to install jq."""
     result = subprocess.run(

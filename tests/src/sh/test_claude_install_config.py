@@ -62,7 +62,6 @@ def installed_files(target):
     }
 
 
-# MoSCoW: Must — Claude's Bash tool has no terminal, so it must never be able to install
 def test_without_a_terminal_nothing_is_installed(tmp_path):
     """With no terminal attached, the script exits 1, says to run it yourself and writes nothing."""
     result = run_install(tmp_path)
@@ -71,7 +70,6 @@ def test_without_a_terminal_nothing_is_installed(tmp_path):
     assert not any(tmp_path.iterdir()), "nothing should be written without a terminal"
 
 
-# MoSCoW: Must — anything but the typed word cancels
 def test_a_wrong_answer_cancels(tmp_path):
     """Typing anything other than 'install' cancels with exit 1 and writes nothing."""
     result = run_install(tmp_path, answer="yes")
@@ -80,7 +78,6 @@ def test_a_wrong_answer_cancels(tmp_path):
     assert not any(tmp_path.iterdir()), "nothing should be written after cancelling"
 
 
-# MoSCoW: Must — install mirrors src/claude/ into the target, byte for byte
 def test_install_copies_every_tracked_file(tmp_path):
     """Typing 'install' copies each tracked file in src/claude/ to the same relative path in the target."""
     result = run_install(tmp_path, answer="install")
@@ -93,7 +90,6 @@ def test_install_copies_every_tracked_file(tmp_path):
         assert (tmp_path / target).read_bytes() == (SOURCE / source).read_bytes(), f"{target} should match {source}"
 
 
-# MoSCoW: Must — on-demand files must never install under rules/, where Claude Code would load them every session
 def test_on_demand_files_install_beside_rules(tmp_path):
     """Files in src/claude/rules/on_demand/ install to on_demand/, and none of them land in rules/."""
     result = run_install(tmp_path, answer="install")
@@ -104,7 +100,6 @@ def test_on_demand_files_install_beside_rules(tmp_path):
     assert not (tmp_path / "rules" / "on_demand").exists(), "no on-demand file should install under rules/"
 
 
-# MoSCoW: Must — install never loses what's already in your config
 def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):
     """An existing CLAUDE.md that differs is backed up before it's replaced, and files the repo lacks are left alone."""
     (tmp_path / "CLAUDE.md").write_text("my old config\n")
@@ -119,7 +114,6 @@ def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):
     assert (tmp_path / "memory" / "note.md").read_text() == "keep me\n", "files the repo doesn't have must be untouched"
 
 
-# MoSCoW: Should — rerunning an install with nothing changed backs nothing up
 def test_reinstalling_unchanged_files_makes_no_backup(tmp_path):
     """A second install over identical files copies and backs up nothing."""
     first = run_install(tmp_path, answer="install")
@@ -129,7 +123,6 @@ def test_reinstalling_unchanged_files_makes_no_backup(tmp_path):
     assert not (tmp_path / "backups").exists(), "no backup folder should be made when nothing is overwritten"
 
 
-# MoSCoW: Must — a file an earlier install added, and the repo has since removed, must not linger
 def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
     """A path in the last install's manifest that the repo no longer has is backed up, removed and dropped."""
     (tmp_path / "rules").mkdir()
@@ -148,7 +141,6 @@ def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
     )
 
 
-# MoSCoW: Must — a tampered manifest must never remove a file outside the config directory
 def test_manifest_paths_outside_the_target_are_ignored(tmp_path):
     """A manifest path containing '..' is skipped, so the file it points at is left alone."""
     target = tmp_path / "config"
@@ -187,7 +179,6 @@ def stop_hook_commands(target):
     ]
 
 
-# MoSCoW: Must — a hook does nothing until settings.json lists it, so install must register it
 def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
     """Install adds the ExitPlanMode and Stop hooks by absolute path, keeps other settings and backs up the old file."""
     (tmp_path / "settings.json").write_text(json.dumps({"model": "opus", "permissions": {"allow": ["Bash(ls)"]}}))
@@ -206,7 +197,6 @@ def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
 ENV_DENY_RULES = ["Read(.env)", "Read(.env.*)", "Read(!.env.example)"]
 
 
-# MoSCoW: Must — the point of the rules: Claude's file tools must not read .env files, whatever else is denied
 def test_install_adds_the_env_deny_rules_after_existing_ones(tmp_path):
     """Install appends the .env deny rules to permissions.deny and keeps the rules already there."""
     (tmp_path / "settings.json").write_text(json.dumps({"permissions": {"deny": ["Bash(rm:*)"]}}))
@@ -218,7 +208,6 @@ def test_install_adds_the_env_deny_rules_after_existing_ones(tmp_path):
     assert deny == ["Bash(rm:*)", *ENV_DENY_RULES], "existing rules come first, then the .env rules in order"
 
 
-# MoSCoW: Must — a deny rule the config stops shipping must not stay in settings.json, so a revert is clean
 def test_install_removes_a_deny_rule_it_no_longer_ships(tmp_path):
     """A deny rule the last install added but the config dropped is removed, and the user's own rules are kept."""
     (tmp_path / ".playbook_install_deny_rules").write_text(json.dumps(["Read(old)"]))
@@ -231,7 +220,6 @@ def test_install_removes_a_deny_rule_it_no_longer_ships(tmp_path):
     assert deny == ["Bash(rm:*)", *ENV_DENY_RULES], "the dropped rule should go and the user's rule stay"
 
 
-# MoSCoW: Should — rerunning install must not stack duplicate hooks
 def test_reinstalling_registers_each_hook_once(tmp_path):
     """A second install leaves exactly one of each hook, and makes no backup of settings.json."""
     run_install(tmp_path, answer="install")
@@ -244,7 +232,6 @@ def test_reinstalling_registers_each_hook_once(tmp_path):
     assert not (tmp_path / "backups").exists(), "an unchanged settings.json should not be backed up"
 
 
-# MoSCoW: Should — a settings.json the merge can't safely change must be left as it was
 @pytest.mark.parametrize("settings", [{"hooks": {"PreToolUse": "not a list"}}, {"permissions": {"deny": "not a list"}}])
 def test_unmergeable_settings_are_left_alone(tmp_path, settings):
     """A settings.json whose hooks.PreToolUse or permissions.deny isn't a list is kept, and the install succeeds."""
@@ -274,7 +261,6 @@ def pre_tool_use(target):
     return json.loads((target / "settings.json").read_text())["hooks"]["PreToolUse"]
 
 
-# MoSCoW: Must — a moved config directory must not leave the hook registered twice
 def test_install_replaces_the_plan_hook_from_an_old_path(tmp_path):
     """A plan sections hook registered under another path is replaced by the current one, and other hooks are kept."""
     seed_settings(tmp_path, "/old/path")
@@ -286,7 +272,6 @@ def test_install_replaces_the_plan_hook_from_an_old_path(tmp_path):
     assert OTHER_HOOK in pre_tool_use(tmp_path), "an unrelated hook must be kept"
 
 
-# MoSCoW: Must — a hook the repo no longer ships must not stay registered, running a missing script
 def test_install_removes_the_plan_hook_when_it_isnt_shipped(tmp_path):
     """From a repo that doesn't ship the hook, install removes its entry, keeps other hooks and backs up settings."""
     repo = tmp_path / "repo"
@@ -317,7 +302,6 @@ def project_install(tmp_path, **extra_env):
     return config, project / ".claude"
 
 
-# MoSCoW: Must — a project install must leave each engineer's own config alone, apart from backups
 def test_project_install_writes_only_into_the_repo(tmp_path):
     """With PROJECT set, the config lands in the repo's .claude/ folder, and your config directory gets nothing."""
     config, target = project_install(tmp_path)
@@ -326,7 +310,6 @@ def test_project_install_writes_only_into_the_repo(tmp_path):
     assert installed_files(config) == set(), "nothing but backups should land in your own config directory"
 
 
-# MoSCoW: Must — a pointer naming your config directory would send Claude to the wrong folder in a project
 def test_project_install_points_rules_at_the_project_folder(tmp_path):
     """Every 'in your Claude config directory' pointer reads 'in this project's .claude/ folder' instead."""
     _, target = project_install(tmp_path)
@@ -335,7 +318,6 @@ def test_project_install_points_rules_at_the_project_folder(tmp_path):
     assert "in this project's `.claude/` folder" in (target / "CLAUDE.md").read_text(), "CLAUDE.md should name it"
 
 
-# MoSCoW: Must — every engineer plans the same way, but not every repo has done checks to run
 def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked(tmp_path):
     """A project install always registers the plan hook, and the done checks hook only with HOOKS=1."""
     plan = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_plan_sections.sh"'
@@ -349,7 +331,6 @@ def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked
     assert stop_hook_commands(target) == [done], "HOOKS=1 should register the done checks hook"
 
 
-# MoSCoW: Must — a backup inside the repo would be committed with it
 def test_project_install_backs_up_into_your_config_directory(tmp_path):
     """A file the project install overwrites is backed up in your config directory, never in the repo."""
     config, project = tmp_path / "config", tmp_path / "repo"
@@ -363,7 +344,6 @@ def test_project_install_backs_up_into_your_config_directory(tmp_path):
     assert not (project / ".claude" / "backups").exists(), "no backup should be written inside the repo"
 
 
-# MoSCoW: Must — uninstall must undo an install without losing the user's own files or settings
 def test_uninstall_removes_the_install_and_restores_what_it_replaced(tmp_path):
     """Uninstall removes installed files, restores the pre-install CLAUDE.md and strips only the config's settings."""
     (tmp_path / "CLAUDE.md").write_text("my old config\n")
@@ -382,7 +362,6 @@ def test_uninstall_removes_the_install_and_restores_what_it_replaced(tmp_path):
     assert plan_hook_commands(tmp_path) == [] and stop_hook_commands(tmp_path) == [], "the hooks should be removed"
 
 
-# MoSCoW: Must — like install, uninstall must never run from Claude's Bash tool
 def test_uninstall_without_a_terminal_changes_nothing(tmp_path):
     """With no terminal attached, uninstall exits 1 and leaves the install in place."""
     assert run_install(tmp_path, answer="install").returncode == 0, "the install should succeed"
@@ -394,7 +373,6 @@ def test_uninstall_without_a_terminal_changes_nothing(tmp_path):
     assert installed_files(tmp_path) == before, "nothing should change without a terminal"
 
 
-# MoSCoW: Should — with no manifest there's nothing the script knows it added, so it removes nothing
 def test_uninstall_with_no_manifest_removes_nothing(tmp_path):
     """Without an install manifest, uninstall says there's nothing to remove and leaves files alone."""
     (tmp_path / "CLAUDE.md").write_text("my own config\n")
@@ -404,3 +382,24 @@ def test_uninstall_with_no_manifest_removes_nothing(tmp_path):
     assert result.returncode == 1, f"uninstall should stop:\n{result.stdout}"
     assert "nothing to uninstall" in result.stdout, "it should say there's nothing to uninstall"
     assert (tmp_path / "CLAUDE.md").read_text() == "my own config\n", "the user's file must be untouched"
+
+
+# MoSCoW: Must — a provisioning script has no terminal, so YES=1 must install without one
+def test_yes_installs_without_a_terminal(tmp_path, monkeypatch):
+    """Outside Claude Code, YES=1 installs with no terminal and no typed answer."""
+    monkeypatch.delenv("CLAUDECODE", raising=False)
+
+    result = run_install(tmp_path, YES="1")
+
+    assert result.returncode == 0, f"YES=1 should install without a terminal:\n{result.stdout}{result.stderr}"
+    assert (tmp_path / "CLAUDE.md").is_file(), "the config should be installed"
+
+
+# MoSCoW: Must — the opt-in must never let Claude's own Bash tool install unattended
+def test_yes_is_refused_inside_claude_code(tmp_path):
+    """With CLAUDECODE set, as in Claude's Bash tool, YES=1 exits 1 and writes nothing."""
+    result = run_install(tmp_path, YES="1", CLAUDECODE="1")
+
+    assert result.returncode == 1, f"YES=1 should be refused inside Claude Code:\n{result.stdout}"
+    assert "can't be used from Claude Code" in result.stdout, "the refusal should say why"
+    assert not any(tmp_path.iterdir()), "nothing should be written"

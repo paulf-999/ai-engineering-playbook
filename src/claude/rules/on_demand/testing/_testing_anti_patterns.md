@@ -1,4 +1,3 @@
-<!-- created: 2026-08-28 -->
 # 🚫 Testing Anti-Patterns
 
 **Purpose:** Identify common testing mistakes and understand why they undermine confidence.

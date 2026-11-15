@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: * -->
-<!-- miss_cost: low — names stop saying what a file holds -->
 # 📛 Naming standards
 
 **Purpose:** how to name new files, folders and config artefacts, so a reader knows what each holds without opening it.

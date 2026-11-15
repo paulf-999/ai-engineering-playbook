@@ -1,4 +1,3 @@
-<!-- created: 2026-10-31 -->
 # 🧠 Global Claude configuration
 
 ## 🧭 Behavioural Guidelines

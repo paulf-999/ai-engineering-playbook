@@ -26,7 +26,6 @@ def bullets(count):
     return "".join(f"- **Point {n}:** detail.\n" for n in range(1, count + 1))
 
 
-# MoSCoW: Must — security: a PR description must never run as code
 def test_description_with_shell_characters_is_not_executed(tmp_path):
     """The description is treated as text, so shell syntax in it is never run."""
     marker = tmp_path / "should_not_exist"
@@ -55,7 +54,6 @@ SPEC_HEADING = "\n## :robot: Claude: Plan Spec (spec.md) - Requirements and Desi
 SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
 
 
-# MoSCoW: Must — a PR changing an always-on or enforcing file must answer the evaluation criteria
 @pytest.mark.parametrize(
     ("description", "changed_files", "expected_code"),
     [
@@ -91,7 +89,6 @@ OLD_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:*
 
 
 # the template's note and show/hide wrapper, which authors keep, so they aren't an answer on their own
-# MoSCoW: Must — a reviewer can only check a config PR against its spec if the PR carries one
 @pytest.mark.parametrize(
     ("spec", "changed_files", "expected_code"),
     [
@@ -118,7 +115,6 @@ def test_config_changes_require_a_spec(spec, changed_files, expected_code):
 TEMPLATE = (REPO_ROOT / ".github" / "pull_request_template.md").read_text()
 
 
-# MoSCoW: Must — the template's defaults must suit a docs PR, but never let a config PR through unanswered
 @pytest.mark.parametrize(
     ("changed_files", "expected_code", "reason"),
     [

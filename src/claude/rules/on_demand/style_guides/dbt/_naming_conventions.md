@@ -91,18 +91,10 @@ Staging models must include the following audit fields. These are added via the 
 
 ## 🔖 CTE naming
 
-CTEs within dbt models should be named descriptively in `UPPER_SNAKE_CASE` to reflect their purpose, overriding the lowercase names in the SQL CTE guide:
-
-| CTE name | Use |
-|----------|-----|
-| `REMOVE_DUPLICATES` | Deduplication step |
-| `GET_MAX` | Retrieving the latest record per key |
-| `FINAL` | The last CTE before the final SELECT — always named `FINAL` |
-
-The final SELECT always reads from `FINAL`:
+Name CTEs as [`../sql/_cte_style_guide.md`](../sql/_cte_style_guide.md) sets out. A dbt model's final SELECT reads everything from `final`:
 
 ```sql
 SELECT *
-FROM FINAL
+FROM final
 {{ limit_rows() }}
 ```

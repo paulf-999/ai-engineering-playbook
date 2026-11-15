@@ -67,5 +67,6 @@ Write `shared_feedback.md` beside the reviews, with a table of each point two or
 3. Give each row its theme, who raised it, the impact, the evidence as file paths, and a suggested fix.
 4. Mark any fix that clashes with a [kept-by-choice](_repo.md#-how-to-score) decision, so it isn't argued again.
 5. List the strengths all readers share, and the points only one reader raised, under the table.
+6. Above the table, sum up whether the readers found the repo over-engineered and, if so, where, with who raised each area, its evidence and any kept-by-choice clash.
 
 Turn the top rows into GitHub issues or fix PRs, as with the [tests](_tests.md#-where-findings-go) checklist.

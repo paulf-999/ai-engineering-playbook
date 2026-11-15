@@ -5,7 +5,7 @@ SHELL = /bin/sh
 #================================================================
 # make help		# list the available targets
 # make deps		# install the dependencies and git hooks
-# make install		# copy src/claude/ into your Claude config directory
+# make install		# copy src/claude/ into your Claude config directory, or PROJECT=<repo>'s .claude/ folder
 # make test		# run the tests (pytest)
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
@@ -35,7 +35,7 @@ deps:
 	@python -m pre_commit install
 
 install:
-	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${CLAUDE_CONFIG_DIR:-$$HOME/.claude}.${COLOUR_OFF}"
+	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${PROJECT:+$$PROJECT/.claude}$${PROJECT:-$${CLAUDE_CONFIG_DIR:-$$HOME/.claude}}.${COLOUR_OFF}"
 	@bash src/sh/claude_install_config.sh
 
 context_cost:

@@ -5,7 +5,9 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              On-demand files in rules/on_demand/ go beside rules/, since Claude Code loads everything under rules/
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed
 #              It also keeps the config's hooks and deny rules in settings.json in step, keeping every other setting
-# Usage: src/sh/claude_install_config.sh (run from the repo root, at your own terminal; make install calls it)
+#              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the hooks out unless HOOKS=1
+# Usage: [PROJECT=<repo> [HOOKS=1]] src/sh/claude_install_config.sh (run from the repo root, at your own terminal;
+#        make install calls it)
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/shell_utils.sh
@@ -21,10 +23,25 @@ trap handle_interruption SIGINT
 # mirrors the config directory's layout, so each file is copied to the same relative path, except on-demand files
 SOURCE_DIR="src/claude"
 LAZY_RULES_DIR="rules/on_demand"
-TARGET_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
+CONFIG_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
+# a repo to install into instead of your Claude config directory, and whether its install includes the hooks
+PROJECT="${PROJECT:-}"
+WITH_HOOKS="${HOOKS:-}"
+if [[ -n "${PROJECT}" ]]; then
+    if [[ ! -d "${PROJECT}" ]]; then
+        echo "PROJECT=${PROJECT} isn't a folder - nothing changed." >&2
+        exit 1
+    fi
+    PROJECT="$(cd "${PROJECT}" && pwd)"
+    TARGET_DIR="${PROJECT}/.claude"
+    # backups go in your own config directory, so they're never committed with the repo
+    BACKUP_DIR="${CONFIG_DIR}/backups/project_$(basename "${PROJECT}")_$(date +%Y_%m_%d_%H%M%S)"
+else
+    TARGET_DIR="${CONFIG_DIR}"
+    BACKUP_DIR="${TARGET_DIR}/backups/install_$(date +%Y_%m_%d_%H%M%S)"
+fi
 # the paths the last install wrote, one per line, so the next install can remove any the repo no longer has
 MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
-BACKUP_DIR="${TARGET_DIR}/backups/install_$(date +%Y_%m_%d_%H%M%S)"
 # the tracked files under SOURCE_DIR, set by list_source_files
 SOURCE_FILES=()
 # where each source file installs, one per line, set by list_source_files
@@ -34,7 +51,7 @@ REMOVED_FILES=()
 # settings.json holds personal settings, so install merges the hooks into it rather than copying a file over it
 SETTINGS="${TARGET_DIR}/settings.json"
 # each hook the config ships, as event|matcher|path, with an empty matcher for events that take none
-HOOKS=(
+SHIPPED_HOOKS=(
     "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_sections.sh"
     "Stop||hooks/hook_enforcement_done_checks.sh"
 )
@@ -57,12 +74,27 @@ target_path() {
     fi
 }
 
-# Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed
+# Print a source file as it installs: in a project, pointers name the project's .claude/ folder, not your config directory
+render() {
+    local file="${1}"
+    if [[ -n "${PROJECT}" ]]; then
+        # shellcheck disable=SC2016  # the backticks and \$CLAUDE_CONFIG_DIR are literal text in the rules, not expansions
+        sed -e 's/in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~\/.claude` when unset)/in this project'"'"'s `.claude\/` folder/' \
+            -e 's/in your Claude config directory/in this project'"'"'s `.claude\/` folder/' "${SOURCE_DIR}/${file}"
+    else
+        cat "${SOURCE_DIR}/${file}"
+    fi
+}
+
+# Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed,
+# leaving the hooks out of a project install unless HOOKS=1
 list_source_files() {
     local file
     while IFS= read -r -d '' file; do
-        SOURCE_FILES+=("${file#"${SOURCE_DIR}"/}")
-        TARGET_PATHS+="$(target_path "${file#"${SOURCE_DIR}"/}")"$'\n'
+        file="${file#"${SOURCE_DIR}"/}"
+        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" == hooks/* ]] && continue
+        SOURCE_FILES+=("${file}")
+        TARGET_PATHS+="$(target_path "${file}")"$'\n'
     done < <(git ls-files -z -- "${SOURCE_DIR}")
     if [[ "${#SOURCE_FILES[@]}" -eq 0 ]]; then
         log_message "${ERROR}" "No tracked files found under ${SOURCE_DIR} - nothing to install."
@@ -99,7 +131,7 @@ confirm_install() {
             echo "  ${file}"
         done
     fi
-    echo "It also updates the plan sections hook in ${SETTINGS} to match the install."
+    echo "It also updates the config's hooks and deny rules in ${SETTINGS} to match the install."
     echo "Each file it overwrites or removes is backed up to ${BACKUP_DIR} first."
     read -r -p "Type 'install' to continue: " answer || true
     if [[ "${answer}" != "install" ]]; then
@@ -114,7 +146,7 @@ install_files() {
     for file in "${SOURCE_FILES[@]}"; do
         relative="$(target_path "${file}")"
         target="${TARGET_DIR}/${relative}"
-        if file_exists "${target}" && cmp -s "${SOURCE_DIR}/${file}" "${target}"; then
+        if file_exists "${target}" && cmp -s <(render "${file}") "${target}"; then
             continue
         fi
         if file_exists "${target}"; then
@@ -123,7 +155,7 @@ install_files() {
             backed_up=$((backed_up + 1))
         fi
         mkdir -p "$(dirname "${target}")"
-        cp "${SOURCE_DIR}/${file}" "${target}"
+        render "${file}" > "${target}"
         copied=$((copied + 1))
     done
     log_message "${INFO}" "Installed ${copied} changed file(s), backing up ${backed_up}, into ${TARGET_DIR}."
@@ -144,7 +176,7 @@ remove_old_files() {
 # Keep one entry per hook in settings.json at the current path, or none if it isn't shipped, then the deny rules,
 # backing up the old file
 register_settings() {
-    local current updated entry event matcher hook ship previous
+    local current updated entry event matcher hook ship previous command
     if ! command -v jq > /dev/null; then
         log_message "${WARNING}" "jq isn't installed, so the config's hooks weren't added to ${SETTINGS}."
         return 0
@@ -156,15 +188,18 @@ register_settings() {
         return 0
     fi
     updated="${current}"
-    for entry in "${HOOKS[@]}"; do
+    for entry in "${SHIPPED_HOOKS[@]}"; do
         IFS='|' read -r event matcher hook <<< "${entry}"
         ship=false
         grep -Fxq -- "${hook}" <<< "${TARGET_PATHS}" && ship=true
+        # a project's settings are shared, so its hook command names the project through Claude Code's own variable
+        command="bash \"${TARGET_DIR}/${hook}\""
+        [[ -n "${PROJECT}" ]] && command="bash \"\$CLAUDE_PROJECT_DIR/.claude/${hook}\""
         # strip the hook wherever it's registered, matched by file name so an old path counts, then re-add it if shipped
         # an event value that isn't a list can't take the hook, so it's reported rather than aborting the install
         # the command is an absolute path, since hook commands in user settings can't refer to CLAUDE_CONFIG_DIR
         if ! updated="$(jq --arg event "${event}" --arg matcher "${matcher}" \
-            --arg command "bash \"${TARGET_DIR}/${hook}\"" --arg suffix "/${hook}\"" --argjson ship "${ship}" '
+            --arg command "${command}" --arg suffix "/${hook}\"" --argjson ship "${ship}" '
             def ours: (.command? // "") as $c | ($c | type) == "string" and ($c | endswith($suffix));
             (.hooks[$event] // []) as $old
             | if ($old | type) != "array" then error("hooks.\($event) is not a list") else . end

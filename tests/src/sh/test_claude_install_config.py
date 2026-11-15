@@ -15,9 +15,9 @@ SOURCE = REPO_ROOT / "src" / "claude"
 GIT_ENV = {"GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
 
 
-def run_install(target, answer=None, cwd=REPO_ROOT):
+def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
     """Run the script from cwd against a target, typing answer at a pseudo-terminal, or with no terminal if None."""
-    env = {**os.environ, **GIT_ENV, "CLAUDE_CONFIG_DIR": str(target)}
+    env = {**os.environ, **GIT_ENV, "CLAUDE_CONFIG_DIR": str(target), **extra_env}
     if answer is None:
         return subprocess.run(
             [str(SCRIPT)], cwd=cwd, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, check=False
@@ -305,3 +305,57 @@ def test_install_removes_the_plan_hook_when_it_isnt_shipped(tmp_path):
     assert plan_hook_commands(target) == [], "an unshipped hook should be removed"
     assert pre_tool_use(target) == [OTHER_HOOK], "an unrelated hook must be kept"
     assert list((target / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"
+
+
+def project_install(tmp_path, **extra_env):
+    """Install into a fresh repo folder with its own config directory, returning both and the result."""
+    config, project = tmp_path / "config", tmp_path / "repo"
+    config.mkdir(parents=True)
+    project.mkdir(parents=True)
+    result = run_install(config, answer="install", PROJECT=str(project), **extra_env)
+    assert result.returncode == 0, f"a project install should succeed:\n{result.stdout}{result.stderr}"
+    return config, project / ".claude"
+
+
+# MoSCoW: Must — a project install must leave each engineer's own config alone, apart from backups
+def test_project_install_writes_only_into_the_repo(tmp_path):
+    """With PROJECT set, the config lands in the repo's .claude/ folder, and your config directory gets nothing."""
+    config, target = project_install(tmp_path)
+    assert (target / "CLAUDE.md").is_file(), "CLAUDE.md should install into the repo's .claude/ folder"
+    assert (target / "on_demand" / "claude_config" / "guiding_principles.md").is_file(), "on-demand files should too"
+    assert installed_files(config) == set(), "nothing but backups should land in your own config directory"
+
+
+# MoSCoW: Must — a pointer naming your config directory would send Claude to the wrong folder in a project
+def test_project_install_points_rules_at_the_project_folder(tmp_path):
+    """Every 'in your Claude config directory' pointer reads 'in this project's .claude/ folder' instead."""
+    _, target = project_install(tmp_path)
+    texts = [path.read_text() for path in target.rglob("*.md")]
+    assert not [text for text in texts if "in your Claude config directory" in text], "no pointer should name it"
+    assert "in this project's `.claude/` folder" in (target / "CLAUDE.md").read_text(), "CLAUDE.md should name it"
+
+
+# MoSCoW: Must — the hooks enforce one planning format, so a shared repo gets them only when asked for
+def test_project_install_leaves_the_hooks_out_unless_asked(tmp_path):
+    """A project install ships no hooks by default, and with HOOKS=1 registers them through CLAUDE_PROJECT_DIR."""
+    _, target = project_install(tmp_path / "without")
+    assert not (target / "hooks").exists(), "no hook should install by default"
+    assert not (target / "settings.json").exists() or not plan_hook_commands(target), "no hook should be registered"
+
+    _, target = project_install(tmp_path / "with", HOOKS="1")
+    assert (target / "hooks" / "hook_enforcement_plan_sections.sh").is_file(), "HOOKS=1 should install the hooks"
+    assert plan_hook_commands(target) == ['bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_plan_sections.sh"']
+
+
+# MoSCoW: Must — a backup inside the repo would be committed with it
+def test_project_install_backs_up_into_your_config_directory(tmp_path):
+    """A file the project install overwrites is backed up in your config directory, never in the repo."""
+    config, project = tmp_path / "config", tmp_path / "repo"
+    (project / ".claude").mkdir(parents=True)
+    config.mkdir()
+    (project / ".claude" / "CLAUDE.md").write_text("the team's own notes\n")
+    result = run_install(config, answer="install", PROJECT=str(project))
+    assert result.returncode == 0, f"a project install should succeed:\n{result.stdout}{result.stderr}"
+    backups = list((config / "backups").glob("project_repo_*/CLAUDE.md"))
+    assert backups and backups[0].read_text() == "the team's own notes\n", "the old CLAUDE.md should be backed up"
+    assert not (project / ".claude" / "backups").exists(), "no backup should be written inside the repo"

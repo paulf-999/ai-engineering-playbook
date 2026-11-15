@@ -1,81 +1,39 @@
 # 📚 Reference Material
 
-**Purpose:** the outside sources behind this repo's target architecture, the design for its new Claude configuration, and how to use and cite them.
+**Purpose:** the outside sources behind this repo's target architecture, and what the design uses each one for.
 
 You don't need these to use the Claude Code instructions: they're the sources the design pages cite.
 
-## 📋 Source register
+## 🥇 Core
 
-Sources are grouped by how much the design depends on them. Each core source links to its summary, supporting sources link to the live docs, Access says which were read in full, and an old Captured date flags a source to recheck.
+The design is built on these, so each has a summary in this repo:
 
-### 🥇 Core
+- 🔄 **[The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook)** ([summary](core/anthropic_ai_native_sdlc.md)): lifecycle and workflow guidance, from Anthropic.
+- 📊 **[DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/)** ([summary](core/dora_ai_capabilities.md)): the seven capabilities and how to build them, from DORA.
+- 🧑‍💼 **[Handover review](core/handover_review.md)**, sections 4 and 6: an outside reviewer's view of the [old Claude configuration](../../../maintenance/old_setup_review.md), which sets the design's stance and priorities.
+- 🧩 **[Agent Skills specification](https://agentskills.io/specification)** ([summary](core/agent_skills_spec.md)): the required format and naming of a skill.
 
-The design is built on these, and its docs or config cite each one:
+## 🥈 Supporting
 
-| # | Source | Publisher | Version or date | Access | Captured | Used for |
-|---|---|---|---|---|---|---|
-| 1️⃣ | [The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook) · [summary](core/anthropic_ai_native_sdlc.md) | Anthropic (Claude Academy) | Not stated, © 2026 | Public, sign-in optional, read in full | 2026-11-02 | Lifecycle and workflow guidance |
-| 2️⃣ | [DORA AI Capabilities Model report](https://dora.dev/ai/capabilities-model/report/) · [summary](core/dora_ai_capabilities.md) | DORA (DevOps Research and Assessment), a Google Cloud programme | Report v. 2025.1, CC BY-NC-SA 4.0 | Full report from [Google Cloud](https://cloud.google.com/resources/content/2025-dora-ai-capabilities-model-report), read in full | 2026-11-02 | The seven capabilities and how to build them |
-| 3️⃣ | [Handover review](core/handover_review.md), sections 4 and 6 | An outside reviewer of the [old Claude configuration](../../../maintenance/old_setup_review.md) | Not dated | Quoted in this repo | 2026-11-03 | The design's stance and priorities |
-| 4️⃣ | [Agent Skills specification](https://agentskills.io/specification), with its [overview](https://agentskills.io/home) · [summary](core/agent_skills_spec.md) | agentskills.io, an open standard first developed by Anthropic | Live pages, no version or date | Public, read in full | 2026-11-09 | The required format and naming of a skill |
+These back specific limits and naming rules, so recheck the live page before relying on them:
 
-### 🥈 Supporting
+- 🧠 **[How Claude remembers your project](https://code.claude.com/docs/en/memory):** the always-on budget's 200-line basis, and that imports still load while path-scoped rules load only for matching files.
+- 🛠️ **[Extend Claude with skills](https://code.claude.com/docs/en/skills):** where Claude Code's skills go beyond the standard, so the template's `maturity` and `tags` fields must go before a claude.ai upload.
+- 🤖 **[Create custom subagents](https://code.claude.com/docs/en/sub-agents):** the agent template's fields, and listing `tools`, since leaving it out grants every tool.
 
-These back specific limits and naming rules:
+## 📖 Further reading
 
-| # | Source | Publisher | Version or date | Access | Captured | Used for |
-|---|---|---|---|---|---|---|
-| 5️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | The always-on budget: its 200-line basis, and that imports still load while path-scoped rules load only for matching files |
-| 6️⃣ | [Extend Claude with skills](https://code.claude.com/docs/en/skills) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and naming sections read | 2026-11-09 | Where Claude Code's skills go beyond the standard, so the template's `maturity` and `tags` fields must go before a claude.ai upload |
-| 7️⃣ | [Create custom subagents](https://code.claude.com/docs/en/sub-agents) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and delegation sections read | 2026-11-09 | The agent template's fields, and listing `tools`, since leaving it out grants every tool |
+Nothing in the design links to these yet, but each gives a view the others don't:
 
-### 📖 Further reading
+- 📈 **[State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/):** survey evidence on AI adoption and outcomes.
+- ⚖️ **[METR's trial of early-2025 AI on experienced developers](https://arxiv.org/abs/2507.09089):** a randomised trial showing felt speed-ups can hide real slowdowns.
+- 🧰 **[Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html):** when to guide Claude and when to enforce, from outside Anthropic.
+- 🧪 **[Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents):** a method for testing whether each part of the config still helps.
+- 📘 **[Best practices for Claude Code](https://code.claude.com/docs/en/best-practices):** Anthropic's split between guidance Claude may follow and rules that always hold.
+- 🏛️ **[The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf):** a shared method and vocabulary for enterprise architecture.
 
-Nothing in the design links to these yet, so they keep only their outside links, but each gives a view the others don't:
+## 🧭 Weighing them
 
-<details>
-<summary>Show the 6 further-reading sources</summary>
-
-| # | Source | Publisher | Version or date | Access | Captured | Used for |
-|---|---|---|---|---|---|---|
-| 8️⃣ | [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) | Google Cloud, with IT Revolution, GitHub, GitLab, SkillBench and Workhelix | Report v. 2025.2, CC BY-NC-SA 4.0 | Full report from [cloud.google.com/dora](https://cloud.google.com/dora), read in full | 2026-11-03 | Survey evidence on AI adoption and outcomes |
-| 9️⃣ | [Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity](https://arxiv.org/abs/2507.09089) | METR (Model Evaluation & Threat Research): Becker, Rush, Barnes and Rein, on arXiv | v2, 2025-07-25, CC BY 4.0 | Public, main text and key appendices read | 2026-11-03 | Trial evidence that felt speed-ups can hide real slowdowns |
-| 🔟 | [Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html) | Birgitta Böckeler, on martinfowler.com | 2026-04-02 | Public, read in full | 2026-11-03 | When to guide Claude and when to enforce, from outside Anthropic |
-| 1️⃣1️⃣ | [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | Anthropic (Engineering blog) | 2026-01-09 | Public, read in full | 2026-11-03 | Testing whether each part of this repo's configuration still helps |
-| 1️⃣2️⃣ | [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | Anthropic's split between guidance Claude may follow and rules that always hold |
-| 1️⃣3️⃣ | [The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf) | The Open Group | 10th Edition, 2022, © The Open Group | Free download after registering, summary not yet checked against the full text | 2026-11-04 | A shared method and vocabulary for enterprise architecture |
-
-</details>
-
-## 🧭 How to use these sources
-
-Each source plays a different role, so weigh its claims by what kind of source it is.
-
-### 🛠️ Guidance
-
-These sources say what to do, but none shows that a practice works:
-
-- 🎓 **Anthropic's SDLC course:** practical guidance for each stage of the software development lifecycle.
-- 📘 **Claude Code docs:** how Claude Code behaves today, so recheck the live page before relying on an old summary.
-- 🧰 **Böckeler's harness engineering:** a practitioner's view, from outside Anthropic, of the controls a user builds around a coding agent, useful as a check on vendor advice.
-- 🧪 **Anthropic's evals article:** a method for testing agents, not evidence about this repo.
-- 🧑‍💼 **Handover review:** one reviewer's judgement on the old configuration, which sets the design's direction rather than proving it works.
-
-### 📐 Standards
-
-These sources set out a common method or format:
-
-- 🏛️ **The TOGAF Standard:** a shared method and vocabulary for enterprise architecture, not evidence that any practice works.
-- 🧩 **The Agent Skills specification:** the open format a skill must follow to work across agents.
-
-### 🔬 Evidence
-
-These sources measure outcomes:
-
-- 📊 **DORA:** a long-running research programme whose surveys show correlation rather than cause.
-- ⚖️ **METR's trial:** a randomised controlled trial, so it shows cause rather than correlation, but on 16 developers in early 2025.
-
-### 📝 Every source
-
-- 🚫 **Not a specification:** this repo takes ideas from every source, but needn't implement any of them, except the Agent Skills specification, which its skill names follow.
-- 📝 **Citations:** record the page or section, and the version or access date, for every claim taken from a source.
+- 🛠️ **Guidance and standards:** the SDLC course, the Claude Code docs, the harness engineering article, the handover review, TOGAF and the Agent Skills specification say what to do, but none shows that a practice works.
+- 🔬 **Evidence:** DORA's surveys show correlation rather than cause, and METR's trial shows cause, but on 16 developers in early 2025.
+- 📝 **Citing:** record the page or section, and the version or access date, for every claim taken from a source.

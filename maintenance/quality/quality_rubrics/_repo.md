@@ -44,7 +44,7 @@ Process and machinery heavier than the repo needs:
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
 - 🤝 **Kept by choice:** don't mark down any of these, which the user keeps on purpose:
   - **Planned:** a folder or file that its README or parent rule marks "planned", and the budget script's scanning of skills, agents, `@` imports and a project `.claude/`.
-  - **Audits:** the [tests audit](../quality_audit/_tests.md) and [rules audit](../quality_audit/_rules.md), with their rubrics and checkers.
+  - **Audits:** the repo audit and its rubric, and the [tests](_tests.md) and [rules](_rules.md) checklists.
   - **Headers:** the `created`, `applies_to` and `miss_cost` lines on installed files.
   - **Review and seams:** the fresh-context reviewer that fills each config PR's evaluation criteria, and the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides the tests use.
   - **Copies and lists:** the separate `shell_utils.sh` copies, the further-reading list in `reference_material/README.md`, and the token report, `maintenance/context_cost.md`, whose commits the upkeep measure leaves out.

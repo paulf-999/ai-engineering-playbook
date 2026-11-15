@@ -19,7 +19,7 @@
 - ↩️ **Easy to remove:** keep each piece small and single-purpose, so one small PR can take it out.
 - 💸 **Automation pays back:** automate only work done about 5 or more times a month.
 - 🔗 **Live sources:** link to the source of truth rather than keeping lists that go stale.
-- 🛠️ **Writing one:** follow the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/.github/CONTRIBUTING.md#️-authoring-rules-skills-and-agents), which also covers portable paths for hooks, scripts and tests.
+- 🛠️ **Writing one:** follow the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), which also covers portable paths for hooks, scripts and tests.
 
 ## 📚 Read on demand
 

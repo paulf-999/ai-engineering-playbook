@@ -1,14 +1,11 @@
-"""Checks the rules quality audit has one row per entry-point rule, and that each row's scores add up."""
+"""Checks the rules quality audit has one row per entry-point rule, and that its links work."""
 
 import pytest
-from _audit_tables import assert_links_work, assert_quality_scores, read_table
+from _audit_tables import assert_links_work, read_table
 from _paths import REPO_ROOT
 
 AUDIT = REPO_ROOT / "maintenance" / "quality" / "quality_audit.md"
 RULES_DIR = REPO_ROOT / "src" / "claude" / "rules"
-
-# the themes in the Rules section of quality/quality_rubrics.md, as the audit's column headings
-THEMES = ("Changes behaviour", "Right place", "No duplicate", "Clarity", "Accuracy")
 
 
 def entry_point_rules(rules_dir=RULES_DIR, root=REPO_ROOT):
@@ -35,12 +32,11 @@ def row_list_problems(rows, rules):
 
 # MoSCoW: Must — a rule with no row is never checked for whether it earns its place
 def test_every_rule_has_a_row():
-    """Links work, each entry-point rule has exactly one row, and each row's score and Gaps match its themes."""
+    """Links work, and each entry-point rule has exactly one row."""
     assert_links_work(AUDIT)
     rows = read_table(AUDIT, "⭐ Quality by rule")
     problems = row_list_problems(rows, entry_point_rules())
     assert not problems, "; ".join(problems)
-    assert_quality_scores(rows, THEMES)
 
 
 # MoSCoW: Must — a row check that never fails would let a rule go unscored

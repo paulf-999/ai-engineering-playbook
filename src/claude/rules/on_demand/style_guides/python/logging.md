@@ -3,25 +3,45 @@
 <!-- miss_cost: medium — logs leak secrets or miss what's needed to debug -->
 # 📝 Python Logging Conventions
 
-**Purpose:** Establish logging standards for debugging, monitoring, and auditing — ensuring logs are useful, secure, and structured.
+**Purpose:** the house rules for logging and error handling in Python, so logs are useful, safe and free of duplicates.
 
----
+## 🔧 Setup
 
-## ⚡ Quick reference
+- 🧭 **One logger per module:** create it at module level with `logger = logging.getLogger(__name__)`, never inside a function.
+- 💬 **Lazy formatting:** pass values as arguments, such as `logger.info("Loaded %s rows", count)`, so a disabled level costs nothing.
 
-| Scenario | Level | Example |
+## 📊 Levels
+
+| Level | Use it for | Example |
 |---|---|---|
-| **Function starts/ends** | DEBUG | `logger.debug("Starting migration process")` |
-| **Important decision** | INFO | `logger.info("Using fallback config")` |
-| **State change** | INFO | `logger.info("Connection disabled")` |
-| **Unexpected but recoverable** | WARNING | `logger.warning("File not found, using default")` |
-| **Error before re-raise** | ERROR | `logger.error(f"Config invalid: {e}")` |
-| **Development debug info** | DEBUG | `logger.debug(f"Variable x = {x}")` |
+| **DEBUG** | Detail for development, off in production | `logger.debug("Using timeout %s", timeout)` |
+| **INFO** | Milestones, counts and results a user can follow | `logger.info("Migrated %s of %s connections", done, total)` |
+| **WARNING** | Something unexpected that the code recovers from | `logger.warning("Config %s not found, using defaults", path)` |
+| **ERROR** | A failure the program can't recover from, in the top-level handler | `logger.exception("Migration failed")` |
 
-## 📚 Read on demand
+## 🔁 Log each error once
 
-- `on_demand/style_guides/python/logging/_setup_and_levels.md`, in your Claude config directory, for logger setup and levels.
-- `on_demand/style_guides/python/logging/_what_to_log.md`, in your Claude config directory, for what to log.
-- `on_demand/style_guides/python/logging/_what_not_to_log.md`, in your Claude config directory, for what to leave out of logs.
-- `on_demand/style_guides/python/logging/_error_handling.md`, in your Claude config directory, for the patterns to follow.
-- `on_demand/style_guides/python/logging/_error_anti_patterns.md`, in your Claude config directory, for the patterns to avoid.
+Log an error where the most context is known, and let it travel up from there:
+
+| Situation | What to do |
+|---|---|
+| 🟡 **Expected and recoverable**, such as a missing optional file | Log at WARNING with context, use the fallback, and don't re-raise |
+| 🔴 **Unexpected, and you can add context**, such as the file path | Raise a clearer error `from` it, with that context in its message, and don't log it |
+| ⏭️ **Unexpected, and you have nothing to add** | Don't catch it, and let it propagate |
+| 🏁 **Top-level handler**, such as `main()` | Call `logger.exception()` once, which attaches the traceback, then exit |
+
+```python
+try:
+    config = yaml.safe_load(path.read_text())
+except yaml.YAMLError as e:
+    raise ConfigError(f"Invalid YAML in {path}") from e
+```
+
+- 🎯 **Specific exceptions:** catch the narrowest type, never a bare `except:` or a broad `except Exception` outside the top-level handler.
+- 🔇 **No silent failures:** never catch an error and carry on without logging it or re-raising it.
+
+## 🚫 What never to log
+
+- 🔑 **Secrets:** API keys, passwords, tokens or connection strings, so log the host or "using configured credentials" instead.
+- 🪪 **Personal data:** names, emails or phone numbers, so log the record's ID instead.
+- 🔊 **Per-item noise:** a line for every item in a large loop, so log every N items or a summary at the end.

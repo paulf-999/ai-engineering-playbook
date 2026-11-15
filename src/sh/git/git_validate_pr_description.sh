@@ -21,6 +21,9 @@ PR_DESCRIPTION="${1-}"
 CHANGED_FILES="${2-}"
 # the heading of the section that carries the change's spec
 SPEC_HEADING="Plan Spec"
+# the template's default answers, which suit a PR that doesn't need the section, so they must be replaced when it does
+DEFAULT_SPEC="Not applicable: this PR changes nothing under \`src/claude/\`."
+DEFAULT_CRITERIA="Not applicable: this PR changes no always-on or enforcing file."
 # why the description fails, set in the main logic (empty means it's valid)
 PROBLEMS=""
 
@@ -28,9 +31,20 @@ PROBLEMS=""
 # Functions
 #=======================================================================
 
-# Print the description without fenced code blocks, so examples shown in them aren't checked
+# Print the description without fenced code blocks or HTML comments, so examples and hidden guidance aren't checked
 rendered_text() {
-    printf '%s\n' "${PR_DESCRIPTION}" | awk '/^ *```/ { fenced = !fenced; next } !fenced'
+    printf '%s\n' "${PR_DESCRIPTION}" | awk '
+        /^ *```/ { fenced = !fenced; next }
+        fenced { next }
+        /<!--/ { in_comment = 1 }
+        in_comment { if (/-->/) in_comment = 0; next }
+        { print }
+    '
+}
+
+# Succeed if the section whose heading contains $1 still holds the template's default line $2
+has_default() {
+    section "${1}" | grep -qxF -- "${2}"
 }
 
 # Print the lines under the first "## " heading that contains the given text, in any case, up to the next "## " heading
@@ -77,7 +91,9 @@ placeholders() {
 description_problems() {
     local placeholders
     changes_claude_config || return 0
-    if ! has_spec; then
+    if has_default "${SPEC_HEADING}" "${DEFAULT_SPEC}"; then
+        echo "Replace the default 'Not applicable' line in '${SPEC_HEADING}' with the change's spec.md, since this PR changes src/claude/."
+    elif ! has_spec; then
         echo "Fill the '${SPEC_HEADING}' section with the change's spec.md, or say why it has none, since this PR changes src/claude/."
     fi
     placeholders="$(placeholders "${SPEC_HEADING}")"
@@ -85,7 +101,9 @@ description_problems() {
         echo "Replace the template placeholders left in '${SPEC_HEADING}' with the change's spec: ${placeholders//$'\n'/, }"
     fi
     changes_always_on_or_enforcing || return 0
-    if ! has_evaluation_criteria; then
+    if has_default "Evaluation Criteria" "${DEFAULT_CRITERIA}"; then
+        echo "Replace the default 'Not applicable' line in 'Evaluation Criteria' with the reviewer's answers, since this PR changes an always-on or enforcing file."
+    elif ! has_evaluation_criteria; then
         echo "Answer the 'Evaluation Criteria' section, per docs/target_architecture/design_principles/02_evaluation_criteria.md, since this PR changes an always-on or enforcing file."
     fi
     placeholders="$(placeholders "Evaluation Criteria")"

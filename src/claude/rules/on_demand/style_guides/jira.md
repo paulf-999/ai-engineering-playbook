@@ -1,6 +1,3 @@
-<!-- created: 2026-05-20 -->
-<!-- applies_to: * -->
-<!-- miss_cost: medium — tickets miss required fields and need fixing by hand -->
 # 🎫 Jira style guide
 
 **Purpose:** standards for a team's Jira tickets, covering their structure, required fields, sprint assignment and business value.

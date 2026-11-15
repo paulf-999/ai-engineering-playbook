@@ -41,13 +41,13 @@ Besides adding instructions, installing changes how Claude works in every projec
 - ⚡ Claude reads only the instructions each task needs, so it stays fast and focused.
 - 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load).
 - 📦 Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
-- 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md).
+- 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md), one illustrative run rather than a measured result.
 
 <!-- separates the intro list from the feature list -->
 
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
 - 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always_on/workflows/sdlc_workflow.md) before coding, then checks the result against that plan, following [Anthropic's AI-native software development lifecycle](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md).
-- 🔬 **Research-led:** every part of the [design](docs/target_architecture/README.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).
+- 🔬 **Research-led:** the [design](docs/target_architecture/README.md) draws on [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).
 - ✅ **Stays lean:** automatic [checks](docs/target_architecture/architecture/_budget_and_guards.md#️-design-guards) stop the always-read instructions growing.
 
 ---

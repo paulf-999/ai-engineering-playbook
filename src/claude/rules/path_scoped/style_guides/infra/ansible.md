@@ -3,8 +3,6 @@ paths:
   - "**/playbooks/**/*.yml"
   - "**/roles/**/*.yml"
 ---
-<!-- created: 2026-04-08 -->
-<!-- miss_cost: medium — playbooks drift from the team's structure and need reworking -->
 # 📦 Ansible Style Guide & Standards
 
 **Purpose:** Define the team's standards for writing and structuring Ansible projects.

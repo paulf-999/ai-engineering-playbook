@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: * -->
-<!-- miss_cost: low — prose drifts from the house style -->
 # ✏️ Writing style
 
 **Purpose:** how to write everything you produce, from replies and docs to tickets and commit messages.

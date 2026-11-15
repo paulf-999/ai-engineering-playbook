@@ -2,8 +2,6 @@
 paths:
   - "**/*.tf"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: medium — infrastructure code drifts from the team's layout and needs reworking -->
 # 🏗️ Terraform Style Guide & Standards
 
 **Purpose:** Define the team's standards for the Terraform that manages Snowflake infrastructure and deploys through Azure Pipelines.

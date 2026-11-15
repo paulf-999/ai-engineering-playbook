@@ -3,8 +3,6 @@ paths:
   - "**/Makefile"
   - "**/*.mk"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: low — Makefiles drift from the house style -->
 # 🛠️ Makefile Style Guide & Standards
 
 **Purpose:** Define the team's standards for writing and structuring Makefiles.

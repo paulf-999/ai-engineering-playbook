@@ -1,4 +1,3 @@
-<!-- created: 2026-08-28 -->
 # 🗂️ SQL Formatting Standards
 
 **Purpose:** Establish formatting and style conventions for SQL queries and dbt models to ensure readability, consistency, and maintainability.

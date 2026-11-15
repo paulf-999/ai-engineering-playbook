@@ -45,7 +45,6 @@ Process and machinery heavier than the repo needs:
 - 🤝 **Kept by choice:** don't mark down any of these, which the user keeps on purpose:
   - **Planned:** a folder or file that its README or parent rule marks "planned", and the budget script's scanning of skills, agents, `@` imports and a project `.claude/`.
   - **Audits:** the repo audit, this rubric with its checklists, and the persona review.
-  - **Headers:** the `created`, `applies_to` and `miss_cost` lines on installed files.
   - **Seams:** the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides the tests use.
   - **Copies and lists:** the separate `shell_utils.sh` copies, the further-reading list in `reference_material/README.md`, and the token report, `maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
 - 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `maintenance/` and `.github/`.

@@ -1,6 +1,3 @@
-<!-- created: 2026-11-10 -->
-<!-- applies_to: * -->
-<!-- miss_cost: medium — a plan skips its intent or spec, or multi-phase work runs past a wrong turn and needs redoing -->
 # 🔄 SDLC workflow
 
 **Purpose:** the stages a change moves through, named as in Anthropic's AI-native SDLC course, and when to pause for the user's approval.

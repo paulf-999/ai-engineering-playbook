@@ -2,8 +2,6 @@
 paths:
   - "**/*.sql"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: low — SQL drifts from the house style and needs reformatting -->
 # 🗄️ SQL Style Guide & Standards
 
 **Purpose:** Define team SQL standards for consistency, readability, and cost optimization. Standards apply to all SQL written in the warehouse (dbt, Airflow, ad-hoc queries), except where a repo's own `.sqlfluff` config differs, which wins.

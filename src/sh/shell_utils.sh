@@ -1,5 +1,4 @@
 #!/bin/bash
-# created: 2025-09-12
 
 # Description: Reusable shell script vars & functions, sourced by other scripts (not run directly)
 # Usage: source "$(dirname "${BASH_SOURCE[0]}")/shell_utils.sh", from a script in the same folder

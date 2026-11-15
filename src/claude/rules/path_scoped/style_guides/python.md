@@ -2,8 +2,6 @@
 paths:
   - "**/*.py"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: low — Python drifts from the house style -->
 # 🐍 Python Coding Standards
 
 **Purpose:** Python conventions that extend PEP 8, covering only what `ruff` and `ruff format` don't already enforce.

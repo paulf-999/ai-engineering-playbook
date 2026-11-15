@@ -2,8 +2,6 @@
 paths:
   - "**/*.mmd"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: low — diagrams get harder to read -->
 # 🔀 Mermaid Diagram Standards
 
 **Purpose:** Keep Mermaid diagrams consistent and readable across skills and READMEs.

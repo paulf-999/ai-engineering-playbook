@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: * -->
-<!-- miss_cost: low — TODO rows drift from the table layout -->
 # 📝 TODO logging
 
 **Purpose:** what to do when the user says "add to TODOs" or similar.

@@ -22,7 +22,6 @@ def run_deps(env):
     return subprocess.run(["make", "deps"], cwd=REPO_ROOT, env=env, capture_output=True, text=True, check=False)
 
 
-# MoSCoW: Must — make deps must never install outside a virtualenv
 def test_deps_stops_without_a_virtualenv(tmp_path):
     """Without VIRTUAL_ENV set, deps exits non-zero, points to the virtualenv setup doc and installs nothing."""
     env, log = fake_python(tmp_path)
@@ -35,7 +34,6 @@ def test_deps_stops_without_a_virtualenv(tmp_path):
     assert not log.exists(), f"make deps ran python without a virtualenv: {log.read_text() if log.exists() else ''}"
 
 
-# MoSCoW: Must — make deps must install through the virtualenv's python
 def test_deps_installs_with_the_virtualenv_python(tmp_path):
     """With a virtualenv active, deps runs pip and pre-commit through that virtualenv's python."""
     env, log = fake_python(tmp_path)

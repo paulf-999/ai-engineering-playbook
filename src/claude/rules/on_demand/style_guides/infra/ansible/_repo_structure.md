@@ -1,4 +1,3 @@
-<!-- created: 2026-11-10 -->
 # 🗂️ Ansible: Repo structure
 
 **Purpose:** where each kind of file goes in the team's Ansible repo.

@@ -1,26 +1,61 @@
 # 👀 Before and after: a dbt model
 
-**Purpose:** an illustrative example of what changes once the playbook is installed. You ask Claude to *"add a dbt model that counts each customer's orders"*.
+**Purpose:** what Claude actually wrote for the same dbt request, with and without the playbook's instructions.
 
-**Without the playbook**, Claude might hard-code `FROM raw.shop.orders` and add no tests.
+Both runs got the same prompt, *"Add a dbt model that counts each customer's orders."*, in a small sample project with one staging model, `staging_shop_orders`.
 
-**With it**, the [dbt guide](../../src/claude/rules/path_scoped/style_guides/dbt.md) loads as soon as Claude opens a model, so it follows your team's style:
+## ➖ Without the playbook
+
+Claude already uses `ref()`, and adds a description and tests for each column:
 
 ```sql
-WITH orders AS (
-    SELECT * FROM {{ ref('staging_shop_orders') }}
-)
-
-, final_cte AS (
-    SELECT
-        {{ create_surrogate_key(['customer_id']) }} AS "KEY"
-        , customer_id
-        , COUNT(*) AS order_count
-    FROM orders
-    GROUP BY customer_id
-)
-
-SELECT * FROM final_cte
+-- models/marts/customer_order_counts.sql
+SELECT
+    customer_id
+    , COUNT(order_id) AS order_count
+FROM {{ ref('staging_shop_orders') }}
+GROUP BY customer_id
 ```
 
-It also adds a YAML description for each column, with `unique` and `not_null` tests on `KEY`.
+## ➕ With the playbook
+
+Claude follows the [dbt guide](../../src/claude/rules/path_scoped/style_guides/dbt.md) and its child files on naming, layers and CTEs:
+
+```sql
+-- models/mart/shop/mart_shop_customer_order_count.sql
+{{ config(materialized='table') }}
+
+WITH ORDERS AS (
+    SELECT
+        order_id
+        , customer_id
+    FROM {{ ref('staging_shop_orders') }}
+),
+
+FINAL AS (
+    SELECT
+        /* MD5 stands in for create_surrogate_key(), which this project doesn't define yet */
+        MD5(CAST(customer_id AS VARCHAR)) AS "KEY"
+        , customer_id
+        , COUNT(order_id) AS order_count
+    FROM ORDERS
+    GROUP BY 1, 2
+)
+
+SELECT *
+FROM FINAL
+```
+
+## 🔍 What changed
+
+| | Without | With |
+|---|---|---|
+| 🏷️ **Name** | `customer_order_counts` | `mart_shop_customer_order_count`, with the mart prefix |
+| 🔑 **Surrogate key** | None | `KEY` first, with `unique` and `not_null` tests |
+| 🧱 **Structure** | One `SELECT` | Import and final CTEs |
+| 🧊 **Materialisation** | Not set | `table`, the mart layer's default |
+| ⚠️ **Gaps flagged** | None | It said the project lacks the team's `create_surrogate_key()` and `limit_rows()` macros and a base layer |
+
+## 🧪 How it was run
+
+Each run was a separate `claude -p --safe-mode` session, so no other instructions loaded. The "with" run added the files a real install would load for a dbt model to its system prompt: [`CLAUDE.md`](../../src/claude/CLAUDE.md), the always-on rules, and the dbt, SQL, security and testing guides. This matches an install closely but isn't the real loading, and one run of each can vary.

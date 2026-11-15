@@ -15,4 +15,4 @@ Tests follow these layout rules:
 
 - ▶️ **Running:** `make test` runs every test.
 - ⚠️ **Not in pre-commit:** the hooks don't run tests, so `make test` is a separate part of [Done means](../CLAUDE.md).
-- 📊 **Scoring:** each test gets a priority, explained in [test maintenance](../maintenance/test_maintenance.md) and recorded as a `# MoSCoW:` comment above it, and the [tests audit](../maintenance/quality/quality_audit/_tests.md) scores each script's tests.
+- 📊 **Scoring:** each test gets a priority, explained in [test maintenance](../maintenance/test_maintenance.md) and recorded as a `# MoSCoW:` comment above it, and each regular review runs the [tests checklist](../maintenance/quality/quality_rubrics/_tests.md) on changed scripts.

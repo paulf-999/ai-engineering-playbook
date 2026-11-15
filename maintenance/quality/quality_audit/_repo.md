@@ -38,7 +38,7 @@ Upkeep cost is ✅ at 10 of the last 50 commits, or exactly 20%, and Process wei
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
 1. 🎯 **One home per limit:** #254 gave the 110-line cap and the reviewer process one home each, and folded the agents guide's "Before merging" into the skills guide's. The 3,000-token budget stays in the budget script and `01_principles.md`, plus the frozen repo rubric.
-2. 🏷️ **Fewer MoSCoW labels:** keep `# MoSCoW:` tags only where the tests audit's Core coverage needs them, since the transcripts show `maintenance/test_maintenance.md` almost unused.
+2. 🏷️ **Fewer MoSCoW labels:** keep `# MoSCoW:` tags only where the tests checklist's Core coverage needs them, since the transcripts show `maintenance/test_maintenance.md` almost unused.
 3. 🪶 **Let small plans pass:** #254 lets plans of fewer than 15 non-blank lines through `hook_enforcement_plan_sections.sh` without Intent and Spec.
 4. 🔗 **Fix the contradictions:** #253 fixed the Ruff version, the hooks in `_tiers.md`, the budget script's pointer, `maturity` in `agent_skills_spec.md` and the `AGENT.md.template` checklist, and #245 the install note. Still open are the H1 and `~` paths in `SKILL.md.template`, `~` paths in `_drafts_and_errors.md`, Python 3.10 and flake8 in `python_environment.md`, and the skills and agents exclusion in `git_validate_pr_description.sh`.
 

@@ -43,7 +43,7 @@ The latest run's findings, ranked by how much each would cut. Each run replaces 
    - **Reviewer process:** `CONTRIBUTING.md`, `02_evaluation_criteria.md`, `pull_request_template.md`, `_workflow.md` and `authoring_guide/_rules.md`, plus the matching "Before merging" text in `authoring_guide/_agents.md` and `_skills.md`.
 2. 🏷️ **Fewer MoSCoW labels:** keep `# MoSCoW:` tags only where the tests audit's Core coverage needs them, since the transcripts show `maintenance/test_maintenance.md` almost unused.
 3. 🪶 **Let small plans pass:** have `hook_enforcement_plan_sections.sh` skip trivial plans, which it blocks today.
-4. 🔗 **Fix the contradictions:** #252 fixed the Ruff version, the hooks in `_tiers.md`, the budget script's pointer, `maturity` in `agent_skills_spec.md` and the `AGENT.md.template` checklist, and #245 the install note. Still open are the H1 and `~` paths in `SKILL.md.template`, `~` paths in `_drafts_and_errors.md`, Python 3.10 and flake8 in `python_environment.md`, and the skills and agents exclusion in `git_validate_pr_description.sh`.
+4. 🔗 **Fix the contradictions:** #253 fixed the Ruff version, the hooks in `_tiers.md`, the budget script's pointer, `maturity` in `agent_skills_spec.md` and the `AGENT.md.template` checklist, and #245 the install note. Still open are the H1 and `~` paths in `SKILL.md.template`, `~` paths in `_drafts_and_errors.md`, Python 3.10 and flake8 in `python_environment.md`, and the skills and agents exclusion in `git_validate_pr_description.sh`.
 
 ## 💬 Component feedback
 

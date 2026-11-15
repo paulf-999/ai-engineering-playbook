@@ -58,12 +58,28 @@ jobs:
         timeout-minutes: 10
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-            # Squash merges use the PR title as the commit message on main, so that's what gets checked.
+            - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+              with:
+                  python-version: '3.13'
+                  cache: pip
+                  cache-dependency-path: requirements.txt
+            # It installs the pre-commit version pinned in requirements.txt, which runs the pinned commitlint hook
+            - name: Install pre-commit
+              run: pip install "$(grep -oE '^pre-commit==[^ ]+' requirements.txt)"
+            - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
+              with:
+                  path: ~/.cache/pre-commit
+                  key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+            # Squash merges use the PR title as the commit message on main, so the commit-msg hook's commitlint checks it.
+            # The hook reads the git dir's COMMIT_EDITMSG whatever file it's given, so the title is written there.
             # Passed through env, not ${{ }} in the script, so a crafted title can't inject shell
             - name: Validate PR title
               env:
                   PR_TITLE: ${{ github.event.pull_request.title }}
-              run: src/sh/git/git_validate_pr_title.sh "${PR_TITLE}"
+              run: |
+                  message="$(git rev-parse --git-dir)/COMMIT_EDITMSG"
+                  printf '%s\n' "${PR_TITLE}" > "${message}"
+                  pre-commit run commitlint --hook-stage commit-msg --commit-msg-filename "${message}"
 
     pr_size:
         name: "PR size: check it's within the file limit"

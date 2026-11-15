@@ -27,12 +27,12 @@ The project uses a four-layer architecture. Each layer has a distinct responsibi
 
 | Requirement | Detail |
 |-------------|--------|
-| **Surrogate key** | Every model must have a surrogate key named `KEY`, generated using `{{ create_surrogate_key(['field1', 'field2']) }}`. |
-| **dbt tests** | At minimum, apply `unique` and `not_null` tests to `KEY` on every model. |
+| **Surrogate key** | Staging, base and dimension models have a surrogate key, built as [`_team_conventions.md`](_team_conventions.md) sets out. An aggregate model tests its grain columns instead. |
+| **dbt tests** | At minimum, apply `unique` and `not_null` tests to the surrogate key, or to an aggregate's grain columns. |
 | **Source selection** | Only `staging` models select from `source()`. All downstream models use `ref()`. |
 | **CTEs over subqueries** | Use CTEs — never subqueries. See [`../sql/_cte_style_guide.md`](../sql/_cte_style_guide.md). |
-| **Row limiting** | Always append `{{ limit_rows() }}` to the final SELECT and to major intermediate CTEs. This is a no-op in production and limits rows in dev/CI targets. |
-| **Audit fields** | Staging models must include audit fields via `{{ dbt_last_modified_field() }}` or the relevant audit macro. |
+| **Row limiting** | Append the team's row-limiting macro, per [`_team_conventions.md`](_team_conventions.md), so dev and CI runs read fewer rows. |
+| **Audit fields** | Staging models include the team's audit fields, per [`_team_conventions.md`](_team_conventions.md). |
 
 ---
 
@@ -50,7 +50,7 @@ The project uses a four-layer architecture. Each layer has a distinct responsibi
 ## 🌳 Folder structure
 
 ```text
-prod_analytics/
+<dbt_project>/
 └── models/
     ├── staging/
     │   └── <source_system>/
@@ -80,7 +80,7 @@ Source systems each have a corresponding folder under both `staging/` and `base/
 
 When a model uses `materialized='incremental'`, configure these properties explicitly — never leave them at implicit defaults:
 
-**`unique_key`** — the column(s) that uniquely identify a row. dbt uses this to match incoming records against existing ones. Use the model's surrogate key (`KEY`) unless the source has a reliable natural key.
+**`unique_key`** — the column(s) that uniquely identify a row. dbt uses this to match incoming records against existing ones. Use the model's surrogate key unless the source has a reliable natural key.
 
 **Partition filter (`is_incremental()` block)** — always include a filter that bounds the incremental run to a time window. Align the filter column with the table's clustering key:
 

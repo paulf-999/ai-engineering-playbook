@@ -5,21 +5,13 @@
 
 ## 🔑 Surrogate keys
 
-Every model must have a surrogate key named `KEY`, generated using the `create_surrogate_key` macro (a wrapper around `dbt_utils.generate_surrogate_key`):
-
-```sql
-{{ create_surrogate_key(['FIELD1', 'FIELD2']) }} AS "KEY"
-```
-
-- `KEY` must always be the first column in the SELECT list.
-- The input fields must uniquely identify the row.
-- Use `unknown_key()` to return a sentinel value for unknown or missing key references.
+The surrogate key's name, macro and position, and the sentinel for unknown keys, are team conventions in [`_team_conventions.md`](_team_conventions.md).
 
 ## 📋 Contents
 
 - [🔠 General conventions](#-general-conventions)
 - [📂 Model layer naming](#-model-layer-naming)
-- [🔍 Audit (DA_*) fields](#-audit-da_-fields)
+- [🔍 Audit fields](#-audit-fields)
 - [📅 Data type naming](#-data-type-naming)
 - [🚫 Null handling](#-null-handling)
 - [🔖 CTE naming](#-cte-naming)
@@ -46,23 +38,13 @@ Every model must have a surrogate key named `KEY`, generated using the `create_s
 | Mart | `mart_<domain>_<entity>.sql` | `mart_commerce_payouts.sql` |
 | Publication | `pub_<domain>_<entity>.sql` | `pub_commerce_payouts.sql` |
 | Snapshots | `dim_<entity>_history.sql` | `dim_merchant_history.sql` |
-| Macros | File name must match the macro name | `create_surrogate_key.sql` |
+| Macros | File name must match the macro name | `my_macro.sql` |
 
 ---
 
-## 🔍 Audit (DA_*) fields
+## 🔍 Audit fields
 
-Staging models must include the following audit fields. These are added via the `dbt_last_modified_field()` macro and related audit macros.
-
-| Field | Description |
-|-------|-------------|
-| `DA_FILE_YEARMONTH` | Year-month of the source file |
-| `DA_PROCESS_ID` | ID of the process that loaded the record |
-| `DA_FILE_NAME` | Name of the source file |
-| `DA_FILE_ROW_NUMBER` | Row number within the source file |
-| `DA_UNIQUE_KEY` | Unique key from the source system |
-| `DA_FILE_LAST_MODIFIED` | Last modified timestamp of the source file |
-| `DA_START_SCAN_TIME` | Timestamp when the scan/load started |
+Staging models include the team's audit fields, listed in [`_team_conventions.md`](_team_conventions.md).
 
 ---
 
@@ -73,7 +55,7 @@ Staging models must include the following audit fields. These are added via the 
 | **Timestamps** | `<event>_at`, stored in UTC | `created_at` |
 | **Dates** | `<event>_date` or `<event>_KEY` for date dimension joins | `snapshot_date`, `SNAPSHOT_DATE_KEY` |
 | **Booleans** | Prefixed with `is_` or `has_` | `is_active`, `has_admin_access` |
-| **Amounts** | Decimal — use `clean_and_cast_numeric()` macro for cleaning currency values from source | `gross_volume` |
+| **Amounts** | Decimal — clean currency values from source with the team's numeric-cleaning macro | `gross_volume` |
 
 ---
 
@@ -81,9 +63,9 @@ Staging models must include the following audit fields. These are added via the 
 
 | Column type | NULL / NOT NULL |
 |-------------|-----------------|
-| Surrogate key (`KEY`) | `NOT NULL` |
-| Foreign keys | `NOT NULL` — use `unknown_key()` sentinel for unknown references |
-| Audit / DA_* fields | `NOT NULL` |
+| Surrogate key | `NOT NULL` |
+| Foreign keys | `NOT NULL` — use the team's unknown-key sentinel for unknown references |
+| Audit fields | `NOT NULL` |
 | Measures | Nullable where source data may be absent |
 | All other fields | As applicable |
 

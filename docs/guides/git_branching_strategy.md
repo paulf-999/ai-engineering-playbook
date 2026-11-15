@@ -19,7 +19,7 @@ CI fails a PR that changes more files than the limit below, because small PRs ar
 
 - 🔖 **Prefix:** start the branch name with `release/`.
 - 🔁 **Same change:** apply one kind of change in bulk, such as formatting or a consistent rename.
-- 🔧 **Limit:** the 20-file default is set in [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh), and the `MAX_FILES_ALLOWED` environment variable overrides it.
+- 🔧 **Limit:** the default is set in [`git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh), and the `MAX_FILES_ALLOWED` environment variable overrides it.
 
 ```bash
 git checkout -b release/reformat_all_sql_models
@@ -29,9 +29,9 @@ git checkout -b release/reformat_all_sql_models
 
 The part after the prefix follows these rules:
 
-- 🔡 **Characters:** only lowercase letters, numbers and underscores.
+- 🔡 **Characters:** no hyphens, uppercase, spaces or special characters, as the examples below show.
 - ❓ **Why:** such names are safe in shell commands, URLs and CI without quoting.
-- 🧩 **Exact pattern:** the `VALID_GIT_BRANCH_NAME` variable in the hook script.
+- 🧩 **Exact pattern:** the `VALID_GIT_BRANCH_NAME` variable in the [hook script](../../src/sh/git/git_validate_branch_name.sh).
 - 🤖 **Dependabot:** CI skips the check for Dependabot's PRs, because their `dependabot/...` names can't be changed.
 
 ## ✅ Examples

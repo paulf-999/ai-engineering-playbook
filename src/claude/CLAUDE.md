@@ -3,7 +3,7 @@
 
 ## 🧭 Behavioural Guidelines
 
-*Adapted from [Andrej Karpathy's guidelines](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), which target the coding mistakes LLMs make most often. They favour care over speed, so use judgement on trivial tasks.*
+*Adapted from [Andrej Karpathy's guidelines](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md). They favour care over speed, so use judgement on trivial tasks.*
 
 ### 1️⃣ Think Before Coding
 

@@ -5,7 +5,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              On-demand files in rules/on_demand/ go beside rules/, since Claude Code loads everything under rules/
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed
 #              It also keeps the config's hooks and deny rules in settings.json in step, keeping every other setting
-#              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the hooks out unless HOOKS=1
+#              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the done checks hook out unless HOOKS=1
 # Usage: [PROJECT=<repo> [HOOKS=1]] src/sh/claude_install_config.sh (run from the repo root, at your own terminal;
 #        make install calls it)
 
@@ -24,7 +24,7 @@ trap handle_interruption SIGINT
 SOURCE_DIR="src/claude"
 LAZY_RULES_DIR="rules/on_demand"
 CONFIG_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
-# a repo to install into instead of your Claude config directory, and whether its install includes the hooks
+# a repo to install into instead of your Claude config directory, and whether its install includes the done checks hook
 PROJECT="${PROJECT:-}"
 WITH_HOOKS="${HOOKS:-}"
 if [[ -n "${PROJECT}" ]]; then
@@ -87,12 +87,12 @@ render() {
 }
 
 # Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed,
-# leaving the hooks out of a project install unless HOOKS=1
+# leaving the done checks hook out of a project install unless HOOKS=1, while the plan sections hook always installs
 list_source_files() {
     local file
     while IFS= read -r -d '' file; do
         file="${file#"${SOURCE_DIR}"/}"
-        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" == hooks/* ]] && continue
+        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" == hooks/hook_enforcement_done_checks.sh ]] && continue
         SOURCE_FILES+=("${file}")
         TARGET_PATHS+="$(target_path "${file}")"$'\n'
     done < <(git ls-files -z -- "${SOURCE_DIR}")

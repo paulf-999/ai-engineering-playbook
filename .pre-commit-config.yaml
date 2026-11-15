@@ -62,8 +62,8 @@ repos:
             files: ^(CLAUDE\.md|src/claude/.*|\.claude/.*)$
           - id: claude_report_context_cost  # Keep the per-file token table in step with src/claude/
             name: Claude checks — context cost table up to date?
-            description: Fails when maintenance/context_cost.md doesn't match src/claude/; run make context_cost to fix.
-            entry: src/sh/claude_report_context_cost.sh --check
+            description: Rewrites and stages maintenance/context_cost.md when it doesn't match src/claude/, and fails in CI instead.
+            entry: src/sh/claude_report_context_cost.sh --stage
             language: script
             pass_filenames: false
             files: ^(src/claude/.*|maintenance/context_cost\.md)$

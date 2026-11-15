@@ -26,7 +26,7 @@ Two valid messages:
 - 📄 **Template:** fill in the [PR template](pull_request_template.md).
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
 - 📏 **Size:** keep each PR within the file limit CI checks, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
-- ⚖️ **Evaluation criteria:** when the PR changes an always-on or enforcing file, such as `src/claude/CLAUDE.md`, a rule in `rules/always/` or a hook, fill the template's Evaluation criteria section as the [evaluation criteria](../docs/target_architecture/design_principles/02_evaluation_criteria.md) set out, which CI checks is answered.
+- ⚖️ **Evaluation criteria:** when the PR changes an always-on or enforcing file, such as `src/claude/CLAUDE.md`, a rule in `rules/always_on/` or a hook, fill the template's Evaluation criteria section as the [evaluation criteria](../docs/target_architecture/design_principles/02_evaluation_criteria.md) set out, which CI checks is answered.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR
@@ -46,7 +46,7 @@ A release tags `main` once merged PRs are worth installing together.
 
 ## 🏷️ File naming
 
-- 🔡 **Rule:** follow the [naming standards](../src/claude/rules/always/standards/naming_standards.md), which the Claude config also loads in every session.
+- 🔡 **Rule:** follow the [naming standards](../src/claude/rules/always_on/standards/naming_standards.md), which the Claude config also loads in every session.
 - 📌 **Exceptions:** conventional names such as `README.md`, `CLAUDE.md` and `Makefile`.
 
 ## 🛠️ Authoring rules, skills and agents

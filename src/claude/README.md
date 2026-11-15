@@ -20,7 +20,7 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 
 | Folder | Loads |
 |---|---|
-| 🔁 `always/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
+| 🔁 `always_on/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
 | 📂 `path_scoped/` | Only when Claude works on a matching file, such as the Python guide for `.py` files, set by each rule's `paths:` list |
 | 💤 `on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there |
 
@@ -28,7 +28,7 @@ Every rule costs context, so each one loads only as often as it's needed. Its fo
 
 A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it. Splitting a guide this way keeps it cheap to load, since Claude reads the detail only when a task needs it.
 
-Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `always/conduct/` and `always/workflows/` point to.
+Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `always_on/conduct/` and `always_on/workflows/` point to.
 
 ## 🏢 Installing into one repo
 

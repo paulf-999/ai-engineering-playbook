@@ -25,6 +25,4 @@ paths:
 
 - `on_demand/style_guides/sql/_formatting.md`, in your Claude config directory, before writing or reformatting a query.
 - `on_demand/style_guides/sql/_cte_style_guide.md`, when structuring a query or model into CTEs.
-- `on_demand/style_guides/sql/_snowflake_data_type_standards.md`, when choosing a column's data type.
-- `on_demand/style_guides/sql/_sqlfluff.md`, when a SQLFluff rule fails or the config changes.
-- `on_demand/style_guides/sql/_cost_guardrails.md`, when creating or resizing a warehouse, or refactoring a large query.
+- `on_demand/style_guides/sql/_snowflake_standards.md`, when choosing a column's data type, creating or resizing a warehouse, refactoring a large query, or when a SQLFluff rule fails.

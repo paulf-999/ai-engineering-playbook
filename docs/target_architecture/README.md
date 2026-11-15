@@ -10,17 +10,17 @@ The design rests on the [reference material](reference_material/README.md), and 
 
 A session is one conversation with Claude Code. A small core is read in every session, everything else only when a task needs it, and a regular review removes any part that isn't helping.
 
-- 🌱 **Small core:** only the [required group](_tiers.md) loads in every session or runs on every PR.
+- 🌱 **Small core:** only the [required group](architecture/_tiers.md) loads in every session or runs on every PR.
 - 📥 **On demand:** everything else loads only when a task calls for it.
 - 💰 **Budget:** an automatic check caps how much text loads into every session.
 - 📏 **Measures:** each regular review notes which parts helped, got in the way or went unused, from session records and git history, and the budget check reports how much loads every session.
 
 ## 🗂️ The design in detail
 
-- 🎚️ **[Tiers](_tiers.md):** the three groups every component sits in, by when it loads, and tool access.
-- 🔄 **[Workflow](_workflow.md):** the six AI-native development practices, the order they're adopted in, and agent commits.
-- 💰 **[Budget and guards](_budget_and_guards.md):** what the always-on budget counts and caps, and the three checks that protect the design.
-- 📏 **[Measures](_measures.md):** what each regular review records from session transcripts and git history, and how it acts on it.
+- 🎚️ **[Tiers](architecture/_tiers.md):** the three groups every component sits in, by when it loads, and tool access.
+- 🔄 **[Workflow](architecture/_workflow.md):** the six AI-native development practices, the order they're adopted in, and agent commits.
+- 💰 **[Budget and guards](architecture/_budget_and_guards.md):** what the always-on budget counts and caps, and the three checks that protect the design.
+- 📏 **[Measures](architecture/_measures.md):** what each regular review records from session transcripts and git history, and how it acts on it.
 
 ## 📖 Further reading
 

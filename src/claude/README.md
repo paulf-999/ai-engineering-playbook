@@ -1,62 +1,43 @@
 <!-- created: 2026-11-09 -->
 # 🧠 Claude config
 
-**Purpose:** a high-level map of the Claude Code config in this folder, for someone new to the repo.
-
-This folder is the source of a global Claude Code config, the instructions that shape how Claude works in every project. `make install` copies it into your Claude config directory, `$CLAUDE_CONFIG_DIR` or `~/.claude`, so edit it here rather than in the installed copy.
+This folder is the source of a global Claude Code config: `make install` copies it into your Claude config directory, `$CLAUDE_CONFIG_DIR` or `~/.claude`, so edit it here rather than in the installed copy.
 
 ## 📦 What's here
 
 | Path | What it holds |
 |---|---|
-| 🧭 [`CLAUDE.md`](CLAUDE.md) | The behavioural guidelines Claude reads at the start of every session |
+| 🧭 [`CLAUDE.md`](CLAUDE.md) | Behavioural guidelines Claude reads every session |
 | 📏 [`rules/`](rules/) | Short rule files, grouped by when they load |
-| 🪝 [`hooks/`](hooks/) | Scripts Claude Code runs on a tool call or when Claude stops, which `make install` registers in `settings.json`, such as the check that a plan opens with Intent and Spec, which runs only when Claude leaves plan mode and only for a plan of 15 or more non-blank lines, so quick tasks and short plans never hit it |
+| 🪝 [`hooks/`](hooks/) | Scripts Claude Code runs on tool calls or when Claude stops |
 | 📋 [`_templates/`](_templates/README.md) | Starting points for new rules, skills, agents and scripts |
 
 ## ⏱️ When rules load
 
-Every rule costs context, so each one loads only as often as it's needed. Its folder decides when:
+Every rule costs context, so its folder decides how often it loads:
 
 | Folder | Loads |
 |---|---|
-| 🔁 `always/` | In every session: naming and reply standards, how Claude behaves, and planning habits |
-| 📂 `path_scoped/` | Only when Claude works on a matching file, such as the Python guide for `.py` files, set by each rule's `paths:` list |
-| 💤 `on_demand/` | Only when another rule's "Read on demand" pointer, or a hook's block message, sends Claude there |
+| 🔁 `always/` | Every session |
+| 📂 `path_scoped/` | When Claude works on a file matching the rule's `paths:` list |
+| 💤 `on_demand/` | When a rule's "Read on demand" pointer or a hook sends Claude there |
 
-`make install` puts `on_demand/` beside `rules/` in your Claude config directory, not inside it, because Claude Code loads everything under `rules/` in every session.
-
-A file whose name starts with `_` is a child: detail split out of a parent rule, read only when the parent points to it. Splitting a guide this way keeps it cheap to load, since Claude reads the detail only when a task needs it.
-
-Inside `on_demand/`, the `conduct/` and `workflows/` folders hold the detail that the every-session rules in `always/conduct/` and `always/workflows/` point to.
+- 📍 **Install location:** `on_demand/` installs beside `rules/`, not inside it, since Claude Code loads all of `rules/` every session.
+- 🧩 **Child files:** a name starting with `_` marks detail split from a parent rule, read only when the parent points to it.
 
 ## 🏢 Installing into one repo
 
-To share the config with a team, or try it without touching your own `~/.claude`, install it into a repo's `.claude/` folder and commit that folder:
+To share the config with a team, install it into a repo's `.claude/` folder and commit that folder:
 
 ```bash
 make install PROJECT=../my_dbt_repo
 ```
 
-- 📍 **Pointers:** every "in your Claude config directory" pointer becomes "in this project's `.claude/` folder", so Claude reads the detail from the repo.
-- 🪝 **Hooks:** the plan sections hook always installs, so every engineer plans the same way. The done checks hook is left out by default, since not every repo has done checks, so add `HOOKS=1` to include it.
-- 🛡️ **Backups:** anything it replaces is backed up to `~/.claude/backups/`, outside the repo, so backups are never committed.
-
-## 🍒 Copying one style guide
-
-To use one guide without `make install`, copy it and its children into your Claude config directory, keeping the same folders. For the SQL guide:
-
-```bash
-mkdir -p ~/.claude/rules/path_scoped/style_guides ~/.claude/on_demand/style_guides
-cp src/claude/rules/path_scoped/style_guides/sql.md ~/.claude/rules/path_scoped/style_guides/
-cp -R src/claude/rules/on_demand/style_guides/sql ~/.claude/on_demand/style_guides/
-```
-
-- 📂 **The guide:** goes under `rules/`, so Claude loads it whenever you open a matching file.
-- 💤 **Its children:** go in `on_demand/`, beside `rules/` rather than inside it, so they load only when the guide points to them.
+- 🪝 **Hooks:** add `HOOKS=1` to include the done checks hook, which is left out by default.
+- 🛡️ **Backups:** anything replaced is backed up to `~/.claude/backups/`, outside the repo.
 
 ## 🛠️ Changing it
 
-- 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers how to write a rule, skill or agent.
-- ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide whether a new component earns its context cost.
-- ✅ **Checks:** `make test` checks each rule's structure, and pre-commit keeps the always-on context within budget.
+- 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers writing a rule, skill or agent.
+- ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide whether a component earns its context cost.
+- ✅ **Checks:** `make test` checks rule structure, and pre-commit keeps always-on context within budget.

@@ -9,6 +9,13 @@ from _paths import REPO_ROOT
 HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "hook_enforcement_plan_sections.sh"
 # exit code 2 is how a PreToolUse hook tells Claude Code to block the call
 BLOCKED = 2
+# the hook checks only plans of this many non-blank lines or more
+MIN_PLAN_LINES = 15
+
+
+def steps(count):
+    """Return count numbered step lines, to pad a plan to a given length."""
+    return "".join(f"{n}. Step {n}.\n" for n in range(1, count + 1))
 
 
 def run_hook(payload):
@@ -40,9 +47,9 @@ def test_a_plan_with_intent_and_spec_is_allowed(plan):
 @pytest.mark.parametrize(
     ("plan", "missing"),
     [
-        ("## Spec\n\nWhat.\n", "Intent"),
-        ("## Intent\n\nWhy.\n", "Spec"),
-        ("# Plan\n\nIntent and spec are mentioned in prose only.\n", "Intent/Spec"),
+        ("## Spec\n\nWhat.\n" + steps(MIN_PLAN_LINES), "Intent"),
+        ("## Intent\n\nWhy.\n" + steps(MIN_PLAN_LINES), "Spec"),
+        ("# Plan\n\nIntent and spec are mentioned in prose only.\n" + steps(MIN_PLAN_LINES), "Intent/Spec"),
     ],
 )
 def test_a_plan_missing_a_section_is_blocked(plan, missing):
@@ -51,6 +58,16 @@ def test_a_plan_missing_a_section_is_blocked(plan, missing):
     assert result.returncode == BLOCKED, f"the plan should be blocked:\n{result.stderr}"
     assert f"no {missing} heading" in result.stderr, f"the reason should name {missing}:\n{result.stderr}"
     assert "sdlc_workflow.md" in result.stderr, "the reason should point to the SDLC workflow rule"
+
+
+# MoSCoW: Must — a small task's plan passes without the sections, and the limit is exact
+@pytest.mark.parametrize(("lines", "blocked"), [(MIN_PLAN_LINES - 1, False), (MIN_PLAN_LINES, True)])
+def test_only_a_plan_at_the_line_limit_needs_the_sections(lines, blocked):
+    """A plan of 14 non-blank lines with no headings passes, and one of 15 is blocked, with blank lines not counted."""
+    result = run_hook(exit_plan_input("\n\n".join(steps(lines).splitlines())))
+    assert (result.returncode == BLOCKED) is blocked, (
+        f"a {lines}-line plan should {'' if blocked else 'not '}be blocked"
+    )
 
 
 # MoSCoW: Should — the hook must fail open, so a malformed call never blocks every plan

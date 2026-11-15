@@ -1,4 +1,4 @@
-"""Checks every test function carries one '# MoSCoW:' priority comment, as maintenance/test_maintenance.md requires."""
+"""Checks every test function carries one '# MoSCoW:' priority, and that none is a Could."""
 
 import re
 
@@ -14,3 +14,14 @@ def test_every_test_has_one_moscow_score():
         functions = len(re.findall(r"^def test_", text, flags=re.MULTILINE))
         name = path.relative_to(REPO_ROOT)
         assert scores == functions, f"{name}: {functions} test functions but {scores} '# MoSCoW:' comments"
+
+
+# MoSCoW: Must — a Could test guards a rare case, so it costs more upkeep than it saves
+def test_no_test_is_a_could():
+    """No test carries a '# MoSCoW: Could' priority."""
+    could = [
+        str(path.relative_to(REPO_ROOT))
+        for path in (REPO_ROOT / "tests").rglob("test_*.py")
+        if re.search(r"^# MoSCoW: Could ", path.read_text(), flags=re.MULTILINE)
+    ]
+    assert not could, f"delete these Could tests, or re-rate them if they guard a core path: {could}"

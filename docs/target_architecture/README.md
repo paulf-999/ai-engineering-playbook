@@ -18,7 +18,7 @@ A session is one conversation with Claude Code. A small core is read in every se
 ## 🗂️ The design in detail
 
 - 🎚️ **[Tiers](architecture/_tiers.md):** the three groups every component sits in, by when it loads, and tool access.
-- 🔄 **[Workflow](architecture/_workflow.md):** the six AI-native development practices, the order they're adopted in, and agent commits.
+- 🔄 **[Workflow](architecture/_workflow.md):** the four AI-native development practices it adopts, the order they're adopted in, and agent commits.
 - 💰 **[Budget and guards](architecture/_budget_and_guards.md):** what the always-on budget counts and caps, and the three checks that protect the design.
 - 📏 **[Measures](architecture/_measures.md):** what each regular review records from session transcripts and git history, and how it acts on it.
 

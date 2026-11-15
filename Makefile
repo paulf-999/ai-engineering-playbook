@@ -7,6 +7,7 @@ SHELL = /bin/sh
 # make deps		# install the dependencies and git hooks
 # make install		# copy src/claude/ into your Claude config directory, or PROJECT=<repo>'s .claude/ folder
 # make uninstall	# remove what make install added, restoring the files it replaced
+# make install YES=1	# install without the typed confirmation, for provisioning scripts outside Claude Code
 # make test		# run the tests (pytest)
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches

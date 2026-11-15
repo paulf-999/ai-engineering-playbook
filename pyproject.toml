@@ -3,8 +3,6 @@
 [tool.pytest.ini_options]
 # Puts tests/ on the import path so any test can import tests/_paths.py
 pythonpath = ["tests"]
-# Lists every xfail and xpass with its reason, so temporarily flagged tests stay visible
-addopts = "-rxX"
 
 [tool.ruff]
 line-length = 120

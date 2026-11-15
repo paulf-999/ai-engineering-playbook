@@ -16,10 +16,10 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
    cd ai-engineering-playbook
    ```
 
-2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`.
+2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`, or `$CLAUDE_CONFIG_DIR` if set.
 
 > [!NOTE]
-> It backs up any file it replaces to `~/.claude/backups/` first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`.
+> It backs up any file it replaces to `backups/` in that directory first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`.
 
 ---
 
@@ -33,7 +33,7 @@ A practical playbook for consistent, repeatable work with AI coding assistants, 
 <!-- separates the intro list from the feature list -->
 
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
-- 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always/workflows/sdlc_workflow.md) before coding, then checks the result against that plan, following [Anthropic's AI-native software development lifecycle](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md).
+- 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always_on/workflows/sdlc_workflow.md) before coding, then checks the result against that plan, following [Anthropic's AI-native software development lifecycle](docs/target_architecture/reference_material/core/anthropic_ai_native_sdlc.md).
 - 🔬 **Research-led:** every part of the [design](docs/target_architecture/README.md) is grounded in [research from Anthropic and DORA](docs/target_architecture/reference_material/README.md) (Google's DevOps research programme).
 - ✅ **Stays lean:** automatic [checks](docs/target_architecture/architecture/_budget_and_guards.md#️-design-guards) stop the always-read instructions growing.
 

@@ -159,7 +159,7 @@ def is_entry_point(path):
 # MoSCoW: Must — every rule must open with the header, an emoji H1 and a Purpose line
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_opens_with_header_h1_and_purpose(path):
-    """Each rule has the 3-line header, exactly one H1 with an emoji, and a Purpose line straight after it."""
+    """Each rule has a created header line, exactly one H1 with an emoji, and a Purpose line straight after it."""
     problems = opening_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
@@ -217,11 +217,11 @@ def find_parent(path, rules_dir=RULES_DIR):
     beside = path.parent.with_suffix(".md")
     candidates = [beside]
     on_demand = rules_dir / "on_demand"
-    # a loaded parent keeps its bulky children on demand, at the same path under always/ or path_scoped/,
-    # so on_demand/conduct/writing_style/ belongs to always/conduct/writing_style.md
+    # a loaded parent keeps its bulky children on demand, at the same path under always_on/ or path_scoped/,
+    # so on_demand/conduct/writing_style/ belongs to always_on/conduct/writing_style.md
     if beside.is_relative_to(on_demand):
         rest = beside.relative_to(on_demand)
-        candidates += [rules_dir / "always" / rest, rules_dir / "path_scoped" / rest]
+        candidates += [rules_dir / "always_on" / rest, rules_dir / "path_scoped" / rest]
     return next((candidate for candidate in candidates if candidate.exists()), beside)
 
 
@@ -242,7 +242,7 @@ def child_problems(path, rules_dir=RULES_DIR):
     if path.name not in parent.read_text():
         problems.append("the parent must name this child in a pointer")
     # an always-on parent splits to keep every session cheap, so its children may be short
-    is_always_on = parent.is_relative_to(rules_dir / "always")
+    is_always_on = parent.is_relative_to(rules_dir / "always_on")
     if not is_always_on and body_lines(path.read_text()) < MIN_CHILD_LINES:
         problems.append(f"a child needs {MIN_CHILD_LINES} or more lines, so fold it into its parent or a sibling")
     return problems
@@ -274,7 +274,7 @@ def test_child_is_named_by_its_parent(path):
 def test_a_short_child_is_reported_unless_its_parent_is_always_on(tmp_path):
     """A child under the line floor fails beside an on-demand parent, and passes beside an always-on one."""
     names = "parent.md\n- `_short.md`\n- `_other.md`\n"
-    for tier in ("on_demand", "always"):
+    for tier in ("on_demand", "always_on"):
         (tmp_path / tier / "parent").mkdir(parents=True)
         (tmp_path / tier / "parent.md").write_text(names)
         for child in ("_short.md", "_other.md"):
@@ -283,7 +283,7 @@ def test_a_short_child_is_reported_unless_its_parent_is_always_on(tmp_path):
     assert any(
         floor in problem for problem in child_problems(tmp_path / "on_demand" / "parent" / "_short.md", tmp_path)
     )
-    assert not child_problems(tmp_path / "always" / "parent" / "_short.md", tmp_path)
+    assert not child_problems(tmp_path / "always_on" / "parent" / "_short.md", tmp_path)
 
 
 # MoSCoW: Must — an on-demand rule nothing points to is never read

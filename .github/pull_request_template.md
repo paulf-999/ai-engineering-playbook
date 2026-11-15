@@ -4,7 +4,7 @@
 
 ## :mag: (Optional) Additional Details
 
-[If needed, only what a reviewer must or should know, in 5 bullets or fewer. Open each with an emoji and a bold keyword, keep it to about 20 words, per [`writing_style.md`](https://github.com/paulf-999/ai-engineering-playbook/blob/main/src/claude/rules/always/conduct/writing_style.md), and link any file, issue or PR with a full GitHub URL.]
+[If needed, only what a reviewer must or should know, as a list within the cap in [`_markdown_layout.md`](https://github.com/paulf-999/ai-engineering-playbook/blob/main/src/claude/rules/on_demand/conduct/writing_style/_markdown_layout.md). Open each with an emoji and a bold keyword, keep it to about 20 words, per [`writing_style.md`](https://github.com/paulf-999/ai-engineering-playbook/blob/main/src/claude/rules/always_on/conduct/writing_style.md), and link any file, issue or PR with a full GitHub URL.]
 
 ## :hammer_and_wrench: Type of PR Change
 
@@ -50,7 +50,7 @@ Not applicable: this PR changes nothing under `src/claude/`.
 
 Not applicable: this PR changes no always-on or enforcing file.
 
-<!-- For a change to src/claude/CLAUDE.md, a rule in rules/always/ or a hook, replace the line above with this block,
+<!-- For a change to src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook, replace the line above with this block,
 filled by a fresh-context reviewer agent given only the diff and the criteria:
 
 > [!NOTE]

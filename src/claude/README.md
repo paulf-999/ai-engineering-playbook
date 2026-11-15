@@ -18,7 +18,7 @@ Every rule costs context, so its folder decides how often it loads:
 
 | Folder | Loads |
 |---|---|
-| 🔁 `always/` | Every session |
+| 🔁 `always_on/` | Every session |
 | 📂 `path_scoped/` | When Claude works on a file matching the rule's `paths:` list |
 | 💤 `on_demand/` | When a rule's "Read on demand" pointer or a hook sends Claude there |
 

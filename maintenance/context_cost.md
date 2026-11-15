@@ -16,17 +16,17 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~534 |
-| 2 | `rules/always/conduct/behaviour.md` | ~311 |
+| 2 | `rules/always/conduct/behaviour.md` | ~314 |
 | 3 | `rules/always/conduct/security.md` | ~203 |
 | 4 | `rules/always/conduct/writing_style.md` | ~310 |
 | 5 | `rules/always/standards/claude_response_standards.md` | ~218 |
 | 6 | `rules/always/standards/naming_standards.md` | ~247 |
 | 7 | `rules/always/workflows/sdlc_workflow.md` | ~404 |
-| | **Subtotal** | **~2229** |
+| | **Subtotal** | **~2232** |
 
 ## 💤 Only when needed
 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 12 | ~3700 |
-| 💤 On demand, via a pointer | 62 | ~32700 |
+| 💤 On demand, via a pointer | 61 | ~32000 |

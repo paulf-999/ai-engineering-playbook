@@ -6,7 +6,7 @@ You don't need these to use the Claude Code instructions: they're the sources th
 
 ## 📋 Source register
 
-Sources are grouped by how much the design depends on them. Each core and supporting source links to its summary, Access says which were read in full, and an old Captured date flags a summary to recheck.
+Sources are grouped by how much the design depends on them. Each core source links to its summary, supporting sources link to the live docs, Access says which were read in full, and an old Captured date flags a source to recheck.
 
 ### 🥇 Core
 
@@ -25,9 +25,9 @@ These back specific limits and naming rules:
 
 | # | Source | Publisher | Version or date | Access | Captured | Used for |
 |---|---|---|---|---|---|---|
-| 5️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) · [summary](supporting/claude_code_memory_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | What loading context into every session costs, and how imports and path-scoped rules load |
-| 6️⃣ | [Extend Claude with skills](https://code.claude.com/docs/en/skills) · [summary](supporting/claude_code_skills_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and naming sections read | 2026-11-09 | Where Claude Code's skills go beyond the standard |
-| 7️⃣ | [Create custom subagents](https://code.claude.com/docs/en/sub-agents) · [summary](supporting/claude_code_subagents_docs.md) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and delegation sections read | 2026-11-09 | The fields and naming of an agent file |
+| 5️⃣ | [How Claude remembers your project](https://code.claude.com/docs/en/memory) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, read in full | 2026-11-03 | The always-on budget: its 200-line basis, and that imports still load while path-scoped rules load only for matching files |
+| 6️⃣ | [Extend Claude with skills](https://code.claude.com/docs/en/skills) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and naming sections read | 2026-11-09 | Where Claude Code's skills go beyond the standard, so the template's `maturity` and `tags` fields must go before a claude.ai upload |
+| 7️⃣ | [Create custom subagents](https://code.claude.com/docs/en/sub-agents) | Anthropic (Claude Code docs) | Live docs, no version or date | Public, configuration and delegation sections read | 2026-11-09 | The agent template's fields, and listing `tools`, since leaving it out grants every tool |
 
 ### 📖 Further reading
 

@@ -81,11 +81,11 @@ These ideas carry over:
 - ⚖️ **Advice versus enforcement:** the course calls skills advisory, and this repo treats `CLAUDE.md` the same way, while hooks and required CI checks enforce.
   - **Use here:** the [review of the old configuration](../../../../maintenance/old_setup_review.md#-where-complexity-outran-evidence) applies this split to its safeguards.
 - 📏 **Measurement:** each play's early signal and later result are ready candidates for checking whether a change helped.
-  - **Use here:** the [target architecture's workflow](../../README.md#-workflow) names the signal each regular review reads for every play it adopts.
+  - **Use here:** the [target architecture's workflow](../../architecture/_workflow.md) names the signal each regular review reads for every play it adopts.
 
 ## 🎯 Relevance to this playbook
 
-Which of the course's plays suit this repo, as decided at the maintainer's review, with the ones it has adopted recorded in the [target architecture's workflow](../../README.md#-workflow). Each row adopts a play as it is, adapts it, defers it or leaves it out:
+Which of the course's plays suit this repo, as decided at the maintainer's review, with the ones it has adopted recorded in the [target architecture's workflow](../../architecture/_workflow.md). Each row adopts a play as it is, adapts it, defers it or leaves it out:
 
 | Play | Decision | Why |
 |---|---|---|

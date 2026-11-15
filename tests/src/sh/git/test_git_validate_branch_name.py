@@ -36,9 +36,18 @@ def test_invalid_branch_names_fail(branch_name):
 
 
 # MoSCoW: Must — this is how the pre-commit hook calls the script
-@pytest.mark.parametrize(("current_branch", "expected_code"), [("feature/from_git", 0), ("Bad-Branch", 1)])
+@pytest.mark.parametrize(("current_branch", "expected_code"), [("feature/from_git", 0), ("Bad-Branch", 1), ("main", 0)])
 def test_defaults_to_the_current_branch(tmp_path, current_branch, expected_code):
-    """With no argument, the script checks the current git branch."""
+    """With no argument, the script checks the current git branch, and passes on main."""
     env = repo_on_branch(tmp_path, current_branch)
     result = subprocess.run([str(SCRIPT)], cwd=tmp_path, env=env, capture_output=True, text=True, check=False)
     assert result.returncode == expected_code, f"{current_branch} should exit {expected_code}: {result.stdout}"
+
+
+# MoSCoW: Must — a rebase detaches HEAD, and the hook must not block it
+def test_passes_on_a_detached_head(tmp_path):
+    """With no argument and a detached HEAD, the script exits 0."""
+    env = repo_on_branch(tmp_path, "feature/x")
+    subprocess.run(["git", "checkout", "-q", "--detach"], cwd=tmp_path, env=env, check=True)
+    result = subprocess.run([str(SCRIPT)], cwd=tmp_path, env=env, capture_output=True, text=True, check=False)
+    assert result.returncode == 0, f"detached HEAD should pass: {result.stdout}"

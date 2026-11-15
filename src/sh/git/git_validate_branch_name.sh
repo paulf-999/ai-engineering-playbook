@@ -46,6 +46,13 @@ print_branch_name_error() {
 #=======================================================================
 print_section_header "${DEBUG}" "Script execution started."
 
+# With no argument, skip main and a detached HEAD (such as mid-rebase):
+# no-commit-to-branch already blocks commits to main, and CI passes the name explicitly
+if [[ $# -eq 0 && ( "${LOCAL_GIT_BRANCH_NAME}" == "main" || "${LOCAL_GIT_BRANCH_NAME}" == "HEAD" ) ]]; then
+    print_section_header "${INFO}" "SKIPPED: on ${LOCAL_GIT_BRANCH_NAME}, so there's no feature branch to check"
+    exit 0
+fi
+
 # Validate the Git branch name used
 # the regex must stay unquoted, or [[ =~ ]] matches it as a literal string
 if [[ ! "${LOCAL_GIT_BRANCH_NAME}" =~ ${VALID_GIT_BRANCH_NAME} ]]; then

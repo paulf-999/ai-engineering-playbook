@@ -11,7 +11,7 @@
   - **Not for:** a clear bug fix, a typo, or an approach the user has already named.
 - 🎯 **Literal direction:** when the user names a tool, skill or action, use exactly that, since a substitute ignores their stated choice.
 - 🔌 **Check tools first:** before saying you can't reach a system such as Jira or Slack, search for its tool and try it.
-- 🚦 **Ask before big changes:** before a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question.
+- 🚦 **Ask before big changes:** before starting a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question; then the phase gates in `sdlc_workflow.md` take over.
 - 🔁 **Unattended runs:** always cap turns and tokens on a loop, such as `/loop`, `/goal`, `/batch` or a multi-agent workflow, and ask before you start one.
 
 ## 📚 Read on demand

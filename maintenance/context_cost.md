@@ -16,13 +16,13 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~534 |
-| 2 | `rules/always/conduct/behaviour.md` | ~314 |
+| 2 | `rules/always/conduct/behaviour.md` | ~330 |
 | 3 | `rules/always/conduct/security.md` | ~203 |
 | 4 | `rules/always/conduct/writing_style.md` | ~310 |
 | 5 | `rules/always/standards/claude_response_standards.md` | ~218 |
 | 6 | `rules/always/standards/naming_standards.md` | ~247 |
 | 7 | `rules/always/workflows/sdlc_workflow.md` | ~408 |
-| | **Subtotal** | **~2236** |
+| | **Subtotal** | **~2252** |
 
 ## 💤 Only when needed
 

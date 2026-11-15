@@ -1,4 +1,4 @@
-"""Checks each installed file under src/claude/ opens with a created line (see maintenance/file_headers.md)."""
+"""Checks each installed file under src/claude/ opens with a created line."""
 
 import os
 import re

@@ -1,5 +1,8 @@
 # 🏛️ Old setup review
 
+> [!NOTE]
+> **For repo maintainers only:** you don't need this page to install or use the Claude Code instructions.
+
 **Purpose:** what the Claude configuration this repo replaces contains, what works well in it, and the lessons the new design carries forward.
 
 That configuration is [`claude_ai_playbook`](https://github.com/paulf-999/claude_ai_playbook), a personal Claude Code setup installed on each machine with `make install`. It came first, and this repo began replacing it in late October 2026. This page describes it at commit `915685f`, dated 2026-10-31.

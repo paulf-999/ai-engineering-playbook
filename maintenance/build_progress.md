@@ -1,5 +1,8 @@
 # 🚧 Build progress
 
+> [!NOTE]
+> **For repo maintainers only:** you don't need this page to install or use the Claude Code instructions.
+
 **Purpose:** which parts of the [target architecture](../docs/target_architecture/README.md) are built, which are outstanding, and the effort each outstanding part needs.
 
 ## 📋 Executive Summary

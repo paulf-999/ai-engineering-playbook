@@ -1,5 +1,8 @@
 # 📐 Quality rubrics
 
+> [!NOTE]
+> **For repo maintainers only:** you don't need this page to install or use the Claude Code instructions.
+
 **Purpose:** how a reviewer scores the repo's tests, its rules and the repo as a whole at each regular review.
 
 Each section is one rubric, and the [quality audit](quality_audit.md) holds the latest scores.

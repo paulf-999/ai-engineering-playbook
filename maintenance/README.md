@@ -1,6 +1,9 @@
 # 🛠️ Maintenance docs
 
-**Purpose:** how this repo maintains itself. You don't need any of it to install or use the Claude Code instructions.
+> [!IMPORTANT]
+> **For repo maintainers only:** you don't need anything in this folder to install or use the Claude Code instructions.
+
+**Purpose:** how this repo maintains itself.
 
 - 🏷️ **[File headers](file_headers.md):** what the `created` line at the top of each installed file records.
 - 🧪 **[Test upkeep](test_maintenance.md):** how many tests to write, and when to delete one.

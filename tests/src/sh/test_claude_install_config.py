@@ -361,3 +361,46 @@ def test_project_install_backs_up_into_your_config_directory(tmp_path):
     backups = list((config / "backups").glob("project_repo_*/CLAUDE.md"))
     assert backups and backups[0].read_text() == "the team's own notes\n", "the old CLAUDE.md should be backed up"
     assert not (project / ".claude" / "backups").exists(), "no backup should be written inside the repo"
+
+
+# MoSCoW: Must — uninstall must undo an install without losing the user's own files or settings
+def test_uninstall_removes_the_install_and_restores_what_it_replaced(tmp_path):
+    """Uninstall removes installed files, restores the pre-install CLAUDE.md and strips only the config's settings."""
+    (tmp_path / "CLAUDE.md").write_text("my old config\n")
+    (tmp_path / "memory").mkdir()
+    (tmp_path / "memory" / "note.md").write_text("keep me\n")
+    (tmp_path / "settings.json").write_text(json.dumps({"model": "opus", "permissions": {"deny": ["Bash(rm:*)"]}}))
+    assert run_install(tmp_path, answer="install").returncode == 0, "the install should succeed"
+
+    result = run_install(tmp_path, answer="uninstall", UNINSTALL="1")
+
+    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
+    assert installed_files(tmp_path) == {"CLAUDE.md", "memory/note.md", "settings.json"}, "only the user's files stay"
+    assert (tmp_path / "CLAUDE.md").read_text() == "my old config\n", "the replaced CLAUDE.md should be restored"
+    settings = json.loads((tmp_path / "settings.json").read_text())
+    assert settings["model"] == "opus" and settings["permissions"]["deny"] == ["Bash(rm:*)"], "user settings stay"
+    assert plan_hook_commands(tmp_path) == [] and stop_hook_commands(tmp_path) == [], "the hooks should be removed"
+
+
+# MoSCoW: Must — like install, uninstall must never run from Claude's Bash tool
+def test_uninstall_without_a_terminal_changes_nothing(tmp_path):
+    """With no terminal attached, uninstall exits 1 and leaves the install in place."""
+    assert run_install(tmp_path, answer="install").returncode == 0, "the install should succeed"
+    before = installed_files(tmp_path)
+
+    result = run_install(tmp_path, UNINSTALL="1")
+
+    assert result.returncode == 1, f"uninstall should refuse without a terminal:\n{result.stdout}"
+    assert installed_files(tmp_path) == before, "nothing should change without a terminal"
+
+
+# MoSCoW: Should — with no manifest there's nothing the script knows it added, so it removes nothing
+def test_uninstall_with_no_manifest_removes_nothing(tmp_path):
+    """Without an install manifest, uninstall says there's nothing to remove and leaves files alone."""
+    (tmp_path / "CLAUDE.md").write_text("my own config\n")
+
+    result = run_install(tmp_path, answer="uninstall", UNINSTALL="1")
+
+    assert result.returncode == 1, f"uninstall should stop:\n{result.stdout}"
+    assert "nothing to uninstall" in result.stdout, "it should say there's nothing to uninstall"
+    assert (tmp_path / "CLAUDE.md").read_text() == "my own config\n", "the user's file must be untouched"

@@ -47,16 +47,11 @@ validate_max_files_changed() {
     fi
 }
 
-# Make sure the base ref exists, fetching it from origin if needed, or exit 1
+# Make sure the base ref exists, or exit 1
 resolve_base_ref() {
-    # outside CI the base may not be fetched yet, so try fetching it from origin before giving up
     if ! ref_exists "${BASE_REF}"; then
-        log_message "${DEBUG_DETAILS}" "Base ref ${BASE_REF} not found locally - fetching it from origin."
-        git fetch --quiet --no-tags origin "${BASE_REF#origin/}" 2>/dev/null || true
-        if ! ref_exists "${BASE_REF}"; then
-            print_section_header "${ERROR}" "ERROR: base ref ${BASE_REF} not found, locally or on origin."
-            exit 1
-        fi
+        print_section_header "${ERROR}" "ERROR: base ref ${BASE_REF} not found. Fetch it first, such as with git fetch origin main."
+        exit 1
     fi
 }
 

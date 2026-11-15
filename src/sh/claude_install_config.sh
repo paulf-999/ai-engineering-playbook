@@ -56,6 +56,8 @@ SHIPPED_HOOKS=(
     "Stop||hooks/hook_enforcement_done_checks.sh"
 )
 # deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
+# a bare filename matches at any depth, and a "!" rule carves out of earlier rules in the same settings file, per
+# https://code.claude.com/docs/en/permissions.md
 DENY_RULES=("Read(.env)" "Read(.env.*)" "Read(!.env.example)")
 # the deny rules the last install added, as a JSON list, so the next install can remove any the config has since dropped
 DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"

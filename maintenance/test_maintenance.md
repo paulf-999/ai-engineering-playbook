@@ -9,16 +9,14 @@ Size the suite by test functions, not pytest cases, since one parametrised funct
 
 ## 🏷️ Priority scores
 
-Each test function gets a priority on the MoSCoW scale (Must, Should, Could, Won't):
+Each test function gets a priority on the MoSCoW scale, using only its top two levels, Must and Should:
 
 | Score | Use it for | If the test breaks |
 |---|---|---|
 | 🔴 **Must** | A core promise of a hook or CI check, such as blocking a bad commit | A bad change gets through, or a good one is blocked |
 | 🟠 **Should** | Main options, common edge cases and clear error messages | A common path misbehaves, but the core check still works |
-| 🟡 **Could** | Rare edge cases and template helpers | Something unusual misbehaves, so don't keep the test |
-| ⚪ **Won't** | A duplicate or cosmetic check | Nothing is lost, so delete the test |
 
-A `Could` test isn't kept either, since a test for a rare case doesn't earn its upkeep, and [`test_moscow_tags.py`](../tests/test_moscow_tags.py) fails on one.
+A test that's neither, such as a rare edge case, a duplicate or a cosmetic check, doesn't earn its upkeep, so delete it, and [`test_moscow_tags.py`](../tests/test_moscow_tags.py) fails on any other score.
 
 - 📝 **Format:** put `# MoSCoW: <score> — <reason>` on the line above the test's decorators, or above `def` when it has none.
 - 💬 **Reason:** about 12 words on what the test protects, not how it works.
@@ -58,5 +56,4 @@ grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
 ```
 
 - 📉 **Balance:** more `Should` than `Must` tests means upkeep goes on side paths rather than what matters.
-- ✂️ **Cut:** delete any `Won't` test the count turns up.
 - 🏅 **Check:** run the [tests checklist](quality/quality_rubrics/_tests.md) on every script whose tests changed since the last review, and open an issue for each finding not fixed in that PR.

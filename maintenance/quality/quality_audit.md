@@ -39,12 +39,12 @@ Upkeep cost is ✅ at 9 of the last 50 commits, or 18%, and Process weight is �
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
 1. ✂️ **Grep the PR body:** keep the description check, but swap the 128-line parser in `git_validate_pr_description.sh` for a grep for the template's default lines.
-2. 🏷️ **Drop the MoSCoW tags:** remove `tests/test_moscow_tags.py`, most of `maintenance/test_maintenance.md` and the 83 `# MoSCoW:` comments, since two of the four levels can never be used.
+2. 🏷️ **MoSCoW tags:** kept by choice, so the scheme now uses only the two levels the tests use, Must and Should.
 3. 🔗 **Fix the contradictions:** `Makefile:38`, the done-checks hook in `_tiers.md:9` against `src/claude/README.md:42`, the hook red flag `_tiers.md:14` cites, `~/.claude` in `README.md` against `$CLAUDE_CONFIG_DIR`, "3-line header" in `test_rules_structure.py`, and "re-scores every test and rule" in `.github/CONTRIBUTING.md`.
 4. 🎯 **One home per fact:** the 5-bullet cap in `_markdown_layout.md`, `rule.md.template` and the PR template, the 15-line plan threshold in `sdlc_workflow.md` and `_workflow.md`, and the branch regex and 20-file limit in `docs/guides/git_branching_strategy.md`.
 5. 🔮 **Trim unused capacity:** `TODO.md.template`, `dir_exists` and `CRITICAL` in `shell_utils.sh`, the `FETCH_HEAD` fallback in `git_validate_num_file_changes.sh`, the "Sign it's working" column in `_workflow.md`, and `-rxX` in `pyproject.toml`.
 
-The run also proposed removing the done-checks hook, `pip_audit.yml` and the layout-only rule tests, which are left out because they're kept by choice.
+The run also proposed removing the done-checks hook, `pip_audit.yml`, the layout-only rule tests and the MoSCoW tags, which are left out because they're kept by choice.
 
 ## 💬 Component feedback
 

@@ -71,7 +71,6 @@ Rows are sorted by path. Each component that helped has one row, and each review
 | Component | Run | Effect | Evidence |
 |---|---|---|---|
 | [`.github/workflows/pip_audit.yml`](../../.github/workflows/pip_audit.yml) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Unused | No sign in the transcripts |
-| [`maintenance/old_setup_review.md`](../old_setup_review.md) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Unused | Never opened |
 | [`maintenance/quality/quality_rubrics/`](quality_rubrics/) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Hindered | Re-scores dominated user turns; [#189](https://github.com/paulf-999/ai-engineering-playbook/pull/189) batched them, for the next run to confirm |
 | [`maintenance/test_maintenance.md`](../test_maintenance.md) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Unused | Read twice, both by one subagent |
 | [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Unused | Never fired in any transcript |

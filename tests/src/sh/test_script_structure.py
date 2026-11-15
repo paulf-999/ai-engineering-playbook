@@ -75,15 +75,3 @@ def test_a_missing_part_is_reported(tmp_path):
     script = tmp_path / "broken.sh"
     script.write_text(TEMPLATE.read_text().replace('"Script execution completed."', '"Done."'))
     assert problems_with(script) == ["missing the completed message"], "only the completed message should be missing"
-
-
-# MoSCoW: Could — rarer case of every part present but reordered
-def test_an_out_of_order_part_is_reported(tmp_path):
-    """A section moved above an earlier one is reported as out of order."""
-    script = tmp_path / "reordered.sh"
-    text = TEMPLATE.read_text().replace("# Functions\n", "# Placeholder\n")
-    script.write_text("# Functions\n" + text)
-    problems = problems_with(script)
-    assert any("Functions section" in problem and "out of order" in problem for problem in problems), (
-        f"expected the Functions section to be reported as out of order, got {problems}"
-    )

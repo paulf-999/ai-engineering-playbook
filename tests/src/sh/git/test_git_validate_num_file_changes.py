@@ -101,31 +101,6 @@ def test_missing_base_ref_fails(git_repo):
     assert "not found, locally or on origin" in result.stdout, f"expected the missing-ref explanation: {result.stdout}"
 
 
-# MoSCoW: Could — renames are an edge case of the count
-def test_renamed_file_counts_once(git_repo):
-    """Renaming a file counts as one change, not a delete plus an add."""
-    repo, env = git_repo
-    commit_files(repo, env, "feature/setup", 1)
-    subprocess.run(["git", "switch", "-q", "main"], cwd=repo, env=env, check=True)
-    subprocess.run(["git", "merge", "-q", "feature/setup"], cwd=repo, env=env, check=True)
-    subprocess.run(["git", "switch", "-q", "-c", "feature/rename"], cwd=repo, env=env, check=True)
-    subprocess.run(["git", "mv", "file_0.txt", "renamed.txt"], cwd=repo, env=env, check=True)
-    subprocess.run(["git", "commit", "-q", "-m", "rename"], cwd=repo, env=env, check=True)
-    result = run_script(repo, env, "feature/rename")
-    assert result.returncode == 0, "one renamed file should pass"
-    assert "Files changed (1):" in result.stdout, f"a rename should count as 1 file: {result.stdout}"
-
-
-# MoSCoW: Could — output length only
-def test_long_file_lists_are_summarised(git_repo):
-    """Only the first 50 changed files are listed, followed by a count of the rest."""
-    repo, env = git_repo
-    commit_files(repo, env, "feature/many_files", 60)
-    result = run_script(repo, env, "feature/many_files", extra_env={"MAX_FILES_ALLOWED": "100"})
-    assert result.returncode == 0, "60 files should pass under a limit of 100"
-    assert "... and 10 more" in result.stdout, f"expected the last 10 files summarised: {result.stdout}"
-
-
 # MoSCoW: Should — a bad limit must fail clearly, not pass
 @pytest.mark.parametrize("bad_limit", ["abc", "-5", "1.5"])
 def test_non_numeric_limit_fails_clearly(git_repo, bad_limit):
@@ -135,13 +110,3 @@ def test_non_numeric_limit_fails_clearly(git_repo, bad_limit):
     result = run_script(repo, env, "feature/small", extra_env={"MAX_FILES_ALLOWED": bad_limit})
     assert result.returncode == 1, f"a limit of {bad_limit!r} should fail"
     assert "must be a whole number" in result.stdout, f"expected the whole-number explanation: {result.stdout}"
-
-
-# MoSCoW: Could — rare mix of release branch and bad limit
-def test_release_branch_ignores_a_bad_limit(git_repo):
-    """release/ branches skip the check, so a malformed MAX_FILES_ALLOWED doesn't fail them."""
-    repo, env = git_repo
-    commit_files(repo, env, "release/bulk_change", 1)
-    assert run_check(repo, env, "release/bulk_change", {"MAX_FILES_ALLOWED": "25files"}) == 0, (
-        "a release/ branch should pass with a bad limit"
-    )

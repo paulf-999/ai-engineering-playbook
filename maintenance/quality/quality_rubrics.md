@@ -42,7 +42,7 @@ Each theme scores ✅ 2 when fully met, 🟡 1 when partly met and ❌ 0 when no
 
 ### 🛑 Avoiding over-testing
 
-- 📉 **Could tests:** more `Could` tests than `Must` tests costs a Leanness point, as the [periodic review](../test_maintenance.md#-periodic-review) explains.
+- 📉 **Side-path tests:** more `Should` tests than `Must` tests costs a Leanness point, as the [periodic review](../test_maintenance.md#-periodic-review) explains.
 - 🙅 **Lower scores don't mean add tests:** if a new test would cost Leanness or Simplicity points, leave it out.
 - ✂️ **Removing tests can raise the score:** deleting a duplicate or cosmetic test improves Leanness.
 

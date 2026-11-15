@@ -9,7 +9,7 @@ Size the suite by test functions, not pytest cases, since one parametrised funct
 
 ## 🏷️ Priority scores
 
-Each test function gets a priority on the MoSCoW scale (Must, Should, Could, Won't):
+Each test function has a priority on the MoSCoW scale (Must, Should, Could, Won't), but only a Must is tagged, so an untagged test is a Should:
 
 | Score | Use it for | If the test breaks |
 |---|---|---|
@@ -18,11 +18,11 @@ Each test function gets a priority on the MoSCoW scale (Must, Should, Could, Won
 | 🟡 **Could** | Rare edge cases and template helpers | Something unusual misbehaves, so don't keep the test |
 | ⚪ **Won't** | A duplicate or cosmetic check | Nothing is lost, so delete the test |
 
-A `Could` test isn't kept either, since a test for a rare case doesn't earn its upkeep, and [`test_moscow_tags.py`](../tests/test_moscow_tags.py) fails on one.
+A `Could` test isn't kept either, since a test for a rare case doesn't earn its upkeep, and [`test_moscow_tags.py`](../tests/test_moscow_tags.py) fails on any tag but `Must`.
 
-- 📝 **Format:** put `# MoSCoW: <score> — <reason>` on the line above the test's decorators, or above `def` when it has none.
+- 📝 **Format:** put `# MoSCoW: Must — <reason>` on the line above a Must test's decorators, or above `def` when it has none.
 - 💬 **Reason:** about 12 words on what the test protects, not how it works.
-- 🎯 **Tests only:** score `test_` functions, not helpers or fixtures.
+- 🎯 **Tests only:** tag `test_` functions, not helpers or fixtures.
 
 For example:
 
@@ -51,12 +51,13 @@ A stale test checks behaviour the code no longer has, so it passes but protects 
 
 ## 🔍 Periodic review
 
-At each [regular review](../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), count the tests by score:
+At each [regular review](../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), count the Must tests and all test functions:
 
 ```bash
-grep -rh --include='*.py' '^# MoSCoW:' tests | awk '{print $3}' | sort | uniq -c
+grep -rh --include='*.py' '^# MoSCoW: Must' tests | wc -l
+grep -rh --include='*.py' '^def test_' tests | wc -l
 ```
 
-- 📉 **Balance:** more `Should` than `Must` tests means upkeep goes on side paths rather than what matters.
-- ✂️ **Cut:** delete any `Won't` test the count turns up.
+- 📉 **Balance:** if under half the test functions are Musts, upkeep goes on side paths rather than what matters.
+- ✂️ **Cut:** delete any untagged test that turns out to be a `Could` or `Won't`.
 - 🏅 **Re-score:** refresh the [test audit](quality/quality_audit/_tests.md) row of every script whose tests changed since the last review, in one PR, using the [reviewer brief](quality/quality_rubrics/_tests.md).

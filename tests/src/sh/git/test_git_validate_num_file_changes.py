@@ -70,7 +70,6 @@ def test_release_branch_skips_the_check(git_repo):
     assert run_check(repo, env, "release/bulk_change") == 0, "a release/ branch should skip the check"
 
 
-# MoSCoW: Should — the main option for changing the limit
 def test_max_files_allowed_overrides_the_limit(git_repo):
     """MAX_FILES_ALLOWED raises the limit, so 21 files pass under a limit of 25."""
     repo, env = git_repo
@@ -80,7 +79,6 @@ def test_max_files_allowed_overrides_the_limit(git_repo):
     )
 
 
-# MoSCoW: Should — deletions are a common way to exceed the limit
 def test_deleted_files_count_towards_the_limit(git_repo):
     """Deleting files counts as changing them, so deleting 21 files fails."""
     repo, env = git_repo
@@ -93,7 +91,6 @@ def test_deleted_files_count_towards_the_limit(git_repo):
     assert run_check(repo, env, "feature/delete_all") == 1, "deleting 21 files should be blocked"
 
 
-# MoSCoW: Should — a missing base ref must fail clearly, not pass
 def test_missing_base_ref_fails(git_repo):
     """A base ref that exists neither locally nor on origin exits 1 with an explanation."""
     repo, env = git_repo
@@ -103,7 +100,6 @@ def test_missing_base_ref_fails(git_repo):
     assert "not found, locally or on origin" in result.stdout, f"expected the missing-ref explanation: {result.stdout}"
 
 
-# MoSCoW: Should — a bad limit must fail clearly, not pass
 @pytest.mark.parametrize("bad_limit", ["abc", "-5", "1.5"])
 def test_non_numeric_limit_fails_clearly(git_repo, bad_limit):
     """A MAX_FILES_ALLOWED that isn't a whole number exits 1 with an explanation."""

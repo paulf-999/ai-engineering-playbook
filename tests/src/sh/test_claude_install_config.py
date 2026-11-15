@@ -119,7 +119,6 @@ def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):
     assert (tmp_path / "memory" / "note.md").read_text() == "keep me\n", "files the repo doesn't have must be untouched"
 
 
-# MoSCoW: Should — rerunning an install with nothing changed backs nothing up
 def test_reinstalling_unchanged_files_makes_no_backup(tmp_path):
     """A second install over identical files copies and backs up nothing."""
     first = run_install(tmp_path, answer="install")
@@ -231,7 +230,6 @@ def test_install_removes_a_deny_rule_it_no_longer_ships(tmp_path):
     assert deny == ["Bash(rm:*)", *ENV_DENY_RULES], "the dropped rule should go and the user's rule stay"
 
 
-# MoSCoW: Should — rerunning install must not stack duplicate hooks
 def test_reinstalling_registers_each_hook_once(tmp_path):
     """A second install leaves exactly one of each hook, and makes no backup of settings.json."""
     run_install(tmp_path, answer="install")
@@ -244,7 +242,6 @@ def test_reinstalling_registers_each_hook_once(tmp_path):
     assert not (tmp_path / "backups").exists(), "an unchanged settings.json should not be backed up"
 
 
-# MoSCoW: Should — a settings.json the merge can't safely change must be left as it was
 @pytest.mark.parametrize("settings", [{"hooks": {"PreToolUse": "not a list"}}, {"permissions": {"deny": "not a list"}}])
 def test_unmergeable_settings_are_left_alone(tmp_path, settings):
     """A settings.json whose hooks.PreToolUse or permissions.deny isn't a list is kept, and the install succeeds."""

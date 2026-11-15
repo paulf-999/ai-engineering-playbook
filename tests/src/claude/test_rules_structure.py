@@ -169,7 +169,6 @@ def test_rule_size_and_ending(path):
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Should — headings keep rules scannable and link only through pointers
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_headings(path):
     """Each ## heading has an emoji, and there's no Related section."""
@@ -177,7 +176,6 @@ def test_rule_headings(path):
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Should — long lists are hard to scan, so the layout rule caps them at 5
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_lists_are_short(path):
     """No list in a rule has more than 5 top-level bullets."""
@@ -307,7 +305,6 @@ def loose_pointers(text):
     return loose
 
 
-# MoSCoW: Should — keeping every pointer in one section lets a reader see what a file links to at a glance
 @pytest.mark.parametrize(
     "path", [*RULE_FILES, CONFIG_DIR / "CLAUDE.md"], ids=lambda path: path.relative_to(CONFIG_DIR).as_posix()
 )

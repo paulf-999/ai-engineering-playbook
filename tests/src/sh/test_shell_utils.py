@@ -18,7 +18,6 @@ def run_with_utils(command):
     )
 
 
-# MoSCoW: Should — every script's Ctrl+C trap calls handle_interruption
 def test_handle_interruption_logs_and_exits():
     """handle_interruption prints its abort message and exits 1, with no missing-command error."""
     result = run_with_utils("handle_interruption")

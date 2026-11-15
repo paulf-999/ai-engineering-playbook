@@ -51,7 +51,6 @@ def problems_with(path, parts=REQUIRED_PARTS):
     return problems
 
 
-# MoSCoW: Should — stops an empty scan from passing every other test
 def test_scripts_are_found():
     """The scan finds the scripts, so an empty glob can't make every other test pass by default."""
     assert len(SCRIPTS) >= 5, f"expected at least 5 scripts in src/sh/, found {[p.name for p in SCRIPTS]}"
@@ -69,7 +68,6 @@ def test_script_follows_the_template(path, parts):
     assert not problems, f"{path.relative_to(REPO_ROOT)} doesn't follow {TEMPLATE.relative_to(REPO_ROOT)}: {problems}"
 
 
-# MoSCoW: Should — proves the check catches a missing part
 def test_a_missing_part_is_reported(tmp_path):
     """A script with no completed message is caught, so the check can't silently pass everything."""
     script = tmp_path / "broken.sh"

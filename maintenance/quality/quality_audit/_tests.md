@@ -6,7 +6,7 @@
 **Purpose:** the latest score for each script's tests, as part of the [quality audit](../quality_audit.md).
 
 - 🔢 **Counts by score:** run the grep in the [periodic review](../../test_maintenance.md#-periodic-review), rather than keeping a table by hand.
-- 🏷️ **Priorities:** [`test_moscow_tags.py`](../../../tests/test_moscow_tags.py) fails if a test function has no `# MoSCoW:` comment.
+- 🏷️ **Priorities:** [`test_moscow_tags.py`](../../../tests/test_moscow_tags.py) fails if a `# MoSCoW:` tag is anything but `Must`, since only Musts are tagged.
 - 🕳️ **Gaps:** written by hand when a script is scored, so recheck a script's gaps whenever its tests change.
 
 ## ⭐ Quality by script

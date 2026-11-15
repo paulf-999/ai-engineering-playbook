@@ -95,7 +95,6 @@ def test_context_loaded_only_on_demand_is_not_counted(tmp_path, path, text):
     assert result.returncode == 0, f"{path} shouldn't count towards the budget:\n{result.stdout}"
 
 
-# MoSCoW: Should — a bad budget value must fail clearly rather than be compared as text
 def test_a_budget_that_is_not_a_whole_number_fails(tmp_path):
     """An ALWAYS_ON_TOKEN_BUDGET like '3k' exits 1 and says what's wrong."""
     write(tmp_path, "CLAUDE.md", HUNDRED_TOKENS)

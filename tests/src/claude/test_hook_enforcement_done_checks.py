@@ -76,7 +76,6 @@ def test_a_second_stop_with_the_same_changes_is_allowed(tmp_path, repo):
     assert result.returncode == 0, f"an unchanged stop should be allowed:\n{result.stderr}"
 
 
-# MoSCoW: Should — a new change after the nudge needs the checks run again
 def test_a_further_change_is_blocked_again(tmp_path, repo):
     """A stop after another edit to the same file is blocked again."""
     (repo / "app.py").write_text("print('changed')\n")
@@ -94,7 +93,6 @@ def test_a_stop_while_the_hook_is_active_is_allowed(tmp_path, repo):
     assert result.returncode == 0, f"an active stop hook should never block:\n{result.stderr}"
 
 
-# MoSCoW: Should — nothing to check means nothing to block
 @pytest.mark.parametrize("where", ["clean_repo", "not_a_repo"])
 def test_a_stop_with_nothing_changed_is_allowed(tmp_path, repo, where):
     """A clean repo, or a folder outside git, exits 0 and prints nothing."""
@@ -103,7 +101,6 @@ def test_a_stop_with_nothing_changed_is_allowed(tmp_path, repo, where):
     assert result.returncode == 0 and result.stderr == "", f"nothing changed, so the stop should pass:\n{result.stderr}"
 
 
-# MoSCoW: Should — the hook must fail open, so malformed input never blocks every stop
 @pytest.mark.parametrize("payload", ["", "not json", json.dumps({"hook_event_name": "Stop"})])
 def test_input_with_no_session_is_allowed(payload):
     """Empty input, input that isn't JSON, or input with no session or folder exits 0."""

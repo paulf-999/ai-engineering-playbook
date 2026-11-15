@@ -53,7 +53,6 @@ def test_a_plan_missing_a_section_is_blocked(plan, missing):
     assert "sdlc_workflow.md" in result.stderr, "the reason should point to the SDLC workflow rule"
 
 
-# MoSCoW: Should — the hook must fail open, so a malformed call never blocks every plan
 @pytest.mark.parametrize("payload", ["", "not json", json.dumps({"tool_input": {}})])
 def test_input_with_no_plan_is_allowed(payload):
     """Empty input, input that isn't JSON, or input with no plan text exits 0."""

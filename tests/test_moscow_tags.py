@@ -1,27 +1,17 @@
-"""Checks every test function carries one '# MoSCoW:' priority, and that none is a Could."""
+"""Checks that every '# MoSCoW:' tag is a Must, since only Must tests are tagged."""
 
 import re
 
 from _paths import REPO_ROOT
 
 
-# MoSCoW: Must — an unscored test can't be counted by the grep in test_maintenance.md
-def test_every_test_has_one_moscow_score():
-    """Each test file has one '# MoSCoW:' comment per test function."""
-    for path in (REPO_ROOT / "tests").rglob("test_*.py"):
-        text = path.read_text()
-        scores = len(re.findall(r"^# MoSCoW: (Must|Should|Could|Won't) ", text, flags=re.MULTILINE))
-        functions = len(re.findall(r"^def test_", text, flags=re.MULTILINE))
-        name = path.relative_to(REPO_ROOT)
-        assert scores == functions, f"{name}: {functions} test functions but {scores} '# MoSCoW:' comments"
-
-
-# MoSCoW: Must — a Could test guards a rare case, so it costs more upkeep than it saves
-def test_no_test_is_a_could():
-    """No test carries a '# MoSCoW: Could' priority."""
-    could = [
-        str(path.relative_to(REPO_ROOT))
+# MoSCoW: Must — the Must count in test_maintenance.md only works if every tag is a Must
+def test_every_moscow_tag_is_a_must():
+    """No test file carries a '# MoSCoW:' tag other than Must."""
+    others = [
+        f"{path.relative_to(REPO_ROOT)}: {line}"
         for path in (REPO_ROOT / "tests").rglob("test_*.py")
-        if re.search(r"^# MoSCoW: Could ", path.read_text(), flags=re.MULTILINE)
+        for line in path.read_text().splitlines()
+        if re.match(r"# MoSCoW: (?!Must )", line)
     ]
-    assert not could, f"delete these Could tests, or re-rate them if they guard a core path: {could}"
+    assert not others, f"tag only Must tests, and delete any Could or Won't test: {others}"

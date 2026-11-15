@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: * -->
-<!-- miss_cost: high — Claude follows injected instructions or leaks a secret -->
 # 🔐 Security
 
 **Purpose:** how Claude handles untrusted content and secrets, in every session.

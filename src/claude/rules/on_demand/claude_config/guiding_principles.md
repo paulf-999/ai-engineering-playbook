@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: src/claude/**, **/.claude/**, **/CLAUDE.md -->
-<!-- miss_cost: medium — a config change lands without its cost being weighed -->
 # 🧭 Guiding principles for Claude config
 
 **Purpose:** decide whether a proposed rule, skill, hook, import, setting or memory note is worth its cost, and how to build it.

@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: **/*.py -->
-<!-- miss_cost: low — functions grow harder to read and change -->
 # 📊 Code Complexity
 
 **Purpose:** the limits that keep a Python function easy to read and change, the ruff checks that measure each, and when going over one is acceptable.

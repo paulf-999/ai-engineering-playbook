@@ -1,4 +1,3 @@
-<!-- created: 2026-08-28 -->
 # 📁 Structure
 
 **Purpose:** Set the directory layout, standard file conventions and what stays out of version control; provider configuration lives in [`_providers.md`](_providers.md).

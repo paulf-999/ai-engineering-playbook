@@ -1,6 +1,3 @@
-<!-- created: YYYY-MM-DD -->
-<!-- applies_to: [globs for the files whose sessions need it, or * for every session; delete this line in a path-scoped rule, whose paths: list says it] -->
-<!-- miss_cost: [high, medium or low] — [what goes wrong if it's missed] -->
 # 🔤 [Rule name]
 
 **Purpose:** [one sentence on what the rule covers, and why a reader needs it].
@@ -21,9 +18,8 @@
 
 <!-- Within the list cap in on_demand/conduct/writing_style/_markdown_layout.md, not counting Read on demand pointers: delete the other ## headings and keep one list. -->
 <!-- Over the cap: keep 2 to 4 emoji ## sections, each within it. Split into a parent and 2 or more <parent>/_<aspect>.md children only past the rule size cap, with each child at least 40 lines. -->
-<!-- Child file: delete the applies_to and miss_cost lines, since it inherits its parent's. -->
 <!-- Optional: one table between bullets, when two or more items share the same fields, and the Read on demand section. -->
-<!-- Tests check the header, H1, Purpose, headings, list length, size and pointers. Before merging, also check that: -->
+<!-- Tests check the H1, Purpose, size and pointers. Before merging, also check that: -->
 <!-- each bullet opens with an emoji and a **term:**, and is one sentence; the rule covers one concept; prose uses British spelling; -->
 <!-- and a rule backed by a hook, test or CI check has a test in tests/. Then read the playbook repo's docs/guides/authoring_guide.md for the tier, pointers and trial. -->
 <!-- Delete these comments. -->

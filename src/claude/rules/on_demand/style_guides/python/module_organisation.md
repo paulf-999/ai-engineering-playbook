@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: **/*.py -->
-<!-- miss_cost: low — modules lose their docstrings and clear interfaces -->
 # 📦 Python Module Organisation
 
 **Purpose:** the house rules for laying out a Python module, so it explains itself and its public interface is clear.

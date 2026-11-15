@@ -1,4 +1,3 @@
-<!-- created: 2026-11-09 -->
 # 🧠 Claude config
 
 This folder is the source of a global Claude Code config: `make install` copies it into your Claude config directory, `$CLAUDE_CONFIG_DIR` or `~/.claude`, so edit it here rather than in the installed copy.

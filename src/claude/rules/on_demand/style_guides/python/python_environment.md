@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: **/*.py -->
-<!-- miss_cost: low — a project runs on a different Python or toolchain from the rest -->
 # 🐍 Python — environment & tooling
 
 **Purpose:** Set the Python version, virtual environment and tooling every project uses.

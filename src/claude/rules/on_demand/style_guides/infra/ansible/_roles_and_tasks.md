@@ -1,4 +1,3 @@
-<!-- created: 2026-04-08 -->
 # 🔧 Ansible Roles & Tasks
 
 **Purpose:** Set how roles are laid out and how their tasks, variables and versions are written.

@@ -1,5 +1,4 @@
 #!/bin/bash
-# created: 2026-11-05
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: <One line saying what this script does>

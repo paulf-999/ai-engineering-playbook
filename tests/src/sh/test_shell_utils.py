@@ -18,7 +18,6 @@ def run_with_utils(command):
     )
 
 
-# MoSCoW: Should — every script's Ctrl+C trap calls handle_interruption
 def test_handle_interruption_logs_and_exits():
     """handle_interruption prints its abort message and exits 1, with no missing-command error."""
     result = run_with_utils("handle_interruption")
@@ -27,7 +26,6 @@ def test_handle_interruption_logs_and_exits():
     assert "command not found" not in result.stderr, f"a command it calls is missing: {result.stderr}"
 
 
-# MoSCoW: Must — shared number parsing used by three scripts
 @pytest.mark.parametrize(("value", "expected"), [("7", "7"), ("010", "10"), ("08", "8"), ("123456789", "123456789")])
 def test_to_whole_number_reads_base_ten(value, expected):
     """to_whole_number prints the base-10 value, so a leading zero isn't read as octal."""
@@ -36,7 +34,6 @@ def test_to_whole_number_reads_base_ten(value, expected):
     assert result.stdout.strip() == expected, f"{value!r} should read as {expected}"
 
 
-# MoSCoW: Must — shared input validation used by three scripts
 @pytest.mark.parametrize("value", ["", "abc", "-5", "1.5", "1234567890"])
 def test_to_whole_number_rejects_non_numbers(value):
     """to_whole_number fails on anything that isn't 1 to 9 digits, which keeps it clear of 64-bit overflow."""

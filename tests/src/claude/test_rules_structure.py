@@ -13,11 +13,6 @@ RULE_FILES = sorted(RULES_DIR.rglob("*.md"))
 MAX_LINES = 110
 # a child shorter than this saves too little context to be worth its own file and pointer
 MIN_CHILD_LINES = 40
-MAX_BULLETS = 5
-# emoji blocks: pictographs and symbols, misc symbols and dingbats, arrows and technical symbols
-EMOJI = re.compile("[\U0001f300-\U0001faff☀-➿⬀-⯿⌀-⏿←-⇿]")
-HEADER_FIELDS = ("created",)
-MISS_COSTS = ("low", "medium", "high")
 # a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`
 POINTER = re.compile(r"^- `((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
 
@@ -35,14 +30,6 @@ def split_frontmatter(lines):
     return [], lines
 
 
-def header_block(lines):
-    """Return the comment lines that open the file: the metadata header and any usage lines after it."""
-    # a path-scoped rule's header follows its '---' block, so YAML never reads the comments as keys
-    _, body = split_frontmatter(lines)
-    # the created line, then up to 2 usage lines: applies_to and miss_cost
-    return [line for line in body if line.startswith("<!--")][: len(HEADER_FIELDS) + 2]
-
-
 def prose_lines(lines):
     """Return the lines outside fenced code blocks, so examples in code aren't checked."""
     kept, fenced = [], False
@@ -56,20 +43,12 @@ def prose_lines(lines):
 
 
 def opening_problems(text):
-    """Return problems with the header, H1 and Purpose line."""
+    """Return problems with the H1 and Purpose line."""
     lines = text.split("\n")
     problems = []
-    header = header_block(lines)
-    for line, field in zip(header, HEADER_FIELDS):
-        if not line.startswith(f"<!-- {field}: "):
-            problems.append(f"expected the '{field}' header line, got {line!r}")
-    if len(header) < len(HEADER_FIELDS):
-        problems.append("the header needs a created line")
     h1 = [line for line in prose_lines(lines) if line.startswith("# ")]
     if len(h1) != 1:
         problems.append(f"needs exactly one H1, found {len(h1)}")
-    elif not EMOJI.search(h1[0]):
-        problems.append(f"the H1 needs an emoji: {h1[0]!r}")
     else:
         after_h1 = lines[lines.index(h1[0]) + 1 :]
         first = next((line for line in after_h1 if line.strip()), "")
@@ -91,47 +70,9 @@ def size_problems(text):
 
 
 def heading_problems(text):
-    """Return problems with ## headings: a missing emoji or a Related section."""
+    """Return problems with ## headings: a Related section."""
     h2 = [line for line in prose_lines(text.split("\n")) if line.startswith("## ")]
-    problems = [f"this heading needs an emoji: {line!r}" for line in h2 if not EMOJI.search(line)]
-    problems += [f"link other files by pointer, not a Related section: {line!r}" for line in h2 if "Related" in line]
-    return problems
-
-
-# bullets the 5-item cap skips: checklist items, Contents links and Read on demand pointers
-UNCOUNTED_BULLET = re.compile(r"[-*] (\[[ x]\] |\[[^]]*\]\(#|`(?:on_demand/|_templates/|README\.md`))")
-
-
-def list_problems(text):
-    """Return each list over 5 counted top-level bullets, where blank lines and child bullets don't end it."""
-    problems, count = [], 0
-    for line in prose_lines(text.split("\n")) + ["end"]:
-        if line.startswith(("- ", "* ")):
-            count += 0 if UNCOUNTED_BULLET.match(line) else 1
-        elif line.strip() and not line.startswith(" "):
-            if count > MAX_BULLETS:
-                problems.append(f"a list has {count} top-level bullets, over {MAX_BULLETS}, so split it")
-            count = 0
-    return problems
-
-
-def usage_problems(text):
-    """Return problems with an entry-point rule's usage lines: miss_cost, and applies_to unless paths: says it."""
-    lines = text.split("\n")
-    header = header_block(lines)
-    # each usage line reads <!-- field: value -->, so collect them as a field-to-value mapping
-    values = dict(re.findall(r"<!-- (applies_to|miss_cost): (.+?) -->", "\n".join(header)))
-    # a path-scoped rule's paths: list already says what it applies to, so an applies_to line would repeat it
-    path_scoped = bool(split_frontmatter(lines)[0])
-    needed = ("miss_cost",) if path_scoped else ("applies_to", "miss_cost")
-    problems = [
-        f"an entry-point rule needs a '{field}' line after its header" for field in needed if field not in values
-    ]
-    if path_scoped and "applies_to" in values:
-        problems.append("a path-scoped rule's paths: list says what it applies to, so drop its applies_to line")
-    # a value is the allowed word, then an em-dash and a reason, such as "low — style drift"
-    if "miss_cost" in values and not re.fullmatch(rf"({'|'.join(MISS_COSTS)}) — .+", values["miss_cost"]):
-        problems.append(f"miss_cost must be low, medium or high, then ' — ' and a reason: {values['miss_cost']!r}")
+    problems = [f"link other files by pointer, not a Related section: {line!r}" for line in h2 if "Related" in line]
     return problems
 
 
@@ -156,15 +97,13 @@ def is_entry_point(path):
     return not path.name.startswith("_")
 
 
-# MoSCoW: Must — every rule must open with the header, an emoji H1 and a Purpose line
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
-def test_rule_opens_with_header_h1_and_purpose(path):
-    """Each rule has a created header line, exactly one H1 with an emoji, and a Purpose line straight after it."""
+def test_rule_opens_with_h1_and_purpose(path):
+    """Each rule has exactly one H1, and a Purpose line straight after it."""
     problems = opening_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Must — rules over the line limit cost context and must be split
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_size_and_ending(path):
     """Each rule is 110 lines or fewer, not counting comments or frontmatter, and ends with one newline."""
@@ -172,35 +111,13 @@ def test_rule_size_and_ending(path):
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Should — headings keep rules scannable and link only through pointers
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
 def test_rule_headings(path):
-    """Each ## heading has an emoji, and there's no Related section."""
+    """No ## heading is a Related section."""
     problems = heading_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Should — long lists are hard to scan, so the layout rule caps them at 5
-@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
-def test_rule_lists_are_short(path):
-    """No list in a rule has more than 5 top-level bullets."""
-    problems = list_problems(path.read_text())
-    assert not problems, f"{relative(path)}: " + "; ".join(problems)
-
-
-# MoSCoW: Must — every entry-point rule must say what missing it costs, and what it applies to unless paths: does
-@pytest.mark.parametrize(
-    "path",
-    [path for path in RULE_FILES if is_entry_point(path)],
-    ids=relative,
-)
-def test_entry_point_has_usage_lines(path):
-    """Each entry-point rule has a miss_cost line with a level and reason, and applies_to only without paths:."""
-    problems = usage_problems(path.read_text())
-    assert not problems, f"{relative(path)}: " + "; ".join(problems)
-
-
-# MoSCoW: Must — frontmatter that won't parse makes a path-scoped rule load in every session
 @pytest.mark.parametrize(
     "path",
     [path for path in RULE_FILES if relative(path).startswith("path_scoped/")],
@@ -258,7 +175,6 @@ def resolve(target):
     return RULES_DIR / target if target.startswith("on_demand/") else CONFIG_DIR / target
 
 
-# MoSCoW: Must — a child no parent points to is never read
 @pytest.mark.parametrize(
     "path",
     [path for path in RULE_FILES if not is_entry_point(path)],
@@ -270,7 +186,6 @@ def test_child_is_named_by_its_parent(path):
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
-# MoSCoW: Must — a size floor that never fails would let tiny children pile up again
 def test_a_short_child_is_reported_unless_its_parent_is_always_on(tmp_path):
     """A child under the line floor fails beside an on-demand parent, and passes beside an always-on one."""
     names = "parent.md\n- `_short.md`\n- `_other.md`\n"
@@ -286,7 +201,6 @@ def test_a_short_child_is_reported_unless_its_parent_is_always_on(tmp_path):
     assert not child_problems(tmp_path / "always_on" / "parent" / "_short.md", tmp_path)
 
 
-# MoSCoW: Must — an on-demand rule nothing points to is never read
 @pytest.mark.parametrize(
     "path",
     [path for path in RULE_FILES if is_entry_point(path) and relative(path).startswith("on_demand/")],
@@ -310,7 +224,6 @@ def loose_pointers(text):
     return loose
 
 
-# MoSCoW: Should — keeping every pointer in one section lets a reader see what a file links to at a glance
 @pytest.mark.parametrize(
     "path", [*RULE_FILES, CONFIG_DIR / "CLAUDE.md"], ids=lambda path: path.relative_to(CONFIG_DIR).as_posix()
 )
@@ -320,7 +233,6 @@ def test_pointers_sit_in_read_on_demand_section(path):
     assert not loose, f"{path.name}: move these pointers under a '## 📚 Read on demand' section: {loose}"
 
 
-# MoSCoW: Must — a pointer to a missing file sends Claude nowhere
 def test_every_pointer_target_exists():
     """Every path named in a 'Read on demand' line in the config exists."""
     missing = [

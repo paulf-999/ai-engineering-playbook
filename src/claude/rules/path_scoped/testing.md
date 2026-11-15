@@ -4,8 +4,6 @@ paths:
   - "**/*.sh"
   - "**/models/**/*.sql"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: medium — code changes ship untested or tests fall out of step -->
 # 🧪 Testing
 
 **Purpose:** when code needs a test, and how tests stay in step with it.

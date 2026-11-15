@@ -1,4 +1,3 @@
-<!-- created: 2026-04-08 -->
 # ❄️ Snowflake Standards
 
 **Purpose:** the Snowflake data types to choose, the warehouse settings that keep spend down, and the team's SQLFluff settings.

@@ -1,4 +1,3 @@
-<!-- created: 2026-08-28 -->
 # 🐳 Docker Fundamentals
 
 **Purpose:** Set the base-image, Dockerfile structure and naming standards every image starts from.

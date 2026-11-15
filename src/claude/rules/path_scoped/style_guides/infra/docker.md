@@ -2,8 +2,6 @@
 paths:
   - "**/Dockerfile*"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: low — images grow larger and slower to build -->
 # 🐳 Docker & Dockerfile Style Guide & Standards
 
 **Purpose:** Define the team's standards for writing Dockerfiles and working with Docker images.

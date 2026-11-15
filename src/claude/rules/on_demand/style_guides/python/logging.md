@@ -1,6 +1,3 @@
-<!-- created: 2026-08-28 -->
-<!-- applies_to: **/*.py -->
-<!-- miss_cost: medium — logs leak secrets or miss what's needed to debug -->
 # 📝 Python Logging Conventions
 
 **Purpose:** the house rules for logging and error handling in Python, so logs are useful, safe and free of duplicates.

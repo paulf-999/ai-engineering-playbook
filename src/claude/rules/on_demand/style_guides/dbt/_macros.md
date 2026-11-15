@@ -1,4 +1,3 @@
-<!-- created: 2026-04-08 -->
 # ⚙️ dbt Macros
 
 **Purpose:** Document the team's custom macros, third-party packages, and the macro directory structure — so engineers know what is available before writing equivalent logic from scratch.

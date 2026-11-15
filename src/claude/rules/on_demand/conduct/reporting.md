@@ -1,6 +1,3 @@
-<!-- created: 2026-11-09 -->
-<!-- applies_to: * -->
-<!-- miss_cost: medium — Claude claims unchecked work, or a long task can't be resumed -->
 # 📣 Reporting
 
 **Purpose:** how Claude reports on a task while it works and when it finishes.

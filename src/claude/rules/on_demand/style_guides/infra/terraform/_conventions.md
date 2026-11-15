@@ -1,4 +1,3 @@
-<!-- created: 2026-08-28 -->
 # 🏷️ Conventions
 
 **Purpose:** Set naming standards for Snowflake objects, Terraform resources, modules, variables and outputs; declaration rules live in [`_declarations.md`](_declarations.md).

@@ -1,4 +1,3 @@
-<!-- created: 2026-04-08 -->
 # 📸 dbt Snapshots
 
 **Purpose:** Cover naming conventions, configuration standards, best practices, and guidance on building downstream models on top of snapshots.

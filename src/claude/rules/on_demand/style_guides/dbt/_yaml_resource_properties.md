@@ -1,4 +1,3 @@
-<!-- created: 2026-04-08 -->
 # 📄 YAML Resource Properties
 
 **Purpose:** Set the standards for declaring dbt resource properties in YAML — covering file naming, formatting style, source definitions, tests, and sensitive data tagging.

@@ -2,8 +2,6 @@
 paths:
   - "**/*.sh"
 ---
-<!-- created: 2026-08-28 -->
-<!-- miss_cost: medium — scripts fail silently or break on unexpected input -->
 # 🖥️ Bash Style Guide
 
 **Purpose:** shell scripting conventions for safety and consistency, alongside what `shellcheck` checks.

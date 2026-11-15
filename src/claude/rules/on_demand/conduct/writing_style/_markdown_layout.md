@@ -1,4 +1,3 @@
-<!-- created: 2026-11-02 -->
 # 🧱 Writing style: Markdown layout
 
 **Purpose:** how headings, lists and tables are laid out, so every page scans the same way.

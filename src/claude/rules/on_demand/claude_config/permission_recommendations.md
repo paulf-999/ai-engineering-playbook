@@ -1,6 +1,3 @@
-<!-- created: 2026-11-04 -->
-<!-- applies_to: **/settings.json, **/settings.local.json -->
-<!-- miss_cost: high — a broad allowlist lets destructive commands run unasked -->
 # 🔐 Permission recommendations
 
 **Purpose:** how to recommend Claude Code permissions, such as a `settings.json` allowlist, with the least access needed.

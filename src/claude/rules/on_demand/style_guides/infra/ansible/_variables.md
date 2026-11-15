@@ -1,4 +1,3 @@
-<!-- created: 2026-05-20 -->
 # 📊 Ansible Variables
 
 **Purpose:** Set the `group_vars` hierarchy, its precedence, and how variables are named.

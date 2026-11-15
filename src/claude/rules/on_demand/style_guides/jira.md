@@ -3,20 +3,86 @@
 <!-- miss_cost: medium — tickets miss required fields and need fixing by hand -->
 # 🎫 Jira style guide
 
-**Purpose:** standards for a team's Jira tickets, covering fields, ticket structure, sprint assignment and business value.
+**Purpose:** standards for a team's Jira tickets, covering their structure, required fields, sprint assignment and business value.
 
-## 🏗️ Core principles
+Your project's field IDs, components, sprint IDs and scoring weights live in `_local/jira_values.md` in your Claude config directory.
 
-- ✅ **Completeness:** set every required field before a ticket enters the sprint, including priority, story points, assignee, sprint and description.
-- 👀 **Scannability:** use bullets throughout, with no prose walls in the description or acceptance criteria.
-- 🧱 **Consistency:** give every ticket the standard components, labels and description structure.
-- 🏷️ **Traceability:** add the Claude-created label named in your Jira values to every ticket Claude writes, so hygiene checks can filter on it.
+- 📋 **No values file:** save the [template below](#-values-file-template) there, and ask the user to fill it in. `make install` never touches `_local/`, and the filled-in copy never belongs in a repo.
+- 🚫 **Unknown value:** leave the field as `< TODO >` and ask, rather than guessing, or look a field ID up with `getJiraIssueTypeMetaWithFields`.
 
-## 📚 Read on demand
+## 🎫 Ticket structure
 
-- `on_demand/style_guides/jira/_ticket_conventions.md`, in your Claude config directory, when writing a ticket's summary, description or acceptance criteria.
-- `on_demand/style_guides/jira/_field_standards.md`, when setting a ticket's fields, components or labels.
-- `on_demand/style_guides/jira/_business_value.md`, when writing the Business Value tab.
-- `on_demand/style_guides/jira/_definition_of_ready.md`, before moving a ticket into a sprint.
-- `on_demand/style_guides/jira/_sprint_planning.md`, when choosing a ticket's sprint, epic or story points.
-- `on_demand/style_guides/jira/_jira_values_template.md`, when `_local/jira_values.md` is missing, for the values to collect.
+- 📐 **Summary:** `<Area> — <action or topic>`, with an em-dash, such as `Data Platform — Sprint 63 planning prep`.
+- 💬 **Description:** one context sentence, then bullets for scope or tasks, with no prose paragraphs.
+- 🎯 **Acceptance criteria:** under a `### Acceptance criteria` heading, as specific, testable outcomes.
+- 🧩 **Issue type:** a Story for any unit of work, with a parent Epic, and an Epic only to group work across sprints.
+- 🏷️ **Label:** add the Claude-created label from your values file to every ticket Claude writes.
+
+## ✅ Ready for a sprint
+
+Every ticket needs all of these before it enters a sprint:
+
+| Field | Rule |
+|---|---|
+| Summary and description | Follow the structure above, with acceptance criteria, not a placeholder |
+| Story points | Above 0: at least `0.5` for admin, planning or ceremonies, and `1`, `2`, `3`, `5`, `8` or `13` for features |
+| Assignee and parent epic | Both set, with the epic confirmed via `getJiraIssue` |
+| Components | Those your values file lists as required, plus the quarter of the ticket's sprint where used |
+| Priority | **Medium**, unless there's a stated reason |
+| Status | **Backlog**, never left in Triage |
+| Business value | Filled in as below |
+
+## 📅 Sprint and epic
+
+- 🔢 **Sprint ID:** the Sprint field takes Jira's internal ID from your values file, not the board's sprint number. Extrapolate past the table by 1 a sprint, and confirm with `searchJiraIssuesUsingJql`.
+- 🗓️ **Which sprint:** the one the work happens in, except planning prep, which goes in the current sprint.
+- 🏆 **Parent epic:** the initiative's epic for delivery work, and the assignee's planning epic for admin, asking the user rather than assuming.
+
+## 💼 Business value
+
+Written for non-technical readers, so name company-wide systems such as Salesforce, but describe internal tools such as dbt or Airflow by what they do:
+
+```text
+<1–2 sentence intro>
+- <up to 3 bullets: risk, context and scope>
+
+Impact Rating (per <your prioritisation framework>):
+* a. Prioritization Matrix: <link from your values file>
+* b. Priority Value Driver: <driver> – Score: <N>
+* c. Secondary Value Driver: <driver> – Score: <N>
+* d. Calculated Score: <primary score × weight + secondary score × weight>
+```
+
+- 🔴 **5:** imminent regulatory, financial or customer impact, or an outage.
+- 🟠 **3:** removes significant recurring manual work, or unlocks a new capability.
+- 🟢 **1:** minor tweaks, or work with no clear return, with 4 and 2 for drivers in between.
+- ❓ **No framework:** leave the scores as `< TODO >` rather than inventing categories or weights.
+
+## 🧩 Values file template
+
+```markdown
+# Jira values
+
+| Setting | Value |
+|---|---|
+| Project key | `<PROJ>` |
+| Board ID | `<board-id>` |
+| Claude-created label | `<team>-claude-created` |
+| Summary area | `<Area>` |
+| Story points field | `customfield_<n>` |
+| Sprint field | `customfield_<n>` |
+| Business value field | `customfield_<n>` |
+| Prioritisation framework | `<name>`, matrix at `<link>` |
+
+| Sprint | ID |
+|---|---|
+| `<sprint number>` | `<sprint ID>` |
+
+| Component | ID | When to use |
+|---|---|---|
+| `<component>` | `<id>` | `<every ticket, or the quarter of the ticket's sprint>` |
+
+| Business value category | Weight |
+|---|---|
+| `<category>` | `<weight %>` |
+```

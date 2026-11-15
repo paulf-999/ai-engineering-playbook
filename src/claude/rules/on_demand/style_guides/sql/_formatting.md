@@ -72,7 +72,7 @@ FROM orders
 
 - **Select order:** list plain fields before aggregates and window functions
 - **Early aggregation:** aggregate before joining to another table where feasible
-- **Positional references:** use `GROUP BY 1, 2` instead of repeating column names
+- **Positional references:** prefer `GROUP BY 1, 2` to repeating column names
 - **Limit columns:** avoid grouping by many columns — if needed, reconsider model design
 
 ## 💬 Commenting

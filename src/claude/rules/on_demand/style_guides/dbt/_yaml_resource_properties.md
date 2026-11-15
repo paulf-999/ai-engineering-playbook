@@ -32,7 +32,7 @@
 
 ## 🧪 Tests
 
-Apply at minimum `unique` and `not_null` tests to the surrogate key (`KEY`) of every model. Declare tests in the resource property YAML co-located with the model, under `data_tests:` (named `tests:` before dbt 1.8).
+Apply at minimum `unique` and `not_null` tests to the surrogate key of every model that has one, or to an aggregate's grain columns. Declare tests in the resource property YAML co-located with the model, under `data_tests:` (named `tests:` before dbt 1.8).
 
 ```yaml
 models:

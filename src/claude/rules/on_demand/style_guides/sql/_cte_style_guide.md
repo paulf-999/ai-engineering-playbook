@@ -17,6 +17,10 @@ Use four logical grouping layers for all CTEs:
 3. **Final CTE:** join together all logical CTEs
 4. **Simple SELECT:** final SELECT statement from the final CTE
 
+## 🔖 CTE naming
+
+Name each CTE for its step in lowercase `snake_case`, such as `remove_duplicates`, in dbt models too, and always name the last one `final`.
+
 ## 📋 Contents
 
 - [📥 Import CTEs](#-import-ctes)
@@ -80,7 +84,7 @@ orders AS (
 Join together all logical CTEs into a single result set:
 
 ```sql
-final_cte AS (
+final AS (
     SELECT
         customers.customer_name
         , orders.order_id
@@ -102,5 +106,5 @@ SELECT
     customer_name
     , order_id
     , total
-FROM final_cte
+FROM final
 ```

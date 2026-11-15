@@ -34,7 +34,7 @@ The team config excludes these rules. Codes use SQLFluff 2.0+ names, with the le
 | `RF02` (`L027`) | Columns are qualified when a query reads from more than one table | Not enforced by lint, though `_formatting.md` still asks for table prefixes in joins |
 | `RF04` (`L029`) | Unreserved keywords aren't used as identifiers | Legacy column names use them |
 | `AM02` (`L033`) | `UNION` is written as `UNION ALL` or `UNION DISTINCT` | Bare `UNION` is allowed |
-| `ST06` (`L034`) | Wildcards and simple columns come before calculations in `SELECT` | Preserves the author's column order |
+| `ST06` (`L034`) | Wildcards and simple columns come before calculations in `SELECT` | Not enforced by lint, though `_formatting.md` still lists plain fields before aggregates |
 | `RF05` (`L057`) | Identifiers contain no special characters | Source data has them |
 | `RF06` (`L059`) | Identifiers aren't quoted unnecessarily | Unnecessary quoting is allowed |
 | `LT15` | No run of too many blank lines | Extra blank lines between CTEs are allowed |

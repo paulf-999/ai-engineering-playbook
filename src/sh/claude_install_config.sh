@@ -6,8 +6,10 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed
 #              It also keeps the config's hooks and deny rules in settings.json in step, keeping every other setting
 #              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the done checks hook out unless HOOKS=1
-# Usage: [PROJECT=<repo> [HOOKS=1]] src/sh/claude_install_config.sh (run from the repo root, at your own terminal;
-#        make install calls it)
+#              With UNINSTALL=1, it removes what the manifest lists, restores each file's pre-install backup and strips
+#              the config's hooks and deny rules from settings.json
+# Usage: [PROJECT=<repo> [HOOKS=1]] [UNINSTALL=1] src/sh/claude_install_config.sh (run from the repo root, at your own
+#        terminal; make install and make uninstall call it)
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/shell_utils.sh
@@ -27,6 +29,7 @@ CONFIG_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
 # a repo to install into instead of your Claude config directory, and whether its install includes the done checks hook
 PROJECT="${PROJECT:-}"
 WITH_HOOKS="${HOOKS:-}"
+UNINSTALL="${UNINSTALL:-}"
 if [[ -n "${PROJECT}" ]]; then
     if [[ ! -d "${PROJECT}" ]]; then
         echo "PROJECT=${PROJECT} isn't a folder - nothing changed." >&2
@@ -35,11 +38,14 @@ if [[ -n "${PROJECT}" ]]; then
     PROJECT="$(cd "${PROJECT}" && pwd)"
     TARGET_DIR="${PROJECT}/.claude"
     # backups go in your own config directory, so they're never committed with the repo
-    BACKUP_DIR="${CONFIG_DIR}/backups/project_$(basename "${PROJECT}")_$(date +%Y_%m_%d_%H%M%S)"
+    BACKUP_PREFIX="${CONFIG_DIR}/backups/project_$(basename "${PROJECT}")_"
 else
     TARGET_DIR="${CONFIG_DIR}"
-    BACKUP_DIR="${TARGET_DIR}/backups/install_$(date +%Y_%m_%d_%H%M%S)"
+    BACKUP_PREFIX="${TARGET_DIR}/backups/install_"
 fi
+# each install's backups start with BACKUP_PREFIX then the date, so uninstall can find the oldest copy of each file
+BACKUP_DIR="${BACKUP_PREFIX}$(date +%Y_%m_%d_%H%M%S)"
+[[ "${UNINSTALL}" == 1 ]] && BACKUP_DIR="${BACKUP_PREFIX}uninstall_$(date +%Y_%m_%d_%H%M%S)"
 # the paths the last install wrote, one per line, so the next install can remove any the repo no longer has
 MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
 # the tracked files under SOURCE_DIR, set by list_source_files
@@ -56,6 +62,8 @@ SHIPPED_HOOKS=(
     "Stop||hooks/hook_enforcement_done_checks.sh"
 )
 # deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
+# a bare filename matches at any depth, and a "!" rule carves out of earlier rules in the same settings file, per
+# https://code.claude.com/docs/en/permissions.md
 DENY_RULES=("Read(.env)" "Read(.env.*)" "Read(!.env.example)")
 # the deny rules the last install added, as a JSON list, so the next install can remove any the config has since dropped
 DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
@@ -138,6 +146,50 @@ confirm_install() {
         log_message "${WARNING}" "Install cancelled - nothing changed."
         exit 1
     fi
+}
+
+# Show what uninstall removes and require 'uninstall' typed at a real terminal, as confirm_install does
+confirm_uninstall() {
+    local answer file
+    if [[ ! -t 0 ]]; then
+        log_message "${ERROR}" "Run make uninstall from your own terminal - nothing changed."
+        exit 1
+    fi
+    if [[ "${#REMOVED_FILES[@]}" -eq 0 ]]; then
+        log_message "${WARNING}" "No install manifest lists files in ${TARGET_DIR} - nothing to uninstall."
+        exit 1
+    fi
+    log_message "${WARNING}" "Removing ${#REMOVED_FILES[@]} file(s) the last install added to ${TARGET_DIR}:"
+    for file in "${REMOVED_FILES[@]}"; do
+        echo "  ${file}"
+    done
+    echo "Each is backed up to ${BACKUP_DIR} first, and any file an install replaced is restored from its oldest backup."
+    echo "It also removes the config's hooks and deny rules from ${SETTINGS}, keeping every other setting."
+    read -r -p "Type 'uninstall' to continue: " answer || true
+    if [[ "${answer}" != "uninstall" ]]; then
+        log_message "${WARNING}" "Uninstall cancelled - nothing changed."
+        exit 1
+    fi
+}
+
+# Back up and remove each installed file, restoring the oldest backup of it, which holds the copy from before any install
+uninstall_files() {
+    local file original restored=0
+    for file in "${REMOVED_FILES[@]}"; do
+        mkdir -p "$(dirname "${BACKUP_DIR}/${file}")"
+        cp -p "${TARGET_DIR}/${file}" "${BACKUP_DIR}/${file}"
+        rm "${TARGET_DIR}/${file}"
+        # the glob expands in date order, and the leading digit skips uninstall backups
+        for original in "${BACKUP_PREFIX}"[0-9]*/"${file}"; do
+            if file_exists "${original}"; then
+                cp -p "${original}" "${TARGET_DIR}/${file}"
+                restored=$((restored + 1))
+                break
+            fi
+        done
+    done
+    rm -f "${MANIFEST}"
+    log_message "${INFO}" "Removed ${#REMOVED_FILES[@]} file(s), restoring ${restored} from backups."
 }
 
 # Copy each file over the target, backing up any existing copy that differs, and skipping identical ones
@@ -225,11 +277,11 @@ register_settings() {
         | if ($old | type) != "array" then error("permissions.deny is not a list") else . end
         | ($previous + $ARGS.positional) as $ours
         | ($old | map(select(. as $rule | $ours | index($rule) | not)) + $ARGS.positional) as $new
-        | if $new == $old then . else .permissions.deny = $new end' "${DENY_RULES[@]}" <<< "${updated}" 2> /dev/null)"; then
+        | if $new == $old then . else .permissions.deny = $new end' ${DENY_RULES[@]+"${DENY_RULES[@]}"} <<< "${updated}" 2> /dev/null)"; then
         log_message "${WARNING}" "${SETTINGS} has a permissions.deny that isn't a list, so the settings weren't added."
         return 0
     fi
-    jq -cn '$ARGS.positional' --args "${DENY_RULES[@]}" > "${DENY_MANIFEST}"
+    jq -cn '$ARGS.positional' --args ${DENY_RULES[@]+"${DENY_RULES[@]}"} > "${DENY_MANIFEST}"
     [[ "${updated}" == "${current}" ]] && return 0
     if file_exists "${SETTINGS}"; then
         mkdir -p "${BACKUP_DIR}"
@@ -246,11 +298,21 @@ register_settings() {
 #=======================================================================
 print_section_header "${DEBUG}" "Script execution started."
 
-list_source_files
-list_removed_files
-confirm_install
-install_files
-remove_old_files
-register_settings
+if [[ "${UNINSTALL}" == 1 ]]; then
+    # with no files to install, every file the manifest lists counts as removed, and no hook or deny rule ships
+    DENY_RULES=()
+    list_removed_files
+    confirm_uninstall
+    uninstall_files
+    register_settings
+    rm -f "${DENY_MANIFEST}"
+else
+    list_source_files
+    list_removed_files
+    confirm_install
+    install_files
+    remove_old_files
+    register_settings
+fi
 
 print_section_header "${DEBUG}" "Script execution completed." && echo

@@ -6,6 +6,7 @@ SHELL = /bin/sh
 # make help		# list the available targets
 # make deps		# install the dependencies and git hooks
 # make install		# copy src/claude/ into your Claude config directory, or PROJECT=<repo>'s .claude/ folder
+# make uninstall	# remove what make install added, restoring the files it replaced
 # make test		# run the tests (pytest)
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
@@ -38,6 +39,10 @@ install:
 	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${PROJECT:+$$PROJECT/.claude}$$([ -n "$${PROJECT:-}" ] || echo "$${CLAUDE_CONFIG_DIR:-$$HOME/.claude}").${COLOUR_OFF}"
 	@bash src/sh/claude_install_config.sh
 
+uninstall:
+	@echo "${INFO}\nCalled makefile target 'uninstall'. Remove the Claude config that make install added.${COLOUR_OFF}"
+	@UNINSTALL=1 bash src/sh/claude_install_config.sh
+
 context_cost:
 	@bash src/sh/claude_report_context_cost.sh
 
@@ -50,7 +55,7 @@ clean:
 	@find src tests -name __pycache__ -type d -prune -exec rm -rf {} +
 
 # Phony targets
-.PHONY: all help deps install test clean context_cost
+.PHONY: all help deps install uninstall test clean context_cost
 
 # .PHONY tells Make that these targets don't represent files
 # This prevents conflicts with any files named "all" or "clean"

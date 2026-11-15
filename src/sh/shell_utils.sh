@@ -28,8 +28,6 @@ INFO='\033[0;32m'
 WARNING='\033[0;33m'
 # red (for error messages)
 ERROR='\033[0;31m'
-# bold red (for critical errors)
-CRITICAL='\033[1;31m'
 # Text Reset
 COLOUR_OFF='\033[0m'
 
@@ -56,11 +54,6 @@ print_section_header() {
     echo && echo -e "${LOG_LEVEL}#--------------------------------------------------------------------------------------------"
     echo -e "${LOG_LEVEL}# ${MESSAGE}${COLOUR_OFF}"
     echo -e "${LOG_LEVEL}#--------------------------------------------------------------------------------------------${COLOUR_OFF}"
-}
-
-# Function to check if a directory exists
-dir_exists() {
-    [[ -d "${1}" ]]
 }
 
 # Function to check if a file exists

@@ -3,6 +3,7 @@
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Stop hook that sends Claude back once to run the repo's done checks when tracked files changed since its last stop
+#              It stays quiet in a repo with no CLAUDE.md, since only a CLAUDE.md says which checks define done
 # Usage: registered in settings.json by make install; Claude Code pipes the hook's JSON input to stdin
 
 # This hook doesn't source shell_utils.sh: Claude Code reads its stderr and exit code, so it must print nothing else
@@ -41,7 +42,9 @@ INPUT="$(cat)"
 SESSION="$(jq -r '.session_id // empty' <<< "${INPUT}" 2> /dev/null | tr -cd 'A-Za-z0-9_-' || true)"
 REPO="$(jq -r '.cwd // empty' <<< "${INPUT}" 2> /dev/null || true)"
 [[ -n "${SESSION}" && -n "${REPO}" ]] || exit 0
-git -C "${REPO}" rev-parse --is-inside-work-tree > /dev/null 2>&1 || exit 0
+ROOT="$(git -C "${REPO}" rev-parse --show-toplevel 2> /dev/null)" || exit 0
+# a repo with no CLAUDE.md names no done checks, so sending Claude back would only ask it to guess
+[[ -f "${ROOT}/CLAUDE.md" || -f "${ROOT}/.claude/CLAUDE.md" ]] || exit 0
 
 FINGERPRINT="$(changes_fingerprint "${REPO}")"
 [[ -n "${FINGERPRINT}" ]] || exit 0

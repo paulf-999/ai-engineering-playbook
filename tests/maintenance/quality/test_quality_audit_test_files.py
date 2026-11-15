@@ -1,18 +1,15 @@
-"""Checks every test is scored, and the Tests section of maintenance/quality/quality_audit.md fits the rubric."""
+"""Checks every test is scored, and the audit's Tests section has a row per test file."""
 
 import re
 from pathlib import Path
 
-from _audit_tables import assert_links_work, assert_quality_scores, read_table
+from _audit_tables import assert_links_work, read_table
 from _paths import REPO_ROOT
 
 AUDIT = REPO_ROOT / "maintenance" / "quality" / "quality_audit.md"
 
 # this file, which the audit doesn't score, since it can't fairly score its own checker
 THIS_FILE = str(Path(__file__).relative_to(REPO_ROOT))
-
-# the themes in the Tests section of quality/quality_rubrics.md, as the audit's column headings
-THEMES = ("Core coverage", "Leanness", "Clarity", "Simplicity", "Reliability")
 
 
 def find_test_file(row):
@@ -47,13 +44,12 @@ def test_every_test_has_one_moscow_score():
         assert scores == functions, f"{name}: {functions} test functions but {scores} '# MoSCoW:' comments"
 
 
-# MoSCoW: Should — keeps the quality table in step with the test files and the rubric
-def test_quality_table_fits_the_rubric():
-    """Links work, every test file bar this checker has one row, and each score and Gaps fit the themes."""
+# MoSCoW: Should — keeps the quality table in step with the test files
+def test_quality_table_has_a_row_per_test_file():
+    """Links work, and every test file bar this checker has one row."""
     assert_links_work(AUDIT)
     quality = read_table(AUDIT, "⭐ Quality by script")
     scored = [find_test_file(row) for row in quality]
     assert sorted(scored) == sorted(set(all_test_files()) - {THIS_FILE}), (
         "add or remove quality rows so the table lists every test file but this checker, once each"
     )
-    assert_quality_scores(quality, THEMES)

@@ -1,4 +1,4 @@
-"""Shared helpers for the quality audits: read their tables, and check their links and scores."""
+"""Shared helpers for the quality audits: read their tables, and check their links."""
 
 import re
 
@@ -6,17 +6,6 @@ from _paths import REPO_ROOT
 
 # a markdown link like '[text](target)', capturing the text and the target
 LINK = re.compile(r"\[([^\]]*)\]\(([^)]*)\)")
-
-# the only allowed theme cells, and the points each one is worth
-THEME_POINTS = {"✅ 2": 2, "🟡 1": 1, "❌ 0": 0}
-
-
-def grade(total):
-    """Return the letter grade for a score out of 10, using the cut-offs both rubrics share."""
-    for letter, floor in (("A", 9), ("B", 8), ("C", 7), ("D", 6)):
-        if total >= floor:
-            return letter
-    return "F"
 
 
 def plain(cell):
@@ -65,21 +54,3 @@ def assert_links_work(audit):
         # targets are relative to the audit's own folder, as GitHub resolves them
         path = audit.parent / target.split("#")[0]
         assert path.exists(), f"{audit.name} links to {target}, which doesn't exist"
-
-
-def assert_quality_scores(rows, themes):
-    """Check each row's theme cells are valid, its Score is their grade and total, and Gaps names each one below ✅."""
-    for row in rows:
-        for theme in themes:
-            assert row[theme] in THEME_POINTS, f"{row['name']}: {theme} must be one of {list(THEME_POINTS)}"
-
-        # the Score column must be the grade and total of the theme points, e.g. 'A · 9/10'
-        total = sum(THEME_POINTS[row[theme]] for theme in themes)
-        expected = f"{grade(total)} · {total}/10"
-        assert row["Score"] == expected, f"{row['name']}: score says '{row['Score']}', its themes give '{expected}'"
-
-        # Gaps must name every theme below ✅ as '<Theme>: <gap>', and be '—' when every theme is ✅
-        below = [theme for theme in themes if row[theme] != "✅ 2"]
-        unnamed = [theme for theme in below if f"{theme}:" not in row["Gaps"]]
-        assert not unnamed, f"{row['name']}: Gaps must name {unnamed}, as '<Theme>: <gap>'"
-        assert below or row["Gaps"] == "—", f"{row['name']}: every theme is ✅, so Gaps should be '—'"

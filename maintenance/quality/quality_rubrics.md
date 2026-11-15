@@ -58,7 +58,7 @@ Return one audit row per script: the five theme scores, the grade and total, and
 
 ### 📊 Where scores live
 
-The [tests audit](quality_audit.md#-tests) holds each script's scores and gaps, and `tests/maintenance/quality/test_quality_audit_test_files.py` fails if a score doesn't add up.
+The [tests audit](quality_audit.md#-tests) holds each script's scores and gaps, and `tests/maintenance/quality/test_quality_audit_test_files.py` fails if a test file has no row.
 
 ## 📏 Rules
 

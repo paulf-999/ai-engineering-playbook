@@ -9,7 +9,7 @@ Each section is scored against its rubric in [quality rubrics](quality_rubrics.m
 
 ## 🧪 Tests
 
-- 🧪 **Kept accurate by:** [this audit's checker](../../tests/maintenance/quality/test_quality_audit_test_files.py), which fails if a test file has no row or a score doesn't add up.
+- 🧪 **Kept accurate by:** [this audit's checker](../../tests/maintenance/quality/test_quality_audit_test_files.py), which fails if a test file has no row.
 - 🔢 **Counts by score:** run the grep in the [periodic review](../test_maintenance.md#-periodic-review), rather than keeping a table by hand.
 - 🪞 **Own checker:** the checker gets no quality score, since it can't fairly score itself.
 - 🕳️ **Gaps:** written by hand when a script is scored, so recheck a script's gaps whenever its tests change.

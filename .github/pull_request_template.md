@@ -25,21 +25,14 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
-> [!NOTE]
-> **✅ Adequately tested:** [one-sentence verdict, such as "`make test` and pre-commit pass, with new cases for the change". If testing has gaps, use `> [!WARNING]` and **⚠️ Testing gaps:** instead.]
-
 <details>
 <summary>Testing checklist</summary>
 
 - [ ] DEV / Local testing by developer
+- [ ] UAT testing
 - [ ] Other (please specify)
 
 </details>
-
-## :white_check_mark: Checklist
-
-- [ ] Pre-commit hooks pass
-- [ ] 20 files or fewer changed, or on a `release/` branch (see `docs/guides/git_branching_strategy.md`)
 
 <!-- Claude config PRs only, which CI checks:
 - Changes src/claude/? Add "## :robot: Claude: Plan Spec (spec.md)" holding the approved plan's spec.md, so a reviewer

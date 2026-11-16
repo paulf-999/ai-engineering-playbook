@@ -11,8 +11,7 @@ opportunistically when a file is being actively modified for another reason.
 - [📅 Standard formats](#-standard-formats)
 - [🕐 Timezone](#-timezone)
 - [📋 Applies to — technical contexts](#-applies-to--technical-contexts)
-- [🚧 Known exceptions](#-known-exceptions)
-- [📝 Does not apply — human-facing content](#-does-not-apply--human-facing-content)
+- [📝 Human-facing content](#-human-facing-content)
 
 ---
 
@@ -43,18 +42,10 @@ Use ISO format where dates are machine-readable, sortable, or stored:
 
 ---
 
-## 🚧 Known exceptions
+## 📝 Human-facing content
 
-- **Filenames:** a date in a filename uses underscores, as in `2026_04_10_<topic>.md`, since filenames are snake_case.
+Use English sentence-style dates in content written for a human audience, in the team's style.
 
----
+## 📚 Read on demand
 
-## 📝 Does not apply — human-facing content
-
-Use English sentence-style dates (e.g. `1st May 2026`, `23rd April 2026`) in content written for a human audience:
-
-- Confluence pages
-- Pull request descriptions
-- Teams messages and emails
-- Jira ticket descriptions and comments
-- Meeting notes, agendas, catch-up prep and other narrative documents
+- `on_demand/team_conventions/utilities/datetime.md`, in your Claude config directory, before writing a date into a filename or a human-facing document.

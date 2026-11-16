@@ -1,6 +1,6 @@
 # 🏷️ Claude naming patterns
 
-**Purpose:** the name each kind of Claude config artefact takes, with an example of each.
+**Purpose:** this team's name for each kind of Claude config artefact, with an example of each.
 
 | Artefact | Pattern | Example |
 |---|---|---|

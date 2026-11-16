@@ -1,13 +1,10 @@
-# 🔁 CI & Tooling
+# 🔁 Terraform team conventions: CI and tooling
 
-**Purpose:** Set the standards for pre-commit hooks, code formatting, and the Azure Pipelines CI/CD workflow.
-
-> 🏢 **Team conventions:** the fixed pre-commit hook list with its 120-character lines, and both Azure Pipelines sections, including the environment order and Key Vault. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+**Purpose:** this team's pre-commit hook list and its Azure Pipelines workflow.
 
 ## 📋 Contents
 
 - [🪝 Pre-commit hooks](#-pre-commit-hooks)
-- [🎨 Terraform formatting](#-terraform-formatting)
 - [🚀 Azure Pipelines: PR validation](#-azure-pipelines-pr-validation)
 - [🚀 Azure Pipelines: deployment](#-azure-pipelines-deployment)
 
@@ -27,19 +24,6 @@ The following hooks are enforced on every commit via `.pre-commit-config.yaml`:
 | `terraform_fmt` | Runs `terraform fmt` on all `.tf` files |
 | `yamllint` | Lints YAML files against `.yamllint` config (120-char line limit) |
 | `yamlfmt` | Formats YAML files consistently |
-
-All hooks must pass before a commit is accepted. Do not suppress failures without a documented reason.
-
-## 🎨 Terraform formatting
-
-Run `terraform fmt -recursive` before committing to ensure consistent formatting across all `.tf` files. The `terraform_fmt` pre-commit hook enforces this automatically.
-
-Key formatting rules enforced by `terraform fmt`:
-
-- Align `=` signs within blocks.
-- Indent with 2 spaces.
-
----
 
 ## 🚀 Azure Pipelines: PR validation
 

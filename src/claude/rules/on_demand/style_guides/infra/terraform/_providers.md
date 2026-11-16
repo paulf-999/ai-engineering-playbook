@@ -25,17 +25,17 @@ Authentication uses JWT via a private key file — not username/password.
 
 ```terraform
 provider "snowflake" {
-  organization_name = var.SNOWFLAKE_ORGANIZATION_NAME
-  account_name      = var.SNOWFLAKE_ACCOUNT_NAME
-  user              = var.SNOWFLAKE_USER
-  private_key       = file(var.SNOWFLAKE_PRIVATE_KEY_PATH)
+  organization_name = var.organization_name
+  account_name      = var.account_name
+  user              = var.user
+  private_key       = file(var.private_key_path)
   authenticator     = "SNOWFLAKE_JWT"
-  role              = var.SNOWFLAKE_ROLE
-  warehouse         = var.SNOWFLAKE_WAREHOUSE
+  role              = var.role
+  warehouse         = var.warehouse
 }
 ```
 
-- All authentication values are passed in as variables — never hardcoded.
+- All authentication values are passed in as variables — never hardcoded. The team's variable names replace the generic ones above.
 - The key's path comes from an environment variable set in each developer's environment, and the key file itself is never committed. The team's variable names are in its conventions.
 
 ---

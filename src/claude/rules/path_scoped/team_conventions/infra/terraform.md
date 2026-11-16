@@ -10,7 +10,7 @@ paths:
 
 - 🧊 **Target:** Terraform manages Snowflake only, and deploys through Azure Pipelines, with secrets from Azure Key Vault.
 - 🗂️ **Roots:** `dev`, `uat`, `cicd`, `prod` and `global`, each under `terraform/environments/`, with shared modules in `terraform/modules/`.
-- 📄 **Files:** every module and environment root also has `provider.tf` and `README.md`. `.env_template` lists local variables, and `local_terraform_dev.sh` sets up local runs.
+- 📄 **Files:** every module and environment root also has `provider.tf`. `.env_template` lists local variables, and `local_terraform_dev.sh` sets up local runs.
 
 ## 🔒 Provider
 

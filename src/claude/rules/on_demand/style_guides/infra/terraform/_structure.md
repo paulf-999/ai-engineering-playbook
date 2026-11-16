@@ -18,6 +18,7 @@ Every module and every environment root contains at least these, plus the team's
 | `main.tf` | Resource definitions or module calls |
 | `variables.tf` | Input variable declarations with types, descriptions, and validation |
 | `outputs.tf` | Output value declarations |
+| `README.md` | Module documentation — purpose, inputs, outputs, example usage |
 
 ---
 

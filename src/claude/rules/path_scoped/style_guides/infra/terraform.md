@@ -13,7 +13,8 @@ paths:
 - **Config-driven:** no credentials or environment-specific values are hardcoded, and a committed template lists the variables local setup needs.
 - **Validation-first:** variable inputs are validated with `validation` blocks; naming conventions for Snowflake objects are enforced at the variable level.
 - **Infrastructure only:** Terraform manages infrastructure, such as roles, warehouses, databases and grants, not application logic.
-- **Formatting and hooks:** run `terraform fmt -recursive` before committing, and fix a failing pre-commit hook rather than suppress it without a documented reason.
+- **Formatting and hooks:** run `terraform fmt -recursive` before committing, which aligns `=` signs and indents with 2 spaces, and fix a failing pre-commit hook rather than suppress it without a documented reason.
+- **Pipelines:** validate and plan every environment on each PR and block the merge on any failure, apply environments in sequence and halt on the first failure, and pull secrets from a secret store at runtime, never from pipeline variables or code.
 
 ## 📚 Read on demand
 

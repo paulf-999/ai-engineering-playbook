@@ -6,7 +6,7 @@ paths:
 ---
 # 🔵 dbt Style Guide & Standards
 
-**Purpose:** the dbt project's standards for lineage, documentation, tests and materialisation. They adapt [dbt Labs' style guide](https://docs.getdbt.com/best-practices/how-we-style/0-how-we-style-our-dbt-projects) but use their own layers, prefixes and team macros, so edit those to fit your project.
+**Purpose:** the dbt project's standards for lineage, documentation, tests and materialisation. They adapt [dbt Labs' style guide](https://docs.getdbt.com/best-practices/how-we-style/0-how-we-style-our-dbt-projects), and this team's own layers, prefixes and macros are in [`team_conventions/dbt.md`](../team_conventions/dbt.md), which loads with this guide.
 
 ## 🎯 Core principles
 
@@ -21,5 +21,4 @@ paths:
 - `on_demand/style_guides/dbt/_model_organisation.md`, in your Claude config directory, when adding a model or choosing its layer, prefix or materialisation.
 - `on_demand/style_guides/dbt/_naming_conventions.md`, when naming a model, column, key or CTE.
 - `on_demand/style_guides/dbt/_yaml_resource_properties.md`, when writing model or source YAML.
-- `on_demand/style_guides/dbt/_team_conventions.md`, before writing logic a team macro or package may already cover, or using the team's key column, audit fields or folders.
 - `on_demand/style_guides/dbt/_snapshots.md`, when adding or changing a snapshot.

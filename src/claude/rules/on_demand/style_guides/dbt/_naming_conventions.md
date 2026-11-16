@@ -4,7 +4,7 @@
 
 ## 🔑 Surrogate keys
 
-The surrogate key's name, macro and position, and the sentinel for unknown keys, are team conventions in [`_team_conventions.md`](_team_conventions.md).
+The surrogate key's name, macro and position, and the sentinel for unknown keys, are team conventions in [`_macros_and_keys.md`](../../team_conventions/dbt/_macros_and_keys.md). The key's input fields must uniquely identify the row.
 
 ## 📋 Contents
 
@@ -30,20 +30,15 @@ The surrogate key's name, macro and position, and the sentinel for unknown keys,
 
 ## 📂 Model layer naming
 
-| Layer | File naming convention | Example |
-|-------|------------------------|---------|
-| Staging | `staging_<source>_<entity>.sql` | `staging_crm_customer_list.sql` |
-| Base | `<source>_<entity>.sql` | `crm_customer_list.sql` |
-| Mart | `mart_<domain>_<entity>.sql` | `mart_commerce_payouts.sql` |
-| Publication | `pub_<domain>_<entity>.sql` | `pub_commerce_payouts.sql` |
-| Snapshots | `dim_<entity>_history.sql` | `dim_merchant_history.sql` |
-| Macros | File name must match the macro name | `my_macro.sql` |
+Each layer's file-name prefix, and the snapshot name pattern, are the team's, in [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md).
+
+- **Macros:** name each macro file after its macro, such as `my_macro.sql`.
 
 ---
 
 ## 🔍 Audit fields
 
-Staging models include the team's audit fields, listed in [`_team_conventions.md`](_team_conventions.md).
+Staging models include the team's audit fields, listed in [`_macros_and_keys.md`](../../team_conventions/dbt/_macros_and_keys.md).
 
 ---
 
@@ -52,7 +47,7 @@ Staging models include the team's audit fields, listed in [`_team_conventions.md
 | Type | Convention | Example |
 |------|------------|---------|
 | **Timestamps** | `<event>_at`, stored in UTC | `created_at` |
-| **Dates** | `<event>_date` or `<event>_KEY` for date dimension joins | `snapshot_date`, `SNAPSHOT_DATE_KEY` |
+| **Dates** | `<event>_date`, or the team's date-key pattern for date dimension joins | `snapshot_date` |
 | **Booleans** | Prefixed with `is_` or `has_` | `is_active`, `has_admin_access` |
 | **Amounts** | Decimal — clean currency values from source with the team's numeric-cleaning macro | `gross_volume` |
 
@@ -72,10 +67,9 @@ Staging models include the team's audit fields, listed in [`_team_conventions.md
 
 ## 🔖 CTE naming
 
-Name CTEs as [`../sql/_cte_style_guide.md`](../sql/_cte_style_guide.md) sets out. A dbt model's final SELECT reads everything from `final`:
+Name CTEs as [`../sql/_cte_style_guide.md`](../sql/_cte_style_guide.md) sets out. A dbt model's final SELECT reads everything from `final`, then appends the team's row-limiting macro:
 
 ```sql
 SELECT *
 FROM final
-{{ limit_rows() }}
 ```

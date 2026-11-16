@@ -4,20 +4,12 @@
 
 ## 🏛️ Model layers
 
-The project uses a four-layer architecture. Each layer has a distinct responsibility and source of truth:
-
-| Layer | Purpose | Selects from | Materialisation |
-|-------|---------|-------------|-----------------|
-| **Staging** | Cleans and standardises raw source data. One model per source entity. Light transformations only — rename, recast, deduplicate. | `source()` | Incremental |
-| **Base** | Thin interface layer between staging and marts. Applies final column selection and aliasing before business logic. | `ref(staging_*)` | View or table |
-| **Mart** | Business logic and transformation. Domain-organised. Combines base models into business-facing datasets. | `ref()` on base models, or `ref(mart_*)` | Table |
-| **Publication** | Exposed layer for downstream consumers and reporting. Minimal transformation — selects from mart. | `ref(mart_*)` | Table or view |
+The project's layers, with what each selects from and materialises as, are the team's, in [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md).
 
 ## 📋 Contents
 
 - [✅ Minimum requirements for dbt models](#-minimum-requirements-for-dbt-models)
-- [📁 Additional directories](#-additional-directories)
-- [🌳 Folder structure](#-folder-structure)
+- [📁 Folders](#-folders)
 - [⚡ Incremental model configuration](#-incremental-model-configuration)
 
 ---
@@ -26,52 +18,18 @@ The project uses a four-layer architecture. Each layer has a distinct responsibi
 
 | Requirement | Detail |
 |-------------|--------|
-| **Surrogate key** | Staging, base and dimension models have a surrogate key, built as [`_team_conventions.md`](_team_conventions.md) sets out. An aggregate model tests its grain columns instead. |
+| **Surrogate key** | Staging, base and dimension models have a surrogate key, built as [`_macros_and_keys.md`](../../team_conventions/dbt/_macros_and_keys.md) sets out. An aggregate model tests its grain columns instead. |
 | **dbt tests** | At minimum, apply `unique` and `not_null` tests to the surrogate key, or to an aggregate's grain columns. |
 | **Source selection** | Only `staging` models select from `source()`. All downstream models use `ref()`. |
 | **CTEs over subqueries** | Use CTEs — never subqueries. See [`../sql/_cte_style_guide.md`](../sql/_cte_style_guide.md). |
-| **Row limiting** | Append the team's row-limiting macro, per [`_team_conventions.md`](_team_conventions.md), so dev and CI runs read fewer rows. |
-| **Audit fields** | Staging models include the team's audit fields, per [`_team_conventions.md`](_team_conventions.md). |
+| **Row limiting** | Append the team's row-limiting macro, per [`_macros_and_keys.md`](../../team_conventions/dbt/_macros_and_keys.md), so dev and CI runs read fewer rows. |
+| **Audit fields** | Staging models include the team's audit fields, per [`_macros_and_keys.md`](../../team_conventions/dbt/_macros_and_keys.md). |
 
 ---
 
-## 📁 Additional directories
+## 📁 Folders
 
-| Directory | Purpose |
-|-----------|---------|
-| `warehouse/` | Dimensional and fact table models (e.g. `dim_merchant`) |
-| `intermediate/` | Intermediate transformation models where needed between layers |
-| `operations/` | Operational and admin models |
-| `dq_framework/` | Data quality framework models |
-
----
-
-## 🌳 Folder structure
-
-```text
-<dbt_project>/
-└── models/
-    ├── staging/
-    │   └── <source_system>/
-    │       ├── _staging_src.yml         # source definitions
-    │       └── staging_<source>_<entity>.sql
-    ├── base/
-    │   └── <source_system>/
-    │       ├── _src_base.yml
-    │       └── <source>_<entity>.sql
-    ├── mart/
-    │   └── <domain>/
-    │       └── mart_<domain>_<entity>.sql
-    ├── publication/
-    │   └── <domain>/
-    │       └── pub_<domain>_<entity>.sql
-    ├── warehouse/
-    ├── intermediate/
-    ├── operations/
-    └── dq_framework/
-```
-
-Source systems each have a corresponding folder under both `staging/` and `base/`. Marts and publications are organised by **business domain**, not by source system.
+The project's folders, and where each layer's models and YAML go, are the team's, in [`_layout.md`](../../team_conventions/dbt/_layout.md).
 
 ---
 

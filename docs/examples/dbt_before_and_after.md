@@ -96,7 +96,7 @@ models:
 | ⚠️ **Gaps flagged** | The undeclared source | The undeclared source, the missing base layer and the missing `limit_rows()` macro |
 
 - ❌ **Still breaks a rule:** the name is plural, `counts`, though the [SQL guide](../../src/claude/rules/path_scoped/style_guides/sql.md) asks for singular names.
-- 🔑 **No key column:** correctly, since the [team conventions](../../src/claude/rules/on_demand/style_guides/dbt/_team_conventions.md) give an aggregate model none.
+- 🔑 **No key column:** correctly, since the [team conventions](../../src/claude/rules/on_demand/team_conventions/dbt/_macros_and_keys.md) give an aggregate model none.
 
 ## 🧪 How it was run
 

@@ -9,7 +9,9 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              With UNINSTALL=1, it removes what the manifest lists, restores each file's pre-install backup and strips
 #              the config's hooks and deny rules from settings.json
 #              With YES=1, install skips the typed confirmation for provisioning scripts, but never from Claude Code
-# Usage: [PROJECT=<repo> [HOOKS=1]] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
+#              With STYLE=0, it leaves out the personal reply-format and writing-style rules
+#              It never installs the skill, agent and rule templates, which are for authoring in this repo
+# Usage: [PROJECT=<repo> [HOOKS=1]] [STYLE=0] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
 #        your own terminal or in a provisioning script; make install and make uninstall call it)
 
 # Load reusable shell script vars & functions
@@ -33,6 +35,10 @@ WITH_HOOKS="${HOOKS:-}"
 UNINSTALL="${UNINSTALL:-}"
 # skips install's typed confirmation, for devcontainers and onboarding scripts that have no terminal
 ASSUME_YES="${YES:-}"
+WITH_STYLE="${STYLE:-1}"
+# personal style rules that STYLE=0 leaves out, and authoring templates that never install
+STYLE_FILES=" rules/always_on/standards/claude_response_standards.md rules/always_on/conduct/writing_style.md "
+AUTHORING_TEMPLATES=" _templates/README.md _templates/AGENT.md.template _templates/rule.md.template "
 if [[ -n "${PROJECT}" ]]; then
     if [[ ! -d "${PROJECT}" ]]; then
         echo "PROJECT=${PROJECT} isn't a folder - nothing changed." >&2
@@ -104,6 +110,8 @@ list_source_files() {
     while IFS= read -r -d '' file; do
         file="${file#"${SOURCE_DIR}"/}"
         [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" == hooks/hook_enforcement_done_checks.sh ]] && continue
+        [[ "${WITH_STYLE}" == 0 && "${STYLE_FILES}" == *" ${file} "* ]] && continue
+        [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
         SOURCE_FILES+=("${file}")
         TARGET_PATHS+="$(target_path "${file}")"$'\n'
     done < <(git ls-files -z -- "${SOURCE_DIR}")

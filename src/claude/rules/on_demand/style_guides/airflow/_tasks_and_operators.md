@@ -8,7 +8,7 @@ Every `dag.py` starts the same way. All DAG configuration comes from `config.yam
 
 ```python
 from airflow import DAG
-from dmt_airflow_dags.includes import common  # ruff: isort: skip
+from your_dags_package.includes import common  # ruff: isort: skip
 
 # Retrieve default & optional DAG parameters
 default_dag_params, optional_dag_params = common.get_default_dag_params(__file__)

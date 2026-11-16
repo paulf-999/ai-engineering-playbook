@@ -41,13 +41,19 @@ def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
         os.close(controller)
 
 
+# authoring templates the installer never installs, and the personal style rules STYLE=0 leaves out
+AUTHORING_TEMPLATES = {"_templates/README.md", "_templates/AGENT.md.template", "_templates/rule.md.template"}
+STYLE_FILES = {"rules/always_on/standards/claude_response_standards.md", "rules/always_on/conduct/writing_style.md"}
+
+
 def tracked_config_files():
-    """Return the files git tracks under src/claude/, as paths relative to it."""
+    """Return the files git tracks under src/claude/ that install, as paths relative to it."""
     command = ["git", "ls-files", "--", "src/claude"]
     output = subprocess.run(
         command, cwd=REPO_ROOT, env={**os.environ, **GIT_ENV}, capture_output=True, text=True, check=True
     )
-    return {path.removeprefix("src/claude/") for path in output.stdout.splitlines()}
+    paths = {path.removeprefix("src/claude/") for path in output.stdout.splitlines()}
+    return {path for path in paths if path not in AUTHORING_TEMPLATES and not path.startswith("_templates/skills/")}
 
 
 def installed_path(source):
@@ -401,3 +407,23 @@ def test_yes_is_refused_inside_claude_code(tmp_path):
     assert result.returncode == 1, f"YES=1 should be refused inside Claude Code:\n{result.stdout}"
     assert "can't be used from Claude Code" in result.stdout, "the refusal should say why"
     assert not any(tmp_path.iterdir()), "nothing should be written"
+
+
+def test_authoring_templates_never_install(tmp_path):
+    """The skill, agent and rule templates stay in the repo, while templates that rules point to still install."""
+    config = tmp_path / "config"
+    result = run_install(config, answer="install")
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    installed = installed_files(config)
+    assert not {path for path in installed if path in AUTHORING_TEMPLATES or path.startswith("_templates/skills/")}
+    assert "_templates/TODO.md.template" in installed, "a template a rule points to should still install"
+
+
+def test_style_opt_out_leaves_out_only_the_style_rules(tmp_path):
+    """STYLE=0 installs everything except the reply-format and writing-style rules."""
+    config = tmp_path / "config"
+    result = run_install(config, answer="install", STYLE="0")
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    expected = {installed_path(path) for path in tracked_config_files()} - STYLE_FILES
+    bookkeeping = {".playbook_install_manifest", ".playbook_install_deny_rules", "settings.json"}
+    assert installed_files(config) - bookkeeping == expected, "only the two style rules should be left out"

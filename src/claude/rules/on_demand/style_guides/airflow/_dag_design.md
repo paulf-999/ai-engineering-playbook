@@ -69,7 +69,6 @@ DAG ID is derived automatically from the folder name by `common.get_default_dag_
 | `template_dag_<technology>` | Reusable DAG template | `template_dag_airbyte`, `template_dag_dbt` |
 
 - **Include frequency:** frequency (e.g., `_daily`, `_hourly`) distinguishes DAGs that differ only by schedule
-- **Note:** this overrides older Confluence guidance that omitted frequency from DAG names
 
 ---
 

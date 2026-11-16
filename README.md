@@ -29,8 +29,8 @@ You need `git`, `bash` and [`jq`](https://jqlang.org/) on macOS or Linux, and a 
 
 Besides adding instructions, installing changes how Claude works in every project:
 
-- 💬 **Replies:** Claude opens with a short summary, uses emoji bullets and British spelling, and offers options before big changes.
-- 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and Claude waits for your go-ahead even after you accept it.
+- 💬 **Replies:** Claude opens with a short summary, uses emoji bullets and British spelling, and offers options before big changes. To skip the reply format and spelling rules, run `make install STYLE=0`.
+- 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more phases pauses after each one.
 - 🪝 **Hooks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
 - 🔒 **Files:** Claude's file tools can't read `.env` files, and it saves plans to your Claude config directory and progress notes to your home folder.
 
@@ -42,6 +42,7 @@ Besides adding instructions, installing changes how Claude works in every projec
 - 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load).
 - 📦 Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
 - 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md), one illustrative run rather than a measured result.
+- 🧪 The data and infra style guides are unproven: no measured run shows them improving output yet, which [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) will test.
 
 <!-- separates the intro list from the feature list -->
 

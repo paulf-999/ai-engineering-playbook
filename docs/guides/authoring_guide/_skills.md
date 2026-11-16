@@ -14,5 +14,5 @@
 ## 🏁 Before merging
 
 - 🧪 **Evals:** add evals that cover its main triggers and one case where it shouldn't fire.
-- 📋 **Evaluation criteria:** answer the PR template's Evaluation criteria section.
+- 📋 **Evaluation criteria:** a skill loads on demand, so keep the PR template's "Not applicable" Evaluation criteria line unless the PR also changes `CLAUDE.md`, an always-on rule or a hook.
 - 🏅 **Review:** have a fresh-context reviewer check it against a checklist for its type, modelled on the [rules checklist](../../../maintenance/quality/quality_rubrics/_repo.md#-rules-and-tests-checklists).

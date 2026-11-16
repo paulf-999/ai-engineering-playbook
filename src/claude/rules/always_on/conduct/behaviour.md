@@ -10,6 +10,11 @@
 - 🔌 **Check tools first:** before saying you can't reach a system such as Jira or Slack, search for its tool and try it.
 - 🚦 **Ask before big changes:** before a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question; then the phase gates in `sdlc_workflow.md` take over.
 
+## 🚀 Delivery
+
+- 📦 **Ship first:** share a usable first version as soon as it exists, then refine it.
+- 📣 **Early progress:** on longer tasks, give a short update rather than going quiet until the end.
+
 ## 📚 Read on demand
 
 - `on_demand/workflows/git.md`, in your Claude config directory, before running any git command.

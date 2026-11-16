@@ -12,11 +12,13 @@ HUNDRED_TOKENS = "x" * 399 + "\n"
 
 
 def config_repo(tmp_path):
-    """Make a git repo holding one always-on, one path-scoped and three on-demand files, and return its env."""
+    """Make a git repo holding one always-on, one preference, one path-scoped and three on-demand files, and its env."""
     env = isolated_git_repo(tmp_path)
     files = {
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- created: 2026-11-13 -->\n" + HUNDRED_TOKENS,
+        # a preference loads every session, but only for users who opt in with PREFERENCES=1
+        "src/claude/rules/always_on/preferences/taste.md": HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/on_demand/guide.md": HUNDRED_TOKENS,
         "src/claude/_templates/README.md": HUNDRED_TOKENS,
@@ -66,6 +68,16 @@ def test_report_lists_every_session_files_and_totals_the_rest(tmp_path):
     assert "| 💤 On demand, via a pointer | 3 | ~300 |" in rest, (
         "the README, templates and lazy rules are totalled as on demand"
     )
+
+
+def test_report_lists_preferences_apart_from_every_session_files(tmp_path):
+    """A preference gets its own opted-in table, so the every-session subtotal stays what a default install loads."""
+    report = write_report(tmp_path, config_repo(tmp_path))
+    every, _, rest = report.partition("## 👤 Every session, if opted in")
+    assert "taste.md" not in every, "a preference shouldn't count as every session for everyone"
+    opted = rest.partition("## 💤")[0]
+    assert "| 1 | `rules/always_on/preferences/taste.md` | ~100 |" in opted, "the preference is listed when opted in"
+    assert "| | **Subtotal** | **~100** |" in opted, "the opted-in table has its own subtotal"
 
 
 def test_terminal_lists_every_file_by_load_type(tmp_path):

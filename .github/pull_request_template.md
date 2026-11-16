@@ -19,6 +19,10 @@ Choose one:
 
 [If there are breaking changes, provide details here.]
 
+## :link: Related Issue(s)
+
+[Link related issues or tickets here]
+
 ## :microscope: How Has This Been Tested?
 
 > [!NOTE]
@@ -32,26 +36,17 @@ Choose one:
 
 </details>
 
-## :robot: Claude: Plan Spec (spec.md) - Requirements and Design
+## :white_check_mark: Checklist
 
-> [!NOTE]
-> **What is `spec.md`?** The requirements and design from Claude's approved plan, which the diff is built to.
+- [ ] Pre-commit hooks pass
+- [ ] 20 files or fewer changed, or on a `release/` branch (see `docs/guides/git_branching_strategy.md`)
 
-<details>
-<summary>Approved plan's spec</summary>
-
-Not applicable: this PR changes nothing under `src/claude/`.
-
-<!-- For a src/claude/ change, replace the line above with its spec.md, so a reviewer can check the diff against it, or say why it has none. -->
-
-</details>
-
-## :balance_scale: Claude: Evaluation Criteria for Claude Config Changes
-
-Not applicable: this PR changes no always-on or enforcing file.
-
-<!-- When the [evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md)
-say this PR needs them, replace the line above with any red flag, such as "No red flags." -->
+<!-- Claude config PRs only, which CI checks:
+- Changes src/claude/? Add "## :robot: Claude: Plan Spec (spec.md)" holding the approved plan's spec.md, so a reviewer
+  can check the diff against it, or say why it has none.
+- Changes src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook? Also add "## :balance_scale: Claude: Evaluation Criteria"
+  naming any red flag, such as "No red flags.", per the evaluation criteria:
+  https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md -->
 
 ## :bulb: Best Practices
 

@@ -15,10 +15,9 @@ SPEC_NAME = "Plan Spec"
 TEMPLATE = (REPO_ROOT / ".github" / "pull_request_template.md").read_text()
 
 
-def template_default(section):
-    """Return the template's default "Not applicable" line in the section whose heading names it."""
-    after = TEMPLATE.split(section, 1)[1].split("\n## ", 1)[0]
-    return next(line for line in after.splitlines() if line.startswith("Not applicable:"))
+def template_heading(section):
+    """Return the quoted "## " heading for a section, as the template's comment names it."""
+    return next(part for part in TEMPLATE.split('"') if part.startswith("## ") and section in part)
 
 
 def run_check(description, changed_files=""):
@@ -53,7 +52,6 @@ CRITERIA = (
     "\n## :balance_scale: Evaluation criteria\n\n- :triangular_flag_on_post: **Red flags:** none.\n"
     "- :toolbox: **Shape:** on demand.\n- :test_tube: **Working:** trial at the next review.\n"
 )
-DEFAULT_CRITERIA = f"\n## :balance_scale: Evaluation criteria\n\n{template_default(CRITERIA_NAME)}\n"
 # the Spec section's heading, and a filled Spec section, which a config PR also needs
 SPEC_HEADING = "\n## :robot: Claude: Plan Spec (spec.md) - Requirements and Design\n\n"
 SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
@@ -68,8 +66,6 @@ SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
         (DETAILS + bullets(1) + SPEC + CRITERIA.replace("criteria", "Criteria", 1) + NEXT_SECTION, CONFIG_FILE, 0),
         # a config change without the section fails
         (DETAILS + bullets(4) + NEXT_SECTION, CONFIG_FILE, 1),
-        # the section must replace the template's default line
-        (DETAILS + bullets(1) + SPEC + DEFAULT_CRITERIA + NEXT_SECTION, CONFIG_FILE, 1),
         # CLAUDE.md and hooks count as always-on or enforcing, so they need the section too
         (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/CLAUDE.md", 1),
         (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/hooks/example.sh", 1),
@@ -93,7 +89,6 @@ def test_always_on_changes_require_evaluation_criteria(description, changed_file
 OLD_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:** blocks a stop once.\n"
 
 
-# the template's note and show/hide wrapper, which authors keep, so they aren't an answer on their own
 @pytest.mark.parametrize(
     ("spec", "changed_files", "expected_code"),
     [
@@ -101,16 +96,15 @@ OLD_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:*
         (SPEC, CONFIG_FILE, 0),
         (SPEC_HEADING + "Not applicable: a typo fix.\n", CONFIG_FILE, 0),
         (OLD_SPEC, CONFIG_FILE, 0),
-        # a missing spec, or one still holding the template's default line, fails a config PR
+        # a missing spec fails a config PR
         ("", CONFIG_FILE, 1),
-        (SPEC_HEADING + template_default(SPEC_NAME) + "\n", CONFIG_FILE, 1),
         # an on-demand change still needs a spec, but a PR that doesn't touch src/claude/ doesn't
         ("", ON_DEMAND_FILE, 1),
         ("", "docs/other.md", 0),
     ],
 )
 def test_config_changes_require_a_spec(spec, changed_files, expected_code):
-    """A PR that changes src/claude/ must keep the Spec section and replace its default line, for the reviewer."""
+    """A PR that changes src/claude/ must have a Spec section, for the reviewer."""
     result = run_check(DETAILS + bullets(1) + spec + CRITERIA + NEXT_SECTION, changed_files)
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
@@ -121,14 +115,21 @@ def test_config_changes_require_a_spec(spec, changed_files, expected_code):
     ("changed_files", "expected_code", "reason"),
     [
         pytest.param("docs/other.md", 0, None, id="docs_pr_passes_as_is"),
-        pytest.param(ON_DEMAND_FILE, 1, f"default 'Not applicable' line in '{SPEC_NAME}'", id="config_spec"),
-        pytest.param(
-            CONFIG_FILE, 1, f"default 'Not applicable' line in '{CRITERIA_NAME}'", id="always_on_keeps_criteria"
-        ),
+        pytest.param(ON_DEMAND_FILE, 1, f"Add the '{SPEC_NAME}' section", id="config_needs_spec"),
+        pytest.param(CONFIG_FILE, 1, f"Add the '{CRITERIA_NAME}' section", id="always_on_needs_criteria"),
     ],
 )
-def test_the_template_defaults_pass_only_when_the_section_isnt_needed(changed_files, expected_code, reason):
-    """The template, unedited, passes a docs-only PR, and fails a config PR that keeps a default 'Not applicable'."""
+def test_the_unedited_template_passes_only_when_no_section_is_needed(changed_files, expected_code, reason):
+    """The template, unedited, passes a docs-only PR, since its comment's headings don't count as sections."""
     result = run_check(TEMPLATE, changed_files)
     assert result.returncode == expected_code, f"unexpected result for {changed_files!r}:\n{result.stdout}"
-    assert reason is None or reason in result.stdout, f"the reason should name the default left in:\n{result.stdout}"
+    assert reason is None or reason in result.stdout, f"the reason should name the missing section:\n{result.stdout}"
+
+
+def test_the_headings_the_template_names_pass():
+    """Adding the headings exactly as the template's comment names them satisfies the check."""
+    description = (
+        TEMPLATE + f"\n{template_heading(SPEC_NAME)}\n\n- spec\n\n{template_heading(CRITERIA_NAME)}\n\nNo red flags.\n"
+    )
+    result = run_check(description, CONFIG_FILE)
+    assert result.returncode == 0, f"the template's own headings should pass:\n{result.stdout}"

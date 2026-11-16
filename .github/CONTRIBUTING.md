@@ -26,7 +26,7 @@ Two valid messages:
 - 📄 **Template:** fill in the [PR template](pull_request_template.md).
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
 - 📏 **Size:** keep each PR within the file limit CI checks, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
-- ⚖️ **Evaluation criteria:** answer the template's Evaluation criteria section when the [evaluation criteria](../docs/target_architecture/design_principles/02_evaluation_criteria.md) say a PR needs it.
+- ⚖️ **Claude config:** a PR that changes `src/claude/` adds the Plan Spec section, and Evaluation criteria when the [evaluation criteria](../docs/target_architecture/design_principles/02_evaluation_criteria.md) say so, as the template's comment names them.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR

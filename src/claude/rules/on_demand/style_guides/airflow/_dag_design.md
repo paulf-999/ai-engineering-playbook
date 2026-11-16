@@ -12,7 +12,7 @@ Each DAG is a **folder**, not a single file. Every DAG folder must contain:
 - **`__py_helpers.py`:** (optional) DAG-specific Python helper functions
 - **`__sql_queries.py`:** (optional) DAG-specific SQL queries
 
-DAGs are organized under `dags/topics/<topic>/` subdirectories, not placed directly in `dags/`. Shared utilities and reusable task generators live in `includes/` — not `plugins/`.
+DAGs are organised under `dags/topics/<topic>/` subdirectories, not placed directly in `dags/`. Shared utilities and reusable task generators live in `includes/` — not `plugins/`.
 
 ```text
 dags/

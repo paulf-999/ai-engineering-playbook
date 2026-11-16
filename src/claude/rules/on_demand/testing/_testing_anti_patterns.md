@@ -20,13 +20,13 @@ def test_hook_loads():
 
 **Why it fails:** Creates false confidence. The test tells you nothing about whether the hook actually *works*.
 
-**Fix:** Add assertions that validate intended behavior.
+**Fix:** Add assertions that validate intended behaviour.
 
 ---
 
 ### 🟥 **Over-Mocking**
 
-**What:** Mocking so much that the test doesn't reflect real behavior.
+**What:** Mocking so much that the test doesn't reflect real behaviour.
 
 **Example:**
 
@@ -34,10 +34,10 @@ def test_hook_loads():
 def test_git_operations():
     mock_git = Mock()
     mock_git.status.return_value = "clean"
-    # Real git behavior never tested
+    # Real git behaviour never tested
 ```
 
-**Why it fails:** Mocks create idealized scenarios. Tests pass in isolation but fail in production when real git behaves differently.
+**Why it fails:** Mocks create idealised scenarios. Tests pass in isolation but fail in production when real git behaves differently.
 
 **Fix:** Use real dependencies for integration tests; mock only external services.
 
@@ -45,7 +45,7 @@ def test_git_operations():
 
 ### 🟥 **Fragile Test**
 
-**What:** Test breaks on unrelated changes; coupled to implementation details instead of behavior.
+**What:** Test breaks on unrelated changes; coupled to implementation details instead of behaviour.
 
 **Example:**
 
@@ -55,9 +55,9 @@ def test_user_created():
     assert user.id == 1  # Fails if another test creates user first
 ```
 
-**Why it fails:** Test is coupled to internal state (id=1), not behavior (user exists). Any change to test order breaks it.
+**Why it fails:** Test is coupled to internal state (id=1), not behaviour (user exists). Any change to test order breaks it.
 
-**Fix:** Test behavior, not implementation. Assert `user.id is not None`, not `== 1`.
+**Fix:** Test behaviour, not implementation. Assert `user.id is not None`, not `== 1`.
 
 ---
 

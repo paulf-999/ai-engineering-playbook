@@ -22,7 +22,7 @@ Each reader gets their role and goal, then the same task, and the manager gets o
 Each reader is a separate `claude -p --safe-mode` process run from a fresh clone, so no CLAUDE.md, rules, hooks or memory load. An in-session subagent would inherit them. The brief describes nothing about the repo, since a primed brief goes easier on the work:
 
 ```text
-<role and goal> A colleague pointed you at the repo in <clone path>. Explore it as you
+<role and goal> A colleague pointed you at your team's repo in <clone path>. Explore it as you
 naturally would, starting where you'd start, and say where you'd stop, get stuck or give up.
 Report what it is and who it's for, what's valuable, what's confusing or off-putting, how complex
 it looks against what it delivers, and what you'd change, citing files. No word limit.
@@ -41,7 +41,7 @@ OUT="$(mktemp -d)/persona_reviews"; WORK="$(mktemp -d)"; CLONE="${WORK}/ai-engin
 mkdir -p "${OUT}"
 # full clone, not --depth 1, so readers can see the history and tags
 git clone --quiet "file://${PWD}" "${CLONE}"
-TASK="A colleague pointed you at the repo in ${CLONE}. Explore it as you naturally would, starting where you'd start, \
+TASK="A colleague pointed you at your team's repo in ${CLONE}. Explore it as you naturally would, starting where you'd start, \
 and say where you'd stop, get stuck or give up. Report what it is and who it's for, what's valuable, what's confusing or \
 off-putting, how complex it looks against what it delivers, and what you'd change, citing files. No word limit."
 DE="You are a data engineer who writes Python, SQL and simple bash commands, and has tried Claude Code but isn't an expert. You want help building dbt models and Airflow DAGs."

@@ -3,7 +3,7 @@
 **Purpose:** how to name new files, folders and config artefacts, so a reader knows what each holds without opening it.
 
 - 🔤 **snake_case:** use lowercase words joined by underscores, with no hyphens or spaces, and keep existing names as they are.
-  - **Except skills and agents:** join their words with hyphens, such as `git-create-pr`, as the [Agent Skills spec](https://agentskills.io/specification) requires, with agents matching skills.
+  - **Except skills and agents:** join their words with hyphens, such as `git-create-pr`, since the [Agent Skills spec](https://agentskills.io/specification) allows only lowercase letters, digits and hyphens, and agents match skills.
 - 🎯 **Self-describing:** make the name say what it holds, so `naming_standards.md` beats `standards.md`.
 - 📈 **Name for scale:** fit the wider group it belongs to, so `naming_standards.md` beats `hook_naming.md`.
 

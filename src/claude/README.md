@@ -34,9 +34,20 @@ Every rule costs context, so its folder decides how often it loads:
 - 📝 **Intent and Spec:** the two sections a long plan opens with, on what you want and what will be built, per [`sdlc_workflow.md`](rules/always_on/workflows/sdlc_workflow.md). A quick request, such as one query, needs no plan.
 - 🛑 **Phase gate:** a pause after each stage of multi-stage work, such as after each PR, so you can check it before Claude goes on.
 
+## 🧭 Three kinds of rule
+
+| Kind | What it is | Example | Lives in | Installs |
+|---|---|---|---|---|
+| 🧰 **Standard** | Good practice for anyone using the tool | Pin your Docker base image | Everywhere below | Always |
+| 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `team_conventions/` folders | With everything else |
+| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `preferences/` folders | Only with `PREFERENCES=1` |
+
+- 🏢 **Team conventions:** these are this team's choices, and they install with everything else. To use your own, change the files in `team_conventions/`, by PR or in your own copy of the repo. There's no switch to turn them off.
+- 🚧 **Moving in:** dbt's conventions are in `team_conventions/` so far. The infra guides still mark theirs with a 🏢 banner, and the other guides mix them in, until they move.
+
 ## 👤 Preferences
 
-Preferences are one person's taste in how Claude replies and where it keeps their own files, rather than good practice or the team's conventions, so they install only if you ask:
+Preferences are one person's taste in how Claude replies and where it keeps their own files, rather than a [standard or team convention](#-three-kinds-of-rule), so they install only if you ask:
 
 | Preference | What it does | Example | Why you might want it |
 |---|---|---|---|
@@ -50,10 +61,10 @@ Preferences are one person's taste in how Claude replies and where it keeps thei
 - 📥 **Install:** `make install PREFERENCES=1` adds them, a plain `make install` keeps them, and `make install PREFERENCES=0` removes them.
 - 💰 **Cost:** about 280 tokens in every session for the reply and layout preferences and 200 for the working-files ones, per the [context cost report](../../maintenance/context_cost.md).
 - ⬆️ **Upgrading:** an existing `TODO.md`, saved plans and drafts stay where they are, but without `PREFERENCES=1` Claude no longer reads or adds to them.
-- 🏢 **Projects:** they never go into a project install, since that folder is shared.
+- 🚚 **Projects:** they never go into a project install, since that folder is shared.
 - 💬 **Without them:** Claude still offers options, just not as a numbered list, and still uses British spelling, so ask if you want American English.
 
-## 🏢 Installing into one repo
+## 🏗️ Installing into one repo
 
 To share the config with a team, install it into a repo's `.claude/` folder and commit that folder:
 
@@ -66,7 +77,7 @@ make install PROJECT=../my_dbt_repo
 
 ## 🛠️ Changing it
 
-- 🤝 **Team conventions:** propose a change by PR here, then reinstall, since `make install` replaces edits made to the installed copy.
+- 🤝 **Team conventions:** propose a change to a `team_conventions/` file by PR here, then reinstall, since `make install` replaces edits made to the installed copy, per [the three kinds](#-three-kinds-of-rule).
 - 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers writing a rule, skill or agent.
 - ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide whether a component earns its context cost.
 - ✅ **Checks:** `make test` checks rule structure, and pre-commit keeps always-on context within budget.

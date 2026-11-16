@@ -4,10 +4,7 @@
 
 ## 🏷️ Naming
 
-Snapshots follow the `dim_<entity>_history.sql` naming pattern. Examples from the repo:
-
-- `dim_merchant_history.sql`
-- `dim_merchant_all_history.sql`
+Snapshots follow the team's naming pattern, in [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md).
 
 ## 📋 Contents
 
@@ -19,13 +16,13 @@ Snapshots follow the `dim_<entity>_history.sql` naming pattern. Examples from th
 
 ## 🔧 Configuration
 
-The team uses the **check strategy** — dbt compares a defined list of columns on each run and creates a new snapshot record when any of them change.
+Use the team's strategy and schema, in [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md). With the `check` strategy, dbt compares a defined list of columns on each run and creates a new snapshot record when any of them change.
 
 | Setting | Value |
 |---------|-------|
-| `strategy` | `check` — monitors a defined list of columns for changes |
+| `strategy` | The team's |
 | `unique_key` | The surrogate key of the source model |
-| `target_schema` | `WAREHOUSE`, set as `schema` in dbt 1.9 and later |
+| `target_schema` | The team's, set as `schema` in dbt 1.9 and later |
 | `check_cols` | Explicit list of columns to watch — do not use `'all'` in production |
 
 ---
@@ -34,9 +31,9 @@ The team uses the **check strategy** — dbt compares a defined list of columns 
 
 | Category | Guideline |
 |----------|-----------|
-| **Source** | Snapshots select from `ref()` on the corresponding `dim_` warehouse model — not directly from `source()` |
+| **Source** | Snapshot the model the team names, per [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md) |
 | **Transformations** | Avoid transformations inside snapshots — clean data in the upstream dim model |
-| **Row limiting** | Include the team's row-limiting macro, per [`_team_conventions.md`](_team_conventions.md) |
+| **Row limiting** | Include the team's row-limiting macro, per [`_macros_and_keys.md`](../../team_conventions/dbt/_macros_and_keys.md) |
 | **Column list** | Define `check_cols` explicitly — avoids unintended snapshot triggers from irrelevant column changes |
 | **Idempotency** | Snapshots must be safe to re-run without duplicating or corrupting history |
 
@@ -44,6 +41,6 @@ The team uses the **check strategy** — dbt compares a defined list of columns 
 
 ## 📐 Building models on top of snapshots
 
-When a record-per-day view is needed rather than a record-per-change, use a **date spine** — join the snapshot model to a date spine based on `dbt_valid_from` and `dbt_valid_to`. The `dbt_date` package (included in the project) provides date utilities for this.
+When a record-per-day view is needed rather than a record-per-change, use a **date spine** — join the snapshot model to a date spine based on `dbt_valid_from` and `dbt_valid_to`. The team's date package provides utilities for this.
 
 If the date spine produces high row counts, materialise the downstream model as incremental so only new `snapshot_date` records are appended on each run.

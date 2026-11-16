@@ -1,8 +1,6 @@
-# 🧩 dbt team conventions
+# 🧩 dbt team conventions: macros and keys
 
-**Purpose:** the team's macros, packages, key column, audit fields and folders, which the other dbt guides refer to.
-
-> **The team's standards:** follow these as they are, and propose any change by PR to this repo. The other dbt guides refer to them by role, such as "the team's surrogate key macro", so a change here applies everywhere.
+**Purpose:** the team's macros, packages, key column and audit fields, which the dbt guides refer to by role, such as "the team's surrogate key macro", so a change here applies everywhere.
 
 ## 🔑 Surrogate key
 
@@ -13,9 +11,8 @@ Staging, base and dimension models have a surrogate key named `KEY`, built with 
 ```
 
 - **First column:** `KEY` is always the first column in the SELECT list.
-- **Unique inputs:** the input fields must uniquely identify the row.
 - **Unknown references:** `unknown_key()` returns the sentinel for an unknown or missing key, in place of `-1` or `NULL`.
-- **Aggregates:** an aggregate model needs no `KEY`, and tests its grain columns for uniqueness instead.
+- **Aggregates:** an aggregate model needs no `KEY`.
 
 ## 🛠️ Team macros
 
@@ -31,7 +28,6 @@ Use these in preference to writing equivalent logic inline.
 | `dbt_last_modified_field()` | Appends the `DA_FILE_LAST_MODIFIED` audit column. |
 
 - **Row limiting:** append `{{ limit_rows() }}` to the final SELECT, to major intermediate CTEs and to snapshots.
-- **File name:** a macro's file name matches the macro name exactly, such as `limit_rows.sql`.
 - **Documented:** every macro is documented in a `macros.yml` file.
 
 ## 📦 dbt packages
@@ -59,18 +55,3 @@ Staging models include these `NOT NULL` fields, added by `dbt_last_modified_fiel
 | `DA_UNIQUE_KEY` | Unique key from the source system |
 | `DA_FILE_LAST_MODIFIED` | Last modified timestamp of the source file |
 | `DA_START_SCAN_TIME` | Timestamp when the scan or load started |
-
-## 📁 Project folders
-
-The dbt project folder is `prod_analytics/`, with macros grouped by category under `prod_analytics/macros/`:
-
-```text
-macros/
-├── audit_field_macros/         # DA_* audit field generation
-├── data_processing_macros/     # Numeric cleaning, surrogate key, string normalisation
-├── environment_macros/         # limit_rows(), environment-conditional logic
-└── helper_macros/
-    ├── dbt_test_helper_macros/
-    ├── jinja_function_wrapper_macros/
-    └── validation_macros/
-```

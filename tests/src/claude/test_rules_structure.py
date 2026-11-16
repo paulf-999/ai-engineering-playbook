@@ -1,6 +1,7 @@
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates."""
 
 import re
+from pathlib import Path
 
 import pytest
 import yaml
@@ -149,6 +150,15 @@ def body_lines(text):
     return len([line for line in body if not line.startswith("<!--")])
 
 
+def is_split_by_kind(parent, rules_dir=RULES_DIR):
+    """Return whether a parent's rules are split between a guide and its team conventions, so children may be short."""
+    parts = parent.relative_to(rules_dir).parts
+    if "team_conventions" in parts:
+        return True
+    is_guide = parts[:2] == ("path_scoped", "style_guides")
+    return is_guide and (rules_dir / "path_scoped" / "team_conventions" / Path(*parts[2:])).exists()
+
+
 def child_problems(path, rules_dir=RULES_DIR):
     """Return problems with a child rule: no parent folder, no sibling, too short, or not named by the parent."""
     parent = find_parent(path, rules_dir)
@@ -159,9 +169,10 @@ def child_problems(path, rules_dir=RULES_DIR):
         problems.append("a folder needs 2 or more children, so flatten a lone child")
     if path.name not in parent.read_text():
         problems.append("the parent must name this child in a pointer")
-    # an always-on parent splits to keep every session cheap, so its children may be short
+    # an always-on parent splits to keep every session cheap, and a split by kind leaves what's left on each side,
+    # so the children of either may be short
     is_always_on = parent.is_relative_to(rules_dir / "always_on")
-    if not is_always_on and body_lines(path.read_text()) < MIN_CHILD_LINES:
+    if not is_always_on and not is_split_by_kind(parent, rules_dir) and body_lines(path.read_text()) < MIN_CHILD_LINES:
         problems.append(f"a child needs {MIN_CHILD_LINES} or more lines, so fold it into its parent or a sibling")
     return problems
 
@@ -283,3 +294,65 @@ def test_no_default_install_file_names_a_working_file_folder():
         for found in WORKING_FILE_FOLDERS.findall((CONFIG_DIR / path).read_text())
     ]
     assert not problems, "default files name working-file folders:\n" + "\n".join(problems)
+
+
+def test_a_short_child_passes_once_its_guide_is_split_by_kind(tmp_path):
+    """A guide whose team conventions moved out may leave short children, on both the guide's side and the team's."""
+    for parent in ("path_scoped/style_guides/tool", "path_scoped/team_conventions/tool"):
+        (tmp_path / parent).with_suffix(".md").parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / parent).with_suffix(".md").write_text("- `_short.md`\n- `_other.md`\n")
+        folder = tmp_path / parent.replace("path_scoped", "on_demand")
+        folder.mkdir(parents=True)
+        for child in ("_short.md", "_other.md"):
+            (folder / child).write_text("x\n" * 5)
+    for side in ("style_guides", "team_conventions"):
+        assert not child_problems(tmp_path / "on_demand" / side / "tool" / "_short.md", tmp_path), side
+    # without a team conventions file, the guide isn't split, so its short child still fails the floor
+    (tmp_path / "path_scoped" / "team_conventions" / "tool.md").unlink()
+    problems = child_problems(tmp_path / "on_demand" / "style_guides" / "tool" / "_short.md", tmp_path)
+    assert any(f"{MIN_CHILD_LINES} or more lines" in problem for problem in problems)
+
+
+def team_convention_pairs(rules_dir=RULES_DIR):
+    """Return each path-scoped team conventions file with the guide it belongs to, paired by relative path."""
+    team_dir = rules_dir / "path_scoped" / "team_conventions"
+    return [
+        (team, rules_dir / "path_scoped" / "style_guides" / team.relative_to(team_dir))
+        for team in team_dir.rglob("*.md")
+    ]
+
+
+def globs_problem(team, guide):
+    """Return why a team conventions file won't load with its guide, or None if their paths: lists match."""
+    if not guide.exists():
+        return f"{team.name} has no guide at the same path under style_guides/"
+    if not paths_of(guide):
+        return f"{guide.name} has no paths: list, so neither file loads on a matching file"
+    if paths_of(team) != paths_of(guide):
+        return f"{team.name} has different paths: from its guide, so the two won't load together"
+    return None
+
+
+def paths_of(path):
+    """Return a rule's paths: globs, or an empty list."""
+    frontmatter, _ = split_frontmatter(path.read_text().split("\n"))
+    return (yaml.safe_load("\n".join(frontmatter)) or {}).get("paths", []) if frontmatter else []
+
+
+@pytest.mark.parametrize(("team", "guide"), team_convention_pairs(), ids=lambda path: relative(path))
+def test_team_conventions_load_with_their_guide(team, guide):
+    """Each guide's team conventions have the same paths: list, so Claude loads both on a matching file."""
+    assert globs_problem(team, guide) is None, globs_problem(team, guide)
+
+
+def test_mismatched_team_convention_globs_are_reported(tmp_path):
+    """A team conventions file whose globs differ from its guide's is caught."""
+    for side, glob in (("style_guides", "**/*.sql"), ("team_conventions", "**/*.py")):
+        (tmp_path / side).mkdir()
+        (tmp_path / side / "tool.md").write_text(f'---\npaths:\n  - "{glob}"\n---\n# Tool\n')
+    team, guide = tmp_path / "team_conventions" / "tool.md", tmp_path / "style_guides" / "tool.md"
+    assert "different paths" in globs_problem(team, guide)
+    # two files with no paths: match each other, but neither would load, so that's caught too
+    for path in (team, guide):
+        path.write_text("# Tool\n")
+    assert "no paths: list" in globs_problem(team, guide)

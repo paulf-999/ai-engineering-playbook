@@ -1,6 +1,5 @@
 ---
-paths:
-  - "**/*.mmd"
+paths: "**/*.mmd"
 ---
 # 🔀 Mermaid Diagram Standards
 

@@ -1,6 +1,5 @@
 ---
-paths:
-  - "**/*.sh"
+paths: "**/*.sh"
 ---
 # 🖥️ Bash Style Guide
 

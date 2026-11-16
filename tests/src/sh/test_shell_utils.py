@@ -30,6 +30,7 @@ def test_handle_interruption_logs_and_exits():
     ("frontmatter", "expected"),
     [
         ("---\npaths:\n  - \"*.sql\"\n  - '*.py'\n---\n", "*.sql\n*.py"),
+        ('---\npaths: "**/*.sql, **/*.py"\n---\n', "**/*.sql\n**/*.py"),
         ("---\nname: x\n---\npaths:\n  - a\n", ""),
         ("# no block\n", ""),
     ],

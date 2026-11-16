@@ -1,7 +1,5 @@
 ---
-paths:
-  - "**/playbooks/**/*.yml"
-  - "**/roles/**/*.yml"
+paths: "**/playbooks/**/*.yml, **/roles/**/*.yml"
 ---
 # 📦 Ansible Style Guide & Standards
 

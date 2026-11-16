@@ -1,6 +1,5 @@
 ---
-paths:
-  - "**/*.tf"
+paths: "**/*.tf"
 ---
 # 🏗️ Terraform Style Guide & Standards
 

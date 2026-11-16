@@ -80,9 +80,10 @@ count_loaded_chars() {
     perl -0777 -pe 's/<!--.*?-->//gs' "${1}" | wc -m | tr -d ' '
 }
 
-# Print each glob listed under paths: in a rule's opening --- block, one per line, which is empty for a rule that loads every session
+# Print each glob in paths: in a rule's opening --- block, one per line, which is empty for a rule that loads every session
+# paths: is either a YAML list or a comma-separated string, such as paths: "**/*.py, **/*.sh"
 rule_path_globs() {
-    awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { on = 1; next } on && /^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); print; next } on { on = 0 }' "${1}"
+    awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { v = $0; sub(/^paths:[[:space:]]*/, "", v); gsub(/"|\047/, "", v); if (v == "") { on = 1; next } n = split(v, g, ","); for (i = 1; i <= n; i++) { gsub(/^[[:space:]]+|[[:space:]]+$/, "", g[i]); if (g[i] != "") print g[i] } next } on &&/^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); print; next } on { on = 0 }' "${1}"
 }
 
 # Print a whole number in base 10, or fail if it isn't one

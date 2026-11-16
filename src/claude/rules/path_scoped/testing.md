@@ -1,8 +1,5 @@
 ---
-paths:
-  - "**/*.py"
-  - "**/*.sh"
-  - "**/models/**/*.sql"
+paths: "**/*.py, **/*.sh, **/models/**/*.sql"
 ---
 # 🧪 Testing
 

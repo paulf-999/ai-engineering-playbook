@@ -1,6 +1,5 @@
 ---
-paths:
-  - "**/*.sql"
+paths: "**/*.sql"
 ---
 # 🗄️ SQL Style Guide & Standards
 

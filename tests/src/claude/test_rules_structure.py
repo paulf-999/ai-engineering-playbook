@@ -77,7 +77,7 @@ def heading_problems(text):
 
 
 def frontmatter_problems(text):
-    """Return problems with a path-scoped rule's '---' block: YAML that won't parse, or no 'paths' list."""
+    """Return problems with a path-scoped rule's '---' block: YAML that won't parse, or an empty or missing 'paths'."""
     frontmatter, _ = split_frontmatter(text.split("\n"))
     if not frontmatter:
         return ["a path-scoped rule needs a '---' frontmatter block"]
@@ -87,8 +87,9 @@ def frontmatter_problems(text):
         # Claude Code can't read 'paths' from YAML that won't parse, so it loads the rule in every session
         return [f"the frontmatter isn't valid YAML, so the rule loads everywhere: {error}"]
     paths = data.get("paths") if isinstance(data, dict) else None
-    if not isinstance(paths, list) or not paths:
-        return ["the frontmatter needs a non-empty 'paths' list"]
+    # Claude Code reads 'paths' as a YAML list or a comma-separated string
+    if not isinstance(paths, (list, str)) or not str(paths).strip(", "):
+        return ["the frontmatter needs a non-empty 'paths' list or comma-separated string"]
     return []
 
 
@@ -124,7 +125,7 @@ def test_rule_headings(path):
     ids=relative,
 )
 def test_path_scoped_frontmatter_parses(path):
-    """Each path-scoped rule's '---' block is valid YAML with a non-empty 'paths' list."""
+    """Each path-scoped rule's '---' block is valid YAML with a non-empty 'paths' list or string."""
     problems = frontmatter_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 

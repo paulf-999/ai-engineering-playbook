@@ -1,7 +1,5 @@
 ---
-paths:
-  - "**/Makefile"
-  - "**/*.mk"
+paths: "**/Makefile, **/*.mk"
 ---
 # 🛠️ Makefile Style Guide & Standards
 

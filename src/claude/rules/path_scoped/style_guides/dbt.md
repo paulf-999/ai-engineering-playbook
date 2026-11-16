@@ -1,8 +1,5 @@
 ---
-paths:
-  - "**/models/**/*.sql"
-  - "**/models/**/*.yml"
-  - "**/dbt_project.yml"
+paths: "**/models/**/*.sql, **/models/**/*.yml, **/dbt_project.yml"
 ---
 # 🔵 dbt Style Guide & Standards
 

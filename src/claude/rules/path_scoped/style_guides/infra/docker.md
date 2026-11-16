@@ -1,6 +1,5 @@
 ---
-paths:
-  - "**/Dockerfile*"
+paths: "**/Dockerfile*"
 ---
 # 🐳 Docker & Dockerfile Style Guide & Standards
 

@@ -1,6 +1,5 @@
 ---
-paths:
-  - "**/*.py"
+paths: "**/*.py"
 ---
 # 🐍 Python Coding Standards
 

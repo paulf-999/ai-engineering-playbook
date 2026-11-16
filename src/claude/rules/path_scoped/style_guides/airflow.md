@@ -1,6 +1,5 @@
 ---
-paths:
-  - "**/dags/**/*.py"
+paths: "**/dags/**/*.py"
 ---
 # 🌬️ Airflow Style Guide & Standards
 

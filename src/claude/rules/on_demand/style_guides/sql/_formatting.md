@@ -17,16 +17,13 @@
 
 ## 🔠 Keywords and capitalisation
 
-- **Keywords:** UPPERCASE for `SELECT`, `FROM`, `WHERE`, `JOIN`, `GROUP BY`, `ORDER BY`, etc.
-- **Functions:** UPPERCASE for `COALESCE`, `SUM`, `DATE_TRUNC`, etc.
-- **Literals:** UPPERCASE for `TRUE`, `FALSE`, `NULL`
+- **Keywords, functions and literals:** one case throughout, the team's in [`team_conventions/sql.md`](../../../path_scoped/team_conventions/sql.md)
 - **Consistency:** identifier capitalisation (column names, table names) must be consistent within a statement
 
 ## 🔖 Naming conventions
 
 - **Format:** `snake_case` only — letters, numbers, underscores; begin with letter; don't end with underscore
   - **Case:** never `CamelCase` — harder to scan
-- **Singularity:** use singular names, not plural (e.g., `employee` over `employees`)
 - **No abbreviations:** only universally understood abbreviations allowed
 - **No prefixes:** do not prefix table names with `tbl_` or other descriptors
 - **Descriptive IDs:** avoid plain `id` as sole primary key — use `order_id`, `customer_id`, etc.
@@ -37,16 +34,7 @@
 - **Follow grouping pattern:** Import → Logical → Final → SELECT (see [`_cte_style_guide.md`](_cte_style_guide.md))
 - **DRY code:** consolidate repeated logic using CTEs and Jinja
 - **No wildcards:** use explicit column lists rather than `SELECT *` from a table, though a dbt model may end by selecting everything from its final CTE
-- **One column per line:** in `SELECT` statements
-  - **Leading commas:** commas start the line, not end the previous line:
-
-```sql
-SELECT
-    order_id
-    , customer_id
-    , order_date
-FROM orders
-```
+- **One column per line:** in `SELECT` statements, with commas placed as the team's conventions set
 
 ## 🔗 Joins
 

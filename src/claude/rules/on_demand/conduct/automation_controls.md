@@ -31,7 +31,7 @@ Stay interactive when neither column fits.
 5. 🌿 **Per unit:** branch fresh from `origin/main`, pass the repo's checks, then open one PR that closes its issue, never stacked on another open PR.
 6. ⚡ **Overlap:** draft a unit's PR body in the background while the next unit starts.
 7. 🔀 **Merge, if allowed:** merge in order, waiting until each PR's checks finish and it shows as clean, then run the checks on the combined `main`, since each PR was tested on its own base.
-8. 📋 **Report:** end with one summary of each unit, its PR and anything left open.
+8. 📋 **Report:** end with one summary of each unit, its PR and anything left open, and carry on into the recommended follow-up when it's within what the user allowed, rather than offering it.
 
 - 🛑 **Stop and ask:** when a check fails without an obvious fix, a new decision appears, or a unit's finding changes its scope.
 

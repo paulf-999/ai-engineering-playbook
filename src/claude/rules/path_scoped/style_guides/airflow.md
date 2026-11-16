@@ -4,7 +4,9 @@ paths:
 ---
 # 🌬️ Airflow Style Guide & Standards
 
-**Purpose:** the four principles every DAG in `dmt_airflow_dags/` follows, so pipelines stay reliable and easy to debug.
+**Purpose:** the four principles every DAG follows, so pipelines stay reliable and easy to debug.
+
+> **Example team conventions, edit these:** the folder layout, helper files and DAG naming in the child guides come from one team's repo.
 
 ## 🏗️ Core principles
 

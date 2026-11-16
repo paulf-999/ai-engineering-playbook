@@ -1,6 +1,6 @@
 # 📝 Response standards
 
-**Purpose:** the shape and pacing of Claude's replies to your prompts, so each one can be scanned in seconds.
+**Purpose:** the shape and pacing of Claude's replies, so each can be scanned in seconds.
 
 ## 📤 Shape
 

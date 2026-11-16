@@ -9,24 +9,26 @@ The [repo rubric](_repo.md) scores how the repo is built, while this review asks
 
 ## 🧑‍💼 Readers
 
-Each reader gets their role and the same task, and the manager gets one extra question:
+Each reader gets their role and goal, then the same task, and the manager gets one extra question. The goal gives the review a job to judge the repo against, and the skill levels keep readers from tolerating more than the team would:
 
-| Reader | Role line |
+| Reader | Role and goal |
 |---|---|
-| 🛠️ **Data engineer** | You are a data engineer who uses Claude Code daily. |
-| 📊 **Data analyst** | You are a data analyst who writes SQL and some Python and is new to Claude Code. |
-| 🧭 **Engineering manager** | You are a manager of a data engineering and analytics team. |
+| 🛠️ **Data engineer** | You are a data engineer who writes Python, SQL and simple bash commands, and has tried Claude Code but isn't an expert. You want help building dbt models and Airflow DAGs. |
+| 📊 **Data analyst** | You are a data analyst who writes SQL, builds Looker and Omni dashboards and works with the business. You can write basic dbt models and follow your team's steps to put one into production, but you aren't technical beyond that and are new to Claude Code. You want help turning business requests into SQL and dbt models. |
+| 🧭 **Engineering manager** | You are a manager of a data engineering and analytics team, who knows Claude Code, data engineering and business needs at a high level but doesn't work in the detail. You're deciding whether to roll it out to your team. |
 
 ## 🕵️ Reader brief
 
 Each reader is a separate `claude -p --safe-mode` process run from a fresh clone, so no CLAUDE.md, rules, hooks or memory load. An in-session subagent would inherit them. The brief describes nothing about the repo, since a primed brief goes easier on the work:
 
 ```text
-<role line> A colleague pointed you at the repo in <clone path>. Review it fully, as you would
-before deciding whether to use it. Report what it is and who it's for, what's valuable, what's
-confusing or off-putting, how complex it looks against what it delivers, and what you'd change,
-citing files. No word limit.
+<role and goal> A colleague pointed you at the repo in <clone path>. Explore it as you
+naturally would, starting where you'd start, and say where you'd stop, get stuck or give up.
+Report what it is and who it's for, what's valuable, what's confusing or off-putting, how complex
+it looks against what it delivers, and what you'd change, citing files. No word limit.
 ```
+
+The task asks where each reader would stop rather than for a full review, since a model reads everything whatever its role, and the stopping point shows what the role's skill level can manage.
 
 The manager's brief ends with "Also answer: would you adopt it for your team, and what would convince you?"
 
@@ -39,18 +41,20 @@ OUT="$(mktemp -d)/persona_reviews"; WORK="$(mktemp -d)"; CLONE="${WORK}/ai-engin
 mkdir -p "${OUT}"
 # full clone, not --depth 1, so readers can see the history and tags
 git clone --quiet "file://${PWD}" "${CLONE}"
-TASK="A colleague pointed you at the repo in ${CLONE}. Review it fully, as you would before deciding whether to use it. \
-Report what it is and who it's for, what's valuable, what's confusing or off-putting, how complex it looks against what \
-it delivers, and what you'd change, citing files. No word limit."
+TASK="A colleague pointed you at the repo in ${CLONE}. Explore it as you naturally would, starting where you'd start, \
+and say where you'd stop, get stuck or give up. Report what it is and who it's for, what's valuable, what's confusing or \
+off-putting, how complex it looks against what it delivers, and what you'd change, citing files. No word limit."
+DE="You are a data engineer who writes Python, SQL and simple bash commands, and has tried Claude Code but isn't an expert. You want help building dbt models and Airflow DAGs."
+DA="You are a data analyst who writes SQL, builds Looker and Omni dashboards and works with the business. You can write basic dbt models and follow your team's steps to put one into production, but you aren't technical beyond that and are new to Claude Code. You want help turning business requests into SQL and dbt models."
+EM="You are a manager of a data engineering and analytics team, who knows Claude Code, data engineering and business needs at a high level but doesn't work in the detail. You're deciding whether to roll it out to your team."
 review() {
     # the prompt goes on stdin, since --allowedTools is variadic and would swallow it
     (cd "${WORK}" && echo "${2}" | claude -p --safe-mode --permission-mode default --output-format json \
         --allowedTools "Read,Glob,Grep,Bash(ls:*),Bash(wc:*),Bash(find:*)") | jq -r '.result' > "${OUT}/${1}.md"
 }
-review data_engineer "You are a data engineer who uses Claude Code daily. ${TASK}" &
-review data_analyst "You are a data analyst who writes SQL and some Python and is new to Claude Code. ${TASK}" &
-review engineering_manager "You are a manager of a data engineering and analytics team. ${TASK} \
-Also answer: would you adopt it for your team, and what would convince you?" &
+review data_engineer "${DE} ${TASK}" &
+review data_analyst "${DA} ${TASK}" &
+review engineering_manager "${EM} ${TASK} Also answer: would you adopt it for your team, and what would convince you?" &
 wait; rm -rf "${WORK}"; echo "Reviews are in ${OUT}"
 ```
 

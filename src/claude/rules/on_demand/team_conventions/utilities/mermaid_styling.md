@@ -1,13 +1,12 @@
-# 🎨 Mermaid Advanced Techniques
+# 🎨 Mermaid team conventions: styling
 
-**Purpose:** Set the node shapes, content format, styling and subgraph rules for Mermaid diagrams.
+**Purpose:** this team's node shapes, node content format and styling classes.
 
 ## 📋 Contents
 
 - [🟦 Node shapes](#-node-shapes)
 - [📝 Node content format](#-node-content-format)
 - [🎨 Styling](#-styling)
-- [🧩 Subgraphs](#-subgraphs)
 
 ---
 
@@ -45,7 +44,6 @@ Action steps use a two-line structure:
 ## 🎨 Styling
 
 - Define `classDef milestone` on **every** diagram
-- Put each `%%` comment on its own line, since Mermaid doesn't allow one after a statement
 - Add `classDef failure` **only** when failure terminal nodes are present — do not define it if unused
 
 ```text
@@ -56,20 +54,4 @@ classDef failure fill:#c62828,stroke:#b71c1c,color:#fff
 class M milestone
 %% include only when failure terminals exist
 class FAIL failure
-```
-
----
-
-## 🧩 Subgraphs
-
-Use subgraphs to group related steps within a phase or logical section:
-
-- Apply when a phase contains **3+ steps** that benefit from visual grouping
-- Do not use for single-step phases
-
-```text
-subgraph INSTALL["Install"]
-    direction TB
-    A --> B --> C
-end
 ```

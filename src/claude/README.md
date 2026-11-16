@@ -43,7 +43,7 @@ Every rule costs context, so its folder decides how often it loads:
 | 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `preferences/` folders | Only with `PREFERENCES=1` |
 
 - 🏢 **Team conventions:** these are this team's choices, and they install with everything else. To use your own, change the files in `team_conventions/`, by PR or in your own copy of the repo. There's no switch to turn them off.
-- 🚧 **Moving in:** dbt's, SQL's, Airflow's, Ansible's, Terraform's and Python's conventions are in `team_conventions/` so far. The Docker guides still mark theirs with a 🏢 banner, and the other guides mix them in, until they move.
+- 🚧 **Moving in:** dbt's, SQL's, Airflow's, Ansible's, Terraform's, Python's, Docker's, bash's, Make's and Mermaid's conventions are in `team_conventions/` so far. Jira, datetime, audiences, Claude naming and the house style still sit in their rules, until they move.
 
 ## 👤 Preferences
 

@@ -4,7 +4,7 @@ paths:
 ---
 # 🖥️ Bash Style Guide
 
-**Purpose:** shell scripting conventions for safety and consistency, alongside what `shellcheck` checks.
+**Purpose:** shell scripting standards for safety and consistency, alongside what `shellcheck` checks. This team's variable casing and script helpers are in [`team_conventions/bash.md`](../team_conventions/bash.md), which loads with this guide.
 
 ## 📄 Script structure
 
@@ -17,7 +17,7 @@ Start every script with `#!/bin/bash` then `set -euo pipefail`, so it stops on a
 ## 🏷️ Naming conventions
 
 - **Functions:** `snake_case`
-- **Variables:** `UPPER_SNAKE_CASE`
+- **Variables:** one case throughout, the team's in its conventions
 - **Script files:** `snake_case.sh`
 
 ## 📦 Variables and conditionals
@@ -31,8 +31,3 @@ Start every script with `#!/bin/bash` then `set -euo pipefail`, so it stops on a
 - **Suppressions:** disable a `shellcheck` warning only with a reason, such as `# shellcheck disable=SC2034  # template placeholder`.
 - **Absolute paths:** use them where the working directory may vary.
 - **Comments:** place above the code they describe, and keep them accurate.
-
-## 📚 Read on demand
-
-- `_templates/utils/template_bash_script.sh`, in your Claude config directory, when the repo has no script template of its own.
-- `_templates/utils/shell_utils.sh`, in your Claude config directory, for its functions and which log level suits each message, when the repo has a shared `shell_utils.sh`.

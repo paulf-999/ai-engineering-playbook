@@ -2,8 +2,6 @@
 
 **Purpose:** Set the base-image, Dockerfile structure and naming standards every image starts from.
 
-> 🏢 **Team conventions:** the `snake_case` image and container names under Naming conventions. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
-
 ## 📋 Contents
 
 - [📦 Base images](#-base-images)
@@ -62,6 +60,6 @@ CMD [...]
 
 ## 🔖 Naming conventions
 
-- Image names: `snake_case`, descriptive of the image's purpose (e.g., `baseline_dbt_docker_image`).
+- Image names: descriptive of the image's purpose, cased as the team's conventions set.
 - Image tags: use semantic versioning (`1.0.0`, `1.1.0`) — never `:latest` in non-local environments.
-- Container names: `snake_case`, matching the image name where possible.
+- Container names: matching the image name where possible.

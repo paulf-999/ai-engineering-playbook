@@ -368,6 +368,76 @@ def test_uninstall_removes_the_install_and_restores_what_it_replaced(tmp_path):
     assert plan_hook_commands(tmp_path) == [] and stop_hook_commands(tmp_path) == [], "the hooks should be removed"
 
 
+def commit_config(repo, env, files):
+    """Write config files under src/claude/ in a test repo and commit them, as a playbook release would."""
+    for path, text in files.items():
+        (repo / "src" / "claude" / path).parent.mkdir(parents=True, exist_ok=True)
+        (repo / "src" / "claude" / path).write_text(text)
+    subprocess.run(["git", "add", "src/claude"], cwd=repo, env=env, check=True)
+    subprocess.run(["git", "commit", "-q", "-m", "release"], cwd=repo, env=env, check=True)
+
+
+# an always-on rule and an on-demand one, which installs beside rules/, each with a pointer a project install rewrites
+RULES = {
+    "rules/always_on/rule.md": "rule {}: see it in your Claude config directory\n",
+    "rules/on_demand/detail.md": "detail {}: see it in your Claude config directory\n",
+}
+INSTALLED = ["rules/always_on/rule.md", "on_demand/detail.md"]
+
+
+def release(version):
+    """Return the rule files as a given playbook release has them."""
+    return {path: text.format(version) for path, text in RULES.items()}
+
+
+@pytest.mark.parametrize("project", [False, True])
+def test_uninstall_skips_an_earlier_installs_copy_in_an_old_style_backup(tmp_path, project):
+    """A backup an older installer took of its own earlier copy matches a tracked version, so isn't restored."""
+    repo, config = tmp_path / "repo", tmp_path / "config"
+    repo.mkdir()
+    config.mkdir()
+    env = isolated_git_repo(repo)
+    extra = {"PROJECT": str(tmp_path / "project")} if project else {}
+    if project:
+        (tmp_path / "project").mkdir()
+    target = tmp_path / "project" / ".claude" if project else config
+    commit_config(repo, env, release(1))
+    assert run_install(config, answer="install", cwd=repo, **extra).returncode == 0, "the first install should work"
+    # older installers backed up the previous release's copies beside the user's own files, as this fakes
+    old_style = config / "backups" / ("project_project_2099_01_01_000000" if project else "install_2099_01_01_000000")
+    for installed in INSTALLED:
+        (old_style / installed).parent.mkdir(parents=True, exist_ok=True)
+        (old_style / installed).write_text((target / installed).read_text())
+    commit_config(repo, env, release(2))
+    assert run_install(config, answer="install", cwd=repo, **extra).returncode == 0, "the upgrade should work"
+
+    result = run_install(config, answer="uninstall", cwd=repo, UNINSTALL="1", **extra)
+
+    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
+    for installed in INSTALLED:
+        assert not (target / installed).exists(), f"the earlier copy of {installed} should not be restored"
+
+
+def test_an_upgrade_backs_up_the_installs_own_copies_where_uninstall_wont_restore_them(tmp_path):
+    """An upgrade backs up the previous install's copies, even edited ones, to an upgrade folder uninstall skips."""
+    repo, config = tmp_path / "repo", tmp_path / "config"
+    repo.mkdir()
+    config.mkdir()
+    env = isolated_git_repo(repo)
+    commit_config(repo, env, release(1))
+    assert run_install(config, answer="install", cwd=repo).returncode == 0, "the first install should work"
+    (config / INSTALLED[0]).write_text("the user's edit of the installed rule\n")
+    commit_config(repo, env, release(2))
+    assert run_install(config, answer="install", cwd=repo).returncode == 0, "the upgrade should work"
+    assert list((config / "backups").glob(f"install_upgrade_*/{INSTALLED[0]}")), "the edited copy goes to upgrade_"
+
+    result = run_install(config, answer="uninstall", cwd=repo, UNINSTALL="1")
+
+    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
+    for installed in INSTALLED:
+        assert not (config / installed).exists(), f"no copy of {installed} should be restored"
+
+
 def test_uninstall_without_a_terminal_changes_nothing(tmp_path):
     """With no terminal attached, uninstall exits 1 and leaves the install in place."""
     assert run_install(tmp_path, answer="install").returncode == 0, "the install should succeed"

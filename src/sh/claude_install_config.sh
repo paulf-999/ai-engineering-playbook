@@ -55,6 +55,8 @@ fi
 # each install's backups start with BACKUP_PREFIX then the date, so uninstall can find the oldest copy of each file
 BACKUP_DIR="${BACKUP_PREFIX}$(date +%Y_%m_%d_%H%M%S)"
 [[ "${UNINSTALL}" == 1 ]] && BACKUP_DIR="${BACKUP_PREFIX}uninstall_$(date +%Y_%m_%d_%H%M%S)"
+# where an install backs up a copy an earlier install wrote, which uninstall never restores, since it isn't the user's
+UPGRADE_BACKUP_DIR="${BACKUP_PREFIX}upgrade_$(date +%Y_%m_%d_%H%M%S)"
 # the paths the last install wrote, one per line, so the next install can remove any the repo no longer has
 MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
 # the tracked files under SOURCE_DIR, set by list_source_files
@@ -93,14 +95,47 @@ target_path() {
 
 # Print a source file as it installs: in a project, pointers name the project's .claude/ folder, not your config directory
 render() {
-    local file="${1}"
+    render_text < "${SOURCE_DIR}/${1}"
+}
+
+# Print text from stdin as it installs, so a past version of a file can be compared with what an install wrote
+render_text() {
     if [[ -n "${PROJECT}" ]]; then
         # shellcheck disable=SC2016  # the backticks and \$CLAUDE_CONFIG_DIR are literal text in the rules, not expansions
         sed -e 's/in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~\/.claude` when unset)/in this project'"'"'s `.claude\/` folder/' \
-            -e 's/in your Claude config directory/in this project'"'"'s `.claude\/` folder/' "${SOURCE_DIR}/${file}"
+            -e 's/in your Claude config directory/in this project'"'"'s `.claude\/` folder/'
     else
-        cat "${SOURCE_DIR}/${file}"
+        cat
     fi
+}
+
+# Print where to back up an installed path: the upgrade folder for a copy an earlier install wrote, else the usual one
+backup_dir_for() {
+    if file_exists "${MANIFEST}" && grep -Fxq -- "${1}" "${MANIFEST}"; then
+        echo "${UPGRADE_BACKUP_DIR}"
+    else
+        echo "${BACKUP_DIR}"
+    fi
+}
+
+# Succeed if a backup matches a version of its file the repo has tracked, since that's an earlier install's copy,
+# not the user's own file, as installs before the upgrade folder existed backed them up with the user's
+is_playbook_copy() {
+    local backup="${1}" source commit version
+    source="${SOURCE_DIR}/${2}"
+    # installed on-demand files sit beside rules/, so their source is under rules/
+    [[ "${2}" == on_demand/* ]] && source="${SOURCE_DIR}/rules/${2}"
+    version="$(mktemp)"
+    while IFS= read -r commit; do
+        # a commit that deleted the file has no version of it
+        git show "${commit}:${source}" > "${version}" 2> /dev/null || continue
+        if cmp -s <(render_text < "${version}") "${backup}"; then
+            rm -f "${version}"
+            return 0
+        fi
+    done < <(git log --format=%H -- "${source}")
+    rm -f "${version}"
+    return 1
 }
 
 # Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed,
@@ -156,7 +191,8 @@ confirm_install() {
         done
     fi
     echo "It also updates the config's hooks and deny rules in ${SETTINGS} to match the install."
-    echo "Each file it overwrites or removes is backed up to ${BACKUP_DIR} first."
+    echo "Each file it overwrites or removes is backed up first: your own to ${BACKUP_DIR}, and an earlier install's"
+    echo "copies to ${UPGRADE_BACKUP_DIR}."
     [[ "${ASSUME_YES}" == 1 ]] && return 0
     read -r -p "Type 'install' to continue: " answer || true
     if [[ "${answer}" != "install" ]]; then
@@ -189,7 +225,8 @@ confirm_uninstall() {
     fi
 }
 
-# Back up and remove each installed file, restoring the oldest backup of it, which holds the copy from before any install
+# Back up and remove each installed file, restoring its oldest backup that isn't a copy an earlier install wrote,
+# since an upgrade backs up the playbook's own previous version too
 uninstall_files() {
     local file original restored=0
     for file in "${REMOVED_FILES[@]}"; do
@@ -198,7 +235,7 @@ uninstall_files() {
         rm "${TARGET_DIR}/${file}"
         # the glob expands in date order, and the leading digit skips uninstall backups
         for original in "${BACKUP_PREFIX}"[0-9]*/"${file}"; do
-            if file_exists "${original}"; then
+            if file_exists "${original}" && ! is_playbook_copy "${original}" "${file}"; then
                 cp -p "${original}" "${TARGET_DIR}/${file}"
                 restored=$((restored + 1))
                 break
@@ -211,7 +248,7 @@ uninstall_files() {
 
 # Copy each file over the target, backing up any existing copy that differs, and skipping identical ones
 install_files() {
-    local file relative target copied=0 backed_up=0
+    local file relative target backup_dir copied=0 backed_up=0
     for file in "${SOURCE_FILES[@]}"; do
         relative="$(target_path "${file}")"
         target="${TARGET_DIR}/${relative}"
@@ -219,8 +256,9 @@ install_files() {
             continue
         fi
         if file_exists "${target}"; then
-            mkdir -p "$(dirname "${BACKUP_DIR}/${relative}")"
-            cp -p "${target}" "${BACKUP_DIR}/${relative}"
+            backup_dir="$(backup_dir_for "${relative}")"
+            mkdir -p "$(dirname "${backup_dir}/${relative}")"
+            cp -p "${target}" "${backup_dir}/${relative}"
             backed_up=$((backed_up + 1))
         fi
         mkdir -p "$(dirname "${target}")"
@@ -233,9 +271,10 @@ install_files() {
 # Back up and remove each file the repo no longer has, then record what this install wrote
 remove_old_files() {
     local file
+    # each removed file is one the manifest lists, so an earlier install wrote it
     for file in "${REMOVED_FILES[@]+"${REMOVED_FILES[@]}"}"; do
-        mkdir -p "$(dirname "${BACKUP_DIR}/${file}")"
-        cp -p "${TARGET_DIR}/${file}" "${BACKUP_DIR}/${file}"
+        mkdir -p "$(dirname "${UPGRADE_BACKUP_DIR}/${file}")"
+        cp -p "${TARGET_DIR}/${file}" "${UPGRADE_BACKUP_DIR}/${file}"
         rm "${TARGET_DIR}/${file}"
     done
     log_message "${INFO}" "Removed ${#REMOVED_FILES[@]} file(s) the repo no longer has." false

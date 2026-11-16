@@ -1,6 +1,6 @@
-# 🐍 Python — environment & tooling
+# 🐍 Python team conventions: environment and tooling
 
-**Purpose:** Set the Python version, virtual environment and tooling every project uses.
+**Purpose:** this team's Python version, linters, test layout, virtual environment and dependency pinning.
 
 ## 📋 Contents
 
@@ -22,8 +22,6 @@ The team targets **Python 3.10**. When writing code intended to run on others' m
 
 ## 🧪 Testing
 
-Every Python script must have an associated `pytest` test file — untested code is not considered complete.
-
 **Test file location:** `tests/` directory, co-located with the code being tested. Example: `tests/airbyte_manager/test_config_loader.py` for `src/py/airbyte_manager/helpers/config/config_loader.py`.
 
 **Running tests:**
@@ -32,10 +30,6 @@ Every Python script must have an associated `pytest` test file — untested code
 pytest                                              # run all tests
 pytest --cov=src --cov-report=term-missing         # run with coverage report
 ```
-
-Coverage must be run and reviewed before committing.
-
-**Test conventions:** See `on_demand/style_guides/python/testing.md` for test naming, structure, fixtures, mocking, and assertions — this covers all pytest standards in detail.
 
 ## 📦 Virtual environment
 
@@ -49,7 +43,6 @@ pip install -r requirements.txt
 ```
 
 - Deactivate with `deactivate`.
-- Never commit the `venv/` directory.
 
 ## 📌 Dependencies
 

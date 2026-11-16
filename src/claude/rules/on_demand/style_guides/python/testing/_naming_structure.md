@@ -62,38 +62,4 @@ def test_parse_args_config_and_apply(monkeypatch):
 
 ## 📁 Test organisation
 
-**Group related tests with comments:**
-
-```python
-# --- load_config tests ---
-
-
-def test_load_config_reads_yaml_file():
-    """File is read and parsed correctly."""
-    ...
-
-
-def test_load_config_interpolates_env_vars():
-    """${ENV_VAR} references are resolved from environment."""
-    ...
-
-
-def test_load_config_raises_on_missing_env_var():
-    """Raises EnvironmentError if ${VAR} is not set."""
-    ...
-
-
-# --- validate_config tests ---
-
-
-def test_validate_config_passes_valid_config():
-    """Valid config passes validation."""
-    ...
-
-
-def test_validate_config_raises_on_invalid_table_descriptor():
-    """Raises ValueError for unknown table_descriptor."""
-    ...
-```
-
-**Why:** Comments make test intent scannable and group related tests visually.
+Group related tests together in the file, marked as the team's conventions in [`_testing.md`](../../../team_conventions/python/_testing.md) set.

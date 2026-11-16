@@ -79,7 +79,7 @@ Describe the persona, tone, and core approach. Be specific about audience awaren
 
 ### Principles
 
-**Core behavioral guidelines (5-7 principles max). How the agent makes decisions.**
+**Core behavioural guidelines (5-7 principles max). How the agent makes decisions.**
 
 Format: `**Principle name:** [1-2 sentence description]`
 
@@ -118,7 +118,7 @@ This agent handles documentation and adapts as needed.
 This agent:
 - Does NOT write ADRs or runbooks (v1.0)
 - Does NOT improve existing documentation (separate concern)
-- Does NOT provide diagram guidance or architecture visualization (v1.0)
+- Does NOT provide diagram guidance or architecture visualisation (v1.0)
 - Works in worktree isolation
 - Inherits the active Claude model
 ```
@@ -128,36 +128,36 @@ This agent:
 ## [Optional] References
 
 Link to supporting documentation:
-- `reference/_implementation.md` — Workflow phases and behavioral details
-- `evals.yaml` — Test scenarios validating agent behavior
+- `reference/_implementation.md` — Workflow phases and behavioural details
+- `evals.yaml` — Test scenarios validating agent behaviour
 
 ---
 
 ## Creating your agent — Next steps
 
-1. **Fill in frontmatter** — name, description, tools and model, then the `created` header
+1. **Fill in frontmatter** — name, description, tools and model
 2. **Write Purpose** — one-liner value prop
 3. **Write When to use** — concrete scenarios + NOT use cases
 4. **Write Role & Principles** — persona (3-5 lines) + 5-7 core principles
 5. **Write Constraints** — explicit boundaries (what agent does NOT do)
 6. **Create evals.yaml** — scenarios covering its main triggers and one case where it shouldn't fire
 
-**See also:** the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), for the full creation guidelines and hard gates.
+**See also:** the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), for the full creation guidelines.
 
 ---
 
 ## Quality checklist
 
-Before finalizing:
+Before finalising:
 - [ ] Frontmatter complete (name, description, tools, model, and isolation if the agent changes files)
 - [ ] Purpose: one-liner, non-technical, user-focused
 - [ ] When to use: 3+ concrete scenarios + 2+ NOT use cases
 - [ ] Role: 3-5 lines describing persona
-- [ ] Principles: 5-7 core behavioral guidelines
+- [ ] Principles: 5-7 core behavioural guidelines
 - [ ] Constraints: explicit boundaries (what agent does NOT do)
 - [ ] Total length: ~40-60 lines (lean, scannable)
 - [ ] evals.yaml created, covering the main triggers and one case where it shouldn't fire
 
 **Resources:**
-- Full guidance and hard gates: the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md)
+- Full guidance: the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md)
 - Testing: `on_demand/testing/_testing_design_pattern.md`, in your Claude config directory

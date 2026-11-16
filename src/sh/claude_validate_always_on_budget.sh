@@ -72,8 +72,8 @@ count_always_on_rules_in() {
     local rule root="${1}"
     [[ -d "${CHECK_DIR}/${root}/rules" ]] || return 0
     while IFS= read -r rule; do
-        # a paths: line inside the opening --- block scopes the rule to matching files
-        if ! awk 'NR == 1 && $0 != "---" { exit 1 } NR > 1 && $0 == "---" { exit 1 } /^paths:/ { found = 1 } END { exit !found }' "${CHECK_DIR}/${rule}"; then
+        # globs under paths: in the opening --- block scope the rule to matching files
+        if [[ -z "$(rule_path_globs "${CHECK_DIR}/${rule}")" ]]; then
             count_file "${rule}"
         fi
     # on-demand files kept in rules/on_demand/ install beside rules/, so they don't load every session

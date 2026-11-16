@@ -33,7 +33,7 @@ make install PROJECT=../my_dbt_repo
 ```
 
 - 🪝 **Hooks:** add `HOOKS=1` to include the done checks hook, which is left out by default.
-- 🛡️ **Backups:** anything replaced is backed up to `~/.claude/backups/`, outside the repo.
+- 🛡️ **Backups:** anything replaced is backed up to the `backups/` folder in your Claude config directory, outside the repo.
 
 ## 🛠️ Changing it
 

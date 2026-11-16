@@ -6,7 +6,7 @@
 - 📐 **Spec:** follow with a Spec section on the requirements and design, agreed before building.
 - 🗺️ **Plan:** then give the steps, each with its check.
 - 🔁 **Feedback loop:** run the repo's test command, such as `make test`, before calling a step done, and fix what fails rather than skip it.
-- 👀 **Review:** paste the Spec section into the PR's "Plan Spec" section, then before merge check the diff against it.
+- 👀 **Review:** paste the Spec into the PR's "Plan Spec" section when it has one, then check the diff against it before merge.
 
 ## 🛑 Pausing for approval
 

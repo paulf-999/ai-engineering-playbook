@@ -4,7 +4,7 @@
 
 | # | Created | Item | Priority | Description |
 |---|---------|------|----------|-------------|
-|   |         |      |          | Start by adding items here: Created date (YYYY-MM-DD), Item title, Priority emoji (🔴 High / 🟡 Medium / 🟢 Low), and a description with bullets joined by `<br>`. |
+|   |         |      |          | Start by adding items here, in the format `on_demand/conduct/todo_logging.md` sets. |
 
 ## ✅ Completed Items
 

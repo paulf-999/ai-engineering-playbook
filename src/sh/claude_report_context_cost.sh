@@ -51,7 +51,7 @@ load_condition() {
         return
     fi
     # the globs listed under paths: in the file's opening --- block
-    globs="$(awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { on = 1; next } on && /^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); printf "%s`%s`", sep, $0; sep = ", "; next } on && !/^[[:space:]]*-/ { on = 0 }' "${REPO_DIR}/${file}")"
+    globs="$(rule_path_globs "${REPO_DIR}/${file}" | awk '{ printf "%s`%s`", sep, $0; sep = ", " }')"
     if [[ -n "${globs}" ]]; then
         echo "With matching files: ${globs}"
     else

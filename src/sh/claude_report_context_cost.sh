@@ -3,10 +3,9 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 
 # Description: Write maintenance/context_cost.md: every always-on file's estimated tokens, and a rounded total for
 #              the files that load only when needed, then print every file's tokens to the terminal
-#              With --check, write nothing and exit 1 if the committed report is out of date
 #              With --stage, the pre-commit hook's mode, rewrite a stale report and stage it, so the commit includes it,
-#              but behave like --check in CI, where a stale report means one was pushed without it
-# Usage: src/sh/claude_report_context_cost.sh [--check | --stage] [repo directory, default .] (run from the repo root)
+#              but in CI write nothing and exit 1, since there a stale report means one was pushed without it
+# Usage: src/sh/claude_report_context_cost.sh [--stage] [repo directory, default .] (run from the repo root)
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/shell_utils.sh
@@ -21,10 +20,7 @@ trap handle_interruption SIGINT
 
 CHECK_ONLY=false
 STAGE=false
-if [[ "${1:-}" == "--check" ]]; then
-    CHECK_ONLY=true
-    shift
-elif [[ "${1:-}" == "--stage" ]]; then
+if [[ "${1:-}" == "--stage" ]]; then
     STAGE=true
     shift
 fi

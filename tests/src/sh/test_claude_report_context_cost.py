@@ -76,23 +76,8 @@ def test_terminal_lists_every_file_by_load_type(tmp_path):
     assert all(row in lazy for row in ON_DEMAND_ROWS), "each on-demand file should be listed in the terminal"
 
 
-def test_check_fails_once_a_file_changes(tmp_path):
-    """--check passes straight after writing, then fails once a file grows, without rewriting the report."""
-    env = config_repo(tmp_path)
-    write_report(tmp_path, env)
-    assert run_report(tmp_path, env, "--check").returncode == 0, "a freshly written report should pass the check"
-
-    (tmp_path / "src" / "claude" / "CLAUDE.md").write_text(HUNDRED_TOKENS * 2)
-    before = (tmp_path / REPORT).read_text()
-    result = run_report(tmp_path, env, "--check")
-
-    assert result.returncode == 1, f"a stale report should fail the check:\n{result.stdout}"
-    assert "make context_cost" in result.stdout, "the failure should say how to fix it"
-    assert (tmp_path / REPORT).read_text() == before, "--check must not rewrite the report"
-
-
 def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
-    """--stage rewrites a stale report and stages it, and with CI=true fails like --check, leaving the report alone."""
+    """--stage rewrites a stale report and stages it, and with CI=true fails, leaving the report alone."""
     env = config_repo(tmp_path)
     write_report(tmp_path, env)
     subprocess.run(["git", "add", REPORT], cwd=tmp_path, env=env, check=True)
@@ -101,6 +86,7 @@ def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
     stale = (tmp_path / REPORT).read_text()
     in_ci = run_report(tmp_path, {**env, "CI": "true"}, "--stage")
     assert in_ci.returncode == 1, f"a stale report should fail in CI:\n{in_ci.stdout}"
+    assert "make context_cost" in in_ci.stdout, "the CI failure should say how to fix it"
     assert (tmp_path / REPORT).read_text() == stale, "CI must not rewrite the report"
 
     local = run_report(tmp_path, {k: v for k, v in env.items() if k != "CI"}, "--stage")

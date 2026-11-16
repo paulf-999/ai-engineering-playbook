@@ -44,7 +44,7 @@ Written for non-technical readers, so name company-wide systems such as Salesfor
 - <up to 3 bullets: risk, context and scope>
 
 Impact Rating (per <your prioritisation framework>):
-* a. Prioritization Matrix: <link from your values file>
+* a. Prioritisation Matrix: <link from your values file>
 * b. Priority Value Driver: <driver> – Score: <N>
 * c. Secondary Value Driver: <driver> – Score: <N>
 * d. Calculated Score: <primary score × weight + secondary score × weight>

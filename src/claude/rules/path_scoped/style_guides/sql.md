@@ -6,7 +6,7 @@ paths:
 
 **Purpose:** how SQL is written in the warehouse, in dbt, Airflow and ad-hoc queries, for readability and cost, except where a repo's own `.sqlfluff` config differs, which wins.
 
-> 🏢 **Team conventions:** uppercase keywords and leading commas. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+> 🏢 **Team conventions:** uppercase keywords, leading commas and singular table names. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
 
 **dbt models:** the dbt style guide also loads for them and covers `ref()`, `source()` and YAML.
 

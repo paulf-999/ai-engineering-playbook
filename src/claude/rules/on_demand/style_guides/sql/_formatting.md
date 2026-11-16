@@ -2,7 +2,7 @@
 
 **Purpose:** Establish formatting and style conventions for SQL queries and dbt models to ensure readability, consistency, and maintainability.
 
-> 🏢 **Team conventions:** uppercase keywords under Keywords and capitalisation, and leading commas under Structure. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+> 🏢 **Team conventions:** uppercase keywords under Keywords and capitalisation, singular names under Naming conventions, and leading commas under Structure. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
 
 ## 📋 Contents
 

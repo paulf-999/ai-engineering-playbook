@@ -2,6 +2,8 @@
 
 **Purpose:** Set how roles are laid out and how their tasks, variables and versions are written.
 
+> 🏢 **Team conventions:** the nine capability folders under Role layout, the `_BREAKINGCHANGE` branch suffix under Role versioning, and the CODEOWNERS step. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🗂️ Role layout
 
 Roles live under `roles/[technical_capability]/[role_name]/`. The capability directory is a functional grouping — choose the closest fit:

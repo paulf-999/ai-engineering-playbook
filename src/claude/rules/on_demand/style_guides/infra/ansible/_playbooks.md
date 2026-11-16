@@ -2,6 +2,8 @@
 
 **Purpose:** Set how playbooks are named, foldered, linked and tagged.
 
+> 🏢 **Team conventions:** the playbook naming pattern, the folder structure with its symlinks, the CODEOWNERS step and the tag set. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🏷️ Naming convention
 
 Playbook files follow the pattern: `[app]_[asset_role]_[descriptor].yml`

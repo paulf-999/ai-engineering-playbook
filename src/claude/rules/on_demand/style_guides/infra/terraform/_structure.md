@@ -2,6 +2,8 @@
 
 **Purpose:** Set the directory layout, standard file conventions and what stays out of version control; provider configuration lives in [`_providers.md`](_providers.md).
 
+> 🏢 **Team conventions:** the top-level folder tree, the required `provider.tf` and `README.md`, `local_terraform_dev.sh` and the numbered subdirectories. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [🌳 Top-level layout](#-top-level-layout)

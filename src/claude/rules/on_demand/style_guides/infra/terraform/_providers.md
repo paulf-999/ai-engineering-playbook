@@ -2,6 +2,8 @@
 
 **Purpose:** Set provider version pinning, authentication and preview features, split from [`_structure.md`](_structure.md).
 
+> 🏢 **Team conventions:** the exact `snowflakedb/snowflake` 2.5.0 pin, and the `SNOWFLAKE_PRIVATE_KEY_PATH` and `.env_template` names. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [🔒 Version pinning](#-version-pinning)

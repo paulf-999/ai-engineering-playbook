@@ -2,6 +2,8 @@
 
 **Purpose:** Set the base-image, Dockerfile structure and naming standards every image starts from.
 
+> 🏢 **Team conventions:** the `snake_case` image names under Naming conventions. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [📦 Base images](#-base-images)

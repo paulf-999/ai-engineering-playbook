@@ -47,7 +47,7 @@ Preferences are one person's taste in how Claude replies and where it keeps thei
 | 📄 **Drafts, errors and session notes** | Saves drafts to `~/_drafts/`, error write-ups to `~/_errors/`, and long-task notes to `~/.claude_work/_sessions/` | `~/_drafts/jira/2026_11_16_login_bug.md` | Drafts and notes are kept in one place you can find |
 
 - 📥 **Install:** `make install PREFERENCES=1` adds them, a plain `make install` keeps them, and `make install PREFERENCES=0` removes them.
-- 💰 **Cost:** about 240 tokens in every session for the first two and 200 for the other three, per the [context cost report](../../maintenance/context_cost.md).
+- 💰 **Cost:** about 240 tokens in every session for the reply-format preferences and 200 for the working-files ones, per the [context cost report](../../maintenance/context_cost.md).
 - ⬆️ **Upgrading:** an existing `TODO.md`, saved plans and drafts stay where they are, but without `PREFERENCES=1` Claude no longer reads or adds to them.
 - 🏢 **Projects:** they never go into a project install, since that folder is shared.
 - 💬 **Without them:** Claude still offers options, just not as a numbered list, and still uses British spelling, so ask if you want American English.

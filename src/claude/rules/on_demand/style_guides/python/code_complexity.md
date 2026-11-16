@@ -4,13 +4,15 @@
 
 ## ⚡ Limits
 
+The team's values for each limit are in [`team_conventions/python.md`](../../../path_scoped/team_conventions/python.md).
+
 | Metric | Limit | Check |
 |---|---|---|
 | **Cyclomatic complexity** | 10 or fewer | ruff `C901`, whose default `max-complexity` is 10, or `radon cc` |
-| **Function length** | Aim for 30 lines, and split past 40 | ruff `PLR0915`, which counts statements rather than lines, so set `max-statements` to match |
-| **Nesting depth** | 3 levels or fewer | ruff `PLR1702`, a preview rule, so it needs `preview = true` and `max-nested-blocks = 3` |
-| **Parameters** | 4 or fewer | ruff `PLR0913`, with `max-args = 4` |
-| **Line length** | 120 characters or fewer | ruff `E501` |
+| **Function length** | The team's | ruff `PLR0915`, which counts statements rather than lines, so set `max-statements` to match the team's limit |
+| **Nesting depth** | The team's | ruff `PLR1702`, a preview rule, so it needs `preview = true` and `max-nested-blocks` |
+| **Parameters** | The team's | ruff `PLR0913`, with `max-args` |
+| **Line length** | The team's | ruff `E501` |
 
 - 🗣️ **One-sentence test:** if you can't say what a function does in one sentence, split it.
 - 🔧 **Check, don't eyeball:** where a repo's ruff config lacks these rules, add them rather than checking by hand.

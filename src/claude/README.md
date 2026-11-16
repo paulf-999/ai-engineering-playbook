@@ -29,10 +29,10 @@ Every rule costs context, so its folder decides how often it loads:
 - 📁 **Claude config directory:** the folder Claude Code reads its instructions and settings from, `~/.claude` unless `$CLAUDE_CONFIG_DIR` is set.
 - 📏 **Rule:** a short markdown file telling Claude how to do one thing, such as name a dbt model.
 - ⏱️ **Always-on, path-scoped and on-demand:** when a rule loads: every session, only when Claude works on a matching file such as a dbt model, or only when another rule points Claude to it.
-- 🔢 **Tokens:** the unit Claude's working memory is measured in, about three-quarters of a word. The always-on budget caps the always-on rules at 3,000 tokens.
+- 🔢 **Tokens:** the unit Claude's working memory is measured in, about three-quarters of a word. The always-on budget caps everything that loads in every session, at the figure in the [design principles](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests).
 - 🪝 **Hook:** a small script Claude Code runs by itself at set moments, such as when Claude says it has finished.
-- 📝 **Intent and Spec:** the two sections a plan of 15 lines or more opens with, on what you want and what will be built. A quick request, such as one query, needs no plan.
-- 🛑 **Phase gate:** a pause after each stage of work of 3 or more stages, such as after each PR, so you can check it before Claude goes on.
+- 📝 **Intent and Spec:** the two sections a long plan opens with, on what you want and what will be built, per [`sdlc_workflow.md`](rules/always_on/workflows/sdlc_workflow.md). A quick request, such as one query, needs no plan.
+- 🛑 **Phase gate:** a pause after each stage of multi-stage work, such as after each PR, so you can check it before Claude goes on.
 
 ## 🏢 Installing into one repo
 

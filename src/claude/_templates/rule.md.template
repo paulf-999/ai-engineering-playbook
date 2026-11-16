@@ -17,7 +17,7 @@
 - `on_demand/<domain>/<file>.md`, in your Claude config directory, [when to read it].
 
 <!-- Within the list cap in on_demand/conduct/writing_style/_markdown_layout.md, not counting Read on demand pointers: delete the other ## headings and keep one list. -->
-<!-- Over the cap: keep 2 to 4 emoji ## sections, each within it. Split into a parent and 2 or more <parent>/_<aspect>.md children only past the rule size cap, with each child at least 40 lines. -->
+<!-- Over the cap: keep 2 to 4 emoji ## sections, each within it. Split into a parent and 2 or more <parent>/_<aspect>.md children only past the rule size cap, per the playbook repo's authoring guide, which sets each child's minimum size and its exemptions. -->
 <!-- Optional: one table between bullets, when two or more items share the same fields, and the Read on demand section. -->
 <!-- Tests check the H1, Purpose, size and pointers. Before merging, also check that: -->
 <!-- each bullet opens with an emoji and a **term:**, and is one sentence; the rule covers one concept; prose uses British spelling; -->

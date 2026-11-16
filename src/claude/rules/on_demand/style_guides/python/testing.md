@@ -13,7 +13,7 @@
 | **Test exception raised** | `pytest.raises()` | `with pytest.raises(ValueError, match="pattern"):` |
 | **Use temp files** | `tmp_path` fixture | `path = tmp_path / "file.txt"; path.write_text(...)` |
 | **Override env var** | `monkeypatch` fixture | `monkeypatch.setenv("VAR", "value")` |
-| **Setup helpers** | The team's helper pattern | See `team_conventions/python.md` |
+| **Setup helpers** | The team's helper pattern | See `team_conventions/python/_testing.md` |
 
 ## 📚 Read on demand
 

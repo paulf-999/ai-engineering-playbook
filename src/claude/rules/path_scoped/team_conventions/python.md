@@ -12,6 +12,8 @@ paths:
 - 📏 **Limits:** 4 or fewer parameters (`max-args = 4`), 3 or fewer nesting levels (`max-nested-blocks = 3`), functions aimed at 30 lines and split past 40, and 120-character lines. These tighten ruff's defaults of 5, 5 and 50 statements, and loosen its 88.
 - 🏷️ **Module metadata:** only `__author__` and `__version__`.
 - 🔽 **Function order:** the entry point first, then the functions it calls.
+- 🔧 **Test helpers:** `_make_*()` helpers in place of custom fixtures.
+- 📁 **Test grouping:** `# --- <topic> tests ---` comments.
 
 ## 📚 Read on demand
 

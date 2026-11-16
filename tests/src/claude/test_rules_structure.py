@@ -350,6 +350,9 @@ def test_mismatched_team_convention_globs_are_reported(tmp_path):
     for side, glob in (("style_guides", "**/*.sql"), ("team_conventions", "**/*.py")):
         (tmp_path / side).mkdir()
         (tmp_path / side / "tool.md").write_text(f'---\npaths:\n  - "{glob}"\n---\n# Tool\n')
-    assert "different paths" in globs_problem(
-        tmp_path / "team_conventions" / "tool.md", tmp_path / "style_guides" / "tool.md"
-    )
+    team, guide = tmp_path / "team_conventions" / "tool.md", tmp_path / "style_guides" / "tool.md"
+    assert "different paths" in globs_problem(team, guide)
+    # two files with no paths: match each other, but neither would load, so that's caught too
+    for path in (team, guide):
+        path.write_text("# Tool\n")
+    assert "no paths: list" in globs_problem(team, guide)

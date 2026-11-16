@@ -27,7 +27,7 @@ The project uses a four-layer architecture. Each layer has a distinct responsibi
 | Base model | `<source>_<entity>.sql` | `crm_customer_list.sql` |
 | Mart model | `mart_<domain>_<entity>.sql` | `mart_commerce_payouts.sql` |
 | Publication model | `pub_<domain>_<entity>.sql` | `pub_commerce_payouts.sql` |
-| Snapshot | `dim_<entity>_history.sql` | `dim_merchant_history.sql` |
+| Snapshot | `dim_<entity>_history.sql` | `dim_merchant_history.sql`, `dim_merchant_all_history.sql` |
 | Date-dimension join column | `<event>_KEY` | `SNAPSHOT_DATE_KEY` |
 | Staging source YAML | `_staging_src.yml` | `staging/<source>/_staging_src.yml` |
 | Base model YAML | `_src_base.yml` | `base/<source>/_src_base.yml` |

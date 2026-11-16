@@ -4,7 +4,9 @@ paths:
 ---
 # 🐳 Docker & Dockerfile Style Guide & Standards
 
-**Purpose:** Define the team's standards for writing Dockerfiles and working with Docker images.
+**Purpose:** how to write Dockerfiles and work with Docker images.
+
+> 🏢 **Team conventions:** the `snake_case` image and container names. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
 
 ## ⚡ Key rules
 

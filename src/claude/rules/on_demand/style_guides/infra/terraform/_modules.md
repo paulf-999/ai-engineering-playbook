@@ -2,6 +2,8 @@
 
 **Purpose:** Set the standards for module composition, provider passing, iteration patterns, and lifecycle management.
 
+> 🏢 **Team conventions:** the layered create, ownership and usage pattern, and always passing `providers` explicitly. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [🧩 Module composition pattern](#-module-composition-pattern)

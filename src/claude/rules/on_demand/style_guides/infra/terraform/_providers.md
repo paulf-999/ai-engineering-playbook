@@ -2,6 +2,8 @@
 
 **Purpose:** Set provider version pinning, authentication and preview features, split from [`_structure.md`](_structure.md).
 
+> 🏢 **Team conventions:** the exact-pin policy for environment roots, currently `snowflakedb/snowflake` 2.5.0, and the `SNOWFLAKE_*` variable and `.env_template` names. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [🔒 Version pinning](#-version-pinning)

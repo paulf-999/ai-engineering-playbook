@@ -2,6 +2,8 @@
 
 **Purpose:** Set what every variable and output must declare, and how to validate inputs, split from [`_conventions.md`](_conventions.md).
 
+> 🏢 **Team conventions:** the role prefixes, suffixes and no-numbers rule in the validation example. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [📋 Variable declaration requirements](#-variable-declaration-requirements)

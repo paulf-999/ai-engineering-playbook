@@ -307,6 +307,10 @@ def test_a_short_child_passes_once_its_guide_is_split_by_kind(tmp_path):
             (folder / child).write_text("x\n" * 5)
     for side in ("style_guides", "team_conventions"):
         assert not child_problems(tmp_path / "on_demand" / side / "tool" / "_short.md", tmp_path), side
+    # without a team conventions file, the guide isn't split, so its short child still fails the floor
+    (tmp_path / "path_scoped" / "team_conventions" / "tool.md").unlink()
+    problems = child_problems(tmp_path / "on_demand" / "style_guides" / "tool" / "_short.md", tmp_path)
+    assert any(f"{MIN_CHILD_LINES} or more lines" in problem for problem in problems)
 
 
 def team_convention_pairs(rules_dir=RULES_DIR):
@@ -322,6 +326,8 @@ def globs_problem(team, guide):
     """Return why a team conventions file won't load with its guide, or None if their paths: lists match."""
     if not guide.exists():
         return f"{team.name} has no guide at the same path under style_guides/"
+    if not paths_of(guide):
+        return f"{guide.name} has no paths: list, so neither file loads on a matching file"
     if paths_of(team) != paths_of(guide):
         return f"{team.name} has different paths: from its guide, so the two won't load together"
     return None

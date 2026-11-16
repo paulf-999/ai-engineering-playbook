@@ -2,8 +2,6 @@
 
 **Purpose:** Set what every variable and output must declare, and how to validate inputs, split from [`_conventions.md`](_conventions.md).
 
-> 🏢 **Team conventions:** the role prefixes, suffixes and no-numbers rule in the validation example. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
-
 ## 📋 Contents
 
 - [📋 Variable declaration requirements](#-variable-declaration-requirements)
@@ -33,25 +31,22 @@ Use `validation` blocks to enforce naming conventions and format constraints at 
 ```terraform
 variable "name" {
   description = <<-EOT
-    Snowflake role name. Must match:
-      - Prefix: one of ACCESS_, PRIV_, FUNC_, PRD_, CICD_, UAT_, DTE_, OWNER_
-      - Suffix: one of _ALL_ROLE, _SEL_ROLE, _ROLE
-      - Middle section: only uppercase A–Z and underscores (no numbers)
-      - Max length 255
+    Snowflake warehouse name. Must be uppercase letters and
+    underscores only, and 255 characters or fewer.
   EOT
   type = string
 
   validation {
     condition = can(regex(
-      "^(ACCESS|PRIV|FUNC|PRD|CICD|UAT|DTE|OWNER)_[A-Z_]+(_ALL_ROLE|_SEL_ROLE|_ROLE)$",
+      "^[A-Z_]+$",
       var.name
     ))
-    error_message = "Role name must match pattern (uppercase letters and underscores only)."
+    error_message = "Warehouse name must be uppercase letters and underscores only."
   }
 
   validation {
     condition     = length(var.name) <= 255
-    error_message = "Role name must be 255 characters or fewer."
+    error_message = "Warehouse name must be 255 characters or fewer."
   }
 }
 ```

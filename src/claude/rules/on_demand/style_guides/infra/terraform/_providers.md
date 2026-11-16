@@ -2,8 +2,6 @@
 
 **Purpose:** Set provider version pinning, authentication and preview features, split from [`_structure.md`](_structure.md).
 
-> 🏢 **Team conventions:** the exact-pin policy for environment roots, currently `snowflakedb/snowflake` 2.5.0, and the `SNOWFLAKE_*` variable and `.env_template` names. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
-
 ## 📋 Contents
 
 - [🔒 Version pinning](#-version-pinning)
@@ -14,20 +12,7 @@
 
 ## 🔒 Version pinning
 
-Pin the Snowflake provider to an **exact version** in all environment root modules. Do not use range constraints (`~>`, `>=`) in environments — only in module `provider.tf` files where caller flexibility is needed.
-
-```terraform
-terraform {
-  required_version = ">= 1.0.0"
-
-  required_providers {
-    snowflake = {
-      source  = "snowflakedb/snowflake"
-      version = "2.5.0"
-    }
-  }
-}
-```
+Pin provider versions as the team's policy in [`team_conventions/infra/terraform.md`](../../../../path_scoped/team_conventions/infra/terraform.md) sets.
 
 - Commit `.terraform.lock.hcl` to version control — it records the exact provider version resolved and must be consistent across the team.
 - Upgrading a provider version requires a deliberate change, not an implicit one.
@@ -40,19 +25,18 @@ Authentication uses JWT via a private key file — not username/password.
 
 ```terraform
 provider "snowflake" {
-  organization_name = var.SNOWFLAKE_ORGANIZATION_NAME
-  account_name      = var.SNOWFLAKE_ACCOUNT_NAME
-  user              = var.SNOWFLAKE_USER
-  private_key       = file(var.SNOWFLAKE_PRIVATE_KEY_PATH)
+  organization_name = var.organization_name
+  account_name      = var.account_name
+  user              = var.user
+  private_key       = file(var.private_key_path)
   authenticator     = "SNOWFLAKE_JWT"
-  role              = var.SNOWFLAKE_ROLE
-  warehouse         = var.SNOWFLAKE_WAREHOUSE
+  role              = var.role
+  warehouse         = var.warehouse
 }
 ```
 
-- All authentication values are passed in as variables — never hardcoded.
-- The key's path comes from `SNOWFLAKE_PRIVATE_KEY_PATH`, set in each developer's environment, and the key file itself is never committed.
-- See `.env_template` in each environment directory for the expected environment variable names.
+- All authentication values are passed in as variables — never hardcoded. The team's variable names replace the generic ones above.
+- The key's path comes from an environment variable set in each developer's environment, and the key file itself is never committed. The team's variable names are in its conventions.
 
 ---
 

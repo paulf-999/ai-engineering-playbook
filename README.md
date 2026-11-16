@@ -3,7 +3,7 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A practical playbook for consistent, repeatable work with AI coding assistants, starting with a lean set of instructions for Claude Code.
+A lean playbook for Claude Code. One command installs a shared setup, so every engineer works to the same standards from day one.
 
 ---
 

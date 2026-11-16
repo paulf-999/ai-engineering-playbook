@@ -86,16 +86,16 @@ Rows are sorted by path. Each component that helped has one row, and each review
 
 ## 👥 Persona review
 
-The latest [blind persona review](quality_rubrics/_personas.md), run on 2026-11-16 against commit `bebee00` by a data engineer (DE), data analyst (DA) and engineering manager (EM), the third round after the cuts in [#288](https://github.com/paulf-999/ai-engineering-playbook/pull/288), [#291](https://github.com/paulf-999/ai-engineering-playbook/pull/291) and [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298). Each run replaces this section, with earlier runs in git history.
+The latest [blind persona review](quality_rubrics/_personas.md), run on 2026-11-16 against commit `f5fdf5d` by a data engineer (DE), data analyst (DA) and engineering manager (EM). It's the first round with readers matched to the team's skill levels and given a goal each, in [#303](https://github.com/paulf-999/ai-engineering-playbook/pull/303), so it isn't comparable with earlier rounds. Each run replaces this section, with earlier runs in git history.
 
 ### 🏗️ Over-engineering verdict
 
-No reader now calls the repo over-engineered outright, but none calls it lean either:
+No reader calls the delivered config over-engineered, but all three say the repo is much heavier than what they'd use:
 
-- 📦 **What you get:** a small, careful core, about 2,200 always-on tokens, 2 hooks and a careful installer (all three).
-- ⚖️ **What surrounds it:** 40 support files against 92 product files, which DE calls a governance layer "aimed at the maintainer" and DA says a user can ignore.
-- 📍 **Where:** design docs, rubrics, persona reviews and this audit (DE, DA, EM), and dependabot and pip-audit for 6 dev dependencies (DE).
-- ✅ **Worth keeping:** the installer and its tests, the plan hook and the budget check.
+- 📦 **What you get:** a lean core, about 2,000 always-on tokens, rules that load only when needed, and a careful installer (all three).
+- ⚖️ **What surrounds it:** of 149 files, DE would use about 12 and DA about 8, and DE says the rest "isn't in my way; I just skip it".
+- 📍 **Where:** design docs, `maintenance/` and `tests/`, where all three stopped reading, and the jargon from them, such as tiers, guards and phase gates (DA, EM).
+- 🧪 **Effort against evidence:** EM says the effort "far outweighs the evidence that it works", and DA calls it "high complexity for a modest, unproven payoff".
 
 ### 🎯 Shared points
 
@@ -103,11 +103,18 @@ Each point two or more readers raised, ranked by how many raised it, then by imp
 
 | # | Theme | Raised by | Impact | Status |
 |---|---|---|---|---|
-| 1️⃣ | **One team's conventions installed by default** | DE, DA, EM | Blocks use | Labelled as examples in [#285](https://github.com/paulf-999/ai-engineering-playbook/pull/285) and [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298); an opt-in pack is open |
-| 2️⃣ | **The dbt example breaks its own rules** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
-| 3️⃣ | **Style rules should be opt-in, not opt-out** | DE, DA | Blocks use | `STYLE=0` added in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298); the default stays on by choice |
-| 4️⃣ | **Data and infra guides lack evidence** | DE, EM | Confuses | Labelled unproven in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298), pending [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
+| 1️⃣ | **Another team's dbt and Airflow conventions install as rules, with no way to customise them that survives a reinstall** | DE, DA, EM | Blocks use | Open; labelled as examples in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298), which all three found too easy to miss |
+| 2️⃣ | **No "which install is right for me" path, such as a project install with `STYLE=0` for a dbt repo** | DE, DA, EM | Blocks use | Open |
+| 3️⃣ | **The dbt example breaks its own rules: uppercase CTEs, a `KEY` on an aggregate, an `MD5` stand-in and no YAML** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
+| 4️⃣ | **The reply style should be opt-in, not opt-out** | DE, DA, EM | Confuses | Kept on by choice, with `STYLE=0` from [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298) |
+| 5️⃣ | **The data guides are unproven** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
+| 6️⃣ | **Nothing for analysts, such as turning a business request into SQL or a dbt model** | DA, EM | Blocks use | Open |
+| 7️⃣ | **Undefined jargon, such as always-on, path-scoped, hooks and phase gates** | DA, EM | Confuses | Open |
 
-Single-reader asks: an analyst install path in the README and softer test rules for exploratory scripts (DA), and deleting the skill and agent templates (DE), which stay by choice.
+Single-reader asks:
 
-All three readers named the same strengths: the installer, the always-on budget and the repo's honesty about itself.
+- 🛠️ **DE:** selective installs by guide, dbt globs that miss `.yaml`, `macros/` and `snapshots/`, and the dbt and Airflow versions the guides assume.
+- 📊 **DA:** say the planning rules don't slow down a single query, and the four dbt layers differ from dbt Labs' three.
+- 🧭 **EM:** tagged releases for a pinned version, and a two-week trial in one dbt repo before any team rollout.
+
+All three readers named the same strengths: the installer, rules that load only when needed, and the repo's honesty about itself.

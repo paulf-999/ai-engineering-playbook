@@ -10,7 +10,7 @@
 
 ## 🛑 Pausing for approval
 
-- 🛑 **Phase gates:** for work of 3 or more phases, each a stage that ends in something the user can check, such as a PR, stop after each phase, say what it delivered, and wait for a go-ahead, since early feedback stops wasted phases.
+- 🛑 **Phase gates:** for work of 3 or more phases, each ending in something the user can check, such as a PR, stop after each, say what it delivered and wait for a go-ahead, since early feedback stops wasted phases.
   - **Skip when:** the user waives gates, or the work has a single phase.
 
 ## 📚 Read on demand

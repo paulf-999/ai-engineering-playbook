@@ -12,6 +12,13 @@ NEXT_SECTION = "\n## :hammer_and_wrench: Type of PR Change\n\n- [x] Documentatio
 # the section names the script's reasons quote, kept here so renaming a section changes one line
 CRITERIA_NAME = "Evaluation Criteria"
 SPEC_NAME = "Plan Spec"
+TEMPLATE = (REPO_ROOT / ".github" / "pull_request_template.md").read_text()
+
+
+def template_default(section):
+    """Return the template's default "Not applicable" line in the section whose heading names it."""
+    after = TEMPLATE.split(section, 1)[1].split("\n## ", 1)[0]
+    return next(line for line in after.splitlines() if line.startswith("Not applicable:"))
 
 
 def run_check(description, changed_files=""):
@@ -46,9 +53,7 @@ CRITERIA = (
     "\n## :balance_scale: Evaluation criteria\n\n- :triangular_flag_on_post: **Red flags:** none.\n"
     "- :toolbox: **Shape:** on demand.\n- :test_tube: **Working:** trial at the next review.\n"
 )
-DEFAULT_CRITERIA = (
-    "\n## :balance_scale: Evaluation criteria\n\nNot applicable: this PR changes no always-on or enforcing file.\n"
-)
+DEFAULT_CRITERIA = f"\n## :balance_scale: Evaluation criteria\n\n{template_default(CRITERIA_NAME)}\n"
 # the Spec section's heading, and a filled Spec section, which a config PR also needs
 SPEC_HEADING = "\n## :robot: Claude: Plan Spec (spec.md) - Requirements and Design\n\n"
 SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
@@ -98,7 +103,7 @@ OLD_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:*
         (OLD_SPEC, CONFIG_FILE, 0),
         # a missing spec, or one still holding the template's default line, fails a config PR
         ("", CONFIG_FILE, 1),
-        (SPEC_HEADING + "Not applicable: this PR changes nothing under `src/claude/`.\n", CONFIG_FILE, 1),
+        (SPEC_HEADING + template_default(SPEC_NAME) + "\n", CONFIG_FILE, 1),
         # an on-demand change still needs a spec, but a PR that doesn't touch src/claude/ doesn't
         ("", ON_DEMAND_FILE, 1),
         ("", "docs/other.md", 0),
@@ -110,9 +115,6 @@ def test_config_changes_require_a_spec(spec, changed_files, expected_code):
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
         assert SPEC_NAME in result.stdout, f"the reason should name the spec section: {result.stdout}"
-
-
-TEMPLATE = (REPO_ROOT / ".github" / "pull_request_template.md").read_text()
 
 
 @pytest.mark.parametrize(

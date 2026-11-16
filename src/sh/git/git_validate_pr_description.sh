@@ -20,15 +20,19 @@ trap handle_interruption SIGINT
 PR_DESCRIPTION="${1-}"
 # the PR's changed files, one per line, used to spot changes to the installed Claude config
 CHANGED_FILES="${2-}"
-# the template's default answers, which suit a PR that doesn't need the section, so they must be replaced when it does
-DEFAULT_SPEC="Not applicable: this PR changes nothing under \`src/claude/\`."
-DEFAULT_CRITERIA="Not applicable: this PR changes no always-on or enforcing file."
+# the PR template, whose default answers suit a PR that doesn't need the section, so they must be replaced when it does
+TEMPLATE="$(dirname "${BASH_SOURCE[0]}")/../../../.github/pull_request_template.md"
 # why the description fails, set in the main logic (empty means it's valid)
 PROBLEMS=""
 
 #=======================================================================
 # Functions
 #=======================================================================
+
+# Print the template's default "Not applicable" line under the "## " heading containing $1
+template_default() {
+    awk -v name="${1}" '/^## / { in_section = index(tolower($0), tolower(name)) > 0 } in_section && /^Not applicable:/ { print; exit }' "${TEMPLATE}"
+}
 
 # Succeed if the description has a "## " heading containing $1, in any case
 has_section() {
@@ -53,10 +57,10 @@ section_problem() {
 description_problems() {
     # src/claude/ is the config that `make install` copies
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/' || return 0
-    section_problem "Plan Spec" "${DEFAULT_SPEC}" "this PR changes src/claude/"
+    section_problem "Plan Spec" "$(template_default "Plan Spec")" "this PR changes src/claude/"
     # CLAUDE.md, a rule in rules/always_on/ and hooks load in every session or enforce behaviour
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/always_on/|hooks/)' || return 0
-    section_problem "Evaluation Criteria" "${DEFAULT_CRITERIA}" "this PR changes an always-on or enforcing file"
+    section_problem "Evaluation Criteria" "$(template_default "Evaluation Criteria")" "this PR changes an always-on or enforcing file"
 }
 
 #=======================================================================

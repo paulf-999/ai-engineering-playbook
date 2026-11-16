@@ -31,42 +31,11 @@ def test_run_dry_run_plans_but_does_not_create(tmp_path):
     assert not log_path.exists()
 ```
 
-### Custom fixtures — Helper functions for test setup
+---
 
-Create underscore-prefixed helper functions to set up test data:
+### Setup helpers
 
-```python
-from unittest.mock import MagicMock
-
-
-def _make_client():
-    """Create mock Airbyte client with default return values."""
-    client = MagicMock()
-    client.base_url = "https://api.example.com:8006"
-    client.list_sources.return_value = []
-    client.list_destinations.return_value = []
-    return client
-
-
-def _entry(source_system="salesforce_prod", source_server="dc1_source_1"):
-    """Create a sample connection entry for testing."""
-    return {
-        "source_server": source_server,
-        "source_system": source_system,
-        "source": {"name": "Salesforce Prod", "connector_type": "source-salesforce"},
-        "destination": {"name": "Snowflake Raw", "connector_type": "destination-snowflake"},
-    }
-
-
-def test_migrate_creates_source(tmp_path):
-    client = _make_client()
-    entry = _entry(source_system="salesforce_prod")
-
-    ConnectionMigrator(client).process(entry)
-    client.create_source.assert_called_once()
-```
-
-**Why:** Underscore-prefixed helpers reduce duplication and make tests more readable.
+Set up shared test data with the team's helper pattern, in [`_testing.md`](../../../team_conventions/python/_testing.md).
 
 ---
 

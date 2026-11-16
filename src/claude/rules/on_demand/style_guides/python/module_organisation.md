@@ -1,6 +1,6 @@
 # 📦 Python Module Organisation
 
-**Purpose:** the house rules for laying out a Python module, so it explains itself and its public interface is clear.
+**Purpose:** how to lay out a Python module, so it explains itself and its public interface is clear.
 
 ## 📐 Module layout
 
@@ -11,9 +11,6 @@ In this order:
 
 See README.md for usage and requirements.
 """
-
-__author__ = "Your Name"
-__version__ = "0.1"
 
 import os
 
@@ -31,9 +28,9 @@ def _setup_parser(): ...
 ```
 
 - 📝 **Docstring:** one sentence saying what the module is for, not its type or how it works, with one or two more only if a reader needs them.
-- 🏷️ **Metadata:** only `__author__` and `__version__`, since dates, history and descriptions belong in git or the docstring.
+- 🏷️ **Metadata:** only the module metadata the team's conventions allow, since dates, history and descriptions belong in git or the docstring.
 - 🗂️ **Constants:** group related ones under a comment naming the group, and name magic strings and numbers rather than repeating them inline.
-- 🔽 **Function order:** the entry point first, then the functions it calls, so the file reads top to bottom.
+- 🔽 **Function order:** in the team's order, so the file reads one way throughout.
 
 ## 🔒 Public and private
 

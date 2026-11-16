@@ -36,7 +36,7 @@ Measures: 40 support files against 92 product files, 8 of the last 50 commits (1
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 🧪 **Fold `test_maintenance.md`:** move its sizing rules into the tests checklist in `_repo.md`, which already repeats its Need and No-duplicate checks.
+1. 🧪 **Fold `test_maintenance.md`:** done in [#297](https://github.com/paulf-999/ai-engineering-playbook/pull/297), which moved its sizing rules into the tests guide.
 2. 🔗 **One home for the criteria line:** keep it in `02_evaluation_criteria.md` and the PR template, and link to it from `.github/CONTRIBUTING.md` and `_workflow.md`.
 3. ✂️ **Point to the plan hook:** trim the Intent and Spec bullets in `sdlc_workflow.md`, since the hook enforces them, to bring always-on context under 75%.
 4. 📝 **Match the Plan Spec scope:** say in `_workflow.md` that any `src/claude/` change needs one, as the PR template and its check require.
@@ -73,7 +73,6 @@ Rows are sorted by path. Each component that helped has one row, and each review
 | Component | Run | Effect | Evidence |
 |---|---|---|---|
 | [`.github/workflows/pip_audit.yml`](../../.github/workflows/pip_audit.yml) | 2026-11-16 | Unused | Never failed and never referenced |
-| [`maintenance/test_maintenance.md`](../test_maintenance.md) | 2026-11-16 | Unused | Never guided any work |
 | [`src/claude/_templates/`](../../src/claude/_templates/) | 2026-11-16 | Unused | Edited about 57 times, never used to create a file |
 | [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) | 2026-11-16 | Unused | Its block message never fires in any transcript |
 | [`src/claude/rules/always_on/conduct/security.md`](../../src/claude/rules/always_on/conduct/security.md) | 2026-11-16 | Unused | No evidence it guided any work |
@@ -85,17 +84,16 @@ Rows are sorted by path. Each component that helped has one row, and each review
 
 ## 👥 Persona review
 
-The latest [blind persona review](quality_rubrics/_personas.md), run on 2026-11-16 against commit `31d7582` by a data engineer (DE), data analyst (DA) and engineering manager (EM). Each run replaces this section, with earlier runs in git history.
+The latest [blind persona review](quality_rubrics/_personas.md), run on 2026-11-16 against commit `bebee00` by a data engineer (DE), data analyst (DA) and engineering manager (EM), the third round after the cuts in [#288](https://github.com/paulf-999/ai-engineering-playbook/pull/288), [#291](https://github.com/paulf-999/ai-engineering-playbook/pull/291) and [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298). Each run replaces this section, with earlier runs in git history.
 
 ### 🏗️ Over-engineering verdict
 
-All three readers still found the repo over-engineered in what maintains it, not in what it installs:
+No reader now calls the repo over-engineered outright, but none calls it lean either:
 
-- 📦 **What you get:** modest and sensible, in about 2,300 always-on tokens, 2 hooks and guides that load only when needed.
-- 📍 **Where:** the scored rubric, the persona rubric and this audit (all three), the token report and PR-template CI checks (DE, EM), and commitlint running twice (DE).
-- 🔧 **What they'd change:** EM would replace the scored rubric with a short checklist, DE would drop the duplicate commitlint job, and DA asked for nothing here.
-- 🪞 **Stale evidence:** all three quoted the previous audit's 4/10 Over-engineering score, which this run replaces.
-- ✅ **Worth keeping:** the installer, both hooks and the token-budget check.
+- 📦 **What you get:** a small, careful core, about 2,200 always-on tokens, 2 hooks and a careful installer (all three).
+- ⚖️ **What surrounds it:** 40 support files against 92 product files, which DE calls a governance layer "aimed at the maintainer" and DA says a user can ignore.
+- 📍 **Where:** design docs, rubrics, persona reviews and this audit (DE, DA, EM), and dependabot and pip-audit for 6 dev dependencies (DE).
+- ✅ **Worth keeping:** the installer and its tests, the plan hook and the budget check.
 
 ### 🎯 Shared points
 
@@ -103,12 +101,11 @@ Each point two or more readers raised, ranked by how many raised it, then by imp
 
 | # | Theme | Raised by | Impact | Status |
 |---|---|---|---|---|
-| 1️⃣ | **Personal style and plan gates load for everyone** | DE, DA, EM | Blocks use | Kept as one config |
-| 2️⃣ | **Maintenance layer outweighs the product** | DE, DA, EM | Confuses | The repo rubric and audit are kept; this run updates the stale scores |
-| 3️⃣ | **The dbt example isn't evidence** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
-| 4️⃣ | **On-demand and path-scoped rules are unproven** | DE, DA, EM | Confuses | Open, with evals in [#234](https://github.com/paulf-999/ai-engineering-playbook/issues/234) |
-| 5️⃣ | **Team conventions still need rewriting** | DE, DA, EM | Confuses | Gathered into one file in [#285](https://github.com/paulf-999/ai-engineering-playbook/pull/285); an opt-in overlay is open |
+| 1️⃣ | **One team's conventions installed by default** | DE, DA, EM | Blocks use | Labelled as examples in [#285](https://github.com/paulf-999/ai-engineering-playbook/pull/285) and [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298); an opt-in pack is open |
+| 2️⃣ | **The dbt example breaks its own rules** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
+| 3️⃣ | **Style rules should be opt-in, not opt-out** | DE, DA | Blocks use | `STYLE=0` added in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298); the default stays on by choice |
+| 4️⃣ | **Data and infra guides lack evidence** | DE, EM | Confuses | Labelled unproven in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298), pending [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
 
-Single-reader asks: drop the duplicate commitlint job (DE), though it isn't one, since CI's job checks the PR title that becomes the squash commit and the hook checks local commits, a "pick what you need" page and an analyst path (DA), and outcome measures such as review comments per PR (EM).
+Single-reader asks: an analyst install path in the README and softer test rules for exploratory scripts (DA), and deleting the skill and agent templates (DE), which stay by choice.
 
-All three readers named the same strengths: the installer, the loading tiers, the enforced always-on budget and the repo's honesty about itself.
+All three readers named the same strengths: the installer, the always-on budget and the repo's honesty about itself.

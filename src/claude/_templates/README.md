@@ -1,6 +1,6 @@
 # 📋 Templates Directory
 
-Starting points for new rules, skills, agents and scripts. `make install` installs this folder to `_templates/` in your Claude config directory, as the [config README](../README.md) describes. Copy the template you need next to the file you're creating, then fill it in.
+Starting points for new rules, skills, agents and scripts. `make install` installs only the templates other rules point to, `TODO.md.template` and `utils/`; the rest stay here for authoring in this repo. Copy the template you need next to the file you're creating, then fill it in.
 
 | Template | Starting point for |
 |---|---|

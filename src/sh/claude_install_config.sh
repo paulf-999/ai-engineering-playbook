@@ -39,7 +39,8 @@ ASSUME_YES="${YES:-}"
 # 1 installs the rules in preferences/ folders, one person's taste; unset, it keeps an earlier install's choice
 PREFERENCES="${PREFERENCES:-}"
 # installed paths where preferences lived before they moved into preferences/ folders, so removing one says it's opt-in
-OLD_PREFERENCE_PATHS=" rules/always_on/standards/claude_response_standards.md "
+OLD_PREFERENCE_PATHS=" rules/always_on/standards/claude_response_standards.md on_demand/workflows/saving_plans.md \
+on_demand/conduct/todo_logging.md on_demand/conduct/writing_style/_drafts_and_errors.md _templates/TODO.md.template "
 # authoring templates that never install
 AUTHORING_TEMPLATES=" _templates/README.md _templates/AGENT.md.template _templates/rule.md.template "
 if [[ -n "${PROJECT}" ]]; then

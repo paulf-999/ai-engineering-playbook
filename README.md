@@ -32,7 +32,7 @@ Besides adding instructions, installing changes how Claude works in every projec
 - 💬 **Replies:** Claude uses British spelling and offers options before big changes. Its scannable reply format is [opt-in](src/claude/README.md#-preferences): `make install PREFERENCES=1`.
 - 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more phases pauses after each one.
 - 🪝 **Hooks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
-- 🔒 **Files:** Claude's file tools can't read `.env` files, and it saves plans and progress notes to `~/.claude_work/`, outside every repo.
+- 🔒 **Files:** Claude's file tools can't read `.env` files. Saving plans and notes outside your repos is opt-in too.
 
 ---
 

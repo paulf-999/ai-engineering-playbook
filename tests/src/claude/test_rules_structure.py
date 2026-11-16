@@ -268,3 +268,18 @@ def test_no_default_install_file_names_a_preference():
         for found in preference_paths((CONFIG_DIR / path).read_text())
     ]
     assert not problems, "default files name preferences they may not have:\n" + "\n".join(problems)
+
+
+# working-file folders that only the working-files preference names, since a default install never writes there
+WORKING_FILE_FOLDERS = re.compile(r"\.claude_work/|~/_drafts/|~/_errors/")
+
+
+def test_no_default_install_file_names_a_working_file_folder():
+    """Only preferences say where Claude keeps a user's plans, drafts, errors and session notes."""
+    problems = [
+        f"{path}: {found}"
+        for path in sorted(tracked_config_files())
+        if not path.endswith("README.md")
+        for found in WORKING_FILE_FOLDERS.findall((CONFIG_DIR / path).read_text())
+    ]
+    assert not problems, "default files name working-file folders:\n" + "\n".join(problems)

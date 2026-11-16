@@ -19,5 +19,4 @@
 
 - `on_demand/workflows/git.md`, in your Claude config directory, before running any git command.
 - `on_demand/conduct/automation_controls.md`, before proposing or starting a loop or other unattended run.
-- `on_demand/conduct/reporting.md`, before saying a task is done, or once a task spans many files or turns.
-- `on_demand/conduct/todo_logging.md`, when the user asks to add something to their TODOs.
+- `on_demand/conduct/reporting.md`, before saying a task is done.

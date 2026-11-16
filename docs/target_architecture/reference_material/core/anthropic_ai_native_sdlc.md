@@ -89,7 +89,7 @@ Which of the course's plays suit this repo, as decided at the maintainer's revie
 
 | Play | Decision | Why |
 |---|---|---|
-| 📝 Capture intent, requirements and design | Adapt | Intent and Spec sections at the top of each plan, saved as `intent.md` and `spec.md` once it is approved, suit a single maintainer, who also acts as product owner |
+| 📝 Capture intent, requirements and design | Adapt | Intent and Spec sections at the top of each plan, saved as `intent.md` and `spec.md` once it is approved for users who opt into preferences, suit a single maintainer, who also acts as product owner |
 | 🗺️ Plan mode and `plan.md` | Adapt | Plans stay in the Claude config directory, since this repo's config is installed there rather than worked on in each repo |
 | 📘 `CLAUDE.md` | Adapt | The always-on token budget replaces the one-page limit, and a fix still goes in once Claude repeats a mistake |
 | 🧠 Skills | Adopt | Only for knowledge that must be applied consistently, backed by a hook or CI check, as the course advises, though none ship yet |

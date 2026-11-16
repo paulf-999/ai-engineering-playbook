@@ -5,4 +5,3 @@
 - ✅ **Report checks:** when saying a task is done, name the checks that ran and what they showed.
 - 🚩 **Pre-existing issues:** name any problem the task didn't cause, say how you confirmed it predates the task, and say whether it was fixed or left.
 - 🤝 **Corrections:** treat an explicit correction as settled for the rest of the session, rather than drifting back to the earlier approach.
-- 💾 **Checkpoints:** once a task spans many files or turns, write its decisions and open items to `.claude_work/_sessions/YYYY_MM_DD_<topic>.md` in your home folder, beside the saved plans, as an absolute path, so a later session can resume it.

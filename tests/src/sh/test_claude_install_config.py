@@ -470,7 +470,7 @@ def test_authoring_templates_never_install(tmp_path):
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     installed = installed_files(config)
     assert not {path for path in installed if path in AUTHORING_TEMPLATES or path.startswith("_templates/skills/")}
-    assert "_templates/TODO.md.template" in installed, "a template a rule points to should still install"
+    assert "_templates/preferences/TODO.md.template" not in installed, "the TODO template is a preference"
 
 
 # files an install writes for its own records, beside the config it copies
@@ -570,3 +570,21 @@ def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_pat
     assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
     assert installed_files(config) - {"settings.json"} == {"CLAUDE.md"}, "only the user's own files should remain"
     assert (config / "CLAUDE.md").read_text() == "my old config\n", "the user's CLAUDE.md should be restored"
+
+
+def test_an_upgrade_says_moved_working_files_rules_are_now_opt_in(tmp_path):
+    """An install from before the working-files rules moved removes them with the note, or moves them when opted in."""
+    old = "on_demand/workflows/saving_plans.md"
+    for flag, noted in (("", True), ("1", False)):
+        config = tmp_path / f"config{flag}"
+        (config / old).parent.mkdir(parents=True)
+        (config / old).write_text("the old saving plans rule\n")
+        (config / ".playbook_install_manifest").write_text(f"{old}\n")
+
+        result = run_install(config, answer="install", **({"PREFERENCES": flag} if flag else {}))
+
+        assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+        assert not (config / old).exists(), "the old path should be removed"
+        assert ("now opt-in" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
+        moved = config / "on_demand" / "preferences" / "working_files" / "_saving_plans.md"
+        assert moved.exists() == bool(flag), "the rule should be at its new path only when opted in"

@@ -19,18 +19,18 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `CLAUDE.md` | ~520 |
 | 2 | `rules/always_on/conduct/behaviour.md` | ~324 |
 | 3 | `rules/always_on/conduct/security.md` | ~202 |
-| 4 | `rules/always_on/conduct/writing_style.md` | ~288 |
+| 4 | `rules/always_on/conduct/writing_style.md` | ~258 |
 | 5 | `rules/always_on/standards/naming_standards.md` | ~246 |
 | 6 | `rules/always_on/workflows/sdlc_workflow.md` | ~256 |
-| | **Subtotal** | **~1838** |
+| | **Subtotal** | **~1808** |
 
 ## 👤 Every session, if opted in
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/preferences/claude_output_format.md` | ~239 |
+| 1 | `rules/always_on/preferences/claude_output_format.md` | ~277 |
 | 2 | `rules/always_on/preferences/working_files.md` | ~202 |
-| | **Subtotal** | **~441** |
+| | **Subtotal** | **~479** |
 
 ## 💤 Only when needed
 

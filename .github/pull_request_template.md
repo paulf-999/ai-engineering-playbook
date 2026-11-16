@@ -4,7 +4,7 @@
 
 ## :mag: (Optional) Additional Details
 
-[If needed, only what a reviewer must or should know, as a list within the cap in [`_markdown_layout.md`](https://github.com/paulf-999/ai-engineering-playbook/blob/main/src/claude/rules/on_demand/conduct/writing_style/_markdown_layout.md). Open each with an emoji and a bold keyword, per the [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), keep it to about 20 words, and link any file, issue or PR with a full GitHub URL.]
+[If needed, only what a reviewer must or should know, as a list of 5 items at most. Open each with an emoji and a bold keyword, per the [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), keep it to about 20 words, and link any file, issue or PR with a full GitHub URL.]
 
 ## :hammer_and_wrench: Type of PR Change
 

@@ -1,8 +1,6 @@
-# 📋 Ansible Playbooks
+# 📋 Ansible team conventions: playbooks
 
-**Purpose:** Set how playbooks are named, foldered, linked and tagged.
-
-> 🏢 **Team conventions:** the playbook naming pattern, the folder structure with its symlinks, the CODEOWNERS step and the tag set. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+**Purpose:** how this team names, folders, links and tags its playbooks.
 
 ## 🏷️ Naming convention
 
@@ -50,7 +48,7 @@ When adding a new playbook directory, update `.github/CODEOWNERS` with the appro
 
 ## 🏷 Tags
 
-Apply tags at the task, block, or play level to allow selective execution. Standard operational tags:
+The team's standard operational tags:
 
 | Tag | When to use |
 |-----|-------------|
@@ -59,8 +57,6 @@ Apply tags at the task, block, or play level to allow selective execution. Stand
 | `restart` | Service restarts |
 | `uninstall` | Package or software removal |
 | `upgrade` | Version upgrades |
-
-Tags are `snake_case`. Apply them consistently within a playbook — tasks of the same type should share the same tag.
 
 ```bash
 # Run only configuration tasks
@@ -74,6 +70,4 @@ ansible-playbook playbooks/acme/acme_ilb_setup.yml --skip-tags install
 
 ## 🔧 Play standards
 
-- Set `gather_facts` and `become` explicitly on every play — do not rely on defaults.
 - Reference roles by their full path: `role: systems/azure_devops_agent`, not `role: azure_devops_agent`.
-- Comment each role reference briefly where its purpose is not obvious from the name.

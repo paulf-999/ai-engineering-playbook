@@ -1,8 +1,6 @@
-# 📊 Ansible Variables
+# 📊 Ansible team conventions: variables
 
-**Purpose:** Set the `group_vars` hierarchy, its precedence, and how variables are named.
-
-> 🏢 **Team conventions:** the six-level `group_vars` hierarchy and its precedence, the symlinks, and the double-underscore `group_vars` names. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+**Purpose:** this team's `group_vars` hierarchy, its precedence, its symlinks and how `group_vars` variables are named.
 
 ## 🗂️ group_vars hierarchy
 
@@ -24,7 +22,6 @@ Use the lowest level that satisfies the requirement — do not define variables 
 
 - [🔗 Symlinks in playbook directories](#-symlinks-in-playbook-directories)
 - [📝 Variable naming](#-variable-naming)
-- [💻 host_vars](#-host_vars)
 - [📌 Precedence reminder](#-precedence-reminder)
 
 ---
@@ -48,16 +45,6 @@ Without these symlinks, group_vars and roles will not be resolved when the playb
 
 ## 📝 Variable naming
 
-### In role defaults (`roles/<cap>/<role>/defaults/main.yml`)
-
-Prefix every variable with the role name:
-
-```text
-[role_name]_[variable]
-```
-
-Examples: `nginx_port`, `nginx_ssl_cert_path`, `mysql_root_password`
-
 ### In group_vars files
 
 Use the double-underscore pattern to namespace by application and role:
@@ -72,14 +59,6 @@ The double underscore (`__`) separates the application/department namespace from
 
 ---
 
-## 💻 host_vars
-
-Host-specific variables go in `host_vars/<inventory_hostname>.yml`. The filename must exactly match the hostname as it appears in the dynamic inventory output.
-
-Use `host_vars` only when a value genuinely differs per host and cannot be expressed at a group level. Prefer group_vars for consistency.
-
----
-
 ## 📌 Precedence reminder
 
-When the same variable is defined at multiple levels, the most specific level wins, given that nesting. L6 > L5 > L4 > L3 > L2 > L1 > `all.yml`. `host_vars` always overrides `group_vars` at any level.
+When the same variable is defined at multiple levels, the most specific level wins, given that nesting. L6 > L5 > L4 > L3 > L2 > L1 > `all.yml`.

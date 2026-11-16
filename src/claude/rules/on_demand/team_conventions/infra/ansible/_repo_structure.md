@@ -1,8 +1,6 @@
-# 🗂️ Ansible: Repo structure
+# 🗂️ Ansible team conventions: repo structure
 
 **Purpose:** where each kind of file goes in the team's Ansible repo.
-
-> 🏢 **Team conventions:** this whole file is the team's. Keep them, or propose a change by PR to this repo.
 
 ```text
 group_vars/                         # variable files shared across all playbooks

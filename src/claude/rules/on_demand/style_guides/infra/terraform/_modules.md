@@ -2,12 +2,9 @@
 
 **Purpose:** Set the standards for module composition, provider passing, iteration patterns, and lifecycle management.
 
-> 🏢 **Team conventions:** the layered create, ownership and usage pattern, and always passing `providers` explicitly. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
-
 ## 📋 Contents
 
 - [🧩 Module composition pattern](#-module-composition-pattern)
-- [🔁 Layered resource pattern](#-layered-resource-pattern)
 - [🔄 Iteration with for_each](#-iteration-with-for_each)
 - [🔧 Lifecycle management](#-lifecycle-management)
 - [📝 Module README](#-module-readme)
@@ -28,27 +25,7 @@ module "roles_and_grants" {
 }
 ```
 
-- Always pass providers explicitly using the `providers` argument — do not rely on implicit provider inheritance.
 - Use relative paths for module sources within the same repository (`source = "../../grants/default_grants_new_role_v1"`).
-
-## 🔁 Layered resource pattern
-
-Within a module, follow the create → ownership → usage pattern for Snowflake resources:
-
-```terraform
-# 1. Create the resource
-resource "snowflake_warehouse" "this" { ... }
-
-# 2. Grant OWNERSHIP to the owning role
-resource "snowflake_grant_ownership" "grant_ownership_snowflake_warehouse" { ... }
-
-# 3. Grant USAGE to consumer roles
-resource "snowflake_grant_privileges_to_account_role" "grant_usage_snowflake_warehouse" { ... }
-```
-
-This pattern keeps permission management co-located with the resource it governs.
-
----
 
 ## 🔄 Iteration with for_each
 

@@ -2,8 +2,6 @@
 
 **Purpose:** Set naming standards for Snowflake objects, Terraform resources, modules, variables and outputs; declaration rules live in [`_declarations.md`](_declarations.md).
 
-> 🏢 **Team conventions:** the Snowflake role and warehouse names, `UPPER_CASE` Snowflake objects, numbered environment sub-modules and `SCREAMING_SNAKE_CASE` provider variables. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
-
 ## 📋 Contents
 
 - [🧊 Snowflake object names](#-snowflake-object-names)
@@ -16,25 +14,7 @@
 
 ## 🧊 Snowflake object names
 
-Snowflake objects are UPPER_CASE. Naming patterns are enforced via `validation` blocks on the corresponding input variable.
-
-### Roles
-
-```text
-<PREFIX>_<NAME>_<SUFFIX>
-```
-
-| Component | Allowed values |
-|-----------|---------------|
-| Prefix | `ACCESS`, `PRIV`, `FUNC`, `PRD`, `CICD`, `UAT`, `DTE`, `OWNER` |
-| Name | Uppercase letters and underscores only — no numbers |
-| Suffix | `ALL_ROLE`, `SEL_ROLE`, `ROLE` |
-
-Examples: `FUNC_CREATE_MODIFY_DATABASE_ROLE`, `ACCESS_READ_ONLY_ROLE`
-
-### Warehouses
-
-Pattern: `<NAME>_WH` — e.g. `DEV_WH`, `APP_DB_FILE_SUBMITTER_WH`
+Snowflake object names follow the team's patterns in [`team_conventions/infra/terraform.md`](../../../../path_scoped/team_conventions/infra/terraform.md), enforced via `validation` blocks on the corresponding input variable.
 
 ## 🔧 Terraform resource names
 
@@ -52,7 +32,6 @@ Use `this` when a module manages a single primary resource. Name each resource d
 | Convention | Example |
 |------------|---------|
 | Reusable module directories: `snake_case` | `snowflake_role`, `grants_db_access` |
-| Environment sub-module directories: numbered `snake_case` | `1_roles_and_grants` |
 | Module block labels in HCL: `snake_case` | `module "roles_and_grants"` |
 
 ---
@@ -61,8 +40,7 @@ Use `this` when a module manages a single primary resource. Name each resource d
 
 | Category | Convention | Example |
 |----------|------------|---------|
-| Provider / authentication variables | `SCREAMING_SNAKE_CASE` | `SNOWFLAKE_ORGANIZATION_NAME` |
-| All other input variables | `snake_case` | `sf_warehouse_name`, `role_name_ownership_perms` |
+| Input variables | `snake_case`, apart from the team's provider variables | `sf_warehouse_name`, `role_name_ownership_perms` |
 
 ---
 

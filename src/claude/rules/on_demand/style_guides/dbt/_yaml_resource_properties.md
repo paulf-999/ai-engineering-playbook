@@ -5,12 +5,7 @@
 ## 🏷️ YAML file naming
 
 - YAML files must be prefixed with an underscore (`_`) so that they sort to the top of the directory listing.
-- Each layer uses a consistent file name pattern:
-
-| Layer | File name convention | Example |
-|-------|---------------------|---------|
-| Staging — source definitions | `_staging_src.yml` | `staging/<source>/_staging_src.yml` |
-| Base — model properties | `_src_base.yml` | `base/<source>/_src_base.yml` |
+- Each layer uses a consistent file name, per the team's patterns in [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md).
 
 ## 📋 Contents
 
@@ -24,7 +19,7 @@
 ## 🎨 YAML style guide
 
 - Indent with **2 spaces**.
-- Keep lines to a maximum of **120 characters** (matches the project SQLFluff config).
+- Keep lines within the team's maximum length, which matches the project's SQLFluff config.
 - List items must be indented relative to their parent key.
 - Use a blank line to separate list items that are dictionaries.
 
@@ -38,7 +33,7 @@ Apply at minimum `unique` and `not_null` tests to the surrogate key of every mod
 models:
   - name: staging_crm_customer_list
     columns:
-      - name: KEY
+      - name: <surrogate_key>
         data_tests:
           - unique
           - not_null
@@ -48,24 +43,10 @@ models:
 
 ## 📥 Source definitions
 
-Source YAML files use Jinja templating to select the correct database per environment, and YAML anchors to avoid repeating the database name across tables in the same source.
-
-- The `database` field uses a YAML anchor (`&db_name`) so that it can be referenced by other entries in the same file.
-- The Jinja block selects the environment-appropriate database based on `target.name`.
-- Source names and table names must be `UPPER_CASE`, matching Snowflake object names.
+Source YAML files select the correct database per environment, and avoid repeating the database name across tables in the same source. The team's pattern for both, and its casing for source and table names, are in [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md).
 
 ---
 
 ## 🔒 Sensitive data
 
-Columns containing PII or data that should not be exposed must be flagged in the YAML using the `meta` key:
-
-```yaml
-columns:
-  - name: contact_email
-    meta:
-      sensitive: true
-  - name: contact_name
-    meta:
-      sensitive: true
-```
+Columns containing PII or data that should not be exposed must be flagged in the YAML, using the team's `meta` key in [`team_conventions/dbt.md`](../../../path_scoped/team_conventions/dbt.md).

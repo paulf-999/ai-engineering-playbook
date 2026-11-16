@@ -58,6 +58,7 @@ review engineering_manager "${EM} ${TASK} Also answer: would you adopt it for yo
 wait; rm -rf "${WORK}"; echo "Reviews are in ${OUT}"
 ```
 
+- 🤖 **A script, not agents:** an in-session agent loads CLAUDE.md, rules and the session's context, which breaks blindness, and one in `src/claude/agents/` would install for every user.
 - 🔒 **Read-only tools:** `-p` can't answer permission prompts, and a reader never needs to write.
 - 🚦 **Default mode:** `--permission-mode default` stops a configured plan mode from writing plan files.
 - 🧪 **Blindness probe:** to check nothing leaks, ask one session to quote any CLAUDE.md, rules or memory it was given, and expect none.

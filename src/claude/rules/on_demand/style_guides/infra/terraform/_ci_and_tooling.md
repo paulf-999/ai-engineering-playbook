@@ -2,6 +2,8 @@
 
 **Purpose:** Set the standards for pre-commit hooks, code formatting, and the Azure Pipelines CI/CD workflow.
 
+> 🏢 **Team conventions:** the fixed pre-commit hook list with its 120-character lines, and both Azure Pipelines sections, including the environment order and Key Vault. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [🪝 Pre-commit hooks](#-pre-commit-hooks)

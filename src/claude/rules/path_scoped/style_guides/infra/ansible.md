@@ -5,7 +5,9 @@ paths:
 ---
 # 📦 Ansible Style Guide & Standards
 
-**Purpose:** Define the team's standards for writing and structuring Ansible projects.
+**Purpose:** how to write and structure Ansible projects.
+
+> 🏢 **Team conventions:** the naming patterns for playbooks, roles, inventory scopes, plugin and variable files, sentence-case task names, and the production lint profile with its one skip. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
 
 ## 🏷️ Naming conventions
 

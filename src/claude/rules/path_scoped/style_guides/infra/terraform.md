@@ -4,7 +4,9 @@ paths:
 ---
 # 🏗️ Terraform Style Guide & Standards
 
-**Purpose:** Define the team's standards for the Terraform that manages Snowflake infrastructure and deploys through Azure Pipelines.
+**Purpose:** how the Terraform that manages Snowflake infrastructure is written and deployed through Azure Pipelines.
+
+> 🏢 **Team conventions:** Snowflake as the only target, Azure Pipelines, the `dev`, `uat`, `cicd`, `prod` and `global` roots, `terraform/modules/` and `.env_template`. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
 
 ## 🏗️ Core principles
 

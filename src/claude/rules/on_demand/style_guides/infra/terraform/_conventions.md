@@ -2,6 +2,8 @@
 
 **Purpose:** Set naming standards for Snowflake objects, Terraform resources, modules, variables and outputs; declaration rules live in [`_declarations.md`](_declarations.md).
 
+> 🏢 **Team conventions:** the Snowflake role and warehouse names, `UPPER_CASE` Snowflake objects, numbered environment sub-modules and `SCREAMING_SNAKE_CASE` provider variables. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Contents
 
 - [🧊 Snowflake object names](#-snowflake-object-names)

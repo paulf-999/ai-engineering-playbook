@@ -2,6 +2,8 @@
 
 **Purpose:** Set the `group_vars` hierarchy, its precedence, and how variables are named.
 
+> 🏢 **Team conventions:** the six-level `group_vars` hierarchy and its precedence, the symlinks, and the double-underscore `group_vars` names. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🗂️ group_vars hierarchy
 
 Variables are organised into a 6-level hierarchy under `group_vars/` at the repo root. More specific levels override less specific ones, provided the inventory nests each level's group inside the one above, since Ansible ranks child groups over their parents.

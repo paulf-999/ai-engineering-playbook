@@ -1,29 +1,10 @@
 # ⚙️ Tasks, Operators & Dependencies
 
-**Purpose:** Establish standards for DAG boilerplate, task design, operator selection, helper files, and task dependencies to ensure consistent and maintainable DAG structure.
+**Purpose:** how to design tasks, choose operators and wire dependencies, so DAGs stay consistent and maintainable.
 
-## 📋 Standard dag.py boilerplate
+## 📋 dag.py
 
-Every `dag.py` starts the same way. All DAG configuration comes from `config.yaml` — nothing is hardcoded:
-
-```python
-from airflow import DAG
-from your_dags_package.includes import common  # ruff: isort: skip
-
-# Retrieve default & optional DAG parameters
-default_dag_params, optional_dag_params = common.get_default_dag_params(__file__)
-
-# Create the Airflow DAG
-with DAG(**default_dag_params) as dag:
-    # task definitions here
-
-    # DAG graph
-    task_a >> task_b
-```
-
-- **`default_dag_params`:** contains `dag_id`, `schedule`, `start_date`, `catchup`, `tags`, `description`, `doc_md`, `default_args`
-- **`optional_dag_params`:** contains `dag_inputs` (raw config.yaml), `py_helpers` (from `__py_helpers.py`), and `sql_queries` (from `__sql_queries.py`)
-- **DAG graph:** always end the DAG block with a `# DAG graph` comment followed by all task dependency declarations
+Keep `dag.py` to the DAG definition and task wiring, with configuration read from outside the file. This team's boilerplate and helpers are in [`team_conventions/airflow.md`](../../../path_scoped/team_conventions/airflow.md).
 
 ## 📋 Contents
 
@@ -40,10 +21,8 @@ with DAG(**default_dag_params) as dag:
 
 - **One operation per task:** do not bundle unrelated steps into a single task
 - **Independently re-runnable:** tasks must be safe to rerun without side effects from previous runs
-- **Simplicity:** keep task functions small and single-purpose — extract complex logic into importable modules in `includes/`
-- **Descriptive IDs:** task IDs must be unique and describe the action performed
-  - **Individual tasks:** prefix with `task_` (e.g., `task_snowflake_query`)
-  - **TaskGroups:** prefix with `tg_` (e.g., `tg_airbyte_tasks`)
+- **Simplicity:** keep task functions small and single-purpose — extract complex logic into the team's shared modules
+- **Descriptive IDs:** task IDs must be unique and describe the action performed, with the team's prefixes
 
 ---
 
@@ -53,11 +32,10 @@ Prefer purpose-built operators over generic ones. Common patterns:
 
 | Use case | Preferred operator | Example |
 |----------|-------------------|---------|
-| Python logic | `PythonOperator` with callable from `__py_helpers.py` | `task_transform()` |
-| Snowflake SQL | `SQLExecuteQueryOperator`, which replaces the deprecated `SnowflakeOperator`, with SQL from `__sql_queries.py` | `task_load()` |
-| dbt runs | `DockerOperator` with `common.get_common_dbt_docker_params()` | `task_dbt_run()` |
-| Airbyte sync | `common.generate_common_airbyte_tasks()` | `task_sync_source()` |
-| Trigger child DAG | `TriggerDagRunOperator` with `common.get_common_trigger_dagrun_params()` | `task_trigger_child()` |
+| Python logic | `PythonOperator` with a callable from the DAG's helpers | `task_transform()` |
+| Snowflake SQL | `SQLExecuteQueryOperator`, which replaces the deprecated `SnowflakeOperator` | `task_load()` |
+| dbt runs and Airbyte syncs | The team's shared helpers | `task_dbt_run()` |
+| Trigger child DAG | `TriggerDagRunOperator` | `task_trigger_child()` |
 | Wait for condition | A sensor, such as `ExternalTaskSensor`, with `mode="reschedule"` | avoid holding worker slots |
 | Branching | `BranchPythonOperator` | conditional task routing |
 
@@ -65,14 +43,7 @@ Prefer purpose-built operators over generic ones. Common patterns:
 
 ## 📂 DAG-specific helpers
 
-Store Python callables and SQL queries in dedicated files within the DAG folder, not inline in `dag.py`:
-
-| File | Purpose | Access pattern |
-|------|---------|-----------------|
-| `__py_helpers.py` | DAG-specific Python functions | `optional_dag_params["py_helpers"].<function_name>` |
-| `__sql_queries.py` | DAG-specific SQL queries as strings | `optional_dag_params["sql_queries"].<variable_name>` |
-
-Both files are auto-imported by `common.get_default_dag_params()` if they exist in the DAG folder.
+Keep Python callables and SQL queries out of `dag.py`, in the DAG's own helper files, as the team's conventions name them.
 
 ---
 
@@ -80,18 +51,13 @@ Both files are auto-imported by `common.get_default_dag_params()` if they exist 
 
 - **Use `>>`:** always use the `>>` operator to define dependencies
 - **Never use:** `set_upstream()` or `set_downstream()`
-- **Group at bottom:** define all dependencies at the bottom of the DAG block under a `# DAG graph` comment, kept separate from task definitions
-
-```python
-    # DAG graph
-    tg_airbyte_tasks >> tg_dbt_run_staging_base_tasks
-```
+- **Group at bottom:** define all dependencies together at the bottom of the DAG block, kept separate from task definitions
 
 ---
 
 ## 📦 TaskGroups
 
-Use `TaskGroup` to visually group related tasks in the Airflow UI. Common patterns (Airbyte, dbt) are wrapped in reusable TaskGroup generators in `includes/airflow_tasks/`.
+Use `TaskGroup` to visually group related tasks in the Airflow UI, and reuse the team's TaskGroup generators for common patterns.
 
 ---
 

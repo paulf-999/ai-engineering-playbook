@@ -2,7 +2,7 @@
 
 **Purpose:** the team's macros, packages, key column, audit fields and folders, which the other dbt guides refer to.
 
-> **Example team conventions, edit these** to fit your project. The other dbt guides refer to them by role, such as "the team's surrogate key macro", so a change here applies everywhere.
+> **The team's standards:** follow these as they are, and propose any change by PR to this repo. The other dbt guides refer to them by role, such as "the team's surrogate key macro", so a change here applies everywhere.
 
 ## 🔑 Surrogate key
 

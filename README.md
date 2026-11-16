@@ -21,7 +21,7 @@ You need `git`, `bash` and [`jq`](https://jqlang.org/) on macOS or Linux, and a 
 2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`, or `$CLAUDE_CONFIG_DIR` if set.
 
 > [!NOTE]
-> It backs up any file it replaces to `backups/` in that directory first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`. To undo an install, run `make uninstall`, with the same `PROJECT=` if you set one.
+> **Which install:** `make install` applies the instructions in every project you open. To apply them in one repo only, such as your team's dbt repo, run `make install PROJECT=<path to repo>`. Either way, it backs up any file it replaces to `backups/` first, and `make uninstall`, with the same `PROJECT=`, undoes it.
 
 ---
 
@@ -39,7 +39,7 @@ Besides adding instructions, installing changes how Claude works in every projec
 ## 📦 What you get
 
 - ⚡ Claude reads only the instructions each task needs, so it stays fast and focused.
-- 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load).
+- 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load), and the [terms](src/claude/README.md#-terms) explain words such as hook and phase gate.
 - 📦 Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
 - 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md), one illustrative run rather than a measured result.
 - 🧪 The data and infra style guides are unproven: no measured run shows them improving output yet, which [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) will test.

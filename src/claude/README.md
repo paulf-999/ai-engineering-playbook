@@ -24,6 +24,16 @@ Every rule costs context, so its folder decides how often it loads:
 - 📍 **Install location:** `on_demand/` installs beside `rules/`, not inside it, since Claude Code loads all of `rules/` every session.
 - 🧩 **Child files:** a name starting with `_` marks detail split from a parent rule, read only when the parent points to it.
 
+## 📖 Terms
+
+- 📁 **Claude config directory:** the folder Claude Code reads its instructions and settings from, `~/.claude` unless `$CLAUDE_CONFIG_DIR` is set.
+- 📏 **Rule:** a short markdown file telling Claude how to do one thing, such as name a dbt model.
+- ⏱️ **Always-on, path-scoped and on-demand:** when a rule loads: every session, only when Claude works on a matching file such as a dbt model, or only when another rule points Claude to it.
+- 🔢 **Tokens:** the unit Claude's working memory is measured in, about three-quarters of a word. The always-on budget caps the always-on rules at 3,000 tokens.
+- 🪝 **Hook:** a small script Claude Code runs by itself at set moments, such as when Claude says it has finished.
+- 📝 **Intent and Spec:** the two sections a plan of 15 lines or more opens with, on what you want and what will be built. A quick request, such as one query, needs no plan.
+- 🛑 **Phase gate:** a pause after each stage of work of 3 or more stages, such as after each PR, so you can check it before Claude goes on.
+
 ## 🏢 Installing into one repo
 
 To share the config with a team, install it into a repo's `.claude/` folder and commit that folder:
@@ -37,6 +47,7 @@ make install PROJECT=../my_dbt_repo
 
 ## 🛠️ Changing it
 
+- 🤝 **Team conventions:** propose a change by PR here, then reinstall, since `make install` replaces edits made to the installed copy.
 - 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers writing a rule, skill or agent.
 - ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide whether a component earns its context cost.
 - ✅ **Checks:** `make test` checks rule structure, and pre-commit keeps always-on context within budget.

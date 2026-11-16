@@ -49,7 +49,7 @@ DA="You are a data analyst who writes SQL, builds Looker and Omni dashboards and
 EM="You are a manager of a data engineering and analytics team, who knows Claude Code, data engineering and business needs at a high level but doesn't work in the detail. You're deciding whether to roll it out to your team."
 review() {
     # the prompt goes on stdin, since --allowedTools is variadic and would swallow it
-    (cd "${WORK}" && echo "${2}" | claude -p --safe-mode --permission-mode default --output-format json \
+    (cd "${WORK}" && echo "${2}" | claude -p --safe-mode --model sonnet --permission-mode default --output-format json \
         --allowedTools "Read,Glob,Grep,Bash(ls:*),Bash(wc:*),Bash(find:*)") | jq -r '.result' > "${OUT}/${1}.md"
 }
 review data_engineer "${DE} ${TASK}" &
@@ -61,6 +61,7 @@ wait; rm -rf "${WORK}"; echo "Reviews are in ${OUT}"
 - 🤖 **A script, not agents:** an in-session agent loads CLAUDE.md, rules and the session's context, which breaks blindness, and one in `src/claude/agents/` would install for every user.
 - 🔒 **Read-only tools:** `-p` can't answer permission prompts, and a reader never needs to write.
 - 🚦 **Default mode:** `--permission-mode default` stops a configured plan mode from writing plan files.
+- ⚡ **Quick rounds:** readers run in parallel on Sonnet, so a round takes minutes, not a quarter of an hour. Fix what a round finds in one pass, and stop after 2 rounds to ship the fixes rather than polish towards a perfect verdict.
 - 🧪 **Blindness probe:** to check nothing leaks, ask one session to quote any CLAUDE.md, rules or memory it was given, and expect none.
 
 ## 🎯 Shared feedback

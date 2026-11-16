@@ -3,6 +3,7 @@
 **Purpose:** how to place, write, wire up and check a new rule, as part of the [authoring guide](../authoring_guide.md).
 
 - 🚪 **Pick the tier:** `always_on/` only for a rule every task needs while the always-on budget holds, `path_scoped/` with a `paths:` setting for a rule tied to one kind of file, and `on_demand/` for everything else, and whenever you're unsure.
+- 👤 **Preferences:** put a rule that's one person's taste, such as a reply layout, in a `preferences/` topic folder, which installs only with `PREFERENCES=1`, and point to it only from other preferences.
 - 👉 **Pointers:** reach an on-demand file with a bullet in a `## 📚 Read on demand` section at the end of the file, naming its path, in your Claude config directory, and when to read it, or name it in a hook's block message.
 - 🆕 **New-file gap:** a path-scoped rule loads only once a matching file is open, so point to it on demand too, for the first file of its kind.
 - 🧩 **Children:** name each child in its parent, and keep links to other files in those pointer lines rather than a Related section.

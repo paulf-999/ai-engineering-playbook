@@ -4,6 +4,7 @@ import re
 
 import pytest
 import yaml
+from _config_files import tracked_config_files
 from _paths import REPO_ROOT
 
 CONFIG_DIR = REPO_ROOT / "src" / "claude"
@@ -241,3 +242,29 @@ def test_every_pointer_target_exists():
         if not resolve(target).exists()
     ]
     assert not missing, "fix these pointers to missing files: " + ", ".join(missing)
+
+
+# a backticked path into a preferences/ folder, which a default install leaves out
+PREFERENCE_PATH = re.compile(r"`[^`\n]*preferences/[^`\n]*`")
+
+
+def preference_paths(text):
+    """Return each backticked path into a preferences/ folder that the text names."""
+    return PREFERENCE_PATH.findall(text)
+
+
+def test_preference_paths_are_found_in_any_backticks():
+    """A pointer bullet, a table cell or prose naming a preferences/ path is caught, and other paths aren't."""
+    text = "- `on_demand/preferences/x.md`, when\n| `_templates/preferences/y` |\nsee `rules/always_on/z.md`"
+    assert preference_paths(text) == ["`on_demand/preferences/x.md`", "`_templates/preferences/y`"]
+
+
+def test_no_default_install_file_names_a_preference():
+    """Nothing a default install ships points into a preferences/ folder, which only PREFERENCES=1 installs."""
+    problems = [
+        f"{path}: {found}"
+        for path in sorted(tracked_config_files())
+        if not path.endswith("README.md")
+        for found in preference_paths((CONFIG_DIR / path).read_text())
+    ]
+    assert not problems, "default files name preferences they may not have:\n" + "\n".join(problems)

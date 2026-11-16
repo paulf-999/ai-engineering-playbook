@@ -34,6 +34,20 @@ Every rule costs context, so its folder decides how often it loads:
 - 📝 **Intent and Spec:** the two sections a long plan opens with, on what you want and what will be built, per [`sdlc_workflow.md`](rules/always_on/workflows/sdlc_workflow.md). A quick request, such as one query, needs no plan.
 - 🛑 **Phase gate:** a pause after each stage of multi-stage work, such as after each PR, so you can check it before Claude goes on.
 
+## 👤 Preferences
+
+Preferences are one person's taste in how Claude replies, rather than good practice or the team's conventions, so they install only if you ask:
+
+| Preference | What it does | Example | Why you might want it |
+|---|---|---|---|
+| 📤 **Reply format** | Opens each longer reply with a bold Summary, short themed bullets and numbered next steps | A reply you can scan in seconds, ending "1. 🚀 **Ship it** (recommended)" | Faster to read long answers |
+| 🔑 **Bold-keyword bullets** | Starts each rule or definition bullet with its key term in bold, in replies, docs, tickets and commits | "**Scope:** build only what was asked for." | Lists you can skim by their first words |
+
+- 📥 **Install:** `make install PREFERENCES=1` adds them, a plain `make install` keeps them, and `make install PREFERENCES=0` removes them.
+- 💰 **Cost:** about 240 tokens in every session, per the [context cost report](../../maintenance/context_cost.md).
+- 🏢 **Projects:** they never go into a project install, since that folder is shared.
+- 💬 **Without them:** Claude still offers options, just not as a numbered list, and still uses British spelling, so ask if you want American English.
+
 ## 🏢 Installing into one repo
 
 To share the config with a team, install it into a repo's `.claude/` folder and commit that folder:

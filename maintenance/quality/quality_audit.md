@@ -104,9 +104,9 @@ Each point two or more readers raised, ranked by how many raised it, then by imp
 | # | Theme | Raised by | Impact | Status |
 |---|---|---|---|---|
 | 1️⃣ | **Another team's dbt and Airflow conventions install as rules, with no way to customise them that survives a reinstall** | DE, DA, EM | Blocks use | Open; labelled as examples in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298), which all three found too easy to miss |
-| 2️⃣ | **No "which install is right for me" path, such as a project install with `STYLE=0` for a dbt repo** | DE, DA, EM | Blocks use | Open |
+| 2️⃣ | **No "which install is right for me" path, such as a project install for a dbt repo** | DE, DA, EM | Blocks use | Open |
 | 3️⃣ | **The dbt example breaks its own rules: uppercase CTEs, a `KEY` on an aggregate, an `MD5` stand-in and no YAML** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
-| 4️⃣ | **The reply style should be opt-in, not opt-out** | DE, DA, EM | Confuses | Kept on by choice, with `STYLE=0` from [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298) |
+| 4️⃣ | **The reply style should be opt-in, not opt-out** | DE, DA, EM | Confuses | Opt-in with `PREFERENCES=1` |
 | 5️⃣ | **The data guides are unproven** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
 | 6️⃣ | **Nothing for analysts, such as turning a business request into SQL or a dbt model** | DA, EM | Blocks use | Open |
 | 7️⃣ | **Undefined jargon, such as always-on, path-scoped, hooks and phase gates** | DA, EM | Confuses | Open |

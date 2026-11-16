@@ -8,6 +8,7 @@
 This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, a pre-commit hook rewrites and stages it when a commit changes `src/claude/`, and CI fails if it's out of date, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../docs/target_architecture/architecture/_budget_and_guards.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
+- 👤 **Every session, if opted in:** preferences, which load in every session only after `make install PREFERENCES=1`. They count towards the budget only for those users, but the budget check always counts them, the worst case.
 - 📂 **Path-scoped rules:** loads only once Claude opens a file that matches one of its globs.
 - 💤 **On demand:** loads only when Claude follows a pointer to it.
 
@@ -16,17 +17,23 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~520 |
-| 2 | `rules/always_on/conduct/behaviour.md` | ~306 |
+| 2 | `rules/always_on/conduct/behaviour.md` | ~357 |
 | 3 | `rules/always_on/conduct/security.md` | ~202 |
-| 4 | `rules/always_on/conduct/writing_style.md` | ~308 |
-| 5 | `rules/always_on/standards/claude_response_standards.md` | ~212 |
-| 6 | `rules/always_on/standards/naming_standards.md` | ~246 |
-| 7 | `rules/always_on/workflows/sdlc_workflow.md` | ~286 |
-| | **Subtotal** | **~2082** |
+| 4 | `rules/always_on/conduct/writing_style.md` | ~274 |
+| 5 | `rules/always_on/standards/naming_standards.md` | ~246 |
+| 6 | `rules/always_on/workflows/sdlc_workflow.md` | ~286 |
+| | **Subtotal** | **~1887** |
+
+## 👤 Every session, if opted in
+
+| # | File | Tokens |
+|---|---|---|
+| 1 | `rules/always_on/preferences/claude_output_format.md` | ~239 |
+| | **Subtotal** | **~239** |
 
 ## 💤 Only when needed
 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 12 | ~4400 |
-| 💤 On demand, via a pointer | 52 | ~29600 |
+| 💤 On demand, via a pointer | 52 | ~29900 |

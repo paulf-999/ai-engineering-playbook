@@ -50,6 +50,9 @@ load_condition() {
     globs="$(rule_path_globs "${REPO_DIR}/${file}" | awk '{ printf "%s`%s`", sep, $0; sep = ", " }')"
     if [[ -n "${globs}" ]]; then
         echo "With matching files: ${globs}"
+    elif [[ "${file}" == */preferences/* ]]; then
+        # preferences install only with PREFERENCES=1
+        echo "Every session, if opted in"
     else
         echo "Every session"
     fi
@@ -66,6 +69,7 @@ table_body() {
     local mode="${1:-full}"
     local file chars condition name
     local every="" scoped="" lazy="" every_chars=0 scoped_chars=0 lazy_chars=0 every_n=0 scoped_n=0 lazy_n=0
+    local opted="" opted_chars=0 opted_n=0
     while IFS= read -r file; do
         chars=$(count_loaded_chars "${REPO_DIR}/${file}")
         condition="$(load_condition "${file}")"
@@ -75,6 +79,10 @@ table_body() {
                 every_n=$((every_n + 1))
                 every+="| ${every_n} | ${name} | ~$((chars / 4)) |"$'\n'
                 every_chars=$((every_chars + chars)) ;;
+            "Every session, if opted in")
+                opted_n=$((opted_n + 1))
+                opted+="| ${opted_n} | ${name} | ~$((chars / 4)) |"$'\n'
+                opted_chars=$((opted_chars + chars)) ;;
             "On demand"*)
                 lazy_n=$((lazy_n + 1))
                 lazy+="| ${lazy_n} | ${name} | ~$((chars / 4)) |"$'\n'
@@ -87,6 +95,8 @@ table_body() {
     # sort by byte value, so the order is the same on every machine whatever its locale
     done < <(git -C "${REPO_DIR}" ls-files -- "${CONFIG_DIR}/*.md" | LC_ALL=C sort)
     printf '## 🔒 Every session\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' "${every}" "$((every_chars / 4))"
+    printf '\n## 👤 Every session, if opted in\n\n| # | File | Tokens |\n|---|---|---|\n%s| | **Subtotal** | **~%s** |\n' \
+        "${opted}" "$((opted_chars / 4))"
     if [[ "${mode}" == summary ]]; then
         printf '\n## 💤 Only when needed\n\n| Load type | Files | Tokens |\n|---|---|---|\n'
         printf '| 📂 Path-scoped rules, with matching files | %s | ~%s |\n' "${scoped_n}" "$(rounded $((scoped_chars / 4)))"
@@ -110,6 +120,7 @@ report_body() {
 This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, a pre-commit hook rewrites and stages it when a commit changes `src/claude/`, and CI fails if it's out of date, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../docs/target_architecture/architecture/_budget_and_guards.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
+- 👤 **Every session, if opted in:** preferences, which load in every session only after `make install PREFERENCES=1`. They count towards the budget only for those users, but the budget check always counts them, the worst case.
 - 📂 **Path-scoped rules:** loads only once Claude opens a file that matches one of its globs.
 - 💤 **On demand:** loads only when Claude follows a pointer to it.
 

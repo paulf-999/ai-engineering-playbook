@@ -6,13 +6,12 @@ import pty
 import subprocess
 
 import pytest
+from _config_files import AUTHORING_TEMPLATES, GIT_ENV, is_preference, tracked_config_files
 from _git_repo import isolated_git_repo
 from _paths import REPO_ROOT, SCRIPTS_DIR
 
 SCRIPT = SCRIPTS_DIR / "claude_install_config.sh"
 SOURCE = REPO_ROOT / "src" / "claude"
-# ignore the user's git config, so their settings can't change which files git lists
-GIT_ENV = {"GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
 
 
 def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
@@ -39,21 +38,6 @@ def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
     finally:
         os.close(terminal)
         os.close(controller)
-
-
-# authoring templates the installer never installs, and the personal style rules STYLE=0 leaves out
-AUTHORING_TEMPLATES = {"_templates/README.md", "_templates/AGENT.md.template", "_templates/rule.md.template"}
-STYLE_FILES = {"rules/always_on/standards/claude_response_standards.md", "rules/always_on/conduct/writing_style.md"}
-
-
-def tracked_config_files():
-    """Return the files git tracks under src/claude/ that install, as paths relative to it."""
-    command = ["git", "ls-files", "--", "src/claude"]
-    output = subprocess.run(
-        command, cwd=REPO_ROOT, env={**os.environ, **GIT_ENV}, capture_output=True, text=True, check=True
-    )
-    paths = {path.removeprefix("src/claude/") for path in output.stdout.splitlines()}
-    return {path for path in paths if path not in AUTHORING_TEMPLATES and not path.startswith("_templates/skills/")}
 
 
 def installed_path(source):
@@ -489,11 +473,100 @@ def test_authoring_templates_never_install(tmp_path):
     assert "_templates/TODO.md.template" in installed, "a template a rule points to should still install"
 
 
-def test_style_opt_out_leaves_out_only_the_style_rules(tmp_path):
-    """STYLE=0 installs everything except the reply-format and writing-style rules."""
+# files an install writes for its own records, beside the config it copies
+BOOKKEEPING = {".playbook_install_manifest", ".playbook_install_deny_rules", "settings.json"}
+# a preference that installs only with PREFERENCES=1
+OUTPUT_FORMAT = "rules/always_on/preferences/claude_output_format.md"
+
+
+def preference_files(target):
+    """Return the installed files that are preferences."""
+    return {path for path in installed_files(target) if is_preference(path)}
+
+
+def test_preferences_install_only_with_the_flag(tmp_path):
+    """A default install leaves preferences out, and PREFERENCES=1 adds every one of them."""
+    config = tmp_path / "config"
+    assert run_install(config, answer="install").returncode == 0, "the default install should succeed"
+    assert preference_files(config) == set(), "a default install should have no preferences"
+
+    result = run_install(config, answer="install", PREFERENCES="1")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    expected = {installed_path(path) for path in tracked_config_files(include_preferences=True)}
+    assert installed_files(config) - BOOKKEEPING == expected, "PREFERENCES=1 should install everything"
+
+
+def test_a_plain_reinstall_keeps_preferences_and_zero_removes_them(tmp_path):
+    """An opt-in sticks across plain reinstalls, and PREFERENCES=0 removes the files and their empty folders."""
+    config = tmp_path / "config"
+    assert run_install(config, answer="install", PREFERENCES="1").returncode == 0, "the opt-in install should work"
+    assert run_install(config, answer="install").returncode == 0, "the plain reinstall should work"
+    assert (config / OUTPUT_FORMAT).exists(), "a plain reinstall should keep the preferences"
+
+    result = run_install(config, answer="install", PREFERENCES="0")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert preference_files(config) == set(), "PREFERENCES=0 should remove every preference"
+    assert not (config / "rules" / "always_on" / "preferences").exists(), "the empty folder should be removed"
+    assert "rerun with make install PREFERENCES=1" in result.stdout, "it should say how to keep them"
+
+
+def test_an_upgrade_says_moved_preferences_are_now_opt_in(tmp_path):
+    """A file at a preference's old path is removed with the opt-in note, unless PREFERENCES=1 replaces it."""
+    for flag, noted in (("", True), ("1", False)):
+        config = tmp_path / f"config{flag}"
+        old = "rules/always_on/standards/claude_response_standards.md"
+        (config / old).parent.mkdir(parents=True)
+        (config / old).write_text("the old reply format\n")
+        (config / ".playbook_install_manifest").write_text(f"{old}\n")
+
+        result = run_install(config, answer="install", **({"PREFERENCES": flag} if flag else {}))
+
+        assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+        assert not (config / old).exists(), "the old file should be removed"
+        assert ("now opt-in" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
+
+
+def test_a_project_never_gets_preferences(tmp_path):
+    """A project install leaves preferences out, and refuses PREFERENCES=1 without changing anything."""
+    config, project = tmp_path / "config", tmp_path / "repo"
+    project.mkdir()
+    refused = run_install(config, answer="install", PROJECT=str(project), PREFERENCES="1")
+    assert refused.returncode == 1, f"PREFERENCES=1 should be refused in a project:\n{refused.stdout}"
+    assert "own config" in refused.stdout + refused.stderr, "it should say where preferences go"
+    assert not (project / ".claude").exists(), "a refused install should change nothing"
+
+    result = run_install(config, answer="install", PROJECT=str(project))
+
+    assert result.returncode == 0, f"a project install should succeed:\n{result.stdout}{result.stderr}"
+    assert preference_files(project / ".claude") == set(), "a project install should have no preferences"
+
+
+def test_style_is_replaced_and_bad_preference_values_are_refused(tmp_path):
+    """STYLE warns that it's gone while writing_style.md still installs, and PREFERENCES must be 0 or 1."""
     config = tmp_path / "config"
     result = run_install(config, answer="install", STYLE="0")
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    expected = {installed_path(path) for path in tracked_config_files()} - STYLE_FILES
-    bookkeeping = {".playbook_install_manifest", ".playbook_install_deny_rules", "settings.json"}
-    assert installed_files(config) - bookkeeping == expected, "only the two style rules should be left out"
+    assert "STYLE is gone" in result.stdout, "it should warn that STYLE no longer does anything"
+    assert (config / "rules" / "always_on" / "conduct" / "writing_style.md").exists(), "writing style always installs"
+
+    refused = run_install(tmp_path / "other", answer="install", PREFERENCES="yes")
+
+    assert refused.returncode == 1, f"PREFERENCES=yes should be refused:\n{refused.stdout}"
+
+
+def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_path):
+    """Install, opt in, reinstall, opt out and uninstall, and only the user's own files remain."""
+    config = tmp_path / "config"
+    config.mkdir()
+    (config / "CLAUDE.md").write_text("my old config\n")
+    for flag in ("", "1", "", "0"):
+        result = run_install(config, answer="install", **({"PREFERENCES": flag} if flag else {}))
+        assert result.returncode == 0, f"install with PREFERENCES={flag!r} should work:\n{result.stdout}"
+
+    result = run_install(config, answer="uninstall", UNINSTALL="1")
+
+    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
+    assert installed_files(config) - {"settings.json"} == {"CLAUDE.md"}, "only the user's own files should remain"
+    assert (config / "CLAUDE.md").read_text() == "my old config\n", "the user's CLAUDE.md should be restored"

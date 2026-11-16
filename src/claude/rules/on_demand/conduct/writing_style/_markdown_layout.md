@@ -2,12 +2,12 @@
 
 **Purpose:** how headings, lists and tables are laid out, so every page scans the same way.
 
-These rules cover markdown docs, while chat replies follow the response standards rule.
+These rules cover markdown docs, while chat replies follow the output format preference, if installed.
 
 ## 😀 Emojis
 
-- ✅ **Give one to:** each heading, each labelled top-level bullet and each table body row, in its first cell, before the bold keyword.
-- 🚫 **Give none to:** header rows, child bullets, plain list items, numbered steps and pointer bullets such as "Read on demand".
+- ✅ **Give one to:** each heading, each top-level bullet in a rule or definition list and each table body row, in its first cell, before the bullet's first word.
+- 🚫 **Give none to:** header rows, child bullets, plain lists, numbered steps and pointer bullets such as "Read on demand".
 
 ## 🔢 Lists and tables
 

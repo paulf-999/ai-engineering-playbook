@@ -4,7 +4,6 @@
 
 - 🇬🇧 **British spelling:** use -ise and other British forms in prose, but keep existing identifiers and filenames as they are.
 - ✂️ **Brevity:** cut any sentence or caveat that can go without losing meaning, and keep one idea per sentence.
-- 🔑 **Bold keyword bullets:** open a rule or definition bullet with its key term in bold and a colon, and leave plain lists unlabelled.
 - 🎯 **Lead with what it does:** say what something does before how it works, and define each term the first time it appears.
 - 📜 **History lives in git:** describe only the current state in repo files, leaving past changes to the commit log.
 

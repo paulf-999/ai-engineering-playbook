@@ -1,8 +1,8 @@
-# 📝 Response standards
+# 📝 Output format
 
-**Purpose:** the shape and pacing of Claude's replies, so each can be scanned in seconds.
+**Purpose:** the layout of Claude's replies, and of the bullets in everything it writes, so each can be scanned in seconds. It's a preference, installed only with `make install PREFERENCES=1`.
 
-## 📤 Shape
+## 📤 Replies
 
 - 📋 **Summary:** open with a bold **Summary** label, then 3 or 4 themes.
 - 🏷️ **Themes:** give each theme a heading line of an emoji and a bold keyword, with no dash or colon.
@@ -10,7 +10,6 @@
 - 🔢 **Next steps:** when follow-ups exist, end with numbered options, each an emoji and bold keyword with one child bullet, and mark the best "(recommended)".
 - ⏭️ **Skip:** leave this shape out of short answers and casual exchanges.
 
-## 🚀 Delivery
+## ✍️ Everything you write
 
-- 📦 **Ship first:** share a usable first version as soon as it exists, then refine it.
-- 📣 **Early progress:** on longer tasks, give a short update rather than going quiet until the end.
+- 🔑 **Bold keyword bullets:** in replies, docs, tickets and commit messages, open a rule or definition bullet with its key term in bold and a colon, and leave plain lists unlabelled.

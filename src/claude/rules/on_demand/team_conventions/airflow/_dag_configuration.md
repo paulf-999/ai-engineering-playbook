@@ -1,6 +1,6 @@
-# ⚙️ DAG Configuration
+# ⚙️ Airflow team conventions: DAG configuration
 
-**Purpose:** Establish standards for configuring DAGs via `config.yaml`, defining schedules, tagging, and writing DAG documentation.
+**Purpose:** this team's `config.yaml` fields, schedule settings, tag scheme, DAG docs and central default args.
 
 ## ⚙️ config.yaml parameters
 
@@ -28,7 +28,6 @@ All DAG parameters are read from `config.yaml` by `common.get_default_dag_params
 ## 📅 Scheduling
 
 - **Use `schedule` field:** set in `config.yaml`, never rely on the Airflow default
-- **Never use `schedule_interval`:** it is deprecated
 - **Add `schedule_comment`:** always include a human-readable explanation of the cron expression
 - **Central `catchup` control:** `catchup=False` is enforced by `common.get_default_dag_params()` — do not override on individual DAGs
 

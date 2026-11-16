@@ -1,6 +1,6 @@
-# 🗂️ DAG Design
+# 🗂️ Airflow team conventions: DAG design
 
-**Purpose:** Establish folder structure, naming conventions, and mandatory attributes for Airflow DAG files and configuration.
+**Purpose:** this team's DAG folder layout, naming patterns and mandatory `config.yaml` attributes.
 
 ## 📁 File structure
 
@@ -56,9 +56,6 @@ DAG ID is derived automatically from the folder name by `common.get_default_dag_
 | DAG file | Always `dag.py` within the DAG folder | `dag.py` |
 | Config file | Always `config.yaml` within the DAG folder | `config.yaml` |
 | Python variables | `snake_case` | `data_src`, `airbyte_job_name` |
-
-- **Clarity over brevity:** avoid abbreviations
-- **Avoid acronyms:** only use business acronyms that are meaningful to all readers
 
 ### Folder naming patterns
 

@@ -1,6 +1,6 @@
 # ✅ Best Practices
 
-**Purpose:** Establish practices for idempotency, retries, error handling, testing, and configuration to ensure reliable and maintainable Airflow pipelines.
+**Purpose:** the practices for idempotency, retries, error handling, testing and configuration that keep Airflow pipelines reliable. This team's helpers, layout and values are in [`team_conventions/airflow.md`](../../../path_scoped/team_conventions/airflow.md).
 
 ## 🔄 Idempotency
 
@@ -23,7 +23,7 @@ Every DAG run for a given `logical_date` must produce the same result regardless
 
 ## 📅 Catchup and backfilling
 
-- **Central control:** `catchup=False` is enforced in `common.get_default_dag_params()` — do not set in individual DAG files
+- **Central control:** set `catchup=False` once, centrally, per the team's conventions, not in individual DAG files
 - **Intentional backfill:** use the Airflow CLI command: `airflow dags backfill -s <start> -e <end> <dag_id>`
 
 ---
@@ -39,7 +39,7 @@ from datetime import timedelta
 
 task_call_api = PythonOperator(
     task_id="task_call_api",
-    python_callable=optional_dag_params["py_helpers"].call_api,
+    python_callable=call_api,
     retry_exponential_backoff=True,
     max_retry_delay=timedelta(minutes=60),
 )
@@ -50,7 +50,7 @@ task_call_api = PythonOperator(
 ## 🚨 Error handling
 
 - **Use callbacks:** use `on_failure_callback` to notify on task failure — do not rely solely on email alerts
-- **Share callbacks:** keep callback functions in a shared module in `includes/`, such as `email_notifications`, rather than inlining them in DAG files
+- **Share callbacks:** keep callback functions in the team's shared module, rather than inlining them in DAG files
 
 ```python
 def notify_on_failure(context: dict) -> None:
@@ -60,13 +60,13 @@ def notify_on_failure(context: dict) -> None:
     # send alert (Slack, PagerDuty, etc.)
 ```
 
-- **Register centrally:** the shared callback is set once in `common.get_dag_default_args()`, not in each DAG file
+- **Register centrally:** set the shared callback once in the central default args, not in each DAG file
 
 ---
 
 ## 🧪 Testing
 
-- **Load test:** `python dags/topics/<topic>/<dag_folder>/dag.py` must exit cleanly
+- **Load test:** running each DAG file with `python` must exit cleanly
 - **Unit tests:** use `pytest` with Airflow test utilities for task callables
 - **Integrity validation:** in CI, `airflow dags list-import-errors` must report no errors, and `airflow dags test <dag_id> <logical_date>` must pass
 - **Avoid `depends_on_past=True`:** without explicit justification — it makes testing and backfilling significantly harder
@@ -76,10 +76,10 @@ def notify_on_failure(context: dict) -> None:
 ## 🔐 Variables and Connections
 
 - **Never hardcode:** environment-specific values (URLs, credentials, schema names) must not be in DAG files
-- **Use `config.yaml`:** DAG inputs (data source, Airbyte connection names, schedule) are passed via `config.yaml` and accessed through `common.get_default_dag_params()`
+- **Inputs from config:** pass DAG inputs through the DAG's config file, read by the team's helpers
   - **Don't read Variables in dag.py:** do not directly access Airflow Variables in `dag.py`
-- **Connections:** use Airflow Connections for external system credentials (databases, APIs, cloud); reference IDs in utility functions in `includes/`, not hardcoded
-- **Variables:** use for runtime configuration values not DAG-specific (e.g., `AIRFLOW_ENVIRONMENT_LEVEL`); access via `Variable.get("my_var")` in `includes/` utilities only
+- **Connections:** use Airflow Connections for external system credentials (databases, APIs, cloud), and reference their IDs in shared utilities, not hardcoded
+- **Variables:** use for runtime configuration values that aren't DAG-specific, read with `Variable.get("my_var")` in shared utilities only
 - **Secrets backend:** store sensitive values in the configured secrets backend, not plaintext in Airflow metadata
 
 ---

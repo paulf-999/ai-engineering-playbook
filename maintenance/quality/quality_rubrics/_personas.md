@@ -60,13 +60,13 @@ wait; rm -rf "${WORK}"; echo "Reviews are in ${OUT}"
 
 ## 🎯 Shared feedback
 
-Write `shared_feedback.md` beside the reviews, with a table of each point two or more readers raised:
+Record the shared feedback in the [audit's persona review](../quality_audit.md#-persona-review) section, replacing the last run, with a table of each point two or more readers raised:
 
 1. Rank the points by how many readers raised them, 3 before 2.
 2. Break ties by impact on adoption: blocks use, then confuses, then polish.
-3. Give each row its theme, who raised it, the impact, the evidence as file paths, and a suggested fix.
+3. Give each row its theme, who raised it, the impact, and a status: its issue or fix PR, or why it stays open.
 4. Mark any fix that clashes with a [kept-by-choice](_repo.md#-how-to-score) decision, so it isn't argued again.
 5. List the strengths all readers share, and the points only one reader raised, under the table.
 6. Above the table, sum up whether the readers found the repo over-engineered and, if so, where, with who raised each area, its evidence and any kept-by-choice clash.
 
-Turn the top rows into GitHub issues or fix PRs, as with the [checklists](_repo.md#-where-findings-go).
+Turn the top rows into GitHub issues or fix PRs, as with the [checklists](_repo.md#-where-findings-go), with the evidence and suggested fix in each. The verbatim reviews stay out of the repo.

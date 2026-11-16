@@ -50,10 +50,8 @@ Not applicable: this PR changes nothing under `src/claude/`.
 
 Not applicable: this PR changes no always-on or enforcing file.
 
-<!-- For a change to src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook, replace the line above with one line:
-the always-on tokens before and after, from src/sh/claude_validate_always_on_budget.sh, and any red flag from the
-[evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md),
-such as "Always-on: ~2,324 → ~2,250 of 3,000 tokens; no red flags." -->
+<!-- When the [evaluation criteria](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md)
+say this PR needs them, replace the line above with any red flag, such as "No red flags." -->
 
 ## :bulb: Best Practices
 

@@ -42,7 +42,6 @@ A release tags `main` once merged PRs are worth installing together.
 - 🔢 **Version:** tag `vMAJOR.MINOR.PATCH`, per [Semantic Versioning](https://semver.org/). Below `1.0.0`, bump MINOR for features or breaking changes and PATCH for fixes only.
 - 📝 **Notes:** open with one line on what the release delivers, then up to 5 emoji bullets, with file links pinned to the tag.
 - 🛠️ **Publish:** run `gh release create vX.Y.Z --target main --title vX.Y.Z --notes-file <notes.md>`.
-- 🔀 **Not a `release/` branch:** that prefix is for one bulk change over the PR file limit, not for versions.
 
 ## 🏷️ File naming
 

@@ -109,6 +109,6 @@ Each point two or more readers raised, ranked by how many raised it, then by imp
 | 4️⃣ | **On-demand and path-scoped rules are unproven** | DE, DA, EM | Confuses | Open, with evals in [#234](https://github.com/paulf-999/ai-engineering-playbook/issues/234) |
 | 5️⃣ | **Team conventions still need rewriting** | DE, DA, EM | Confuses | Gathered into one file in [#285](https://github.com/paulf-999/ai-engineering-playbook/pull/285); an opt-in overlay is open |
 
-Single-reader asks: drop the duplicate commitlint job (DE), a "pick what you need" page and an analyst path (DA), and outcome measures such as review comments per PR (EM).
+Single-reader asks: drop the duplicate commitlint job (DE), though it isn't one, since CI's job checks the PR title that becomes the squash commit and the hook checks local commits, a "pick what you need" page and an analyst path (DA), and outcome measures such as review comments per PR (EM).
 
 All three readers named the same strengths: the installer, the loading tiers, the enforced always-on budget and the repo's honesty about itself.

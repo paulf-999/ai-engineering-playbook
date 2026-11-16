@@ -3,7 +3,7 @@
 > [!NOTE]
 > **For repo maintainers only:** you don't need this page to install or use the Claude Code instructions.
 
-**Purpose:** the latest bloat and over-engineering scores for the repo as a whole, its findings and component feedback, from each regular review.
+**Purpose:** the latest bloat and over-engineering scores for the repo as a whole, its findings and component feedback, from each regular review, plus the latest persona review.
 
 Each run follows the [repo rubric](quality_rubrics/_repo.md): one fresh-context reviewer runs its measures and scores its themes, and this page keeps the latest run's scores, with earlier runs in git history. Tests and rules are checked against their checklists instead, with findings going to GitHub issues.
 
@@ -11,40 +11,38 @@ Each run follows the [repo rubric](quality_rubrics/_repo.md): one fresh-context 
 
 | Date | Proportionality | Evidence of need | Single source | Always-on headroom | Placeholders | **Bloat** |
 |---|---|---|---|---|---|---|
-| 2026-11-15 | ✅ 2 | ✅ 2 | ❌ 0 | 🟡 1 | 🟡 1 | **6/10** |
+| 2026-11-16 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **8/10** |
 
 ## 🏗️ Over-engineering
 
 | Date | Cross-file consistency | Upkeep cost | Process weight | Simplest mechanism | Built for today | **Over-engineering** |
 |---|---|---|---|---|---|---|
-| 2026-11-15 | ❌ 0 | ✅ 2 | ✅ 2 | ❌ 0 | ❌ 0 | **4/10** |
+| 2026-11-16 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | **8/10** |
 
 ## 🔍 Why the latest scores
 
-The blind run of `main` at [#261](https://github.com/paulf-999/ai-engineering-playbook/pull/261), with each theme below ✅ and what would raise it:
+The blind run of `main` at `31d7582`, after [#288](https://github.com/paulf-999/ai-engineering-playbook/pull/288) and [#291](https://github.com/paulf-999/ai-engineering-playbook/pull/291), with each theme below ✅ and what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | 4 duplicates, such as the 5-bullet cap restated in 4 files and the 15-line plan threshold in 3 | Finding 4 |
-| 📦 **Always-on headroom** | About 2,418 of 3,000 tokens, or 80.6%, over the 75% line | Move always-on detail to on-demand files |
-| 🚧 **Placeholders** | 1, "not built yet" in [`docs/target_architecture/README.md`](../../docs/target_architecture/README.md) | Link the build progress issue without the phrase |
-| 🔗 **Cross-file consistency** | 6 contradictions, such as `Makefile:38` printing the project path twice when `PROJECT` is set | Finding 3 |
-| 🪜 **Simplest mechanism** | 4 issues: the PR-body parser, the MoSCoW scheme, layout-only rule tests and the commitlint `pr_title` job | Findings 1 and 2 |
-| 🔮 **Built for today** | 4 or more unused capacities, such as the 10-column TODO template and `dir_exists` in `shell_utils.sh`, which nothing calls | Finding 5 |
+| 🎯 **Single source** | 3 duplicates: the evaluation-criteria line in 4 files, the 15-line plan rule, and which tests earn their place | Findings 1 and 3 |
+| 📦 **Always-on headroom** | About 2,280 of 3,000 tokens, or 76%, just over the 75% line | Finding 4 |
+| 🔗 **Cross-file consistency** | 2 contradictions: when a PR needs a Plan Spec, and whether skill PRs answer the evaluation criteria | Findings 3 and 5 |
+| 🔮 **Built for today** | 2 unused capacities: the skill contract template and the per-project `HOOKS=1` install | The template is kept by choice |
 
-Upkeep cost is ✅ at 9 of the last 50 commits, or 18%, and Process weight is ✅ at 8 `maintenance/` files against 92 product files.
+Measures: 40 support files against 92 product files, 8 of the last 50 commits (16%) on upkeep, 7 `maintenance/` files and no placeholders.
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. ✂️ **Grep the PR body:** keep the description check, but swap the 128-line parser in `git_validate_pr_description.sh` for a grep for the template's default lines.
-2. 🏷️ **MoSCoW tags:** kept by choice, so the scheme now uses only the two levels the tests use, Must and Should.
-3. 🔗 **Fix the contradictions:** `Makefile:38`, the done-checks hook in `_tiers.md:9` against `src/claude/README.md:42`, the hook red flag `_tiers.md:14` cites, `~/.claude` in `README.md` against `$CLAUDE_CONFIG_DIR`, "3-line header" in `test_rules_structure.py`, and "re-scores every test and rule" in `.github/CONTRIBUTING.md`.
-4. 🎯 **One home per fact:** the 5-bullet cap in `_markdown_layout.md`, `rule.md.template` and the PR template, the 15-line plan threshold in `sdlc_workflow.md` and `_workflow.md`, and the branch regex and 20-file limit in `docs/guides/git_branching_strategy.md`.
-5. 🔮 **Trim unused capacity:** `TODO.md.template`, `dir_exists` and `CRITICAL` in `shell_utils.sh`, the `FETCH_HEAD` fallback in `git_validate_num_file_changes.sh`, the "Sign it's working" column in `_workflow.md`, and `-rxX` in `pyproject.toml`.
+1. 🧪 **Fold `test_maintenance.md`:** move its sizing rules into the tests checklist in `_repo.md`, which already repeats its Need and No-duplicate checks.
+2. 🔗 **One home for the criteria line:** keep it in `02_evaluation_criteria.md` and the PR template, and link to it from `.github/CONTRIBUTING.md` and `_workflow.md`.
+3. ✂️ **Point to the plan hook:** trim the Intent and Spec bullets in `sdlc_workflow.md`, since the hook enforces them, to bring always-on context under 75%.
+4. 📝 **Match the Plan Spec scope:** say in `_workflow.md` that any `src/claude/` change needs one, as the PR template and its check require.
+5. 🧩 **Skills and the criteria:** decide whether skill PRs answer the evaluation criteria, and make `_skills.md` and the CI check agree.
 
-The run also proposed removing the done-checks hook, `pip_audit.yml`, the layout-only rule tests and the MoSCoW tags, which are left out because they're kept by choice.
+The run also proposed dropping the skill contract template, which is left out because the templates are kept by choice.
 
 ## 💬 Component feedback
 
@@ -74,12 +72,43 @@ Rows are sorted by path. Each component that helped has one row, and each review
 
 | Component | Run | Effect | Evidence |
 |---|---|---|---|
-| [`.github/pull_request_template.md`](../../.github/pull_request_template.md) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Hindered | The user complained of "huge streams" of bullets in Additional Details, and its layout needed repeated fixes |
-| [`.github/workflows/pip_audit.yml`](../../.github/workflows/pip_audit.yml) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Unused | No scan output in any transcript |
-| [`maintenance/test_maintenance.md`](../test_maintenance.md) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Unused | Only mentioned inside audit output |
-| [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Unused | Never fired in any transcript |
-| [`src/claude/rules/on_demand/`](../../src/claude/rules/on_demand/) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Unused | Its rules and style guides were edited, but never read to guide work |
-| [`src/claude/rules/path_scoped/`](../../src/claude/rules/path_scoped/) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Unused | Loaded, but never shown changing behaviour |
-| [`src/sh/claude_install_config.sh`](../../src/sh/claude_install_config.sh) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Hindered | Hook registration drifted and needed a fix plan |
-| [`src/sh/claude_report_context_cost.sh`](../../src/sh/claude_report_context_cost.sh) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Hindered | "Out of date" failures in 8 or more sessions, from before [#256](https://github.com/paulf-999/ai-engineering-playbook/pull/256) made the hook rewrite the report, so not yet confirmed |
-| [`src/sh/git/git_validate_branch_name.sh`](../../src/sh/git/git_validate_branch_name.sh) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264) | Mixed | Blocked commits to `main`, but failed falsely on a detached HEAD, in sessions from before [#259](https://github.com/paulf-999/ai-engineering-playbook/pull/259), so not yet confirmed |
+| [`.github/workflows/pip_audit.yml`](../../.github/workflows/pip_audit.yml) | 2026-11-16 | Unused | Never failed and never referenced |
+| [`maintenance/test_maintenance.md`](../test_maintenance.md) | 2026-11-16 | Unused | Never guided any work |
+| [`src/claude/_templates/`](../../src/claude/_templates/) | 2026-11-16 | Unused | Edited about 57 times, never used to create a file |
+| [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) | 2026-11-16 | Unused | Its block message never fires in any transcript |
+| [`src/claude/rules/always_on/conduct/security.md`](../../src/claude/rules/always_on/conduct/security.md) | 2026-11-16 | Unused | No evidence it guided any work |
+| [`src/claude/rules/always_on/standards/claude_response_standards.md`](../../src/claude/rules/always_on/standards/claude_response_standards.md) | 2026-11-16 | Hindered | The user called replies "too long" and "too verbose", possibly from when a per-prompt hook injected it |
+| [`src/claude/rules/on_demand/`](../../src/claude/rules/on_demand/) | 2026-11-16 | Unused | Apart from `git.md` and `saving_plans.md`, edited but never read to guide work |
+| [`src/claude/rules/path_scoped/`](../../src/claude/rules/path_scoped/) | 2026-11-16 | Unused | Shown only while being edited |
+| [`src/sh/claude_report_context_cost.sh`](../../src/sh/claude_report_context_cost.sh) | 2026-11-16 | Hindered | 26 failures across 11 sessions, none since [#256](https://github.com/paulf-999/ai-engineering-playbook/pull/256) |
+| [`src/sh/git/git_validate_pr_description.sh`](../../src/sh/git/git_validate_pr_description.sh) | 2026-11-16 | Hindered | CI failed on formatting nits, though running it locally helped |
+
+## 👥 Persona review
+
+The latest [blind persona review](quality_rubrics/_personas.md), run on 2026-11-16 against commit `31d7582` by a data engineer (DE), data analyst (DA) and engineering manager (EM). Each run replaces this section, with earlier runs in git history.
+
+### 🏗️ Over-engineering verdict
+
+All three readers still found the repo over-engineered in what maintains it, not in what it installs:
+
+- 📦 **What you get:** modest and sensible, in about 2,300 always-on tokens, 2 hooks and guides that load only when needed.
+- 📍 **Where:** the scored rubric, the persona rubric and this audit (all three), the token report and PR-template CI checks (DE, EM), and commitlint running twice (DE).
+- 🔧 **What they'd change:** EM would replace the scored rubric with a short checklist, DE would drop the duplicate commitlint job, and DA asked for nothing here.
+- 🪞 **Stale evidence:** all three quoted the previous audit's 4/10 Over-engineering score, which this run replaces.
+- ✅ **Worth keeping:** the installer, both hooks and the token-budget check.
+
+### 🎯 Shared points
+
+Each point two or more readers raised, ranked by how many raised it, then by impact:
+
+| # | Theme | Raised by | Impact | Status |
+|---|---|---|---|---|
+| 1️⃣ | **Personal style and plan gates load for everyone** | DE, DA, EM | Blocks use | Kept as one config |
+| 2️⃣ | **Maintenance layer outweighs the product** | DE, DA, EM | Confuses | The repo rubric and audit are kept; this run updates the stale scores |
+| 3️⃣ | **The dbt example isn't evidence** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
+| 4️⃣ | **On-demand and path-scoped rules are unproven** | DE, DA, EM | Confuses | Open, with evals in [#234](https://github.com/paulf-999/ai-engineering-playbook/issues/234) |
+| 5️⃣ | **Team conventions still need rewriting** | DE, DA, EM | Confuses | Gathered into one file in [#285](https://github.com/paulf-999/ai-engineering-playbook/pull/285); an opt-in overlay is open |
+
+Single-reader asks: drop the duplicate commitlint job (DE), a "pick what you need" page and an analyst path (DA), and outcome measures such as review comments per PR (EM).
+
+All three readers named the same strengths: the installer, the loading tiers, the enforced always-on budget and the repo's honesty about itself.

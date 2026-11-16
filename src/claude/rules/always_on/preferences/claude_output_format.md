@@ -13,3 +13,7 @@
 ## ✍️ Everything you write
 
 - 🔑 **Bold keyword bullets:** in replies, docs, tickets and commit messages, open a rule or definition bullet with its key term in bold and a colon, and leave plain lists unlabelled.
+
+## 📚 Read on demand
+
+- `on_demand/preferences/markdown_layout.md`, in your Claude config directory, before writing or restructuring a markdown doc.

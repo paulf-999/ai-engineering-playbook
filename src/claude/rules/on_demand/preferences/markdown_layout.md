@@ -1,8 +1,8 @@
-# 🧱 Writing style: Markdown layout
+# 🧱 Markdown layout
 
-**Purpose:** how headings, lists and tables are laid out, so every page scans the same way.
+**Purpose:** how headings, lists and tables are laid out, so every page scans the same way. It's a preference, installed only with `make install PREFERENCES=1`.
 
-These rules cover markdown docs, while chat replies follow the output format preference, if installed.
+These rules cover markdown docs, while chat replies follow `claude_output_format.md`.
 
 ## 😀 Emojis
 
@@ -14,8 +14,3 @@ These rules cover markdown docs, while chat replies follow the output format pre
 - 5️⃣ **Five at most:** keep a bulleted list to 5 top-level items, though numbered steps can run longer.
 - 📋 **Lead-in:** open a list with a sentence saying what the items are, unless the heading already says so.
 - 🧮 **Tables:** use one when two or more items share the same fields, and keep each cell to one point in 25 words or fewer.
-
-## ✂️ Density
-
-- 🎯 **Limits are ceilings:** aim well under any length limit, since a page that fills it is usually packed.
-- 🔁 **Review for cuts:** ask what can be removed, not only what's missing.

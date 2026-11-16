@@ -4,7 +4,7 @@
 
 This page is part of the [design principles](../design_principles.md), which also define always-on.
 
-A PR that changes an always-on or enforcing file, meaning `src/claude/CLAUDE.md`, a rule in `rules/always_on/` or a hook, answers them in one line in the Evaluation criteria section of the [PR template](../../../.github/pull_request_template.md), naming any red flag, since the PR's `maintenance/context_cost.md` diff already shows the token change. CI fails the PR if that section is unanswered.
+A PR that changes an always-on or enforcing file, meaning `src/claude/CLAUDE.md`, a rule in `rules/always_on/` or a hook, answers them in one line under an Evaluation criteria heading, which the [PR template](../../../.github/pull_request_template.md)'s comment names, naming any red flag, since the PR's `maintenance/context_cost.md` diff already shows the token change. CI fails the PR if that section is missing.
 
 - 🧮 **CI measures:** pre-commit and the tests already check Cost and Rule size, so the table leaves them out.
 

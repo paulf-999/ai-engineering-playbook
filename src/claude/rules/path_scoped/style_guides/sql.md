@@ -4,7 +4,7 @@ paths:
 ---
 # 🗄️ SQL Style Guide & Standards
 
-**Purpose:** Define team SQL standards for consistency, readability, and cost optimisation. Standards apply to all SQL written in the warehouse (dbt, Airflow, ad-hoc queries), except where a repo's own `.sqlfluff` config differs, which wins.
+**Purpose:** how to write readable, cost-aware SQL in the warehouse, in dbt, Airflow and ad-hoc queries, except where a repo's own `.sqlfluff` config differs, which wins. This team's casing, naming and comma style are in [`team_conventions/sql.md`](../team_conventions/sql.md), which loads with this guide.
 
 **dbt models:** the dbt style guide also loads for them and covers `ref()`, `source()` and YAML.
 
@@ -12,10 +12,10 @@ paths:
 
 ## ⚡ Key rules
 
-- 🔠 **Case:** UPPERCASE keywords, functions and literals, such as `SELECT`, `COALESCE` and `NULL`.
-- 🏷️ **Names:** `snake_case`, singular and unabbreviated, with descriptive keys such as `order_id` rather than a bare `id`.
+- 🔠 **Case:** use one case for keywords, functions and literals throughout, the team's in its conventions.
+- 🏷️ **Names:** `snake_case` and unabbreviated, with descriptive keys such as `order_id` rather than a bare `id`.
 - 🧱 **CTEs, not subqueries:** one CTE per logical step, grouped Import → Logical → Final → `SELECT`.
-- 📋 **Columns:** list them explicitly, one per line, with leading commas, rather than `SELECT *` from a table.
+- 📋 **Columns:** list them explicitly, one per line, rather than `SELECT *` from a table.
 - 🔗 **Joins:** name the join type, such as `LEFT JOIN`, use meaningful aliases and prefix every column with its table's alias.
 
 ---

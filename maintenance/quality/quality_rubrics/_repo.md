@@ -18,8 +18,8 @@ Files and text the repo doesn't need:
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
 | ⚖️ **Proportionality** | Support files are no more than product files | Up to double | More than double |
-| 🧾 **Evidence of need** | At most 1 file has no current user or inbound link | 2 or 3 have none | 4 or more have none |
-| 🎯 **Single source** | At most 1 fact, rule or check lives in more than one place | 2 or 3 duplicates | 4 or more duplicates |
+| 🧾 **Evidence of need** | At most 2 files have no current user or inbound link | 3 to 5 have none | 6 or more have none |
+| 🎯 **Single source** | At most 2 facts, rules or checks live in more than one place | 3 to 5 duplicates | 6 or more duplicates |
 | 📦 **Always-on headroom** | Always-on tokens are 75% of the budget or less | Up to 90% | Over 90% |
 | 🚧 **Placeholders** | No "not built yet" or "Nothing scored yet" text | 1 to 5 | More than 5 |
 
@@ -29,18 +29,19 @@ Process and machinery heavier than the repo needs:
 
 | Theme | ✅ 2 | 🟡 1 | ❌ 0 |
 |---|---|---|---|
-| 🔗 **Cross-file consistency** | At most 1 contradiction between files | 2 or 3 contradictions | 4 or more contradictions |
+| 🔗 **Cross-file consistency** | At most 2 contradictions between files | 3 to 5 contradictions | 6 or more contradictions |
 | 🔁 **Upkeep cost** | 20% or fewer of the last 50 commits touch `maintenance/`, other than to record a review or cut process | Up to 40% | Over 40% |
 | 🗃️ **Process weight** | `maintenance/` files are a tenth of product files or fewer | Up to a quarter | More than a quarter |
-| 🪜 **Simplest mechanism** | At most 1 check or process is heavier than the simplest that works, such as a scored rubric where a test would do | 2 or 3 | 4 or more |
-| 🔮 **Built for today** | At most 1 level, stage or extension point for a need that hasn't arisen | 2 or 3 | 4 or more |
+| 🪜 **Simplest mechanism** | At most 2 checks or processes are heavier than the simplest that works, such as a scored rubric where a test would do | 3 to 5 | 6 or more |
+| 🔮 **Built for today** | At most 2 levels, stages or extension points for a need that hasn't arisen | 3 to 5 | 6 or more |
 
 ## 📏 How to score
 
 - 📐 **Measured themes:** Proportionality, Always-on headroom, Placeholders, Upkeep cost and Process weight come from the measures below, not judgement, so they can't drift upwards.
 - 📍 **Judged themes:** each 🟡 or ❌ for the other five must cite a path.
 - 🧊 **Frozen between reviews:** change this rubric only at a regular review, so runs stay comparable and its edits don't drive up Upkeep cost.
-- 🔢 **Count issues:** score a judged theme by how many distinct issues it has, since a fresh reviewer always finds one or two.
+- 🔢 **Count issues:** score a judged theme by how many distinct issues it has, where ✅ allows 2, since a fresh reviewer always finds one or two.
+  - **One issue each:** count one per fact, rule or mechanism, however many files repeat or contradict it, so a rule restated in 7 files is 1 duplicate.
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
 - 🤝 **Kept by choice:** don't mark down any of these, which the user keeps on purpose:
   - **Planned:** a folder or file that its README or parent rule marks "planned", and the budget script's scanning of skills, agents, `@` imports and a project `.claude/`.

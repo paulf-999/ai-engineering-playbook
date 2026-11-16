@@ -2,6 +2,8 @@
 
 **Purpose:** Cover naming conventions, configuration standards, best practices, and guidance on building downstream models on top of snapshots.
 
+> 🏢 **Team conventions:** the `dim_<entity>_history` names, the `check` strategy, the `WAREHOUSE` schema, snapshotting the `dim_` model, and `dbt_date`. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🏷️ Naming
 
 Snapshots follow the `dim_<entity>_history.sql` naming pattern. Examples from the repo:

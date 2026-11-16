@@ -2,6 +2,8 @@
 
 **Purpose:** Define the four-layer model architecture, folder structure, and the minimum requirements that every dbt model in the project must satisfy.
 
+> 🏢 **Team conventions:** the four layers and their materialisations under Model layers, the extra folders, and the folder tree. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🏛️ Model layers
 
 The project uses a four-layer architecture. Each layer has a distinct responsibility and source of truth:

@@ -2,6 +2,8 @@
 
 **Purpose:** Set the standards for declaring dbt resource properties in YAML — covering file naming, formatting style, source definitions, tests, and sensitive data tagging.
 
+> 🏢 **Team conventions:** the `_staging_src.yml` and `_src_base.yml` names, 120-character lines, the `KEY` column, the `target.name` routing, `UPPER_CASE` source names and the `meta: sensitive` key. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🏷️ YAML file naming
 
 - YAML files must be prefixed with an underscore (`_`) so that they sort to the top of the directory listing.

@@ -2,6 +2,8 @@
 
 **Purpose:** the Snowflake data types to choose, the warehouse settings that keep spend down, and the team's SQLFluff settings.
 
+> 🏢 **Team conventions:** the warehouse sizes and `AUTO_SUSPEND = 60` under Cost guardrails, and the whole SQLFluff section. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## ⚡ Data types
 
 | Use | Type | Notes |

@@ -2,6 +2,8 @@
 
 **Purpose:** Establish practices for idempotency, retries, error handling, testing, and configuration to ensure reliable and maintainable Airflow pipelines.
 
+> 🏢 **Team conventions:** the `common` helpers, the `includes/` callbacks and Variables, the `dags/topics/` test path, Airbyte names and `AIRFLOW_ENVIRONMENT_LEVEL`. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🔄 Idempotency
 
 Every DAG run for a given `logical_date` must produce the same result regardless of re-runs. Design tasks to be safe to retry:

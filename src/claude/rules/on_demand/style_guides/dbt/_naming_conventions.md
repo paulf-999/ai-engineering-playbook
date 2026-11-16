@@ -2,6 +2,8 @@
 
 **Purpose:** Set naming standards for models, files, keys, data types, audit fields, CTEs, and null handling across all layers of the dbt project.
 
+> 🏢 **Team conventions:** the `staging_`, `mart_` and `pub_` prefixes under Model layer naming, the `<event>_KEY` date columns, and the `{{ limit_rows() }}` line. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 🔑 Surrogate keys
 
 The surrogate key's name, macro and position, and the sentinel for unknown keys, are team conventions in [`_team_conventions.md`](_team_conventions.md).

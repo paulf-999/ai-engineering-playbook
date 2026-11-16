@@ -2,6 +2,8 @@
 
 **Purpose:** Establish folder structure, naming conventions, and mandatory attributes for Airflow DAG files and configuration.
 
+> 🏢 **Team conventions:** the DAG-as-folder layout, `dags/topics/` and `includes/`, the naming patterns, and the mandatory `config.yaml` attributes. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📁 File structure
 
 Each DAG is a **folder**, not a single file. Every DAG folder must contain:

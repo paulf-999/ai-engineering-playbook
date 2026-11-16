@@ -6,7 +6,9 @@ paths:
 ---
 # 🔵 dbt Style Guide & Standards
 
-**Purpose:** the dbt project's standards for lineage, documentation, tests and materialisation. They adapt [dbt Labs' style guide](https://docs.getdbt.com/best-practices/how-we-style/0-how-we-style-our-dbt-projects) but use their own layers, prefixes and team macros, so edit those to fit your project.
+**Purpose:** how dbt models handle lineage, documentation, tests and materialisation. It adapts [dbt Labs' style guide](https://docs.getdbt.com/best-practices/how-we-style/0-how-we-style-our-dbt-projects), with the team's own layers, prefixes and macros in the child guides.
+
+> 🏢 **Team conventions:** the team's layers, prefixes and macros, which the child guides name. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
 
 ## 🎯 Core principles
 

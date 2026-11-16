@@ -2,6 +2,8 @@
 
 **Purpose:** Establish standards for DAG boilerplate, task design, operator selection, helper files, and task dependencies to ensure consistent and maintainable DAG structure.
 
+> 🏢 **Team conventions:** the `dag.py` boilerplate, the `includes/` and `common` helpers, the `__py_helpers.py` and `__sql_queries.py` files, the `# DAG graph` layout and the `task_` and `tg_` prefixes. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## 📋 Standard dag.py boilerplate
 
 Every `dag.py` starts the same way. All DAG configuration comes from `config.yaml` — nothing is hardcoded:

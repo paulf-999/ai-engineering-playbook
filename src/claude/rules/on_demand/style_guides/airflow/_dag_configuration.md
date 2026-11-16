@@ -2,6 +2,8 @@
 
 **Purpose:** Establish standards for configuring DAGs via `config.yaml`, defining schedules, tagging, and writing DAG documentation.
 
+> 🏢 **Team conventions:** the `config.yaml` fields, the tag taxonomy, `README.md` as `doc_md`, and the central default args with their owner. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
+
 ## ⚙️ config.yaml parameters
 
 All DAG parameters are read from `config.yaml` by `common.get_default_dag_params(__file__)`. Do not hardcode schedule, tags, or description in `dag.py`.

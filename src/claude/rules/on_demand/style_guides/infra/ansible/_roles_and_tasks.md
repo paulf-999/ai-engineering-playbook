@@ -2,23 +2,9 @@
 
 **Purpose:** Set how roles are laid out and how their tasks, variables and versions are written.
 
-> 🏢 **Team conventions:** the nine capability folders under Role layout, the `_BREAKINGCHANGE` branch suffix under Role versioning, and the CODEOWNERS step. The rest is good practice for any team. Keep them, or propose a change by PR to this repo.
-
 ## 🗂️ Role layout
 
-Roles live under `roles/[technical_capability]/[role_name]/`. The capability directory is a functional grouping — choose the closest fit:
-
-| Capability | Covers |
-|------------|--------|
-| `application` | Application-specific installation and configuration |
-| `backups` | Backup agents and configuration |
-| `database` | Database engines and clients |
-| `networks` | Networking, load balancers, firewall rules |
-| `observability` | Monitoring agents, logging, alerting |
-| `provisioning` | VM bootstrapping and base configuration |
-| `security` | Hardening, certificates, secret agents |
-| `systems` | OS-level configuration, system utilities, CI/CD agents |
-| `www` | Web servers and reverse proxies |
+Roles live under a capability folder, `roles/<capability>/<role_name>/`, using the team's capability list in [`team_conventions/infra/ansible.md`](../../../../path_scoped/team_conventions/infra/ansible.md).
 
 Each role must follow the standard subdirectory structure — `tasks/` and `defaults/` are the minimum required:
 
@@ -48,7 +34,6 @@ ansible-galaxy role init --offline <role_name>
 - [🔤 Variable naming](#-variable-naming)
 - [🐳 Docker compose tasks](#-docker-compose-tasks)
 - [📌 Role versioning](#-role-versioning)
-- [🔖 CODEOWNERS](#-codeowners)
 
 ---
 
@@ -56,7 +41,7 @@ ansible-galaxy role init --offline <role_name>
 
 ### 🧩 Task basics
 
-- Every task must have a `name` in sentence case describing what it does.
+- Every task must have a descriptive `name`, cased as the team's conventions set.
 - Use FQCN for all modules (`ansible.builtin.*`, `community.*`, etc.).
 - Use `no_log: true` on any task that handles secrets or sensitive values.
 - Prefer `ansible.builtin.command` over `ansible.builtin.shell` unless the task genuinely requires shell features (pipes, redirects, glob expansion).
@@ -89,16 +74,4 @@ When using `community.docker.docker_compose_v2`:
 ## 📌 Role versioning
 
 - `main` is the current stable version of every role.
-- When a breaking change is introduced that requires callers to update, create a short-lived branch with a `_BREAKINGCHANGE` suffix (e.g. `feature/my_role_BREAKINGCHANGE`) to stage the transition.
-- Callers must migrate before the branch is merged. Do not leave `_BREAKINGCHANGE` branches open indefinitely.
-
----
-
-## 🔖 CODEOWNERS
-
-When adding a new role directory, update `.github/CODEOWNERS`. Example entries (placeholders, not real owners):
-
-- `/roles/database` — `@acme/database-administration`
-- `/roles/observability` — `@jane-doe`
-
-Add the new role path and assign the appropriate owner or team.
+- Callers must migrate before a breaking role change is merged, using the team's branch naming for the transition.

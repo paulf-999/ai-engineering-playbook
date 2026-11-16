@@ -1,6 +1,6 @@
 # 🏗️ Test Design Pattern
 
-**Purpose:** Establish a standard pattern for writing tests that validate intended behavior and communicate goals clearly.
+**Purpose:** Establish a standard pattern for writing tests that validate intended behaviour and communicate goals clearly.
 
 ---
 
@@ -28,7 +28,7 @@ When writing a test for a new feature, follow this pattern:
 
 ---
 
-### 2️⃣ **Test Intended Behavior**
+### 2️⃣ **Test Intended Behaviour**
 
 **What:** Validate that the feature does what you intended, not just that "the code runs."
 
@@ -44,7 +44,7 @@ When writing a test for a new feature, follow this pattern:
 "Ensure `git show` is in the allowlist."
 ```
 
-**Why:** Testing intended behavior prevents false confidence. A permission in an allowlist means nothing if it doesn't reduce prompts.
+**Why:** Testing intended behaviour prevents false confidence. A permission in an allowlist means nothing if it doesn't reduce prompts.
 
 ---
 

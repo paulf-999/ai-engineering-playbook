@@ -48,7 +48,7 @@ When adding a new playbook directory, update `.github/CODEOWNERS` with the appro
 
 ## 🏷 Tags
 
-Apply tags at the task, block, or play level to allow selective execution. Standard operational tags:
+The team's standard operational tags:
 
 | Tag | When to use |
 |-----|-------------|
@@ -57,8 +57,6 @@ Apply tags at the task, block, or play level to allow selective execution. Stand
 | `restart` | Service restarts |
 | `uninstall` | Package or software removal |
 | `upgrade` | Version upgrades |
-
-Tags are `snake_case`. Apply them consistently within a playbook — tasks of the same type should share the same tag.
 
 ```bash
 # Run only configuration tasks

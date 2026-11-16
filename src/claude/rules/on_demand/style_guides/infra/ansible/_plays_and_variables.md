@@ -7,6 +7,11 @@
 - Set `gather_facts` and `become` explicitly on every play — do not rely on defaults.
 - Comment each role reference briefly where its purpose is not obvious from the name.
 
+## 🏷 Tags
+
+- Apply tags at the task, block or play level to allow selective execution.
+- Apply them consistently within a playbook, so tasks of the same type share the same tag.
+
 ## 📝 Variables
 
 - **Role defaults:** prefix every variable in `roles/<role>/defaults/main.yml` with the role name, such as `nginx_port`.

@@ -5,7 +5,6 @@
 Tests follow these layout rules:
 
 - 🪞 **Mirrored paths:** a test sits at the same path as the file it checks, so tests for `src/sh/git/git_validate_pr_description.sh` live in `tests/src/sh/git/test_git_validate_pr_description.py`.
-- 🌐 **Repo-wide tests:** a test that checks the whole repo, such as every file's header, sits at the top of `tests/`.
 - 🤝 **Shared helpers:** modules that start with `_`, such as `_paths.py`, hold code several tests share, and aren't tests themselves.
   - **Importable:** `pythonpath = ["tests"]` in `pyproject.toml` lets any test import them by name.
   - **New helper:** add it to the `name-tests-test` exclude in `.pre-commit-config.yaml`, or the hook rejects its name.

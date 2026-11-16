@@ -4,6 +4,7 @@ SHELL = /bin/sh
 # Usage
 #================================================================
 # make help		# list the available targets
+# make all		# run deps then install, the default target the Makefile linter requires
 # make deps		# install the dependencies and git hooks
 # make install		# copy src/claude/ into your Claude config directory, or PROJECT=<repo>'s .claude/ folder
 # make uninstall	# remove what make install added, restoring the files it replaced

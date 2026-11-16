@@ -5,7 +5,7 @@
 ## 💰 Always-on budget
 
 - 📏 **Measure:** the tokens, the units Claude reads text in, that load into every session, estimated as total characters ÷ 4, leaving out HTML comments, which Claude Code strips.
-- 📂 **Counted:** the `CLAUDE.md` files and their `@` imports, rules with no `paths:` setting, and skill and agent descriptions, in both the project's `.claude/` and the global config in `src/claude/`.
+- 📂 **Counted:** the repo root's and `src/claude/`'s `CLAUDE.md` files and their `@` imports, plus rules with no `paths:` setting and skill and agent descriptions in the project's `.claude/` and the global config in `src/claude/`.
 - 🚫 **Not counted:** auto memory's `MEMORY.md`, which Claude Code also loads every session but keeps on each machine, outside the repo, and caps at 200 lines or 25KB.
 - 🚧 **Ceiling:** set in the [principles' numbers](../design_principles/01_principles.md#-numbers-and-tests), and raised only by a PR that links logged evidence.
 

@@ -26,6 +26,22 @@ def test_handle_interruption_logs_and_exits():
     assert "command not found" not in result.stderr, f"a command it calls is missing: {result.stderr}"
 
 
+@pytest.mark.parametrize(
+    ("frontmatter", "expected"),
+    [
+        ("---\npaths:\n  - \"*.sql\"\n  - '*.py'\n---\n", "*.sql\n*.py"),
+        ("---\nname: x\n---\npaths:\n  - a\n", ""),
+        ("# no block\n", ""),
+    ],
+)
+def test_rule_path_globs_reads_only_the_opening_block(tmp_path, frontmatter, expected):
+    """rule_path_globs prints each paths: glob without quotes, and nothing for globs outside the opening --- block."""
+    rule = tmp_path / "rule.md"
+    rule.write_text(frontmatter)
+    result = run_with_utils(f'rule_path_globs "{rule}"')
+    assert result.stdout.strip() == expected, f"expected globs {expected!r}, got {result.stdout!r}"
+
+
 @pytest.mark.parametrize(("value", "expected"), [("7", "7"), ("010", "10"), ("08", "8"), ("123456789", "123456789")])
 def test_to_whole_number_reads_base_ten(value, expected):
     """to_whole_number prints the base-10 value, so a leading zero isn't read as octal."""

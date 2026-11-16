@@ -80,6 +80,11 @@ count_loaded_chars() {
     perl -0777 -pe 's/<!--.*?-->//gs' "${1}" | wc -m | tr -d ' '
 }
 
+# Print each glob listed under paths: in a rule's opening --- block, one per line, which is empty for a rule that loads every session
+rule_path_globs() {
+    awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { on = 1; next } on && /^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); print; next } on { on = 0 }' "${1}"
+}
+
 # Print a whole number in base 10, or fail if it isn't one
 # the 10# prefix stops a leading zero (e.g. 010) being read as octal, and the 9-digit cap stops 64-bit overflow
 to_whole_number() {

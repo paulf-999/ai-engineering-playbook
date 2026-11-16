@@ -11,38 +11,38 @@ Each run follows the [repo rubric](quality_rubrics/_repo.md): one fresh-context 
 
 | Date | Proportionality | Evidence of need | Single source | Always-on headroom | Placeholders | **Bloat** |
 |---|---|---|---|---|---|---|
-| 2026-11-16 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | ✅ 2 | **8/10** |
+| 2026-11-16 | ✅ 2 | ✅ 2 | ❌ 0 | ✅ 2 | ✅ 2 | **8/10** |
 
 ## 🏗️ Over-engineering
 
 | Date | Cross-file consistency | Upkeep cost | Process weight | Simplest mechanism | Built for today | **Over-engineering** |
 |---|---|---|---|---|---|---|
-| 2026-11-16 | 🟡 1 | ✅ 2 | ✅ 2 | ✅ 2 | 🟡 1 | **8/10** |
+| 2026-11-16 | ❌ 0 | ✅ 2 | ✅ 2 | 🟡 1 | 🟡 1 | **6/10** |
 
 ## 🔍 Why the latest scores
 
-The blind run of `main` at `31d7582`, after [#288](https://github.com/paulf-999/ai-engineering-playbook/pull/288) and [#291](https://github.com/paulf-999/ai-engineering-playbook/pull/291), with each theme below ✅ and what would raise it:
+The blind run of `main` at `cbfe548`, after [#294](https://github.com/paulf-999/ai-engineering-playbook/pull/294) to [#297](https://github.com/paulf-999/ai-engineering-playbook/pull/297), run as `claude -p --safe-mode` in a fresh clone, with each theme below ✅ and what would raise it:
 
 | Theme | Why it scores this | To improve it |
 |---|---|---|
-| 🎯 **Single source** | 3 duplicates: the evaluation-criteria line in 4 files, the 15-line plan rule, and which tests earn their place | Findings 1 and 3 |
-| 📦 **Always-on headroom** | About 2,280 of 3,000 tokens, or 76%, just over the 75% line | Finding 4 |
-| 🔗 **Cross-file consistency** | 2 contradictions: when a PR needs a Plan Spec, and whether skill PRs answer the evaluation criteria | Findings 3 and 5 |
-| 🔮 **Built for today** | 2 unused capacities: the skill contract template and the per-project `HOOKS=1` install | The template is kept by choice |
+| 🎯 **Single source** | 4 or more duplicates: the PR-description rules CI enforces, restated in about 7 files, the 15-line plan threshold, the `release/` exemption in 5 places, and the 40-line child minimum | Finding 1 |
+| 🔗 **Cross-file consistency** | 4 or more contradictions, such as `sdlc_workflow.md` asking for a pasted Spec in every repo while the PR check asks only for `src/claude/` changes | Finding 3 |
+| 🪜 **Simplest mechanism** | 3: hand-typed token counts in the PR template, the context-cost script's test-only `--check` mode, and `pip_audit.yml` beside Dependabot | Finding 2 |
+| 🔮 **Built for today** | 3: the skill and agent naming line in always-on `naming_standards.md`, the `YES=1` install, and `.env` in `.worktreeinclude` | Finding 4 |
 
-Measures: 40 support files against 92 product files, 8 of the last 50 commits (16%) on upkeep, 7 `maintenance/` files and no placeholders.
+Measures: 38 support files against 93 product files, 7 of the last 50 commits (14%) on upkeep, 5 `maintenance/` files besides the audit, no placeholders, and always-on context at about 2,242 of 3,000 tokens (74.7%), 8 tokens under the line. The plan-location contradiction it found in `README.md` was fixed in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298) after the run.
 
 ## 🎯 Current findings
 
 The latest run's findings, ranked by how much each would cut. Each run replaces this list, and the next PRs work through it.
 
-1. 🧪 **Fold `test_maintenance.md`:** done in [#297](https://github.com/paulf-999/ai-engineering-playbook/pull/297), which moved its sizing rules into the tests guide.
-2. 🔗 **One home for the criteria line:** keep it in `02_evaluation_criteria.md` and the PR template, and link to it from `.github/CONTRIBUTING.md` and `_workflow.md`.
-3. ✂️ **Point to the plan hook:** trim the Intent and Spec bullets in `sdlc_workflow.md`, since the hook enforces them, to bring always-on context under 75%.
-4. 📝 **Match the Plan Spec scope:** say in `_workflow.md` that any `src/claude/` change needs one, as the PR template and its check require.
-5. 🧩 **Skills and the criteria:** decide whether skill PRs answer the evaluation criteria, and make `_skills.md` and the CI check agree.
+1. ✂️ **Point to enforced checks:** replace restated PR-description rules, the plan threshold and the `release/` exemption with one-line links to the check, in `pull_request_template.md`, `02_evaluation_criteria.md`, `_workflow.md`, `authoring_guide/_rules.md`, `authoring_guide/_skills.md`, `sdlc_workflow.md`, `README.md`, `CONTRIBUTING.md`, `git_branching_strategy.md` and `_budget_and_guards.md`.
+2. 🪜 **Simplify the context-cost check:** drop the test-only `--check` mode in `claude_report_context_cost.sh` and the hand-typed token counts in `pull_request_template.md`, and stop a stale report failing a commit, which happened 18 times.
+3. 🔗 **Fix the contradictions:** the Spec rule in `sdlc_workflow.md:9`, the 20-word citation in `pull_request_template.md:7`, the stale `created` header and "hard gates" in `AGENT.md.template`, the header test `tests/README.md:8` describes, `.claude/CLAUDE.md` in `_budget_and_guards.md:8`, the backup path in `src/claude/README.md:36`, and American spellings in installed rules.
+4. 🔮 **Trim unneeded capacity:** `.env` in `.worktreeinclude` and the undocumented `all:` Makefile target.
+5. 🧹 **One copy of small facts:** the `paths:` awk check in two scripts, the TODO format in `todo_logging.md` and `TODO.md.template`, and tool versions pinned in both `requirements.txt` and `.pre-commit-config.yaml`.
 
-The run also proposed dropping the skill contract template, which is left out because the templates are kept by choice.
+The run also proposed reviewing the domain style guides no session read, dropping `pip_audit.yml`, the `YES=1` install, the skill and agent naming line and unused template fields, which are left out because the style guides, templates and skill naming are kept by choice and `YES=1` was asked for in [#280](https://github.com/paulf-999/ai-engineering-playbook/issues/280).
 
 ## 💬 Component feedback
 
@@ -52,35 +52,37 @@ Rows are sorted by path. Each component that helped has one row, and each review
 
 | Component | Helped in | Latest evidence |
 |---|---|---|
-| [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Claude debugged a PR description failure from the CI log |
+| [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Routine real catches, with Makefile and ruff in pre-commit |
 | [Portable paths](../../docs/guides/authoring_guide.md#-portable-paths) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Read about 5 times |
-| [`src/claude/hooks/hook_enforcement_plan_sections.sh`](../../src/claude/hooks/hook_enforcement_plan_sections.sh) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246), [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149) | Blocked plans with no Intent or Spec in 8 or more sessions, and later plans open with `## Intent` |
-| [`src/claude/rules/always_on/conduct/writing_style.md`](../../src/claude/rules/always_on/conduct/writing_style.md) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | The user cites it as the yardstick for docs |
-| [`src/claude/rules/always_on/workflows/sdlc_workflow.md`](../../src/claude/rules/always_on/workflows/sdlc_workflow.md) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246), [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#143](https://github.com/paulf-999/ai-engineering-playbook/pull/143) | Its phase gates paced multi-phase work, and Claude followed it after each plan-hook block |
+| [`maintenance/quality/quality_rubrics/_personas.md`](quality_rubrics/_personas.md) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Produced concrete outside findings in 21 sessions |
+| [`src/claude/hooks/hook_enforcement_plan_sections.sh`](../../src/claude/hooks/hook_enforcement_plan_sections.sh) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246), [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149) | Blocked 12 of 102 plan submissions, each fixed in one round |
+| [`src/claude/rules/always_on/conduct/writing_style.md`](../../src/claude/rules/always_on/conduct/writing_style.md) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | The user cites it as the yardstick, and `_markdown_layout.md` was read 8 times |
+| [`src/claude/rules/always_on/workflows/sdlc_workflow.md`](../../src/claude/rules/always_on/workflows/sdlc_workflow.md) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246), [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#143](https://github.com/paulf-999/ai-engineering-playbook/pull/143) | Read after every plan-hook block, and the plan fixed from it |
 | [`src/claude/rules/on_demand/conduct/reporting.md`](../../src/claude/rules/on_demand/conduct/reporting.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Read about 6 times |
-| [`src/claude/rules/on_demand/workflows/git.md`](../../src/claude/rules/on_demand/workflows/git.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149) | Read about 16 times before git work |
-| [`src/claude/rules/on_demand/workflows/saving_plans.md`](../../src/claude/rules/on_demand/workflows/saving_plans.md) | [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149), [#143](https://github.com/paulf-999/ai-engineering-playbook/pull/143) | Read after a plan was approved |
+| [`src/claude/rules/on_demand/workflows/git.md`](../../src/claude/rules/on_demand/workflows/git.md) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149) | Read 11 times before branch and PR work |
+| [`src/claude/rules/on_demand/workflows/saving_plans.md`](../../src/claude/rules/on_demand/workflows/saving_plans.md) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168), [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161), [#149](https://github.com/paulf-999/ai-engineering-playbook/pull/149), [#143](https://github.com/paulf-999/ai-engineering-playbook/pull/143) | Read 7 times before saving a plan |
 | [`src/claude/rules/path_scoped/code_security.md`](../../src/claude/rules/path_scoped/code_security.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Loaded in about 14 sessions, where matching files were open |
 | [`src/claude/rules/path_scoped/style_guides/python.md`](../../src/claude/rules/path_scoped/style_guides/python.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Loaded in about 13 sessions, where Python files were open |
 | [`src/claude/rules/path_scoped/testing.md`](../../src/claude/rules/path_scoped/testing.md) | [#161](https://github.com/paulf-999/ai-engineering-playbook/pull/161) | Loaded in about 14 sessions, where matching files were open |
-| [`src/sh/claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168) | Caught always-on context at about 3,887 tokens, over the budget |
+| [`src/sh/claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246), [#168](https://github.com/paulf-999/ai-engineering-playbook/pull/168) | Caught always-on context at about 3,887 tokens in pre-commit |
 | [`src/sh/git/git_validate_branch_name.sh`](../../src/sh/git/git_validate_branch_name.sh) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246), [#172](https://github.com/paulf-999/ai-engineering-playbook/pull/172) | Forced 2 branch renames before push |
-| [`src/sh/git/git_validate_pr_description.sh`](../../src/sh/git/git_validate_pr_description.sh) | [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Caught leftover evaluation-criteria placeholders in 5 sessions |
+| [`src/sh/git/git_validate_pr_description.sh`](../../src/sh/git/git_validate_pr_description.sh) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM), [#264](https://github.com/paulf-999/ai-engineering-playbook/pull/264), [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Caught bad PR descriptions locally and in CI |
 | [`tests/`](../../tests/) | [#246](https://github.com/paulf-999/ai-engineering-playbook/pull/246) | Caught structure problems in the rules and helpers |
 
 ### ⚠️ Unused or hindered, latest run
 
 | Component | Run | Effect | Evidence |
 |---|---|---|---|
-| [`.github/workflows/pip_audit.yml`](../../.github/workflows/pip_audit.yml) | 2026-11-16 | Unused | Never failed and never referenced |
-| [`src/claude/_templates/`](../../src/claude/_templates/) | 2026-11-16 | Unused | Edited about 57 times, never used to create a file |
-| [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) | 2026-11-16 | Unused | Its block message never fires in any transcript |
-| [`src/claude/rules/always_on/conduct/security.md`](../../src/claude/rules/always_on/conduct/security.md) | 2026-11-16 | Unused | No evidence it guided any work |
-| [`src/claude/rules/always_on/standards/claude_response_standards.md`](../../src/claude/rules/always_on/standards/claude_response_standards.md) | 2026-11-16 | Hindered | The user called replies "too long" and "too verbose", possibly from when a per-prompt hook injected it |
-| [`src/claude/rules/on_demand/`](../../src/claude/rules/on_demand/) | 2026-11-16 | Unused | Apart from `git.md` and `saving_plans.md`, edited but never read to guide work |
-| [`src/claude/rules/path_scoped/`](../../src/claude/rules/path_scoped/) | 2026-11-16 | Unused | Shown only while being edited |
-| [`src/sh/claude_report_context_cost.sh`](../../src/sh/claude_report_context_cost.sh) | 2026-11-16 | Hindered | 26 failures across 11 sessions, none since [#256](https://github.com/paulf-999/ai-engineering-playbook/pull/256) |
-| [`src/sh/git/git_validate_pr_description.sh`](../../src/sh/git/git_validate_pr_description.sh) | 2026-11-16 | Hindered | CI failed on formatting nits, though running it locally helped |
+| [`maintenance/quality/`](./) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Hindered | The audit and re-scoring took up user turns in 46 sessions |
+| [`src/claude/_templates/`](../../src/claude/_templates/) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Unused | Never used to create a file |
+| [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Unused | Never fired in any transcript |
+| [`src/claude/rules/always_on/conduct/security.md`](../../src/claude/rules/always_on/conduct/security.md) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Unused | Loads every session, but never visibly changed what Claude did |
+| [`src/claude/rules/always_on/standards/naming_standards.md`](../../src/claude/rules/always_on/standards/naming_standards.md) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Unused | Loads every session, but never visibly changed what Claude did |
+| [`src/claude/rules/on_demand/`](../../src/claude/rules/on_demand/) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Unused | `turn_budgets.md`, `todo_logging.md`, `claude_naming_patterns.md` and the domain style guides were never read as guidance |
+| [`src/claude/rules/path_scoped/`](../../src/claude/rules/path_scoped/) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Hindered | From 11-09 to 11-11 all 12 loaded every session, with no matching files |
+| [`src/sh/claude_report_context_cost.sh`](../../src/sh/claude_report_context_cost.sh) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Hindered | The freshness check failed 18 times across 14 sessions, each fixed by regenerating the report |
+| [`src/sh/git/git_validate_branch_name.sh`](../../src/sh/git/git_validate_branch_name.sh) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Mixed | Caught 3 real cases, but one session skipped it 17 times with `SKIP=` |
+| [`src/sh/git/git_validate_num_file_changes.sh`](../../src/sh/git/git_validate_num_file_changes.sh) | [#PRNUM](https://github.com/paulf-999/ai-engineering-playbook/pull/PRNUM) | Unused | Never tripped |
 
 ## 👥 Persona review
 

@@ -76,8 +76,9 @@ count_always_on_rules_in() {
         if [[ -z "$(rule_path_globs "${CHECK_DIR}/${rule}")" ]]; then
             count_file "${rule}"
         fi
-    # on-demand files kept in rules/on_demand/ install beside rules/, so they don't load every session
-    done < <(cd "${CHECK_DIR}" && find "${root}/rules" -path "${root}/rules/on_demand" -prune -o -name '*.md' -print | sort)
+    # on-demand files kept in rules/on_demand/ install beside rules/, and a README under rules/ never installs,
+    # so neither loads every session
+    done < <(cd "${CHECK_DIR}" && find "${root}/rules" -path "${root}/rules/on_demand" -prune -o -name '*.md' ! -name README.md -print | sort)
 }
 
 # Print a file's description from its opening --- block, including one folded over several lines with > or |

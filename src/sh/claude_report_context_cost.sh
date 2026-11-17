@@ -42,7 +42,7 @@ REPORT="maintenance/context_cost.md"
 load_condition() {
     local file="${1}" globs
     if [[ "${file}" == "${CONFIG_DIR}/rules/on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* \
-        || "${file}" == "${CONFIG_DIR}/README.md" ]]; then
+        || "${file}" == "${CONFIG_DIR}/README.md" || ("${file}" == "${CONFIG_DIR}/rules/"* && "${file##*/}" == README.md) ]]; then
         echo "On demand, via a pointer"
         return
     fi

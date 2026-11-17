@@ -17,13 +17,13 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~523 |
-| 2 | `rules/always_on/01_standards/conduct/behaviour.md` | ~334 |
-| 3 | `rules/always_on/01_standards/conduct/security.md` | ~205 |
-| 4 | `rules/always_on/01_standards/conduct/writing_style.md` | ~233 |
-| 5 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
-| 6 | `rules/always_on/01_standards/workflows/sdlc_workflow.md` | ~256 |
+| 2 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
+| 3 | `rules/always_on/01_standards/conduct/behaviour.md` | ~334 |
+| 4 | `rules/always_on/01_standards/conduct/security.md` | ~205 |
+| 5 | `rules/always_on/01_standards/conduct/writing_style.md` | ~233 |
+| 6 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
 | 7 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
-| | **Subtotal** | **~1868** |
+| | **Subtotal** | **~1869** |
 
 ## 👤 Every session, if opted in
 

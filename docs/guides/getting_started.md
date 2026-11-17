@@ -43,6 +43,15 @@ A one-repo install leaves out the check that sends Claude back to run the repo's
 
 To also get the scannable reply format and saved plans, add `PREFERENCES=1` to an "Everywhere" install, since preferences never go into a one-repo install. The [preferences table](../../src/claude/README.md#-preferences) says what each does.
 
+## 🔧 What installing changes
+
+Besides adding instructions, installing changes how Claude works wherever you installed it:
+
+- 💬 **Replies:** Claude uses British spelling and offers options before big changes. Its scannable reply format is [opt-in](../../src/claude/README.md#-preferences): `make install PREFERENCES=1`.
+- 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.
+- 🪝 **Automatic checks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
+- 🔒 **Files:** Claude's file tools can't read `.env` files. Saving plans and notes outside your repos is opt-in too.
+
 ## 🧪 5. Try it
 
 Open Claude Code in your dbt repo and ask:

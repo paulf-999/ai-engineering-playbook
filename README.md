@@ -3,13 +3,13 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A lean playbook for Claude Code. One command installs a shared setup, so every engineer works to the same standards from day one.
+A practical playbook for consistent, repeatable work with AI coding assistants, starting with a lean set of instructions for Claude Code.
 
 ---
 
 ## 🪄 Getting Started
 
-New here? Start with the [getting-started guide](docs/guides/getting_started.md). In short, you need `git`, `bash` and [`jq`](https://jqlang.org/), and a git clone rather than a zip.
+The [getting-started guide](docs/guides/getting_started.md) covers what you need, which install to choose, what installing changes and a first prompt to try.
 
 1. Clone the repository:
 
@@ -21,28 +21,17 @@ New here? Start with the [getting-started guide](docs/guides/getting_started.md)
 2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`, or `$CLAUDE_CONFIG_DIR` if set.
 
 > [!NOTE]
-> **Which install:** `make install` applies everywhere, and `make install PROJECT=<path to repo>` applies to one repo only, such as your team's dbt repo. Either way, replaced files are backed up first, and `make uninstall`, with the same `PROJECT=`, undoes it.
-
----
-
-## 🔧 What installing changes
-
-Besides adding instructions, installing changes how Claude works in every project:
-
-- 💬 **Replies:** Claude uses British spelling and offers options before big changes. Its scannable reply format is [opt-in](src/claude/README.md#-preferences): `make install PREFERENCES=1`.
-- 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.
-- 🪝 **Automatic checks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
-- 🔒 **Files:** Claude's file tools can't read `.env` files. Saving plans and notes outside your repos is opt-in too.
+> It backs up any file it replaces to `backups/` in that directory first. To install into one repo's `.claude/` folder instead, run `make install PROJECT=<path to repo>`, and `make uninstall` undoes either.
 
 ---
 
 ## 📦 What you get
 
 - ⚡ Claude reads only the instructions each task needs, so it stays fast and focused.
-- 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load), and the [terms](src/claude/README.md#-terms) explain the few words you might not know.
+- 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load).
 - 📦 Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
-- 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md), one illustrative run rather than a measured result.
-- 🧪 On 4 dbt tasks, 3 runs each, Claude passed [97% of the author's checks with the dbt and SQL rules, and 71% without](docs/examples/dbt_rules_measured.md). Airflow and infra aren't measured yet.
+- 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md), and [measured runs](docs/examples/dbt_rules_measured.md) of the dbt rules.
+- 👤 Personal preferences, such as the reply format, are [opt-in](src/claude/README.md#-preferences) with `make install PREFERENCES=1`.
 
 <!-- separates the intro list from the feature list -->
 

@@ -551,7 +551,7 @@ def test_style_is_replaced_and_bad_preference_values_are_refused(tmp_path):
     result = run_install(config, answer="install", STYLE="0")
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert "STYLE is gone" in result.stdout, "it should warn that STYLE no longer does anything"
-    assert (config / "rules" / "always_on" / "01_standards" / "conduct" / "writing_style.md").exists(), (
+    assert (config / "rules" / "always_on" / "01_standards" / "writing_style.md").exists(), (
         "writing style always installs"
     )
 

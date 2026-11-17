@@ -17,25 +17,25 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~523 |
-| 2 | `rules/always_on/standards/conduct/behaviour.md` | ~331 |
-| 3 | `rules/always_on/standards/conduct/security.md` | ~205 |
-| 4 | `rules/always_on/standards/conduct/writing_style.md` | ~232 |
-| 5 | `rules/always_on/standards/naming_standards.md` | ~226 |
-| 6 | `rules/always_on/standards/workflows/sdlc_workflow.md` | ~256 |
-| 7 | `rules/always_on/team_conventions/house_style.md` | ~87 |
-| | **Subtotal** | **~1861** |
+| 2 | `rules/always_on/01_standards/conduct/behaviour.md` | ~334 |
+| 3 | `rules/always_on/01_standards/conduct/security.md` | ~205 |
+| 4 | `rules/always_on/01_standards/conduct/writing_style.md` | ~233 |
+| 5 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
+| 6 | `rules/always_on/01_standards/workflows/sdlc_workflow.md` | ~256 |
+| 7 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
+| | **Subtotal** | **~1868** |
 
 ## 👤 Every session, if opted in
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/preferences/claude_output_format.md` | ~277 |
-| 2 | `rules/always_on/preferences/working_files.md` | ~202 |
-| | **Subtotal** | **~479** |
+| 1 | `rules/always_on/03_preferences/claude_output_format.md` | ~277 |
+| 2 | `rules/always_on/03_preferences/working_files.md` | ~204 |
+| | **Subtotal** | **~482** |
 
 ## 💤 Only when needed
 
 | Load type | Files | Tokens |
 |---|---|---|
-| 📂 Path-scoped rules, with matching files | 22 | ~8300 |
+| 📂 Path-scoped rules, with matching files | 22 | ~8400 |
 | 💤 On demand, via a pointer | 59 | ~28900 |

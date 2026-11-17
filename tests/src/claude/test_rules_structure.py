@@ -137,7 +137,7 @@ def find_parent(path, rules_dir=RULES_DIR):
     candidates = [beside]
     on_demand = rules_dir / "on_demand"
     # a loaded parent keeps its bulky children on demand, at the same path under always_on/ or path_scoped/,
-    # so on_demand/standards/conduct/writing_style/ belongs to always_on/standards/conduct/writing_style.md
+    # so on_demand/01_standards/conduct/writing_style/ belongs to always_on/01_standards/conduct/writing_style.md
     if beside.is_relative_to(on_demand):
         rest = beside.relative_to(on_demand)
         candidates += [rules_dir / "always_on" / rest, rules_dir / "path_scoped" / rest]
@@ -153,10 +153,10 @@ def body_lines(text):
 def is_split_by_kind(parent, rules_dir=RULES_DIR):
     """Return whether a parent's rules are split between a guide and its team conventions, so children may be short."""
     parts = parent.relative_to(rules_dir).parts
-    if "team_conventions" in parts:
+    if "02_team_conventions" in parts:
         return True
-    is_guide = parts[:3] == ("path_scoped", "standards", "style_guides")
-    return is_guide and (rules_dir / "path_scoped" / "team_conventions" / Path(*parts[3:])).exists()
+    is_guide = parts[:3] == ("path_scoped", "01_standards", "style_guides")
+    return is_guide and (rules_dir / "path_scoped" / "02_team_conventions" / Path(*parts[3:])).exists()
 
 
 def child_problems(path, rules_dir=RULES_DIR):
@@ -255,23 +255,23 @@ def test_every_pointer_target_exists():
     assert not missing, "fix these pointers to missing files: " + ", ".join(missing)
 
 
-# a backticked path into a preferences/ folder, which a default install leaves out
+# a backticked path into a 03_preferences/ folder, which a default install leaves out
 PREFERENCE_PATH = re.compile(r"`[^`\n]*preferences/[^`\n]*`")
 
 
 def preference_paths(text):
-    """Return each backticked path into a preferences/ folder that the text names."""
+    """Return each backticked path into a 03_preferences/ folder that the text names."""
     return PREFERENCE_PATH.findall(text)
 
 
 def test_preference_paths_are_found_in_any_backticks():
-    """A pointer bullet, a table cell or prose naming a preferences/ path is caught, and other paths aren't."""
-    text = "- `on_demand/preferences/x.md`, when\n| `_templates/preferences/y` |\nsee `rules/always_on/z.md`"
-    assert preference_paths(text) == ["`on_demand/preferences/x.md`", "`_templates/preferences/y`"]
+    """A pointer bullet, a table cell or prose naming a 03_preferences/ path is caught, and other paths aren't."""
+    text = "- `on_demand/03_preferences/x.md`, when\n| `_templates/preferences/y` |\nsee `rules/always_on/z.md`"
+    assert preference_paths(text) == ["`on_demand/03_preferences/x.md`", "`_templates/preferences/y`"]
 
 
 def test_no_default_install_file_names_a_preference():
-    """Nothing a default install ships points into a preferences/ folder, which only PREFERENCES=1 installs."""
+    """Nothing a default install ships points into a 03_preferences/ folder, which only PREFERENCES=1 installs."""
     problems = [
         f"{path}: {found}"
         for path in sorted(tracked_config_files())
@@ -298,26 +298,26 @@ def test_no_default_install_file_names_a_working_file_folder():
 
 def test_a_short_child_passes_once_its_guide_is_split_by_kind(tmp_path):
     """A guide whose team conventions moved out may leave short children, on both the guide's side and the team's."""
-    for parent in ("path_scoped/standards/style_guides/tool", "path_scoped/team_conventions/tool"):
+    for parent in ("path_scoped/01_standards/style_guides/tool", "path_scoped/02_team_conventions/tool"):
         (tmp_path / parent).with_suffix(".md").parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / parent).with_suffix(".md").write_text("- `_short.md`\n- `_other.md`\n")
         folder = tmp_path / parent.replace("path_scoped", "on_demand")
         folder.mkdir(parents=True)
         for child in ("_short.md", "_other.md"):
             (folder / child).write_text("x\n" * 5)
-    for side in ("standards/style_guides", "team_conventions"):
+    for side in ("01_standards/style_guides", "02_team_conventions"):
         assert not child_problems(tmp_path / "on_demand" / side / "tool" / "_short.md", tmp_path), side
     # without a team conventions file, the guide isn't split, so its short child still fails the floor
-    (tmp_path / "path_scoped" / "team_conventions" / "tool.md").unlink()
-    problems = child_problems(tmp_path / "on_demand" / "standards" / "style_guides" / "tool" / "_short.md", tmp_path)
+    (tmp_path / "path_scoped" / "02_team_conventions" / "tool.md").unlink()
+    problems = child_problems(tmp_path / "on_demand" / "01_standards" / "style_guides" / "tool" / "_short.md", tmp_path)
     assert any(f"{MIN_CHILD_LINES} or more lines" in problem for problem in problems)
 
 
 def team_convention_pairs(rules_dir=RULES_DIR):
     """Return each path-scoped team conventions file with the guide it belongs to, paired by relative path."""
-    team_dir = rules_dir / "path_scoped" / "team_conventions"
+    team_dir = rules_dir / "path_scoped" / "02_team_conventions"
     return [
-        (team, rules_dir / "path_scoped" / "standards" / "style_guides" / team.relative_to(team_dir))
+        (team, rules_dir / "path_scoped" / "01_standards" / "style_guides" / team.relative_to(team_dir))
         for team in team_dir.rglob("*.md")
     ]
 
@@ -325,7 +325,7 @@ def team_convention_pairs(rules_dir=RULES_DIR):
 def globs_problem(team, guide):
     """Return why a team conventions file won't load with its guide, or None if their paths: lists match."""
     if not guide.exists():
-        return f"{team.name} has no guide at the same path under standards/style_guides/"
+        return f"{team.name} has no guide at the same path under 01_standards/style_guides/"
     if not paths_of(guide):
         return f"{guide.name} has no paths: list, so neither file loads on a matching file"
     if paths_of(team) != paths_of(guide):
@@ -358,7 +358,7 @@ def test_mismatched_team_convention_globs_are_reported(tmp_path):
     assert "no paths: list" in globs_problem(team, guide)
 
 
-KINDS = {"standards", "team_conventions", "preferences"}
+KINDS = {"01_standards", "02_team_conventions", "03_preferences"}
 
 
 def misplaced_rules(rules_dir=RULES_DIR):
@@ -367,7 +367,7 @@ def misplaced_rules(rules_dir=RULES_DIR):
 
 
 def test_every_rule_sits_in_a_kind_folder():
-    """Every rule is under standards/, team_conventions/ or preferences/, so its kind shows in its path."""
+    """Every rule is under 01_standards/, 02_team_conventions/ or 03_preferences/, so its kind shows in its path."""
     assert not misplaced_rules(), "rules outside a kind folder: " + ", ".join(map(relative, misplaced_rules()))
 
 

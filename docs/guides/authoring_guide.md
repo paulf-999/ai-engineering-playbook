@@ -1,6 +1,6 @@
 # 🛠️ Authoring guide
 
-**Purpose:** how to build a new rule, skill or agent for `src/claude/`, once the installed [guiding principles](../../src/claude/rules/on_demand/standards/claude_config/guiding_principles.md) say it's worth adding.
+**Purpose:** how to build a new rule, skill or agent for `src/claude/`, once the installed [guiding principles](../../src/claude/rules/on_demand/01_standards/claude_config/guiding_principles.md) say it's worth adding.
 
 ## ✅ Every file
 

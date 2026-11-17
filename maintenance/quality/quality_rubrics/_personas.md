@@ -22,8 +22,10 @@ Each reader gets their role and goal, then the same task, and the manager gets o
 Each reader is a separate `claude -p --safe-mode` process run from a fresh clone, so no CLAUDE.md, rules, hooks or memory load. An in-session subagent would inherit them. The brief describes nothing about the repo, since a primed brief goes easier on the work:
 
 ```text
-<role and goal> A colleague pointed you at your team's repo in <clone path>. Explore it as you
-naturally would, starting where you'd start, and say where you'd stop, get stuck or give up.
+<role and goal> A colleague pointed you at your team's repo in <clone path>. You'd install and
+use it, not maintain it. Explore it as you naturally would, starting where you'd start, and say
+where you'd stop, get stuck or give up. Skip material meant for its maintainers, unless it gets
+in your way.
 Report what it is and who it's for, what's valuable, what's confusing or off-putting, how complex
 it looks against what it delivers, and what you'd change, citing files. No word limit.
 ```
@@ -41,8 +43,9 @@ OUT="$(mktemp -d)/persona_reviews"; WORK="$(mktemp -d)"; CLONE="${WORK}/ai-engin
 mkdir -p "${OUT}"
 # full clone, not --depth 1, so readers can see the history and tags
 git clone --quiet "file://${PWD}" "${CLONE}"
-TASK="A colleague pointed you at your team's repo in ${CLONE}. Explore it as you naturally would, starting where you'd start, \
-and say where you'd stop, get stuck or give up. Report what it is and who it's for, what's valuable, what's confusing or \
+TASK="A colleague pointed you at your team's repo in ${CLONE}. You'd install and use it, not maintain it. \
+Explore it as you naturally would, starting where you'd start, and say where you'd stop, get stuck or give up. \
+Skip material meant for its maintainers, unless it gets in your way. Report what it is and who it's for, what's valuable, what's confusing or \
 off-putting, how complex it looks against what it delivers, and what you'd change, citing files. No word limit."
 DE="You are a data engineer who writes Python, SQL and simple bash commands, and has tried Claude Code but isn't an expert. You want help building dbt models and Airflow DAGs."
 DA="You are a data analyst who writes SQL, builds Looker and Omni dashboards and works with the business. You can write basic dbt models and follow your team's steps to put one into production, but you aren't technical beyond that and are new to Claude Code. You want help turning business requests into SQL and dbt models."

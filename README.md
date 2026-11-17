@@ -9,7 +9,7 @@ A lean playbook for Claude Code. One command installs a shared setup, so every e
 
 ## 🪄 Getting Started
 
-You need `git`, `bash` and [`jq`](https://jqlang.org/) on macOS or Linux, and a git clone rather than a zip download, since the installer copies only tracked files.
+New here? Start with the [getting-started guide](docs/guides/getting_started.md). In short, you need `git`, `bash` and [`jq`](https://jqlang.org/), and a git clone rather than a zip.
 
 1. Clone the repository:
 
@@ -21,7 +21,7 @@ You need `git`, `bash` and [`jq`](https://jqlang.org/) on macOS or Linux, and a 
 2. Run `make install` to copy [`src/claude/`](src/claude/) into your Claude config directory, `~/.claude`, or `$CLAUDE_CONFIG_DIR` if set.
 
 > [!NOTE]
-> **Which install:** `make install` applies the instructions in every project you open. To apply them in one repo only, such as your team's dbt repo, run `make install PROJECT=<path to repo>`. Either way, it backs up any file it replaces to `backups/` first, and `make uninstall`, with the same `PROJECT=`, undoes it.
+> **Which install:** `make install` applies everywhere, and `make install PROJECT=<path to repo>` applies to one repo only, such as your team's dbt repo. Either way, replaced files are backed up first, and `make uninstall`, with the same `PROJECT=`, undoes it.
 
 ---
 
@@ -30,8 +30,8 @@ You need `git`, `bash` and [`jq`](https://jqlang.org/) on macOS or Linux, and a 
 Besides adding instructions, installing changes how Claude works in every project:
 
 - 💬 **Replies:** Claude uses British spelling and offers options before big changes. Its scannable reply format is [opt-in](src/claude/README.md#-preferences): `make install PREFERENCES=1`.
-- 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more phases pauses after each one.
-- 🪝 **Hooks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
+- 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.
+- 🪝 **Automatic checks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
 - 🔒 **Files:** Claude's file tools can't read `.env` files. Saving plans and notes outside your repos is opt-in too.
 
 ---
@@ -39,7 +39,7 @@ Besides adding instructions, installing changes how Claude works in every projec
 ## 📦 What you get
 
 - ⚡ Claude reads only the instructions each task needs, so it stays fast and focused.
-- 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load), and the [terms](src/claude/README.md#-terms) explain words such as hook and phase gate.
+- 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load), and the [terms](src/claude/README.md#-terms) explain the few words you might not know.
 - 📦 Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
 - 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md), one illustrative run rather than a measured result.
 - 🧪 The data and infra style guides are unproven: no measured run shows them improving output yet, which [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) will test.

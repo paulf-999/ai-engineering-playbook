@@ -84,7 +84,7 @@ def test_on_demand_files_install_beside_rules(tmp_path):
     """Files in src/claude/rules/on_demand/ install to on_demand/, and none of them land in rules/."""
     result = run_install(tmp_path, answer="install")
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert (tmp_path / "on_demand" / "claude_config" / "guiding_principles.md").is_file(), (
+    assert (tmp_path / "on_demand" / "standards" / "claude_config" / "guiding_principles.md").is_file(), (
         "on-demand files should sit beside rules/"
     )
     assert not (tmp_path / "rules" / "on_demand").exists(), "no on-demand file should install under rules/"
@@ -296,7 +296,9 @@ def test_project_install_writes_only_into_the_repo(tmp_path):
     """With PROJECT set, the config lands in the repo's .claude/ folder, and your config directory gets nothing."""
     config, target = project_install(tmp_path)
     assert (target / "CLAUDE.md").is_file(), "CLAUDE.md should install into the repo's .claude/ folder"
-    assert (target / "on_demand" / "claude_config" / "guiding_principles.md").is_file(), "on-demand files should too"
+    assert (target / "on_demand" / "standards" / "claude_config" / "guiding_principles.md").is_file(), (
+        "on-demand files should too"
+    )
     assert installed_files(config) == set(), "nothing but backups should land in your own config directory"
 
 
@@ -549,7 +551,9 @@ def test_style_is_replaced_and_bad_preference_values_are_refused(tmp_path):
     result = run_install(config, answer="install", STYLE="0")
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert "STYLE is gone" in result.stdout, "it should warn that STYLE no longer does anything"
-    assert (config / "rules" / "always_on" / "conduct" / "writing_style.md").exists(), "writing style always installs"
+    assert (config / "rules" / "always_on" / "standards" / "conduct" / "writing_style.md").exists(), (
+        "writing style always installs"
+    )
 
     refused = run_install(tmp_path / "other", answer="install", PREFERENCES="yes")
 

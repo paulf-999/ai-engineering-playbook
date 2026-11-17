@@ -612,7 +612,7 @@ def test_an_install_from_before_the_numbered_folders_keeps_the_opt_in_and_tidies
 def test_folder_readmes_under_rules_never_install(tmp_path):
     """A README explaining a rules folder stays in the repo, since Claude Code would load it as a rule."""
     config = tmp_path / "config"
-    assert (SOURCE / "rules" / "always_on" / "01_standards" / "README.md").is_file(), "the repo should have the README"
+    assert (SOURCE / "rules" / "always_on" / "README.md").is_file(), "the repo should have the README"
 
     result = run_install(config, answer="install", PREFERENCES="1")
 

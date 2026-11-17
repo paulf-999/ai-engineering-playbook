@@ -95,7 +95,7 @@ No reader calls the installed config over-engineered, but all three still find t
 - 📦 **What you get:** EM calls the installed part "small and sensible", at 7 always-on files and about 1,900 tokens, with path-scoped and on-demand rules loading only when needed (all three).
 - ⚖️ **What surrounds it:** 170 files for about 60 installed rules, with design docs, audits, rubrics and a test suite aimed at the maintainer (all three). DA says the useful part for an analyst is about four files.
 - 🧭 **The three kinds read clearly:** DE and EM correctly tell the generic standards from this team's conventions and the opt-in preferences. DA had to read the two-level `<load time>/<kind>/` scheme twice.
-- 🧪 **Effort against evidence:** the value is still asserted, not shown, until [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) runs (all three).
+- 🧪 **Effort against evidence:** at review time the value was asserted, not shown. Since then, [measured runs](../../docs/examples/dbt_rules_measured.md) show Claude passing 97% of the author's dbt and SQL checks with the rules and 71% without, over 3 runs of 4 tasks.
 
 ### 🎯 Shared points
 
@@ -104,7 +104,7 @@ No reader calls the installed config over-engineered, but all three still find t
 | 1️⃣ | **No "first five minutes": what to type after installing, and what you should see** | DE, DA, EM | Blocks use | Open |
 | 2️⃣ | **Setup prerequisites and the global-or-project choice come too late or unexplained**, such as `jq`, whether `make deps` is needed, and which install fits | DE, DA, EM | Blocks use | Open |
 | 3️⃣ | **Whose team the conventions belong to, and how another team swaps them** | DE, DA, EM | Confuses | Kept by choice: the repo starts this team from its conventions, and another team replaces `02_team_conventions/` in a fork |
-| 4️⃣ | **The data guides are unproven, and the dbt example still breaks a rule** (a plural name) | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
+| 4️⃣ | **The data guides are unproven, and the dbt example still breaks a rule** (a plural name) | DE, DA, EM | Confuses | Measured in [`dbt_rules_measured.md`](../../docs/examples/dbt_rules_measured.md): 97% of checks with the rules against 71% without; the plural staging name still slips through |
 | 5️⃣ | **Jargon appears before the glossary**, which sits in `src/claude/README.md` | DE, DA, EM | Confuses | Open |
 | 6️⃣ | **Maintainer material outweighs the product** | DE, DA, EM | Polish | Kept by choice: the audits and rubrics |
 | 7️⃣ | **Emoji density in rule files** | DE, EM | Polish | Kept by choice: the markdown layout is the maintainer's preference |

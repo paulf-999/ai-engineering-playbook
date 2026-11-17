@@ -42,7 +42,7 @@ Besides adding instructions, installing changes how Claude works in every projec
 - 📂 Each rules folder [sets when its rules load](src/claude/README.md#️-when-rules-load), and the [terms](src/claude/README.md#-terms) explain the few words you might not know.
 - 📦 Everything you install is in [`src/claude/`](src/claude/); the rest of the repo explains and maintains it.
 - 🔍 See [a before-and-after example](docs/examples/dbt_before_and_after.md), one illustrative run rather than a measured result.
-- 🧪 The data and infra style guides are unproven: no measured run shows them improving output yet, which [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) will test.
+- 🧪 On 4 dbt tasks, 3 runs each, Claude passed [97% of the author's checks with the dbt and SQL rules, and 71% without](docs/examples/dbt_rules_measured.md). Airflow and infra aren't measured yet.
 
 <!-- separates the intro list from the feature list -->
 

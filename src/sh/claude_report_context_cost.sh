@@ -42,7 +42,7 @@ REPORT="maintenance/context_cost.md"
 load_condition() {
     local file="${1}" globs
     if [[ "${file}" == "${CONFIG_DIR}/rules/on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* \
-        || "${file}" == "${CONFIG_DIR}/README.md" || ("${file}" == "${CONFIG_DIR}/rules/"* && "${file##*/}" == README.md) ]]; then
+        || "${file}" == "${CONFIG_DIR}/README.md" ]]; then
         echo "On demand, via a pointer"
         return
     fi
@@ -71,6 +71,8 @@ table_body() {
     local every="" scoped="" lazy="" every_chars=0 scoped_chars=0 lazy_chars=0 every_n=0 scoped_n=0 lazy_n=0
     local opted="" opted_chars=0 opted_n=0
     while IFS= read -r file; do
+        # a README under rules/ explains a folder to people browsing the repo, and never installs or loads
+        [[ "${file}" == "${CONFIG_DIR}/rules/"* && "${file##*/}" == README.md ]] && continue
         chars=$(count_loaded_chars "${REPO_DIR}/${file}")
         condition="$(load_condition "${file}")"
         name="\`${file#"${CONFIG_DIR}"/}\`"

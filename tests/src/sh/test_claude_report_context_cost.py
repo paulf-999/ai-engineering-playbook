@@ -19,6 +19,8 @@ def config_repo(tmp_path):
         "src/claude/CLAUDE.md": "<!-- created: 2026-11-13 -->\n" + HUNDRED_TOKENS,
         # a preference loads every session, but only for users who opt in with PREFERENCES=1
         "src/claude/rules/always_on/03_preferences/taste.md": HUNDRED_TOKENS,
+        # a README under rules/ never installs, so the report leaves it out
+        "src/claude/rules/always_on/01_standards/README.md": HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/on_demand/guide.md": HUNDRED_TOKENS,
         "src/claude/_templates/README.md": HUNDRED_TOKENS,
@@ -107,3 +109,9 @@ def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
     staged_files = ["git", "diff", "--cached", "--name-only"]
     staged = subprocess.run(staged_files, cwd=tmp_path, env=env, capture_output=True, text=True, check=True)
     assert REPORT in staged.stdout.split(), "the rewritten report should be staged for the commit"
+
+
+def test_folder_readmes_under_rules_are_left_out(tmp_path):
+    """A README explaining a rules folder never installs, so the report neither lists nor counts it."""
+    result = run_report(tmp_path, config_repo(tmp_path))
+    assert "01_standards/README.md" not in result.stdout, "a folder README should not be listed"

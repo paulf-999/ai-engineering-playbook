@@ -79,6 +79,8 @@ def test_each_kind_of_always_on_context_is_counted(tmp_path, path, text):
         ("src/claude/rules/scoped.md", "---\npaths:\n  - '*.sql'\n---\n" + HUNDRED_TOKENS),
         # a file read on demand loads only when Claude follows a pointer to it
         ("src/claude/rules/on_demand/guide.md", HUNDRED_TOKENS),
+        # a README under rules/ never installs, so it never loads
+        ("src/claude/rules/always_on/01_standards/README.md", HUNDRED_TOKENS),
         # a skill's or agent's body loads only when it's used, so only its description counts
         (".claude/skills/example/SKILL.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),
         (".claude/agents/example.md", "---\ndescription: short\n---\n" + HUNDRED_TOKENS),

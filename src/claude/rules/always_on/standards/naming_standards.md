@@ -8,5 +8,5 @@
 
 ## 📚 Read on demand
 
-- `on_demand/claude_config/claude_naming_patterns.md`, in your Claude config directory, before naming a new rule, skill or agent.
-- `on_demand/style_guides/utilities/datetime.md`, when writing a date or time into a name, code, metadata or a log.
+- `on_demand/standards/claude_config/claude_naming_patterns.md`, in your Claude config directory, before naming a new rule, skill or agent.
+- `on_demand/standards/style_guides/utilities/datetime.md`, when writing a date or time into a name, code, metadata or a log.

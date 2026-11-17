@@ -160,4 +160,4 @@ Before finalising:
 
 **Resources:**
 - Full guidance: the playbook repo's [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md)
-- Testing: `on_demand/testing/_testing_design_pattern.md`, in your Claude config directory
+- Testing: `on_demand/standards/testing/_testing_design_pattern.md`, in your Claude config directory

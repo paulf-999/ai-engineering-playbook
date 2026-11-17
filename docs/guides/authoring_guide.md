@@ -1,6 +1,6 @@
 # 🛠️ Authoring guide
 
-**Purpose:** how to build a new rule, skill or agent for `src/claude/`, once the installed [guiding principles](../../src/claude/rules/on_demand/claude_config/guiding_principles.md) say it's worth adding.
+**Purpose:** how to build a new rule, skill or agent for `src/claude/`, once the installed [guiding principles](../../src/claude/rules/on_demand/standards/claude_config/guiding_principles.md) say it's worth adding.
 
 ## ✅ Every file
 
@@ -24,5 +24,6 @@ Hooks, scripts and tests for the config must work on any machine:
 ## 📚 By kind
 
 - 📝 **[Rules](authoring_guide/_rules.md):** pick the tier, wire up pointers, and check it before merging.
+- 🧭 **[Rule kinds](authoring_guide/_rule_kinds.md):** decide whether a rule is a standard, a team convention or a preference, and where each lives.
 - 🛠️ **[Skills](authoring_guide/_skills.md):** the folder layout, scope, triggers and checks, for the skills coming soon.
 - 🤖 **[Agents](authoring_guide/_agents.md):** when to build one, and how to write and check it, for the agents coming soon.

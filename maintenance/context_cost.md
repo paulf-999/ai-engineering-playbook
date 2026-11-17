@@ -16,14 +16,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `CLAUDE.md` | ~520 |
-| 2 | `rules/always_on/conduct/behaviour.md` | ~324 |
-| 3 | `rules/always_on/conduct/security.md` | ~202 |
-| 4 | `rules/always_on/conduct/writing_style.md` | ~227 |
-| 5 | `rules/always_on/standards/naming_standards.md` | ~221 |
-| 6 | `rules/always_on/team_conventions/house_style.md` | ~87 |
-| 7 | `rules/always_on/workflows/sdlc_workflow.md` | ~256 |
-| | **Subtotal** | **~1839** |
+| 1 | `CLAUDE.md` | ~523 |
+| 2 | `rules/always_on/standards/conduct/behaviour.md` | ~331 |
+| 3 | `rules/always_on/standards/conduct/security.md` | ~205 |
+| 4 | `rules/always_on/standards/conduct/writing_style.md` | ~232 |
+| 5 | `rules/always_on/standards/naming_standards.md` | ~226 |
+| 6 | `rules/always_on/standards/workflows/sdlc_workflow.md` | ~256 |
+| 7 | `rules/always_on/team_conventions/house_style.md` | ~87 |
+| | **Subtotal** | **~1861** |
 
 ## 👤 Every session, if opted in
 
@@ -37,5 +37,5 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | Load type | Files | Tokens |
 |---|---|---|
-| 📂 Path-scoped rules, with matching files | 22 | ~8200 |
-| 💤 On demand, via a pointer | 59 | ~28800 |
+| 📂 Path-scoped rules, with matching files | 22 | ~8300 |
+| 💤 On demand, via a pointer | 59 | ~28900 |

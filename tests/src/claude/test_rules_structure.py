@@ -137,7 +137,7 @@ def find_parent(path, rules_dir=RULES_DIR):
     candidates = [beside]
     on_demand = rules_dir / "on_demand"
     # a loaded parent keeps its bulky children on demand, at the same path under always_on/ or path_scoped/,
-    # so on_demand/conduct/writing_style/ belongs to always_on/conduct/writing_style.md
+    # so on_demand/standards/conduct/writing_style/ belongs to always_on/standards/conduct/writing_style.md
     if beside.is_relative_to(on_demand):
         rest = beside.relative_to(on_demand)
         candidates += [rules_dir / "always_on" / rest, rules_dir / "path_scoped" / rest]
@@ -155,8 +155,8 @@ def is_split_by_kind(parent, rules_dir=RULES_DIR):
     parts = parent.relative_to(rules_dir).parts
     if "team_conventions" in parts:
         return True
-    is_guide = parts[:2] == ("path_scoped", "style_guides")
-    return is_guide and (rules_dir / "path_scoped" / "team_conventions" / Path(*parts[2:])).exists()
+    is_guide = parts[:3] == ("path_scoped", "standards", "style_guides")
+    return is_guide and (rules_dir / "path_scoped" / "team_conventions" / Path(*parts[3:])).exists()
 
 
 def child_problems(path, rules_dir=RULES_DIR):
@@ -298,18 +298,18 @@ def test_no_default_install_file_names_a_working_file_folder():
 
 def test_a_short_child_passes_once_its_guide_is_split_by_kind(tmp_path):
     """A guide whose team conventions moved out may leave short children, on both the guide's side and the team's."""
-    for parent in ("path_scoped/style_guides/tool", "path_scoped/team_conventions/tool"):
+    for parent in ("path_scoped/standards/style_guides/tool", "path_scoped/team_conventions/tool"):
         (tmp_path / parent).with_suffix(".md").parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / parent).with_suffix(".md").write_text("- `_short.md`\n- `_other.md`\n")
         folder = tmp_path / parent.replace("path_scoped", "on_demand")
         folder.mkdir(parents=True)
         for child in ("_short.md", "_other.md"):
             (folder / child).write_text("x\n" * 5)
-    for side in ("style_guides", "team_conventions"):
+    for side in ("standards/style_guides", "team_conventions"):
         assert not child_problems(tmp_path / "on_demand" / side / "tool" / "_short.md", tmp_path), side
     # without a team conventions file, the guide isn't split, so its short child still fails the floor
     (tmp_path / "path_scoped" / "team_conventions" / "tool.md").unlink()
-    problems = child_problems(tmp_path / "on_demand" / "style_guides" / "tool" / "_short.md", tmp_path)
+    problems = child_problems(tmp_path / "on_demand" / "standards" / "style_guides" / "tool" / "_short.md", tmp_path)
     assert any(f"{MIN_CHILD_LINES} or more lines" in problem for problem in problems)
 
 
@@ -317,7 +317,7 @@ def team_convention_pairs(rules_dir=RULES_DIR):
     """Return each path-scoped team conventions file with the guide it belongs to, paired by relative path."""
     team_dir = rules_dir / "path_scoped" / "team_conventions"
     return [
-        (team, rules_dir / "path_scoped" / "style_guides" / team.relative_to(team_dir))
+        (team, rules_dir / "path_scoped" / "standards" / "style_guides" / team.relative_to(team_dir))
         for team in team_dir.rglob("*.md")
     ]
 
@@ -325,7 +325,7 @@ def team_convention_pairs(rules_dir=RULES_DIR):
 def globs_problem(team, guide):
     """Return why a team conventions file won't load with its guide, or None if their paths: lists match."""
     if not guide.exists():
-        return f"{team.name} has no guide at the same path under style_guides/"
+        return f"{team.name} has no guide at the same path under standards/style_guides/"
     if not paths_of(guide):
         return f"{guide.name} has no paths: list, so neither file loads on a matching file"
     if paths_of(team) != paths_of(guide):

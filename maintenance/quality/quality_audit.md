@@ -86,35 +86,34 @@ Rows are sorted by path. Each component that helped has one row, and each review
 
 ## 👥 Persona review
 
-The latest [blind persona review](quality_rubrics/_personas.md), run on 2026-11-16 against commit `f5fdf5d` by a data engineer (DE), data analyst (DA) and engineering manager (EM). It's the first round with readers matched to the team's skill levels and given a goal each, in [#303](https://github.com/paulf-999/ai-engineering-playbook/pull/303), so it isn't comparable with earlier rounds. Each run replaces this section, with earlier runs in git history.
+The latest [blind persona review](quality_rubrics/_personas.md), run on 2026-11-17 on Sonnet against commit `a373b70` by a data engineer (DE), data analyst (DA) and engineering manager (EM). It's the first round after the rules were sorted into `01_standards/`, `02_team_conventions/` and `03_preferences/` folders, in [#315](https://github.com/paulf-999/ai-engineering-playbook/pull/315) to [#331](https://github.com/paulf-999/ai-engineering-playbook/pull/331). Each run replaces this section, with earlier runs in git history.
 
 ### 🏗️ Over-engineering verdict
 
-No reader calls the delivered config over-engineered, but all three say the repo is much heavier than what they'd use:
+No reader calls the installed config over-engineered, but all three still find the repo heavy around it:
 
-- 📦 **What you get:** a lean core, about 2,000 always-on tokens, rules that load only when needed, and a careful installer (all three).
-- ⚖️ **What surrounds it:** of 149 files, DE would use about 12 and DA about 8, and DE says the rest "isn't in my way; I just skip it".
-- 📍 **Where:** design docs, `maintenance/` and `tests/`, where all three stopped reading, and the jargon from them, such as tiers, guards and phase gates (DA, EM).
-- 🧪 **Effort against evidence:** EM says the effort "far outweighs the evidence that it works", and DA calls it "high complexity for a modest, unproven payoff".
+- 📦 **What you get:** EM calls the installed part "small and sensible", at 7 always-on files and about 1,900 tokens, with path-scoped and on-demand rules loading only when needed (all three).
+- ⚖️ **What surrounds it:** 170 files for about 60 installed rules, with design docs, audits, rubrics and a test suite aimed at the maintainer (all three). DA says the useful part for an analyst is about four files.
+- 🧭 **The three kinds read clearly:** DE and EM correctly tell the generic standards from this team's conventions and the opt-in preferences. DA had to read the two-level `<load time>/<kind>/` scheme twice.
+- 🧪 **Effort against evidence:** the value is still asserted, not shown, until [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) runs (all three).
 
 ### 🎯 Shared points
 
-Each point two or more readers raised, ranked by how many raised it, then by impact:
-
 | # | Theme | Raised by | Impact | Status |
 |---|---|---|---|---|
-| 1️⃣ | **Another team's dbt and Airflow conventions install as rules, with no way to customise them that survives a reinstall** | DE, DA, EM | Blocks use | Open; labelled as examples in [#298](https://github.com/paulf-999/ai-engineering-playbook/pull/298), which all three found too easy to miss |
-| 2️⃣ | **No "which install is right for me" path, such as a project install for a dbt repo** | DE, DA, EM | Blocks use | Open |
-| 3️⃣ | **The dbt example breaks its own rules: uppercase CTEs, a `KEY` on an aggregate, an `MD5` stand-in and no YAML** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
-| 4️⃣ | **The reply style should be opt-in, not opt-out** | DE, DA, EM | Confuses | Opt-in with `PREFERENCES=1` |
-| 5️⃣ | **The data guides are unproven** | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
-| 6️⃣ | **Nothing for analysts, such as turning a business request into SQL or a dbt model** | DA, EM | Blocks use | Open |
-| 7️⃣ | **Undefined jargon, such as always-on, path-scoped, hooks and phase gates** | DA, EM | Confuses | Open |
+| 1️⃣ | **No "first five minutes": what to type after installing, and what you should see** | DE, DA, EM | Blocks use | Open |
+| 2️⃣ | **Setup prerequisites and the global-or-project choice come too late or unexplained**, such as `jq`, whether `make deps` is needed, and which install fits | DE, DA, EM | Blocks use | Open |
+| 3️⃣ | **Whose team the conventions belong to, and how another team swaps them** | DE, DA, EM | Confuses | Kept by choice: the repo starts this team from its conventions, and another team replaces `02_team_conventions/` in a fork |
+| 4️⃣ | **The data guides are unproven, and the dbt example still breaks a rule** (a plural name) | DE, DA, EM | Confuses | [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) |
+| 5️⃣ | **Jargon appears before the glossary**, which sits in `src/claude/README.md` | DE, DA, EM | Confuses | Open |
+| 6️⃣ | **Maintainer material outweighs the product** | DE, DA, EM | Polish | Kept by choice: the audits and rubrics |
+| 7️⃣ | **Emoji density in rule files** | DE, EM | Polish | Kept by choice: the markdown layout is the maintainer's preference |
+| 8️⃣ | **Default to a project install** | DA, EM | Confuses | Open |
 
 Single-reader asks:
 
-- 🛠️ **DE:** selective installs by guide, dbt globs that miss `.yaml`, `macros/` and `snapshots/`, and the dbt and Airflow versions the guides assume.
-- 📊 **DA:** say the planning rules don't slow down a single query, and the four dbt layers differ from dbt Labs' three.
-- 🧭 **EM:** tagged releases for a pinned version, and a two-week trial in one dbt repo before any team rollout.
+- 🛠️ **DE:** an Airflow before-and-after example, and a note that `your_dags_package` helpers must be replaced.
+- 📊 **DA:** an analyst path in the README, a business-request-to-SQL example, and Looker or Omni guidance.
+- 🧭 **EM:** a "for team leads" section with the owner, support model and releases, and a two-week pilot.
 
-All three readers named the same strengths: the installer, rules that load only when needed, and the repo's honesty about itself.
+All three readers named the same strengths: the honest README, the before-and-after example, the dbt conventions on one page, the safe installer, and rules that load only when needed.

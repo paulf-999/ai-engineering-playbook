@@ -78,4 +78,4 @@ Run `make uninstall` in your own terminal, with the same `PROJECT=` if you used 
 
 ## 📖 Words you'll meet
 
-The [terms](../../src/claude/README.md#-terms) explain the few words this repo uses that you might not know, such as hook, phase gate and always-on.
+The [terms](../../src/claude/README.md#-terms) explain the few words this repo uses that you might not know, such as hook, phase gate and tokens.

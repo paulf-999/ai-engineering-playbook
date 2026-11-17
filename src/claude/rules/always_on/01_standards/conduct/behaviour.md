@@ -8,7 +8,7 @@
   - **Not for:** a clear bug fix, a typo, or an approach the user has already named.
 - 🎯 **Literal direction:** when the user names a tool, skill or action, use exactly that, not a substitute.
 - 🔌 **Check tools first:** before saying you can't reach a system such as Jira or Slack, search for its tool and try it.
-- 🚦 **Ask before big changes:** before a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question; then the phase gates in `sdlc_workflow.md` take over.
+- 🚦 **Ask before big changes:** before a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question; then the phase gates in `ai_sdlc_workflow.md` take over.
 
 ## 🚀 Delivery
 

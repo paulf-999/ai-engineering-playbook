@@ -29,7 +29,7 @@ The [getting-started guide](docs/guides/getting_started.md) covers what you need
 
 - ⚡ **Lean:** Claude reads only the instructions each task needs, so it stays fast and focused.
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
-- 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always_on/01_standards/workflows/sdlc_workflow.md) before coding, then checks the result against that plan.
+- 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) before coding, then checks the result against that plan.
 - 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt_before_and_after.md) and [measured runs](docs/examples/dbt_rules_measured.md) show what the dbt rules change.
 - 👤 **Opt-in preferences:** personal ones, such as the reply format, install only with `make install PREFERENCES=1`.
 

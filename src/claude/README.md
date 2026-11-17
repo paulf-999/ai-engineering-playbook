@@ -32,7 +32,7 @@ Every rule costs context, so its top folder decides how often it loads. A kind f
 | 📏 **Rule** | A short markdown file telling Claude how to do one thing, such as name a dbt model |
 | 🔢 **Tokens** | Claude's unit of context, capped for always-on files by the [always-on budget](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests) |
 | 🪝 **Hook** | A small script Claude Code runs by itself at set moments, such as when Claude says it has finished |
-| 📝 **Intent and Spec** | The two sections a long plan opens with, on what you want and what will be built, per [`sdlc_workflow.md`](rules/always_on/01_standards/workflows/sdlc_workflow.md) |
+| 📝 **Intent and Spec** | The two sections a long plan opens with, on what you want and what will be built, per [`ai_sdlc_workflow.md`](rules/always_on/01_standards/ai_sdlc_workflow.md) |
 | 🛑 **Phase gate** | A pause after each stage of multi-stage work, such as after each PR, so you can check it before Claude goes on |
 
 ## 🧭 Three kinds of rule

@@ -95,7 +95,7 @@ No reader calls the installed config over-engineered, but all three still find t
 - 📦 **What you get:** EM calls the installed part "small and sensible", at 7 always-on files and about 1,900 tokens, with path-scoped and on-demand rules loading only when needed (all three).
 - ⚖️ **What surrounds it:** 170 files for about 60 installed rules, with design docs, audits, rubrics and a test suite aimed at the maintainer (all three). DA says the useful part for an analyst is about four files.
 - 🧭 **The three kinds read clearly:** DE and EM correctly tell the generic standards from this team's conventions and the opt-in preferences. DA had to read the two-level `<load time>/<kind>/` scheme twice.
-- 🧪 **Effort against evidence:** the value is still asserted, not shown, until [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) runs (all three).
+- 🧪 **Effort against evidence:** at review time the value was asserted, not shown. Since then, [measured runs](../../docs/examples/dbt_rules_measured.md) show Claude passing 97% of the author's dbt and SQL checks with the rules and 71% without, over 3 runs of 4 tasks.
 
 ### 🎯 Shared points
 

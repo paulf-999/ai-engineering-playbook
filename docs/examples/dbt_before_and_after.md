@@ -5,7 +5,7 @@
 Both runs got the same prompt, *"Add a dbt model that counts each customer's orders."*, in a small sample project with one staging model, `staging_shop_orders`.
 
 > [!NOTE]
-> This is one run of each, on 2026-11-16 with Claude Opus 5.5, so it illustrates the difference rather than measuring it. [#281](https://github.com/paulf-999/ai-engineering-playbook/issues/281) tracks a rerun across several tasks with a real install.
+> This is one run of each, on 2026-11-16 with Claude Opus 5.5, so it illustrates the difference rather than measuring it. The [measured runs](dbt_rules_measured.md) repeat this across 4 tasks, 3 times each.
 
 ## ➖ Without the playbook
 

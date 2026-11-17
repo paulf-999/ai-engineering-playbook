@@ -45,7 +45,7 @@ To also get the scannable reply format and saved plans, add `PREFERENCES=1` to a
 
 ## 🔧 What installing changes
 
-Besides adding instructions, installing changes how Claude works in every project:
+Besides adding instructions, installing changes how Claude works wherever you installed it:
 
 - 💬 **Replies:** Claude uses British spelling and offers options before big changes. Its scannable reply format is [opt-in](../../src/claude/README.md#-preferences): `make install PREFERENCES=1`.
 - 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.

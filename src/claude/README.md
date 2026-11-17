@@ -13,7 +13,7 @@ This folder is the source of a global Claude Code config: `make install` copies 
 
 ## ⏱️ When rules load
 
-Every rule costs context, so its top folder decides how often it loads, and a kind folder inside it says what kind of rule it is, per [three kinds of rule](#-three-kinds-of-rule):
+Every rule costs context, so its top folder decides how often it loads, and a kind folder inside it, `01_standards/`, `02_team_conventions/` or `03_preferences/`, numbered in the order they apply, says what kind of rule it is, per [three kinds of rule](#-three-kinds-of-rule):
 
 | Folder | Loads |
 |---|---|

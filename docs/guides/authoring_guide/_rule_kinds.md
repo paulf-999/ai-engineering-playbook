@@ -4,7 +4,7 @@
 
 ## 🗂️ The three kinds
 
-Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|path_scoped|on_demand>/<standards|team_conventions|preferences>/`.
+Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|path_scoped|on_demand>/<01_standards|02_team_conventions|03_preferences>/`, numbered so they sort in the order they apply.
 
 | Kind | Test | Folder | Installs |
 |---|---|---|---|

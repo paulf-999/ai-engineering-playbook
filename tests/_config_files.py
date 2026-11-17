@@ -28,5 +28,6 @@ def tracked_config_files(include_preferences=False):
         for path in paths
         if path not in AUTHORING_TEMPLATES
         and not path.startswith("_templates/skills/")
+        and not (path.startswith("rules/") and path.endswith("/README.md"))
         and (include_preferences or not is_preference(path))
     }

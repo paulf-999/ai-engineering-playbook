@@ -11,7 +11,8 @@ from _paths import REPO_ROOT
 CONFIG_DIR = REPO_ROOT / "src" / "claude"
 
 RULES_DIR = CONFIG_DIR / "rules"
-RULE_FILES = sorted(RULES_DIR.rglob("*.md"))
+# a README under rules/ explains a folder to people browsing the repo, and never installs, so it isn't a rule
+RULE_FILES = sorted(path for path in RULES_DIR.rglob("*.md") if path.name != "README.md")
 MAX_LINES = 110
 # a child shorter than this saves too little context to be worth its own file and pointer
 MIN_CHILD_LINES = 40
@@ -319,6 +320,7 @@ def team_convention_pairs(rules_dir=RULES_DIR):
     return [
         (team, rules_dir / "path_scoped" / "01_standards" / "style_guides" / team.relative_to(team_dir))
         for team in team_dir.rglob("*.md")
+        if team.name != "README.md"
     ]
 
 
@@ -363,7 +365,8 @@ KINDS = {"01_standards", "02_team_conventions", "03_preferences"}
 
 def misplaced_rules(rules_dir=RULES_DIR):
     """Return each rule that sits outside a kind folder inside its load-time folder."""
-    return [path for path in sorted(rules_dir.rglob("*.md")) if path.relative_to(rules_dir).parts[1] not in KINDS]
+    rules = sorted(path for path in rules_dir.rglob("*.md") if path.name != "README.md")
+    return [path for path in rules if path.relative_to(rules_dir).parts[1] not in KINDS]
 
 
 def test_every_rule_sits_in_a_kind_folder():

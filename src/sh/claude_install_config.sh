@@ -154,6 +154,8 @@ list_source_files() {
         [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" == hooks/hook_enforcement_done_checks.sh ]] && continue
         [[ "${PREFERENCES}" != 1 && ( "/${file}" == */preferences/* || "/${file}" == */03_preferences/* ) ]] && continue
         [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
+        # a README under rules/ explains a folder to people browsing the repo, and would load as a rule if installed
+        [[ "${file}" == rules/* && "${file##*/}" == README.md ]] && continue
         SOURCE_FILES+=("${file}")
         TARGET_PATHS+="$(target_path "${file}")"$'\n'
     done < <(git ls-files -z -- "${SOURCE_DIR}")

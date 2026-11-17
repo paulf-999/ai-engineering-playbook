@@ -607,3 +607,19 @@ def test_an_install_from_before_the_numbered_folders_keeps_the_opt_in_and_tidies
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert (config / OUTPUT_FORMAT).exists(), "the old opt-in should carry over to the numbered folder"
     assert not (config / "rules" / "always_on" / "preferences").exists(), "the emptied old folder should be removed"
+
+
+def test_folder_readmes_under_rules_never_install(tmp_path):
+    """A README explaining a rules folder stays in the repo, since Claude Code would load it as a rule."""
+    config = tmp_path / "config"
+    assert (SOURCE / "rules" / "always_on" / "01_standards" / "README.md").is_file(), "the repo should have the README"
+
+    result = run_install(config, answer="install", PREFERENCES="1")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    readmes = [
+        path
+        for path in installed_files(config)
+        if path.endswith("README.md") and path.startswith(("rules/", "on_demand/"))
+    ]
+    assert readmes == [], f"no folder README should install: {readmes}"

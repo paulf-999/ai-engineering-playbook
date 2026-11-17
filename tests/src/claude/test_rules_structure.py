@@ -356,3 +356,23 @@ def test_mismatched_team_convention_globs_are_reported(tmp_path):
     for path in (team, guide):
         path.write_text("# Tool\n")
     assert "no paths: list" in globs_problem(team, guide)
+
+
+KINDS = {"standards", "team_conventions", "preferences"}
+
+
+def misplaced_rules(rules_dir=RULES_DIR):
+    """Return each rule that sits outside a kind folder inside its load-time folder."""
+    return [path for path in sorted(rules_dir.rglob("*.md")) if path.relative_to(rules_dir).parts[1] not in KINDS]
+
+
+def test_every_rule_sits_in_a_kind_folder():
+    """Every rule is under standards/, team_conventions/ or preferences/, so its kind shows in its path."""
+    assert not misplaced_rules(), "rules outside a kind folder: " + ", ".join(map(relative, misplaced_rules()))
+
+
+def test_a_rule_outside_a_kind_folder_is_reported(tmp_path):
+    """A rule straight under a load-time folder's topic folder is caught."""
+    (tmp_path / "always_on" / "conduct").mkdir(parents=True)
+    (tmp_path / "always_on" / "conduct" / "rule.md").write_text("# Rule\n")
+    assert misplaced_rules(tmp_path) == [tmp_path / "always_on" / "conduct" / "rule.md"]

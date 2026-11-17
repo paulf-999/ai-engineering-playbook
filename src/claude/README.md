@@ -13,7 +13,7 @@ This folder is the source of a global Claude Code config: `make install` copies 
 
 ## ⏱️ When rules load
 
-Every rule costs context, so its top folder decides how often it loads, and a kind folder inside it says what kind of rule it is, per [three kinds of rule](#-three-kinds-of-rule):
+Every rule costs context, so its top folder decides how often it loads, and a kind folder inside it, `01_standards/`, `02_team_conventions/` or `03_preferences/`, numbered in the order they apply, says what kind of rule it is, per [three kinds of rule](#-three-kinds-of-rule):
 
 | Folder | Loads |
 |---|---|
@@ -31,19 +31,19 @@ Every rule costs context, so its top folder decides how often it loads, and a ki
 - ⏱️ **Always-on, path-scoped and on-demand:** when a rule loads: every session, only when Claude works on a matching file such as a dbt model, or only when another rule points Claude to it.
 - 🔢 **Tokens:** the unit Claude's working memory is measured in, about three-quarters of a word. The always-on budget caps everything that loads in every session, at the figure in the [design principles](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests).
 - 🪝 **Hook:** a small script Claude Code runs by itself at set moments, such as when Claude says it has finished.
-- 📝 **Intent and Spec:** the two sections a long plan opens with, on what you want and what will be built, per [`sdlc_workflow.md`](rules/always_on/standards/workflows/sdlc_workflow.md). A quick request, such as one query, needs no plan.
+- 📝 **Intent and Spec:** the two sections a long plan opens with, on what you want and what will be built, per [`sdlc_workflow.md`](rules/always_on/01_standards/workflows/sdlc_workflow.md). A quick request, such as one query, needs no plan.
 - 🛑 **Phase gate:** a pause after each stage of multi-stage work, such as after each PR, so you can check it before Claude goes on.
 
 ## 🧭 Three kinds of rule
 
 | Kind | What it is | Example | Lives in | Installs |
 |---|---|---|---|---|
-| 🧰 **Standard** | Good practice for anyone using the tool | Pin your Docker base image | `standards/` folders | Always |
-| 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `team_conventions/` folders | With everything else |
-| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `preferences/` folders | Only with `PREFERENCES=1` |
+| 🧰 **Standard** | Good practice for anyone using the tool | Pin your Docker base image | `01_standards/` folders | Always |
+| 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `02_team_conventions/` folders | With everything else |
+| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `03_preferences/` folders | Only with `PREFERENCES=1` |
 
 - 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_kinds.md) sets out how a rule is sorted into one of the three.
-- 🏢 **Team conventions:** these are this team's choices, and they install with everything else. To use your own, change the files in `team_conventions/`, by PR or in your own copy of the repo. There's no switch to turn them off.
+- 🏢 **Team conventions:** these are this team's choices, and they install with everything else. To use your own, change the files in `02_team_conventions/`, by PR or in your own copy of the repo. There's no switch to turn them off.
 
 ## 👤 Preferences
 
@@ -77,7 +77,7 @@ make install PROJECT=../my_dbt_repo
 
 ## 🛠️ Changing it
 
-- 🤝 **Team conventions:** propose a change to a `team_conventions/` file by PR here, then reinstall, since `make install` replaces edits made to the installed copy, per [the three kinds](#-three-kinds-of-rule).
+- 🤝 **Team conventions:** propose a change to a `02_team_conventions/` file by PR here, then reinstall, since `make install` replaces edits made to the installed copy, per [the three kinds](#-three-kinds-of-rule).
 - 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers writing a rule, skill or agent.
 - ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide whether a component earns its context cost.
 - ✅ **Checks:** `make test` checks rule structure, and pre-commit keeps always-on context within budget.

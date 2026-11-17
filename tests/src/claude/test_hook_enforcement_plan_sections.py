@@ -55,7 +55,12 @@ def test_a_plan_missing_a_section_is_blocked(plan, missing):
     result = run_hook(exit_plan_input(plan))
     assert result.returncode == BLOCKED, f"the plan should be blocked:\n{result.stderr}"
     assert f"no {missing} heading" in result.stderr, f"the reason should name {missing}:\n{result.stderr}"
-    assert "sdlc_workflow.md" in result.stderr, "the reason should point to the SDLC workflow rule"
+    assert "rules/always_on/01_standards/workflows/sdlc_workflow.md" in result.stderr, (
+        "the reason should point to the rule"
+    )
+    assert (REPO_ROOT / "src/claude/rules/always_on/01_standards/workflows/sdlc_workflow.md").is_file(), (
+        "that rule should exist"
+    )
 
 
 @pytest.mark.parametrize(("lines", "blocked"), [(MIN_PLAN_LINES - 1, False), (MIN_PLAN_LINES, True)])

@@ -45,7 +45,7 @@ A release tags `main` once merged PRs are worth installing together.
 
 ## 🏷️ File naming
 
-- 🔡 **Rule:** follow the [naming standards](../src/claude/rules/always_on/standards/naming_standards.md), which the Claude config also loads in every session.
+- 🔡 **Rule:** follow the [naming standards](../src/claude/rules/always_on/01_standards/naming_standards.md), which the Claude config also loads in every session.
 - 📌 **Exceptions:** conventional names such as `README.md`, `CLAUDE.md` and `Makefile`.
 
 ## 🛠️ Authoring rules, skills and agents

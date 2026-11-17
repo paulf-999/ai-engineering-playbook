@@ -4,13 +4,13 @@
 
 ## 🗂️ The three kinds
 
-Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|path_scoped|on_demand>/<standards|team_conventions|preferences>/`.
+Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|path_scoped|on_demand>/<01_standards|02_team_conventions|03_preferences>/`, numbered so they sort in the order they apply.
 
 | Kind | Test | Folder | Installs |
 |---|---|---|---|
-| 🧰 **Standard** | Good practice for anyone using the tool, whatever their team | `standards/` | Always |
-| 🏢 **Team convention** | This company's own choice for its shared work: folder layouts, environment names, naming patterns, macros, helper modules, CI and vendor tools, lint skips, required fields, version pins or house writing style | `team_conventions/` | By default, since the repo starts the team from its shared conventions |
-| 👤 **Preference** | Something the maintainer has ruled a preference: how Claude lays out its replies and docs, or where it keeps one user's own working files | `preferences/` | Only with `make install PREFERENCES=1` |
+| 🧰 **Standard** | Good practice for anyone using the tool, whatever their team | `01_standards/` | Always |
+| 🏢 **Team convention** | This company's own choice for its shared work: folder layouts, environment names, naming patterns, macros, helper modules, CI and vendor tools, lint skips, required fields, version pins or house writing style | `02_team_conventions/` | By default, since the repo starts the team from its shared conventions |
+| 👤 **Preference** | Something the maintainer has ruled a preference: how Claude lays out its replies and docs, or where it keeps one user's own working files | `03_preferences/` | Only with `make install PREFERENCES=1` |
 
 ## ⚖️ Deciding
 
@@ -35,13 +35,13 @@ Ask these in order, and stop at the first yes:
 | Datetime | ISO 8601 |
 | Mermaid, Jira, writing style, naming and audiences | none, so every style pick is a team convention |
 
-**Maintainer's rulings:** British spelling and `snake_case` names are team conventions, in `always_on/team_conventions/house_style.md`. Claude's skill and agent naming patterns are standards, since the Agent Skills spec sets them.
+**Maintainer's rulings:** British spelling and `snake_case` names are team conventions, in `always_on/02_team_conventions/house_style.md`. Claude's skill and agent naming patterns are standards, since the Agent Skills spec sets them.
 
 ## ✂️ Splitting a guide by kind
 
 When one guide holds both kinds, split it rather than mixing them:
 
-- 📂 **Mirror the path:** a guide at `path_scoped/standards/style_guides/<path>.md` gets its team conventions at `path_scoped/team_conventions/<path>.md`, with the same `paths:` list, so both load on a matching file. `test_rules_structure.py` checks the globs match.
+- 📂 **Mirror the path:** a guide at `path_scoped/01_standards/style_guides/<path>.md` gets its team conventions at `path_scoped/02_team_conventions/<path>.md`, with the same `paths:` list, so both load on a matching file. `test_rules_structure.py` checks the globs match.
 - 🔗 **Refer by role:** where a standard depends on a convention, the guide keeps the generic rule and names the convention by role, such as "the team's row-limiting macro", linking to the team file.
-- 🧩 **Children:** bulky detail goes in `on_demand/team_conventions/<path>/_<aspect>.md` children. Children on either side of a split may be under the usual 40-line floor.
-- 🚫 **No restating:** a convention lives in one team file only, so another team can replace the `team_conventions/` folders in a fork and keep the standards.
+- 🧩 **Children:** bulky detail goes in `on_demand/02_team_conventions/<path>/_<aspect>.md` children. Children on either side of a split may be under the usual 40-line floor.
+- 🚫 **No restating:** a convention lives in one team file only, so another team can replace the `02_team_conventions/` folders in a fork and keep the standards.

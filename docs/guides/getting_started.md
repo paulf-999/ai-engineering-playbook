@@ -78,7 +78,7 @@ With the instructions installed, you should see Claude:
 - 🧱 build it from CTEs, ending in a `final` CTE;
 - 📝 write a YAML file describing the model and every column, with `unique` and `not_null` tests;
 
-The [before-and-after example](../examples/dbt_before_and_after.md) shows one such run, next to the same request without the instructions.
+The [before-and-after example](../examples/dbt/dbt_before_and_after.md) shows one such run, next to the same request without the instructions.
 
 ## 🛠️ 6. If nothing changes
 

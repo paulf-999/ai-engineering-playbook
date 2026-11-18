@@ -40,7 +40,7 @@ Everything you install is in [`src/claude/`](src/claude/). The rest of the repo 
 - ⚡ **Lean:** Claude [loads instructions in three ways](src/claude/rules/README.md): core rules every session, file-specific rules only when it works on matching files, and the rest only when a task calls for them, so it stays fast and focused.
 - 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
 - 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) before coding, then checks the result against that plan.
-- 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt_before_and_after.md) and [measured runs](docs/examples/dbt_rules_measured.md) show what the dbt rules change. Only the dbt rules are measured so far.
+- 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt/dbt_before_and_after.md) and [measured runs](docs/examples/dbt/dbt_rules_measured.md) show what the dbt rules change. Only the dbt rules are measured so far.
 - 👤 **Opt-in preferences:** personal ones, such as the reply format, install only with `make install PREFERENCES=1`.
 
 ---

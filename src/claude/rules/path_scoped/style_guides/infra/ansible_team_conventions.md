@@ -44,6 +44,6 @@ paths:
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/infra/ansible_team_conventions/_repo_structure.md`, in your Claude config directory, before adding a file or folder to the repo.
-- `on_demand/style_guides/infra/ansible_team_conventions/_playbooks.md`, when adding a playbook or its folder or tags.
-- `on_demand/style_guides/infra/ansible_team_conventions/_variables.md`, when adding variables to `group_vars`.
+- [`on_demand/style_guides/infra/ansible_team_conventions/_repo_structure.md`](../../../on_demand/style_guides/infra/ansible_team_conventions/_repo_structure.md), in your Claude config directory, before adding a file or folder to the repo.
+- [`on_demand/style_guides/infra/ansible_team_conventions/_playbooks.md`](../../../on_demand/style_guides/infra/ansible_team_conventions/_playbooks.md), when adding a playbook or its folder or tags.
+- [`on_demand/style_guides/infra/ansible_team_conventions/_variables.md`](../../../on_demand/style_guides/infra/ansible_team_conventions/_variables.md), when adding variables to `group_vars`.

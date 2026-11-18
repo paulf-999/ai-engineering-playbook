@@ -25,9 +25,10 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 7 | `rules/always_on/01_standards/naming_standards.md` | ~256 |
 | 8 | `rules/always_on/01_standards/security.md` | ~224 |
 | 9 | `rules/always_on/01_standards/writing_style.md` | ~255 |
-| 10 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
-| 11 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
-| | **Subtotal** | **~2134** |
+| 10 | `skills/_atlassian_skills/jira-create-issue/SKILL.md` (description) | ~44 |
+| 11 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
+| 12 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
+| | **Subtotal** | **~2179** |
 
 ## 👤 Every session, if opted in
 
@@ -42,4 +43,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 22 | ~8900 |
-| 💤 On demand, via a pointer | 66 | ~37600 |
+| 💤 On demand, via a pointer | 69 | ~39000 |

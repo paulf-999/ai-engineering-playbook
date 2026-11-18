@@ -153,9 +153,9 @@ def body_lines(text):
 TEAM_SUFFIX = "_team_conventions"
 
 
-def is_split_by_kind(parent, rules_dir=RULES_DIR):
+def is_split_by_kind(parent):
     """Return whether a parent's rules are split between a guide and its team conventions, so children may be short."""
-    if "02_team_conventions" in parent.relative_to(rules_dir).parts or parent.stem.endswith(TEAM_SUFFIX):
+    if parent.stem.endswith(TEAM_SUFFIX):
         return True
     return parent.with_name(parent.stem + TEAM_SUFFIX + ".md").exists()
 
@@ -173,7 +173,7 @@ def child_problems(path, rules_dir=RULES_DIR):
     # an always-on parent splits to keep every session cheap, and a split by kind leaves what's left on each side,
     # so the children of either may be short
     is_always_on = parent.is_relative_to(rules_dir / "always_on")
-    if not is_always_on and not is_split_by_kind(parent, rules_dir) and body_lines(path.read_text()) < MIN_CHILD_LINES:
+    if not is_always_on and not is_split_by_kind(parent) and body_lines(path.read_text()) < MIN_CHILD_LINES:
         problems.append(f"a child needs {MIN_CHILD_LINES} or more lines, so fold it into its parent or a sibling")
     return problems
 
@@ -355,8 +355,8 @@ def test_mismatched_team_convention_globs_are_reported(tmp_path):
     assert "no paths: list" in globs_problem(team, guide)
 
 
-KINDS = {"01_standards", "02_team_conventions", "03_preferences"}
-# style guides sit in one folder per load time, with the kind shown by a _team_conventions name instead
+KINDS = {"01_standards", "03_preferences"}
+# style guides sit in one folder per load time, and a team convention shows its kind by a _team_conventions name
 STYLE_GUIDE_HOMES = {"path_scoped/style_guides", "on_demand/style_guides"}
 
 

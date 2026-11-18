@@ -15,4 +15,4 @@
 
 ## 📚 Read on demand
 
-- `on_demand/02_team_conventions/audiences.md`, in your Claude config directory, before setting a page's depth, for this team's audiences.
+- `on_demand/01_standards/conduct/audience_and_depth_team_conventions.md`, in your Claude config directory, before setting a page's depth, for this team's audiences.

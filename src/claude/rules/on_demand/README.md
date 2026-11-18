@@ -5,6 +5,5 @@
 | Folder | What it holds |
 |---|---|
 | 🧰 [`01_standards/`](01_standards/) | Good practice for anyone using the tool, whatever their team, such as reporting on a task or using git safely |
-| 🏢 [`02_team_conventions/`](02_team_conventions/) | This team's own choices for its shared work, such as its audiences |
 | 👤 [`03_preferences/`](03_preferences/) | One person's taste in how Claude replies, lays out docs and keeps their own files, installed only with `PREFERENCES=1` |
 | 🎨 [`style_guides/`](style_guides/) | Style guide detail, with this team's conventions beside each topic's standards |

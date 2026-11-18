@@ -3,7 +3,9 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A practical playbook for consistent, repeatable work with AI coding assistants, starting with a lean set of instructions for Claude Code.
+A practical playbook that treats AI-assisted engineering as a discipline, not a collection of prompts.
+
+**Goal:** favour simplicity, selective context loading, spec-led workflows and evidence-based decisions.
 
 It's built for data teams working with dbt, Snowflake and Airflow, though its general rules suit any project.
 

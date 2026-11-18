@@ -34,11 +34,23 @@ def repo(tmp_path):
     return path
 
 
-def run_hook(tmp_path, cwd, active=False, session="s1"):
+def write_transcript(tmp_path, *edited):
+    """Write a session transcript whose Edit tool calls touched each path in edited, and return its path."""
+    path = tmp_path / "transcript.jsonl"
+    lines = [{"type": "user", "message": {"content": "change the app"}}]
+    for file in edited:
+        call = {"type": "tool_use", "name": "Edit", "input": {"file_path": str(file)}}
+        lines.append({"type": "assistant", "message": {"content": [call]}})
+    path.write_text("".join(json.dumps(line) + "\n" for line in lines))
+    return path
+
+
+def run_hook(tmp_path, cwd, active=False, session="s1", transcript=None):
     """Run the hook as Claude Code would at a Stop, keeping its state under tmp_path."""
-    payload = json.dumps(
-        {"hook_event_name": "Stop", "session_id": session, "cwd": str(cwd), "stop_hook_active": active}
-    )
+    fields = {"hook_event_name": "Stop", "session_id": session, "cwd": str(cwd), "stop_hook_active": active}
+    if transcript:
+        fields["transcript_path"] = str(transcript)
+    payload = json.dumps(fields)
     env = {**os.environ, **GIT_ENV, "TMPDIR": str(tmp_path / "state")}
     return subprocess.run(
         ["bash", str(HOOK)], input=payload, env=env, capture_output=True, text=True, check=False, timeout=10
@@ -80,6 +92,20 @@ def test_a_further_change_is_blocked_again(tmp_path, repo):
     (repo / "app.py").write_text("print('changed again')\n")
     result = run_hook(tmp_path, repo)
     assert result.returncode == BLOCKED, f"a further change should be blocked:\n{result.stderr}"
+
+
+def test_changes_this_session_didnt_make_are_left_alone(tmp_path, repo):
+    """With a transcript showing no edit to a changed file, such as another session's change, the stop is allowed."""
+    (repo / "app.py").write_text("print('changed elsewhere')\n")
+    result = run_hook(tmp_path, repo, transcript=write_transcript(tmp_path, tmp_path / "elsewhere.py"))
+    assert result.returncode == 0, f"another session's change shouldn't block this one:\n{result.stderr}"
+
+
+def test_a_change_this_session_made_is_blocked(tmp_path, repo):
+    """With a transcript showing an edit to a changed tracked file, the stop is blocked."""
+    (repo / "app.py").write_text("print('changed')\n")
+    result = run_hook(tmp_path, repo, transcript=write_transcript(tmp_path, repo / "app.py"))
+    assert result.returncode == BLOCKED, f"this session's own change should be blocked:\n{result.stderr}"
 
 
 def test_a_stop_while_the_hook_is_active_is_allowed(tmp_path, repo):

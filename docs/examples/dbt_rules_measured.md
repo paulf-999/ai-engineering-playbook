@@ -17,7 +17,7 @@ Each task ran 3 times without the rules and 3 times with them, in a fresh copy o
 | 📝 **YAML** for an existing staging model | 100% | 100% |
 | **All checks**, the mean of the 4 task figures | **71%** | **97%** |
 
-Split by [kind of rule](../guides/authoring_guide/_authoring_rule_kinds.md):
+Split by [kind of rule](../guides/authoring_guide/_rule_classification.md):
 
 | Checks | Without | With |
 |---|---|---|

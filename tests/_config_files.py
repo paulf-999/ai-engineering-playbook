@@ -7,7 +7,7 @@ import subprocess
 from _paths import REPO_ROOT
 
 # authoring templates the installer never installs
-AUTHORING_TEMPLATES = {"_templates/README.md", "_templates/AGENT.md.template", "_templates/rule.md.template"}
+AUTHORING_TEMPLATES = {"_templates/AGENT.md.template", "_templates/rule.md.template"}
 # ignore the user's git config, so their settings can't change which files git lists
 GIT_ENV = {"GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
 
@@ -29,7 +29,7 @@ def tracked_config_files(include_preferences=False):
         for path in paths
         if path not in AUTHORING_TEMPLATES
         and not path.startswith("_templates/skills/")
-        and not (path.startswith("rules/") and path.endswith("/README.md"))
+        and path.rsplit("/", 1)[-1] != "README.md"
         and not re.fullmatch(r"skills/_[^/]+/[^/]+", path)
         and (include_preferences or not is_preference(path))
     }

@@ -16,10 +16,20 @@ This folder is the source of a global Claude Code config. `make install` copies 
 
 Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on_demand/`, decides how often it loads, per the [rules README](rules/README.md). A kind folder inside it, `01_standards/`, `02_team_conventions/` or `03_preferences/`, says what [kind of rule](#-three-kinds-of-rule) it is.
 
+<details>
+<summary>Where on-demand and child files go</summary>
+
 - 📍 **Install location:** `on_demand/` installs beside `rules/`, not inside it, since Claude Code loads all of `rules/` every session.
 - 🧩 **Child files:** a name starting with `_` marks detail split from a parent rule, read only when the parent points to it.
 
+</details>
+
 ## 📖 Terms
+
+The few words this config uses that you might not know.
+
+<details>
+<summary>Show the terms</summary>
 
 | Term | Meaning |
 |---|---|
@@ -30,7 +40,14 @@ Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on
 | 📝 **Intent and Spec** | The two sections a long plan opens with, on what you want and what will be built, per [`ai_sdlc_workflow.md`](rules/always_on/01_standards/ai_sdlc_workflow.md) |
 | 🛑 **Phase gate** | A pause after each stage of multi-stage work, such as after each PR, so you can check it before Claude goes on |
 
+</details>
+
 ## 🧭 Three kinds of rule
+
+Each rule is a standard, a team convention or a preference, which decides whether it installs.
+
+<details>
+<summary>Show the three kinds</summary>
 
 | Kind | What it is | Example | Lives in | Installs |
 |---|---|---|---|---|
@@ -40,9 +57,14 @@ Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on
 
 - 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_classification.md) sets out how a rule is sorted into one of the three.
 
+</details>
+
 ## 👤 Preferences
 
-They install only if you ask:
+They install only if you ask, with `make install PREFERENCES=1`.
+
+<details>
+<summary>Show the preferences, their cost and limits</summary>
 
 | Preference | What it does |
 |---|---|
@@ -57,16 +79,30 @@ They install only if you ask:
 - 💰 **Cost:** about 280 tokens in every session for the reply and layout preferences and 200 for the working-files ones, per the [context cost report](../../maintenance/context_cost.md).
 - ⚠️ **Limits:** they never go into a project install, and without them Claude stops reading an existing `TODO.md`, plans or drafts, and offers options unnumbered, still in British spelling.
 
+</details>
+
 ## 🏗️ Installing into one repo
 
 To share the config with a team, run `make install PROJECT=../my_dbt_repo` to install it into that repo's `.claude/` folder, then commit the folder.
 
+<details>
+<summary>Hooks and backups</summary>
+
 - 🪝 **Hooks:** add `HOOKS=1` to include the done checks hook, which is left out by default.
 - 🛡️ **Backups:** replaced files go to `backups/` in your Claude config directory, outside the repo.
 
+</details>
+
 ## 🛠️ Changing it
+
+Change the config by PR here, then reinstall.
+
+<details>
+<summary>Conventions, shape, need and checks</summary>
 
 - 🤝 **Team conventions:** change a `02_team_conventions/` file by PR here, then reinstall, since `make install` overwrites the installed copy.
 - 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers writing a rule, skill or agent.
 - ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide if a component earns its context cost.
 - ✅ **Checks:** `make test` checks rule structure, and pre-commit keeps always-on context within budget.
+
+</details>

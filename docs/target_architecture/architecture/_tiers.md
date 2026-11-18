@@ -6,7 +6,7 @@ Every component, meaning one file of instructions or one automatic check, sits i
 
 | Tier | Contains | Loads |
 |---|---|---|
-| 🔒 **Required** | [`CLAUDE.md`](../../../CLAUDE.md), the [global `CLAUDE.md` template](../../../src/claude/CLAUDE.md) and the rules it loads in every session, the [plan-sections](../../../src/claude/hooks/hook_enforcement_plan_sections.sh) and [done-checks](../../../src/claude/hooks/hook_enforcement_done_checks.sh) hooks that a global `make install` registers, `make test` and the CI checks, including the [design guards](_budget_and_guards.md#️-design-guards) | Every session, or every PR |
+| 🔒 **Required** | [`CLAUDE.md`](../../../CLAUDE.md), the [global `CLAUDE.md` template](../../../src/claude/CLAUDE.md) and the rules it loads in every session, the [plan-sections](../../../src/claude/hooks/hook_enforcement_plan_sections.sh), [done-checks](../../../src/claude/hooks/hook_enforcement_done_checks.sh) and [worktree-edits](../../../src/claude/hooks/hook_enforcement_worktree_edits.sh) hooks that a global `make install` registers, `make test` and the CI checks, including the [design guards](_budget_and_guards.md#️-design-guards) | Every session, or every PR |
 | 🧰 **Optional** | Skills, which are step-by-step procedures, agents, which work in a separate context, and on-demand rules | When the engineer or Claude asks for one |
 | 📂 **Task-specific** | Path-scoped rules, whose `paths:` setting names the files they apply to | When a matching file is open |
 

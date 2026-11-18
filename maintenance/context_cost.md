@@ -19,7 +19,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `CLAUDE.md` | ~523 |
 | 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~42 |
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~37 |
-| 4 | `hooks/README.md` | ~232 |
+| 4 | `hooks/README.md` | ~325 |
 | 5 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
 | 6 | `rules/always_on/01_standards/behaviour.md` | ~376 |
 | 7 | `rules/always_on/01_standards/naming_standards.md` | ~256 |
@@ -27,7 +27,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 9 | `rules/always_on/01_standards/writing_style.md` | ~255 |
 | 10 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
 | 11 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
-| | **Subtotal** | **~2328** |
+| | **Subtotal** | **~2421** |
 
 ## 👤 Every session, if opted in
 

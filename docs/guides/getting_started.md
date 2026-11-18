@@ -39,7 +39,7 @@ Use a git clone, not a zip download, since the installer copies only the files g
 
 Run the command you chose in your own terminal, not by asking Claude to run it, since the installer refuses to run from inside Claude Code. It lists every file it will add, then asks you to type `install`, so nothing changes until you confirm. Any file it replaces is backed up to `backups/` in your Claude config directory first.
 
-A one-repo install leaves out the check that sends Claude back to run the repo's tests before it finishes, so add `HOOKS=1` to include it.
+A one-repo install leaves out the check that sends Claude back to run the repo's tests before it finishes, and the one that moves it into its own copy of the repo, so add `HOOKS=1` to include them.
 
 To also get the scannable reply format and saved plans, add `PREFERENCES=1` to an "Everywhere" install, since preferences never go into a one-repo install. The [preferences table](../../src/claude/README.md#-preferences) says what each does.
 
@@ -49,7 +49,7 @@ Besides adding instructions, installing changes how Claude works wherever you in
 
 - 💬 **Replies:** Claude uses British spelling and offers options before big changes. Its scannable reply format is [opt-in](../../src/claude/README.md#-preferences): `make install PREFERENCES=1`.
 - 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.
-- 🪝 **Automatic checks:** one blocks long plans that skip those sections, and one sends Claude back to run the repo's checks before it finishes, which a one-repo install leaves out unless you add `HOOKS=1`.
+- 🪝 **Automatic checks:** one blocks long plans that skip those sections, one sends Claude back to run the repo's checks before it finishes, and one stops Claude's first edit in a shared repo folder so it works in its own copy. A one-repo install leaves out the last two unless you add `HOOKS=1`.
 - 🔒 **Files:** Claude's file tools can't read `.env` files. Saving plans and notes outside your repos is opt-in too.
 
 ## 🧪 5. Try it

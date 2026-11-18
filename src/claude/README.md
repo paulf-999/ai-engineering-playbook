@@ -15,7 +15,7 @@ This folder is the source of a global Claude Code config. `make install` copies 
 
 ## ⏱️ When rules load
 
-Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on_demand/`, decides how often it loads, per the [rules README](rules/README.md). A kind folder inside it, `01_standards/`, `02_team_conventions/` or `03_preferences/`, says what [kind of rule](#-three-kinds-of-rule) it is. Style guides sit in `style_guides/` instead, with a topic's team conventions beside it as `<name>_team_conventions.md`.
+Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on_demand/`, decides how often it loads, per the [rules README](rules/README.md). A kind folder inside it, `01_standards/` or `03_preferences/`, says what [kind of rule](#-three-kinds-of-rule) it is. A team convention sits beside the standard it extends as `<name>_team_conventions.md`, and style guides sit in `style_guides/`.
 
 <details>
 <summary>Where on-demand and child files go</summary>
@@ -53,7 +53,7 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 | Kind | What it is | Example | Lives in | Installs |
 |---|---|---|---|---|
 | 🧰 **Standard** | Good practice for anyone using the tool | Pin your Docker base image | `01_standards/` folders | Always |
-| 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `02_team_conventions/` folders and `_team_conventions` style guide files | With everything else |
+| 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `_team_conventions` files, beside the standard they extend | With everything else |
 | 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `03_preferences/` folders | Only with `PREFERENCES=1` |
 
 - 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_classification.md) sets out how a rule is sorted into one of the three.
@@ -89,7 +89,7 @@ To share the config with a team, run `make install PROJECT=../my_dbt_repo` to in
 <details>
 <summary>Hooks and backups</summary>
 
-- 🪝 **Hooks:** add `HOOKS=1` to include the done checks hook, which is left out by default.
+- 🪝 **Hooks:** add `HOOKS=1` to include the done checks and worktree edits hooks, which are left out by default.
 - 🛡️ **Backups:** replaced files go to `backups/` in your Claude config directory, outside the repo.
 
 </details>
@@ -101,7 +101,7 @@ Change the config by PR here, then reinstall.
 <details>
 <summary>Conventions, shape, need and checks</summary>
 
-- 🤝 **Team conventions:** change a `02_team_conventions/` or `_team_conventions` file by PR here, then reinstall, since `make install` overwrites the installed copy.
+- 🤝 **Team conventions:** change a `_team_conventions` file by PR here, then reinstall, since `make install` overwrites the installed copy.
 - 📐 **Shape:** the [authoring guide](../../docs/guides/authoring_guide.md) covers writing a rule, skill or agent.
 - ⚖️ **Need:** the [evaluation criteria](../../docs/target_architecture/design_principles/02_evaluation_criteria.md) decide if a component earns its context cost.
 - ✅ **Checks:** `make test` checks rule structure, and pre-commit keeps always-on context within budget.

@@ -15,8 +15,10 @@ RULE_FILES = sorted(path for path in RULES_DIR.rglob("*.md") if path.name != "RE
 MAX_LINES = 110
 # a child shorter than this saves too little context to be worth its own file and pointer
 MIN_CHILD_LINES = 40
-# a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`
-POINTER = re.compile(r"^- `((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
+# a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`,
+# which a rule wraps in a link to the target's place in the repo
+POINTER = re.compile(r"^- \[?`((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
+LINKED_POINTER = re.compile(r"^- \[`([^`]+)`\]\(([^)]+)\)")
 
 
 def relative(path):
@@ -153,10 +155,8 @@ def body_lines(text):
 TEAM_SUFFIX = "_team_conventions"
 
 
-def is_split_by_kind(parent, rules_dir=RULES_DIR):
+def is_split_by_kind(parent):
     """Return whether a parent's rules are split between a guide and its team conventions, so children may be short."""
-    if "02_team_conventions" in parent.relative_to(rules_dir).parts:
-        return True
     return parent.with_name(parent.stem + TEAM_SUFFIX + ".md").exists()
 
 
@@ -175,7 +175,7 @@ def child_problems(path, rules_dir=RULES_DIR):
     # an always-on parent splits to keep every session cheap, and a split by kind leaves what's left on each side,
     # so the children of either may be short
     is_always_on = parent.is_relative_to(rules_dir / "always_on")
-    if not is_always_on and not is_split_by_kind(parent, rules_dir) and body_lines(path.read_text()) < MIN_CHILD_LINES:
+    if not is_always_on and not is_split_by_kind(parent) and body_lines(path.read_text()) < MIN_CHILD_LINES:
         problems.append(f"a child needs {MIN_CHILD_LINES} or more lines, so fold it into its parent or a sibling")
     return problems
 
@@ -256,6 +256,35 @@ def test_every_pointer_target_exists():
         if not resolve(target).exists()
     ]
     assert not missing, "fix these pointers to missing files: " + ", ".join(missing)
+
+
+def unlinked_pointers(text, folder):
+    """Return each pointer in text that isn't a link, relative to folder, to its target's place in the repo."""
+    problems = []
+    for line in text.splitlines():
+        if not POINTER.match(line):
+            continue
+        link = LINKED_POINTER.match(line)
+        if not link or (folder / link.group(2)).resolve() != resolve(link.group(1)).resolve():
+            problems.append(line)
+    return problems
+
+
+@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
+def test_rule_pointers_link_to_their_target(path):
+    """Each pointer in a rule links to its target's place in the repo, so a reader browsing the repo can open it."""
+    problems = unlinked_pointers(path.read_text(), path.parent)
+    assert not problems, f"{relative(path)}: link each pointer to its target's repo path: {problems}"
+
+
+def test_an_unlinked_or_misdirected_pointer_is_reported():
+    """A pointer in backticks only, or linked to the wrong file, is reported, and a correct link isn't."""
+    target = "on_demand/01_standards/git.md"
+    good = f"- [`{target}`](../../{target}), before git."
+    bare = f"- `{target}`, before git."
+    wrong = f"- [`{target}`](../{target}), before git."
+    folder = RULES_DIR / "always_on" / "01_standards"
+    assert unlinked_pointers("\n".join([good, bare, wrong]), folder) == [bare, wrong]
 
 
 # a backticked path into a 03_preferences/ folder, which a default install leaves out
@@ -367,8 +396,8 @@ def test_mismatched_team_convention_globs_are_reported(tmp_path):
     assert "no paths: list" in globs_problem(team, guide)
 
 
-KINDS = {"01_standards", "02_team_conventions", "03_preferences"}
-# style guides sit in one folder per load time, with the kind shown by a _team_conventions name instead
+KINDS = {"01_standards", "03_preferences"}
+# style guides sit in one folder per load time, and a team convention shows its kind by a _team_conventions name
 STYLE_GUIDE_HOMES = {"path_scoped/style_guides", "on_demand/style_guides"}
 
 

@@ -1,0 +1,50 @@
+---
+name: git-review-pr
+version: 1.0.0
+summary: Review a GitHub PR with the code-reviewer agent, and post a scored review comment once you approve it
+test_coverage_level: basic
+
+dispatch:
+    triggers:
+        explicit:
+            - /git-review-pr
+            - /git-review-pr <number or url>
+            - /git-review-pr <number or url> --dry-run
+            - review this pr
+            - review the pr
+            - review pr <number>
+            - review this pull request
+            - check this pr
+            - score this pr
+            - dry run a pr review
+            - preview a pr review
+            - post a claude review
+            - post a review comment on the pr
+        contextual:
+            - user wants a scored review of a GitHub pull request
+            - user wants a Claude review comment posted on a PR
+
+    not_for:
+        - creating a PR → /git-create-pr
+        - reviewing a local diff with no GitHub PR → the code-reviewer agent
+        - approving or requesting changes as a formal GitHub review, since it posts a comment only
+        - editing the PR's code to fix the findings
+        - a bug hunt at a chosen effort level → the built-in /code-review
+
+requires:
+    tools: [Bash, Read, Write, Agent]
+    resources: [an open GitHub PR the user can read]
+    mcp_servers: []
+
+output:
+    type: mixed
+    confirmation_required: true
+    reversible: false
+    returns:
+        - the review comment, shown before posting
+        - the saved draft path
+        - the posted or updated comment URL
+
+dependencies:
+    external: [gh CLI, GitHub]
+    permissions: [read access to the PR's repo, permission to comment on the PR, gh auth login]

@@ -188,6 +188,18 @@ def plan_hook_commands(target):
     ]
 
 
+def edit_hook_commands(target):
+    """Return the PreToolUse hook commands in the target's settings.json that run the worktree edits hook."""
+    settings = json.loads((target / "settings.json").read_text())
+    return [
+        hook["command"]
+        for entry in settings.get("hooks", {}).get("PreToolUse", [])
+        if entry.get("matcher") == "Edit|Write|NotebookEdit"
+        for hook in entry.get("hooks", [])
+        if "hook_enforcement_worktree_edits.sh" in hook.get("command", "")
+    ]
+
+
 def stop_hook_commands(target):
     """Return the Stop hook commands in the target's settings.json that run the done checks hook."""
     settings = json.loads((target / "settings.json").read_text())
@@ -201,7 +213,7 @@ def stop_hook_commands(target):
 
 
 def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
-    """Install adds the ExitPlanMode and Stop hooks by absolute path, keeps other settings and backs up the old file."""
+    """Install adds every shipped hook by absolute path, keeps other settings and backs up the old file."""
     (tmp_path / "settings.json").write_text(json.dumps({"model": "opus", "permissions": {"allow": ["Bash(ls)"]}}))
 
     result = run_install(tmp_path, answer="install")
@@ -210,6 +222,7 @@ def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
     settings = json.loads((tmp_path / "settings.json").read_text())
     assert settings["model"] == "opus" and settings["permissions"]["allow"] == ["Bash(ls)"], "settings must be kept"
     assert plan_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_plan_sections.sh"']
+    assert edit_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_worktree_edits.sh"']
     assert stop_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_done_checks.sh"']
     assert list((tmp_path / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"
 
@@ -342,16 +355,19 @@ def test_project_install_points_rules_at_the_project_folder(tmp_path):
 
 
 def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked(tmp_path):
-    """A project install always registers the plan hook, and the done checks hook only with HOOKS=1."""
+    """A project install always registers the plan hook, and the done checks and worktree hooks only with HOOKS=1."""
     plan = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_plan_sections.sh"'
     _, target = project_install(tmp_path / "without")
     assert plan_hook_commands(target) == [plan], "the plan hook should be registered through CLAUDE_PROJECT_DIR"
     assert not (target / "hooks" / "hook_enforcement_done_checks.sh").exists(), "no done checks hook by default"
     assert not stop_hook_commands(target), "no done checks hook should be registered by default"
+    assert not edit_hook_commands(target), "no worktree edits hook should be registered by default"
 
     _, target = project_install(tmp_path / "with", HOOKS="1")
     done = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_done_checks.sh"'
     assert stop_hook_commands(target) == [done], "HOOKS=1 should register the done checks hook"
+    edits = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_worktree_edits.sh"'
+    assert edit_hook_commands(target) == [edits], "HOOKS=1 should register the worktree edits hook"
 
 
 def test_project_install_backs_up_into_your_config_directory(tmp_path):
@@ -640,17 +656,14 @@ def test_an_install_from_before_the_numbered_folders_keeps_the_opt_in_and_tidies
     assert not (config / "rules" / "always_on" / "preferences").exists(), "the emptied old folder should be removed"
 
 
-def test_folder_readmes_under_rules_never_install(tmp_path):
-    """A README explaining a rules folder stays in the repo, since Claude Code would load it as a rule."""
+def test_readmes_never_install(tmp_path):
+    """A README in any folder stays in the repo, since it explains the folder to people browsing it."""
     config = tmp_path / "config"
-    assert (SOURCE / "rules" / "always_on" / "README.md").is_file(), "the repo should have the README"
+    for readme in ("README.md", "hooks/README.md", "rules/always_on/README.md"):
+        assert (SOURCE / readme).is_file(), f"the repo should have {readme}"
 
     result = run_install(config, answer="install", PREFERENCES="1")
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    readmes = [
-        path
-        for path in installed_files(config)
-        if path.endswith("README.md") and path.startswith(("rules/", "on_demand/"))
-    ]
-    assert readmes == [], f"no folder README should install: {readmes}"
+    readmes = [path for path in installed_files(config) if path.endswith("README.md")]
+    assert readmes == [], f"no README should install: {readmes}"

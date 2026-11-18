@@ -13,19 +13,19 @@ HUNDRED_TOKENS = "x" * 399 + "\n"
 
 
 def config_repo(tmp_path):
-    """Make a git repo holding one always-on, one preference, one path-scoped and three on-demand files, and its env."""
+    """Make a git repo holding one always-on, one preference, one path-scoped, one on-demand and four README files."""
     env = isolated_git_repo(tmp_path)
     files = {
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- created: 2026-11-13 -->\n" + HUNDRED_TOKENS,
         # a preference loads every session, but only for users who opt in with PREFERENCES=1
         "src/claude/rules/always_on/03_preferences/taste.md": HUNDRED_TOKENS,
-        # a README under rules/ never installs, so the report leaves it out
-        "src/claude/rules/always_on/01_standards/README.md": HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/on_demand/guide.md": HUNDRED_TOKENS,
+        # a README in any folder never installs, so the report leaves it out
+        "src/claude/rules/always_on/01_standards/README.md": HUNDRED_TOKENS,
         "src/claude/_templates/README.md": HUNDRED_TOKENS,
-        # a README is for people browsing the repo, so Claude never loads it on its own
+        "src/claude/hooks/README.md": HUNDRED_TOKENS,
         "src/claude/README.md": HUNDRED_TOKENS,
     }
     for path, text in files.items():
@@ -36,12 +36,8 @@ def config_repo(tmp_path):
     return env
 
 
-# the fixture's three on-demand files, numbered in byte order, which puts README.md before _templates/ and rules/
-ON_DEMAND_ROWS = (
-    "| 1 | `README.md` | ~100 |",
-    "| 2 | `_templates/README.md` | ~100 |",
-    "| 3 | `rules/on_demand/guide.md` | ~100 |",
-)
+# the fixture's one on-demand file
+ON_DEMAND_ROWS = ("| 1 | `rules/on_demand/guide.md` | ~100 |",)
 
 
 def run_report(tmp_path, env, *args):
@@ -68,9 +64,7 @@ def test_report_lists_every_session_files_and_totals_the_rest(tmp_path):
         "only every-session files are listed by name"
     )
     assert "| 📂 Path-scoped rules, with matching files | 1 | ~100 |" in rest, "the path-scoped file is totalled"
-    assert "| 💤 On demand, via a pointer | 3 | ~300 |" in rest, (
-        "the README, templates and lazy rules are totalled as on demand"
-    )
+    assert "| 💤 On demand, via a pointer | 1 | ~100 |" in rest, "only the lazy rule is totalled as on demand"
 
 
 def test_report_lists_preferences_apart_from_every_session_files(tmp_path):
@@ -112,10 +106,10 @@ def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
     assert REPORT in staged.stdout.split(), "the rewritten report should be staged for the commit"
 
 
-def test_folder_readmes_under_rules_are_left_out(tmp_path):
-    """A README explaining a rules folder never installs, so the report neither lists nor counts it."""
+def test_readmes_are_left_out(tmp_path):
+    """A README in any folder never installs, so the report neither lists nor counts it."""
     result = run_report(tmp_path, config_repo(tmp_path))
-    assert "01_standards/README.md" not in result.stdout, "a folder README should not be listed"
+    assert "README.md" not in result.stdout, "no README should be listed"
 
 
 @pytest.mark.parametrize(
@@ -137,4 +131,4 @@ def test_agents_and_skills_count_only_their_description_every_session(tmp_path, 
     every, _, rest = write_report(tmp_path, env).partition("## 💤 Only when needed")
     assert f"| 2 | `{described}` (description) | ~10 |" in every, "the description loads every session"
     assert "| | **Subtotal** | **~110** |" in every, "only the description adds to the every-session subtotal"
-    assert "| 💤 On demand, via a pointer | 5 |" in rest, "the whole file and the reference file are on demand"
+    assert "| 💤 On demand, via a pointer | 3 |" in rest, "the whole file and the reference file are on demand"

@@ -6,7 +6,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed,
 #              along with any folder that leaves empty
 #              It also keeps the config's hooks and deny rules in settings.json in step, keeping every other setting
-#              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the done checks hook out unless HOOKS=1
+#              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the done checks and worktree edits hooks out unless HOOKS=1
 #              With UNINSTALL=1, it removes what the manifest lists, restores each file's pre-install backup and strips
 #              the config's hooks and deny rules from settings.json
 #              With YES=1, install skips the typed confirmation for provisioning scripts, but never from Claude Code
@@ -44,7 +44,7 @@ OLD_PREFERENCE_PATHS=" rules/always_on/standards/claude_response_standards.md on
 on_demand/conduct/todo_logging.md on_demand/conduct/writing_style/_drafts_and_errors.md \
 on_demand/conduct/writing_style/_markdown_layout.md _templates/TODO.md.template "
 # authoring templates that never install
-AUTHORING_TEMPLATES=" _templates/README.md _templates/AGENT.md.template _templates/rule.md.template "
+AUTHORING_TEMPLATES=" _templates/AGENT.md.template _templates/rule.md.template "
 if [[ -n "${PROJECT}" ]]; then
     if [[ ! -d "${PROJECT}" ]]; then
         echo "PROJECT=${PROJECT} isn't a folder - nothing changed." >&2
@@ -75,9 +75,11 @@ TARGET_PATHS=""
 REMOVED_FILES=()
 # settings.json holds personal settings, so install merges the hooks into it rather than copying a file over it
 SETTINGS="${TARGET_DIR}/settings.json"
-# each hook the config ships, as event|matcher|path, with an empty matcher for events that take none
+# each hook the config ships, as event|matcher|path, with an empty matcher for events that take none,
+# and a matcher may hold "|" itself, since only the first and last fields are split off
 SHIPPED_HOOKS=(
     "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_sections.sh"
+    "PreToolUse|Edit|Write|NotebookEdit|hooks/hook_enforcement_worktree_edits.sh"
     "Stop||hooks/hook_enforcement_done_checks.sh"
 )
 # deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
@@ -156,16 +158,18 @@ is_playbook_copy() {
 }
 
 # Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed,
-# leaving the done checks hook out of a project install unless HOOKS=1, while the plan sections hook always installs
+# leaving the done checks and worktree edits hooks out of a project install unless HOOKS=1, while the plan sections hook
+# always installs
 list_source_files() {
     local file
     while IFS= read -r -d '' file; do
         file="${file#"${SOURCE_DIR}"/}"
-        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" == hooks/hook_enforcement_done_checks.sh ]] && continue
+        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" =~ ^hooks/hook_enforcement_(done_checks|worktree_edits)\.sh$ ]] \
+            && continue
         [[ "${PREFERENCES}" != 1 && ( "/${file}" == */preferences/* || "/${file}" == */03_preferences/* ) ]] && continue
         [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
-        # a README under rules/ explains a folder to people browsing the repo, and would load as a rule if installed
-        [[ "${file}" == rules/* && "${file##*/}" == README.md ]] && continue
+        # a README explains a folder to people browsing the repo, and never loads
+        [[ "${file##*/}" == README.md ]] && continue
         # a skill group's own files, such as its README, describe the group, which doesn't exist once installed flat
         [[ "${file}" =~ ^skills/_[^/]+/[^/]+$ ]] && continue
         SOURCE_FILES+=("${file}")
@@ -384,7 +388,10 @@ register_settings() {
     fi
     updated="${current}"
     for entry in "${SHIPPED_HOOKS[@]}"; do
-        IFS='|' read -r event matcher hook <<< "${entry}"
+        event="${entry%%|*}"
+        hook="${entry##*|}"
+        matcher="${entry#*|}"
+        matcher="${matcher%|*}"
         ship=false
         grep -Fxq -- "${hook}" <<< "${TARGET_PATHS}" && ship=true
         # a project's settings are shared, so its hook command names the project through Claude Code's own variable

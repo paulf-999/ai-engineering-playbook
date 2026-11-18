@@ -157,8 +157,6 @@ TEAM_SUFFIX = "_team_conventions"
 
 def is_split_by_kind(parent):
     """Return whether a parent's rules are split between a guide and its team conventions, so children may be short."""
-    if parent.stem.endswith(TEAM_SUFFIX):
-        return True
     return parent.with_name(parent.stem + TEAM_SUFFIX + ".md").exists()
 
 
@@ -170,7 +168,9 @@ def child_problems(path, rules_dir=RULES_DIR):
     problems = []
     if len(list(path.parent.glob("_*.md"))) < 2:
         problems.append("a folder needs 2 or more children, so flatten a lone child")
-    if path.name not in parent.read_text():
+    # a team child shares its guide's folder, but the guide's team conventions file points to it
+    namer = parent.with_name(parent.stem + TEAM_SUFFIX + ".md") if path.stem.endswith(TEAM_SUFFIX) else parent
+    if not namer.exists() or path.name not in namer.read_text():
         problems.append("the parent must name this child in a pointer")
     # an always-on parent splits to keep every session cheap, and a split by kind leaves what's left on each side,
     # so the children of either may be short
@@ -331,14 +331,24 @@ def test_no_default_install_file_names_a_working_file_folder():
 def test_a_short_child_passes_once_its_guide_is_split_by_kind(tmp_path):
     """A guide whose team conventions moved out may leave short children, on both the guide's side and the team's."""
     (tmp_path / "path_scoped" / "style_guides").mkdir(parents=True)
-    for name in ("tool", "tool_team_conventions"):
-        (tmp_path / "path_scoped" / "style_guides" / f"{name}.md").write_text("- `_short.md`\n- `_other.md`\n")
-        folder = tmp_path / "on_demand" / "style_guides" / name
-        folder.mkdir(parents=True)
-        for child in ("_short.md", "_other.md"):
-            (folder / child).write_text("x\n" * 5)
-    for side in ("tool", "tool_team_conventions"):
-        assert not child_problems(tmp_path / "on_demand" / "style_guides" / side / "_short.md", tmp_path), side
+    (tmp_path / "path_scoped" / "style_guides" / "tool.md").write_text("- `_short.md`\n")
+    (tmp_path / "path_scoped" / "style_guides" / "tool_team_conventions.md").write_text(
+        "- `_short_team_conventions.md`\n"
+    )
+    folder = tmp_path / "on_demand" / "style_guides" / "tool"
+    folder.mkdir(parents=True)
+    for child in ("_short.md", "_short_team_conventions.md"):
+        (folder / child).write_text("x\n" * 5)
+    for child in ("_short.md", "_short_team_conventions.md"):
+        assert not child_problems(folder / child, tmp_path), child
+    # a team child is named by the team conventions file, not the guide
+    (tmp_path / "path_scoped" / "style_guides" / "tool_team_conventions.md").write_text("no pointers\n")
+    assert "the parent must name this child in a pointer" in child_problems(
+        folder / "_short_team_conventions.md", tmp_path
+    )
+    (tmp_path / "path_scoped" / "style_guides" / "tool_team_conventions.md").write_text(
+        "- `_short_team_conventions.md`\n"
+    )
     # without a team conventions file, the guide isn't split, so its short child still fails the floor
     (tmp_path / "path_scoped" / "style_guides" / "tool_team_conventions.md").unlink()
     problems = child_problems(tmp_path / "on_demand" / "style_guides" / "tool" / "_short.md", tmp_path)

@@ -18,18 +18,18 @@ The project's layers, with what each selects from and materialises as, are the t
 
 | Requirement | Detail |
 |-------------|--------|
-| **Surrogate key** | Staging, base and dimension models have a surrogate key, built as [`_macros_and_keys.md`](../dbt_team_conventions/_macros_and_keys.md) sets out. An aggregate model tests its grain columns instead. |
+| **Surrogate key** | Staging, base and dimension models have a surrogate key, built as [`_macros_and_keys_team_conventions.md`](_macros_and_keys_team_conventions.md) sets out. An aggregate model tests its grain columns instead. |
 | **dbt tests** | At minimum, apply `unique` and `not_null` tests to the surrogate key, or to an aggregate's grain columns. |
 | **Source selection** | Only `staging` models select from `source()`. All downstream models use `ref()`. |
 | **CTEs over subqueries** | Use CTEs — never subqueries. See [`../sql/_cte_style_guide.md`](../sql/_cte_style_guide.md). |
-| **Row limiting** | Append the team's row-limiting macro, per [`_macros_and_keys.md`](../dbt_team_conventions/_macros_and_keys.md), so dev and CI runs read fewer rows. |
-| **Audit fields** | Staging models include the team's audit fields, per [`_macros_and_keys.md`](../dbt_team_conventions/_macros_and_keys.md). |
+| **Row limiting** | Append the team's row-limiting macro, per [`_macros_and_keys_team_conventions.md`](_macros_and_keys_team_conventions.md), so dev and CI runs read fewer rows. |
+| **Audit fields** | Staging models include the team's audit fields, per [`_macros_and_keys_team_conventions.md`](_macros_and_keys_team_conventions.md). |
 
 ---
 
 ## 📁 Folders
 
-The project's folders, and where each layer's models and YAML go, are the team's, in [`_layout.md`](../dbt_team_conventions/_layout.md).
+The project's folders, and where each layer's models and YAML go, are the team's, in [`_layout_team_conventions.md`](_layout_team_conventions.md).
 
 ---
 

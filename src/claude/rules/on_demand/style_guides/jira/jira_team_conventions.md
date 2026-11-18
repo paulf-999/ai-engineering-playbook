@@ -1,6 +1,6 @@
 # 🎫 Jira team conventions
 
-**Purpose:** this team's Jira ticket structure, required fields, sprint assignment and business-value scoring. Another team can replace them with its own, while the standards stay in `jira.md`.
+**Purpose:** this team's Jira ticket structure, required fields, sprint assignment and business-value scoring. Another team can replace them with its own, while the standards stay in `../jira.md`.
 
 Your project's field IDs, components, sprint IDs and scoring weights live in `_local/jira_values.md` in your Claude config directory.
 

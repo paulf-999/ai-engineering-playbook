@@ -36,7 +36,7 @@ playbooks/
       roles -> ../../roles             # symlink — required
 ```
 
-Each playbook directory must contain symlinks to the root `group_vars/` and `roles/` directories so Ansible resolves variables and roles correctly regardless of where the playbook is invoked. Adjust the relative path to match the actual directory depth — see [_variables.md](_variables.md) for the full symlink guidance.
+Each playbook directory must contain symlinks to the root `group_vars/` and `roles/` directories so Ansible resolves variables and roles correctly regardless of where the playbook is invoked. Adjust the relative path to match the actual directory depth — see [_variables_team_conventions.md](_variables_team_conventions.md) for the full symlink guidance.
 
 ---
 

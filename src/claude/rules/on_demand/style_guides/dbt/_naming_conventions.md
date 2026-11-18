@@ -4,7 +4,7 @@
 
 ## 🔑 Surrogate keys
 
-The surrogate key's name, macro and position, and the sentinel for unknown keys, are team conventions in [`_macros_and_keys.md`](../dbt_team_conventions/_macros_and_keys.md). The key's input fields must uniquely identify the row.
+The surrogate key's name, macro and position, and the sentinel for unknown keys, are team conventions in [`_macros_and_keys_team_conventions.md`](_macros_and_keys_team_conventions.md). The key's input fields must uniquely identify the row.
 
 ## 📋 Contents
 
@@ -38,7 +38,7 @@ Each layer's file-name prefix, and the snapshot name pattern, are the team's, in
 
 ## 🔍 Audit fields
 
-Staging models include the team's audit fields, listed in [`_macros_and_keys.md`](../dbt_team_conventions/_macros_and_keys.md).
+Staging models include the team's audit fields, listed in [`_macros_and_keys_team_conventions.md`](_macros_and_keys_team_conventions.md).
 
 ---
 

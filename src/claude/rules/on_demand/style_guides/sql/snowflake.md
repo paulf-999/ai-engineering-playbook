@@ -1,6 +1,6 @@
 # ❄️ SQL team conventions: Snowflake and SQLFluff
 
-**Purpose:** this team's Snowflake warehouse settings and SQLFluff config. Another team can replace them with its own, while the standards stay in `sql/_snowflake_standards.md`.
+**Purpose:** this team's Snowflake warehouse settings and SQLFluff config. Another team can replace them with its own, while the standards stay beside it in `_snowflake_standards.md`. It has no `_team_conventions` suffix, so a fork replaces it by name.
 
 ## 💰 Warehouses
 

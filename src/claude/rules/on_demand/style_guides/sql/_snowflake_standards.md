@@ -16,7 +16,7 @@ See the [Snowflake data types](https://docs.snowflake.com/en/sql-reference/intro
 
 ## 💰 Cost guardrails
 
-The team's `AUTO_SUSPEND` value and warehouse sizes are in [`sql_snowflake.md`](../sql_snowflake_team_conventions.md).
+The team's `AUTO_SUSPEND` value and warehouse sizes are in [`snowflake.md`](snowflake.md).
 
 - 💤 **Auto-suspend:** set the team's `AUTO_SUSPEND` value on every pipeline warehouse, since idle warehouses are the largest spend leak.
 - 📏 **Size to the query:** start small and size up only for join-heavy transformations, using the team's sizes per environment.
@@ -28,4 +28,4 @@ SQL style is enforced by SQLFluff, and the canonical config is the `.sqlfluff` f
 
 - 🔤 **Parse errors:** a `PRS` error often means a reserved keyword, such as `ORDER`, is an unquoted column name, so rename it or quote it as `"ORDER"`.
 
-The team's SQLFluff settings and excluded rules are in [`sql_snowflake.md`](../sql_snowflake_team_conventions.md).
+The team's SQLFluff settings and excluded rules are in [`snowflake.md`](snowflake.md).

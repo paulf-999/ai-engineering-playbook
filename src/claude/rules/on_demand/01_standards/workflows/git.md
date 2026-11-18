@@ -12,7 +12,8 @@
 
 - 🔍 **Unfamiliar changes:** if `git status` shows files you didn't touch, stop and ask whose they are, since another session may be working in the same tree.
 - 🧹 **Clean index:** run a plain `git reset`, which only unstages, before staging each separate commit, so another commit's files can't slip in.
-- 🌳 **Worktrees:** suggest `git worktree` when another session or sub-agent will work on the same repo.
+- 🌳 **Worktrees:** suggest `claude --worktree` or `git worktree` when another session or sub-agent will work on the same repo.
+  - **Signs:** the user mentions one, `ListAgents` shows another session in this repo, or commits or staged files appear that you didn't make.
 
 ## 🔒 Safe patterns
 

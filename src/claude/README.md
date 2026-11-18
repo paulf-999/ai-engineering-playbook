@@ -27,21 +27,7 @@ Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on
 
 ## 📖 Terms
 
-The few words this config uses that you might not know.
-
-<details>
-<summary>Show the terms</summary>
-
-| Term | Meaning |
-|---|---|
-| 📁 **Claude config directory** | The folder Claude Code reads its instructions and settings from, `~/.claude` unless `$CLAUDE_CONFIG_DIR` is set |
-| 📏 **Rule** | A short markdown file telling Claude how to do one thing, such as name a dbt model |
-| 🔢 **Tokens** | Claude's unit of context, capped for always-on files by the [always-on budget](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests) |
-| 🪝 **Hook** | A small script Claude Code runs by itself at set moments, such as when Claude says it has finished |
-| 📝 **Intent and Spec** | The two sections a long plan opens with, on what you want and what will be built, per [`ai_sdlc_workflow.md`](rules/always_on/01_standards/ai_sdlc_workflow.md) |
-| 🛑 **Phase gate** | A pause after each stage of multi-stage work, such as after each PR, so you can check it before Claude goes on |
-
-</details>
+The few words this config uses that you might not know are in the getting-started guide's [words you'll meet](../../docs/guides/getting_started.md#-words-youll-meet).
 
 ## 🧭 Three kinds of rule
 

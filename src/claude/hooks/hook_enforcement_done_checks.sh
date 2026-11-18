@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Stop hook that sends Claude back once to run the repo's done checks when tracked files changed since its last stop
+# Description: Stop hook that sends Claude back once to run the repo's done checks when tracked files it edited changed since its last stop
 #              It stays quiet in a repo with no CLAUDE.md, since only a CLAUDE.md says which checks define done
 # Usage: registered in settings.json by make install; Claude Code pipes the hook's JSON input to stdin
 
@@ -27,6 +27,17 @@ changes_fingerprint() {
     git -C "${repo}" diff HEAD | git hash-object --stdin
 }
 
+# Succeed when the transcript at $2 shows this session editing a changed tracked file in the repo at $1
+# With no readable transcript it succeeds, so the hook falls back to firing on any change
+session_edited_changes() {
+    local root="${1}" transcript="${2}"
+    [[ -r "${transcript}" ]] || return 0
+    jq -r 'select(.type == "assistant") | .message.content[]? | select(.type == "tool_use")
+        | select(.name | test("^(Edit|MultiEdit|Write|NotebookEdit)$"))
+        | .input.file_path // .input.notebook_path // empty' "${transcript}" 2> /dev/null \
+        | grep -Fxq -f <(git -C "${root}" diff HEAD --name-only | sed "s#^#${root}/#")
+}
+
 #=======================================================================
 # Main script logic
 #=======================================================================
@@ -47,6 +58,8 @@ ROOT="$(git -C "${REPO}" rev-parse --show-toplevel 2> /dev/null)" || exit 0
 
 FINGERPRINT="$(changes_fingerprint "${REPO}")"
 [[ -n "${FINGERPRINT}" ]] || exit 0
+# changes another session made aren't this session's to check
+session_edited_changes "${ROOT}" "$(jq -r '.transcript_path // empty' <<< "${INPUT}" 2> /dev/null || true)" || exit 0
 STATE_FILE="${STATE_DIR}/${SESSION}"
 [[ "$(cat "${STATE_FILE}" 2> /dev/null || true)" == "${FINGERPRINT}" ]] && exit 0
 mkdir -p "${STATE_DIR}"

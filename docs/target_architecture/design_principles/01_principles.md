@@ -12,7 +12,7 @@ They're part of this repo's [design principles](../design_principles.md), which 
 | 🔁 **No duplicate controls** | A rule never restates a CI or pre-commit check. | The "No duplicate" criterion | [Handover review](../reference_material/core/handover_review.md) |
 | 🔌 **Opt-in, never mandatory** | No workflow requires a skill or agent. | The "No orchestration" criterion | [Handover review](../reference_material/core/handover_review.md) |
 | 📏 **Measure use and overhead** | Record [component feedback and always-on tokens](../architecture/_measures.md) at each review. | The [repo review](../../../maintenance/quality/quality_audit.md), from session transcripts and git history | [Review of the old setup](../README.md#-where-complexity-outran-evidence), plus [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc.md#-overview) on measuring each play |
-| 🗑️ **Retire what doesn't pay** | Remove a component after two sessions show it got in the way, or if it's unused between reviews. | The regular review | [Handover review](../reference_material/core/handover_review.md) |
+| 🗑️ **Retire what doesn't pay** | Remove a component after two sessions show it got in the way. | The regular review | [Handover review](../reference_material/core/handover_review.md) |
 | 🧑 **Humans own judgement calls** | A person merges every PR and decides scope and design. | Changes reach `main` only by PR, though approval isn't enforced | [Anthropic's SDLC course](../reference_material/core/anthropic_ai_native_sdlc.md#-overview) |
 
 ## 🔢 Numbers and tests
@@ -21,10 +21,8 @@ These limits back the principles:
 
 - 📏 **3,000-token budget:** the most text that may load into every session, a tenth of what the [old configuration](../README.md#️-the-old-setup) loads.
   - **Why this size:** it's roughly what [Anthropic's advice](https://code.claude.com/docs/en/memory) to keep `CLAUDE.md` under 200 lines allows, by our estimate.
-- 🗓️ **Review every 20 tasks or 4 weeks:** often enough to drop unused parts, with enough evidence to judge each one.
+- 🗓️ **Review every 20 tasks or 4 weeks:** often enough to drop parts that don't pay, with enough evidence to judge each one.
 - 🚩 **Two sessions, not one:** a single session where a part got in the way may be chance.
-- 🔪 **Halving test:** at each review, ask whether removing half the rules, skills, hooks and agents would make results noticeably worse.
-  - **If not:** the setup is bigger than it needs to be.
 
 ## ♻️ Carried over
 

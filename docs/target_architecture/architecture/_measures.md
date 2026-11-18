@@ -9,4 +9,4 @@ Each [regular review](../design_principles/01_principles.md#-numbers-and-tests) 
 | 💬 **Component feedback** | Parts that helped, got in the way or went unused | One line each |
 | 💰 **Every-session tokens** | The estimate the budget check reports | Tokens |
 
-- 🗑️ **Acting on feedback:** each review removes [components that don't pay](../design_principles/01_principles.md) and runs the [halving test](../design_principles/01_principles.md#-numbers-and-tests).
+- 🗑️ **Acting on feedback:** each review removes [components that don't pay](../design_principles/01_principles.md).

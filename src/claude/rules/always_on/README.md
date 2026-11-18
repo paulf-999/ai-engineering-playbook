@@ -5,4 +5,4 @@
 | Folder | Kind of rule |
 |---|---|
 | 🧰 [`01_standards/`](01_standards/) | Good practice for anyone using the tool, whatever their team, such as quoting bash variables or using dbt's `ref()` |
-| 👤 [`03_preferences/`](03_preferences/) | One person's taste in how Claude replies, lays out docs and keeps their own files, installed only with `PREFERENCES=1` |
+| 👤 [`02_preferences/`](02_preferences/) | One person's taste in how Claude replies, lays out docs and keeps their own files, installed only with `PREFERENCES=1` |

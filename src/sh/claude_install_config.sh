@@ -10,7 +10,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              With UNINSTALL=1, it removes what the manifest lists, restores each file's pre-install backup and strips
 #              the config's hooks and deny rules from settings.json
 #              With YES=1, install skips the typed confirmation for provisioning scripts, but never from Claude Code
-#              With PREFERENCES=1, it adds the rules in 03_preferences/ folders, and a later install keeps them unless
+#              With PREFERENCES=1, it adds the rules in 02_preferences/ folders, and a later install keeps them unless
 #              PREFERENCES=0, but never into a PROJECT install
 #              It never installs the skill, agent and rule templates, which are for authoring in this repo
 # Usage: [PROJECT=<repo> [HOOKS=1]] [PREFERENCES=0|1] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
@@ -37,7 +37,7 @@ WITH_HOOKS="${HOOKS:-}"
 UNINSTALL="${UNINSTALL:-}"
 # skips install's typed confirmation, for devcontainers and onboarding scripts that have no terminal
 ASSUME_YES="${YES:-}"
-# 1 installs the rules in 03_preferences/ folders, one person's taste; unset, it keeps an earlier install's choice
+# 1 installs the rules in 02_preferences/ folders, one person's taste; unset, it keeps an earlier install's choice
 PREFERENCES="${PREFERENCES:-}"
 # installed paths where preferences lived before they moved into preferences/ folders, so removing one says it's opt-in
 OLD_PREFERENCE_PATHS=" rules/always_on/standards/claude_response_standards.md on_demand/workflows/saving_plans.md \
@@ -166,7 +166,7 @@ list_source_files() {
         file="${file#"${SOURCE_DIR}"/}"
         [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" =~ ^hooks/hook_enforcement_(done_checks|worktree_edits)\.sh$ ]] \
             && continue
-        [[ "${PREFERENCES}" != 1 && ( "/${file}" == */preferences/* || "/${file}" == */03_preferences/* ) ]] && continue
+        [[ "${PREFERENCES}" != 1 && ( "/${file}" == */preferences/* || "/${file}" == */02_preferences/* ) ]] && continue
         [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
         # a README explains a folder to people browsing the repo, and never loads
         [[ "${file##*/}" == README.md ]] && continue
@@ -191,7 +191,7 @@ resolve_preferences() {
         0 | 1) ;;
         "")
             PREFERENCES=0
-            if [[ -z "${PROJECT}" ]] && file_exists "${MANIFEST}" && grep -qE "/(03_)?preferences/" "${MANIFEST}"; then
+            if [[ -z "${PROJECT}" ]] && file_exists "${MANIFEST}" && grep -qE "/(0[23]_)?preferences/" "${MANIFEST}"; then
                 PREFERENCES=1
             fi
             ;;
@@ -206,9 +206,10 @@ resolve_preferences() {
     fi
 }
 
-# Succeed if an installed path is a preference, now or before preferences moved into their own folders
+# Succeed if an installed path is a preference, now or before preferences moved into their own folders,
+# including the 03_preferences/ folders they had before being numbered 02_
 is_preference() {
-    [[ "/${1}" == */preferences/* || "/${1}" == */03_preferences/* || "${OLD_PREFERENCE_PATHS}" == *" ${1} "* ]]
+    [[ "/${1}" == */preferences/* || "/${1}" == */0[23]_preferences/* || "${OLD_PREFERENCE_PATHS}" == *" ${1} "* ]]
 }
 
 # Remove the folders that removing REMOVED_FILES left empty, walking up from each file, so other empty folders stay

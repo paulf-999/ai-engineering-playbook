@@ -1,7 +1,6 @@
 """Checks every rule file under src/claude/rules/ meets the rule template's structural gates."""
 
 import re
-from pathlib import Path
 
 import pytest
 import yaml
@@ -151,13 +150,14 @@ def body_lines(text):
     return len([line for line in body if not line.startswith("<!--")])
 
 
+TEAM_SUFFIX = "_team_conventions"
+
+
 def is_split_by_kind(parent, rules_dir=RULES_DIR):
     """Return whether a parent's rules are split between a guide and its team conventions, so children may be short."""
-    parts = parent.relative_to(rules_dir).parts
-    if "02_team_conventions" in parts:
+    if "02_team_conventions" in parent.relative_to(rules_dir).parts or parent.stem.endswith(TEAM_SUFFIX):
         return True
-    is_guide = parts[:3] == ("path_scoped", "01_standards", "style_guides")
-    return is_guide and (rules_dir / "path_scoped" / "02_team_conventions" / Path(*parts[3:])).exists()
+    return parent.with_name(parent.stem + TEAM_SUFFIX + ".md").exists()
 
 
 def child_problems(path, rules_dir=RULES_DIR):
@@ -299,35 +299,31 @@ def test_no_default_install_file_names_a_working_file_folder():
 
 def test_a_short_child_passes_once_its_guide_is_split_by_kind(tmp_path):
     """A guide whose team conventions moved out may leave short children, on both the guide's side and the team's."""
-    for parent in ("path_scoped/01_standards/style_guides/tool", "path_scoped/02_team_conventions/tool"):
-        (tmp_path / parent).with_suffix(".md").parent.mkdir(parents=True, exist_ok=True)
-        (tmp_path / parent).with_suffix(".md").write_text("- `_short.md`\n- `_other.md`\n")
-        folder = tmp_path / parent.replace("path_scoped", "on_demand")
+    (tmp_path / "path_scoped" / "style_guides").mkdir(parents=True)
+    for name in ("tool", "tool_team_conventions"):
+        (tmp_path / "path_scoped" / "style_guides" / f"{name}.md").write_text("- `_short.md`\n- `_other.md`\n")
+        folder = tmp_path / "on_demand" / "style_guides" / name
         folder.mkdir(parents=True)
         for child in ("_short.md", "_other.md"):
             (folder / child).write_text("x\n" * 5)
-    for side in ("01_standards/style_guides", "02_team_conventions"):
-        assert not child_problems(tmp_path / "on_demand" / side / "tool" / "_short.md", tmp_path), side
+    for side in ("tool", "tool_team_conventions"):
+        assert not child_problems(tmp_path / "on_demand" / "style_guides" / side / "_short.md", tmp_path), side
     # without a team conventions file, the guide isn't split, so its short child still fails the floor
-    (tmp_path / "path_scoped" / "02_team_conventions" / "tool.md").unlink()
-    problems = child_problems(tmp_path / "on_demand" / "01_standards" / "style_guides" / "tool" / "_short.md", tmp_path)
+    (tmp_path / "path_scoped" / "style_guides" / "tool_team_conventions.md").unlink()
+    problems = child_problems(tmp_path / "on_demand" / "style_guides" / "tool" / "_short.md", tmp_path)
     assert any(f"{MIN_CHILD_LINES} or more lines" in problem for problem in problems)
 
 
 def team_convention_pairs(rules_dir=RULES_DIR):
-    """Return each path-scoped team conventions file with the guide it belongs to, paired by relative path."""
-    team_dir = rules_dir / "path_scoped" / "02_team_conventions"
-    return [
-        (team, rules_dir / "path_scoped" / "01_standards" / "style_guides" / team.relative_to(team_dir))
-        for team in team_dir.rglob("*.md")
-        if team.name != "README.md"
-    ]
+    """Return each path-scoped team conventions file with the guide beside it, paired by name."""
+    teams = (rules_dir / "path_scoped" / "style_guides").rglob(f"*{TEAM_SUFFIX}.md")
+    return [(team, team.with_name(team.name.replace(TEAM_SUFFIX, ""))) for team in teams]
 
 
 def globs_problem(team, guide):
     """Return why a team conventions file won't load with its guide, or None if their paths: lists match."""
     if not guide.exists():
-        return f"{team.name} has no guide at the same path under 01_standards/style_guides/"
+        return f"{team.name} has no guide beside it named {guide.name}"
     if not paths_of(guide):
         return f"{guide.name} has no paths: list, so neither file loads on a matching file"
     if paths_of(team) != paths_of(guide):
@@ -349,10 +345,9 @@ def test_team_conventions_load_with_their_guide(team, guide):
 
 def test_mismatched_team_convention_globs_are_reported(tmp_path):
     """A team conventions file whose globs differ from its guide's is caught."""
-    for side, glob in (("style_guides", "**/*.sql"), ("team_conventions", "**/*.py")):
-        (tmp_path / side).mkdir()
-        (tmp_path / side / "tool.md").write_text(f'---\npaths:\n  - "{glob}"\n---\n# Tool\n')
-    team, guide = tmp_path / "team_conventions" / "tool.md", tmp_path / "style_guides" / "tool.md"
+    for name, glob in (("tool", "**/*.sql"), ("tool_team_conventions", "**/*.py")):
+        (tmp_path / f"{name}.md").write_text(f'---\npaths:\n  - "{glob}"\n---\n# Tool\n')
+    team, guide = tmp_path / "tool_team_conventions.md", tmp_path / "tool.md"
     assert "different paths" in globs_problem(team, guide)
     # two files with no paths: match each other, but neither would load, so that's caught too
     for path in (team, guide):
@@ -361,17 +356,39 @@ def test_mismatched_team_convention_globs_are_reported(tmp_path):
 
 
 KINDS = {"01_standards", "02_team_conventions", "03_preferences"}
+# style guides sit in one folder per load time, with the kind shown by a _team_conventions name instead
+STYLE_GUIDE_HOMES = {"path_scoped/style_guides", "on_demand/style_guides"}
 
 
 def misplaced_rules(rules_dir=RULES_DIR):
-    """Return each rule that sits outside a kind folder inside its load-time folder."""
+    """Return each rule that sits outside a kind folder, or a style guide home, inside its load-time folder."""
     rules = sorted(path for path in rules_dir.rglob("*.md") if path.name != "README.md")
-    return [path for path in rules if path.relative_to(rules_dir).parts[1] not in KINDS]
+    return [path for path in rules if path.relative_to(rules_dir).parts[1] not in KINDS | {"style_guides"}]
 
 
 def test_every_rule_sits_in_a_kind_folder():
-    """Every rule is under 01_standards/, 02_team_conventions/ or 03_preferences/, so its kind shows in its path."""
+    """Every rule is under a kind folder or style_guides/, so its kind shows in its path or name."""
     assert not misplaced_rules(), "rules outside a kind folder: " + ", ".join(map(relative, misplaced_rules()))
+
+
+def stray_style_guide_folders(rules_dir=RULES_DIR):
+    """Return each style_guides/ folder that isn't one of the two homes."""
+    folders = (path.relative_to(rules_dir).as_posix() for path in rules_dir.rglob("style_guides") if path.is_dir())
+    return sorted(folder for folder in folders if folder not in STYLE_GUIDE_HOMES)
+
+
+def test_style_guides_live_only_in_their_two_homes():
+    """Style guides sit only in path_scoped/style_guides/ and on_demand/style_guides/, so a topic has one place."""
+    assert not stray_style_guide_folders(), "move these into a style guide home: " + ", ".join(
+        stray_style_guide_folders()
+    )
+
+
+def test_a_style_guide_folder_under_a_kind_folder_is_reported(tmp_path):
+    """A style_guides/ folder inside a kind folder is caught, and the two homes aren't."""
+    for folder in (*STYLE_GUIDE_HOMES, "path_scoped/01_standards/style_guides"):
+        (tmp_path / folder).mkdir(parents=True)
+    assert stray_style_guide_folders(tmp_path) == ["path_scoped/01_standards/style_guides"]
 
 
 def test_a_rule_outside_a_kind_folder_is_reported(tmp_path):

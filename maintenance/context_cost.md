@@ -33,8 +33,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/03_preferences/claude_output_format.md` | ~294 |
-| 2 | `rules/always_on/03_preferences/claude_working_files.md` | ~264 |
+| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~294 |
+| 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~264 |
 | | **Subtotal** | **~558** |
 
 ## 💤 Only when needed

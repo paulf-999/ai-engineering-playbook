@@ -2,7 +2,7 @@
 
 **Purpose:** scripts Claude Code runs at set points in a session, to enforce what a rule alone can't.
 
-| File | What it does |
-|---|---|
-| ✅ [`hook_enforcement_done_checks.sh`](hook_enforcement_done_checks.sh) | When Claude stops after changing tracked files, sends it back once to run the checks the repo's `CLAUDE.md` says define done |
-| 📋 [`hook_enforcement_plan_sections.sh`](hook_enforcement_plan_sections.sh) | Before Claude exits plan mode, blocks a plan of 15 or more lines that has no Intent or Spec heading |
+| File | Rule | What it does |
+|---|---|---|
+| ✅ [`hook_enforcement_done_checks.sh`](hook_enforcement_done_checks.sh) | [`ai_sdlc_workflow.md`](../rules/always_on/01_standards/ai_sdlc_workflow.md) | Enforces the Feedback loop step in [`ai_sdlc_workflow.md`](../rules/always_on/01_standards/ai_sdlc_workflow.md): when Claude stops after changing tracked files, sends it back once to run the checks the repo's `CLAUDE.md` says define done |
+| 📋 [`hook_enforcement_plan_sections.sh`](hook_enforcement_plan_sections.sh) | [`ai_sdlc_workflow.md`](../rules/always_on/01_standards/ai_sdlc_workflow.md) | Enforces the Intent and Spec steps in [`ai_sdlc_workflow.md`](../rules/always_on/01_standards/ai_sdlc_workflow.md): before Claude exits plan mode, blocks a plan of 15 or more lines that has no Intent or Spec heading |

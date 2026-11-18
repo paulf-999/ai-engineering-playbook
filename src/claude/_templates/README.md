@@ -5,7 +5,7 @@ Starting points for new rules, skills, agents and scripts. `make install` instal
 | Template | Starting point for |
 |---|---|
 | [`rule.md.template`](rule.md.template) | A new rule: H1, Purpose, sections and `Read on demand` pointers |
-| [`skills/SKILL.md.template`](skills/SKILL.md.template) | A new skill's `SKILL.md`, kept for the skills coming soon |
+| [`skills/SKILL.md.template`](skills/SKILL.md.template) | A new skill's `SKILL.md` |
 | [`skills/skill.contract.yaml.template`](skills/skill.contract.yaml.template) | A skill's contract, filled in before its `SKILL.md` |
 | [`AGENT.md.template`](AGENT.md.template) | A new agent's `AGENT.md` |
 | [`preferences/TODO.md.template`](preferences/TODO.md.template) | The `TODO.md` in your Claude config directory, for the TODO list preference |

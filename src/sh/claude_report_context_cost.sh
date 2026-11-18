@@ -41,8 +41,9 @@ REPORT="maintenance/context_cost.md"
 # the config's README is for people browsing the repo, so like the templates it's read only when opened
 load_condition() {
     local file="${1}" globs
+    # a skill's other files, such as its reference/ files, load only while it runs
     if [[ "${file}" == "${CONFIG_DIR}/rules/on_demand/"* || "${file}" == "${CONFIG_DIR}/_templates/"* \
-        || "${file}" == "${CONFIG_DIR}/README.md" ]]; then
+        || "${file}" == "${CONFIG_DIR}/README.md" || "${file}" == "${CONFIG_DIR}/skills/"* ]]; then
         echo "On demand, via a pointer"
         return
     fi

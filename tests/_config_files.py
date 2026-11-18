@@ -1,6 +1,7 @@
 """The config files a default install ships, shared by the installer and rule-structure tests."""
 
 import os
+import re
 import subprocess
 
 from _paths import REPO_ROOT
@@ -29,5 +30,6 @@ def tracked_config_files(include_preferences=False):
         if path not in AUTHORING_TEMPLATES
         and not path.startswith("_templates/skills/")
         and not (path.startswith("rules/") and path.endswith("/README.md"))
+        and not re.fullmatch(r"skills/_[^/]+/[^/]+", path)
         and (include_preferences or not is_preference(path))
     }

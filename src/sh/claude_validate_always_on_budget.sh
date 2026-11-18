@@ -81,22 +81,6 @@ count_always_on_rules_in() {
     done < <(cd "${CHECK_DIR}" && find "${root}/rules" -path "${root}/rules/on_demand" -prune -o -name '*.md' ! -name README.md -print | sort)
 }
 
-# Print a file's description from its opening --- block, including one folded over several lines with > or |
-description_text() {
-    awk '
-        NR == 1 && $0 != "---" { exit }
-        NR > 1 && $0 == "---" { exit }
-        # the indented lines under "description: >" or "description: |" are the text itself
-        in_block && /^[[:space:]]/ { print; next }
-        { in_block = 0 }
-        /^description:/ {
-            value = $0
-            sub(/^description:[[:space:]]*/, "", value)
-            if (value ~ /^[>|][-+]?[[:space:]]*$/) { in_block = 1 } else { print value }
-        }
-    ' "${1}"
-}
-
 # Count each skill's and agent's description, which Claude sees in every session so it can pick one
 count_descriptions() {
     local file chars root

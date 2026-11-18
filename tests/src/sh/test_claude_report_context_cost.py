@@ -115,3 +115,17 @@ def test_folder_readmes_under_rules_are_left_out(tmp_path):
     """A README explaining a rules folder never installs, so the report neither lists nor counts it."""
     result = run_report(tmp_path, config_repo(tmp_path))
     assert "01_standards/README.md" not in result.stdout, "a folder README should not be listed"
+
+
+def test_agents_count_only_their_description_every_session(tmp_path):
+    """Only an agent's description loads every session, so the rest of its file is totalled as on demand."""
+    env = config_repo(tmp_path)
+    agent = tmp_path / "src/claude/agents/core/helper/AGENT.md"
+    agent.parent.mkdir(parents=True)
+    # a 39-character description plus its newline is an estimated 10 tokens
+    agent.write_text("---\ndescription: " + "d" * 39 + "\n---\n" + HUNDRED_TOKENS)
+    subprocess.run(["git", "add", "."], cwd=tmp_path, env=env, check=True)
+    every, _, rest = write_report(tmp_path, env).partition("## 💤 Only when needed")
+    assert "| 2 | `agents/core/helper/AGENT.md` (description) | ~10 |" in every, "the description loads every session"
+    assert "| | **Subtotal** | **~110** |" in every, "only the description adds to the every-session subtotal"
+    assert "| 💤 On demand, via a pointer | 4 |" in rest, "the agent's whole file is totalled as on demand"

@@ -85,6 +85,22 @@ rule_path_globs() {
     awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { on = 1; next } on && /^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); print; next } on { on = 0 }' "${1}"
 }
 
+# Print a file's description from its opening --- block, including one folded over several lines with > or |
+description_text() {
+    awk '
+        NR == 1 && $0 != "---" { exit }
+        NR > 1 && $0 == "---" { exit }
+        # the indented lines under "description: >" or "description: |" are the text itself
+        in_block && /^[[:space:]]/ { print; next }
+        { in_block = 0 }
+        /^description:/ {
+            value = $0
+            sub(/^description:[[:space:]]*/, "", value)
+            if (value ~ /^[>|][-+]?[[:space:]]*$/) { in_block = 1 } else { print value }
+        }
+    ' "${1}"
+}
+
 # Print a whole number in base 10, or fail if it isn't one
 # the 10# prefix stops a leading zero (e.g. 010) being read as octal, and the 9-digit cap stops 64-bit overflow
 to_whole_number() {

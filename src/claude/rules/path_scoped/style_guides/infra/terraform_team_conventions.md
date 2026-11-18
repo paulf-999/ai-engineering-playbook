@@ -73,5 +73,5 @@ This pattern keeps permission management co-located with the resource it governs
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/infra/terraform_team_conventions/_layout.md`, in your Claude config directory, when adding a module or environment.
-- `on_demand/style_guides/infra/terraform_team_conventions/_ci_and_tooling.md`, when a pre-commit hook or pipeline stage fails.
+- `on_demand/style_guides/infra/terraform/_layout_team_conventions.md`, in your Claude config directory, when adding a module or environment.
+- `on_demand/style_guides/infra/terraform/_ci_and_tooling_team_conventions.md`, when a pre-commit hook or pipeline stage fails.

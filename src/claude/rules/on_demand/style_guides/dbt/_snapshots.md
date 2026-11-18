@@ -33,7 +33,7 @@ Use the team's strategy and schema, in [`dbt_team_conventions.md`](../../../path
 |----------|-----------|
 | **Source** | Snapshot the model the team names, per [`dbt_team_conventions.md`](../../../path_scoped/style_guides/dbt_team_conventions.md) |
 | **Transformations** | Avoid transformations inside snapshots — clean data in the upstream dim model |
-| **Row limiting** | Include the team's row-limiting macro, per [`_macros_and_keys.md`](../dbt_team_conventions/_macros_and_keys.md) |
+| **Row limiting** | Include the team's row-limiting macro, per [`_macros_and_keys_team_conventions.md`](_macros_and_keys_team_conventions.md) |
 | **Column list** | Define `check_cols` explicitly — avoids unintended snapshot triggers from irrelevant column changes |
 | **Idempotency** | Snapshots must be safe to re-run without duplicating or corrupting history |
 

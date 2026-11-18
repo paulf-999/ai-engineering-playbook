@@ -57,5 +57,5 @@ Both files are auto-imported by `common.get_default_dag_params()` if they exist 
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/airflow_team_conventions/_dag_design.md`, in your Claude config directory, when creating a DAG folder or naming a DAG.
-- `on_demand/style_guides/airflow_team_conventions/_dag_configuration.md`, when editing a DAG's `config.yaml`, schedule, tags or default args.
+- `on_demand/style_guides/airflow/_dag_design_team_conventions.md`, in your Claude config directory, when creating a DAG folder or naming a DAG.
+- `on_demand/style_guides/airflow/_dag_configuration_team_conventions.md`, when editing a DAG's `config.yaml`, schedule, tags or default args.

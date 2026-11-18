@@ -43,6 +43,6 @@ When one guide holds both kinds, split it rather than mixing them:
 
 - 📂 **Sibling file:** a guide at `path_scoped/style_guides/<path>.md` gets its team conventions beside it, at `path_scoped/style_guides/<path>_team_conventions.md`, with the same `paths:` list, so both load on a matching file. `test_rules_structure.py` checks the globs match.
 - 🔗 **Refer by role:** where a standard depends on a convention, the guide keeps the generic rule and names the convention by role, such as "the team's row-limiting macro", linking to the team file.
-- 🧩 **Children:** bulky detail goes in `on_demand/style_guides/<path>_team_conventions/_<aspect>.md` children, beside the guide's own `<path>/` children. Children on either side of a split may be under the usual 40-line floor.
+- 🧩 **Children:** bulky detail goes in `on_demand/style_guides/<path>/_<aspect>_team_conventions.md` children, in the same folder as the guide's own `<path>/` children. Children on either side of a split may be under the usual 40-line floor.
 - 🚫 **No restating:** a convention lives in one team file only.
-- 🍴 **Forks:** another team swaps in its own conventions by replacing the `*_team_conventions*` files and folders under `style_guides/`, plus the `02_team_conventions/` folders, and keeps the standards.
+- 🍴 **Forks:** another team swaps in its own conventions by replacing the `*_team_conventions*` files under `style_guides/` and `on_demand/style_guides/sql/snowflake.md`, plus the `02_team_conventions/` folders, and keeps the standards.

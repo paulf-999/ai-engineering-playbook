@@ -35,7 +35,7 @@ def test_run_dry_run_plans_but_does_not_create(tmp_path):
 
 ### Setup helpers
 
-Set up shared test data with the team's helper pattern, in [`_testing.md`](../../python_team_conventions/_testing.md).
+Set up shared test data with the team's helper pattern, in [`_testing_team_conventions.md`](../_testing_team_conventions.md).
 
 ---
 

@@ -62,4 +62,4 @@ def test_parse_args_config_and_apply(monkeypatch):
 
 ## 📁 Test organisation
 
-Group related tests together in the file, marked as the team's conventions in [`_testing.md`](../../python_team_conventions/_testing.md) set.
+Group related tests together in the file, marked as the team's conventions in [`_testing_team_conventions.md`](../_testing_team_conventions.md) set.

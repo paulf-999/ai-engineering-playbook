@@ -19,4 +19,4 @@ FROM orders
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/sql_snowflake_team_conventions.md`, in your Claude config directory, when sizing a warehouse, setting `AUTO_SUSPEND`, or when a SQLFluff rule fails.
+- `on_demand/style_guides/sql/snowflake.md`, in your Claude config directory, when sizing a warehouse, setting `AUTO_SUSPEND`, or when a SQLFluff rule fails.

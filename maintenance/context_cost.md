@@ -22,11 +22,11 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 4 | `hooks/README.md` | ~232 |
 | 5 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
 | 6 | `rules/always_on/01_standards/behaviour.md` | ~334 |
-| 7 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
+| 7 | `rules/always_on/01_standards/naming_standards.md` | ~225 |
 | 8 | `rules/always_on/01_standards/security.md` | ~205 |
-| 9 | `rules/always_on/01_standards/writing_style.md` | ~233 |
+| 9 | `rules/always_on/01_standards/writing_style.md` | ~230 |
 | 10 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
-| | **Subtotal** | **~2181** |
+| | **Subtotal** | **~2174** |
 
 ## 👤 Every session, if opted in
 
@@ -40,5 +40,5 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | Load type | Files | Tokens |
 |---|---|---|
-| 📂 Path-scoped rules, with matching files | 22 | ~8400 |
+| 📂 Path-scoped rules, with matching files | 22 | ~8200 |
 | 💤 On demand, via a pointer | 61 | ~30000 |

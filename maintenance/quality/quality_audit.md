@@ -95,7 +95,7 @@ No reader calls the installed config over-engineered, but all three find the rep
 - 📦 **What you get:** DE says the machinery is "invisible to me", and EM says the complexity is "mostly hidden" from someone who only installs it (all three).
 - ⚖️ **What surrounds it:** more than 100 files, three loading tiers, a budget check, audits and design docs (all three). DA says about 15 files are useful to an analyst. Kept by choice: the audits and rubrics.
 - 🧑‍🔧 **Who carries it:** EM sees a system someone has to maintain, and wants a named owner for rule changes.
-- 🧪 **Evidence:** all three trust the [measured dbt runs](../../docs/examples/dbt_rules_measured.md), at 97% of checks with the rules against 71% without. DE and EM note that Airflow and the infra guides are unmeasured.
+- 🧪 **Evidence:** all three trust the [measured dbt runs](../../docs/examples/dbt/dbt_rules_measured.md), at 97% of checks with the rules against 71% without. DE and EM note that Airflow and the infra guides are unmeasured.
 
 ### 🎯 Shared points
 

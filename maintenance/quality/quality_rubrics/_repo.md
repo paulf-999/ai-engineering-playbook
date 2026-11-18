@@ -65,8 +65,8 @@ for area in src/claude docs tests src/sh; do echo "${area}: $(git ls-files "${ar
 # and commits that cut process, by removing more lines than they add there outside the audit
 git log --first-parent -50 --format=%h origin/main | while read -r commit; do
     files=$(git show --name-only --format= "${commit}" | grep -v '^maintenance/context_cost\.md$')
-    grep '^maintenance/' <<< "${files}" | grep -qv '^maintenance/quality/quality_audit\.md$' || continue
-    git show --numstat --format= "${commit}" -- maintenance ':!maintenance/quality/quality_audit.md' ':!maintenance/context_cost.md' \
+    grep '^maintenance/' <<< "${files}" | grep -qvE '^maintenance/quality/quality_audit(\.md|/)' || continue
+    git show --numstat --format= "${commit}" -- maintenance ':!maintenance/quality/quality_audit*' ':!maintenance/context_cost.md' \
         | awk '{added += $1; removed += $2} END {exit !(removed <= added)}' && echo "${commit}"
 done | wc -l
 # maintenance/ files
@@ -79,7 +79,7 @@ src/sh/claude_validate_always_on_budget.sh
 
 ## 🕵️ Reviewer brief
 
-At each [regular review](../../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores. It runs in a scratch worktree of `main` with `quality_audit.md` deleted, so no search can show it the last run's scores:
+At each [regular review](../../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores. It runs in a scratch worktree of `main` with `quality_audit.md` and `quality_audit/` deleted, so no search can show it the last run's scores:
 
 ```text
 Score this repo against maintenance/quality/quality_rubrics/_repo.md.
@@ -116,4 +116,4 @@ Open a GitHub issue for each finding the review doesn't fix in its own PR. Fix a
 
 ## 📊 Where scores live
 
-The [audit](../quality_audit.md) holds the latest run's scores and the current findings. Its [component feedback](../quality_audit.md#-component-feedback) section keeps one row per component that helped, listing each run it helped in, and the latest run's Unused and Hindered rows.
+The audit's [repo review](../quality_audit/_repo_review.md) holds the latest run's scores and the current findings. Its [component feedback](../quality_audit/_repo_review.md#-component-feedback) section keeps one row per component that helped, listing each run it helped in, and the latest run's Unused and Hindered rows.

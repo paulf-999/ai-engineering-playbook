@@ -6,6 +6,6 @@
 
 ## 📚 Read on demand
 
-- `on_demand/03_preferences/working_files/_saving_plans.md`, in your Claude config directory, once a plan is approved.
-- `on_demand/03_preferences/working_files/_todo_logging.md`, when the user asks to add something to their TODOs.
-- `on_demand/03_preferences/working_files/_drafts_and_errors.md`, before saving a draft or an error write-up.
+- `on_demand/03_preferences/claude_working_files/_saving_plans.md`, in your Claude config directory, once a plan is approved.
+- `on_demand/03_preferences/claude_working_files/_todo_logging.md`, when the user asks to add something to their TODOs.
+- `on_demand/03_preferences/claude_working_files/_drafts_and_errors.md`, before saving a draft or an error write-up.

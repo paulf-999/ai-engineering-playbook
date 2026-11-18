@@ -5,4 +5,4 @@
 | File or folder | What it covers |
 |---|---|
 | 🧱 [`markdown_layout.md`](markdown_layout.md) | How headings, lists and tables are laid out, so every page scans the same way |
-| 🗂️ [`working_files/`](working_files/) | Saving drafts and error write-ups, plans, and TODOs |
+| 🗂️ [`claude_working_files/`](claude_working_files/) | Saving drafts and error write-ups, plans, and TODOs |

@@ -19,15 +19,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `CLAUDE.md` | ~523 |
 | 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~42 |
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~37 |
-| 4 | `hooks/README.md` | ~232 |
-| 5 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
-| 6 | `rules/always_on/01_standards/behaviour.md` | ~371 |
-| 7 | `rules/always_on/01_standards/house_style_team_conventions.md` | ~87 |
-| 8 | `rules/always_on/01_standards/naming_standards.md` | ~256 |
-| 9 | `rules/always_on/01_standards/security.md` | ~224 |
-| 10 | `rules/always_on/01_standards/writing_style.md` | ~255 |
-| 11 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
-| | **Subtotal** | **~2323** |
+| 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
+| 5 | `rules/always_on/01_standards/behaviour.md` | ~371 |
+| 6 | `rules/always_on/01_standards/house_style_team_conventions.md` | ~87 |
+| 7 | `rules/always_on/01_standards/naming_standards.md` | ~256 |
+| 8 | `rules/always_on/01_standards/security.md` | ~224 |
+| 9 | `rules/always_on/01_standards/writing_style.md` | ~255 |
+| 10 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
+| | **Subtotal** | **~2091** |
 
 ## 👤 Every session, if opted in
 
@@ -42,4 +41,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 22 | ~8900 |
-| 💤 On demand, via a pointer | 67 | ~34200 |
+| 💤 On demand, via a pointer | 63 | ~31600 |

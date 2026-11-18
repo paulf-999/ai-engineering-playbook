@@ -44,7 +44,7 @@ OLD_PREFERENCE_PATHS=" rules/always_on/standards/claude_response_standards.md on
 on_demand/conduct/todo_logging.md on_demand/conduct/writing_style/_drafts_and_errors.md \
 on_demand/conduct/writing_style/_markdown_layout.md _templates/TODO.md.template "
 # authoring templates that never install
-AUTHORING_TEMPLATES=" _templates/README.md _templates/AGENT.md.template _templates/rule.md.template "
+AUTHORING_TEMPLATES=" _templates/AGENT.md.template _templates/rule.md.template "
 if [[ -n "${PROJECT}" ]]; then
     if [[ ! -d "${PROJECT}" ]]; then
         echo "PROJECT=${PROJECT} isn't a folder - nothing changed." >&2
@@ -164,8 +164,8 @@ list_source_files() {
         [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" == hooks/hook_enforcement_done_checks.sh ]] && continue
         [[ "${PREFERENCES}" != 1 && ( "/${file}" == */preferences/* || "/${file}" == */03_preferences/* ) ]] && continue
         [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
-        # a README under rules/ explains a folder to people browsing the repo, and would load as a rule if installed
-        [[ "${file}" == rules/* && "${file##*/}" == README.md ]] && continue
+        # a README explains a folder to people browsing the repo, and never loads
+        [[ "${file##*/}" == README.md ]] && continue
         # a skill group's own files, such as its README, describe the group, which doesn't exist once installed flat
         [[ "${file}" =~ ^skills/_[^/]+/[^/]+$ ]] && continue
         SOURCE_FILES+=("${file}")

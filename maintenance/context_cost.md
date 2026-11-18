@@ -19,13 +19,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 1 | `CLAUDE.md` | ~523 |
 | 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~42 |
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~37 |
-| 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
-| 5 | `rules/always_on/01_standards/behaviour.md` | ~334 |
-| 6 | `rules/always_on/01_standards/naming_standards.md` | ~225 |
-| 7 | `rules/always_on/01_standards/security.md` | ~205 |
-| 8 | `rules/always_on/01_standards/writing_style.md` | ~230 |
-| 9 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
-| | **Subtotal** | **~1942** |
+| 4 | `hooks/README.md` | ~132 |
+| 5 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
+| 6 | `rules/always_on/01_standards/behaviour.md` | ~334 |
+| 7 | `rules/always_on/01_standards/naming_standards.md` | ~225 |
+| 8 | `rules/always_on/01_standards/security.md` | ~205 |
+| 9 | `rules/always_on/01_standards/writing_style.md` | ~230 |
+| 10 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
+| | **Subtotal** | **~2075** |
 
 ## 👤 Every session, if opted in
 

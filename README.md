@@ -25,6 +25,12 @@ The [getting-started guide](docs/guides/getting_started.md) covers what you need
 
 ---
 
+## 🗺️ What's in this repo
+
+Everything you install is in [`src/claude/`](src/claude/). The rest of the repo explains and maintains it, and you don't need it to use the instructions.
+
+---
+
 ## 📦 What you get
 
 - ⚡ **Lean:** Claude reads only the instructions each task needs, so it stays fast and focused.
@@ -32,12 +38,6 @@ The [getting-started guide](docs/guides/getting_started.md) covers what you need
 - 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) before coding, then checks the result against that plan.
 - 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt_before_and_after.md) and [measured runs](docs/examples/dbt_rules_measured.md) show what the dbt rules change.
 - 👤 **Opt-in preferences:** personal ones, such as the reply format, install only with `make install PREFERENCES=1`.
-
----
-
-## 🗺️ What's in this repo
-
-Everything you install is in [`src/claude/`](src/claude/). The rest of the repo explains and maintains it, and you don't need it to use the instructions.
 
 ---
 

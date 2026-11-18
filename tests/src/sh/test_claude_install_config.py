@@ -131,6 +131,21 @@ def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
     )
 
 
+def test_folders_a_removed_file_leaves_empty_are_removed(tmp_path):
+    """Removing a file the repo moved also removes the folders it leaves empty, but not the user's own empty ones."""
+    old = tmp_path / "rules" / "always_on" / "01_standards" / "conduct" / "behaviour.md"
+    old.parent.mkdir(parents=True)
+    old.write_text("old rule\n")
+    (tmp_path / "rules" / "mine").mkdir()
+    (tmp_path / ".playbook_install_manifest").write_text("rules/always_on/01_standards/conduct/behaviour.md\n")
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert not old.parent.exists(), "the folder the move emptied should be removed"
+    assert (tmp_path / "rules" / "mine").is_dir(), "an empty folder the install didn't empty should stay"
+
+
 def test_manifest_paths_outside_the_target_are_ignored(tmp_path):
     """A manifest path containing '..' is skipped, so the file it points at is left alone."""
     target = tmp_path / "config"

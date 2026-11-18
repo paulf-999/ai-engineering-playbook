@@ -17,6 +17,6 @@
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/python/testing/_naming_structure.md`, in your Claude config directory, for test naming & structure.
-- `on_demand/style_guides/python/testing/_fixtures_mocking.md`, in your Claude config directory, for pytest fixtures & mocking.
-- `on_demand/style_guides/python/testing/_assertions.md`, in your Claude config directory, for assertions & exception testing.
+- [`on_demand/style_guides/python/testing/_naming_structure.md`](testing/_naming_structure.md), in your Claude config directory, for test naming & structure.
+- [`on_demand/style_guides/python/testing/_fixtures_mocking.md`](testing/_fixtures_mocking.md), in your Claude config directory, for pytest fixtures & mocking.
+- [`on_demand/style_guides/python/testing/_assertions.md`](testing/_assertions.md), in your Claude config directory, for assertions & exception testing.

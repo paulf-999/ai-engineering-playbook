@@ -3,6 +3,7 @@
 import json
 import os
 import pty
+import re
 import subprocess
 
 import pytest
@@ -41,8 +42,10 @@ def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
 
 
 def installed_path(source):
-    """Return where a src/claude/ file should install, with on-demand files moved out of rules/."""
-    return source.removeprefix("rules/") if source.startswith("rules/on_demand/") else source
+    """Return where a src/claude/ file should install, with on-demand files moved out of rules/ and skills flattened."""
+    if source.startswith("rules/on_demand/"):
+        return source.removeprefix("rules/")
+    return re.sub(r"^skills/_[^/]+/", "skills/", source)
 
 
 def installed_files(target):
@@ -88,6 +91,19 @@ def test_on_demand_files_install_beside_rules(tmp_path):
         "on-demand files should sit beside rules/"
     )
     assert not (tmp_path / "rules" / "on_demand").exists(), "no on-demand file should install under rules/"
+
+
+def test_grouped_skills_install_flat_and_uninstall_cleanly(tmp_path):
+    """A skill in a group folder installs straight under skills/, where Claude Code finds it, and uninstalls fully."""
+    assert (SOURCE / "skills" / "_git_skills" / "git-create-pr" / "SKILL.md").is_file(), "the repo should group it"
+    result = run_install(tmp_path, answer="install")
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert (tmp_path / "skills" / "git-create-pr" / "SKILL.md").is_file(), "the skill should install flat"
+    assert not (tmp_path / "skills" / "_git_skills").exists(), "no group folder, nor its README, should install"
+
+    result = run_install(tmp_path, answer="uninstall", UNINSTALL="1")
+    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
+    assert not (tmp_path / "skills").exists(), "uninstall should remove the flat skill and its emptied folder"
 
 
 def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):

@@ -25,7 +25,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 7 | `rules/always_on/01_standards/security.md` | ~205 |
 | 8 | `rules/always_on/01_standards/writing_style.md` | ~233 |
 | 9 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
-| | **Subtotal** | **~1948** |
+| 10 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
+| | **Subtotal** | **~1985** |
 
 ## 👤 Every session, if opted in
 
@@ -40,4 +41,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 22 | ~8400 |
-| 💤 On demand, via a pointer | 61 | ~30000 |
+| 💤 On demand, via a pointer | 67 | ~34100 |

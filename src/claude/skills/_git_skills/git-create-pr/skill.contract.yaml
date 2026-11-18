@@ -1,0 +1,36 @@
+---
+name: git-create-pr
+version: 1.0.0
+summary: Create a GitHub PR from your changes, with a branch, commit message and PR body
+test_coverage_level: comprehensive
+
+dispatch:
+    triggers:
+        explicit:
+            - /git-create-pr
+            - create a pr
+            - make a pr
+            - open a pull request
+        contextual:
+            - user has finished a change and wants it raised for review
+
+    not_for:
+        - reviewing a PR → /git-review-pr
+        - resolving merge conflicts, which the user does by hand
+        - PRs against a base branch other than main
+        - changes of 20 or more files, which it flags for splitting
+
+requires:
+    tools: [Bash, Read, Agent]
+    resources: [.github/pull_request_template.md, a git repo with an origin remote]
+    mcp_servers: []
+
+output:
+    type: external_service
+    confirmation_required: true
+    reversible: false
+    returns: [PR URL, PR number]
+
+dependencies:
+    external: [git, gh CLI, GitHub]
+    permissions: [write access to the repo, gh auth login]

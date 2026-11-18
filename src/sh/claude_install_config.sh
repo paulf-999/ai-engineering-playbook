@@ -3,7 +3,8 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
 #              On-demand files in rules/on_demand/ go beside rules/, since Claude Code loads everything under rules/
-#              A manifest records what was installed, so files the repo has since removed are backed up and removed
+#              A manifest records what was installed, so files the repo has since removed are backed up and removed,
+#              along with any folder that leaves empty
 #              It also keeps the config's hooks and deny rules in settings.json in step, keeping every other setting
 #              With PROJECT set, it installs into that repo's .claude/ folder instead, leaving the done checks hook out unless HOOKS=1
 #              With UNINSTALL=1, it removes what the manifest lists, restores each file's pre-install backup and strips
@@ -195,12 +196,15 @@ is_preference() {
     [[ "/${1}" == */preferences/* || "/${1}" == */03_preferences/* || "${OLD_PREFERENCE_PATHS}" == *" ${1} "* ]]
 }
 
-# Remove the preferences/ folders that removing their files left empty, deepest first
-remove_empty_preference_folders() {
-    local folder
-    for folder in "${TARGET_DIR}"/rules/*/preferences "${TARGET_DIR}"/rules/*/03_preferences "${TARGET_DIR}"/on_demand/preferences \
-        "${TARGET_DIR}"/on_demand/03_preferences "${TARGET_DIR}"/_templates/preferences; do
-        [[ -d "${folder}" ]] && find "${folder}" -depth -type d -empty -delete
+# Remove the folders that removing REMOVED_FILES left empty, walking up from each file, so other empty folders stay
+remove_emptied_folders() {
+    local file folder
+    for file in "${REMOVED_FILES[@]+"${REMOVED_FILES[@]}"}"; do
+        folder="$(dirname "${file}")"
+        # rmdir only removes an empty folder, so the walk stops at the first one that still holds something
+        while [[ "${folder}" != "." ]] && rmdir "${TARGET_DIR}/${folder}" 2> /dev/null; do
+            folder="$(dirname "${folder}")"
+        done
     done
     return 0
 }
@@ -313,7 +317,7 @@ uninstall_files() {
         done
     done
     rm -f "${MANIFEST}"
-    remove_empty_preference_folders
+    remove_emptied_folders
     log_message "${INFO}" "Removed ${#REMOVED_FILES[@]} file(s), restoring ${restored} from backups."
 }
 
@@ -348,7 +352,7 @@ remove_old_files() {
         cp -p "${TARGET_DIR}/${file}" "${UPGRADE_BACKUP_DIR}/${file}"
         rm "${TARGET_DIR}/${file}"
     done
-    remove_empty_preference_folders
+    remove_emptied_folders
     log_message "${INFO}" "Removed ${#REMOVED_FILES[@]} file(s) an earlier install added." false
     printf '%s' "${TARGET_PATHS}" > "${MANIFEST}"
 }

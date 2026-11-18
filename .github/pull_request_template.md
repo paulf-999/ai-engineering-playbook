@@ -37,7 +37,7 @@ Choose one:
 <!-- Claude config PRs only, which CI checks:
 - Changes src/claude/? Add "## :robot: Claude: Plan Spec (spec.md)" holding the approved plan's spec.md, so a reviewer
   can check the diff against it, or say why it has none. Open it with the line "Before building this change, Claude
-  produced the following plan spec, stored in `spec.md`:".
+  produced the following plan, stored in `spec.md`:".
 - Changes src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook? Also add "## :balance_scale: Claude: Evaluation Criteria"
   naming any red flag, such as "No red flags.", per the evaluation criteria:
   https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md -->

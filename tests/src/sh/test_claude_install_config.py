@@ -590,7 +590,7 @@ def test_an_upgrade_says_moved_working_files_rules_are_now_opt_in(tmp_path):
         assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
         assert not (config / old).exists(), "the old path should be removed"
         assert ("now opt-in" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
-        moved = config / "on_demand" / "03_preferences" / "working_files" / "_saving_plans.md"
+        moved = config / "on_demand" / "03_preferences" / "claude_working_files" / "_saving_plans.md"
         assert moved.exists() == bool(flag), "the rule should be at its new path only when opted in"
 
 

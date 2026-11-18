@@ -21,11 +21,11 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~37 |
 | 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
 | 5 | `rules/always_on/01_standards/behaviour.md` | ~334 |
-| 6 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
+| 6 | `rules/always_on/01_standards/naming_standards.md` | ~225 |
 | 7 | `rules/always_on/01_standards/security.md` | ~205 |
-| 8 | `rules/always_on/01_standards/writing_style.md` | ~233 |
+| 8 | `rules/always_on/01_standards/writing_style.md` | ~230 |
 | 9 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
-| | **Subtotal** | **~1948** |
+| | **Subtotal** | **~1942** |
 
 ## 👤 Every session, if opted in
 
@@ -39,5 +39,5 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | Load type | Files | Tokens |
 |---|---|---|
-| 📂 Path-scoped rules, with matching files | 22 | ~8400 |
+| 📂 Path-scoped rules, with matching files | 22 | ~8200 |
 | 💤 On demand, via a pointer | 61 | ~30000 |

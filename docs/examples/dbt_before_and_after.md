@@ -36,7 +36,7 @@ models:
 
 ## ➕ With the playbook
 
-Claude follows the [dbt guide](../../src/claude/rules/path_scoped/01_standards/style_guides/dbt.md) and its child files on naming, layers and CTEs:
+Claude follows the [dbt guide](../../src/claude/rules/path_scoped/style_guides/dbt.md) and its child files on naming, layers and CTEs:
 
 ```sql
 -- models/mart/shop/mart_shop_customer_order_counts.sql
@@ -95,8 +95,8 @@ models:
 | 🧪 **Tests** | `unique` and `not_null` on the grain | The same |
 | ⚠️ **Gaps flagged** | The undeclared source | The undeclared source, the missing base layer and the missing `limit_rows()` macro |
 
-- ❌ **Still breaks a rule:** the name is plural, `counts`, though the [SQL guide](../../src/claude/rules/path_scoped/01_standards/style_guides/sql.md) asks for singular names.
-- 🔑 **No key column:** correctly, since the [team conventions](../../src/claude/rules/on_demand/02_team_conventions/dbt/_macros_and_keys.md) give an aggregate model none.
+- ❌ **Still breaks a rule:** the name is plural, `counts`, though the [SQL guide](../../src/claude/rules/path_scoped/style_guides/sql.md) asks for singular names.
+- 🔑 **No key column:** correctly, since the [team conventions](../../src/claude/rules/on_demand/style_guides/dbt_team_conventions/_macros_and_keys.md) give an aggregate model none.
 
 ## 🧪 How it was run
 

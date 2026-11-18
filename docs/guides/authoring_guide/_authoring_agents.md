@@ -11,4 +11,4 @@
 
 ## 🏁 Before merging
 
-Run the same checks as for a skill, listed in [authoring skills](_skills.md#-before-merging).
+Run the same checks as for a skill, listed in [authoring skills](_authoring_skills.md#-before-merging).

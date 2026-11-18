@@ -17,6 +17,6 @@
 
 ## 📚 Read on demand
 
-- [`on_demand/01_standards/workflows/git.md`](../../on_demand/01_standards/workflows/git.md), in your Claude config directory, before running any git command.
+- [`on_demand/01_standards/git.md`](../../on_demand/01_standards/git.md), in your Claude config directory, before running any git command.
 - [`on_demand/01_standards/conduct/automation_controls.md`](../../on_demand/01_standards/conduct/automation_controls.md), before proposing or starting a loop or other unattended run.
 - [`on_demand/01_standards/conduct/reporting.md`](../../on_demand/01_standards/conduct/reporting.md), before saying a task is done.

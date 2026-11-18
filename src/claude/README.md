@@ -89,7 +89,7 @@ To share the config with a team, run `make install PROJECT=../my_dbt_repo` to in
 <details>
 <summary>Hooks and backups</summary>
 
-- 🪝 **Hooks:** add `HOOKS=1` to include the done checks hook, which is left out by default.
+- 🪝 **Hooks:** add `HOOKS=1` to include the done checks and worktree edits hooks, which are left out by default.
 - 🛡️ **Backups:** replaced files go to `backups/` in your Claude config directory, outside the repo.
 
 </details>

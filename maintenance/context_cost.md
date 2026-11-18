@@ -21,26 +21,26 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~37 |
 | 4 | `hooks/README.md` | ~232 |
 | 5 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
-| 6 | `rules/always_on/01_standards/behaviour.md` | ~334 |
-| 7 | `rules/always_on/01_standards/naming_standards.md` | ~225 |
-| 8 | `rules/always_on/01_standards/security.md` | ~205 |
-| 9 | `rules/always_on/01_standards/writing_style.md` | ~230 |
+| 6 | `rules/always_on/01_standards/behaviour.md` | ~376 |
+| 7 | `rules/always_on/01_standards/naming_standards.md` | ~256 |
+| 8 | `rules/always_on/01_standards/security.md` | ~224 |
+| 9 | `rules/always_on/01_standards/writing_style.md` | ~255 |
 | 10 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
 | 11 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
 | 12 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
-| | **Subtotal** | **~2254** |
+| | **Subtotal** | **~2372** |
 
 ## 👤 Every session, if opted in
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/03_preferences/claude_output_format.md` | ~279 |
-| 2 | `rules/always_on/03_preferences/claude_working_files.md` | ~209 |
-| | **Subtotal** | **~488** |
+| 1 | `rules/always_on/03_preferences/claude_output_format.md` | ~294 |
+| 2 | `rules/always_on/03_preferences/claude_working_files.md` | ~264 |
+| | **Subtotal** | **~558** |
 
 ## 💤 Only when needed
 
 | Load type | Files | Tokens |
 |---|---|---|
-| 📂 Path-scoped rules, with matching files | 22 | ~8200 |
-| 💤 On demand, via a pointer | 71 | ~40700 |
+| 📂 Path-scoped rules, with matching files | 22 | ~8900 |
+| 💤 On demand, via a pointer | 71 | ~40800 |

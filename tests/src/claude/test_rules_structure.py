@@ -15,8 +15,10 @@ RULE_FILES = sorted(path for path in RULES_DIR.rglob("*.md") if path.name != "RE
 MAX_LINES = 110
 # a child shorter than this saves too little context to be worth its own file and pointer
 MIN_CHILD_LINES = 40
-# a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`
-POINTER = re.compile(r"^- `((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
+# a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`,
+# which a rule wraps in a link to the target's place in the repo
+POINTER = re.compile(r"^- \[?`((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
+LINKED_POINTER = re.compile(r"^- \[`([^`]+)`\]\(([^)]+)\)")
 
 
 def relative(path):
@@ -254,6 +256,35 @@ def test_every_pointer_target_exists():
         if not resolve(target).exists()
     ]
     assert not missing, "fix these pointers to missing files: " + ", ".join(missing)
+
+
+def unlinked_pointers(text, folder):
+    """Return each pointer in text that isn't a link, relative to folder, to its target's place in the repo."""
+    problems = []
+    for line in text.splitlines():
+        if not POINTER.match(line):
+            continue
+        link = LINKED_POINTER.match(line)
+        if not link or (folder / link.group(2)).resolve() != resolve(link.group(1)).resolve():
+            problems.append(line)
+    return problems
+
+
+@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
+def test_rule_pointers_link_to_their_target(path):
+    """Each pointer in a rule links to its target's place in the repo, so a reader browsing the repo can open it."""
+    problems = unlinked_pointers(path.read_text(), path.parent)
+    assert not problems, f"{relative(path)}: link each pointer to its target's repo path: {problems}"
+
+
+def test_an_unlinked_or_misdirected_pointer_is_reported():
+    """A pointer in backticks only, or linked to the wrong file, is reported, and a correct link isn't."""
+    target = "on_demand/01_standards/workflows/git.md"
+    good = f"- [`{target}`](../../{target}), before git."
+    bare = f"- `{target}`, before git."
+    wrong = f"- [`{target}`](../{target}), before git."
+    folder = RULES_DIR / "always_on" / "01_standards"
+    assert unlinked_pointers("\n".join([good, bare, wrong]), folder) == [bare, wrong]
 
 
 # a backticked path into a 03_preferences/ folder, which a default install leaves out

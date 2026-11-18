@@ -16,4 +16,4 @@
 
 ## 📚 Read on demand
 
-- `on_demand/03_preferences/markdown_layout.md`, in your Claude config directory, before writing or restructuring a markdown doc.
+- `on_demand/03_preferences/claude_markdown_style.md`, in your Claude config directory, before writing or restructuring a markdown doc.

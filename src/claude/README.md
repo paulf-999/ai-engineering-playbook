@@ -49,7 +49,7 @@ They install only if you ask:
 | 🔑 **Bold-keyword bullets** | Starts each rule or definition bullet with its key term in bold, in replies, docs, tickets and commits |
 | 🗂️ **Saved plans** | Saves each approved plan, with its intent and spec, to `~/.claude_work/_plans/` |
 | 📝 **TODO list** | Adds "add to my TODOs" items to a table in your config's `TODO.md` |
-| 🧱 **Markdown layout** | Gives headings, bullets and table rows an emoji, caps lists at 5 items, and opens each list with a lead-in |
+| 🧱 **Markdown style** | Gives headings, bullets and table rows an emoji, caps lists at 5 items, and opens each list with a lead-in |
 | 📄 **Drafts, errors and session notes** | Saves drafts to `~/_drafts/`, error write-ups to `~/_errors/`, and long-task notes to `~/.claude_work/_sessions/` |
 
 - 📥 **Install:** `make install PREFERENCES=1` adds them, a plain `make install` keeps them, and `make install PREFERENCES=0` removes them.

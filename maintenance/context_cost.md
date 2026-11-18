@@ -17,13 +17,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~523 |
-| 2 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
-| 3 | `rules/always_on/01_standards/behaviour.md` | ~334 |
-| 4 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
-| 5 | `rules/always_on/01_standards/security.md` | ~205 |
-| 6 | `rules/always_on/01_standards/writing_style.md` | ~233 |
-| 7 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
-| | **Subtotal** | **~1869** |
+| 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~42 |
+| 3 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
+| 4 | `rules/always_on/01_standards/behaviour.md` | ~334 |
+| 5 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
+| 6 | `rules/always_on/01_standards/security.md` | ~205 |
+| 7 | `rules/always_on/01_standards/writing_style.md` | ~233 |
+| 8 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
+| | **Subtotal** | **~1911** |
 
 ## 👤 Every session, if opted in
 
@@ -38,4 +39,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 22 | ~8400 |
-| 💤 On demand, via a pointer | 59 | ~28500 |
+| 💤 On demand, via a pointer | 60 | ~29200 |

@@ -26,4 +26,4 @@ Hooks, scripts and tests for the config must work on any machine:
 - 📝 **[Rules](authoring_guide/_authoring_rules.md):** pick the tier, wire up pointers, and check it before merging.
 - 🧭 **[Rule kinds](authoring_guide/_rule_classification.md):** decide whether a rule is a standard, a team convention or a preference, and where each lives.
 - 🛠️ **[Skills](authoring_guide/_authoring_skills.md):** the folder layout, scope, triggers and checks, for the skills coming soon.
-- 🤖 **[Agents](authoring_guide/_authoring_agents.md):** when to build one, and how to write and check it, for the agents coming soon.
+- 🤖 **[Agents](authoring_guide/_authoring_agents.md):** when to build one, and how to write and check it.

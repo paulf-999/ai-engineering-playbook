@@ -67,7 +67,7 @@ rounded() {
 # With "summary", print the every-session table in full, and one rounded row for each other load type
 table_body() {
     local mode="${1:-full}"
-    local file chars condition name
+    local file chars condition name described
     local every="" scoped="" lazy="" every_chars=0 scoped_chars=0 lazy_chars=0 every_n=0 scoped_n=0 lazy_n=0
     local opted="" opted_chars=0 opted_n=0
     while IFS= read -r file; do
@@ -76,6 +76,14 @@ table_body() {
         chars=$(count_loaded_chars "${REPO_DIR}/${file}")
         condition="$(load_condition "${file}")"
         name="\`${file#"${CONFIG_DIR}"/}\`"
+        # only a skill's or agent's description loads every session, and the rest loads when Claude invokes it
+        if [[ "${file}" == "${CONFIG_DIR}/agents/"* || "${file}" == "${CONFIG_DIR}/skills/"*/SKILL.md ]]; then
+            described=$(description_text "${REPO_DIR}/${file}" | wc -m | tr -d ' ')
+            every_n=$((every_n + 1))
+            every+="| ${every_n} | ${name} (description) | ~$((described / 4)) |"$'\n'
+            every_chars=$((every_chars + described))
+            condition="On demand, when invoked"
+        fi
         case "${condition}" in
             "Every session")
                 every_n=$((every_n + 1))

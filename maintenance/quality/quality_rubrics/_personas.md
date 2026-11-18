@@ -69,7 +69,7 @@ wait; rm -rf "${WORK}"; echo "Reviews are in ${OUT}"
 
 ## 🎯 Shared feedback
 
-Record the shared feedback in the [audit's persona review](../quality_audit.md#-persona-review) section, replacing the last run, with a table of each point two or more readers raised:
+Record the shared feedback in the [persona review](../quality_audit/_persona_review.md), replacing the last run, with a table of each point two or more readers raised:
 
 1. Rank the points by how many readers raised them, 3 before 2.
 2. Break ties by impact on adoption: blocks use, then confuses, then polish.

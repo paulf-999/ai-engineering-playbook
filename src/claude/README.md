@@ -37,7 +37,7 @@ Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on
 | 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `02_team_conventions/` folders | With everything else |
 | 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `03_preferences/` folders | Only with `PREFERENCES=1` |
 
-- 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_kinds.md) sets out how a rule is sorted into one of the three.
+- 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_authoring_rule_kinds.md) sets out how a rule is sorted into one of the three.
 
 ## 👤 Preferences
 

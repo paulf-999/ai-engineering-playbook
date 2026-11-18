@@ -1,0 +1,36 @@
+---
+name: claude-capture-session-prompts
+version: 1.0.0
+summary: Write one day's Claude Code prompts to a markdown table, with secrets masked, for review and planning
+test_coverage_level: comprehensive
+
+dispatch:
+    triggers:
+        explicit:
+            - /claude-capture-session-prompts
+            - capture session prompts
+            - audit session prompts
+            - audit my claude prompts
+        contextual:
+            - user wants to review what they asked Claude on a given day
+
+    not_for:
+        - summarising the current conversation, which Claude can do without the script
+        - categorising or prioritising prompts automatically, which Claude does on request after the capture
+        - more than one date per run
+        - reading or editing history.jsonl by hand
+
+requires:
+    tools: [Bash, Read]
+    resources: [history.jsonl in the Claude config directory, Python 3.10 or newer]
+    mcp_servers: []
+
+output:
+    type: file
+    confirmation_required: false
+    reversible: true
+    returns: [report path, number of prompts captured]
+
+dependencies:
+    external: []
+    permissions: [write access to the output folder]

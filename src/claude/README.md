@@ -9,6 +9,7 @@ This folder is the source of a global Claude Code config. `make install` copies 
 | 🧭 [`CLAUDE.md`](CLAUDE.md) | Behavioural guidelines Claude reads every session |
 | 📏 [`rules/`](rules/) | Short rule files, grouped by when they load |
 | 🪝 [`hooks/`](hooks/) | Scripts Claude Code runs on tool calls or when Claude stops |
+| 🛠️ [`skills/`](skills/) | Step-by-step workflows you run by name, such as `/git-create-pr`, grouped in folders that install flat |
 | 🤖 [`agents/`](agents/) | Subagents Claude delegates to for a separate context, such as a blind code review |
 | 📋 [`_templates/`](_templates/README.md) | Starting points for new rules, skills, agents and scripts |
 

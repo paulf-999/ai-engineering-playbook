@@ -91,11 +91,14 @@ DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
 # Functions
 #=======================================================================
 
-# Print where a source file installs: on-demand files move from rules/on_demand/ to on_demand/
+# Print where a source file installs: on-demand files move from rules/on_demand/ to on_demand/,
+# and a skill in a group folder such as skills/_git_skills/ installs flat under skills/, where Claude Code finds it
 target_path() {
     local file="${1}"
     if [[ "${file}" == "${LAZY_RULES_DIR}/"* ]]; then
         echo "${file#rules/}"
+    elif [[ "${file}" =~ ^skills/_[^/]+/(.+/.+)$ ]]; then
+        echo "skills/${BASH_REMATCH[1]}"
     else
         echo "${file}"
     fi
@@ -133,6 +136,12 @@ is_playbook_copy() {
     source="${SOURCE_DIR}/${2}"
     # installed on-demand files sit beside rules/, so their source is under rules/
     [[ "${2}" == on_demand/* ]] && source="${SOURCE_DIR}/rules/${2}"
+    # a flat skill's source sits in a group folder, found from the current tree
+    if [[ "${2}" == skills/* ]] && ! file_exists "${source}"; then
+        for version in "${SOURCE_DIR}"/skills/_*/"${2#skills/}"; do
+            file_exists "${version}" && source="${version}"
+        done
+    fi
     version="$(mktemp)"
     while IFS= read -r commit; do
         # a commit that deleted the file has no version of it
@@ -157,6 +166,8 @@ list_source_files() {
         [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
         # a README under rules/ explains a folder to people browsing the repo, and would load as a rule if installed
         [[ "${file}" == rules/* && "${file##*/}" == README.md ]] && continue
+        # a skill group's own files, such as its README, describe the group, which doesn't exist once installed flat
+        [[ "${file}" =~ ^skills/_[^/]+/[^/]+$ ]] && continue
         SOURCE_FILES+=("${file}")
         TARGET_PATHS+="$(target_path "${file}")"$'\n'
     done < <(git ls-files -z -- "${SOURCE_DIR}")

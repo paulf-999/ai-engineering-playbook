@@ -2,6 +2,7 @@
 
 import subprocess
 
+import pytest
 from _git_repo import isolated_git_repo
 from _paths import SCRIPTS_DIR
 
@@ -117,15 +118,23 @@ def test_folder_readmes_under_rules_are_left_out(tmp_path):
     assert "01_standards/README.md" not in result.stdout, "a folder README should not be listed"
 
 
-def test_agents_count_only_their_description_every_session(tmp_path):
-    """Only an agent's description loads every session, so the rest of its file is totalled as on demand."""
+@pytest.mark.parametrize(
+    "described", ["agents/core/helper/AGENT.md", "skills/_group/helper/SKILL.md"], ids=["agent", "skill"]
+)
+def test_agents_and_skills_count_only_their_description_every_session(tmp_path, described):
+    """Only an agent's or skill's description loads every session, so its files are otherwise totalled as on demand."""
     env = config_repo(tmp_path)
-    agent = tmp_path / "src/claude/agents/core/helper/AGENT.md"
-    agent.parent.mkdir(parents=True)
-    # a 39-character description plus its newline is an estimated 10 tokens
-    agent.write_text("---\ndescription: " + "d" * 39 + "\n---\n" + HUNDRED_TOKENS)
+    files = {
+        # a 39-character description plus its newline is an estimated 10 tokens
+        described: "---\ndescription: " + "d" * 39 + "\n---\n" + HUNDRED_TOKENS,
+        # a skill's reference file loads only while the skill runs
+        "skills/_group/helper/reference/_implementation.md": HUNDRED_TOKENS,
+    }
+    for path, text in files.items():
+        (tmp_path / "src/claude" / path).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / "src/claude" / path).write_text(text)
     subprocess.run(["git", "add", "."], cwd=tmp_path, env=env, check=True)
     every, _, rest = write_report(tmp_path, env).partition("## 💤 Only when needed")
-    assert "| 2 | `agents/core/helper/AGENT.md` (description) | ~10 |" in every, "the description loads every session"
+    assert f"| 2 | `{described}` (description) | ~10 |" in every, "the description loads every session"
     assert "| | **Subtotal** | **~110** |" in every, "only the description adds to the every-session subtotal"
-    assert "| 💤 On demand, via a pointer | 4 |" in rest, "the agent's whole file is totalled as on demand"
+    assert "| 💤 On demand, via a pointer | 5 |" in rest, "the whole file and the reference file are on demand"

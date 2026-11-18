@@ -11,6 +11,7 @@ SHELL = /bin/sh
 # make install YES=1	# install without the typed confirmation, for provisioning scripts outside Claude Code
 # make install PREFERENCES=1	# also install the preferences, such as the reply format
 # make test		# run the tests (pytest)
+# make evals		# run the evals tagged trigger: live with claude -p, on your own login
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
 
@@ -53,12 +54,16 @@ test:
 	@echo "${INFO}\nCalled makefile target 'test'. Perform any required tests.${COLOUR_OFF}\n"
 	@pytest
 
+evals:
+	@echo "${INFO}\nCalled makefile target 'evals'. Check each tagged eval starts the right skill or agent.${COLOUR_OFF}\n"
+	@python src/py/claude_run_trigger_evals.py
+
 clean:
 	@rm -rf .pytest_cache .ruff_cache
 	@find src tests -name __pycache__ -type d -prune -exec rm -rf {} +
 
 # Phony targets
-.PHONY: all help deps install uninstall test clean context_cost
+.PHONY: all help deps install uninstall test clean context_cost evals
 
 # .PHONY tells Make that these targets don't represent files
 # This prevents conflicts with any files named "all" or "clean"

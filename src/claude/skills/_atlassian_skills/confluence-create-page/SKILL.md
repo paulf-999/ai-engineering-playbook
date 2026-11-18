@@ -46,7 +46,7 @@ One new page at a time that follows the team's header, formatting and page patte
 
 - **Going live:** publish the page yourself in Confluence, and set its wide view there, since the API can't.
 - **Existing pages:** it doesn't edit them, so change those in Confluence.
-- **Evals by hand:** nothing runs `tests/evals.yaml` yet, so check a change to the skill against its scenarios by hand.
+- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`, so check a change to the skill against the rest by hand.
 
 ## 📚 References
 

@@ -45,7 +45,7 @@ Raising one well-formed ticket quickly, without looking up field IDs, sprint IDs
 
 - **Existing tickets:** it doesn't update, move or link tickets, so do that in Jira.
 - **Values file:** without `_local/jira_values.md`, the field and sprint IDs stay `< TODO >` until you fill it in.
-- **Evals by hand:** nothing runs `tests/evals.yaml` yet, so check a change to the skill against its scenarios by hand.
+- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`, so check a change to the skill against the rest by hand.
 
 ## 📚 References
 

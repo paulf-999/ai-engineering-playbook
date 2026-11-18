@@ -18,10 +18,10 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|
 | 1 | `CLAUDE.md` | ~523 |
 | 2 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
-| 3 | `rules/always_on/01_standards/conduct/behaviour.md` | ~334 |
-| 4 | `rules/always_on/01_standards/conduct/security.md` | ~205 |
-| 5 | `rules/always_on/01_standards/conduct/writing_style.md` | ~233 |
-| 6 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
+| 3 | `rules/always_on/01_standards/behaviour.md` | ~334 |
+| 4 | `rules/always_on/01_standards/naming_standards.md` | ~228 |
+| 5 | `rules/always_on/01_standards/security.md` | ~205 |
+| 6 | `rules/always_on/01_standards/writing_style.md` | ~233 |
 | 7 | `rules/always_on/02_team_conventions/house_style.md` | ~87 |
 | | **Subtotal** | **~1869** |
 
@@ -38,4 +38,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 22 | ~8400 |
-| 💤 On demand, via a pointer | 59 | ~28600 |
+| 💤 On demand, via a pointer | 59 | ~28500 |

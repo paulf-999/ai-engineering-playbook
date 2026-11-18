@@ -138,7 +138,7 @@ def find_parent(path, rules_dir=RULES_DIR):
     candidates = [beside]
     on_demand = rules_dir / "on_demand"
     # a loaded parent keeps its bulky children on demand, at the same path under always_on/ or path_scoped/,
-    # so on_demand/01_standards/conduct/writing_style/ belongs to always_on/01_standards/conduct/writing_style.md
+    # so on_demand/01_standards/writing_style/ belongs to always_on/01_standards/writing_style.md
     if beside.is_relative_to(on_demand):
         rest = beside.relative_to(on_demand)
         candidates += [rules_dir / "always_on" / rest, rules_dir / "path_scoped" / rest]

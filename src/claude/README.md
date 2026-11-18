@@ -13,13 +13,7 @@ This folder is the source of a global Claude Code config. `make install` copies 
 
 ## ⏱️ When rules load
 
-Every rule costs context, so its top folder decides how often it loads. A kind folder inside it, `01_standards/`, `02_team_conventions/` or `03_preferences/`, says what [kind of rule](#-three-kinds-of-rule) it is:
-
-| Folder | Loads |
-|---|---|
-| 🔁 `always_on/` | Every session |
-| 📂 `path_scoped/` | When Claude works on a file matching the rule's `paths:` list |
-| 💤 `on_demand/` | When a rule's "Read on demand" pointer or a hook sends Claude there |
+Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on_demand/`, decides how often it loads, per the [rules README](rules/README.md). A kind folder inside it, `01_standards/`, `02_team_conventions/` or `03_preferences/`, says what [kind of rule](#-three-kinds-of-rule) it is.
 
 - 📍 **Install location:** `on_demand/` installs beside `rules/`, not inside it, since Claude Code loads all of `rules/` every session.
 - 🧩 **Child files:** a name starting with `_` marks detail split from a parent rule, read only when the parent points to it.
@@ -44,11 +38,10 @@ Every rule costs context, so its top folder decides how often it loads. A kind f
 | 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `03_preferences/` folders | Only with `PREFERENCES=1` |
 
 - 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_kinds.md) sets out how a rule is sorted into one of the three.
-- 🏢 **Team conventions:** these install with everything else, with no switch to turn them off. To use your own, change `02_team_conventions/` by PR or in your own copy.
 
 ## 👤 Preferences
 
-Preferences are one person's taste in how Claude replies and where it keeps their own files, rather than a [standard or team convention](#-three-kinds-of-rule), so they install only if you ask:
+They install only if you ask:
 
 | Preference | What it does |
 |---|---|
@@ -65,11 +58,7 @@ Preferences are one person's taste in how Claude replies and where it keeps thei
 
 ## 🏗️ Installing into one repo
 
-To share the config with a team, install it into a repo's `.claude/` folder and commit that folder:
-
-```bash
-make install PROJECT=../my_dbt_repo
-```
+To share the config with a team, run `make install PROJECT=../my_dbt_repo` to install it into that repo's `.claude/` folder, then commit the folder.
 
 - 🪝 **Hooks:** add `HOOKS=1` to include the done checks hook, which is left out by default.
 - 🛡️ **Backups:** replaced files go to `backups/` in your Claude config directory, outside the repo.

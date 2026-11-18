@@ -11,5 +11,5 @@ paths:
 
 ## 📚 Read on demand
 
-- `_templates/utils/template_bash_script.sh`, in your Claude config directory, when the repo has no script template of its own.
-- `_templates/utils/shell_utils.sh`, in your Claude config directory, for its functions and which log level suits each message, when the repo has a shared `shell_utils.sh`.
+- [`_templates/utils/template_bash_script.sh`](../../../_templates/utils/template_bash_script.sh), in your Claude config directory, when the repo has no script template of its own.
+- [`_templates/utils/shell_utils.sh`](../../../_templates/utils/shell_utils.sh), in your Claude config directory, for its functions and which log level suits each message, when the repo has a shared `shell_utils.sh`.

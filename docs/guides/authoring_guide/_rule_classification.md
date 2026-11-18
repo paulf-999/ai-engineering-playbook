@@ -16,7 +16,7 @@ Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|pat
 
 Ask these in order, and stop at the first yes:
 
-1. 👤 **Is it on the preference list?** The reply format, bold-keyword bullets, the markdown layout rule, and where Claude saves plans, TODOs, drafts, error write-ups and session notes are preferences. A new preference needs the maintainer's ruling.
+1. 👤 **Is it on the preference list?** The reply format, bold-keyword bullets, the markdown style rule, and where Claude saves plans, TODOs, drafts, error write-ups and session notes are preferences. A new preference needs the maintainer's ruling.
 2. 🏢 **Does it name this company's files, tools, teams or roles?** Examples are `includes/common.py`, Azure Pipelines, the `data_management` owner or CODEOWNERS steps. If so, it's a team convention.
 3. 🎨 **Is it a pick between equally valid styles?** It's a standard only when it matches the guide's reference below, and a team convention otherwise, including where the reference is silent.
 4. 🔢 **Is it a number?** It's a team convention when the reference or the tool's own default sets a different one, such as 120-character lines where ruff defaults to 88. It's a standard when neither sets one, such as a 3-day lookback.

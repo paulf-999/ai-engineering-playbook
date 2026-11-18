@@ -107,7 +107,7 @@ No reader calls the installed config over-engineered, but all three still find t
 | 4️⃣ | **The data guides are unproven, and the dbt example still breaks a rule** (a plural name) | DE, DA, EM | Confuses | Measured in [`dbt_rules_measured.md`](../../docs/examples/dbt_rules_measured.md): 97% of checks with the rules against 71% without; the plural staging name still slips through |
 | 5️⃣ | **Jargon appears before the glossary**, which sits in `src/claude/README.md` | DE, DA, EM | Confuses | Open |
 | 6️⃣ | **Maintainer material outweighs the product** | DE, DA, EM | Polish | Kept by choice: the audits and rubrics |
-| 7️⃣ | **Emoji density in rule files** | DE, EM | Polish | Kept by choice: the markdown layout is the maintainer's preference |
+| 7️⃣ | **Emoji density in rule files** | DE, EM | Polish | Kept by choice: the markdown style is the maintainer's preference |
 | 8️⃣ | **Default to a project install** | DA, EM | Confuses | Open |
 
 Single-reader asks:

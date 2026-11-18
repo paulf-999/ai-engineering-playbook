@@ -29,9 +29,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/03_preferences/claude_output_format.md` | ~277 |
+| 1 | `rules/always_on/03_preferences/claude_output_format.md` | ~279 |
 | 2 | `rules/always_on/03_preferences/claude_working_files.md` | ~209 |
-| | **Subtotal** | **~487** |
+| | **Subtotal** | **~488** |
 
 ## 💤 Only when needed
 

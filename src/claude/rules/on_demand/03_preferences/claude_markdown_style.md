@@ -1,4 +1,4 @@
-# 🧱 Markdown layout
+# 🧱 Markdown style
 
 **Purpose:** how headings, lists and tables are laid out, so every page scans the same way. It's a preference, installed only with `make install PREFERENCES=1`.
 

@@ -287,23 +287,23 @@ def test_an_unlinked_or_misdirected_pointer_is_reported():
     assert unlinked_pointers("\n".join([good, bare, wrong]), folder) == [bare, wrong]
 
 
-# a backticked path into a 03_preferences/ folder, which a default install leaves out
+# a backticked path into a 02_preferences/ folder, which a default install leaves out
 PREFERENCE_PATH = re.compile(r"`[^`\n]*preferences/[^`\n]*`")
 
 
 def preference_paths(text):
-    """Return each backticked path into a 03_preferences/ folder that the text names."""
+    """Return each backticked path into a 02_preferences/ folder that the text names."""
     return PREFERENCE_PATH.findall(text)
 
 
 def test_preference_paths_are_found_in_any_backticks():
-    """A pointer bullet, a table cell or prose naming a 03_preferences/ path is caught, and other paths aren't."""
-    text = "- `on_demand/03_preferences/x.md`, when\n| `_templates/preferences/y` |\nsee `rules/always_on/z.md`"
-    assert preference_paths(text) == ["`on_demand/03_preferences/x.md`", "`_templates/preferences/y`"]
+    """A pointer bullet, a table cell or prose naming a 02_preferences/ path is caught, and other paths aren't."""
+    text = "- `on_demand/02_preferences/x.md`, when\n| `_templates/preferences/y` |\nsee `rules/always_on/z.md`"
+    assert preference_paths(text) == ["`on_demand/02_preferences/x.md`", "`_templates/preferences/y`"]
 
 
 def test_no_default_install_file_names_a_preference():
-    """Nothing a default install ships points into a 03_preferences/ folder, which only PREFERENCES=1 installs."""
+    """Nothing a default install ships points into a 02_preferences/ folder, which only PREFERENCES=1 installs."""
     problems = [
         f"{path}: {found}"
         for path in sorted(tracked_config_files())
@@ -396,7 +396,7 @@ def test_mismatched_team_convention_globs_are_reported(tmp_path):
     assert "no paths: list" in globs_problem(team, guide)
 
 
-KINDS = {"01_standards", "03_preferences"}
+KINDS = {"01_standards", "02_preferences"}
 # style guides sit in one folder per load time, and a team convention shows its kind by a _team_conventions name
 STYLE_GUIDE_HOMES = {"path_scoped/style_guides", "on_demand/style_guides"}
 

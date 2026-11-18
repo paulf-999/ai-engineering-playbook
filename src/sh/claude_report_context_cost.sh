@@ -50,7 +50,7 @@ load_condition() {
     globs="$(rule_path_globs "${REPO_DIR}/${file}" | awk '{ printf "%s`%s`", sep, $0; sep = ", " }')"
     if [[ -n "${globs}" ]]; then
         echo "With matching files: ${globs}"
-    elif [[ "${file}" == */preferences/* || "${file}" == */03_preferences/* ]]; then
+    elif [[ "${file}" == */preferences/* || "${file}" == */02_preferences/* ]]; then
         # preferences install only with PREFERENCES=1
         echo "Every session, if opted in"
     else

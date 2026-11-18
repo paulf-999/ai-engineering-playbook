@@ -4,13 +4,13 @@
 
 ## 🗂️ The three kinds
 
-Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|path_scoped|on_demand>/<01_standards|03_preferences>/`, numbered so they sort in the order they apply. A team convention sits beside the standard it extends, with the kind shown by a `_team_conventions` file name, as "Splitting a guide by kind" below sets out. Style guides live in `path_scoped/style_guides/` and `on_demand/style_guides/`.
+Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|path_scoped|on_demand>/<01_standards|02_preferences>/`, numbered so they sort in the order they apply. A team convention sits beside the standard it extends, with the kind shown by a `_team_conventions` file name, as "Splitting a guide by kind" below sets out. Style guides live in `path_scoped/style_guides/` and `on_demand/style_guides/`.
 
 | Kind | Test | Folder | Installs |
 |---|---|---|---|
 | 🧰 **Standard** | Good practice for anyone using the tool, whatever their team | `01_standards/` | Always |
 | 🏢 **Team convention** | This company's own choice for its shared work: folder layouts, environment names, naming patterns, macros, helper modules, CI and vendor tools, lint skips, required fields, version pins or house writing style | A `_team_conventions` file beside the standard or style guide it extends | By default, since the repo starts the team from its shared conventions |
-| 👤 **Preference** | Something the maintainer has ruled a preference: how Claude lays out its replies and docs, or where it keeps one user's own working files | `03_preferences/` | Only with `make install PREFERENCES=1` |
+| 👤 **Preference** | Something the maintainer has ruled a preference: how Claude lays out its replies and docs, or where it keeps one user's own working files | `02_preferences/` | Only with `make install PREFERENCES=1` |
 
 ## ⚖️ Deciding
 

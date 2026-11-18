@@ -19,7 +19,7 @@ def config_repo(tmp_path):
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- created: 2026-11-13 -->\n" + HUNDRED_TOKENS,
         # a preference loads every session, but only for users who opt in with PREFERENCES=1
-        "src/claude/rules/always_on/03_preferences/taste.md": HUNDRED_TOKENS,
+        "src/claude/rules/always_on/02_preferences/taste.md": HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/on_demand/guide.md": HUNDRED_TOKENS,
         # a README in any folder never installs, so the report leaves it out
@@ -73,7 +73,7 @@ def test_report_lists_preferences_apart_from_every_session_files(tmp_path):
     every, _, rest = report.partition("## 👤 Every session, if opted in")
     assert "taste.md" not in every, "a preference shouldn't count as every session for everyone"
     opted = rest.partition("## 💤")[0]
-    assert "| 1 | `rules/always_on/03_preferences/taste.md` | ~100 |" in opted, "the preference is listed when opted in"
+    assert "| 1 | `rules/always_on/02_preferences/taste.md` | ~100 |" in opted, "the preference is listed when opted in"
     assert "| | **Subtotal** | **~100** |" in opted, "the opted-in table has its own subtotal"
 
 

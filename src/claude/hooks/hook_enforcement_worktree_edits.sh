@@ -60,7 +60,7 @@ touch "${STATE_FILE}"
 
 echo "This is your first edit in ${ROOT}, the repo's main folder, not a worktree." \
     "If another session or sub-agent may work in this repo, move into your own git worktree first," \
-    "per rules/on_demand/01_standards/git.md, and make the edit there. Otherwise, make the edit again." >&2
+    "per on_demand/01_standards/git.md in your Claude config directory, and make the edit there. Otherwise, make the edit again." >&2
 # this session hasn't edited the repo yet, so changes already there are most likely another session's
 if [[ -n "$(git -C "${ROOT}" status --porcelain --untracked-files=no)" ]]; then
     echo "Tracked files here already have changes from before this edit, so another session is likely working here." >&2

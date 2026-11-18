@@ -1,4 +1,4 @@
-# 👤 03_preferences
+# 👤 02_preferences
 
 **Purpose:** one person's taste, read only when a rule points Claude there, and installed only with `make install PREFERENCES=1`.
 

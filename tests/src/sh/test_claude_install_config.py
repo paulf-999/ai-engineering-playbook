@@ -525,7 +525,7 @@ def test_authoring_templates_never_install(tmp_path):
 # files an install writes for its own records, beside the config it copies
 BOOKKEEPING = {".playbook_install_manifest", ".playbook_install_deny_rules", "settings.json"}
 # a preference that installs only with PREFERENCES=1
-OUTPUT_FORMAT = "rules/always_on/03_preferences/claude_output_format.md"
+OUTPUT_FORMAT = "rules/always_on/02_preferences/claude_output_format.md"
 
 
 def preference_files(target):
@@ -557,7 +557,7 @@ def test_a_plain_reinstall_keeps_preferences_and_zero_removes_them(tmp_path):
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert preference_files(config) == set(), "PREFERENCES=0 should remove every preference"
-    assert not (config / "rules" / "always_on" / "03_preferences").exists(), "the empty folder should be removed"
+    assert not (config / "rules" / "always_on" / "02_preferences").exists(), "the empty folder should be removed"
     assert "rerun with make install PREFERENCES=1" in result.stdout, "it should say how to keep them"
 
 
@@ -637,14 +637,15 @@ def test_an_upgrade_says_moved_working_files_rules_are_now_opt_in(tmp_path):
         assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
         assert not (config / old).exists(), "the old path should be removed"
         assert ("now opt-in" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
-        moved = config / "on_demand" / "03_preferences" / "claude_working_files" / "_saving_plans.md"
+        moved = config / "on_demand" / "02_preferences" / "claude_working_files" / "_saving_plans.md"
         assert moved.exists() == bool(flag), "the rule should be at its new path only when opted in"
 
 
-def test_an_install_from_before_the_numbered_folders_keeps_the_opt_in_and_tidies_up(tmp_path):
-    """An old preferences/ install counts as opted in, moves to 03_preferences/, and leaves no empty folder."""
+@pytest.mark.parametrize("old_folder", ["preferences", "03_preferences"])
+def test_an_install_from_an_older_folder_keeps_the_opt_in_and_tidies_up(tmp_path, old_folder):
+    """An older preferences folder counts as opted in, moves to 02_preferences/, and leaves no empty folder."""
     config = tmp_path / "config"
-    old = "rules/always_on/preferences/claude_output_format.md"
+    old = f"rules/always_on/{old_folder}/claude_output_format.md"
     (config / old).parent.mkdir(parents=True)
     (config / old).write_text("the old output format\n")
     (config / ".playbook_install_manifest").write_text(f"{old}\n")
@@ -653,7 +654,7 @@ def test_an_install_from_before_the_numbered_folders_keeps_the_opt_in_and_tidies
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert (config / OUTPUT_FORMAT).exists(), "the old opt-in should carry over to the numbered folder"
-    assert not (config / "rules" / "always_on" / "preferences").exists(), "the emptied old folder should be removed"
+    assert not (config / "rules" / "always_on" / old_folder).exists(), "the emptied old folder should be removed"
 
 
 def test_readmes_never_install(tmp_path):

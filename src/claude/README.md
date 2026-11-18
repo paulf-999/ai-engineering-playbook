@@ -15,7 +15,7 @@ This folder is the source of a global Claude Code config. `make install` copies 
 
 ## ⏱️ When rules load
 
-Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on_demand/`, decides how often it loads, per the [rules README](rules/README.md). A kind folder inside it, `01_standards/` or `03_preferences/`, says what [kind of rule](#-three-kinds-of-rule) it is. A team convention sits beside the standard it extends as `<name>_team_conventions.md`, and style guides sit in `style_guides/`.
+Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on_demand/`, decides how often it loads, per the [rules README](rules/README.md). A kind folder inside it, `01_standards/` or `02_preferences/`, says what [kind of rule](#-three-kinds-of-rule) it is. A team convention sits beside the standard it extends as `<name>_team_conventions.md`, and style guides sit in `style_guides/`.
 
 <details>
 <summary>Where on-demand and child files go</summary>
@@ -54,7 +54,7 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 |---|---|---|---|---|
 | 🧰 **Standard** | Good practice for anyone using the tool | Pin your Docker base image | `01_standards/` folders | Always |
 | 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `_team_conventions` files, beside the standard they extend | With everything else |
-| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `03_preferences/` folders | Only with `PREFERENCES=1` |
+| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `02_preferences/` folders | Only with `PREFERENCES=1` |
 
 - 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_classification.md) sets out how a rule is sorted into one of the three.
 

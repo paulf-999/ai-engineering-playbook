@@ -9,5 +9,5 @@
 
 ## 📚 Read on demand
 
-- `on_demand/01_standards/conduct/audience_and_depth.md`, in your Claude config directory, before writing for people outside the repo, such as a Confluence page, ticket or email.
-- `on_demand/style_guides/jira.md`, before writing or changing a Jira ticket.
+- [`on_demand/01_standards/conduct/audience_and_depth.md`](../../on_demand/01_standards/conduct/audience_and_depth.md), in your Claude config directory, before writing for people outside the repo, such as a Confluence page, ticket or email.
+- [`on_demand/style_guides/jira.md`](../../on_demand/style_guides/jira.md), before writing or changing a Jira ticket.

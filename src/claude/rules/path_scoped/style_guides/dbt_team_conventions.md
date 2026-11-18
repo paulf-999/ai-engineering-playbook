@@ -48,5 +48,5 @@ The project uses a four-layer architecture. Each layer has a distinct responsibi
 
 ## 📚 Read on demand
 
-- `on_demand/style_guides/dbt_team_conventions/_macros_and_keys.md`, in your Claude config directory, before writing logic a team macro or package may already cover, or using the team's key column or audit fields.
-- `on_demand/style_guides/dbt_team_conventions/_layout.md`, when adding a folder or placing a model or YAML file.
+- [`on_demand/style_guides/dbt_team_conventions/_macros_and_keys.md`](../../on_demand/style_guides/dbt_team_conventions/_macros_and_keys.md), in your Claude config directory, before writing logic a team macro or package may already cover, or using the team's key column or audit fields.
+- [`on_demand/style_guides/dbt_team_conventions/_layout.md`](../../on_demand/style_guides/dbt_team_conventions/_layout.md), when adding a folder or placing a model or YAML file.

@@ -19,7 +19,7 @@ dispatch:
         - creating several tickets at once from a list or template
         - moving existing tickets between sprints
         - linking tickets to each other
-        - writing a Confluence page
+        - writing a Confluence page → /confluence-create-page
 
 requires:
     tools: [Read, getAccessibleAtlassianResources, getJiraIssue, searchJiraIssuesUsingJql, getJiraIssueTypeMetaWithFields, createJiraIssue]

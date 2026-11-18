@@ -1,0 +1,39 @@
+---
+name: confluence-create-page
+version: 1.0.0
+summary: Create a Confluence page from one of the team's patterns, as a Confluence draft, after you approve a local draft
+test_coverage_level: comprehensive
+
+dispatch:
+    triggers:
+        explicit:
+            - /confluence-create-page
+            - create a confluence page
+            - write a confluence page
+            - add a page to confluence
+            - publish a draft to confluence
+            - platform risk assessment
+        contextual:
+            - user wants a new Confluence page written from notes, an outline or existing docs
+
+    not_for:
+        - editing or updating an existing page
+        - creating several pages at once
+        - page types other than general_page and platform_risk_assessment
+        - making a page live, since it creates Confluence drafts that the user publishes
+        - creating a Jira ticket → /jira-create-issue
+
+requires:
+    tools: [Read, Write, getAccessibleAtlassianResources, searchConfluenceUsingCql, getConfluencePage, createConfluencePage]
+    resources: []
+    mcp_servers: [Atlassian]
+
+output:
+    type: mixed
+    confirmation_required: true
+    reversible: true
+    returns: [local draft path, Confluence draft URL, page ID]
+
+dependencies:
+    external: [Atlassian Confluence]
+    permissions: [add-page access to the target space]

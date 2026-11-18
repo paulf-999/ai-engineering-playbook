@@ -3,9 +3,9 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A practical playbook that treats AI-assisted engineering as an engineering discipline, not a collection of prompts. It favours simplicity, selective context loading, spec-led workflows and evidence-based decisions, starting with a lean set of instructions for Claude Code. Instructions are organised so that Claude doesn't need to load every rule for every task.
+A practical playbook that treats AI-assisted engineering as a discipline, not a collection of prompts.
 
-It keeps three things apart: instructions that guide Claude, automated checks such as tests and CI that enforce standards, and human review that confirms a change meets its goal. Each part has to earn its place against a near-bare setup of just `CLAUDE.md`, tests and CI.
+**Goal:** favour simplicity, selective context loading, spec-led workflows and evidence-based decisions.
 
 ---
 

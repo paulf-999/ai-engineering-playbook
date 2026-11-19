@@ -154,9 +154,6 @@ list_source_files() {
 # Settle PREFERENCES: an explicit 0 or 1 wins, otherwise preferences install,
 # except into a project, which never gets them, since its .claude/ folder is shared
 resolve_preferences() {
-    if [[ -n "${STYLE:-}" ]]; then
-        log_message "${WARNING}" "STYLE is gone: the reply format is a preference, left out with PREFERENCES=0, and the writing-style rule always installs."
-    fi
     case "${PREFERENCES}" in
         0 | 1) ;;
         "")

@@ -8,7 +8,7 @@
 This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, a pre-commit hook rewrites and stages it when a commit changes `src/claude/`, and CI fails if it's out of date, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../docs/target_architecture/architecture/_budget_and_guards.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
-- 👤 **Every session, if opted in:** preferences, which load in every session only after `make install PREFERENCES=1`. They count towards the budget only for those users, but the budget check always counts them, the worst case.
+- 👤 **Every session, unless opted out:** preferences, which load in every session unless `make install PREFERENCES=0` leaves them out, and never in a one-repo install. The budget check always counts them, the worst case.
 - 📂 **Path-scoped rules:** loads only once Claude opens a file that matches one of its globs.
 - 💤 **On demand:** loads only when Claude follows a pointer to it.
 
@@ -32,13 +32,13 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 14 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
 | | **Subtotal** | **~2279** |
 
-## 👤 Every session, if opted in
+## 👤 Every session, unless opted out
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~294 |
-| 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~264 |
-| | **Subtotal** | **~558** |
+| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~292 |
+| 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~263 |
+| | **Subtotal** | **~555** |
 
 ## 💤 Only when needed
 

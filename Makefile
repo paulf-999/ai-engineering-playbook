@@ -9,7 +9,7 @@ SHELL = /bin/sh
 # make install		# copy src/claude/ into your Claude config directory, or PROJECT=<repo>'s .claude/ folder
 # make uninstall	# remove what make install added, restoring the files it replaced
 # make install YES=1	# install without the typed confirmation, for provisioning scripts outside Claude Code
-# make install PREFERENCES=1	# also install the preferences, such as the reply format
+# make install PREFERENCES=0	# leave out the preferences, such as the reply format
 # make test		# run the tests (pytest)
 # make evals		# run the evals tagged trigger: live with claude -p, on your own login
 # make evals BEHAVIOUR=1	# run the evals tagged behaviour: true end to end, and grade their assertions

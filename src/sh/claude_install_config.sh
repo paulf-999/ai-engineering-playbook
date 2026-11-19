@@ -10,8 +10,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              With UNINSTALL=1, it removes what the manifest lists, restores each file's pre-install backup and strips
 #              the config's hooks and deny rules from settings.json
 #              With YES=1, install skips the typed confirmation for provisioning scripts, but never from Claude Code
-#              With PREFERENCES=1, it adds the rules in 02_preferences/ folders, and a later install keeps them unless
-#              PREFERENCES=0, but never into a PROJECT install
+#              It adds the rules in 02_preferences/ folders unless PREFERENCES=0, but never into a PROJECT install
 #              It never installs the skill, agent and rule templates, which are for authoring in this repo
 # Usage: [PROJECT=<repo> [HOOKS=1]] [PREFERENCES=0|1] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
 #        your own terminal or in a provisioning script; make install and make uninstall call it)
@@ -37,9 +36,9 @@ WITH_HOOKS="${HOOKS:-}"
 UNINSTALL="${UNINSTALL:-}"
 # skips install's typed confirmation, for devcontainers and onboarding scripts that have no terminal
 ASSUME_YES="${YES:-}"
-# 1 installs the rules in 02_preferences/ folders, one person's taste; unset, it keeps an earlier install's choice
+# 0 leaves out the rules in 02_preferences/ folders, one person's taste, which otherwise install everywhere but a project
 PREFERENCES="${PREFERENCES:-}"
-# installed paths where preferences lived before they moved into preferences/ folders, so removing one says it's opt-in
+# installed paths where preferences lived before they moved into preferences/ folders, so removing one says how to keep it
 OLD_PREFERENCE_PATHS=" rules/always_on/standards/claude_response_standards.md on_demand/workflows/saving_plans.md \
 on_demand/conduct/todo_logging.md on_demand/conduct/writing_style/_drafts_and_errors.md \
 on_demand/conduct/writing_style/_markdown_layout.md _templates/TODO.md.template "
@@ -59,7 +58,7 @@ else
     BACKUP_PREFIX="${TARGET_DIR}/backups/install_"
 fi
 # what a project install says about preferences, which only go into your own config
-PROJECT_PREFERENCES_NOTE="Preferences don't install into a project; add them to your own config with make install PREFERENCES=1"
+PROJECT_PREFERENCES_NOTE="Preferences don't install into a project; add them to your own config with make install"
 # each install's backups start with BACKUP_PREFIX then the date, so uninstall can find the oldest copy of each file
 BACKUP_DIR="${BACKUP_PREFIX}$(date +%Y_%m_%d_%H%M%S)"
 [[ "${UNINSTALL}" == 1 ]] && BACKUP_DIR="${BACKUP_PREFIX}uninstall_$(date +%Y_%m_%d_%H%M%S)"
@@ -181,19 +180,17 @@ list_source_files() {
     fi
 }
 
-# Settle PREFERENCES: an explicit 0 or 1 wins, otherwise an earlier install's preferences keep installing,
-# and a project never gets them, since its .claude/ folder is shared
+# Settle PREFERENCES: an explicit 0 or 1 wins, otherwise preferences install,
+# except into a project, which never gets them, since its .claude/ folder is shared
 resolve_preferences() {
     if [[ -n "${STYLE:-}" ]]; then
-        log_message "${WARNING}" "STYLE is gone: the reply format is now opt-in with PREFERENCES=1, and the writing-style rule always installs."
+        log_message "${WARNING}" "STYLE is gone: the reply format is a preference, left out with PREFERENCES=0, and the writing-style rule always installs."
     fi
     case "${PREFERENCES}" in
         0 | 1) ;;
         "")
-            PREFERENCES=0
-            if [[ -z "${PROJECT}" ]] && file_exists "${MANIFEST}" && grep -qE "/(0[23]_)?preferences/" "${MANIFEST}"; then
-                PREFERENCES=1
-            fi
+            PREFERENCES=1
+            [[ -n "${PROJECT}" ]] && PREFERENCES=0
             ;;
         *)
             log_message "${ERROR}" "PREFERENCES must be 0 or 1, not '${PREFERENCES}' - nothing changed."
@@ -246,7 +243,7 @@ print_opt_in_note() {
             if [[ -n "${PROJECT}" ]]; then
                 log_message "${WARNING}" "${PROJECT_PREFERENCES_NOTE}."
             else
-                log_message "${WARNING}" "Preferences are now opt-in: rerun with make install PREFERENCES=1 to keep them."
+                log_message "${WARNING}" "PREFERENCES=0 removes the preferences: rerun with a plain make install to keep them."
             fi
             return 0
         fi
@@ -270,7 +267,7 @@ confirm_install() {
         log_message "${WARNING}" "Removing ${#REMOVED_FILES[@]} file(s) an earlier install added:"
         for file in "${REMOVED_FILES[@]}"; do
             if [[ "${PREFERENCES}" != 1 ]] && is_preference "${file}"; then
-                echo "  ${file} (holds preferences, now opt-in)"
+                echo "  ${file} (holds preferences, left out)"
             else
                 echo "  ${file} (no longer in the repo)"
             fi

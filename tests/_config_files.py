@@ -13,7 +13,7 @@ GIT_ENV = {"GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}
 
 
 def is_preference(path):
-    """Return whether a src/claude/ path is a preference, which installs only with PREFERENCES=1."""
+    """Return whether a src/claude/ path is a preference, which PREFERENCES=0 and project installs leave out."""
     return "/preferences/" in f"/{path}" or "/02_preferences/" in f"/{path}"
 
 

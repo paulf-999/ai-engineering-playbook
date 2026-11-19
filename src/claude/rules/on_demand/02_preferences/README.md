@@ -1,6 +1,6 @@
 # 👤 02_preferences
 
-**Purpose:** one person's taste, read only when a rule points Claude there, and installed only with `make install PREFERENCES=1`.
+**Purpose:** one person's taste, read only when a rule points Claude there, and left out with `make install PREFERENCES=0`.
 
 | File or folder | What it covers |
 |---|---|

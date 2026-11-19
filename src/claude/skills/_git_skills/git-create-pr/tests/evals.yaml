@@ -204,6 +204,7 @@ evals:
           Claude stops without running any of the planned commands, so no
           branch, commit, push or PR is created.
       assertions:
+          - Claude shows the plan of commands it would run before the user replies
           - Claude does not run git checkout, git commit, git push or gh pr create
           - The working tree is left exactly as it was
 

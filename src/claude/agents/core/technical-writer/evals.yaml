@@ -65,6 +65,7 @@ evals:
               - (?i)\[x\] Bugfix
 
     - name: pr_body_links_jira_ticket
+      behaviour: true
       description: Picks up a Jira key from the branch name and links it
       input:
           prompt: Draft the PR description for this branch
@@ -101,6 +102,7 @@ evals:
               - (?s)## Summary.*## Testing
 
     - name: pr_body_missing_template_stops
+      behaviour: true
       description: Stops instead of inventing a PR body when there is no template
       input:
           prompt: Draft a PR body for the readme typo fix
@@ -224,6 +226,7 @@ evals:
               - (?i)(can't|cannot|don't|do not|won't) publish
 
     - name: declines_adr
+      behaviour: true
       description: Declines to write an Architecture Decision Record
       input:
           prompt: Write an ADR for choosing Snowflake over BigQuery

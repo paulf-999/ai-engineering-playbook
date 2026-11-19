@@ -45,6 +45,7 @@ evals:
 
   # Verdicts
     - name: clean_change_approved
+      behaviour: true
       description: Approves a small, correct change without inventing issues
       input:
           prompt: Review this diff that renames a variable consistently across one file
@@ -150,6 +151,7 @@ evals:
               - (?i)\A\s*(here|sure|certainly|below|i've|i have)
 
     - name: findings_have_fixes
+      behaviour: true
       description: Pairs each finding with a specific fix
       input:
           prompt: Review this diff

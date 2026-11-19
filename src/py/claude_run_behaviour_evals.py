@@ -2,11 +2,14 @@
 
 Each scenario gets its own scratch git repo, built from its `setup:` keys, with no remote and only this repo's
 skills and agents. Push, gh and web tools are blocked and MCP servers are dropped, so nothing leaves the machine.
-A `confirm_reply` is sent by resuming the session. The grader is a `claude -p --safe-mode` run that sees only the
+A `confirm_reply` is sent by resuming the session. An agent's scenario with a `run:` block sends its self-contained
+prompt straight to that agent in a bare repo, since its `setup:` only describes the prompt, and checks each
+`must_match` pattern against Claude's text. The grader is a `claude -p --safe-mode` run that sees only the
 assertions, the transcript and the repo's final state.
 """
 
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -61,7 +64,10 @@ def load_scenarios(source_dir):
     """Return every scenario tagged `behaviour: true`, from each evals.yaml under source_dir."""
     scenarios = []
     for path in sorted(source_dir.rglob("evals.yaml")):
-        scenarios += [s for s in yaml.safe_load(path.read_text())["evals"] if s.get("behaviour") is True]
+        evals = yaml.safe_load(path.read_text())
+        for scenario in evals["evals"]:
+            if scenario.get("behaviour") is True:
+                scenarios.append({**scenario, "agent": evals.get("agent_name")})
     return scenarios
 
 
@@ -95,13 +101,15 @@ def build_repo(repo_dir, setup):
         (repo_dir / name).write_text("PLACEHOLDER=1\n" if name.endswith(".env") else "print('changed')\n")
 
 
-def run_claude(prompt, repo_dir, session_id=None):
-    """Run one turn of claude -p in repo_dir, resuming session_id if given, and return its events."""
+def run_claude(prompt, repo_dir, session_id=None, agent=None):
+    """Run one turn of claude -p in repo_dir, resuming session_id or as agent if given, and return its events."""
     command = ["claude", "-p", prompt, "--setting-sources", "project", "--strict-mcp-config"]
     command += ["--output-format", "stream-json", "--verbose", "--max-turns", MAX_TURNS]
     command += ["--allowedTools", *ALLOWED_TOOLS, "--disallowedTools", *BLOCKED_TOOLS]
     if session_id:
         command += ["--resume", session_id]
+    if agent:
+        command += ["--agent", agent]
     result = subprocess.run(command, cwd=repo_dir, capture_output=True, text=True, timeout=TIMEOUT_SECONDS)
     return parse_events(result.stdout.splitlines())
 
@@ -150,24 +158,44 @@ def grade(assertions, transcript_text, state, grader_dir):
     return json.loads(result.stdout)["structured_output"]["results"]
 
 
+def claude_text(turns):
+    """Return all of Claude's text blocks across the turns, joined by newlines."""
+    blocks = []
+    for _, events in turns:
+        for event in events:
+            if event.get("type") == "assistant":
+                blocks += [b["text"] for b in event["message"].get("content", []) if b.get("type") == "text"]
+    return "\n".join(blocks)
+
+
+def pattern_results(patterns, text):
+    """Check each must_match pattern against Claude's text, in the grader's result format."""
+    return [
+        {"assertion": f"Claude's reply matches {pattern}", "pass": bool(re.search(pattern, text)), "reason": ""}
+        for pattern in patterns
+    ]
+
+
 def run_scenario(scenario, scratch_dir):
     """Build, run and grade one scenario, returning (results, error), and delete its projects/ folder."""
     repo_dir = scratch_dir / scenario["name"]
     repo_dir.mkdir()
+    direct = scenario.get("run") if scenario["agent"] else None
     try:
-        build_repo(repo_dir, scenario.get("setup", {}))
+        build_repo(repo_dir, {} if direct else scenario.get("setup", {}))
     except ValueError as error:
         return [], str(error)
     copy_components(SOURCE_DIR, repo_dir)
-    prompt = scenario["input"]["prompt"]
-    turns = [(prompt, run_claude(prompt, repo_dir))]
+    prompt = direct["prompt"] if direct else scenario["input"]["prompt"]
+    turns = [(prompt, run_claude(prompt, repo_dir, agent=scenario["agent"] if direct else None))]
     reply = scenario["input"].get("confirm_reply")
     if reply:
         turns.append((reply, run_claude(reply, repo_dir, session_id_of(turns[0][1]))))
     folder = project_folder(turns[0][1], repo_dir.resolve())
     if folder:
         shutil.rmtree(folder, ignore_errors=True)
-    return grade(scenario["assertions"], transcript(turns), repo_state(repo_dir), scratch_dir), None
+    patterns = pattern_results(direct.get("must_match", []) if direct else [], claude_text(turns))
+    return patterns + grade(scenario["assertions"], transcript(turns), repo_state(repo_dir), scratch_dir), None
 
 
 def main():

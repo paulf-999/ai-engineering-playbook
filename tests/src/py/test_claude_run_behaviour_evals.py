@@ -73,3 +73,18 @@ def test_transcript_shows_text_tools_and_refusals():
         "REFUSED OR FAILED: denied",
     ]
     assert runner.session_id_of(events) == "abc"
+
+
+def test_load_scenarios_records_the_file_agent(tmp_path):
+    """A scenario from an agent's evals.yaml carries that agent's name, so its run: block goes to the agent."""
+    evals = {"agent_name": "code-reviewer", "evals": [{"name": "tagged", "behaviour": True}]}
+    (tmp_path / "evals.yaml").write_text(json.dumps(evals))
+    assert runner.load_scenarios(tmp_path)[0]["agent"] == "code-reviewer"
+
+
+def test_patterns_match_every_line_of_claude_text():
+    """must_match patterns see all of Claude's multi-line text, not just each block's first line."""
+    reply = {"type": "assistant", "message": {"content": [{"type": "text", "text": "Verdict\n\n## Fix\nrange(n)"}]}}
+    text = runner.claude_text([("Review this diff", [reply])])
+    results = runner.pattern_results([r"(?s)Verdict.*## Fix", "absent"], text)
+    assert [result["pass"] for result in results] == [True, False]

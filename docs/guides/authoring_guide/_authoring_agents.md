@@ -8,6 +8,7 @@
 - 🗣️ **Description:** say when Claude should delegate to it, since Claude Code decides from the description alone, and keep it short, since it loads in every session.
 - 🔐 **Tools:** list only what the job needs, since leaving `tools:` out grants every tool, and set `isolation: worktree` only for an agent that changes files.
 - 🚧 **Constraints:** say what it doesn't do, and why.
+- 🧪 **Evals:** give a scenario a self-contained `run:` prompt, with optional `must_match` patterns, and tag it `behaviour: true`, so `make evals BEHAVIOUR=1` sends it straight to the agent and grades its assertions.
 
 ## 🏁 Before merging
 

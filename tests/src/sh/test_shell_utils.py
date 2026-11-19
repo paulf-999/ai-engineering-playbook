@@ -42,6 +42,22 @@ def test_rule_path_globs_reads_only_the_opening_block(tmp_path, frontmatter, exp
     assert result.stdout.strip() == expected, f"expected globs {expected!r}, got {result.stdout!r}"
 
 
+@pytest.mark.parametrize(
+    ("frontmatter", "expected"),
+    [
+        ("---\nname: x\ndescription: Do a thing\n---\n", "Do a thing"),
+        ("---\nname: x\ndescription: >\n  Do a\n  thing\n---\n", "Do a\n  thing"),
+        ("---\nname: x\ndescription: Do a thing\ndisable-model-invocation: true\n---\n", ""),
+    ],
+)
+def test_description_text_skips_slash_only_skills(tmp_path, frontmatter, expected):
+    """description_text prints a description, folded or not, and nothing for a slash-only skill Claude never sees."""
+    skill = tmp_path / "SKILL.md"
+    skill.write_text(frontmatter)
+    result = run_with_utils(f'description_text "{skill}"')
+    assert result.stdout.strip() == expected, f"expected {expected!r}, got {result.stdout!r}"
+
+
 @pytest.mark.parametrize(("value", "expected"), [("7", "7"), ("010", "10"), ("08", "8"), ("123456789", "123456789")])
 def test_to_whole_number_reads_base_ten(value, expected):
     """to_whole_number prints the base-10 value, so a leading zero isn't read as octal."""

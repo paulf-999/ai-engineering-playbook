@@ -40,3 +40,12 @@ def test_prepare_repo_differs_only_by_the_rule(tmp_path, with_rule):
 def test_verdict_needs_a_margin_of_two_runs(without, with_, expected):
     """A rule helps or hurts only when one condition passes at least 2 more runs than the other."""
     assert runner.verdict(without, with_) == expected
+
+
+def test_select_cases_runs_only_the_named_case():
+    """CASE picks one case by name, an empty name keeps them all, and an unknown name stops the run."""
+    cases = [{"name": "a"}, {"name": "b"}]
+    assert runner.select_cases(cases, "b") == [{"name": "b"}]
+    assert runner.select_cases(cases, "") == cases
+    with pytest.raises(SystemExit, match="No rule eval case is named c"):
+        runner.select_cases(cases, "c")

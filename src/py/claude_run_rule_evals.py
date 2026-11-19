@@ -2,7 +2,7 @@
 
 Each run gets its own scratch git repo, built from the case's `setup:`, with no skills or agents, so the only
 difference between the two conditions is the rule, copied into `.claude/rules/`. The grader isn't told which
-condition it's grading. `RUNS` sets how many runs each condition gets.
+condition it's grading. `RUNS` sets how many runs each condition gets, and `CASE` runs only the case with that name.
 """
 
 import os
@@ -23,6 +23,16 @@ MARGIN = 2
 def load_cases(cases_file):
     """Return the cases in the rule evals file."""
     return yaml.safe_load(cases_file.read_text())["evals"]
+
+
+def select_cases(cases, name):
+    """Return only the case called name, or every case when name is empty, and exit if no case has that name."""
+    if not name:
+        return cases
+    chosen = [case for case in cases if case["name"] == name]
+    if not chosen:
+        sys.exit(f"No rule eval case is named {name}.")
+    return chosen
 
 
 def prepare_repo(repo_dir, case, with_rule):
@@ -69,7 +79,7 @@ def main():
         sys.exit("claude isn't on PATH - install Claude Code and log in first.")
     runs = int(os.environ.get("RUNS", "3"))
     with tempfile.TemporaryDirectory(prefix="rule_evals_") as scratch:
-        for case in load_cases(CASES_FILE):
+        for case in select_cases(load_cases(CASES_FILE), os.environ.get("CASE", "")):
             passes = {}
             for with_rule in (False, True):
                 label = "with" if with_rule else "without"

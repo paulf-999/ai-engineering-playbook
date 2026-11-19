@@ -28,8 +28,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 10 | `skills/_atlassian_skills/confluence-create-page/SKILL.md` (description) | ~52 |
 | 11 | `skills/_atlassian_skills/jira-create-issue/SKILL.md` (description) | ~44 |
 | 12 | `skills/_claude_skills/claude-capture-session-prompts/SKILL.md` (description) | ~42 |
-| 13 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
-| 14 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
+| 13 | `skills/_claude_skills/claude-kaizen/SKILL.md` (description) | ~0 |
+| 14 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
+| 15 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
 | | **Subtotal** | **~2279** |
 
 ## 👤 Every session, unless opted out
@@ -45,4 +46,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 22 | ~8900 |
-| 💤 On demand, via a pointer | 78 | ~46400 |
+| 💤 On demand, via a pointer | 80 | ~47900 |

@@ -10,7 +10,7 @@ Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|pat
 |---|---|---|---|
 | 🧰 **Standard** | Good practice for anyone using the tool, whatever their team | `01_standards/` | Always |
 | 🏢 **Team convention** | This company's own choice for its shared work: folder layouts, environment names, naming patterns, macros, helper modules, CI and vendor tools, lint skips, required fields, version pins or house writing style | A `_team_conventions` file beside the standard or style guide it extends | By default, since the repo starts the team from its shared conventions |
-| 👤 **Preference** | Something the maintainer has ruled a preference: how Claude lays out its replies and docs, or where it keeps one user's own working files | `02_preferences/` | Only with `make install PREFERENCES=1` |
+| 👤 **Preference** | Something the maintainer has ruled a preference: how Claude lays out its replies and docs, or where it keeps one user's own working files | `02_preferences/` | Unless `make install PREFERENCES=0` |
 
 ## ⚖️ Deciding
 

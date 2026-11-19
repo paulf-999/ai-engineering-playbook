@@ -17,7 +17,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `CLAUDE.md` | ~523 |
-| 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~42 |
+| 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~43 |
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~37 |
 | 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~256 |
 | 5 | `rules/always_on/01_standards/behaviour.md` | ~374 |
@@ -30,7 +30,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 12 | `skills/_claude_skills/claude-capture-session-prompts/SKILL.md` (description) | ~42 |
 | 13 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
 | 14 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
-| | **Subtotal** | **~2277** |
+| | **Subtotal** | **~2279** |
 
 ## 👤 Every session, if opted in
 

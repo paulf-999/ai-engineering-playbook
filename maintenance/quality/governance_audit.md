@@ -11,9 +11,9 @@ An external review asked whether each guard prevents a real problem, or only add
 
 | Verdict | Items |
 |---|---|
-| ✅ **Keep** | 22 |
+| ✅ **Keep** | 23 |
 | 🔒 **Keep (decided)** | 8 |
-| ✂️ **Slim** | 3 |
+| ✂️ **Slim** | 2 |
 | 🗑️ **Drop** | 1 |
 
 "Keep (decided)" marks an item the maintainer has already chosen to keep, so this audit records its evidence without re-proposing it.
@@ -56,7 +56,7 @@ Each test file is judged against the [keep or delete criteria](../../tests/READM
 | # | Test file | What it protects | Tests | Sessions failed | Verdict |
 |---|---|---|---|---|---|
 | 17 | 📐 [Rules structure](../../tests/src/claude/test_rules_structure.py) | Rule size, headings, pointers and folder placement | 21 | 11 | ✅ Keep |
-| 18 | 📦 [Install config](../../tests/src/sh/test_claude_install_config.py) | Install, upgrade, uninstall, backups and preferences | 38 | 9 | ✂️ Slim: the 4 tests for upgrading from old install layouts are rare edge cases, so drop them once no old installs remain |
+| 18 | 📦 [Install config](../../tests/src/sh/test_claude_install_config.py) | Install, upgrade, uninstall, backups and preferences | 31 | 9 | ✅ Keep |
 | 19 | ✅ [Done checks hook](../../tests/src/claude/test_hook_enforcement_done_checks.py) | Stopping once to run the repo's checks | 9 | 1 | ✅ Keep |
 | 20 | 📋 [Plan sections hook](../../tests/src/claude/test_hook_enforcement_plan_sections.py) | Blocking plans with no Intent or Spec | 5 | 0 | ✅ Keep |
 | 21 | 🌳 [Worktree edits hook](../../tests/src/claude/test_hook_enforcement_worktree_edits.py) | Blocking a first edit in the main folder | 7 | 0 | ✅ Keep |

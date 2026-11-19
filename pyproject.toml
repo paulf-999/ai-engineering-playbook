@@ -3,6 +3,8 @@
 [tool.pytest.ini_options]
 # Puts tests/ on the import path so any test can import tests/_paths.py
 pythonpath = ["tests"]
+# Runs tests across every CPU, and lists the 5 slowest so a slow test is noticed
+addopts = "-n auto --durations=5"
 
 [tool.ruff]
 line-length = 120

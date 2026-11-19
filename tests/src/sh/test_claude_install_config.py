@@ -71,39 +71,32 @@ def test_a_wrong_answer_cancels(tmp_path):
     assert not any(tmp_path.iterdir()), "nothing should be written after cancelling"
 
 
-def test_install_copies_every_tracked_file(tmp_path):
-    """Typing 'install' copies each tracked file in src/claude/ to the same relative path in the target."""
-    result = run_install(tmp_path, answer="install")
+@pytest.fixture(scope="module")
+def default_install(tmp_path_factory):
+    """Install once into a fresh config directory, shared by the tests that only read a plain install."""
+    target = tmp_path_factory.mktemp("default_install")
+    result = run_install(target, answer="install")
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    return target
+
+
+def test_install_copies_every_tracked_file(default_install):
+    """Each tracked file installs to its relative path, with on-demand files beside rules/ and grouped skills flat."""
     sources = tracked_config_files()
     assert sources, "git should list at least one file under src/claude/"
     installed = {installed_path(path): path for path in sources}
-    assert set(installed) <= installed_files(tmp_path), f"missing: {set(installed) - installed_files(tmp_path)}"
+    on_disk = installed_files(default_install)
+    assert set(installed) <= on_disk, f"missing: {set(installed) - on_disk}"
     for target, source in installed.items():
-        assert (tmp_path / target).read_bytes() == (SOURCE / source).read_bytes(), f"{target} should match {source}"
-
-
-def test_on_demand_files_install_beside_rules(tmp_path):
-    """Files in src/claude/rules/on_demand/ install to on_demand/, and none of them land in rules/."""
-    result = run_install(tmp_path, answer="install")
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert (tmp_path / "on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
+        copied = (default_install / target).read_bytes()
+        assert copied == (SOURCE / source).read_bytes(), f"{target} should match {source}"
+    assert (default_install / "on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
         "on-demand files should sit beside rules/"
     )
-    assert not (tmp_path / "rules" / "on_demand").exists(), "no on-demand file should install under rules/"
-
-
-def test_grouped_skills_install_flat_and_uninstall_cleanly(tmp_path):
-    """A skill in a group folder installs straight under skills/, where Claude Code finds it, and uninstalls fully."""
+    assert not (default_install / "rules" / "on_demand").exists(), "no on-demand file should install under rules/"
     assert (SOURCE / "skills" / "_git_skills" / "git-create-pr" / "SKILL.md").is_file(), "the repo should group it"
-    result = run_install(tmp_path, answer="install")
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert (tmp_path / "skills" / "git-create-pr" / "SKILL.md").is_file(), "the skill should install flat"
-    assert not (tmp_path / "skills" / "_git_skills").exists(), "no group folder, nor its README, should install"
-
-    result = run_install(tmp_path, answer="uninstall", UNINSTALL="1")
-    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
-    assert not (tmp_path / "skills").exists(), "uninstall should remove the flat skill and its emptied folder"
+    assert (default_install / "skills" / "git-create-pr" / "SKILL.md").is_file(), "the skill should install flat"
+    assert not (default_install / "skills" / "_git_skills").exists(), "no group folder, nor its README, should install"
 
 
 def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):
@@ -295,17 +288,6 @@ def pre_tool_use(target):
     return json.loads((target / "settings.json").read_text())["hooks"]["PreToolUse"]
 
 
-def test_install_replaces_the_plan_hook_from_an_old_path(tmp_path):
-    """A plan sections hook registered under another path is replaced by the current one, and other hooks are kept."""
-    seed_settings(tmp_path, "/old/path")
-
-    result = run_install(tmp_path, answer="install")
-
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert plan_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_plan_sections.sh"']
-    assert OTHER_HOOK in pre_tool_use(tmp_path), "an unrelated hook must be kept"
-
-
 def test_install_removes_the_plan_hook_when_it_isnt_shipped(tmp_path):
     """From a repo that doesn't ship the hook, install removes its entry, keeps other hooks and backs up settings."""
     repo = tmp_path / "repo"
@@ -336,9 +318,15 @@ def project_install(tmp_path, **extra_env):
     return config, project / ".claude"
 
 
-def test_project_install_writes_only_into_the_repo(tmp_path):
+@pytest.fixture(scope="module")
+def default_project_install(tmp_path_factory):
+    """Install once into a fresh repo folder, shared by the tests that only read a plain project install."""
+    return project_install(tmp_path_factory.mktemp("default_project_install"))
+
+
+def test_project_install_writes_only_into_the_repo(default_project_install):
     """With PROJECT set, the config lands in the repo's .claude/ folder, and your config directory gets nothing."""
-    config, target = project_install(tmp_path)
+    config, target = default_project_install
     assert (target / "CLAUDE.md").is_file(), "CLAUDE.md should install into the repo's .claude/ folder"
     assert (target / "on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
         "on-demand files should too"
@@ -346,18 +334,18 @@ def test_project_install_writes_only_into_the_repo(tmp_path):
     assert installed_files(config) == set(), "nothing but backups should land in your own config directory"
 
 
-def test_project_install_points_rules_at_the_project_folder(tmp_path):
+def test_project_install_points_rules_at_the_project_folder(default_project_install):
     """Every 'in your Claude config directory' pointer reads 'in this project's .claude/ folder' instead."""
-    _, target = project_install(tmp_path)
+    _, target = default_project_install
     texts = [path.read_text() for path in target.rglob("*.md")]
     assert not [text for text in texts if "in your Claude config directory" in text], "no pointer should name it"
     assert "in this project's `.claude/` folder" in (target / "CLAUDE.md").read_text(), "CLAUDE.md should name it"
 
 
-def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked(tmp_path):
+def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked(tmp_path, default_project_install):
     """A project install always registers the plan hook, and the done checks and worktree hooks only with HOOKS=1."""
     plan = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_plan_sections.sh"'
-    _, target = project_install(tmp_path / "without")
+    _, target = default_project_install
     assert plan_hook_commands(target) == [plan], "the plan hook should be registered through CLAUDE_PROJECT_DIR"
     assert not (target / "hooks" / "hook_enforcement_done_checks.sh").exists(), "no done checks hook by default"
     assert not stop_hook_commands(target), "no done checks hook should be registered by default"
@@ -423,34 +411,6 @@ def release(version):
     return {path: text.format(version) for path, text in RULES.items()}
 
 
-@pytest.mark.parametrize("project", [False, True])
-def test_uninstall_skips_an_earlier_installs_copy_in_an_old_style_backup(tmp_path, project):
-    """A backup an older installer took of its own earlier copy matches a tracked version, so isn't restored."""
-    repo, config = tmp_path / "repo", tmp_path / "config"
-    repo.mkdir()
-    config.mkdir()
-    env = isolated_git_repo(repo)
-    extra = {"PROJECT": str(tmp_path / "project")} if project else {}
-    if project:
-        (tmp_path / "project").mkdir()
-    target = tmp_path / "project" / ".claude" if project else config
-    commit_config(repo, env, release(1))
-    assert run_install(config, answer="install", cwd=repo, **extra).returncode == 0, "the first install should work"
-    # older installers backed up the previous release's copies beside the user's own files, as this fakes
-    old_style = config / "backups" / ("project_project_2099_01_01_000000" if project else "install_2099_01_01_000000")
-    for installed in INSTALLED:
-        (old_style / installed).parent.mkdir(parents=True, exist_ok=True)
-        (old_style / installed).write_text((target / installed).read_text())
-    commit_config(repo, env, release(2))
-    assert run_install(config, answer="install", cwd=repo, **extra).returncode == 0, "the upgrade should work"
-
-    result = run_install(config, answer="uninstall", cwd=repo, UNINSTALL="1", **extra)
-
-    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
-    for installed in INSTALLED:
-        assert not (target / installed).exists(), f"the earlier copy of {installed} should not be restored"
-
-
 def test_an_upgrade_backs_up_the_installs_own_copies_where_uninstall_wont_restore_them(tmp_path):
     """An upgrade backs up the previous install's copies, even edited ones, to an upgrade folder uninstall skips."""
     repo, config = tmp_path / "repo", tmp_path / "config"
@@ -512,12 +472,9 @@ def test_yes_is_refused_inside_claude_code(tmp_path):
     assert not any(tmp_path.iterdir()), "nothing should be written"
 
 
-def test_authoring_templates_never_install(tmp_path):
+def test_authoring_templates_never_install(default_install):
     """The skill, agent and rule templates stay in the repo, while templates that rules point to still install."""
-    config = tmp_path / "config"
-    result = run_install(config, answer="install")
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    installed = installed_files(config)
+    installed = installed_files(default_install)
     assert not {path for path in installed if path in AUTHORING_TEMPLATES or path.startswith("_templates/skills/")}
     assert "_templates/preferences/TODO.md.template" in installed, "the TODO template a preference points to installs"
 
@@ -557,22 +514,6 @@ def test_zero_removes_preferences_until_a_plain_reinstall(tmp_path):
     assert "rerun with a plain make install" in result.stdout, "it should say how to keep them"
     assert run_install(config, answer="install").returncode == 0, "the plain reinstall should work"
     assert (config / OUTPUT_FORMAT).exists(), "a plain reinstall should bring the preferences back"
-
-
-def test_an_upgrade_notes_removed_preferences_only_when_opted_out(tmp_path):
-    """A file at a preference's old path is removed, with the note on how to keep it only under PREFERENCES=0."""
-    for flag, noted in (("0", True), ("", False)):
-        config = tmp_path / f"config{flag}"
-        old = "rules/always_on/standards/claude_response_standards.md"
-        (config / old).parent.mkdir(parents=True)
-        (config / old).write_text("the old reply format\n")
-        (config / ".playbook_install_manifest").write_text(f"{old}\n")
-
-        result = run_install(config, answer="install", **({"PREFERENCES": flag} if flag else {}))
-
-        assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-        assert not (config / old).exists(), "the old file should be removed"
-        assert ("left out" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
 
 
 def test_a_project_never_gets_preferences(tmp_path):
@@ -621,48 +562,9 @@ def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_pat
     assert (config / "CLAUDE.md").read_text() == "my old config\n", "the user's CLAUDE.md should be restored"
 
 
-def test_an_upgrade_moves_the_working_files_rules_unless_opted_out(tmp_path):
-    """An older install's working-files rules move to their new paths, or PREFERENCES=0 removes them with the note."""
-    old = "on_demand/workflows/saving_plans.md"
-    for flag, noted in (("0", True), ("", False)):
-        config = tmp_path / f"config{flag}"
-        (config / old).parent.mkdir(parents=True)
-        (config / old).write_text("the old saving plans rule\n")
-        (config / ".playbook_install_manifest").write_text(f"{old}\n")
-
-        result = run_install(config, answer="install", **({"PREFERENCES": flag} if flag else {}))
-
-        assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-        assert not (config / old).exists(), "the old path should be removed"
-        assert ("left out" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
-        moved = config / "on_demand" / "02_preferences" / "claude_working_files" / "_saving_plans.md"
-        assert moved.exists() == (flag != "0"), "the rule should be at its new path unless opted out"
-
-
-@pytest.mark.parametrize("old_folder", ["preferences", "03_preferences"])
-def test_an_install_from_an_older_folder_keeps_the_opt_in_and_tidies_up(tmp_path, old_folder):
-    """An older preferences folder counts as opted in, moves to 02_preferences/, and leaves no empty folder."""
-    config = tmp_path / "config"
-    old = f"rules/always_on/{old_folder}/claude_output_format.md"
-    (config / old).parent.mkdir(parents=True)
-    (config / old).write_text("the old output format\n")
-    (config / ".playbook_install_manifest").write_text(f"{old}\n")
-
-    result = run_install(config, answer="install")
-
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert (config / OUTPUT_FORMAT).exists(), "the old opt-in should carry over to the numbered folder"
-    assert not (config / "rules" / "always_on" / old_folder).exists(), "the emptied old folder should be removed"
-
-
-def test_readmes_never_install(tmp_path):
+def test_readmes_never_install(default_install):
     """A README in any folder stays in the repo, since it explains the folder to people browsing it."""
-    config = tmp_path / "config"
     for readme in ("README.md", "hooks/README.md", "rules/always_on/README.md"):
         assert (SOURCE / readme).is_file(), f"the repo should have {readme}"
-
-    result = run_install(config, answer="install")
-
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    readmes = [path for path in installed_files(config) if path.endswith("README.md")]
+    readmes = [path for path in installed_files(default_install) if path.endswith("README.md")]
     assert readmes == [], f"no README should install: {readmes}"

@@ -63,7 +63,9 @@ The agent must produce output that matches this template exactly. Pass this temp
 | 5–6 | Acceptable — works but has notable gaps |
 | 1–4 | Needs work — significant issues before merging |
 
-**Overall score:** average of the six theme scores, rounded to one decimal place.
+**Not applicable:** score a theme `N/A` when the diff has nothing for it to judge, such as Testing on a docs-only PR, and say why in its Notes.
+
+**Overall score:** average of the scored themes, leaving out any `N/A`, rounded to one decimal place.
 
 **Grade mapping:**
 
@@ -82,7 +84,7 @@ The agent must produce output that matches this template exactly. Pass this temp
 | 4.0–4.9 | D |
 | < 4.0 | F |
 
-**Verdict determination (pass to the agent) — based solely on Must items:**
+**Verdict determination (pass to the agent) — Must items alone decide whether it blocks:**
 
 | Verdict | `<verdict>` | `<verdict_emoji>` | Condition |
 |:---|:---|:---|:---|
@@ -90,7 +92,7 @@ The agent must produce output that matches this template exactly. Pass this temp
 | Approve with suggestions | `Approve with suggestions` | 💬 | No Must items, but Should/Could items present |
 | Request changes | `Request changes` | ❌ | Any Must item present |
 
-The overall score does not determine the verdict — Must items do.
+The overall score does not determine the verdict. Must items decide whether it blocks, and Should or Could items decide between the two approvals.
 
 **Header bullet guidance (pass to the agent):**
 
@@ -113,18 +115,17 @@ The overall score does not determine the verdict — Must items do.
 - Format as a table with four columns: #, Theme, Severity, Recommendation
 - **#**: sequential row number starting at 1 — used by the user to reference recommendations by number
 - **Theme**: an emoji followed by a short label for the category of concern — choose an emoji that reflects the theme (e.g. `🧪 Eval quality`, `⚠️ Error handling`, `🔗 Integration`, `📝 Docs`). Bold the whole cell: `**🧪 Eval quality**`
-- **Severity**: one of **Must** / **Should** / **Could** / **Want** — capitalised, rendered as bold (not code). Meaning:
+- **Severity**: one of **Must** / **Should** / **Could** — capitalised, rendered as bold (not code). Meaning:
   - **Must** — blocking; should be addressed before merge
   - **Should** — important but not blocking
-  - **Could** — worthwhile improvement, low priority
-  - **Want** — nice to have; optional polish
-- **Recommendation**: use `•` bullets with `<br>` between them — do NOT use newlines or `\n`. Plain newlines do not render inside GitHub markdown table cells; only `<br>` does. Link any referenced files or keywords using `[text](url)`. At minimum one bullet; add a second if there is meaningfully distinct detail to include.
+  - **Could** — worthwhile improvement or optional polish, low priority
+- **Recommendation**: `•` bullets, with line breaks as in the Notes guidance below. Link any referenced files or keywords using `[text](url)`. At minimum one bullet; add a second if there is meaningfully distinct detail to include.
 - Omit the section entirely if there is nothing to recommend
 
 **Notes field guidance (pass this to the agent):**
 
 - 1–2 bullets per cell using `•` as the bullet character
-- **Line breaks: use `<br>` between bullets — do NOT use newlines or `\n`.** Plain newlines do not render as line breaks inside GitHub markdown table cells; only `<br>` does. Example of correct output: `• **Clarity**: Easy to follow<br>• **Gap**: Missing test coverage`
+- **Line breaks (Notes and Recommendations cells): use `<br>` between bullets — do NOT use newlines or `\n`.** Plain newlines do not render as line breaks inside GitHub markdown table cells; only `<br>` does. Example of correct output: `• **Clarity**: Easy to follow<br>• **Gap**: Missing test coverage`
 - Each bullet: bold keyword + colon + brief plain-English point
 - Plain English — assume a mixed technical and non-technical audience
 - High-level observations only — avoid specific line numbers or implementation detail
@@ -140,7 +141,9 @@ The overall score does not determine the verdict — Must items do.
 - Score high (8–10) when logic is sound, code is self-explanatory, no duplication, and functions have a clear single purpose
 - Score mid (5–7) when there are minor readability issues, some duplication, or logic that requires effort to follow
 - Score low (1–4) when logic appears incorrect, significant duplication exists, naming is unclear, or multiple unrelated concerns are bundled together
-- Note: nesting depth and branching factor belong in the Code complexity row — do not double-count them here
+- Single source: flag any fact, rule or check the diff adds that already lives elsewhere, in code, docs or config
+- Maintainability: the change is easy to alter later, with no hidden dependencies or tight coupling between parts that should change independently
+- Note: nesting depth, branching factor and whether an addition is needed belong in the Code complexity row — do not double-count them here
 
 **🔀 Code complexity row guidance (pass to the agent):**
 
@@ -148,6 +151,7 @@ The overall score does not determine the verdict — Must items do.
   - **Executable code**: score based on function/method length, nesting depth, cyclomatic complexity (number of independent paths), cognitive complexity (how hard it is to reason about), and the presence of god functions or classes that do too much
   - **Configuration / YAML / JSON**: score based on nesting depth, whether the structure is easy to follow, and whether keys and values are self-explanatory without needing to cross-reference other files
   - **Documentation / prose**: score based on cognitive load of reading the diff — length, whether the structure is scannable, and whether guidance or instructions are unambiguous
+- Need and mechanism: each addition meets a current need. It uses the simplest mechanism that works, with no levels, options or extension points nothing uses yet. Support code is proportionate to the change
 - Score high (8–10) when the diff is easy to follow linearly — short functions or shallow structures, clear naming, no section that requires re-reading to understand
 - Score mid (5–7) when complexity is noticeable but contained — e.g. moderate nesting, a long prose section, or conditionals that require careful reading
 - Score low (1–4) when the diff is actively difficult to review — deeply nested logic or config, functions over ~50 lines, high branching factor, or prose so long or ambiguous that intent is unclear
@@ -156,7 +160,8 @@ The overall score does not determine the verdict — Must items do.
 **🧪 Testing row guidance (pass to the agent):**
 
 - Score based on: whether tests exist for the changed code, whether test coverage is appropriate for the change type, and whether any test files are included or updated in the diff
-- If the PR is configuration, documentation, or tooling with no testable logic, note this and score accordingly (e.g. 9/10 — not applicable)
+- Tests check behaviour, not wording or layout. Each test's name says what it checks, and each assertion says what broke
+- If the PR is configuration, documentation, or tooling with no testable logic, score `N/A` and say so in Notes
 - If tests are absent where they would be expected, score low and flag in Recommendations
 - **Test results table:** when test results are present in the PR body, always render them in the review comment as a table — never as prose or bullets. Format:
 
@@ -182,12 +187,13 @@ The overall score does not determine the verdict — Must items do.
 - Score high (8–10) when no secrets are committed, all external inputs are validated or parameterised, and there are no obvious injection surfaces
 - Score mid (5–7) when there are minor concerns — e.g. overly broad permissions or missing validation on a demonstrably low-risk input path
 - Score low (1–4) when the diff introduces clear injection risks, commits credentials or secrets, or exposes PII without appropriate handling
-- If the PR contains no logic that handles external input, credentials, or sensitive data, note this and score accordingly (e.g. 9/10 — not applicable)
+- If the PR contains no logic that handles external input, credentials, or sensitive data, score `N/A` and say so in Notes
 - Always flag injection risks and committed secrets as Must items regardless of overall score
 
 **📝 Documentation row guidance (pass to the agent):**
 
 - Score based on: docstrings on new functions/classes, inline comments explaining non-obvious logic, README or Confluence updates reflecting the change, and whether the PR description adequately describes the intent
+- Accuracy and clarity: every path, command and link in changed docs checks out. The key point comes first and each term is defined
 - Score high (8–10) when all new logic is documented, the PR description is clear, and any user-facing changes are reflected in docs
 - Score mid (5–7) when documentation exists but is incomplete — e.g. missing docstrings on some functions or a thin PR description
 - Score low (1–4) when complex new code has no documentation, or user-facing changes have no corresponding doc update
@@ -196,6 +202,7 @@ The overall score does not determine the verdict — Must items do.
 **📐 Standards row guidance (pass to the agent):**
 
 - Score based on: Conventional Commits format on commit messages, branch naming conventions, file and variable naming consistency with the existing codebase, and visible style and formatting issues apparent in the diff
+- Also score against the repo's own rules, such as its `CLAUDE.md`, `CONTRIBUTING.md` and style guides
 - Score high (8–10) when commits follow Conventional Commits, naming is consistent throughout, and code style matches the repo
 - Score mid (5–7) when most conventions are followed but there are minor deviations — e.g. one non-standard commit message or an inconsistent variable name
 - Score low (1–4) when commit messages do not follow Conventional Commits, naming is inconsistent across the diff, or code style significantly deviates from the codebase

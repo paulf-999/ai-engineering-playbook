@@ -83,19 +83,22 @@ rule_path_globs() {
     awk 'NR == 1 && $0 != "---" { exit } NR > 1 && $0 == "---" { exit } /^paths:/ { on = 1; next } on && /^[[:space:]]*-/ { gsub(/^[[:space:]]*-[[:space:]]*|"|\047/, ""); print; next } on { on = 0 }' "${1}"
 }
 
-# Print a file's description from its opening --- block, including one folded over several lines with > or |
+# Print a file's description from its opening --- block, including one folded over several lines with > or |,
+# or nothing for a slash-only skill, since disable-model-invocation: true keeps its description out of Claude's context
 description_text() {
     awk '
         NR == 1 && $0 != "---" { exit }
         NR > 1 && $0 == "---" { exit }
+        /^disable-model-invocation:[[:space:]]*true[[:space:]]*$/ { hidden = 1 }
         # the indented lines under "description: >" or "description: |" are the text itself
-        in_block && /^[[:space:]]/ { print; next }
+        in_block && /^[[:space:]]/ { text = text $0 "\n"; next }
         { in_block = 0 }
         /^description:/ {
             value = $0
             sub(/^description:[[:space:]]*/, "", value)
-            if (value ~ /^[>|][-+]?[[:space:]]*$/) { in_block = 1 } else { print value }
+            if (value ~ /^[>|][-+]?[[:space:]]*$/) { in_block = 1 } else { text = text value "\n" }
         }
+        END { if (!hidden) printf "%s", text }
     ' "${1}"
 }
 

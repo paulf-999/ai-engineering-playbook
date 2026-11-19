@@ -3,29 +3,28 @@ skill_name: claude-kaizen
 
 evals:
   # Triggering
-    - name: run_kaizen_triggers
-      trigger: claude-kaizen
-      description: A plain request to run kaizen starts the skill
+    - name: plain_request_doesnt_fire
+      trigger: none
+      description: The skill is slash-only, so a plain request to run kaizen doesn't start it
       input:
           prompt: run kaizen on my feedback notes
+      expected_output: >
+          claude-kaizen doesn't start, since disable-model-invocation hides it from Claude;
+          Claude can point the user to /claude-kaizen.
+      assertions:
+          - claude-kaizen is not invoked
+
+    - name: slash_command_starts_it
+      description: Typing the command runs the skill
+      input:
+          prompt: /claude-kaizen
       setup:
           feedback_notes: 31
       expected_output: >
-          Claude starts claude-kaizen, which reads the feedback notes and lists the
-          groups that recur or apply beyond this repo.
+          Claude reads the feedback notes and lists the groups that recur or apply
+          beyond this repo.
       assertions:
-          - The first Skill call is claude-kaizen
-
-    - name: corrections_into_rules_triggers
-      trigger: claude-kaizen
-      description: Asking to turn corrections into rules starts the skill
-      input:
-          prompt: Turn the corrections I keep giving you into rules for the team
-      setup:
-          feedback_notes: 31
-      expected_output: Claude starts claude-kaizen.
-      assertions:
-          - The first Skill call is claude-kaizen
+          - Claude reads the feedback notes before proposing anything
 
   # Approval and proof
     - name: drafts_shown_before_any_edit

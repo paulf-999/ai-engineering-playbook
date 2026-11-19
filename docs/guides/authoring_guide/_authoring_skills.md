@@ -8,6 +8,7 @@
 - 🏷️ **Name:** `<domain>-<action>`, a domain then an imperative verb, such as `git-create-pr`, matching the folder name, per the [Agent Skills spec](https://agentskills.io/specification).
 - 🚧 **Not for:** list in the contract's `not_for` what the skill doesn't do, since that boundary matters most.
 - 🗣️ **Description:** use the phrases people type to ask for it, and keep it short, since every description loads in every session.
+- 🔇 **Slash-only:** set `disable-model-invocation: true` for a skill people run on purpose, such as a periodic review, since its description then costs no always-on context.
 - ✋ **Confirm first:** set `confirmation_required: true` for anything irreversible or visible to others, such as a push.
 - 🔐 **Safety:** read secrets from the environment, validate input before it reaches a shell or API, and hard-code no paths.
 

@@ -8,8 +8,8 @@ Each scenario records a user request, its setup and the expected result. `make e
 
 | # | Scenario | Phase | What it checks |
 |---|---|---|---|
-| 1 | `run_kaizen_triggers` | Trigger | "Run kaizen" starts the skill |
-| 2 | `corrections_into_rules_triggers` | Trigger | Asking to turn corrections into rules starts the skill |
+| 1 | `plain_request_doesnt_fire` | Trigger | "Run kaizen" doesn't start the slash-only skill |
+| 2 | `slash_command_starts_it` | Trigger | `/claude-kaizen` reads the notes before proposing anything |
 | 3 | `drafts_shown_before_any_edit` | Draft | Each rule comes with its case as a diff, and a "no" edits nothing |
 | 4 | `no_effect_verdict_undone` | Prove | A **no effect** verdict undoes the skill's own edits |
 | 5 | `repo_specific_note_stays_in_memory` | Select | A note about one repo's layout isn't proposed as a rule |

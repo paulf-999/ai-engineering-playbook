@@ -8,13 +8,11 @@ dispatch:
     triggers:
         explicit:
             - /claude-kaizen
-            - run kaizen
-            - promote rules from my feedback
-            - turn my corrections into rules
         contextual:
-            - user wants recurring corrections turned into team rules with proof
+            - the session-start reminder suggests a run, and the user types /claude-kaizen
 
     not_for:
+        - starting from a plain request such as "run kaizen", since it's slash-only to keep its description out of every session
         - saving a single new correction, which Claude's memory does as it happens
         - proposing a rule from a correction seen once that only fits this repo
         - changing a rule without an A/B case showing it helps

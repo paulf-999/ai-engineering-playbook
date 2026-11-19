@@ -1,6 +1,8 @@
 ---
 name: claude-kaizen
-description: Turn recurring corrections into A/B-proved rules — use when asked to run kaizen
+description: Turn recurring corrections into A/B-proved rules — run /claude-kaizen, or when the reminder suggests it
+# slash-only, so its description costs no always-on context; the reminder hook names the command instead
+disable-model-invocation: true
 tags:
   criticality: could
   status: active

@@ -277,11 +277,10 @@ confirm_install() {
         done
         print_opt_in_note
     fi
-    echo "It also updates the config's hooks and deny rules in ${SETTINGS} to match the install."
-    echo "Each file it overwrites or removes is backed up first: your own to ${BACKUP_DIR}, and an earlier install's"
-    echo "copies to ${UPGRADE_BACKUP_DIR}."
+    echo "It also updates settings.json, backing up anything it changes to $(dirname "${BACKUP_DIR}")."
     [[ "${ASSUME_YES}" == 1 ]] && return 0
-    read -r -p "Type 'install' to continue: " answer || true
+    echo
+    read -r -p "$(echo -e "${DEBUG}Type 'install' to continue:${COLOUR_OFF} ")" answer || true
     if [[ "${answer}" != "install" ]]; then
         log_message "${WARNING}" "Install cancelled - nothing changed."
         exit 1

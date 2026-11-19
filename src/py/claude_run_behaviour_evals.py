@@ -19,8 +19,9 @@ from pathlib import Path
 import yaml
 from claude_run_trigger_evals import SOURCE_DIR, copy_components, parse_events, project_folder
 
-# claude -p refuses any tool not allowed here, so every other gh command, such as gh pr create, is refused too
-ALLOWED_TOOLS = ["Read", "Glob", "Grep", "Skill", "Bash(ls:*)", "Bash(gh auth status:*)"] + [
+# claude -p refuses any tool not allowed here, so every other gh command, such as gh pr create, is refused too.
+# git -C is allowed whole, since the git rules ask for it, and a scratch repo has no remote for a push to reach.
+ALLOWED_TOOLS = ["Read", "Glob", "Grep", "Skill", "Bash(ls:*)", "Bash(gh auth status:*)", "Bash(git -C:*)"] + [
     f"Bash(git {command}:*)"
     for command in ["status", "diff", "log", "branch", "rev-parse", "ls-files", "remote", "switch", "checkout"]
     + ["add", "commit"]

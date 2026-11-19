@@ -23,6 +23,7 @@ evals:
           - The createConfluencePage call uses status draft and the confirmed parent
 
     - name: happy_path_platform_risk_assessment
+      trigger: confluence-create-page
       description: Platform risk pattern — pre-fill themes from cited evidence, rate them, review, create after approval
       input:
           prompt: write a platform risk assessment for Airbyte
@@ -56,6 +57,7 @@ evals:
 
   # Pattern and place
     - name: space_not_named_is_confirmed
+      trigger: confluence-create-page
       description: The user names no space — Claude asks instead of inferring one
       input:
           prompt: create a confluence page called Data Platform Q4 Roadmap
@@ -152,6 +154,7 @@ evals:
           - Claude does not create a duplicate page instead
 
     - name: jira_request_goes_elsewhere
+      trigger: jira-create-issue
       description: Asking for a Jira ticket is a not_for case
       input:
           prompt: create a jira ticket for the orders model timeout

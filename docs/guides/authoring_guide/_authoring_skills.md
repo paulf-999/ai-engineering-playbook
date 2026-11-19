@@ -13,6 +13,6 @@
 
 ## 🏁 Before merging
 
-- 🧪 **Evals:** add evals that cover its main triggers and one case where it shouldn't fire.
+- 🧪 **Evals:** add evals that cover its main triggers and one case where it shouldn't fire, tagging each with `trigger: <skill-or-agent>` or `trigger: none` so `make evals` checks it.
 - 📋 **Evaluation criteria:** a skill loads on demand, so its PR needs no Evaluation criteria section unless the [evaluation criteria](../../target_architecture/design_principles/02_evaluation_criteria.md) say so.
 - 🏅 **Review:** have a fresh-context reviewer check it against a checklist for its type, modelled on the [rules checklist](../../../maintenance/quality/quality_rubrics/_repo.md#-rules-and-tests-checklists).

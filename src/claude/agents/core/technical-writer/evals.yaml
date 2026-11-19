@@ -4,6 +4,7 @@ agent_name: technical-writer
 evals:
   # Triggering
     - name: pr_body_request_selects_agent
+      trigger: technical-writer
       description: A request to write a PR description routes to this agent
       input:
           prompt: Write the PR description for my branch

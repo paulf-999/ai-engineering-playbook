@@ -4,6 +4,7 @@ agent_name: code-reviewer
 evals:
   # Triggering
     - name: natural_phrase_selects_agent
+      trigger: code-reviewer
       description: A plain request to score a PR routes to this agent
       input:
           prompt: Can you score this PR against our standards before I merge it?
@@ -17,6 +18,7 @@ evals:
           - The output scores all six themes
 
     - name: local_changes_select_agent
+      trigger: code-reviewer
       description: Asking for a review of uncommitted work routes to this agent
       input:
           prompt: Review my changes before I commit them
@@ -29,6 +31,7 @@ evals:
           - The Agent call uses subagent_type code-reviewer
 
     - name: bug_hunt_goes_to_builtin_skill
+      trigger: none
       description: A bug hunt at an effort level goes to /code-review, not this agent
       input:
           prompt: Do a high-effort bug hunt on my current diff

@@ -2,7 +2,7 @@
 
 **Purpose:** what each scenario in `evals.yaml` checks, so an author can test a change to the skill against them.
 
-Each scenario records a user request, its setup and the expected result. They aren't code, and nothing runs them yet, so treat them as worked examples to check the skill against by hand.
+Each scenario records a user request, its setup and the expected result. `make evals` runs the ones tagged `trigger:` and checks which skill or agent they start; treat the rest as worked examples to check the skill against by hand.
 
 ## 📋 Scenarios
 

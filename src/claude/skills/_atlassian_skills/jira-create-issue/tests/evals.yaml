@@ -23,6 +23,7 @@ evals:
           - Claude does not call createJiraIssue before the user says yes
 
     - name: named_type_kept
+      trigger: jira-create-issue
       description: The user asks for a bug, so the Story default doesn't apply
       input:
           prompt: create a bug in jira, the login page returns a 500 on submit

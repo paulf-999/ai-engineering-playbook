@@ -13,6 +13,7 @@ SHELL = /bin/sh
 # make test		# run the tests (pytest)
 # make evals		# run the evals tagged trigger: live with claude -p, on your own login
 # make evals BEHAVIOUR=1	# run the evals tagged behaviour: true end to end, and grade their assertions
+# make evals RULES=1	# run each rule eval with and without its rule, and say if the rule helps
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
 
@@ -57,7 +58,7 @@ test:
 
 evals:
 	@echo "${INFO}\nCalled makefile target 'evals'. Check each tagged eval starts the right skill or agent.${COLOUR_OFF}\n"
-	@python src/py/claude_run_$(if $(BEHAVIOUR),behaviour,trigger)_evals.py
+	@python src/py/claude_run_$(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,trigger))_evals.py
 
 clean:
 	@rm -rf .pytest_cache .ruff_cache

@@ -38,10 +38,6 @@ UNINSTALL="${UNINSTALL:-}"
 ASSUME_YES="${YES:-}"
 # 0 leaves out the rules in 02_preferences/ folders, one person's taste, which otherwise install everywhere but a project
 PREFERENCES="${PREFERENCES:-}"
-# installed paths where preferences lived before they moved into preferences/ folders, so removing one says how to keep it
-OLD_PREFERENCE_PATHS=" rules/always_on/standards/claude_response_standards.md on_demand/workflows/saving_plans.md \
-on_demand/conduct/todo_logging.md on_demand/conduct/writing_style/_drafts_and_errors.md \
-on_demand/conduct/writing_style/_markdown_layout.md _templates/TODO.md.template "
 # authoring templates that never install
 AUTHORING_TEMPLATES=" _templates/AGENT.md.template _templates/rule.md.template "
 if [[ -n "${PROJECT}" ]]; then
@@ -131,32 +127,6 @@ backup_dir_for() {
     fi
 }
 
-# Succeed if a backup matches a version of its file the repo has tracked, since that's an earlier install's copy,
-# not the user's own file, as installs before the upgrade folder existed backed them up with the user's
-is_playbook_copy() {
-    local backup="${1}" source commit version
-    source="${SOURCE_DIR}/${2}"
-    # installed on-demand files sit beside rules/, so their source is under rules/
-    [[ "${2}" == on_demand/* ]] && source="${SOURCE_DIR}/rules/${2}"
-    # a flat skill's source sits in a group folder, found from the current tree
-    if [[ "${2}" == skills/* ]] && ! file_exists "${source}"; then
-        for version in "${SOURCE_DIR}"/skills/_*/"${2#skills/}"; do
-            file_exists "${version}" && source="${version}"
-        done
-    fi
-    version="$(mktemp)"
-    while IFS= read -r commit; do
-        # a commit that deleted the file has no version of it
-        git show "${commit}:${source}" > "${version}" 2> /dev/null || continue
-        if cmp -s <(render_text < "${version}") "${backup}"; then
-            rm -f "${version}"
-            return 0
-        fi
-    done < <(git log --format=%H -- "${source}")
-    rm -f "${version}"
-    return 1
-}
-
 # Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed,
 # leaving the done checks and worktree edits hooks out of a project install unless HOOKS=1, while the plan sections hook
 # always installs
@@ -204,10 +174,9 @@ resolve_preferences() {
     fi
 }
 
-# Succeed if an installed path is a preference, now or before preferences moved into their own folders,
-# including the 03_preferences/ folders they had before being numbered 02_
+# Succeed if an installed path is a preference
 is_preference() {
-    [[ "/${1}" == */preferences/* || "/${1}" == */0[23]_preferences/* || "${OLD_PREFERENCE_PATHS}" == *" ${1} "* ]]
+    [[ "/${1}" == */preferences/* || "/${1}" == */02_preferences/* ]]
 }
 
 # Remove the folders that removing REMOVED_FILES left empty, walking up from each file, so other empty folders stay
@@ -310,8 +279,8 @@ confirm_uninstall() {
     fi
 }
 
-# Back up and remove each installed file, restoring its oldest backup that isn't a copy an earlier install wrote,
-# since an upgrade backs up the playbook's own previous version too
+# Back up and remove each installed file, restoring its oldest backup, which holds the user's own file,
+# since an upgrade backs up the playbook's own previous version to the upgrade folder instead
 uninstall_files() {
     local file original restored=0
     for file in "${REMOVED_FILES[@]}"; do
@@ -320,7 +289,7 @@ uninstall_files() {
         rm "${TARGET_DIR}/${file}"
         # the glob expands in date order, and the leading digit skips uninstall backups
         for original in "${BACKUP_PREFIX}"[0-9]*/"${file}"; do
-            if file_exists "${original}" && ! is_playbook_copy "${original}" "${file}"; then
+            if file_exists "${original}"; then
                 cp -p "${original}" "${TARGET_DIR}/${file}"
                 restored=$((restored + 1))
                 break

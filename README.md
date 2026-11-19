@@ -11,7 +11,7 @@ Claude loads only the instructions a task needs, agrees a plan before coding, an
 
 ## 🪄 Getting Started
 
-The [getting-started guide](docs/guides/getting_started.md) covers what you need, which install to choose, what installing changes and a first prompt to try.
+The [getting-started guide](docs/guides/getting_started.md) covers which install to choose, what installing changes and a first prompt to try.
 
 1. Clone the repository:
 

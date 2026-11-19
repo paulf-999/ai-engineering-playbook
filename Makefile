@@ -14,6 +14,7 @@ SHELL = /bin/sh
 # make evals		# run the evals tagged trigger: live with claude -p, on your own login
 # make evals BEHAVIOUR=1	# run the evals tagged behaviour: true end to end, and grade their assertions
 # make evals RULES=1	# run each rule eval with and without its rule, and say if the rule helps
+# make evals RULES=1 CASE=<name>	# run only the named rule eval
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
 

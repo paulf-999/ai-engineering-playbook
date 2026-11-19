@@ -1,0 +1,99 @@
+---
+skill_name: claude-kaizen
+
+evals:
+  # Triggering
+    - name: run_kaizen_triggers
+      trigger: claude-kaizen
+      description: A plain request to run kaizen starts the skill
+      input:
+          prompt: run kaizen on my feedback notes
+      setup:
+          feedback_notes: 31
+      expected_output: >
+          Claude starts claude-kaizen, which reads the feedback notes and lists the
+          groups that recur or apply beyond this repo.
+      assertions:
+          - The first Skill call is claude-kaizen
+
+    - name: corrections_into_rules_triggers
+      trigger: claude-kaizen
+      description: Asking to turn corrections into rules starts the skill
+      input:
+          prompt: Turn the corrections I keep giving you into rules for the team
+      setup:
+          feedback_notes: 31
+      expected_output: Claude starts claude-kaizen.
+      assertions:
+          - The first Skill call is claude-kaizen
+
+  # Approval and proof
+    - name: drafts_shown_before_any_edit
+      description: Every draft is a diff, and nothing is written until the user says yes
+      input:
+          prompt: /claude-kaizen
+          confirm_reply: n
+      setup:
+          feedback_notes: 31
+      expected_output: >
+          Claude shows each draft rule bullet and its case as a diff, says what the A/B
+          run costs, and after "n" edits nothing and runs no evals.
+      assertions:
+          - Each draft rule comes with a rules/evals.yaml case in the same diff
+          - No file is edited and make evals isn't run after the user declines
+
+    - name: no_effect_verdict_undone
+      description: A draft whose case shows no effect is undone, not kept
+      input:
+          prompt: /claude-kaizen
+          confirm_reply: y
+      setup:
+          eval_verdict: no effect
+      expected_output: >
+          Claude runs the case, reports "no effect", and undoes its own rule and case
+          edits, leaving any other change in place.
+      assertions:
+          - Claude runs make evals RULES=1 with CASE set to the drafted case's name
+          - The rule bullet and case are removed after the no effect verdict
+
+    - name: repo_specific_note_stays_in_memory
+      description: A one-off note about this repo's layout isn't proposed as a rule
+      input:
+          prompt: /claude-kaizen
+      setup:
+          feedback_notes: one note about keeping this repo's design child pages
+      expected_output: Claude says the note is repo-specific and proposes no rule for it.
+      assertions:
+          - No rule is drafted from the repo-specific note
+
+    - name: never_commits
+      description: The skill leaves kept rules in the working tree
+      input:
+          prompt: /claude-kaizen
+          confirm_reply: y
+      setup:
+          eval_verdict: helps
+      expected_output: >
+          Claude keeps the rule and case, reports the verdict, and points to
+          /git-create-pr without committing.
+      assertions:
+          - Claude runs no git commit, git push or gh pr create
+
+  # Not for
+    - name: single_correction_saved_to_memory
+      trigger: none
+      description: A one-off correction is saved to memory, not run through kaizen
+      input:
+          prompt: Remember that I prefer short commit messages
+      expected_output: Claude saves the preference to memory, and claude-kaizen doesn't fire.
+      assertions:
+          - claude-kaizen is not invoked
+
+    - name: rule_review_goes_elsewhere
+      trigger: none
+      description: Reviewing the existing rules isn't kaizen's job
+      input:
+          prompt: Review the always-on rules for bloat
+      expected_output: Claude reviews the rules directly, and claude-kaizen doesn't fire.
+      assertions:
+          - claude-kaizen is not invoked

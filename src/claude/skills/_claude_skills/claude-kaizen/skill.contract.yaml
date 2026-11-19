@@ -1,0 +1,37 @@
+---
+name: claude-kaizen
+version: 1.0.0
+summary: Turn corrections that keep recurring in your feedback notes into proposed rules, each proved by an A/B eval
+test_coverage_level: basic
+
+dispatch:
+    triggers:
+        explicit:
+            - /claude-kaizen
+            - run kaizen
+            - promote rules from my feedback
+            - turn my corrections into rules
+        contextual:
+            - user wants recurring corrections turned into team rules with proof
+
+    not_for:
+        - saving a single new correction, which Claude's memory does as it happens
+        - proposing a rule from a correction seen once that only fits this repo
+        - changing a rule without an A/B case showing it helps
+        - committing or opening the PR, which /git-create-pr does
+        - pruning or reviewing existing rules, which the regular quality review does
+
+requires:
+    tools: [Read, Edit, Bash]
+    resources: [feedback notes in the session's auto-memory folder, this repo's rules/evals.yaml and make evals]
+    mcp_servers: []
+
+output:
+    type: file
+    confirmation_required: true
+    reversible: true
+    returns: [proposed rule diffs, each case's A/B verdict, the rules kept in the working tree]
+
+dependencies:
+    external: [claude CLI logged in, for make evals RULES=1]
+    permissions: [write access to src/claude/rules/ in the working tree]

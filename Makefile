@@ -11,7 +11,7 @@ SHELL = /bin/sh
 # make install YES=1	# install without the typed confirmation, for provisioning scripts outside Claude Code
 # make install PREFERENCES=0	# leave out the preferences, such as the reply format
 # make test		# run the tests (pytest)
-# make evals		# run the evals tagged trigger: live with claude -p, on your own login
+# make evals		# run the evals tagged trigger: live with claude -p, on your own login, setting up .venv on first use
 # make evals BEHAVIOUR=1	# run the evals tagged behaviour: true end to end, and grade their assertions
 # make evals RULES=1	# run each rule eval with and without its rule, and say if the rule helps
 # make evals RULES=1 CASE=<name>	# run only the named rule eval
@@ -26,6 +26,9 @@ SHELL = /bin/sh
 # ANSI colour codes for the target messages: green, then reset
 INFO := \033[0;32m
 COLOUR_OFF := \033[0m
+
+# the virtualenv make evals runs in, which it creates with only pyyaml on first use, so nobody needs make deps first
+EVALS_VENV ?= .venv
 
 #=======================================================================
 # Targets
@@ -57,9 +60,14 @@ test:
 	@echo "${INFO}\nCalled makefile target 'test'. Perform any required tests.${COLOUR_OFF}\n"
 	@pytest
 
-evals:
+$(EVALS_VENV)/.evals_ready:
+	@python3 -m venv $(EVALS_VENV)
+	@$(EVALS_VENV)/bin/python -m pip install --quiet --disable-pip-version-check "$$(grep -i '^pyyaml==' requirements.txt | cut -d' ' -f1)"
+	@touch $@
+
+evals: $(EVALS_VENV)/.evals_ready
 	@echo "${INFO}\nCalled makefile target 'evals'. Check each tagged eval starts the right skill or agent.${COLOUR_OFF}\n"
-	@python src/py/claude_run_$(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,trigger))_evals.py
+	@$(EVALS_VENV)/bin/python src/py/claude_run_$(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,trigger))_evals.py
 
 clean:
 	@rm -rf .pytest_cache .ruff_cache

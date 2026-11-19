@@ -42,7 +42,7 @@ Source systems each have a corresponding folder under both `staging/` and `base/
 
 ## 🧩 Macro folders
 
-The dbt project folder is `prod_analytics/`, with macros grouped by category under `prod_analytics/macros/`:
+Macros are grouped by category under `macros/`:
 
 ```text
 macros/

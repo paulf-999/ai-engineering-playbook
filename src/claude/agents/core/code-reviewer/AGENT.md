@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Use to review a PR, review my changes or score a diff against the repo's own rules, returning a verdict, six theme scores and prioritised fixes without editing anything.
+description: Use to review my changes or score a local diff against the repo's rules, returning a verdict, six theme scores and fixes without editing. Open GitHub PRs go to git-review-pr.
 tools: Read, Grep, Glob
 model: inherit
 ---

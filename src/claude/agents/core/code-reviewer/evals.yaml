@@ -3,19 +3,20 @@ agent_name: code-reviewer
 
 evals:
   # Triggering
-    - name: natural_phrase_selects_agent
-      trigger: code-reviewer
-      description: A plain request to score a PR routes to this agent
+    - name: pr_scoring_goes_to_review_skill
+      trigger: git-review-pr
+      description: A plain request to score an open PR starts git-review-pr, which calls this agent
       input:
           prompt: Can you score this PR against our standards before I merge it?
       setup:
           open_pr: true
       expected_output: >
-          Claude delegates the analysis to code-reviewer, which returns a verdict and a
-          six-theme scorecard.
+          Claude starts git-review-pr, which calls code-reviewer for a verdict and a
+          six-theme scorecard, and asks before posting the review to the PR.
       assertions:
+          - The first Skill call is git-review-pr
           - The Agent call uses subagent_type code-reviewer
-          - The output scores all six themes
+          - Nothing is posted to the PR before the user approves
 
     - name: local_changes_select_agent
       trigger: code-reviewer

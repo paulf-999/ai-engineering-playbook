@@ -142,7 +142,7 @@ def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
     backups = list((tmp_path / "backups").glob("install_*/rules/old.md"))
     assert len(backups) == 1 and backups[0].read_text() == "old rule\n", "the removed file should be backed up first"
     manifest = (tmp_path / ".playbook_install_manifest").read_text().splitlines()
-    assert set(manifest) == {installed_path(path) for path in tracked_config_files()}, (
+    assert set(manifest) == {installed_path(path) for path in tracked_config_files(include_preferences=True)}, (
         "the manifest should list this install"
     )
 
@@ -519,12 +519,12 @@ def test_authoring_templates_never_install(tmp_path):
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     installed = installed_files(config)
     assert not {path for path in installed if path in AUTHORING_TEMPLATES or path.startswith("_templates/skills/")}
-    assert "_templates/preferences/TODO.md.template" not in installed, "the TODO template is a preference"
+    assert "_templates/preferences/TODO.md.template" in installed, "the TODO template a preference points to installs"
 
 
 # files an install writes for its own records, beside the config it copies
 BOOKKEEPING = {".playbook_install_manifest", ".playbook_install_deny_rules", "settings.json"}
-# a preference that installs only with PREFERENCES=1
+# a preference that PREFERENCES=0 leaves out
 OUTPUT_FORMAT = "rules/always_on/02_preferences/claude_output_format.md"
 
 
@@ -533,37 +533,35 @@ def preference_files(target):
     return {path for path in installed_files(target) if is_preference(path)}
 
 
-def test_preferences_install_only_with_the_flag(tmp_path):
-    """A default install leaves preferences out, and PREFERENCES=1 adds every one of them."""
+def test_a_default_install_includes_every_preference(tmp_path):
+    """A plain install, with no PREFERENCES set, installs every preference along with everything else."""
     config = tmp_path / "config"
-    assert run_install(config, answer="install").returncode == 0, "the default install should succeed"
-    assert preference_files(config) == set(), "a default install should have no preferences"
 
-    result = run_install(config, answer="install", PREFERENCES="1")
+    result = run_install(config, answer="install")
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     expected = {installed_path(path) for path in tracked_config_files(include_preferences=True)}
-    assert installed_files(config) - BOOKKEEPING == expected, "PREFERENCES=1 should install everything"
+    assert installed_files(config) - BOOKKEEPING == expected, "a default install should install everything"
 
 
-def test_a_plain_reinstall_keeps_preferences_and_zero_removes_them(tmp_path):
-    """An opt-in sticks across plain reinstalls, and PREFERENCES=0 removes the files and their empty folders."""
+def test_zero_removes_preferences_until_a_plain_reinstall(tmp_path):
+    """PREFERENCES=0 removes the preferences and their empty folders, and a plain reinstall brings them back."""
     config = tmp_path / "config"
-    assert run_install(config, answer="install", PREFERENCES="1").returncode == 0, "the opt-in install should work"
-    assert run_install(config, answer="install").returncode == 0, "the plain reinstall should work"
-    assert (config / OUTPUT_FORMAT).exists(), "a plain reinstall should keep the preferences"
+    assert run_install(config, answer="install").returncode == 0, "the default install should work"
 
     result = run_install(config, answer="install", PREFERENCES="0")
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert preference_files(config) == set(), "PREFERENCES=0 should remove every preference"
     assert not (config / "rules" / "always_on" / "02_preferences").exists(), "the empty folder should be removed"
-    assert "rerun with make install PREFERENCES=1" in result.stdout, "it should say how to keep them"
+    assert "rerun with a plain make install" in result.stdout, "it should say how to keep them"
+    assert run_install(config, answer="install").returncode == 0, "the plain reinstall should work"
+    assert (config / OUTPUT_FORMAT).exists(), "a plain reinstall should bring the preferences back"
 
 
-def test_an_upgrade_says_moved_preferences_are_now_opt_in(tmp_path):
-    """A file at a preference's old path is removed with the opt-in note, unless PREFERENCES=1 replaces it."""
-    for flag, noted in (("", True), ("1", False)):
+def test_an_upgrade_notes_removed_preferences_only_when_opted_out(tmp_path):
+    """A file at a preference's old path is removed, with the note on how to keep it only under PREFERENCES=0."""
+    for flag, noted in (("0", True), ("", False)):
         config = tmp_path / f"config{flag}"
         old = "rules/always_on/standards/claude_response_standards.md"
         (config / old).parent.mkdir(parents=True)
@@ -574,7 +572,7 @@ def test_an_upgrade_says_moved_preferences_are_now_opt_in(tmp_path):
 
         assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
         assert not (config / old).exists(), "the old file should be removed"
-        assert ("now opt-in" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
+        assert ("left out" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
 
 
 def test_a_project_never_gets_preferences(tmp_path):
@@ -608,7 +606,7 @@ def test_style_is_replaced_and_bad_preference_values_are_refused(tmp_path):
 
 
 def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_path):
-    """Install, opt in, reinstall, opt out and uninstall, and only the user's own files remain."""
+    """Install with and without preferences, then uninstall, and only the user's own files remain."""
     config = tmp_path / "config"
     config.mkdir()
     (config / "CLAUDE.md").write_text("my old config\n")
@@ -623,10 +621,10 @@ def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_pat
     assert (config / "CLAUDE.md").read_text() == "my old config\n", "the user's CLAUDE.md should be restored"
 
 
-def test_an_upgrade_says_moved_working_files_rules_are_now_opt_in(tmp_path):
-    """An install from before the working-files rules moved removes them with the note, or moves them when opted in."""
+def test_an_upgrade_moves_the_working_files_rules_unless_opted_out(tmp_path):
+    """An older install's working-files rules move to their new paths, or PREFERENCES=0 removes them with the note."""
     old = "on_demand/workflows/saving_plans.md"
-    for flag, noted in (("", True), ("1", False)):
+    for flag, noted in (("0", True), ("", False)):
         config = tmp_path / f"config{flag}"
         (config / old).parent.mkdir(parents=True)
         (config / old).write_text("the old saving plans rule\n")
@@ -636,9 +634,9 @@ def test_an_upgrade_says_moved_working_files_rules_are_now_opt_in(tmp_path):
 
         assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
         assert not (config / old).exists(), "the old path should be removed"
-        assert ("now opt-in" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
+        assert ("left out" in result.stdout) == noted, f"with PREFERENCES={flag!r} the note should show: {noted}"
         moved = config / "on_demand" / "02_preferences" / "claude_working_files" / "_saving_plans.md"
-        assert moved.exists() == bool(flag), "the rule should be at its new path only when opted in"
+        assert moved.exists() == (flag != "0"), "the rule should be at its new path unless opted out"
 
 
 @pytest.mark.parametrize("old_folder", ["preferences", "03_preferences"])
@@ -663,7 +661,7 @@ def test_readmes_never_install(tmp_path):
     for readme in ("README.md", "hooks/README.md", "rules/always_on/README.md"):
         assert (SOURCE / readme).is_file(), f"the repo should have {readme}"
 
-    result = run_install(config, answer="install", PREFERENCES="1")
+    result = run_install(config, answer="install")
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     readmes = [path for path in installed_files(config) if path.endswith("README.md")]

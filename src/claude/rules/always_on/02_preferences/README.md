@@ -1,6 +1,6 @@
 # 👤 02_preferences
 
-**Purpose:** one person's taste, loaded in every session, but installed only with `make install PREFERENCES=1`.
+**Purpose:** one person's taste, loaded in every session, and left out with `make install PREFERENCES=0`.
 
 | File | What it covers |
 |---|---|

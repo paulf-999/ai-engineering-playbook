@@ -18,7 +18,7 @@ def config_repo(tmp_path):
     files = {
         # HTML comments are stripped before Claude loads a file, so this still counts as 100 tokens
         "src/claude/CLAUDE.md": "<!-- created: 2026-11-13 -->\n" + HUNDRED_TOKENS,
-        # a preference loads every session, but only for users who opt in with PREFERENCES=1
+        # a preference loads every session, unless the user opts out with PREFERENCES=0
         "src/claude/rules/always_on/02_preferences/taste.md": HUNDRED_TOKENS,
         "src/claude/rules/scoped.md": '---\npaths:\n  - "**/*.py"\n  - "**/*.sh"\n---\n' + HUNDRED_TOKENS,
         "src/claude/rules/on_demand/guide.md": HUNDRED_TOKENS,
@@ -68,13 +68,13 @@ def test_report_lists_every_session_files_and_totals_the_rest(tmp_path):
 
 
 def test_report_lists_preferences_apart_from_every_session_files(tmp_path):
-    """A preference gets its own opted-in table, so the every-session subtotal stays what a default install loads."""
+    """A preference gets its own table, so the every-session subtotal stays what every install loads."""
     report = write_report(tmp_path, config_repo(tmp_path))
-    every, _, rest = report.partition("## 👤 Every session, if opted in")
+    every, _, rest = report.partition("## 👤 Every session, unless opted out")
     assert "taste.md" not in every, "a preference shouldn't count as every session for everyone"
     opted = rest.partition("## 💤")[0]
-    assert "| 1 | `rules/always_on/02_preferences/taste.md` | ~100 |" in opted, "the preference is listed when opted in"
-    assert "| | **Subtotal** | **~100** |" in opted, "the opted-in table has its own subtotal"
+    assert "| 1 | `rules/always_on/02_preferences/taste.md` | ~100 |" in opted, "the preference gets its own table"
+    assert "| | **Subtotal** | **~100** |" in opted, "the preference table has its own subtotal"
 
 
 def test_terminal_lists_every_file_by_load_type(tmp_path):

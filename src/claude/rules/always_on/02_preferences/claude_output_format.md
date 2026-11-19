@@ -1,6 +1,6 @@
 # 📝 Output format
 
-**Purpose:** the layout of Claude's replies, and of the bullets in everything it writes, so each can be scanned in seconds. It's a preference, installed only with `make install PREFERENCES=1`.
+**Purpose:** the layout of Claude's replies, and of the bullets in everything it writes, so each can be scanned in seconds. It's a preference, left out with `make install PREFERENCES=0`.
 
 ## 📤 Replies
 

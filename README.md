@@ -36,7 +36,7 @@ Everything you install is in [`src/claude/`](src/claude/). The rest of the repo 
 - 📄 **`CLAUDE.md`:** [builds in](src/claude/CLAUDE.md) [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) to cut common coding mistakes.
 - 🔄 **AI-SDLC:** Claude [agrees a plan](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) before coding, then checks the result against it.
 - 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt/dbt_before_and_after.md) and measured [dbt](docs/examples/dbt/dbt_rules_measured.md) and [Airflow](docs/examples/airflow/airflow_rules_measured.md) runs show the effect.
-- 👤 **Opt-in preferences:** personal ones, such as the reply format, need `make install PREFERENCES=1`.
+- 👤 **Preferences:** personal ones, such as the reply format, install too, unless you run `make install PREFERENCES=0`.
 
 ---
 

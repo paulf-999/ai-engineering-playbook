@@ -1,6 +1,6 @@
 # 📋 Templates Directory
 
-Starting points for new rules, skills, agents and scripts. `make install` installs only the templates other rules point to: `utils/`, and `preferences/TODO.md.template` with `PREFERENCES=1`; the rest stay here for authoring in this repo. Copy the template you need next to the file you're creating, then fill it in.
+Starting points for new rules, skills, agents and scripts. `make install` installs only the templates other rules point to: `utils/`, and `preferences/TODO.md.template` unless `PREFERENCES=0`; the rest stay here for authoring in this repo. Copy the template you need next to the file you're creating, then fill it in.
 
 | Template | Starting point for |
 |---|---|

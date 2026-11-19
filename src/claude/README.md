@@ -40,7 +40,7 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 |---|---|---|---|---|
 | 🧰 **Standard** | Good practice for anyone using the tool | Pin your Docker base image | `01_standards/` folders | Always |
 | 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `_team_conventions` files, beside the standard they extend | With everything else |
-| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `02_preferences/` folders | Only with `PREFERENCES=1` |
+| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `02_preferences/` folders | Unless `PREFERENCES=0` |
 
 - 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_classification.md) sets out how a rule is sorted into one of the three.
 
@@ -48,7 +48,7 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 
 ## 👤 Preferences
 
-They install only if you ask, with `make install PREFERENCES=1`.
+They install by default, and `make install PREFERENCES=0` leaves them out.
 
 <details>
 <summary>Show the preferences, their cost and limits</summary>
@@ -62,7 +62,7 @@ They install only if you ask, with `make install PREFERENCES=1`.
 | 🧱 **Markdown style** | Gives headings, bullets and table rows an emoji, caps lists at 5 items, and opens each list with a lead-in |
 | 📄 **Drafts, errors and session notes** | Saves drafts to `~/_drafts/`, error write-ups to `~/_errors/`, and long-task notes to `~/.claude_work/_sessions/` |
 
-- 📥 **Install:** `make install PREFERENCES=1` adds them, a plain `make install` keeps them, and `make install PREFERENCES=0` removes them.
+- 📥 **Install:** a plain `make install` adds them, and `make install PREFERENCES=0` removes them. A one-repo install never includes them.
 - 💰 **Cost:** about 280 tokens in every session for the reply and layout preferences and 200 for the working-files ones, per the [context cost report](../../maintenance/context_cost.md).
 - ⚠️ **Limits:** they never go into a project install, and without them Claude stops reading an existing `TODO.md`, plans or drafts, and offers options unnumbered, still in British spelling.
 

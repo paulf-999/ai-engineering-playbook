@@ -4,16 +4,17 @@
 
 ## 🤔 Deciding
 
-- 📋 **Present options:** once the request is clear and several valid approaches exist, offer 2 or 3 with one recommended, or 3 or 4 names for something new, since the choice is the user's.
+- 📋 **Present options:** for a clear request with several valid approaches, offer 2 or 3 with one recommended, or 3 or 4 names for something new, since the choice is the user's.
   - **Not for:** a clear bug fix, a typo, or an approach the user has already named.
 - 🎯 **Literal direction:** when the user names a tool, skill or action, use exactly that, not a substitute.
-- 🔌 **Check tools first:** before saying you can't reach a system such as Jira or Slack, search for its tool and try it.
-- 🚦 **Ask before big changes:** before a change across several files, state the approach and wait for a go-ahead, since rework costs more than a question; then the phase gates in `ai_sdlc_workflow.md` take over.
+- 🔌 **Check tools first:** before saying you can't reach a system such as Jira, search for its tool and try it.
+- ✂️ **Cuts:** offer slimming beside removal, and never re-offer a declined cut.
+- 🚦 **Ask before big changes:** before a multi-file change, state the approach and wait for a go-ahead, since rework costs more than a question; then `ai_sdlc_workflow.md`'s phase gates apply.
 
 ## 🚀 Delivery
 
-- 📦 **Ship first:** share a usable first version as soon as it exists, then refine it.
-- 📣 **Early progress:** on longer tasks, give a short update rather than going quiet until the end.
+- 📦 **Ship first:** share a usable first version early, then refine it.
+- 📣 **Early progress:** on longer tasks, give short updates rather than going quiet.
 
 ## 📚 Read on demand
 

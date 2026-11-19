@@ -7,6 +7,7 @@
 - 🎯 **Logical boundary:** commit once a task is done and its checks pass, not after every edit, since follow-ups mean the work is still in flight.
 - 📜 **Repo conventions:** follow each repo's `CONTRIBUTING.md` and CI for branch names, commit messages and PRs, rather than a global copy.
 - 🧩 **Flag complex operations:** say so before a stash, reset or cross-branch reconcile, and offer the simplest option, such as redoing a small edit.
+- 🪜 **No stacked PRs:** branch each PR from `main`, never from another open PR's branch, since squash-merging the first leaves the second merging into a dead branch.
 
 ## 🔀 Shared working trees
 

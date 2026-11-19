@@ -2,22 +2,7 @@
 
 **Purpose:** how to install the Claude Code instructions, check they work, and undo them, for someone using them rather than maintaining this repo.
 
-## ✅ 1. Check you have what it needs
-
-You need Claude Code, plus `git`, `bash` and `make` on macOS or Linux. Check each prints a version:
-
-```bash
-claude --version
-git --version
-bash --version
-make --version
-```
-
-If one is missing, install it with `brew install <name>` on macOS or `sudo apt install <name>` on Ubuntu, such as `brew install make`. You don't need Python or `make deps`, which are only for people changing this repo.
-
-`jq` is optional: without it, the install skips the automatic checks and the `.env` block described [below](#-what-installing-changes), and says so.
-
-## 📥 2. Clone the repo
+## 📥 1. Clone the repo
 
 ```bash
 git clone https://github.com/paulf-999/ai-engineering-playbook.git
@@ -32,14 +17,13 @@ The dbt and Airflow rules follow one team's conventions, so they fit best where 
 
 | Area | The rules assume |
 |---|---|
-| 📁 **dbt project** | A dbt project folder called `prod_analytics/`, with macros grouped under `prod_analytics/macros/` |
 | 🏷️ **dbt model names** | Layer prefixes `staging_`, `mart_` and `pub_`, each layer in its own folder under `models/` |
 | 📸 **dbt snapshots** | Snapshots built in the Snowflake `WAREHOUSE` schema |
 | 🌬️ **Airflow DAGs** | DAGs read their settings through a shared `your_dags_package.includes.common` module |
 
 Where your project differs, Claude follows these names anyway, so check what it writes. The general standards, such as testing and security, apply to any project.
 
-## 🎯 3. Choose where to install
+## 🎯 2. Choose where to install
 
 | Install | Command | Applies to | Use it when |
 |---|---|---|---|
@@ -58,7 +42,7 @@ Besides adding instructions, installing changes how Claude works wherever you in
 - 🪝 **Automatic checks:** one blocks long plans that skip those sections, one sends Claude back to run the repo's checks before it finishes, and one stops Claude's first edit in a shared repo folder so it works in its own copy. A one-repo install leaves out the last two unless you add `HOOKS=1`.
 - 🔒 **Files:** Claude's file tools can't read `.env` files. Saving plans and notes outside your repos is opt-in too.
 
-## ▶️ 4. Run it
+## ▶️ 3. Run it
 
 Run the command you chose in your own terminal, since the installer asks you to type `install` and refuses to run inside Claude Code. It lists every file it will add, so nothing changes until you confirm. Any file it replaces is backed up first to `backups/` in your [Claude config directory](#-words-youll-meet).
 
@@ -66,7 +50,7 @@ A one-repo install leaves out the check that sends Claude back to run the repo's
 
 To also get the scannable reply format and saved plans, add `PREFERENCES=1` to an "Everywhere" install, since preferences never go into a one-repo install. The [preferences table](../../src/claude/README.md#-preferences) says what each does.
 
-## 🧪 5. Try it
+## 🧪 4. Try it
 
 Open Claude Code in your dbt repo and ask:
 
@@ -80,13 +64,13 @@ With the instructions installed, you should see Claude:
 
 The [before-and-after example](../examples/dbt/dbt_before_and_after.md) shows one such run, next to the same request without the instructions.
 
-## 🛠️ 6. If nothing changes
+## 🛠️ 5. If nothing changes
 
 - 📂 **Check the files landed:** look for `.claude/rules/` and `.claude/.playbook_install_manifest` in the repo, or the same in `~/.claude` for an "Everywhere" install.
 - 🔄 **Start a new session:** Claude Code reads the instructions when a session starts.
 - 📄 **Open a matching file:** dbt rules load only once Claude works on a file under `models/`, so ask about a specific model.
 
-## ↩️ 7. Undo it
+## ↩️ 6. Undo it
 
 Run `make uninstall` in your own terminal, with the same `PROJECT=` if you used one. It lists the files it will remove, asks you to type `uninstall`, then removes what the install added and restores the files it backed up.
 

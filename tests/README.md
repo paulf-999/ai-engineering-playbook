@@ -14,7 +14,7 @@ Tests follow these layout rules:
 
 ## ▶️ Running
 
-- ▶️ **Running:** `make test` runs every test.
+- ▶️ **Running:** `make test` runs every test, in parallel across CPU cores.
 - ⚠️ **Not in pre-commit:** the hooks don't run tests, so `make test` is a separate part of [Done means](../CLAUDE.md).
 
 ## 🏷️ Which tests to keep

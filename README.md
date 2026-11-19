@@ -5,7 +5,7 @@
 
 A lean Claude Code playbook with a one-command setup, so every engineer starts on shared standards from day one.
 
-Claude loads only the instructions a task needs, agrees a plan before coding, and its rules are backed by measured runs.
+**Goal:** favour simplicity, selective context loading, spec-led workflows and evidence-based decisions.
 
 ---
 

@@ -25,8 +25,8 @@ tags:
 
 Gives a PR the same scored review every time, in a comment a mixed audience can read:
 
-- **Verdict** — Approve, Approve with suggestions, or Request changes, set by blocking (Must) findings only.
-- **Scorecard** — six themes scored out of 10: code quality, complexity, testing, security, documentation and standards.
+- **Verdict** — Approve, Approve with suggestions, or Request changes, where Must findings alone decide whether it blocks.
+- **Scorecard** — six themes scored out of 10, or N/A when there's nothing to judge: code quality, complexity, testing, security, documentation and standards.
 - **Recommendations** — numbered fixes with a severity, which you can address before posting.
 - **Safe posting** — a dry run, a secret check, and an update to your earlier review instead of a duplicate.
 

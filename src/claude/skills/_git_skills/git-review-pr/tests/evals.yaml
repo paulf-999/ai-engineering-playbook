@@ -32,7 +32,8 @@ evals:
       assertions:
           - The PR number comes from `gh pr view` on the current branch
           - The Agent call uses subagent_type code-reviewer
-          - All six scorecard themes have a whole-number score from 1 to 10
+          - All six scorecard themes have a whole-number score from 1 to 10, or N/A with a reason
+          - Any N/A theme is left out of the overall score's average
 
     - name: large_diff_summarised_by_file
       description: Reviews whole files up to the budget and summarises the rest by file

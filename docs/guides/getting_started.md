@@ -37,10 +37,10 @@ Where your project differs, Claude follows these names anyway, so check what it 
 
 Besides adding instructions, installing changes how Claude works wherever you installed it:
 
-- 💬 **Replies:** Claude uses British spelling and offers options before big changes. It also uses a scannable reply format, a [preference](../../src/claude/README.md#-preferences) you can leave out with `make install PREFERENCES=0`.
+- 💬 **Replies:** Claude uses British spelling and offers options before big changes. Its scannable reply format is [opt-in](../../src/claude/README.md#-preferences): `make install PREFERENCES=1`.
 - 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.
 - 🪝 **Automatic checks:** one blocks long plans that skip those sections, one sends Claude back to run the repo's checks before it finishes, and one stops Claude's first edit in a shared repo folder so it works in its own copy. A one-repo install leaves out the last two unless you add `HOOKS=1`.
-- 🔒 **Files:** Claude's file tools can't read `.env` files. Claude saves your plans and notes outside your repos, another preference.
+- 🔒 **Files:** Claude's file tools can't read `.env` files. Saving plans and notes outside your repos is opt-in too.
 
 ## ▶️ 3. Run it
 
@@ -48,7 +48,7 @@ Run the command you chose in your own terminal, since the installer asks you to 
 
 A one-repo install leaves out the check that sends Claude back to run the repo's tests before it finishes, and the one that moves it into its own copy of the repo, so add `HOOKS=1` to include them.
 
-An "Everywhere" install includes the scannable reply format and saved plans, unless you add `PREFERENCES=0`, while a one-repo install never includes them. The [preferences table](../../src/claude/README.md#-preferences) says what each does.
+To also get the scannable reply format and saved plans, add `PREFERENCES=1` to an "Everywhere" install, since preferences never go into a one-repo install. The [preferences table](../../src/claude/README.md#-preferences) says what each does.
 
 ## 🧪 4. Try it
 

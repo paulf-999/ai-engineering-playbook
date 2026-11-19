@@ -10,7 +10,7 @@
 | **2 — Select** | Group notes that make the same correction, and keep a group only if it has 2 or more notes or applies beyond this repo |
 | **3 — Draft** | For each kept group, draft one rule bullet and one case, then show both as a diff and wait for a yes |
 | **4 — Prove** | Write the approved drafts, run each case, and keep or undo it by its verdict |
-| **5 — Report** | List each case's counts and verdict, and the files left changed for `/git-create-pr` |
+| **5 — Report** | List each case's counts and verdict, and the files left changed for `/git-create-pr`, then log the run to `kaizen_runs.log` |
 
 ## 🔍 Selecting notes
 

@@ -80,6 +80,7 @@ SHIPPED_HOOKS=(
     "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_sections.sh"
     "PreToolUse|Edit|Write|NotebookEdit|hooks/hook_enforcement_worktree_edits.sh"
     "Stop||hooks/hook_enforcement_done_checks.sh"
+    "SessionStart||hooks/hook_reminder_kaizen_due.sh"
 )
 # deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
 # a bare filename matches at any depth, and a "!" rule carves out of earlier rules in the same settings file, per

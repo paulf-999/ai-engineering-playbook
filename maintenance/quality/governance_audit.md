@@ -7,7 +7,9 @@
 
 An external review asked whether each guard prevents a real problem, or only adds process. This run, on 2026-11-18 against `main` at `3f966a8`, gathered each item's evidence from the CI run history and a search of 132 session transcripts. A transcript count is the number of sessions holding the guard's failure message, so the figures are approximate. The tests were added on 2026-11-19 from a search of 152 transcripts. Earlier runs are in git history.
 
-## ⚖️ Verdicts
+## ⚖️ Verdict totals
+
+How many of the 34 guards, hooks, recurring reviews and test files audited on 2026-11-18 got each verdict.
 
 | Verdict | Items |
 |---|---|

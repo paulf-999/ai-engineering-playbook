@@ -27,6 +27,7 @@ evals:
           - Claude reports the new PR's number and URL
 
     - name: missing_pr_template_stops
+      behaviour: true
       description: No PR template in the repo — skill stops instead of inventing a body
       input:
           prompt: /git-create-pr fix typo in readme
@@ -40,6 +41,7 @@ evals:
           - Claude does not draft a PR body in a custom format
 
     - name: clean_working_tree_stops
+      behaviour: true
       description: Nothing to commit — skill stops before deriving anything
       input:
           prompt: /git-create-pr tidy config
@@ -188,6 +190,7 @@ evals:
           - The created PR uses the title the user picked
 
     - name: user_declines_plan
+      behaviour: true
       description: User declines at the confirmation prompt
       input:
           prompt: /git-create-pr add user authentication
@@ -206,6 +209,7 @@ evals:
 
   # Edge case — PR size
     - name: too_many_changed_files
+      behaviour: true
       description: 20 or more changed files exceeds the skill's size limit
       input:
           prompt: /git-create-pr bulk rename
@@ -263,6 +267,7 @@ evals:
           - The gh pr create command passes the title through a quoted heredoc
 
     - name: likely_secret_file_not_staged
+      behaviour: true
       description: An untracked .env file sits among the changed files
       input:
           prompt: /git-create-pr add payment webhook

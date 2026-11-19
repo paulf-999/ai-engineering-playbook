@@ -265,10 +265,7 @@ confirm_install() {
         log_message "${ERROR}" "Run make install from your own terminal - nothing changed."
         exit 1
     fi
-    log_message "${INFO}" "Installing ${#SOURCE_FILES[@]} file(s) into ${TARGET_DIR}:"
-    for file in "${SOURCE_FILES[@]}"; do
-        echo "  $(target_path "${file}")"
-    done
+    log_message "${INFO}" "Installing ${#SOURCE_FILES[@]} file(s) into ${TARGET_DIR}."
     if [[ "${#REMOVED_FILES[@]}" -gt 0 ]]; then
         log_message "${WARNING}" "Removing ${#REMOVED_FILES[@]} file(s) an earlier install added:"
         for file in "${REMOVED_FILES[@]}"; do

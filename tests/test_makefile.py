@@ -1,4 +1,4 @@
-"""Tests for the Makefile's deps target, which must only install into an active virtualenv."""
+"""Tests for the Makefile's deps target, which must only install into an active virtualenv, and evals' own setup."""
 
 import os
 import subprocess
@@ -45,3 +45,30 @@ def test_deps_installs_with_the_virtualenv_python(tmp_path):
     assert log.read_text().splitlines() == ["-m pip install -r requirements.txt", "-m pre_commit install"], (
         "deps should install requirements, then the git hooks, through the virtualenv's python"
     )
+
+
+def dry_run_evals(venv):
+    """Return the commands `make -n evals` would run with its virtualenv at venv."""
+    result = subprocess.run(
+        ["make", "-n", "evals", f"EVALS_VENV={venv}"], cwd=REPO_ROOT, capture_output=True, text=True, check=True
+    )
+    return result.stdout
+
+
+def test_evals_creates_its_own_virtualenv_on_first_use(tmp_path):
+    """Without a ready virtualenv, evals creates one, installs only the pinned pyyaml, then runs with its python."""
+    venv = tmp_path / "venv"
+    commands = dry_run_evals(venv)
+    assert f"python3 -m venv {venv}" in commands
+    assert "grep -i '^pyyaml==' requirements.txt" in commands
+    assert f"{venv}/bin/python src/py/claude_run_trigger_evals.py" in commands
+
+
+def test_evals_reuses_a_ready_virtualenv(tmp_path):
+    """Once the virtualenv is ready, evals runs straight away without creating or installing anything."""
+    venv = tmp_path / "venv"
+    venv.mkdir()
+    (venv / ".evals_ready").touch()
+    commands = dry_run_evals(venv)
+    assert "-m venv" not in commands and "pip install" not in commands
+    assert f"{venv}/bin/python src/py/claude_run_trigger_evals.py" in commands

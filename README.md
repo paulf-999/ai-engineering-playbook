@@ -3,7 +3,7 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A lean Claude Code playbook with a one-command setup, so every engineer starts on shared standards from day one.
+A lean Claude Code playbook with one-command setup, so every engineer starts on shared standards.
 
 Claude loads only what a task needs, agrees a plan before coding, and its rules are backed by measured runs.
 
@@ -22,7 +22,7 @@ The [getting-started guide](docs/guides/getting_started.md) covers which install
    cd ai-engineering-playbook
    ```
 
-2. Run `make install PROJECT=<path to repo>` to install into one repo's `.claude/` folder, or `make install` to install for every project, into `~/.claude`.
+2. Run `make install` to install for every project, into `~/.claude`, or `make install PROJECT=<path to repo>` to install into one repo's `.claude/` folder.
 
 ---
 

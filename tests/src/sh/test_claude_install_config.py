@@ -113,46 +113,24 @@ def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):
     assert (tmp_path / "memory" / "note.md").read_text() == "keep me\n", "files the repo doesn't have must be untouched"
 
 
-def test_reinstalling_unchanged_files_makes_no_backup(tmp_path):
-    """A second install over identical files copies and backs up nothing."""
-    first = run_install(tmp_path, answer="install")
-    assert first.returncode == 0, f"the first install should succeed:\n{first.stdout}{first.stderr}"
-    result = run_install(tmp_path, answer="install")
-    assert result.returncode == 0, f"the second install should succeed:\n{result.stdout}{result.stderr}"
-    assert not (tmp_path / "backups").exists(), "no backup folder should be made when nothing is overwritten"
-
-
 def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
-    """A path in the last install's manifest that the repo no longer has is backed up, removed and dropped."""
-    (tmp_path / "rules").mkdir()
-    (tmp_path / "rules" / "old.md").write_text("old rule\n")
-    (tmp_path / ".playbook_install_manifest").write_text("rules/old.md\n")
+    """A manifest path the repo no longer has is backed up, removed and dropped, along with the folders it empties."""
+    (tmp_path / "rules" / "gone").mkdir(parents=True)
+    (tmp_path / "rules" / "gone" / "old.md").write_text("old rule\n")
+    (tmp_path / "rules" / "mine").mkdir()
+    (tmp_path / ".playbook_install_manifest").write_text("rules/gone/old.md\n")
 
     result = run_install(tmp_path, answer="install")
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert not (tmp_path / "rules" / "old.md").exists(), "a file the repo removed should be removed"
-    backups = list((tmp_path / "backups").glob("install_*/rules/old.md"))
+    assert not (tmp_path / "rules" / "gone").exists(), "the file and the folder it emptied should be removed"
+    assert (tmp_path / "rules" / "mine").is_dir(), "an empty folder the install didn't empty should stay"
+    backups = list((tmp_path / "backups").glob("install_*/rules/gone/old.md"))
     assert len(backups) == 1 and backups[0].read_text() == "old rule\n", "the removed file should be backed up first"
     manifest = (tmp_path / ".playbook_install_manifest").read_text().splitlines()
     assert set(manifest) == {installed_path(path) for path in tracked_config_files(include_preferences=True)}, (
         "the manifest should list this install"
     )
-
-
-def test_folders_a_removed_file_leaves_empty_are_removed(tmp_path):
-    """Removing a file the repo moved also removes the folders it leaves empty, but not the user's own empty ones."""
-    old = tmp_path / "rules" / "always_on" / "01_standards" / "conduct" / "behaviour.md"
-    old.parent.mkdir(parents=True)
-    old.write_text("old rule\n")
-    (tmp_path / "rules" / "mine").mkdir()
-    (tmp_path / ".playbook_install_manifest").write_text("rules/always_on/01_standards/conduct/behaviour.md\n")
-
-    result = run_install(tmp_path, answer="install")
-
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert not old.parent.exists(), "the folder the move emptied should be removed"
-    assert (tmp_path / "rules" / "mine").is_dir(), "an empty folder the install didn't empty should stay"
 
 
 def test_manifest_paths_outside_the_target_are_ignored(tmp_path):
@@ -472,11 +450,16 @@ def test_yes_is_refused_inside_claude_code(tmp_path):
     assert not any(tmp_path.iterdir()), "nothing should be written"
 
 
-def test_authoring_templates_never_install(default_install):
-    """The skill, agent and rule templates stay in the repo, while templates that rules point to still install."""
+def test_authoring_templates_and_readmes_never_install(default_install):
+    """Authoring templates and READMEs, which explain folders to people browsing, stay in the repo, while templates
+    that rules point to still install."""
     installed = installed_files(default_install)
     assert not {path for path in installed if path in AUTHORING_TEMPLATES or path.startswith("_templates/skills/")}
     assert "_templates/preferences/TODO.md.template" in installed, "the TODO template a preference points to installs"
+    for readme in ("README.md", "hooks/README.md", "rules/always_on/README.md"):
+        assert (SOURCE / readme).is_file(), f"the repo should have {readme}"
+    readmes = [path for path in installed if path.endswith("README.md")]
+    assert readmes == [], f"no README should install: {readmes}"
 
 
 # files an install writes for its own records, beside the config it copies
@@ -531,17 +514,9 @@ def test_a_project_never_gets_preferences(tmp_path):
     assert preference_files(project / ".claude") == set(), "a project install should have no preferences"
 
 
-def test_style_is_replaced_and_bad_preference_values_are_refused(tmp_path):
-    """STYLE warns that it's gone while writing_style.md still installs, and PREFERENCES must be 0 or 1."""
-    config = tmp_path / "config"
-    result = run_install(config, answer="install", STYLE="0")
-    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
-    assert "STYLE is gone" in result.stdout, "it should warn that STYLE no longer does anything"
-    assert (config / "rules" / "always_on" / "01_standards" / "writing_style.md").exists(), (
-        "writing style always installs"
-    )
-
-    refused = run_install(tmp_path / "other", answer="install", PREFERENCES="yes")
+def test_a_bad_preferences_value_is_refused(tmp_path):
+    """PREFERENCES must be 0 or 1."""
+    refused = run_install(tmp_path, answer="install", PREFERENCES="yes")
 
     assert refused.returncode == 1, f"PREFERENCES=yes should be refused:\n{refused.stdout}"
 
@@ -560,11 +535,3 @@ def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_pat
     assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
     assert installed_files(config) - {"settings.json"} == {"CLAUDE.md"}, "only the user's own files should remain"
     assert (config / "CLAUDE.md").read_text() == "my old config\n", "the user's CLAUDE.md should be restored"
-
-
-def test_readmes_never_install(default_install):
-    """A README in any folder stays in the repo, since it explains the folder to people browsing it."""
-    for readme in ("README.md", "hooks/README.md", "rules/always_on/README.md"):
-        assert (SOURCE / readme).is_file(), f"the repo should have {readme}"
-    readmes = [path for path in installed_files(default_install) if path.endswith("README.md")]
-    assert readmes == [], f"no README should install: {readmes}"

@@ -83,6 +83,7 @@ def test_terminal_lists_every_file_by_load_type(tmp_path):
     scoped, _, lazy = result.stdout.partition("## 💤 On demand")
     assert "| 1 | `rules/scoped.md` | `**/*.py`, `**/*.sh` | ~" in scoped, "a path-scoped file should list every glob"
     assert all(row in lazy for row in ON_DEMAND_ROWS), "each on-demand file should be listed in the terminal"
+    assert "README.md" not in result.stdout, "a README never installs, so it shouldn't be listed"
 
 
 def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
@@ -104,12 +105,6 @@ def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
     staged_files = ["git", "diff", "--cached", "--name-only"]
     staged = subprocess.run(staged_files, cwd=tmp_path, env=env, capture_output=True, text=True, check=True)
     assert REPORT in staged.stdout.split(), "the rewritten report should be staged for the commit"
-
-
-def test_readmes_are_left_out(tmp_path):
-    """A README in any folder never installs, so the report neither lists nor counts it."""
-    result = run_report(tmp_path, config_repo(tmp_path))
-    assert "README.md" not in result.stdout, "no README should be listed"
 
 
 @pytest.mark.parametrize(

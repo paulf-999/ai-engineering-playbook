@@ -58,13 +58,13 @@ Each test file is judged against the [keep or delete criteria](../../tests/READM
 
 | # | Test file | What it protects | Tests | Sessions failed | Verdict |
 |---|---|---|---|---|---|
-| 18 | 📐 [Rules structure](../../tests/src/claude/test_rules_structure.py) | Rule size, headings, pointers and folder placement | 21 | 11 | ✅ Keep |
-| 19 | 📦 [Install config](../../tests/src/sh/test_claude_install_config.py) | Install, upgrade, uninstall, backups and preferences | 31 | 9 | ✅ Keep |
+| 18 | 📐 [Rules structure](../../tests/src/claude/test_rules_structure.py) | Rule size, pointers and folder placement | 19 | 11 | ✅ Keep |
+| 19 | 📦 [Install config](../../tests/src/sh/test_claude_install_config.py) | Install, upgrade, uninstall, backups and preferences | 28 | 9 | ✅ Keep |
 | 20 | ✅ [Done checks hook](../../tests/src/claude/test_hook_enforcement_done_checks.py) | Stopping once to run the repo's checks | 9 | 1 | ✅ Keep |
 | 21 | 📋 [Plan sections hook](../../tests/src/claude/test_hook_enforcement_plan_sections.py) | Blocking plans with no Intent or Spec | 5 | 0 | ✅ Keep |
 | 22 | 🌳 [Worktree edits hook](../../tests/src/claude/test_hook_enforcement_worktree_edits.py) | Blocking a first edit in the main folder | 7 | 0 | ✅ Keep |
 | 23 | 💡 [Kaizen reminder hook](../../tests/src/claude/test_hook_reminder_kaizen_due.py) | Nudging only once 5 feedback notes are new since a run | 4 | 0 | ✅ Keep |
-| 24 | 💸 [Context-cost report](../../tests/src/sh/test_claude_report_context_cost.py) | An accurate token report | 6 | 1 | 🔒 Keep (decided) |
+| 24 | 💸 [Context-cost report](../../tests/src/sh/test_claude_report_context_cost.py) | An accurate token report | 5 | 1 | 🔒 Keep (decided) |
 | 25 | 💰 [Always-on budget](../../tests/src/sh/test_claude_validate_always_on_budget.py) | The 3,000-token cap and what counts towards it | 5 | 1 | ✅ Keep |
 | 26 | 🧱 [Script structure](../../tests/src/sh/test_script_structure.py) | Every script follows the bash template | 3 | 1 | ✅ Keep |
 | 27 | 🧰 [Shell utils](../../tests/src/sh/test_shell_utils.py) | The shared shell helpers, tested once | 4 | 0 | ✅ Keep |

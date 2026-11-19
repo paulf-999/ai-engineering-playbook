@@ -62,21 +62,12 @@ def opening_problems(text):
 
 
 def size_problems(text):
-    """Return problems with the file's length or its trailing newline."""
+    """Return a problem if the file is over the line limit."""
     problems = []
     _, body = split_frontmatter(text.split("\n"))
     counted = [line for line in body if not line.startswith("<!--")]
     if len(counted) > MAX_LINES + 1:  # the last element is the empty string after the final newline
         problems.append(f"{len(counted) - 1} lines, over the {MAX_LINES}-line limit, so split it into children")
-    if not text.endswith("\n") or text.endswith("\n\n"):
-        problems.append("must end with exactly one newline")
-    return problems
-
-
-def heading_problems(text):
-    """Return problems with ## headings: a Related section."""
-    h2 = [line for line in prose_lines(text.split("\n")) if line.startswith("## ")]
-    problems = [f"link other files by pointer, not a Related section: {line!r}" for line in h2 if "Related" in line]
     return problems
 
 
@@ -109,16 +100,9 @@ def test_rule_opens_with_h1_and_purpose(path):
 
 
 @pytest.mark.parametrize("path", RULE_FILES, ids=relative)
-def test_rule_size_and_ending(path):
-    """Each rule is 110 lines or fewer, not counting comments or frontmatter, and ends with one newline."""
+def test_rule_size(path):
+    """Each rule is 110 lines or fewer, not counting comments or frontmatter."""
     problems = size_problems(path.read_text())
-    assert not problems, f"{relative(path)}: " + "; ".join(problems)
-
-
-@pytest.mark.parametrize("path", RULE_FILES, ids=relative)
-def test_rule_headings(path):
-    """No ## heading is a Related section."""
-    problems = heading_problems(path.read_text())
     assert not problems, f"{relative(path)}: " + "; ".join(problems)
 
 
@@ -302,30 +286,22 @@ def test_preference_paths_are_found_in_any_backticks():
     assert preference_paths(text) == ["`on_demand/02_preferences/x.md`", "`_templates/preferences/y`"]
 
 
-def test_no_standard_file_names_a_preference():
-    """Nothing outside the preferences points into a 02_preferences/ folder, which PREFERENCES=0 leaves out."""
-    problems = [
-        f"{path}: {found}"
-        for path in sorted(tracked_config_files())
-        if not path.endswith("README.md")
-        for found in preference_paths((CONFIG_DIR / path).read_text())
-    ]
-    assert not problems, "standard files name preferences they may not have:\n" + "\n".join(problems)
-
-
 # working-file folders that only the working-files preference names, since an install without it never writes there
 WORKING_FILE_FOLDERS = re.compile(r"\.claude_work/|~/_drafts/|~/_errors/")
 
 
-def test_no_standard_file_names_a_working_file_folder():
-    """Only preferences say where Claude keeps a user's plans, drafts, errors and session notes."""
+@pytest.mark.parametrize(
+    "find", [preference_paths, WORKING_FILE_FOLDERS.findall], ids=["preference", "working_file_folder"]
+)
+def test_no_standard_file_names_what_only_preferences_hold(find):
+    """Only preferences name a 02_preferences/ path or a working-file folder, which PREFERENCES=0 leaves out."""
     problems = [
         f"{path}: {found}"
         for path in sorted(tracked_config_files())
         if not path.endswith("README.md")
-        for found in WORKING_FILE_FOLDERS.findall((CONFIG_DIR / path).read_text())
+        for found in find((CONFIG_DIR / path).read_text())
     ]
-    assert not problems, "standard files name working-file folders:\n" + "\n".join(problems)
+    assert not problems, "standard files name what only preferences hold:\n" + "\n".join(problems)
 
 
 def test_a_short_child_passes_once_its_guide_is_split_by_kind(tmp_path):

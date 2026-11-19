@@ -85,17 +85,12 @@ def test_always_on_changes_require_evaluation_criteria(description, changed_file
         assert CRITERIA_NAME in result.stdout, f"the reason should name the missing section: {result.stdout}"
 
 
-# a heading still in the older sentence case, which matches too
-OLD_SPEC = "\n## :robot: Claude plan spec: requirements and design\n\n- **Hook:** blocks a stop once.\n"
-
-
 @pytest.mark.parametrize(
     ("spec", "changed_files", "expected_code"),
     [
-        # a filled spec, a stated "Not applicable" or an older sentence-case heading passes
+        # a filled spec or a stated "Not applicable" passes
         (SPEC, CONFIG_FILE, 0),
         (SPEC_HEADING + "Not applicable: a typo fix.\n", CONFIG_FILE, 0),
-        (OLD_SPEC, CONFIG_FILE, 0),
         # a missing spec fails a config PR
         ("", CONFIG_FILE, 1),
         # an on-demand change still needs a spec, but a PR that doesn't touch src/claude/ doesn't

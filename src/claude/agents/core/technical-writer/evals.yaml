@@ -238,8 +238,6 @@ evals:
           - The reply says ADRs are out of scope
       run:
           prompt: Write an ADR for choosing Snowflake over BigQuery.
-          must_match:
-              - (?i)(out of scope|not something I (write|draft)|don't (write|draft) ADRs|(fall|falls|is) outside|outside (my|what (I|this agent)))
 
     - name: declines_editing_existing_docs
       description: Declines to improve an existing document

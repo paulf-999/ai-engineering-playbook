@@ -274,6 +274,7 @@ confirm_install() {
         done
         print_opt_in_note
     fi
+    echo
     echo "It also updates settings.json, backing up anything it changes to $(dirname "${BACKUP_DIR}")."
     [[ "${ASSUME_YES}" == 1 ]] && return 0
     echo

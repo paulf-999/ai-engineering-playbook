@@ -3,11 +3,9 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A practical playbook that treats AI-assisted engineering as a discipline, not a collection of prompts.
+A lean Claude Code playbook with a one-command setup, so every engineer starts on shared standards from day one.
 
-**Goal:** favour simplicity, selective context loading, spec-led workflows and evidence-based decisions.
-
-It's built for data teams working with dbt, Snowflake and Airflow, though its general rules suit any project.
+Claude loads only the instructions a task needs, agrees a plan before coding, and its rules are backed by measured runs.
 
 ---
 
@@ -22,10 +20,7 @@ The [getting-started guide](docs/guides/getting_started.md) covers what you need
    cd ai-engineering-playbook
    ```
 
-2. Run `make install PROJECT=<path to repo>` to install into one repo's `.claude/` folder, or `make install` to install for every project, into `~/.claude` or `$CLAUDE_CONFIG_DIR` if set.
-
-> [!NOTE]
-> Run it in your own terminal, and `make uninstall` with the same `PROJECT=` undoes it.
+2. Run `make install PROJECT=<path to repo>` to install into one repo's `.claude/` folder, or `make install` to install for every project, into `~/.claude`.
 
 ---
 
@@ -37,11 +32,11 @@ Everything you install is in [`src/claude/`](src/claude/). The rest of the repo 
 
 ## 📦 What you get
 
-- ⚡ **Lean:** Claude [loads instructions in three ways](src/claude/rules/README.md): core rules every session, file-specific rules only when it works on matching files, and the rest only when a task calls for them, so it stays fast and focused.
-- 📄 **`CLAUDE.md`:** [this file](src/claude/CLAUDE.md) builds in [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), so Claude makes fewer common coding mistakes.
-- 🔄 **AI-SDLC:** for planned work, Claude [agrees what to build and how](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) before coding, then checks the result against that plan.
-- 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt/dbt_before_and_after.md) and measured runs for [dbt](docs/examples/dbt/dbt_rules_measured.md) and [Airflow](docs/examples/airflow/airflow_rules_measured.md) show what the rules change.
-- 👤 **Opt-in preferences:** personal ones, such as the reply format, install only with `make install PREFERENCES=1`.
+- ⚡ **Lean:** loads [only the rules a task needs](src/claude/rules/README.md), so Claude stays fast and focused.
+- 📄 **`CLAUDE.md`:** [builds in](src/claude/CLAUDE.md) [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) to cut common coding mistakes.
+- 🔄 **AI-SDLC:** Claude [agrees a plan](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) before coding, then checks the result against it.
+- 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt/dbt_before_and_after.md) and measured [dbt](docs/examples/dbt/dbt_rules_measured.md) and [Airflow](docs/examples/airflow/airflow_rules_measured.md) runs show the effect.
+- 👤 **Opt-in preferences:** personal ones, such as the reply format, need `make install PREFERENCES=1`.
 
 ---
 

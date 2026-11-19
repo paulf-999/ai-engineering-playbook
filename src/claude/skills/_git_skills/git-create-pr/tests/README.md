@@ -25,5 +25,6 @@ Each scenario records a user request, its setup and the expected result. `make e
 | 15 | `likely_secret_file_not_staged` | Security | An untracked `.env` is left out of the commit and listed under "Not staged" |
 | 16 | `review_request_goes_elsewhere` | Not for | A request to review a PR goes to `/git-review-pr`, and this skill doesn't fire |
 | 17 | `merge_conflict_stops` | Not for | Unmerged paths stop the skill before anything is staged |
+| 18 | `offers_review_after_pr` | Execute | After the PR opens, offers `/git-review-pr` for it and runs the review only on a `y` |
 
 - **No handler tests:** this skill has no Python code, so `evals.yaml` is its only test.

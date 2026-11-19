@@ -41,6 +41,7 @@ $ /git-create-pr add user authentication
           ✓ Branch created  ✓ Committed  ✓ Pushed  ✓ PR created
 
 PR #1234 created: https://github.com/org/repo/pull/1234
+Run /git-review-pr 1234 on it? (y/n)
 ```
 
 ## ✨ Best For
@@ -59,4 +60,4 @@ Routine feature and hotfix PRs, raised faster than by hand, with Conventional Co
 - `reference/_implementation.md` — the phase map and error handling, pointing to the two phase files
 - `reference/_phase1_gather.md` — the read-only checks, how the branch, commit, title, body and labels are derived, and the label check
 - `reference/_phase2_execute.md` — the single confirmation prompt, execution rules and error recovery
-- `tests/evals.yaml` — 17 scenarios covering every phase, the confirmation replies, the main errors, security cases and two cases where it shouldn't fire
+- `tests/evals.yaml` — 18 scenarios covering every phase, the confirmation replies, the review offer, the main errors, security cases and two cases where it shouldn't fire

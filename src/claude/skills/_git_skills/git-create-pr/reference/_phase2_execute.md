@@ -54,6 +54,7 @@ Wait for the user's reply before running anything.
 - **Title through a quoted heredoc:** pass the title as `--title "$(cat <<'EOF' … EOF)"`, whose quoted `'EOF'` stops the shell expanding `$(...)`, backticks or quotes in it.
 - **Pre-commit hooks:** report a hook failure clearly, and never retry with `--no-verify` unless the user explicitly asks.
 - **Report the result:** finish with the new PR's number and URL.
+- **Offer a review:** then ask whether to run `/git-review-pr <number>` on the new PR, and run it only on a `y`.
 
 ## 🚨 Error recovery
 

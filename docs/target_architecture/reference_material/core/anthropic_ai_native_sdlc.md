@@ -95,7 +95,7 @@ Which of the course's plays suit this repo, as decided at the maintainer's revie
 | 🧠 Skills | Adopt | Only for knowledge that must be applied consistently, backed by a hook or CI check, as the course advises, though none ship yet |
 | 🔀 Parallel sessions and subagents | Adapt | Separate checkouts fit, but one reviewer limits how many sessions help |
 | 🔁 Feedback loop | Adopt | `make test` and `pre-commit run --all-files` already give one command each |
-| 🧪 Continuous evals | Deferred | A small set of repeatable test tasks is feasible, once API cost and upkeep are weighed |
+| 🧪 Continuous evals | Adapt | `make evals` runs trigger, behaviour and rule A/B evals on the claude.ai login, run by hand rather than in CI |
 | 👀 PR review loop | Adapt | Each config PR states its always-on token change and any red flag in place of a `REVIEW.md`, since a solo maintainer can't separate author and approver |
 | 🚧 Hooks as approval gates | Adapt | User-level hooks that `make install` registers and keeps in step, such as the plan sections hook, since a personal setup has no managed settings |
 | 🚀 CI/CD integration, closing the loop on metrics | Out of scope for now | Both need a deployed service, which this repo doesn't have |

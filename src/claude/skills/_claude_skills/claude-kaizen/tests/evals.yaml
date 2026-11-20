@@ -1,5 +1,6 @@
 ---
 skill_name: claude-kaizen
+# Runner tests: tests/src/py/test_claude_run_rule_evals.py checks the CASE filter this skill relies on.
 
 evals:
   # Triggering

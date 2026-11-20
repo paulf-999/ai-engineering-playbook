@@ -18,7 +18,7 @@ dispatch:
         - reviewing a PR → /git-review-pr
         - resolving merge conflicts, which the user does by hand
         - PRs against a base branch other than main
-        - changes of 20 or more files, which it flags for splitting
+        - changes of more than 20 files, which it flags for splitting
 
 requires:
     tools: [Bash, Read, Agent]

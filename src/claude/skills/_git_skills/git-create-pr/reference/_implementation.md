@@ -15,4 +15,4 @@
 - **Missing prerequisite:** stop before Phase 1 if `gh auth status` fails or `.github/pull_request_template.md` is missing.
 - **Nothing to commit:** stop in Phase 1 when the working tree is clean.
 - **Rejected push or failed `gh` call:** follow `_phase2_execute.md` → Error recovery, which never force-pushes.
-- **20 or more files:** flag it and suggest a split before Phase 2.
+- **More than 20 files:** flag it and suggest a split before Phase 2.

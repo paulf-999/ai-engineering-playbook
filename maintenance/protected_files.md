@@ -30,6 +30,7 @@ These can be slimmed, but not removed or made opt-in.
 | [`hook_enforcement_plan_sections.sh`](../src/claude/hooks/hook_enforcement_plan_sections.sh) | It stays on for every engineer, not opt-in |
 | [`context_cost.md`](context_cost.md), with its script, test, pre-commit check and `make context_cost` | The per-file token table stays current |
 | [`src/claude/_templates/`](../src/claude/_templates/) | The skill and agent templates are kept for porting |
+| Each skill's `skill.contract.yaml` | It sets the skill's scope, written before its `SKILL.md` |
 | [`src/sh/shell_utils.sh`](../src/sh/shell_utils.sh) and its copies in [`_templates/utils/`](../src/claude/_templates/utils/) | They're kept as separate copies by choice |
 | [`docs/target_architecture/architecture/`](../docs/target_architecture/architecture/) | The child pages split the design for the maintainer's reading |
 | [`style_guides/`](../src/claude/rules/on_demand/style_guides/) | A heavy guide is slimmed rather than deleted |

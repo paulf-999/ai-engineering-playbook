@@ -1,10 +1,6 @@
 ---
 name: <domain>-<action>  # Format: lowercase letters, digits and hyphens, matching the folder name — https://agentskills.io/specification
 description: One-line description of what the skill does, using the phrases users type to ask for it
-tags:
-  criticality: should
-  status: active
-  tested: false
 ---
 
 ## 🤖 Instructions for Claude

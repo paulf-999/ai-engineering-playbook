@@ -38,5 +38,5 @@ The pages make these points, by section:
 This section is this repo's reading, not the pages':
 
 - 🏷️ **Naming:** the [naming standards](../../../../src/claude/rules/always_on/01_standards/naming_standards.md) make skills an exception to snake_case because of the `name` rule.
-- 🧾 **House fields:** this repo's [skill template](../../../../src/claude/_templates/skills/SKILL.md.template) adds `tags`, which isn't among the spec's six, so a strict validator would reject it.
+- 🧾 **House fields:** this repo's [skill template](../../../../src/claude/_templates/skills/SKILL.md.template) uses only the spec's fields, so a strict validator accepts it.
 - ⚠️ **Limit:** the standard covers skills only, and says nothing about agents.

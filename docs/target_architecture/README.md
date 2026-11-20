@@ -35,7 +35,7 @@ This design replaces [`claude_ai_playbook`](https://github.com/paulf-999/claude_
 - 🗣️ **Advisory controls:** most safeguards were written rules that relied on Claude checking itself.
 - 📉 **No outcome data:** nothing recorded delivery time, rework or human effort, so nobody could tell which components helped.
 
-The lessons carried forward: start minimal, review each old component for those patterns before porting it, ask whether removing half the components would make results worse, and keep the old setup's safe installer, portable paths, checks that can fail, on-demand loading and fresh-context review.
+The lessons carried forward: start minimal, review each old component for those patterns before porting it, and keep the old setup's safe installer, portable paths, checks that can fail, on-demand loading and fresh-context review.
 
 ## 📖 Further reading
 

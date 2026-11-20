@@ -18,7 +18,7 @@ Their content stays as it is, so bloat and always-on trims come from other files
 | [`CLAUDE.md`](../CLAUDE.md) and [`src/claude/CLAUDE.md`](../src/claude/CLAUDE.md) | Always-on trims come from `rules/always_on/` instead |
 | [`ai_sdlc_workflow.md`](../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) | It's the team's workflow for a change, from Intent to Review |
 | [`01_principles.md`](../docs/target_architecture/design_principles/01_principles.md) | It sets the principles the rest of the repo is built on |
-| [`_budget_and_guards.md`](../docs/target_architecture/architecture/_budget_and_guards.md) | It sets the always-on budget and the guards that enforce it |
+| [`_budget_and_guards.md`](../docs/target_architecture/architecture/_budget_and_guards.md) | It describes the always-on budget and the guards that enforce it |
 
 ## 🧰 Never removed
 

@@ -63,7 +63,7 @@ They install by default, and `make install PREFERENCES=0` leaves them out.
 | 📄 **Drafts, errors and session notes** | Saves drafts to `~/_drafts/`, error write-ups to `~/_errors/`, and long-task notes to `~/.claude_work/_sessions/` |
 
 - 📥 **Install:** a plain `make install` adds them, and `make install PREFERENCES=0` removes them. A one-repo install never includes them.
-- 💰 **Cost:** they load in every session, and the [context cost report](../../maintenance/context_cost.md) gives each one's tokens.
+- 💰 **Cost:** the reply and working-files preferences load in every session and the rest on demand, and the [context cost report](../../maintenance/context_cost.md) gives each one's tokens.
 - ⚠️ **Limits:** they never go into a project install, and without them Claude stops reading an existing `TODO.md`, plans or drafts, and offers options unnumbered, still in British spelling.
 
 </details>

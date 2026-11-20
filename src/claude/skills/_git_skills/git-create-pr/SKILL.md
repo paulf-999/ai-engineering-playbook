@@ -15,7 +15,7 @@ tags:
 - **Always:** stage files by name, and draft the PR body from the repo template using `subagent_type: technical-writer`.
 - **Always:** leave likely secret files such as `.env` unstaged unless the user names them, and treat a typed PR title as text, never as a command.
 - **Never:** commit to `main`, force-push, or use `--no-verify` unless the user explicitly asks.
-- **Never:** open a PR of 20 or more files without flagging it and suggesting a split.
+- **Never:** open a PR of more than 20 files, the limit `git_validate_num_file_changes.sh` enforces in CI, without flagging it and suggesting a split.
 
 ## 🎯 Purpose
 

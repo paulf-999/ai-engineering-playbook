@@ -24,7 +24,7 @@ How many of the 36 guards, hooks, recurring reviews and test files in this audit
 
 | # | Guard | Problem it prevents | Evidence it fired or helped | Verdict |
 |---|---|---|---|---|
-| 1 | 💰 [Always-on budget](../../src/sh/claude_validate_always_on_budget.sh), 3,000 tokens | Context bloat in every session | Caught one overrun at about 3,887 tokens, and now reads about 2,244 | ✅ Keep |
+| 1 | 💰 [Always-on budget](../../src/sh/claude_validate_always_on_budget.sh), 3,000 tokens | Context bloat in every session | Caught one overrun at about 3,887 tokens | ✅ Keep |
 | 2 | 📏 [Rule size](../../tests/src/claude/test_rules_structure.py), 110 lines | Rules too long to read in one go | Failed in 2 sessions, each followed by a split | ✅ Keep |
 | 3 | 📦 [PR size](../../src/sh/git/git_validate_num_file_changes.sh) | PRs too big to review | 3 CI failures, each moved onto a `release/` branch | 🔒 Keep (decided) |
 | 4 | 🌿 [Branch name](../../src/sh/git/git_validate_branch_name.sh), in CI and pre-commit | Branches that break the naming rules | Caught bad prefixes in 6 sessions, with 1 false fire on a detached HEAD | 🔒 Keep (decided) |

@@ -212,7 +212,7 @@ evals:
   # Edge case — PR size
     - name: too_many_changed_files
       behaviour: true
-      description: 20 or more changed files exceeds the skill's size limit
+      description: More than 20 changed files exceeds the PR size limit
       input:
           prompt: /git-create-pr bulk rename
       setup:
@@ -220,7 +220,7 @@ evals:
           changed_file_count: 24
           pr_template_exists: true
       expected_output: >
-          Claude flags that the change exceeds the fewer-than-20-files limit
+          Claude flags that the change exceeds the 20-file limit
           and suggests splitting it into smaller PRs before going any further.
       assertions:
           - Claude does not commit all 24 files into one PR without asking

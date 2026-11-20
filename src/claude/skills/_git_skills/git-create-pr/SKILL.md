@@ -1,10 +1,6 @@
 ---
 name: git-create-pr
 description: Create a GitHub PR with its branch, commit and body — use when asked to create a PR, make a PR or open a pull request
-tags:
-  criticality: should
-  status: active
-  tested: true
 ---
 
 ## 🤖 Instructions for Claude

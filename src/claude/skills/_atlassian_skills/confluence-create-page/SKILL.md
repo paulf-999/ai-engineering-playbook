@@ -1,10 +1,6 @@
 ---
 name: confluence-create-page
 description: Create a Confluence page from the team's templates — use when asked to create, write or add a Confluence page, publish a draft to Confluence, or write a platform risk assessment
-tags:
-  criticality: should
-  status: active
-  tested: true
 ---
 
 ## 🤖 Instructions for Claude

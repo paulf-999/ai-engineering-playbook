@@ -1,6 +1,6 @@
 ---
 name: claude-capture-session-prompts
-description: Write one day's Claude Code prompts to a markdown table, with secrets masked — use when asked to capture session prompts, audit session prompts or audit my Claude prompts
+description: Write one day's Claude Code prompts to a table, secrets masked — use when asked to capture session prompts, audit session prompts or audit my Claude prompts
 tags:
   criticality: could
   status: active

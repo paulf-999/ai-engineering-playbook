@@ -1,6 +1,6 @@
 ---
 name: jira-create-issue
-description: Create a Jira ticket that follows the team's conventions, after you approve the draft — use when asked to create a Jira ticket, create a bug in Jira or log this as a Jira ticket
+description: Create a Jira ticket in the team's conventions — use when asked to create a Jira ticket, create a bug in Jira or log this as a Jira ticket
 tags:
   criticality: should
   status: active

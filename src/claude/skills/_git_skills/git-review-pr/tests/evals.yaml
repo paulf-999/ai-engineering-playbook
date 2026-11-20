@@ -1,5 +1,9 @@
 ---
 skill_name: git-review-pr
+# Not covered: complexity scoring, which is the code-reviewer agent's job, and the formal review,
+# code edit and bug hunt not_for cases.
+# Secret pattern test: tests/src/claude/skills/_git_skills/git-review-pr/test_git_review_pr_secret_check.py
+# runs the check from reference/_implementation.md against sample secrets and safe text.
 
 evals:
   # Pre-check

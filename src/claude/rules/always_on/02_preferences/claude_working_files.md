@@ -1,8 +1,8 @@
 # 🗂️ Working files
 
-**Purpose:** where Claude keeps your own plans, TODOs, drafts, error write-ups and session notes, outside every repo. It's a preference, left out with `make install PREFERENCES=0`.
+**Purpose:** where Claude keeps your plans, TODOs, drafts and notes, outside every repo.
 
-- 💾 **Checkpoints:** once a task spans many files or turns, write its decisions and open items to `.claude_work/_sessions/YYYY_MM_DD_<topic>.md` in your home folder, beside the saved plans, as an absolute path, so a later session can resume it.
+- 💾 **Checkpoints:** once a task spans many files or turns, write its decisions and open items to `.claude_work/_sessions/YYYY_MM_DD_<topic>.md` in your home folder, as an absolute path.
 
 ## 📚 Read on demand
 

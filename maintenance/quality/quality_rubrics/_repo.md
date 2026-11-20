@@ -43,11 +43,8 @@ Process and machinery heavier than the repo needs:
 - 🔢 **Count issues:** score a judged theme by how many distinct issues it has, where ✅ allows 2, since a fresh reviewer always finds one or two.
   - **One issue each:** count one per fact, rule or mechanism, however many files repeat or contradict it, so a rule restated in 7 files is 1 duplicate.
 - 🧮 **No double count:** Evidence of need counts whole files nothing uses, and Built for today counts unused capacity inside files that are used.
-- 🤝 **Kept by choice:** don't mark down any of these, which the user keeps on purpose:
+- 🤝 **Kept by choice:** don't mark down anything on the [protected files](../protected_files.md) page, nor these:
   - **Planned:** a folder or file that its README or parent rule marks "planned", and the budget script's scanning of skills, agents, `@` imports and a project `.claude/`.
-  - **Audits:** the repo audit, this rubric with its checklists, and the persona review.
-  - **Seams:** the `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides the tests use.
-  - **Copies and lists:** the separate `shell_utils.sh` copies, the further-reading list in `reference_material/README.md`, and the token report, `maintenance/context_cost.md`, whose commits the upkeep measure leaves out.
 - 🔢 **Product and support:** product is `src/claude/` and `docs/target_architecture/`, and support is `tests/`, `src/sh/`, `maintenance/` and `.github/`.
 
 ## 🔢 Measures

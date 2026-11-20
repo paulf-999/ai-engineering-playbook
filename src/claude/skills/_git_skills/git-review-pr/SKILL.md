@@ -1,6 +1,6 @@
 ---
 name: git-review-pr
-description: Review a GitHub PR and post a scored Claude review comment — use when asked to review this PR, review PR <number or url>, dry-run a PR review, or post a Claude review on a PR
+description: Review a GitHub PR and post a scored comment — use when asked to review this PR or PR <number or url>, dry-run a PR review, or post a Claude review
 tags:
   criticality: should
   status: active

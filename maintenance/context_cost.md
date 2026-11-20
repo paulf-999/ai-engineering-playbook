@@ -18,28 +18,28 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|
 | 1 | `CLAUDE.md` | ~523 |
 | 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~43 |
-| 3 | `agents/core/technical-writer/AGENT.md` (description) | ~37 |
+| 3 | `agents/core/technical-writer/AGENT.md` (description) | ~27 |
 | 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~275 |
-| 5 | `rules/always_on/01_standards/behaviour.md` | ~374 |
-| 6 | `rules/always_on/01_standards/house_style_team_conventions.md` | ~87 |
-| 7 | `rules/always_on/01_standards/naming_standards.md` | ~256 |
-| 8 | `rules/always_on/01_standards/security.md` | ~224 |
-| 9 | `rules/always_on/01_standards/writing_style.md` | ~255 |
-| 10 | `skills/_atlassian_skills/confluence-create-page/SKILL.md` (description) | ~52 |
-| 11 | `skills/_atlassian_skills/jira-create-issue/SKILL.md` (description) | ~44 |
-| 12 | `skills/_claude_skills/claude-capture-session-prompts/SKILL.md` (description) | ~42 |
+| 5 | `rules/always_on/01_standards/behaviour.md` | ~343 |
+| 6 | `rules/always_on/01_standards/house_style_team_conventions.md` | ~80 |
+| 7 | `rules/always_on/01_standards/naming_standards.md` | ~210 |
+| 8 | `rules/always_on/01_standards/security.md` | ~211 |
+| 9 | `rules/always_on/01_standards/writing_style.md` | ~246 |
+| 10 | `skills/_atlassian_skills/confluence-create-page/SKILL.md` (description) | ~44 |
+| 11 | `skills/_atlassian_skills/jira-create-issue/SKILL.md` (description) | ~34 |
+| 12 | `skills/_claude_skills/claude-capture-session-prompts/SKILL.md` (description) | ~39 |
 | 13 | `skills/_claude_skills/claude-kaizen/SKILL.md` (description) | ~0 |
-| 14 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~36 |
-| 15 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~43 |
-| | **Subtotal** | **~2299** |
+| 14 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~29 |
+| 15 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~37 |
+| | **Subtotal** | **~2147** |
 
 ## 👤 Every session, unless opted out
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~292 |
-| 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~262 |
-| | **Subtotal** | **~554** |
+| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~246 |
+| 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~224 |
+| | **Subtotal** | **~470** |
 
 ## 💤 Only when needed
 

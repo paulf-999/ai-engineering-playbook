@@ -1,5 +1,7 @@
 ---
 skill_name: claude-capture-session-prompts
+# Script tests: tests/src/claude/skills/_claude_skills/claude-capture-session-prompts/
+# test_capture_session_prompts.py checks the date filter, the masking and the overwrite check.
 
 evals:
   # Happy paths

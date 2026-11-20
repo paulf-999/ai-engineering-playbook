@@ -20,6 +20,7 @@ These back specific limits and naming rules, so recheck the live page before rel
 - 🧠 **[How Claude remembers your project](https://code.claude.com/docs/en/memory):** the always-on budget's 200-line basis, and that imports still load while path-scoped rules load only for matching files.
 - 🛠️ **[Extend Claude with skills](https://code.claude.com/docs/en/skills):** where Claude Code's skills go beyond the standard, so the template's `tags` field must go before a claude.ai upload.
 - 🤖 **[Create custom subagents](https://code.claude.com/docs/en/sub-agents):** the agent template's fields, and listing `tools`, since leaving it out grants every tool.
+- 🧪 **[Demystifying evals for AI agents](https://www.anthropic.com/research/demystifying-evals-for-ai-agents):** how to design the rule, trigger and behaviour evals that check the config does what it says.
 
 ## 🧭 Weighing them
 

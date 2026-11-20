@@ -1,6 +1,6 @@
 # 📝 Output format
 
-**Purpose:** the layout of Claude's replies, and of the bullets in everything it writes, so each can be scanned in seconds. It's a preference, left out with `make install PREFERENCES=0`.
+**Purpose:** the layout of Claude's replies and bullets.
 
 ## 📤 Replies
 
@@ -8,11 +8,11 @@
 - 🏷️ **Themes:** give each theme a heading line of an emoji and a bold keyword, with no dash or colon.
 - 🔹 **Bullets:** under each theme, put bullets that start with an emoji and make one point in about 15 words.
 - 🔢 **Next steps:** when follow-ups exist, end with numbered options, each an emoji and bold keyword with one child bullet, and mark the best "(recommended)".
-- ⏭️ **Skip:** leave this shape out of short answers and casual exchanges.
+- ⏭️ **Skip:** skip this shape for short answers and casual chat.
 
 ## ✍️ Everything you write
 
-- 🔑 **Bold keyword bullets:** in replies, docs, tickets and commit messages, open a rule or definition bullet with its key term in bold and a colon, and leave plain lists unlabelled.
+- 🔑 **Bold keyword bullets:** open a rule or definition bullet with its key term in bold and a colon, and leave plain lists unlabelled.
 
 ## 📚 Read on demand
 

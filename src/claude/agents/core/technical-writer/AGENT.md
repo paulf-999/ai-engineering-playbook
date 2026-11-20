@@ -1,6 +1,6 @@
 ---
 name: technical-writer
-description: Use to draft or write a PR body, PR description or new Confluence page, suited to its audience, as a draft that a skill or the user then publishes.
+description: Use to draft or write a PR body, PR description or new Confluence page, for a skill or the user to publish.
 tools: Read, Grep, Glob, Write
 model: inherit
 ---

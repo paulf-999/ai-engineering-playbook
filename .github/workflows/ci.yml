@@ -25,6 +25,8 @@ jobs:
         timeout-minutes: 10
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+              with:
+                  persist-credentials: false
             - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
               with:
                   python-version: '3.13'
@@ -58,6 +60,8 @@ jobs:
         timeout-minutes: 10
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+              with:
+                  persist-credentials: false
             # Squash merges use the PR title as the commit message on main, so commitlint checks it with the config
             # version the commit-msg hook pins in .pre-commit-config.yaml, and the matching CLI release
             # Passed through env, not ${{ }} in the script, so a crafted title can't inject shell
@@ -77,6 +81,7 @@ jobs:
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
               with:
+                  persist-credentials: false
                   # full history, so the PR's changes can be diffed against its base
                   fetch-depth: 0
             # Passed through env, not ${{ }} in the script, so a crafted branch name can't inject shell
@@ -93,6 +98,8 @@ jobs:
         timeout-minutes: 10
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+              with:
+                  persist-credentials: false
             - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
               with:
                   python-version: '3.13'

@@ -32,6 +32,6 @@ Claude agrees a plan before coding, and hooks enforce the key steps, as the [wor
 The rules are backed by checks and measured runs:
 
 - 💰 **Budget:** a pre-commit check, [`claude_validate_always_on_budget.sh`](../../src/sh/claude_validate_always_on_budget.sh), caps the always-on text, and `make context_cost` writes the token report to [`maintenance/context_cost.md`](../../maintenance/context_cost.md), per [budget and guards](architecture/_budget_and_guards.md).
-- 🔍 **Measured runs:** the [dbt](../examples/dbt/dbt_rules_measured.md), [Airflow](../examples/airflow/airflow_rules_measured.md), [SQL and Snowflake](../examples/sql/snowflake_rules_measured.md) and [Ansible](../examples/infra/ansible_rules_measured.md) runs compare Claude with and without the rules.
+- 🔍 **Measured runs:** the [dbt](../examples/dbt/dbt_rules_measured.md), [Airflow](../examples/airflow/airflow_rules_measured.md), [SQL and Snowflake](../examples/sql/snowflake_rules_measured.md), [Terraform](../examples/infra/terraform_rules_measured.md) and [Ansible](../examples/infra/ansible_rules_measured.md) runs compare Claude with and without the rules.
 - 🧪 **Evals:** [`evals.yaml`](../../src/claude/rules/evals.yaml) holds rule cases, and `make evals RULES=1` runs each with and without its rule.
 - 📏 **Reviews:** each regular review records which parts helped, per the [measures](architecture/_measures.md).

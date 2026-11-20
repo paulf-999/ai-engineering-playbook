@@ -3,7 +3,7 @@
 **Purpose:** what 48 scripted runs showed about whether the Airflow rules make Claude follow them, on 4 common DAG tasks in two sample projects.
 
 > [!NOTE]
-> Run on 2026-11-18 with Claude Opus 5.5. It measures whether Claude follows the written rules, using checks the rules' author wrote, not whether the result is a better DAG, which needs people to judge. It's 3 runs per task, on one model, so treat the figures as a signal, not a precise rate. The infra guides aren't measured yet.
+> Run on 2026-11-18 with Claude Opus 5.5. It measures whether Claude follows the written rules, using checks the rules' author wrote, not whether the result is a better DAG, which needs people to judge. It's 3 runs per task, on one model, so treat the figures as a signal, not a precise rate. The infra guides are measured separately, for [Terraform](../infra/terraform_rules_measured.md) and [Ansible](../infra/ansible_rules_measured.md).
 
 ## 📊 Results
 

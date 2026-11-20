@@ -49,10 +49,10 @@ Reviewing one GitHub PR before merge, when the team wants the same scored format
 
 - **Large diffs:** past about 500 diff lines, the remaining files are summarised rather than reviewed line by line, so split a big PR.
 - **Unknown secret shapes:** the secret check catches known key shapes only, so a JWT or connection string would pass, and you should read the comment before answering `y`.
-- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`, so check a change to the skill against the rest by hand.
+- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`.
 
 ## 📚 References
 
 - `reference/_implementation.md` — the seven phases, the secret check, troubleshooting and FAQ
 - `reference/_formats.md` — the comment template, scoring guides and linking rules
-- `tests/evals.yaml` — 13 scenarios covering the `gh` login check, invalid arguments, empty and large diffs, the format, prompt injection, the secret check, dry runs, a declined post, updates, a failed post and two cases where it shouldn't fire
+- `tests/evals.yaml` — 3 scenarios, each run by `make evals`

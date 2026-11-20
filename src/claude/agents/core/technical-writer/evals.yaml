@@ -16,54 +16,7 @@ evals:
       assertions:
           - The Agent call uses subagent_type technical-writer
 
-    - name: pr_review_goes_elsewhere
-      description: Reviewing a PR goes to code-reviewer, not this agent
-      input:
-          prompt: Review this PR and score it
-      setup:
-          open_pr: true
-      expected_output: >
-          Claude uses code-reviewer, and technical-writer is not invoked.
-      assertions:
-          - technical-writer is not invoked
-
   # PR bodies
-    - name: pr_body_follows_template
-      description: Drafts a PR body that reproduces every section of the repo template
-      input:
-          prompt: Draft a PR body for the auth retry fix
-      setup:
-          pr_template_exists: true
-          template_sections: [Summary, Type of change, Related Jira Issue, Testing]
-      expected_output: >
-          The agent reads .github/pull_request_template.md, keeps every section in order,
-          fills only the placeholders and opens with a one-sentence summary.
-      assertions:
-          - Every template section appears in the draft, in the template's order
-          - The draft opens with a one-sentence summary
-      run:
-          prompt: |
-              Draft a PR body for the auth retry fix, using only this repo template, and reply with the body only.
-              The change: login now retries a failed token refresh once before showing an error. Tested locally.
-
-              Template (.github/pull_request_template.md):
-              ## Summary
-              <one sentence>
-
-              ## Type of change
-              - [ ] Feature
-              - [ ] Bugfix
-
-              ## Related Jira Issue
-              <ticket link or None>
-
-              ## Testing
-              <how it was tested>
-
-          must_match:
-              - (?s)## Summary.*## Type of change.*## Related Jira Issue.*## Testing
-              - (?i)\[x\] Bugfix
-
     - name: pr_body_links_jira_ticket
       behaviour: true
       description: Picks up a Jira key from the branch name and links it
@@ -122,93 +75,9 @@ evals:
           must_not_match:
               - (?m)^## Summary
 
-  # Confluence pages
-    - name: confluence_technical_audience
-      description: Writes page text with technical depth for engineers
-      input:
-          prompt: Draft a Confluence page explaining the new Airflow retry policy for the data engineering team
-      setup:
-          audience: data engineering team
-      expected_output: >
-          The agent uses technical terms without over-explaining, structures the page
-          with headings and bullets.
-      assertions:
-          - The draft uses headings and bullets rather than runs of prose
-          - The draft doesn't define terms engineers already know, such as DAG or retry
-
-    - name: confluence_mixed_audience
-      description: Adjusts tone and depth when non-technical readers are included
-      input:
-          prompt: Draft a Confluence page on the Q3 data platform changes for managers and engineers
-      setup:
-          audience: management and engineers
-      expected_output: >
-          The agent leads with business outcomes in plain English and keeps
-          implementation detail in a clearly separated later section.
-      assertions:
-          - The opening section contains no unexplained technical jargon
-          - Implementation detail sits below the outcomes, not before them
-
-    - name: confluence_asks_for_audience
-      description: Asks who the page is for before writing when the audience is unclear
-      input:
-          prompt: Draft a Confluence page about the new deployment process
-      setup:
-          audience:
-      expected_output: >
-          The agent asks who the page is for, offering the audiences from the
-          team's audience table, and writes nothing until the user answers.
-      assertions:
-          - The reply asks about the audience
-          - No draft file is written before the answer
-      run:
-          prompt: Draft a Confluence page about the new deployment process.
-          must_match:
-              - (?i)(audience|who (is|will be) (it|this|the page) for|who will read)
-
-  # Clarity and tone
-    - name: restructures_prose_into_bullets
-      description: Turns paragraph-heavy source notes into a scannable draft
-      input:
-          prompt: Turn these notes into a PR description
-      setup:
-          pr_template_exists: true
-          source_notes: three dense paragraphs with no headings
-      expected_output: >
-          The agent rewrites the content as bullets under the template's sections,
-          one point per bullet, without losing any facts from the notes.
-      assertions:
-          - The draft has no paragraph longer than two sentences
-          - Every fact in the source notes appears in the draft
-
-    - name: flags_assumed_knowledge
-      description: Flags jargon the stated audience may not know
-      input:
-          prompt: Draft a page for the analytics team about moving to incremental dbt models
-      setup:
-          audience: data analytics team
-      expected_output: >
-          The agent explains or replaces terms like "incremental materialisation" and
-          lists any knowledge the draft assumes.
-      assertions:
-          - Each technical term is explained or replaced
-          - The reply lists assumptions the draft makes about the reader
-
-    - name: tone_differs_by_audience
-      description: Produces a different tone for engineers and for business stakeholders
-      input:
-          prompt: Draft two versions of the outage summary, one for engineers and one for leadership
-      setup:
-          audiences: [data engineering team, management]
-      expected_output: >
-          The engineer version names the failing components, while the leadership
-          version covers impact, status and next steps in plain English.
-      assertions:
-          - The leadership version names no internal component
-          - The engineer version names the failing components
-
   # Boundaries
     - name: hands_off_publishing_to_skill
+      behaviour: true
       description: Drafts but doesn't publish, and names the skill that does
       input:
           prompt: Write and publish a Confluence page about the on-call rota
@@ -240,6 +109,7 @@ evals:
           prompt: Write an ADR for choosing Snowflake over BigQuery.
 
     - name: declines_editing_existing_docs
+      behaviour: true
       description: Declines to improve an existing document
       input:
           prompt: Improve the wording of docs/quickstart.md

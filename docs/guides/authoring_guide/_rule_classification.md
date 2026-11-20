@@ -33,6 +33,7 @@ Ask these in order, and stop at the first yes:
 | Makefile | the GNU Make manual |
 | Airflow | the Airflow docs |
 | GitHub Actions | GitHub's security hardening guide for Actions |
+| Azure DevOps | Microsoft's "Secure Azure Pipelines" guidance |
 | Datetime | ISO 8601 |
 | Mermaid, Jira, writing style, naming and audiences | none, so every style pick is a team convention |
 

@@ -17,6 +17,7 @@ A session is one conversation with Claude Code. A small core is read in every se
 
 ## 🗂️ The design in detail
 
+- 🧩 **[Implementation overview](implementation_overview.md):** how each claim in the README intro is built, with links to the files.
 - 🎚️ **[Tiers](architecture/_tiers.md):** the three groups every component sits in, by when it loads, and tool access.
 - 🔄 **[Workflow](architecture/_workflow.md):** the four AI-native development practices it adopts, the order they're adopted in, and agent commits.
 - 💰 **[Budget and guards](architecture/_budget_and_guards.md):** what the always-on budget counts and caps, and the three checks that protect the design.

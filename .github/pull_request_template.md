@@ -25,8 +25,10 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
+This PR was tested as follows:
+
 <details>
-<summary>Testing checklist</summary>
+<summary>Show testing checklist</summary>
 
 - [ ] DEV / Local testing by developer
 - [ ] UAT testing
@@ -39,9 +41,11 @@ Choose one:
   can check the diff against it, or say why it has none. Open it with the line "This PR was created against the
   following Claude plan (`spec.md`):", then put the spec in "<details><summary>Show spec.md</summary> ... </details>",
   keeping the heading outside it.
-- Changes src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook? Also add "## :balance_scale: Claude: Evaluation Criteria"
-  naming any red flag, such as "No red flags.", per the evaluation criteria:
-  https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md -->
+- Changes src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook? Also add "## :balance_scale: Claude: Evaluation Criteria".
+  Open it with the line "This PR was checked against the following [evaluation criteria](<link>):", linking to
+  https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md
+  Then put one bullet per red flag, as "- 🚩 **<keyword>:** <file or issue>; <decision and why>.", or the single line
+  "No red flags.", in "<details><summary>Show red flags</summary> ... </details>", keeping the heading outside it. -->
 
 ## :bulb: Best Practices
 

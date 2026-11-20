@@ -32,6 +32,7 @@ Ask these in order, and stop at the first yes:
 | Docker | Docker's best practices |
 | Makefile | the GNU Make manual |
 | Airflow | the Airflow docs |
+| GitHub Actions | GitHub's security hardening guide for Actions |
 | Datetime | ISO 8601 |
 | Mermaid, Jira, writing style, naming and audiences | none, so every style pick is a team convention |
 

@@ -1,14 +1,16 @@
 """Run each rule eval case with and without its rule, grade both, and report whether the rule changes the result.
 
 Each run gets its own scratch git repo, built from the case's `setup:`, with no skills or agents, so the only
-difference between the two conditions is the rule, copied into `.claude/rules/`. The grader isn't told which
-condition it's grading. `RUNS` sets how many runs each condition gets, and `CASE` runs only the case with that name.
+difference between the two conditions is the rule, copied into `.claude/rules/`. The runs go in parallel, and the
+grader, on Haiku, isn't told which condition it's grading. `RUNS` sets how many runs each condition gets, and `CASE`
+runs only the case with that name.
 """
 
 import os
 import shutil
 import sys
 import tempfile
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import yaml
@@ -18,6 +20,10 @@ from claude_run_trigger_evals import SOURCE_DIR, project_folder
 CASES_FILE = SOURCE_DIR / "rules" / "evals.yaml"
 # A rule helps, or hurts, when one condition passes at least this many more runs than the other
 MARGIN = 2
+# Runs at once, kept low so parallel claude -p calls stay within plan rate limits
+MAX_WORKERS = 6
+# Haiku grades faster, and agreed with the default grader on all 16 runs of the first four cases
+GRADER_MODEL = "haiku"
 
 
 def load_cases(cases_file):
@@ -60,8 +66,26 @@ def run_once(case, with_rule, run_dir):
     folder = project_folder(events, run_dir.resolve())
     if folder:
         shutil.rmtree(folder, ignore_errors=True)
-    results = grade(case["assertions"], transcript([(case["prompt"], events)]), repo_state(run_dir), run_dir.parent)
+    results = grade(
+        case["assertions"], transcript([(case["prompt"], events)]), repo_state(run_dir), run_dir.parent, GRADER_MODEL
+    )
     return all(result["pass"] for result in results)
+
+
+def count_passes(cases, runs, scratch, run=run_once):
+    """Run every case's runs in both conditions in parallel, returning passing counts keyed by (name, with_rule)."""
+    jobs = [(case, with_rule, n) for case in cases for with_rule in (False, True) for n in range(runs)]
+
+    def run_job(job):
+        case, with_rule, n = job
+        label = "with" if with_rule else "without"
+        return (case["name"], with_rule), run(case, with_rule, scratch / f"{case['name']}_{label}_{n}")
+
+    passes = {(case["name"], with_rule): 0 for case in cases for with_rule in (False, True)}
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        for key, passed in pool.map(run_job, jobs):
+            passes[key] += passed
+    return passes
 
 
 def verdict(passes_without, passes_with):
@@ -78,17 +102,13 @@ def main():
     if shutil.which("claude") is None:
         sys.exit("claude isn't on PATH - install Claude Code and log in first.")
     runs = int(os.environ.get("RUNS", "3"))
+    cases = select_cases(load_cases(CASES_FILE), os.environ.get("CASE", ""))
     with tempfile.TemporaryDirectory(prefix="rule_evals_") as scratch:
-        for case in select_cases(load_cases(CASES_FILE), os.environ.get("CASE", "")):
-            passes = {}
-            for with_rule in (False, True):
-                label = "with" if with_rule else "without"
-                passes[with_rule] = sum(
-                    run_once(case, with_rule, Path(scratch).resolve() / f"{case['name']}_{label}_{run}")
-                    for run in range(runs)
-                )
-            counts = f"without {passes[False]}/{runs}, with {passes[True]}/{runs}"
-            print(f"{case['name']} ({case['rule']}): {counts}, {verdict(passes[False], passes[True])}")
+        passes = count_passes(cases, runs, Path(scratch).resolve())
+    for case in cases:
+        without, with_ = passes[(case["name"], False)], passes[(case["name"], True)]
+        counts = f"without {without}/{runs}, with {with_}/{runs}"
+        print(f"{case['name']} ({case['rule']}): {counts}, {verdict(without, with_)}")
 
 
 if __name__ == "__main__":

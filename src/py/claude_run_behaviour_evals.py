@@ -148,13 +148,15 @@ def repo_state(repo_dir):
     return f"branch: {branch}\nstatus:\n{status}log:\n{git(repo_dir, 'log', '--oneline', '-5')}"
 
 
-def grade(assertions, transcript_text, state, grader_dir):
-    """Ask a safe-mode claude -p grader to judge each assertion, returning its list of results."""
+def grade(assertions, transcript_text, state, grader_dir, model=None):
+    """Ask a safe-mode claude -p grader, on model if given, to judge each assertion, returning its list of results."""
     brief = GRADER_BRIEF.format(
         assertions="\n".join(f"- {assertion}" for assertion in assertions), transcript=transcript_text, state=state
     )
     command = ["claude", "-p", brief, "--safe-mode", "--strict-mcp-config", "--no-session-persistence"]
     command += ["--max-turns", "3", "--output-format", "json", "--json-schema", json.dumps(GRADER_SCHEMA)]
+    if model:
+        command += ["--model", model]
     result = subprocess.run(command, cwd=grader_dir, capture_output=True, text=True, timeout=TIMEOUT_SECONDS)
     return json.loads(result.stdout)["structured_output"]["results"]
 

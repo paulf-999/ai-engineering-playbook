@@ -49,3 +49,16 @@ def test_select_cases_runs_only_the_named_case():
     assert runner.select_cases(cases, "") == cases
     with pytest.raises(SystemExit, match="No rule eval case is named c"):
         runner.select_cases(cases, "c")
+
+
+def test_count_passes_tallies_each_case_and_condition(tmp_path):
+    """Parallel runs still add each pass to its own case and condition, with a separate folder per run."""
+    folders = []
+
+    def fake_run(case, with_rule, run_dir):
+        folders.append(run_dir)
+        return with_rule and case["name"] == "a"
+
+    passes = runner.count_passes([{"name": "a"}, {"name": "b"}], 3, tmp_path, run=fake_run)
+    assert passes == {("a", False): 0, ("a", True): 3, ("b", False): 0, ("b", True): 0}, "passes went to the wrong key"
+    assert len(set(folders)) == 12, "each run should get its own folder"

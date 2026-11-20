@@ -11,6 +11,7 @@
 | 🖥️ [`bash.md`](bash.md), [`bash_team_conventions.md`](bash_team_conventions.md) | Shell scripts | Shell safety; this team's variable casing and script helpers |
 | 🔵 [`dbt.md`](dbt.md), [`dbt_team_conventions.md`](dbt_team_conventions.md) | dbt models and `dbt_project.yml` | Lineage, docs, tests and materialisation; this team's layers, names and YAML patterns |
 | 🏗️ [`infra/`](infra/) | Ansible playbooks and roles, Dockerfiles and `.tf` files | Ansible, Docker and Terraform guides, each with this team's conventions |
+| 🚀 [`github_actions.md`](github_actions.md), [`github_actions_team_conventions.md`](github_actions_team_conventions.md) | Workflows under `.github/workflows/` | Secure, reliable CI; this team's triggers, names, values and scripts |
 | 🐍 [`python.md`](python.md), [`python_team_conventions.md`](python_team_conventions.md) | Python files | Standards beyond PEP 8 and `ruff`; this team's Python choices |
 | 🗄️ [`sql.md`](sql.md), [`sql_team_conventions.md`](sql_team_conventions.md) | SQL files | Readable, cost-aware SQL; this team's casing, naming and comma style |
 | 🧰 [`utilities/`](utilities/) | Makefiles and `.mmd` files | Makefile and Mermaid guides, each with this team's choices |

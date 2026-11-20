@@ -9,6 +9,8 @@ Claude loads only what a task needs, agrees a plan before coding, and its rules 
 
 **Goal:** favour simplicity, selective context loading, spec-led workflows and evidence-based decisions.
 
+For details, see the [implementation overview](docs/target_architecture/implementation_overview.md).
+
 ---
 
 ## 🪄 Getting Started

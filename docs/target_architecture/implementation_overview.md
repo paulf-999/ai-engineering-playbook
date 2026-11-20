@@ -7,8 +7,6 @@
 What `make install` does:
 
 - 📦 **Copy:** it copies [`src/claude/`](../../src/claude/README.md) into `~/.claude`, or into one repo's `.claude/` folder with `PROJECT=<path>`.
-- 🎛️ **Options:** `HOOKS=1` adds the done checks and worktree edits hooks to a project install, and `PREFERENCES=0` leaves out the preferences.
-- 💾 **Backups:** each file it replaces is first copied to `backups/` in your Claude config directory, and `make uninstall` restores it.
 - 🪄 **Guide:** the [getting-started guide](../guides/getting_started.md) covers which install to choose.
 
 ## ⚡ Selective loading

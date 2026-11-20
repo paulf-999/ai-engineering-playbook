@@ -2,6 +2,7 @@
 
 **Purpose:** where to keep a plan, with its `intent.md` and `spec.md`, once the user approves it, so approved plans aren't lost in plan mode's scratch folder.
 
+- 🔗 **Spec link:** open the plan's Spec section with a **spec.md** bullet linking the absolute path it will be saved to, marked "(saved on approval)".
 - 📂 **Change folder:** before starting work, make `.claude_work/_plans/active/YYYY_MM_DD_<topic>/` in your home folder, outside every repo, so a plan is never committed.
 - ✂️ **Split it:** write the plan's Intent section to `intent.md`, its Spec section to `spec.md`, and the rest to `plan.md`, which links to both, waiting until approval since plan mode lets Claude write only its own plan file.
 - 🏷️ **Status line:** put `**Plan status:** 🟢 Active · updated <date>` under the H1 of `plan.md`, and update the date whenever a phase moves on.

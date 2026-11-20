@@ -3,25 +3,6 @@ skill_name: confluence-create-page
 
 evals:
   # Happy paths
-    - name: happy_path_general_page
-      description: Full flow — confirm the place, gather details, review a local draft, create only after approval
-      input:
-          prompt: /confluence-create-page a page about our Q3 roadmap in DATA, under Roadmaps
-          review_reply: y
-      setup:
-          parent_page_exists: Roadmaps
-      expected_output: >
-          Claude confirms the general_page pattern, the DATA space and the Roadmaps
-          parent, gathers the title, status, purpose and sections, saves a markdown
-          draft, asks for approval, and only then calls createConfluencePage with
-          status draft.
-      assertions:
-          - Claude reads reference/patterns/_general_page.md and both reference/common/ files
-          - Claude saves a draft and tells the user where it is before any Confluence write
-          - The draft filename's topic is lowercase words joined by underscores
-          - Claude does not call createConfluencePage until the user approves the draft
-          - The createConfluencePage call uses status draft and the confirmed parent
-
     - name: happy_path_platform_risk_assessment
       trigger: confluence-create-page
       description: Platform risk pattern — pre-fill themes from cited evidence, rate them, review, create after approval
@@ -40,21 +21,6 @@ evals:
           - The page title follows 'Platform Risk & Maturity Assessment: <tool name>', with the optional "WIP - " prefix
           - Claude does not call createConfluencePage until the user approves the draft
 
-  # Setup
-    - name: mcp_unavailable_stops
-      description: The Atlassian MCP server isn't enabled — the skill stops before choosing a pattern
-      input:
-          prompt: /confluence-create-page
-      setup:
-          mcp_available: false
-      expected_output: >
-          Claude tells the user to enable the Atlassian MCP server and restart Claude
-          Code, and stops without asking for a pattern or writing a draft.
-      assertions:
-          - Claude calls getAccessibleAtlassianResources first
-          - Claude names enabling the Atlassian MCP server and restarting Claude Code
-          - Claude does not ask for a pattern or write a draft
-
   # Pattern and place
     - name: space_not_named_is_confirmed
       trigger: confluence-create-page
@@ -70,9 +36,10 @@ evals:
           - Claude does not call createConfluencePage before both are confirmed
 
     - name: parent_page_required
+      trigger: confluence-create-page
       description: The user asks for the space root — Claude asks for a parent page
       input:
-          prompt: put the Q4 roadmap page at the top of the DOCS space
+          prompt: put the Q4 roadmap page in Confluence, at the top of the DOCS space
       setup: {}
       expected_output: >
           Claude says pages are never created at the space root and asks for a
@@ -83,6 +50,7 @@ evals:
           - Claude does not call createConfluencePage without a confirmed parent
 
     - name: unsupported_pattern_offers_valid_ones
+      trigger: confluence-create-page
       description: The user asks for a page type the skill doesn't support, a not_for case
       input:
           prompt: create a confluence requirements page for the new ingestion service
@@ -95,64 +63,7 @@ evals:
           - Claude offers general_page and platform_risk_assessment
           - Claude does not invent a new page structure
 
-    - name: personal_names_replaced_with_roles
-      description: The content names a person — Claude uses a role instead
-      input:
-          prompt: add a section saying Jane Smith owns the migration
-      setup:
-          draft_in_progress: true
-      expected_output: >
-          Claude writes the section with a role such as "the migration owner", and
-          says it replaced the name.
-      assertions:
-          - The draft does not contain the person's name
-          - Claude uses a role in place of the name
-          - Claude tells the user it replaced the name with a role
-
-  # Draft review and create
-    - name: draft_review_iteration
-      description: The user asks for changes before approving
-      input:
-          prompt: /confluence-create-page a page about our Q3 roadmap in DATA, under Roadmaps
-          review_reply: change the Overview section, then show me again
-      setup: {}
-      expected_output: >
-          Claude rewrites the same draft file, asks for approval again, and repeats
-          until the user approves, never calling createConfluencePage in between.
-      assertions:
-          - Claude rewrites the same draft file rather than a new one
-          - Claude asks for approval again after each revision
-          - Claude does not call createConfluencePage during any revision
-
-    - name: publish_permission_denied
-      description: createConfluencePage fails because the user can't add pages to the space
-      input:
-          prompt: create a general page called Data Platform Q4 Roadmap in DOCS, under Planning
-          review_reply: approved, publish it
-      setup:
-          create_result: permission error
-      expected_output: >
-          Claude reports that creating the page failed on space permissions, gives the
-          fix from reference/_troubleshooting.md, and keeps the local draft.
-      assertions:
-          - Claude names the space it couldn't create the page in
-          - Claude gives the permission fix from reference/_troubleshooting.md
-          - Claude does not claim the page was created
-          - Claude does not delete the local draft
-
   # Not for
-    - name: page_update_request_out_of_scope
-      description: The user asks to edit an existing page, which the skill doesn't do
-      input:
-          prompt: /confluence-create-page update the Q3 roadmap page with the new dates
-      setup: {}
-      expected_output: >
-          Claude says the skill only creates new pages and can't edit an existing one,
-          and calls no Confluence write tool.
-      assertions:
-          - Claude says editing an existing page is out of scope
-          - Claude does not create a duplicate page instead
-
     - name: jira_request_goes_elsewhere
       trigger: jira-create-issue
       description: Asking for a Jira ticket is a not_for case

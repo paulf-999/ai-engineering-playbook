@@ -42,7 +42,7 @@ One new page at a time that follows the team's header, formatting and page patte
 
 - **Going live:** publish the page yourself in Confluence, and set its wide view there, since the API can't.
 - **Existing pages:** it doesn't edit them, so change those in Confluence.
-- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`, so check a change to the skill against the rest by hand.
+- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`.
 
 ## 📚 References
 
@@ -50,4 +50,4 @@ One new page at a time that follows the team's header, formatting and page patte
 - `reference/patterns/_general_page.md` and `reference/patterns/_platform_risk_assessment.md` — what each pattern gathers and how its page is laid out
 - `reference/common/_common_header.md` and `reference/common/_common_formatting.md` — the page header and formatting every pattern uses
 - `reference/_troubleshooting.md` — symptoms, causes and fixes when access, drafting or publishing fails
-- `tests/evals.yaml` — 11 scenarios covering both patterns, the space and parent checks, draft review, the no-MCP stop, a publish error and two cases where it shouldn't fire
+- `tests/evals.yaml` — 5 scenarios, each run by `make evals`

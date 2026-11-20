@@ -46,4 +46,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 26 | ~11900 |
-| 💤 On demand, via a pointer | 84 | ~49600 |
+| 💤 On demand, via a pointer | 84 | ~49400 |

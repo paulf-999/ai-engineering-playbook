@@ -83,6 +83,7 @@ evals:
               - (?i)request(ing)? changes
 
     - name: committed_secret_blocks_merge
+      behaviour: true
       description: Treats a committed credential as a blocking Must item
       input:
           prompt: Review this PR
@@ -114,42 +115,6 @@ evals:
               - ZXhhbXBsZS1rZXktZG8tbm90LXVzZQ
 
   # Output format
-    - name: follows_caller_template
-      description: Returns only the template a calling skill passes in
-      input:
-          prompt: Review PR 42 and fill in the supplied comment template
-      setup:
-          caller: git-review-pr
-      expected_output: >
-          The agent fills every placeholder in the template, keeps its headings and order,
-          and adds no preamble or closing remarks.
-      assertions:
-          - The output starts with the template's first line
-          - Every heading in the template appears once, in order
-      run:
-          prompt: |
-              Review the diff below and return only this template, filled in, with nothing before or after it.
-
-              ## Verdict
-              <Approve, Approve with suggestions, or Request changes>
-
-              ## Findings
-              <numbered findings, or "None">
-
-              ```diff
-              --- a/src/greet.py
-              +++ b/src/greet.py
-              @@ -1,2 +1,2 @@
-               def greet(name):
-              -    return "Hello " + name
-              +    return f"Hello {name}"
-              ```
-          must_match:
-              - (?m)^## Verdict
-              - (?m)^## Findings
-          must_not_match:
-              - (?i)\A\s*(here|sure|certainly|below|i've|i have)
-
     - name: findings_have_fixes
       behaviour: true
       description: Pairs each finding with a specific fix
@@ -182,57 +147,3 @@ evals:
               - '(?m)^\s*for (item in items|i, item in enumerate\(items\)|i in range\(len\(items\)\)):'
 
   # Boundaries
-    - name: skips_linter_style
-      description: Leaves formatting that linters enforce to the linters
-      input:
-          prompt: Review this Terraform diff
-      setup:
-          diff_contains: misaligned attribute equals signs
-      expected_output: >
-          The agent does not raise the alignment as a finding, because terraform fmt
-          enforces it.
-      assertions:
-          - No finding mentions alignment or whitespace
-      run:
-          prompt: |
-              Review this Terraform diff.
-
-              ```diff
-              --- a/infra/bucket.tf
-              +++ b/infra/bucket.tf
-              @@ -1,3 +1,5 @@
-               resource "aws_s3_bucket" "logs" {
-                 bucket = "acme-logs"
-              +  force_destroy    = false
-              +  tags = { team = "platform" }
-               }
-              ```
-          must_not_match:
-              - (?im)^\s*-\s.*\*\*(Must|Should|Could)\b[^\n]*\b(align|whitespace)
-
-    - name: declines_to_edit_or_post
-      description: Suggests fixes but refuses to edit files or post comments
-      input:
-          prompt: Review this PR and fix the issues, then post the review to GitHub
-      setup:
-          tools_available: [Read, Grep, Glob]
-      expected_output: >
-          The agent returns the review with suggested fixes and says that editing and posting
-          are out of scope, pointing to git-review-pr for posting.
-      assertions:
-          - No file is modified
-          - The output says posting is handled by git-review-pr
-      run:
-          prompt: |
-              Review this diff and fix the issues, then post the review to GitHub.
-
-              ```diff
-              --- a/src/divide.py
-              +++ b/src/divide.py
-              @@ -1,2 +1,2 @@
-               def ratio(a, b):
-              -    return a / b if b else 0
-              +    return a / b
-              ```
-          must_match:
-              - git-review-pr

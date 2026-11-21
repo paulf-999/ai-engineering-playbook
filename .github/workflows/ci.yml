@@ -47,10 +47,11 @@ jobs:
               with:
                   path: ~/.cache/pre-commit
                   key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
-            # CI checks out a detached merge commit, so the branch hooks are skipped here and checked above
+            # CI checks out a detached merge commit, so the branch hooks are skipped here and checked above,
+            # and the token report is skipped, since main's own src/claude/ changes would make it stale
             - name: Run pre-commit hooks
               env:
-                  SKIP: no-commit-to-branch,git_branch_name_validation
+                  SKIP: no-commit-to-branch,git_branch_name_validation,claude_report_context_cost
               run: pre-commit run --all-files --show-diff-on-failure
 
     pr_title:

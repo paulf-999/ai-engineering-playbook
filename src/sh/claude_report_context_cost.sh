@@ -3,8 +3,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 
 # Description: Write maintenance/context_cost.md: every always-on file's estimated tokens, and a rounded total for
 #              the files that load only when needed, then print every file's tokens to the terminal
-#              With --stage, the pre-commit hook's mode, rewrite a stale report and stage it, so the commit includes it,
-#              but in CI write nothing and exit 1, since there a stale report means one was pushed without it
+#              With --stage, the pre-commit hook's mode, rewrite a stale report and stage it, so the commit includes it
 # Usage: src/sh/claude_report_context_cost.sh [--stage] [repo directory, default .] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -18,16 +17,10 @@ trap handle_interruption SIGINT
 # Variables
 #=======================================================================
 
-CHECK_ONLY=false
 STAGE=false
 if [[ "${1:-}" == "--stage" ]]; then
     STAGE=true
     shift
-fi
-# CI sets CI=true, and there a stale report can't be fixed by staging it, so it must fail the run
-if [[ "${STAGE}" == true && "${CI:-}" == true ]]; then
-    CHECK_ONLY=true
-    STAGE=false
 fi
 REPO_DIR="${1:-.}"
 CONFIG_DIR="src/claude"
@@ -127,7 +120,7 @@ report_body() {
 
 **Purpose:** how many tokens the global Claude config adds to every session, and to the tasks that need more, estimated as characters ÷ 4, leaving out HTML comments, which Claude Code strips.
 
-This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, a pre-commit hook rewrites and stages it when a commit changes `src/claude/`, and CI fails if it's out of date, so don't edit the tables by hand.
+This page belongs to the repo's maintenance records. `make context_cost` writes it from `src/claude/` and prints every file's tokens in the terminal, and a pre-commit hook rewrites and stages it when a commit changes `src/claude/`, so don't edit the tables by hand.
 
 - 🔒 **Every session:** counts towards the [always-on budget](../docs/target_architecture/architecture/_budget_and_guards.md#-always-on-budget), which also counts this repo's own `CLAUDE.md`.
 - 👤 **Every session, unless opted out:** preferences, which load in every session unless `make install PREFERENCES=0` leaves them out, and never in a one-repo install. The budget check always counts them, the worst case.
@@ -147,16 +140,7 @@ use_utf8_locale
 EXPECTED="$(report_body)"
 REPORT_PATH="${REPO_DIR}/${REPORT}"
 
-if [[ "${CHECK_ONLY}" == true ]]; then
-    if [[ ! -f "${REPORT_PATH}" ]] || [[ "$(cat "${REPORT_PATH}")" != "${EXPECTED}" ]]; then
-        print_section_header "${ERROR}" "ERROR: ${REPORT} is out of date. Run make context_cost and commit the result."
-        if [[ -f "${REPORT_PATH}" ]]; then
-            diff "${REPORT_PATH}" <(echo "${EXPECTED}") || true
-        fi
-        exit 1
-    fi
-    print_section_header "${INFO}" "SUCCESS: ${REPORT} matches src/claude/."
-elif [[ "${STAGE}" == true ]]; then
+if [[ "${STAGE}" == true ]]; then
     if [[ ! -f "${REPORT_PATH}" ]] || [[ "$(cat "${REPORT_PATH}")" != "${EXPECTED}" ]]; then
         printf '%s\n' "${EXPECTED}" > "${REPORT_PATH}"
         git -C "${REPO_DIR}" add -- "${REPORT}"

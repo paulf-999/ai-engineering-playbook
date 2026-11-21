@@ -20,7 +20,7 @@ Files and text the repo doesn't need:
 | ⚖️ **Proportionality** | Support files are no more than product files | Up to double | More than double |
 | 🧾 **Evidence of need** | At most 2 files have no current user or inbound link | 3 to 5 have none | 6 or more have none |
 | 🎯 **Single source** | At most 2 facts, rules or checks live in more than one place | 3 to 5 duplicates | 6 or more duplicates |
-| 📦 **Always-on headroom** | Always-on tokens are 90% of the budget or less | Up to 95% | Over 95% |
+| 📦 **Always-on headroom** | Always-on context is 2,900 tokens or fewer | Up to the 3,000-token budget | Over the budget |
 | 🚧 **Placeholders** | No "not built yet" or "Nothing scored yet" text | 1 to 5 | More than 5 |
 
 ### 🏗️ Over-engineering

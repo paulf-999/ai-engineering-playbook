@@ -10,4 +10,4 @@
 - 🧪 **Test the pointer:** run a lean session on a matching task, and check Claude reads the file before acting.
 - 🛡️ **Before merging:** a rule backed by a hook, test or CI check gets a test in `tests/`, and an always-on rule needs the PR's [evaluation criteria](../../target_architecture/design_principles/02_evaluation_criteria.md) filled.
 - 🧪 **Proof:** to show a rule changes what Claude does, add a case to `rules/evals.yaml` and run `make evals RULES=1`, which runs it with and without the rule.
-- 🔁 **Trial:** remove it at the next regular review if the session transcripts show it hasn't paid its way.
+- 🔁 **Trial:** it then faces the [Is it working?](../../target_architecture/design_principles/02_evaluation_criteria.md#-is-it-working) checks.

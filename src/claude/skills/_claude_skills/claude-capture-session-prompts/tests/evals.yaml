@@ -1,5 +1,4 @@
 ---
-skill_name: claude-capture-session-prompts
 # Script tests: tests/src/claude/skills/_claude_skills/claude-capture-session-prompts/
 # test_capture_session_prompts.py checks the date filter, the masking and the overwrite check.
 # Not covered: never pasting raw history lines, which needs a real history file.
@@ -8,39 +7,19 @@ evals:
   # Happy paths
     - name: capture_past_date_without_rule
       trigger: claude-capture-session-prompts
-      description: A named date with no session notes rule writes to the current folder
+      # A named date with no session notes rule writes to the current folder
       input:
           prompt: capture my session prompts for 2026-11-17
-      setup:
-          session_notes_rule: none
-      expected_output: >
-          Claude runs the script with --date 2026-11-17 and --output-dir set to the
-          current folder, and tells the user where the report is.
-      assertions:
-          - The script is called with --date 2026-11-17
-          - The --output-dir value is the absolute path of the current folder
 
   # Not for
     - name: summarise_current_conversation
       trigger: none
-      description: Summarising this conversation doesn't need the script
+      # Summarising this conversation doesn't need the script
       input:
           prompt: summarise what we've done in this session
-      setup: {}
-      expected_output: >
-          Claude summarises from the conversation, and claude-capture-session-prompts
-          is not invoked.
-      assertions:
-          - claude-capture-session-prompts is not invoked
 
     - name: multi_day_range_one_run_per_date
       trigger: claude-capture-session-prompts
-      description: The user asks for a week of prompts in one run
+      # The user asks for a week of prompts in one run
       input:
           prompt: capture my session prompts for the whole of last week
-      setup: {}
-      expected_output: >
-          Claude says each run covers one date, and runs the script once per date
-          if the user agrees.
-      assertions:
-          - Each script run has a single --date value

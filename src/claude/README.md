@@ -1,6 +1,6 @@
 # 🧠 Claude config
 
-This folder is the source of a global Claude Code config. `make install` copies it into your Claude config directory, so edit it here rather than in the installed copy.
+**Purpose:** the source of a global Claude Code config, which `make install` copies into your Claude config directory, so edit it here rather than in the installed copy.
 
 ## 📦 What's here
 
@@ -20,7 +20,7 @@ Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on
 <details>
 <summary>Where on-demand and child files go</summary>
 
-- 📍 **Install location:** `on_demand/` installs beside `rules/`, not inside it, since Claude Code loads all of `rules/` every session.
+- 📍 **Install location:** `on_demand/` installs beside `rules/`, not inside it, since Claude Code loads files in `rules/` by itself.
 - 🧩 **Child files:** a name starting with `_` marks detail split from a parent rule, read only when the parent points to it.
 
 </details>
@@ -60,9 +60,9 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 | 🧱 **Markdown style** | Gives headings, bullets and table rows an emoji, caps lists at 5 items, and opens each list with a lead-in |
 | 📄 **Drafts, errors and session notes** | Saves drafts to `~/_drafts/`, error write-ups to `~/_errors/`, and long-task notes to `~/.claude_work/_sessions/` |
 
-- 📥 **Install:** a plain `make install` adds them, and `make install PREFERENCES=0` removes them. A one-repo install never includes them.
+- 📥 **Install:** the [getting-started guide](../../docs/guides/getting_started.md#️-3-run-it) says which installs include them.
 - 💰 **Cost:** the reply and working-files preferences load in every session and the rest on demand, and the [context cost report](../../maintenance/context_cost.md) gives each one's tokens.
-- ⚠️ **Limits:** they never go into a project install, and without them Claude stops reading an existing `TODO.md`, plans or drafts, and offers options unnumbered, still in British spelling.
+- ⚠️ **Limits:** without them Claude stops reading an existing `TODO.md`, plans or drafts, and offers options unnumbered, still in British spelling.
 
 </details>
 
@@ -70,13 +70,7 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 
 To share the config with a team, run `make install PROJECT=../my_dbt_repo` to install it into that repo's `.claude/` folder, then commit the folder.
 
-<details>
-<summary>Hooks and backups</summary>
-
-- 🪝 **Hooks:** add `HOOKS=1` to include the done checks and worktree edits hooks, which are left out by default.
-- 🛡️ **Backups:** replaced files go to `backups/` in your Claude config directory, outside the repo.
-
-</details>
+- 📥 **Options:** the [getting-started guide](../../docs/guides/getting_started.md#️-3-run-it) covers the hooks a one-repo install leaves out, and where replaced files are backed up.
 
 ## 🛠️ Changing it
 

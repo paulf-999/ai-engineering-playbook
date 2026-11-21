@@ -21,9 +21,7 @@ Each rule's top folder decides when it loads, per the [rules README](../../src/c
 Claude agrees a plan before coding, and hooks enforce the key steps, as the [workflow](architecture/_workflow.md) explains:
 
 - 📝 **Rule:** [`ai_sdlc_workflow.md`](../../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) sets the stages: Intent, Spec, Plan, Feedback loop and Review.
-- 📋 **Plan check:** [`hook_enforcement_plan_sections.sh`](../../src/claude/hooks/hook_enforcement_plan_sections.sh) blocks a long plan with no Intent or Spec heading.
-- ✅ **Done check:** [`hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) sends Claude back once to run the repo's done checks before it stops.
-- 🪝 **All hooks:** the [hooks README](../../src/claude/hooks/README.md) lists each hook and the rule it enforces.
+- 🪝 **Hooks:** the [hooks README](../../src/claude/hooks/README.md) lists each hook and the step it enforces, such as the plan check and done check.
 
 ## 📏 Evidence
 

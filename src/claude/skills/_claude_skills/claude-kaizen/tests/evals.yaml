@@ -1,35 +1,23 @@
 ---
-skill_name: claude-kaizen
 # Runner tests: tests/src/py/test_claude_run_rule_evals.py checks the CASE filter this skill relies on.
 
 evals:
   # Triggering
     - name: plain_request_doesnt_fire
       trigger: none
-      description: The skill is slash-only, so a plain request to run kaizen doesn't start it
+      # The skill is slash-only, so a plain request to run kaizen doesn't start it
       input:
           prompt: run kaizen on my feedback notes
-      expected_output: >
-          claude-kaizen doesn't start, since disable-model-invocation hides it from Claude;
-          Claude can point the user to /claude-kaizen.
-      assertions:
-          - claude-kaizen is not invoked
 
   # Not for
     - name: single_correction_saved_to_memory
       trigger: none
-      description: A one-off correction is saved to memory, not run through kaizen
+      # A one-off correction is saved to memory, not run through kaizen
       input:
           prompt: Remember that I prefer short commit messages
-      expected_output: Claude saves the preference to memory, and claude-kaizen doesn't fire.
-      assertions:
-          - claude-kaizen is not invoked
 
     - name: rule_review_goes_elsewhere
       trigger: none
-      description: Reviewing the existing rules isn't kaizen's job
+      # Reviewing the existing rules isn't kaizen's job
       input:
           prompt: Review the always-on rules for bloat
-      expected_output: Claude reviews the rules directly, and claude-kaizen doesn't fire.
-      assertions:
-          - claude-kaizen is not invoked

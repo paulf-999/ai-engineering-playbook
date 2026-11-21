@@ -5,16 +5,16 @@
 
 **Purpose:** the latest verdict on each guard, recurring review and test file: the problem it prevents, the evidence that it fired or helped, and whether to keep, slim or drop it.
 
-An external review asked whether each guard prevents a real problem, or only adds process. This run, on 2026-11-18 against `main` at `3f966a8`, gathered each item's evidence from the CI run history and a search of 132 session transcripts. A transcript count is the number of sessions holding the guard's failure message, so the figures are approximate. The tests were added on 2026-11-19 from a search of 152 transcripts, and the kaizen reminder hook and its tests on the same day, after #419. Earlier runs are in git history.
+An external review asked whether each guard prevents a real problem, or only adds process. This run, on 2026-11-18 against `main` at `3f966a8`, gathered each item's evidence from the CI run history and a search of 132 session transcripts. A transcript count is the number of sessions holding the guard's failure message, so the figures are approximate. The tests were added on 2026-11-19 from a search of 152 transcripts, and the last 3 on 2026-11-21 without one, and the kaizen reminder hook and its tests on the same day, after #419. Earlier runs are in git history.
 
 ## ⚖️ Verdict totals
 
-How many of the 36 guards, hooks, recurring reviews and test files in this audit got each verdict.
+How many of the 39 guards, hooks, recurring reviews and test files in this audit got each verdict.
 
 | Verdict | Items |
 |---|---|
-| ✅ **Keep** | 25 |
-| 🔒 **Keep (decided)** | 8 |
+| ✅ **Keep** | 27 |
+| 🔒 **Keep (decided)** | 9 |
 | ✂️ **Slim** | 2 |
 | 🗑️ **Drop** | 1 |
 
@@ -30,7 +30,7 @@ How many of the 36 guards, hooks, recurring reviews and test files in this audit
 | 4 | 🌿 [Branch name](../../src/sh/git/git_validate_branch_name.sh), in CI and pre-commit | Branches that break the naming rules | Caught bad prefixes in 6 sessions, with 1 false fire on a detached HEAD | 🔒 Keep (decided) |
 | 5 | 🏷️ PR title and commitlint | Messages that aren't Conventional Commits | Caught bad commit messages in 4 sessions, with 1 false fire in CI on a Dependabot PR | 🔒 Keep (decided) |
 | 6 | 📝 [PR description](../../src/sh/git/git_validate_pr_description.sh) | Claude config PRs missing their Plan Spec or Evaluation Criteria section | 4 CI failures, each fixed before merge | 🔒 Keep (decided) |
-| 7 | 💸 [Context-cost table](../../src/sh/claude_report_context_cost.sh) | A stale token report | The most frequent failure: 3 of the 14 CI failures, and 14 sessions locally | 🔒 Keep (decided) |
+| 7 | 💸 [Context-cost table](../../src/sh/claude_report_context_cost.sh) | A stale token report | The most frequent failure: 3 of the 14 CI failures, and 14 sessions locally. CI skips it since #473, and the local hook stages the report | 🔒 Keep (decided) |
 | 8 | 🔐 [pip-audit](../../.github/workflows/pip_audit.yml), weekly | Known vulnerabilities in dependencies | Never fired, and costs nothing to run | ✅ Keep |
 
 ## 🪝 Hooks
@@ -49,7 +49,7 @@ How many of the 36 guards, hooks, recurring reviews and test files in this audit
 | 13 | 🗓️ [Review every 20 tasks or 4 weeks](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests) | Parts that don't pay building up | The repo is 18 days old and has had 6 reviews, so the cadence hasn't yet applied | ✅ Keep |
 | 14 | 🔪 Halving test | A setup bigger than it needs to be | Never recorded as run, and the [outcome runs](../../docs/examples/dbt/dbt_outcomes_measured.md) now measure part of it | 🗑️ Drop: removed from the principles and measures |
 | 15 | 🚩 [Two sessions, not one](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests) | Cutting a part on one bad session | Never applied, and the maintainer has overruled its "or if it's unused" half | ✂️ Slim: retire a part only when two sessions show it got in the way |
-| 16 | 📏 [Component feedback and tokens](../../docs/target_architecture/architecture/_measures.md) | Reviews with no evidence | Recorded in the [quality audit](quality_audit.md#-component-feedback), and the source of most of this page's evidence | ✅ Keep |
+| 16 | 📏 [Component feedback and tokens](../../docs/target_architecture/architecture/_measures.md) | Reviews with no evidence | Recorded in the [repo review](quality_audit/_repo_review.md#-component-feedback), and the source of most of this page's evidence | ✅ Keep |
 | 17 | 📄 `ai_sdlc_workflow.md` and `CLAUDE.md` | Not assessed | Not assessed | 🔒 Keep (decided) |
 
 ## 🧪 Tests
@@ -71,12 +71,15 @@ Each test file is judged against the [keep or delete criteria](../../tests/READM
 | 28 | 🌿 [Branch name](../../tests/src/sh/git/test_git_validate_branch_name.py) | Valid and invalid names, and a detached HEAD | 4 | 0 | ✅ Keep |
 | 29 | 📏 [PR file count](../../tests/src/sh/git/test_git_validate_num_file_changes.py) | Both sides of the file limit, and the `release/` skip | 7 | 0 | ✅ Keep |
 | 30 | 📝 [PR description](../../tests/src/sh/git/test_git_validate_pr_description.py) | Required sections, and no shell execution of the body | 5 | 0 | ✅ Keep |
-| 31 | 🎯 [Trigger evals runner](../../tests/src/py/test_claude_run_trigger_evals.py) | Scenario selection, config copy and grading | 5 | 0 | ✅ Keep |
-| 32 | 🧠 [Behaviour evals runner](../../tests/src/py/test_claude_run_behaviour_evals.py) | Scenario selection, scratch repo setup and transcripts | 7 | 0 | ✅ Keep |
+| 31 | 🎯 [Trigger evals runner](../../tests/src/py/test_claude_run_trigger_evals.py) | Scenario selection, config copy and grading | 4 | 0 | ✅ Keep |
+| 32 | 🧠 [Behaviour evals runner](../../tests/src/py/test_claude_run_behaviour_evals.py) | Scenario selection, scratch repo setup and transcripts | 4 | 0 | ✅ Keep |
 | 33 | ⚖️ [Rule evals runner](../../tests/src/py/test_claude_run_rule_evals.py) | Case loading, repo preparation and the verdict margin | 5 | 0 | ✅ Keep |
 | 34 | 🔐 [Review PR secret check](../../tests/src/claude/skills/_git_skills/git-review-pr/test_git_review_pr_secret_check.py) | Catching secrets without echoing them | 3 | 0 | ✅ Keep |
 | 35 | 🗒️ [Capture session prompts](../../tests/src/claude/skills/_claude_skills/claude-capture-session-prompts/test_capture_session_prompts.py) | One date's prompts, masked secrets, no overwrite | 4 | 0 | ✅ Keep |
 | 36 | 🛠️ [Makefile](../../tests/test_makefile.py) | `make deps` installs only into a virtualenv | 4 | 0 | ✅ Keep |
+| 37 | 🧩 [Evals common](../../tests/src/py/test_claude_evals_common.py) | The shared eval helpers: config copy, scratch repos and transcripts | 6 | Not searched | ✅ Keep |
+| 38 | 📖 [README evals runner](../../tests/src/py/test_claude_run_readme_evals.py) | The reader brief, tally and pass bar | 3 | Not searched | 🔒 Keep (decided) |
+| 39 | 🏷️ [PR title](../../tests/src/sh/git/test_git_validate_pr_title.py) | Conventional Commits titles, without network access | 3 | Not searched | ✅ Keep |
 
 ## 🎯 Findings for the team
 

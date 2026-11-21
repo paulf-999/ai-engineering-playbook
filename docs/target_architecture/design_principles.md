@@ -7,7 +7,7 @@
 - 🌱 **Stance:** a small required core, with skills, which are step-by-step procedures, and agents, which are helpers that work separately, used only when a task needs them, as the [handover review](reference_material/core/handover_review.md) recommends.
 - ⚖️ **Bar:** the instructions must do better than a minimal setup of just `CLAUDE.md`, tests and automatic checks, on results, effort or consistency.
 - ➕ **Adding:** a component (a rule, skill, hook or agent) from the [old setup](README.md#️-the-old-setup) is reviewed one file at a time for the bloat that made the old setup costly, then brought over, slimmed or left out.
-- 🗑️ **Keeping:** a component is removed once two sessions show it getting in the way, at a [regular review](design_principles/01_principles.md#-numbers-and-tests), and going unused alone isn't enough.
+- 🗑️ **Keeping:** each [regular review](design_principles/01_principles.md#-numbers-and-tests) decides whether a component stays, per the principles.
 - ⚠️ **Watch for:** processes that make agents run every time, too much text loaded into every session, and rules that repeat automatic checks.
 
 ## 📖 The pages

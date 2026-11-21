@@ -1,6 +1,6 @@
 # 🔄 SDLC workflow
 
-**Purpose:** how to lay out a plan and take a change through to merge, using the stage names from Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
+**Purpose:** how to plan and ship a change, adapted from Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
 
 ## 🗺️ Plan layout
 

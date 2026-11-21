@@ -15,6 +15,7 @@ SHELL = /bin/sh
 # make evals BEHAVIOUR=1	# run the evals tagged behaviour: true end to end, and grade their assertions
 # make evals RULES=1	# run each rule eval with and without its rule, and say if the rule helps
 # make evals RULES=1 CASE=<name>	# run only the named rule eval
+# make evals README=1	# score the README with cold readers playing a new and an experienced Claude Code user
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
 
@@ -29,8 +30,8 @@ COLOUR_OFF := \033[0m
 
 # the virtualenv make evals runs in, which it creates with only pyyaml on first use, so nobody needs make deps first
 EVALS_VENV ?= .venv
-# the eval runner make evals picks: the trigger evals, or the rule or behaviour evals when RULES=1 or BEHAVIOUR=1 is set
-EVAL_RUNNER := $(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,trigger))
+# the eval runner make evals picks: the trigger evals, or the rule, behaviour or README evals when RULES=1, BEHAVIOUR=1 or README=1 is set
+EVAL_RUNNER := $(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,$(if $(README),readme,trigger)))
 
 #=======================================================================
 # Targets

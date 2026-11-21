@@ -13,7 +13,7 @@ paths:
 
 ## 🧱 Basics
 
-- 📁 **Entry pipelines:** `src/cicd/azure_pipeline_<purpose>[_<env>].yml`, such as `azure_pipeline_pr.yml` or `azure_pipeline_code_deployment_prod.yml`.
+- 📁 **Entry pipelines:** `src/cicd/azure_pipeline_<purpose>[_<env>].yml`, such as `azure_pipeline_pr.yml` or `azure_pipeline_code_deployment_prod.yml`, never at the repo root, creating `src/cicd/` if the repo has none.
 - 🗂️ **Templates:** under `src/cicd/pipelines/`, in `pr_pipelines/`, `code_deployment_pipelines/` and `template_pipelines/`.
 - 🐚 **Scripts and tests:** scripts in `src/cicd/scripts/<area>/`, with their bats tests in `tests/cicd/<area>/`.
 - 📐 **Formatting:** every file opens with `---` and uses 4-space indents.
@@ -34,7 +34,8 @@ paths:
 
 ## 🔧 Steps
 
-- 🐚 **Scripts:** `Bash@3` with `filePath: $(CICD_SCRIPTS_DIR)/<area>/<script>.sh` and its inputs in `arguments` or `env:`.
+- 🐚 **Scripts:** every shell command lives in a script file, run by `Bash@3` with `filePath: $(CICD_SCRIPTS_DIR)/<area>/<script>.sh` and its inputs in `arguments` or `env:`.
+- 🚫 **No inline shell:** never use `script:`, `bash:` or an inline `targetType`, however short, and move any inline step out when editing its job.
 - ☁️ **Azure resources:** `AzureCLI@2` with `azureSubscription: <service-connection>` and `scriptLocation: scriptPath`.
 - 🌿 **Branch diffs:** `checkout: self` with `clean: true` and `fetchDepth: 0`, so a job can compare the PR branch with `main`.
 - 📣 **Notifications:** a notify job with `condition: always()` reads the build's result through `dependencies.<job>.outputs['<step>.<VAR>']`, or `stageDependencies.<stage>.<job>.outputs[...]` from a later stage, which the script sets with `isOutput=true`.

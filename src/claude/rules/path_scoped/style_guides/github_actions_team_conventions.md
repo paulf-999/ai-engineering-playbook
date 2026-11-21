@@ -51,6 +51,7 @@ jobs:
 ## 🔧 Steps
 
 - 🐚 **Checks as scripts:** each check is a script under `src/sh/`, called from `run:` with its inputs as quoted arguments.
+- 📏 **One command per `run:`:** a `run:` step holds one command on one line, such as `pytest`, and any shell logic, meaning variables, pipes or several commands, goes in a script.
 - 🛡️ **Env comment:** every `env:` that carries untrusted input has the comment "Passed through env, not ${{ }} in the script, so a crafted <input> can't inject shell".
 - 🪝 **Local parity:** CI re-runs `pre-commit run --all-files --show-diff-on-failure`, so `--no-verify` can't skip a hook.
 - 🤖 **Dependabot:** skip only the checks its fixed `dependabot/...` branch names can't pass, with an `if:` on `github.event.pull_request.user.login`.

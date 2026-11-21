@@ -68,10 +68,7 @@ jobs:
             - name: Validate PR title
               env:
                   PR_TITLE: ${{ github.event.pull_request.title }}
-              run: |
-                  version="$(grep -oE '@commitlint/config-conventional@[0-9.]+' .pre-commit-config.yaml | cut -d@ -f3)"
-                  printf '%s\n' "${PR_TITLE}" | npx --yes -p "@commitlint/cli@${version}" \
-                      -p "@commitlint/config-conventional@${version}" commitlint --extends @commitlint/config-conventional
+              run: src/sh/git/git_validate_pr_title.sh "${PR_TITLE}"
 
     pr_size:
         name: "PR size: check it's within the file limit"

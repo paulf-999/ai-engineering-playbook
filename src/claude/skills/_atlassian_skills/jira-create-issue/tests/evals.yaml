@@ -1,31 +1,15 @@
 ---
-skill_name: jira-create-issue
-
 evals:
   # Happy path
     - name: named_type_kept
       trigger: jira-create-issue
-      description: The user asks for a bug, so the Story default doesn't apply
+      # The user asks for a bug, so the Story default doesn't apply
       input:
           prompt: create a bug in jira, the login page returns a 500 on submit
-      setup:
-          values_file: present, project key DATA
-      expected_output: >
-          Claude drafts a Bug rather than a Story, and still shows the full
-          ticket for approval before creating it.
-      assertions:
-          - The draft's issue type is Bug
-          - Claude shows the full ticket before any createJiraIssue call
 
   # Not for
     - name: confluence_request_goes_elsewhere
       trigger: confluence-create-page
-      description: Asking for a Confluence page is a not_for case
+      # Asking for a Confluence page is a not_for case
       input:
           prompt: write a Confluence page about the orders model
-      setup: {}
-      expected_output: >
-          jira-create-issue is not invoked, and no Jira ticket is drafted.
-      assertions:
-          - jira-create-issue is not invoked
-          - Claude does not call createJiraIssue

@@ -32,8 +32,10 @@ def test_load_scenarios_records_the_file_agent(tmp_path):
 
 
 def test_patterns_match_every_line_of_claude_text():
-    """must_match patterns see all of Claude's multi-line text, not just each block's first line."""
+    """Patterns see all of Claude's multi-line text, and a must_not_match pattern fails when it matches."""
     reply = {"type": "assistant", "message": {"content": [{"type": "text", "text": "Verdict\n\n## Fix\nrange(n)"}]}}
     text = runner.claude_text([("Review this diff", [reply])])
     results = runner.pattern_results([r"(?s)Verdict.*## Fix", "absent"], text)
     assert [result["pass"] for result in results] == [True, False]
+    results = runner.pattern_results(["range", "absent"], text, must_match=False)
+    assert [result["pass"] for result in results] == [False, True]

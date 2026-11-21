@@ -41,4 +41,4 @@ fi
 
 echo "$(date +%Y-%m-%d) new_notes=${NEW_NOTES}" >> "${NUDGES_LOG}"
 echo "${NEW_NOTES} feedback notes have been saved since the last /claude-kaizen run." \
-    "Suggest running it to the user once in this session, in one line, then carry on."
+    "Suggest running it from the playbook repo to the user once in this session, in one line, then carry on."

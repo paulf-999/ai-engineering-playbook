@@ -13,7 +13,7 @@ A session is one conversation with Claude Code. A small core is read in every se
 - 🌱 **Small core:** only the [required group](architecture/_tiers.md) loads in every session or runs on every PR.
 - 📥 **On demand:** everything else loads only when a task calls for it.
 - 💰 **Budget:** an automatic check caps how much text loads into every session.
-- 📏 **Measures:** each regular review notes which parts helped, got in the way or went unused, from session records and git history, and the budget check reports how much loads every session.
+- 📏 **Measures:** each regular review records what it acts on, per the [measures](architecture/_measures.md).
 
 ## 🗂️ The design in detail
 
@@ -46,7 +46,6 @@ Outside reading the design doesn't cite yet, but which each gives a view the oth
 - 📈 **[State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/):** survey evidence on AI adoption and outcomes.
 - ⚖️ **[METR's trial of early-2025 AI on experienced developers](https://arxiv.org/abs/2507.09089):** a randomised trial showing felt speed-ups can hide real slowdowns.
 - 🧰 **[Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html):** when to guide Claude and when to enforce, from outside Anthropic.
-- 🧪 **[Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents):** a method for testing whether each part of the config still helps.
 - 📘 **[Best practices for Claude Code](https://code.claude.com/docs/en/best-practices):** Anthropic's split between guidance Claude may follow and rules that always hold.
 - 🏛️ **[The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf):** a shared method and vocabulary for enterprise architecture.
 

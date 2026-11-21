@@ -5,29 +5,14 @@ evals:
   # Triggering
     - name: pr_body_request_selects_agent
       trigger: technical-writer
-      description: A request to write a PR description routes to this agent
+      # A request to write a PR description routes to this agent
       input:
           prompt: Write the PR description for my branch
-      setup:
-          pr_template_exists: true
-      expected_output: >
-          Claude delegates the draft to technical-writer, which returns a body that
-          follows the repo template.
-      assertions:
-          - The Agent call uses subagent_type technical-writer
 
   # PR bodies
     - name: pr_body_links_jira_ticket
       behaviour: true
-      description: Picks up a Jira key from the branch name and links it
-      input:
-          prompt: Draft the PR description for this branch
-      setup:
-          pr_template_exists: true
-          current_branch: feature/proj_1234_add_retry
-      expected_output: >
-          The agent puts PROJ-1234 in the Related Jira Issue section as a link and leaves
-          the rest of the template intact.
+      # Picks up a Jira key from the branch name and links it
       assertions:
           - The Related Jira Issue section contains PROJ-1234
           - No template section is added or removed
@@ -56,14 +41,7 @@ evals:
 
     - name: pr_body_missing_template_stops
       behaviour: true
-      description: Stops instead of inventing a PR body when there is no template
-      input:
-          prompt: Draft a PR body for the readme typo fix
-      setup:
-          pr_template_exists: false
-      expected_output: >
-          The agent says .github/pull_request_template.md is missing and asks the user
-          to add one, and writes no draft.
+      # Stops instead of inventing a PR body when there is no template
       assertions:
           - No draft file is written
           - The reply names .github/pull_request_template.md
@@ -78,14 +56,7 @@ evals:
   # Boundaries
     - name: hands_off_publishing_to_skill
       behaviour: true
-      description: Drafts but doesn't publish, and names the skill that does
-      input:
-          prompt: Write and publish a Confluence page about the on-call rota
-      setup:
-          audience: engineers
-      expected_output: >
-          The agent writes the draft, and says it can't publish it, leaving that to the
-          user or their Confluence tool.
+      # Drafts but doesn't publish, and names the skill that does
       assertions:
           - The agent makes no Confluence or Bash call
           - The reply says it doesn't publish
@@ -96,12 +67,7 @@ evals:
 
     - name: declines_adr
       behaviour: true
-      description: Declines to write an Architecture Decision Record
-      input:
-          prompt: Write an ADR for choosing Snowflake over BigQuery
-      setup: {}
-      expected_output: >
-          The agent says ADRs are out of scope and writes nothing.
+      # Declines to write an Architecture Decision Record
       assertions:
           - No draft file is written
           - The reply says ADRs are out of scope
@@ -110,14 +76,7 @@ evals:
 
     - name: declines_editing_existing_docs
       behaviour: true
-      description: Declines to improve an existing document
-      input:
-          prompt: Improve the wording of docs/quickstart.md
-      setup:
-          existing_doc: docs/quickstart.md
-      expected_output: >
-          The agent says editing existing documentation is out of scope and makes no
-          change to the file.
+      # Declines to improve an existing document
       assertions:
           - docs/quickstart.md is unchanged
           - The reply says editing existing docs is out of scope

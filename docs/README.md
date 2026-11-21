@@ -12,4 +12,4 @@ The folders, starting with the one most readers want:
 ## 🆕 Adding a doc
 
 1. Put it in the folder for its reader, from the list above.
-2. Start it with a **Purpose:** line.
+2. Open it as [`audience_and_depth.md`](../src/claude/rules/on_demand/01_standards/conduct/audience_and_depth.md#-openings) sets out.

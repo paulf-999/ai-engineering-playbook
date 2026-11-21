@@ -3,9 +3,9 @@
 Each scenario gets its own scratch git repo, built from its `setup:` keys, with no remote and only this repo's
 skills and agents. Push, gh and web tools are blocked and MCP servers are dropped, so nothing leaves the machine.
 A `confirm_reply` is sent by resuming the session. An agent's scenario with a `run:` block sends its self-contained
-prompt straight to that agent in a bare repo, since its `setup:` only describes the prompt, and checks each
-`must_match` pattern against Claude's text. The grader is a `claude -p --safe-mode` run that sees only the
-assertions, the transcript and the repo's final state.
+prompt straight to that agent in a bare repo, and checks Claude's text matches each `must_match` pattern and no
+`must_not_match` pattern. The grader is a `claude -p --safe-mode` run that sees only the assertions, the transcript
+and the repo's final state.
 """
 
 import re
@@ -53,10 +53,15 @@ def claude_text(turns):
     return "\n".join(blocks)
 
 
-def pattern_results(patterns, text):
-    """Check each must_match pattern against Claude's text, in the grader's result format."""
+def pattern_results(patterns, text, must_match=True):
+    """Check each pattern matches Claude's text, or doesn't when must_match is False, in the grader's result format."""
+    verb = "matches" if must_match else "doesn't match"
     return [
-        {"assertion": f"Claude's reply matches {pattern}", "pass": bool(re.search(pattern, text)), "reason": ""}
+        {
+            "assertion": f"Claude's reply {verb} {pattern}",
+            "pass": bool(re.search(pattern, text)) == must_match,
+            "reason": "",
+        }
         for pattern in patterns
     ]
 
@@ -73,11 +78,13 @@ def run_scenario(scenario, scratch_dir):
     copy_components(SOURCE_DIR, repo_dir)
     prompt = direct["prompt"] if direct else scenario["input"]["prompt"]
     turns = [(prompt, run_claude(prompt, repo_dir, agent=scenario["agent"] if direct else None))]
-    reply = scenario["input"].get("confirm_reply")
+    reply = scenario.get("input", {}).get("confirm_reply")
     if reply:
         turns.append((reply, run_claude(reply, repo_dir, session_id_of(turns[0][1]))))
     remove_project_folder(turns[0][1], repo_dir.resolve())
-    patterns = pattern_results(direct.get("must_match", []) if direct else [], claude_text(turns))
+    text, checks = claude_text(turns), direct or {}
+    patterns = pattern_results(checks.get("must_match", []), text)
+    patterns += pattern_results(checks.get("must_not_match", []), text, must_match=False)
     return patterns + grade(scenario["assertions"], transcript(turns), repo_state(repo_dir), scratch_dir), None
 
 

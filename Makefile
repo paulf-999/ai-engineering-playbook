@@ -16,6 +16,7 @@ SHELL = /bin/sh
 # make evals RULES=1	# run each rule eval with and without its rule, and say if the rule helps
 # make evals RULES=1 CASE=<name>	# run only the named rule eval
 # make evals README=1	# score the README with cold readers playing a new and an experienced Claude Code user
+# make evals RULES=1 RUNS=<n>	# set the runs per side for the rule or README evals, 3 and 4 by default
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
 
@@ -69,7 +70,7 @@ $(EVALS_VENV)/.evals_ready:
 	@touch $@
 
 evals: $(EVALS_VENV)/.evals_ready
-	@echo "${INFO}\nCalled makefile target 'evals'. Check each tagged eval starts the right skill or agent.${COLOUR_OFF}\n"
+	@echo "${INFO}\nCalled makefile target 'evals'. Run the $(EVAL_RUNNER) evals.${COLOUR_OFF}\n"
 	@$(EVALS_VENV)/bin/python src/py/claude_run_$(EVAL_RUNNER)_evals.py
 
 clean:

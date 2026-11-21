@@ -1,5 +1,4 @@
 ---
-skill_name: git-review-pr
 # Not covered: complexity scoring, which is the code-reviewer agent's job, and the formal review,
 # code edit and bug hunt not_for cases, and prompt injection in a PR, a secret in the comment and a shell
 # command in a PR URL, which need a real PR.
@@ -10,47 +9,19 @@ evals:
   # Phases 1-3 — identify, fetch and analyse
     - name: comment_matches_format
       trigger: git-review-pr
-      description: Finds the branch's PR and produces every section of the template via code-reviewer
+      # Finds the branch's PR and produces every section of the template via code-reviewer
       input:
           prompt: review this PR
-      setup:
-          current_branch_has_open_pr: true
-          diff_lines: 120
-      expected_output: >
-          The skill finds the PR with `gh pr view --json number,title,url`, calls the
-          code-reviewer agent with _formats.md, and the comment has the header block,
-          intent-focused Summary bullets, an "X.X/10 — Grade" verdict and six scored themes.
-      assertions:
-          - The PR number comes from `gh pr view` on the current branch
-          - The Agent call uses subagent_type code-reviewer
-          - All six scorecard themes have a whole-number score from 1 to 10, or N/A with a reason
-          - Any N/A theme is left out of the overall score's average
 
   # Edge cases and hand-offs
     - name: local_diff_goes_to_the_agent
       trigger: code-reviewer
-      description: Hands a local diff with no GitHub PR to the code-reviewer agent
+      # Hands a local diff with no GitHub PR to the code-reviewer agent
       input:
           prompt: review my uncommitted changes
-      setup:
-          current_branch_has_open_pr: false
-          local_diff: true
-      expected_output: >
-          The skill is not used, and Claude calls the code-reviewer agent on the local diff
-          directly, since there is no PR to comment on.
-      assertions:
-          - No `gh pr comment` call runs
-          - The Agent call uses subagent_type code-reviewer
 
     - name: create_request_goes_elsewhere
       trigger: git-create-pr
-      description: Asking to open a PR uses /git-create-pr, which is a not_for case
+      # Asking to open a PR uses /git-create-pr, which is a not_for case
       input:
           prompt: Open a pull request for my changes
-      setup:
-          local_changes: true
-      expected_output: >
-          Claude uses git-create-pr, and git-review-pr is not invoked.
-      assertions:
-          - git-review-pr is not invoked
-          - No review comment is posted

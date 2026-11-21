@@ -39,7 +39,7 @@ Besides adding instructions, installing changes how Claude works wherever you in
 
 - 💬 **Replies:** Claude uses British spelling and offers options before big changes. It also uses a scannable reply format, a [preference](../../src/claude/README.md#-preferences).
 - 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.
-- 🪝 **Automatic checks:** one blocks long plans that skip those sections, one sends Claude back to run the repo's checks before it finishes, and one stops Claude's first edit in a shared repo folder so it works in its own copy. A fourth suggests `/claude-kaizen` once corrections build up.
+- 🪝 **Automatic checks:** hooks enforce parts of this, such as blocking long plans that skip those sections, as the [hooks README](../../src/claude/hooks/README.md) lists.
 - 🔒 **Files:** Claude's file tools can't read `.env` files. Claude saves your plans and notes outside your repos, another preference.
 
 ## ▶️ 3. Run it

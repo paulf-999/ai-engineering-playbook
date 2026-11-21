@@ -33,18 +33,7 @@ The few words this config uses that you might not know are in the getting-starte
 
 Each rule is a standard, a team convention or a preference, which decides whether it installs.
 
-<details>
-<summary>Show the three kinds</summary>
-
-| Kind | What it is | Example | Lives in | Installs |
-|---|---|---|---|---|
-| 🧰 **Standard** | Good practice for anyone using the tool | Pin your Docker base image | `01_standards/` folders | Always |
-| 🏢 **Team convention** | This team's own choices for its shared work | `staging_`, `mart_` and `pub_` dbt prefixes | `_team_conventions` files, beside the standard they extend | With everything else |
-| 👤 **Preference** | One person's taste in how Claude replies and keeps their files | Bold-keyword bullets | `02_preferences/` folders | Unless `PREFERENCES=0` |
-
-- 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_classification.md) sets out how a rule is sorted into one of the three.
-
-</details>
+- 🧭 **Sorting:** the [rule kinds guide](../../docs/guides/authoring_guide/_rule_classification.md) sets out each kind, where it lives, when it installs and how a rule is sorted.
 
 ## 👤 Preferences
 

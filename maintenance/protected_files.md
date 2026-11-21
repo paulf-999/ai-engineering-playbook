@@ -35,11 +35,13 @@ These can be slimmed, but not removed or made opt-in.
 | [`docs/target_architecture/architecture/`](../docs/target_architecture/architecture/) | The child pages split the design for the maintainer's reading |
 | [`style_guides/`](../src/claude/rules/on_demand/style_guides/) | A heavy guide is slimmed rather than deleted |
 | The [repo audit](quality/quality_audit.md), the [quality rubrics](quality/quality_rubrics.md) and the persona review | They're how the repo checks itself |
-| The README evals in [`claude_run_readme_evals.py`](../src/py/claude_run_readme_evals.py), with its test and `make evals README=1` | They run the persona review's cold readers on demand |
+| The README evals in [`claude_run_readme_evals.py`](../src/py/claude_run_readme_evals.py), with its test and `make evals README=1` | They score the README with cold new and experienced readers, beside the persona review |
 | The `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides | The tests use them |
 | The further-reading list in [`reference_material/README.md`](../docs/target_architecture/reference_material/README.md) | It's kept as a reading list |
 | The `*_team_conventions.md` files beside their guides in [`rules/`](../src/claude/rules/) | The split is the team's chosen layout |
 | [`agents/core/`](../src/claude/agents/core/) | It follows the `agents/<group>/` naming pattern |
+| The `01_standards/` and `02_preferences/` kind folders in each load folder, even where one is empty | `test_rules_structure.py` checks every rule sits in one |
+| [`style_guides/jira/`](../src/claude/rules/on_demand/style_guides/jira/) | It follows the guide-plus-children layout of the other style guides |
 | The model grader in [`claude_run_behaviour_evals.py`](../src/py/claude_run_behaviour_evals.py) | Most behaviour assertions judge meaning, and `must_match` already covers literal patterns |
 | `kaizen_nudges.log`, written by [`hook_reminder_kaizen_due.sh`](../src/claude/hooks/hook_reminder_kaizen_due.sh) | It's the kaizen trial's evidence until the trial ends on 2026-12-03 |
 

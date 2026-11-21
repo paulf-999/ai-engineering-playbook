@@ -33,6 +33,7 @@ def exit_plan_input(plan):
     [
         "# Plan\n\n## Intent\n\nWhy.\n\n## Spec\n\nWhat.\n\n## Steps\n",
         "## 📝 **Intent**\n\nWhy.\n\n### spec and checks\n\nWhat.\n",
+        "## 1. Intent\n\nWhy.\n\n## 2. Spec\n\nWhat.\n",
     ],
 )
 def test_a_plan_with_intent_and_spec_is_allowed(plan):

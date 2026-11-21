@@ -29,6 +29,8 @@ COLOUR_OFF := \033[0m
 
 # the virtualenv make evals runs in, which it creates with only pyyaml on first use, so nobody needs make deps first
 EVALS_VENV ?= .venv
+# the eval runner make evals picks: the trigger evals, or the rule or behaviour evals when RULES=1 or BEHAVIOUR=1 is set
+EVAL_RUNNER := $(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,trigger))
 
 #=======================================================================
 # Targets
@@ -67,7 +69,7 @@ $(EVALS_VENV)/.evals_ready:
 
 evals: $(EVALS_VENV)/.evals_ready
 	@echo "${INFO}\nCalled makefile target 'evals'. Check each tagged eval starts the right skill or agent.${COLOUR_OFF}\n"
-	@$(EVALS_VENV)/bin/python src/py/claude_run_$(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,trigger))_evals.py
+	@$(EVALS_VENV)/bin/python src/py/claude_run_$(EVAL_RUNNER)_evals.py
 
 clean:
 	@rm -rf .pytest_cache .ruff_cache

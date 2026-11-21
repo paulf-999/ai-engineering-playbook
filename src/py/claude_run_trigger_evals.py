@@ -4,7 +4,6 @@ Each scenario runs `claude -p` once, on the user's own login, in a scratch git r
 and agents. File-changing, shell and web tools are blocked, so a run can't change anything or reach another service.
 """
 
-import json
 import shutil
 import subprocess
 import sys
@@ -12,8 +11,8 @@ import tempfile
 from pathlib import Path
 
 import yaml
+from claude_evals_common import SOURCE_DIR, copy_components, parse_events, remove_project_folder
 
-SOURCE_DIR = Path(__file__).resolve().parents[1] / "claude"
 BLOCKED_TOOLS = ["Bash", "Write", "Edit", "NotebookEdit", "WebFetch", "WebSearch"]
 # Enough turns to look around before routing; a run stops early at its first skill or agent call
 MAX_TURNS = "5"
@@ -35,19 +34,6 @@ def component_names(source_dir):
     """Return the names of the repo's skills and agents, which are their folder names."""
     folders = [*source_dir.glob("skills/**/SKILL.md"), *source_dir.glob("agents/**/AGENT.md")]
     return {path.parent.name for path in folders}
-
-
-def copy_components(source_dir, target_dir):
-    """Copy the skills, flat under skills/ as make install puts them, and the agents into target_dir/.claude/."""
-    claude_dir = target_dir / ".claude"
-    for skill_file in source_dir.glob("skills/**/SKILL.md"):
-        shutil.copytree(skill_file.parent, claude_dir / "skills" / skill_file.parent.name)
-    shutil.copytree(source_dir / "agents", claude_dir / "agents")
-
-
-def parse_events(stream_lines):
-    """Turn a run's stream-json output into a list of events, skipping blank lines."""
-    return [json.loads(line) for line in stream_lines if line.strip()]
 
 
 def first_call(events):
@@ -85,18 +71,6 @@ def run_scenario(prompt, repo_dir):
     return events
 
 
-def project_folder(events, repo_dir):
-    """Return the projects/ folder Claude Code made for repo_dir, from the run's init event, or None."""
-    for event in events:
-        memory_dir = event.get("memory_paths", {}).get("auto")
-        if event.get("subtype") == "init" and memory_dir:
-            folder = Path(memory_dir).parent
-            # Claude Code names the folder after the repo path, so it must end with the scratch repo's name
-            if folder.name.endswith(repo_dir.name.replace("_", "-")):
-                return folder
-    return None
-
-
 def main():
     """Run every tagged scenario, print a pass or fail line for each, and exit 1 if any failed."""
     if shutil.which("claude") is None:
@@ -114,9 +88,7 @@ def main():
             passed = called == scenario["trigger"]
             failures += not passed
             print(f"{'PASS' if passed else 'FAIL'}  {scenario['name']}: expected {scenario['trigger']}, got {called}")
-            folder = project_folder(events, repo_dir)
-            if folder:
-                shutil.rmtree(folder, ignore_errors=True)
+            remove_project_folder(events, repo_dir)
     print(f"\n{len(scenarios) - failures} of {len(scenarios)} passed")
     sys.exit(1 if failures else 0)
 

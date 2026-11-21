@@ -2,9 +2,9 @@
 
 **Purpose:** the stages a change moves through, named as in Anthropic's AI-native SDLC course, and when to pause for the user's approval.
 
-- 📝 **Intent:** open a plan of 15 lines or more with an Intent section of **Why** and **Success** bullets.
-- 📐 **Spec:** follow with a Spec section, agreed before building, of **Change**, **Files changed**, **Why** and **Out of scope** bullets, in that order.
-- 🗺️ **Plan:** end with numbered Verification steps, each with its check, and no other headings.
+- 📝 **Intent:** open a plan of 15 lines or more with a `1. Intent` section whose first line reads "Why this change is needed, and how we'll know it worked.", then **Why** and **Success** bullets.
+- 📐 **Spec:** follow with a `2. Spec` section, agreed before building, whose first line reads "What changes, in which files, and what's deliberately left out.", then **Change**, **Files changed**, **Why** and **Out of scope** bullets, in that order.
+- 🗺️ **Plan:** end with a `3. Verification` section whose first line reads "The steps to build it, each with the check that proves it's done.", then numbered steps, each with its check, and no other headings.
 - 🔁 **Feedback loop:** run the repo's test command, such as `make test`, before calling a step done, and fix what fails rather than skip it.
 - 👀 **Review:** paste the Spec into the PR's "Plan Spec" section when it has one, then check the diff against it before merge.
 

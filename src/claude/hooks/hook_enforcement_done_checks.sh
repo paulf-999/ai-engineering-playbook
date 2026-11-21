@@ -1,7 +1,8 @@
 #!/bin/bash
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Stop hook that sends Claude back once to run the repo's done checks when tracked files it edited changed since its last stop
+# Description: Stop hook that sends Claude back once to run the repo's done checks when tracked files it edited changed since its last stop,
+#              unless it already ran a command CLAUDE.md names after its last edit
 #              It stays quiet in a repo with no CLAUDE.md, since only a CLAUDE.md says which checks define done
 # Usage: registered in settings.json by make install; Claude Code pipes the hook's JSON input to stdin
 
@@ -38,6 +39,22 @@ session_edited_changes() {
         | grep -Fxq -f <(git -C "${root}" diff HEAD --name-only | sed "s#^#${root}/#")
 }
 
+# Succeed when the transcript at $2 shows a Bash call, after this session's last edit, that runs a command the
+# CLAUDE.md in the repo at $1 names in backticks, such as `make test`, so checks already run aren't asked for again
+checks_ran_since_last_edit() {
+    local root="${1}" transcript="${2}" commands
+    [[ -r "${transcript}" ]] || return 1
+    # shellcheck disable=SC2016  # the backticks are literal, matching CLAUDE.md's inline code
+    commands="$(cat "${root}/CLAUDE.md" "${root}/.claude/CLAUDE.md" 2> /dev/null | grep -o '`[^`]* [^`]*`' | tr -d '`' || true)"
+    [[ -n "${commands}" ]] || return 1
+    jq -r 'select(.type == "assistant") | .message.content[]? | select(.type == "tool_use")
+        | if (.name | test("^(Edit|MultiEdit|Write|NotebookEdit)$")) then "EDIT"
+          elif .name == "Bash" then "BASH " + ((.input.command // "") | gsub("\n"; " "))
+          else empty end' "${transcript}" 2> /dev/null \
+        | awk '/^EDIT$/ { after = ""; next } { after = after $0 "\n" } END { printf "%s", after }' \
+        | grep -Fq -f <(printf '%s\n' "${commands}")
+}
+
 #=======================================================================
 # Main script logic
 #=======================================================================
@@ -59,7 +76,9 @@ ROOT="$(git -C "${REPO}" rev-parse --show-toplevel 2> /dev/null)" || exit 0
 FINGERPRINT="$(changes_fingerprint "${REPO}")"
 [[ -n "${FINGERPRINT}" ]] || exit 0
 # changes another session made aren't this session's to check
-session_edited_changes "${ROOT}" "$(jq -r '.transcript_path // empty' <<< "${INPUT}" 2> /dev/null || true)" || exit 0
+TRANSCRIPT="$(jq -r '.transcript_path // empty' <<< "${INPUT}" 2> /dev/null || true)"
+session_edited_changes "${ROOT}" "${TRANSCRIPT}" || exit 0
+checks_ran_since_last_edit "${ROOT}" "${TRANSCRIPT}" && exit 0
 STATE_FILE="${STATE_DIR}/${SESSION}"
 [[ "$(cat "${STATE_FILE}" 2> /dev/null || true)" == "${FINGERPRINT}" ]] && exit 0
 mkdir -p "${STATE_DIR}"

@@ -37,6 +37,10 @@ These can be slimmed, but not removed or made opt-in.
 | The [repo audit](quality/quality_audit.md), the [quality rubrics](quality/quality_rubrics.md) and the persona review | They're how the repo checks itself |
 | The `ALWAYS_ON_TOKEN_BUDGET` and `MAX_FILES_ALLOWED` overrides | The tests use them |
 | The further-reading list in [`reference_material/README.md`](../docs/target_architecture/reference_material/README.md) | It's kept as a reading list |
+| The `*_team_conventions.md` files beside their guides in [`rules/`](../src/claude/rules/) | The split is the team's chosen layout |
+| [`agents/core/`](../src/claude/agents/core/) | It follows the `agents/<group>/` naming pattern |
+| The model grader in [`claude_run_behaviour_evals.py`](../src/py/claude_run_behaviour_evals.py) | Most behaviour assertions judge meaning, and `must_match` already covers literal patterns |
+| `kaizen_nudges.log`, written by [`hook_reminder_kaizen_due.sh`](../src/claude/hooks/hook_reminder_kaizen_due.sh) | It's the kaizen trial's evidence until the trial ends on 2026-12-03 |
 
 ## ℹ️ Unused isn't a reason to cut
 

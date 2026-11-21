@@ -20,7 +20,7 @@ Files and text the repo doesn't need:
 | ⚖️ **Proportionality** | Support files are no more than product files | Up to double | More than double |
 | 🧾 **Evidence of need** | At most 2 files have no current user or inbound link | 3 to 5 have none | 6 or more have none |
 | 🎯 **Single source** | At most 2 facts, rules or checks live in more than one place | 3 to 5 duplicates | 6 or more duplicates |
-| 📦 **Always-on headroom** | Always-on tokens are 75% of the budget or less | Up to 90% | Over 90% |
+| 📦 **Always-on headroom** | Always-on tokens are 90% of the budget or less | Up to 95% | Over 95% |
 | 🚧 **Placeholders** | No "not built yet" or "Nothing scored yet" text | 1 to 5 | More than 5 |
 
 ### 🏗️ Over-engineering
@@ -76,7 +76,7 @@ src/sh/claude_validate_always_on_budget.sh
 
 ## 🕵️ Reviewer brief
 
-At each [regular review](../../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), one fresh-context Explore agent gets only this brief, since a primed brief inflates scores. It runs in a scratch worktree of `main` with `quality_audit.md` and `quality_audit/` deleted, so no search can show it the last run's scores:
+At each [regular review](../../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), one cold reader gets only this brief, since a primed brief inflates scores. It runs as `claude -p --safe-mode` in a fresh clone of `main`, with `quality_audit.md` and `quality_audit/` deleted so no search can show it the last run's scores, and `--add-dir` on the session transcripts so it can judge components:
 
 ```text
 Score this repo against maintenance/quality/quality_rubrics/_repo.md.

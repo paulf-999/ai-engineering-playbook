@@ -34,12 +34,15 @@ def repo(tmp_path):
     return path
 
 
-def write_transcript(tmp_path, *edited):
-    """Write a session transcript whose Edit tool calls touched each path in edited, and return its path."""
+def write_transcript(tmp_path, *calls):
+    """Write a session transcript of Edit calls, one per path, and Bash calls, one per string, and return its path."""
     path = tmp_path / "transcript.jsonl"
     lines = [{"type": "user", "message": {"content": "change the app"}}]
-    for file in edited:
-        call = {"type": "tool_use", "name": "Edit", "input": {"file_path": str(file)}}
+    for call_for in calls:
+        if isinstance(call_for, str):
+            call = {"type": "tool_use", "name": "Bash", "input": {"command": call_for}}
+        else:
+            call = {"type": "tool_use", "name": "Edit", "input": {"file_path": str(call_for)}}
         lines.append({"type": "assistant", "message": {"content": [call]}})
     path.write_text("".join(json.dumps(line) + "\n" for line in lines))
     return path
@@ -106,6 +109,17 @@ def test_a_change_this_session_made_is_blocked(tmp_path, repo):
     (repo / "app.py").write_text("print('changed')\n")
     result = run_hook(tmp_path, repo, transcript=write_transcript(tmp_path, repo / "app.py"))
     assert result.returncode == BLOCKED, f"this session's own change should be blocked:\n{result.stderr}"
+
+
+@pytest.mark.parametrize(("order", "expected"), [("edit_then_check", 0), ("check_then_edit", BLOCKED)])
+def test_checks_run_after_the_last_edit_are_not_asked_for_again(tmp_path, repo, order, expected):
+    """A CLAUDE.md command run after the session's last edit allows the stop, but one run before an edit doesn't."""
+    (repo / "app.py").write_text("print('changed')\n")
+    calls = [repo / "app.py", "make test 2>&1 | tail -1"]
+    if order == "check_then_edit":
+        calls.reverse()
+    result = run_hook(tmp_path, repo, transcript=write_transcript(tmp_path, *calls))
+    assert result.returncode == expected, f"{order} should exit {expected}:\n{result.stderr}"
 
 
 def test_a_stop_while_the_hook_is_active_is_allowed(tmp_path, repo):

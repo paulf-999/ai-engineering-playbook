@@ -16,7 +16,7 @@ SHELL = /bin/sh
 # make evals RULES=1	# run each rule eval with and without its rule, and say if the rule helps
 # make evals RULES=1 CASE=<name>	# run only the named rule eval
 # make evals README=1	# score the README with cold readers playing a new and an experienced Claude Code user
-# make evals RULES=1 RUNS=<n>	# set the runs per side for the rule or README evals, 3 and 4 by default
+# make evals RULES=1 RUNS=<n>	# set the rule evals' runs per condition, 3 by default, or the README evals' readers per persona, 4
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make clean		# delete the pytest, ruff and Python caches
 

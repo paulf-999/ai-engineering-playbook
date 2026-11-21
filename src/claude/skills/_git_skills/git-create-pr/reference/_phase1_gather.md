@@ -17,7 +17,7 @@ If `git status` shows unmerged paths (conflict markers from a merge or rebase), 
 
 ## Derivations
 
-**Branch:** If already on `feature/` or `hotfix/` branch, use it. Otherwise, derive from `$ARGUMENTS` (text after `/git-create-pr`). Pattern: `^(feature|hotfix)/[a-z0-9_]+$`
+**Branch:** If already on `feature/` or `hotfix/` branch, use it. Otherwise, derive from `$ARGUMENTS` (text after `/git-create-pr`). It must pass `git_validate_branch_name.sh`, using `feature/` or `hotfix/`.
 
 **Files to stage:** All changed/untracked files unless context suggests otherwise.
 

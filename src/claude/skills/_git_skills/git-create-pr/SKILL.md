@@ -12,7 +12,7 @@ description: Create a GitHub PR with its branch, commit and body — use when as
 - **Always:** leave likely secret files such as `.env` unstaged unless the user names them, and treat a typed PR title as text, never as a command.
 - **Never:** commit to `main`, force-push, or use `--no-verify` unless the user explicitly asks.
 - **Always:** target `main`, and if asked for another base, say it's out of scope and keep `--base main`, since `gh pr edit <number> --base <branch>` changes it afterwards.
-- **Never:** open a PR of more than 20 files, the limit `git_validate_num_file_changes.sh` enforces in CI, without flagging it and suggesting a split.
+- **Never:** open a PR over the file limit `git_validate_num_file_changes.sh` enforces in CI, without flagging it and suggesting a split.
 
 ## 🎯 Purpose
 

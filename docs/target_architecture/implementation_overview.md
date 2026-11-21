@@ -13,9 +13,7 @@ What `make install` does:
 
 Each rule's top folder decides when it loads, per the [rules README](../../src/claude/rules/README.md) and the [tiers](architecture/_tiers.md):
 
-- 🌱 **Always on:** [`rules/always_on/`](../../src/claude/rules/always_on/) loads in every session.
-- 📍 **Path scoped:** [`rules/path_scoped/`](../../src/claude/rules/path_scoped/) loads only when Claude touches a file matching the rule's `paths:` frontmatter.
-- 💤 **On demand:** [`on_demand/`](../../src/claude/rules/on_demand/) installs beside `rules/`, so it loads only when a rule's "Read on demand" pointer sends Claude there.
+- 📏 **Rules:** [`always_on/`](../../src/claude/rules/always_on/), [`path_scoped/`](../../src/claude/rules/path_scoped/) and [`on_demand/`](../../src/claude/rules/on_demand/) load as the rules README describes.
 - 🛠️ **Skills and agents:** [skills](../../src/claude/skills/) and [agents](../../src/claude/agents/) load only when called by name or matched by their description.
 
 ## 🔄 Spec-led workflow
@@ -23,7 +21,7 @@ Each rule's top folder decides when it loads, per the [rules README](../../src/c
 Claude agrees a plan before coding, and hooks enforce the key steps, as the [workflow](architecture/_workflow.md) explains:
 
 - 📝 **Rule:** [`ai_sdlc_workflow.md`](../../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) sets the stages: Intent, Spec, Plan, Feedback loop and Review.
-- 📋 **Plan check:** [`hook_enforcement_plan_sections.sh`](../../src/claude/hooks/hook_enforcement_plan_sections.sh) blocks a plan of 15 or more lines with no Intent or Spec heading.
+- 📋 **Plan check:** [`hook_enforcement_plan_sections.sh`](../../src/claude/hooks/hook_enforcement_plan_sections.sh) blocks a long plan with no Intent or Spec heading.
 - ✅ **Done check:** [`hook_enforcement_done_checks.sh`](../../src/claude/hooks/hook_enforcement_done_checks.sh) sends Claude back once to run the repo's done checks before it stops.
 - 🪝 **All hooks:** the [hooks README](../../src/claude/hooks/README.md) lists each hook and the rule it enforces.
 

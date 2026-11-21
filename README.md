@@ -3,11 +3,11 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A lean Claude Code playbook with one-command setup, so every engineer starts on shared standards.
+A ready-made set of Claude instructions that your team installs with one command, so everyone works to the same standards.
 
-Claude loads only what a task needs, agrees a plan before coding, and its rules are backed by measured runs.
+Claude loads only what a task needs, agrees a plan before coding, and keeps only rules that measured runs show help.
 
-**Goal:** favour simplicity, selective context loading, spec-led workflows and evidence-based decisions.
+**Goal:** suit new and experienced Claude Code users, favouring simplicity, selective context loading, Anthropic's [AI-native SDLC](https://academy.claude.com/courses/ai-native-sdlc-playbook) workflow and evidence-based decisions.
 
 For details, see the [implementation overview](docs/target_architecture/implementation_overview.md).
 

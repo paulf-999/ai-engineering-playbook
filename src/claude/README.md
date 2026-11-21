@@ -48,8 +48,6 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 
 ## 👤 Preferences
 
-They install by default, and `make install PREFERENCES=0` leaves them out.
-
 <details>
 <summary>Show the preferences, their cost and limits</summary>
 

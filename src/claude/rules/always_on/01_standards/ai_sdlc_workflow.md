@@ -1,10 +1,21 @@
 # 🔄 SDLC workflow
 
-**Purpose:** the stages a change moves through, named as in Anthropic's AI-native SDLC course, and when to pause for the user's approval.
+**Purpose:** how to lay out a plan and take a change through to merge, using the stage names from Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
 
-- 📝 **Intent:** open a plan of 15 lines or more with a `1. Intent` section whose first line reads "Why this change is needed, and how we'll know it worked.", then **Why** and **Success** bullets.
-- 📐 **Spec:** follow with a `2. Spec` section, agreed before building, whose first line reads "What changes, in which files, and what's deliberately left out.", then **Change**, **Files changed**, **Why** and **Out of scope** bullets, in that order.
-- 🗺️ **Plan:** end with a `3. Plan` section whose first line reads "The steps to build it, each with the check that proves it's done.", then numbered steps, each with its check, and no other headings.
+## 🗺️ Plan layout
+
+A plan of 15 lines or more has these three sections, in order. Open each with its first line, then add what follows.
+
+| Section | First line | Then |
+|---|---|---|
+| `1. Intent` | "Why this change is needed, and how we'll know it worked." | **Why** and **Success** bullets |
+| `2. Spec` | "What changes, in which files, and what's deliberately left out." | **Change**, **Files changed**, **Why** and **Out of scope** bullets, agreed before building |
+| `3. Plan` | "The steps to build it, each with the check that proves it's done." | Numbered steps, each with its check, and no other headings |
+
+- 💾 **Saved files:** once you approve, the saved-plans preference, if installed, saves the sections as `intent.md`, `spec.md` and `plan.md`.
+
+## 🔨 Building and review
+
 - 🔁 **Feedback loop:** run the repo's test command, such as `make test`, before calling a step done, and fix what fails rather than skip it.
 - 👀 **Review:** paste the Spec into the PR's "Plan Spec" section when it has one, then check the diff against it before merge.
 

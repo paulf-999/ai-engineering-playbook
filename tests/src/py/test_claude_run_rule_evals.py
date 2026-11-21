@@ -6,7 +6,7 @@ import sys
 import pytest
 from _paths import REPO_ROOT
 
-# The runner imports its sibling runners by name, as it does when run as a script
+# The runner imports the shared eval helpers by name, as it does when run as a script
 sys.path.insert(0, str(REPO_ROOT / "src" / "py"))
 runner = importlib.import_module("claude_run_rule_evals")
 

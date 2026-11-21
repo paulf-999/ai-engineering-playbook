@@ -14,8 +14,16 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import yaml
-from claude_run_behaviour_evals import build_repo, git, grade, repo_state, run_claude, transcript
-from claude_run_trigger_evals import SOURCE_DIR, project_folder
+from claude_evals_common import (
+    SOURCE_DIR,
+    build_repo,
+    git,
+    grade,
+    remove_project_folder,
+    repo_state,
+    run_claude,
+    transcript,
+)
 
 CASES_FILE = SOURCE_DIR / "rules" / "evals.yaml"
 # A rule helps, or hurts, when one condition passes at least this many more runs than the other
@@ -63,9 +71,7 @@ def run_once(case, with_rule, run_dir):
     run_dir.mkdir()
     prepare_repo(run_dir, case, with_rule)
     events = run_claude(case["prompt"], run_dir)
-    folder = project_folder(events, run_dir.resolve())
-    if folder:
-        shutil.rmtree(folder, ignore_errors=True)
+    remove_project_folder(events, run_dir.resolve())
     results = grade(
         case["assertions"], transcript([(case["prompt"], events)]), repo_state(run_dir), run_dir.parent, GRADER_MODEL
     )

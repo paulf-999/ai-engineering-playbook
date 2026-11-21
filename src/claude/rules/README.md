@@ -17,3 +17,7 @@
 | 🔁 [`always_on/`](always_on/) | Rules Claude loads in every session |
 | 📂 [`path_scoped/`](path_scoped/) | Rules that load when Claude works on a file matching the rule's `paths:` list |
 | 💤 [`on_demand/`](on_demand/) | Detail Claude reads only when a rule's "Read on demand" pointer or a hook sends it there |
+
+## 🧪 Evals
+
+[`evals.yaml`](evals.yaml) holds A/B cases that check each rule earns its place: `make evals RULES=1` runs every prompt with and without its rule, and reports whether the rule helps.

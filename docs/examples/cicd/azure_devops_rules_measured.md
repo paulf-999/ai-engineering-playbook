@@ -29,9 +29,25 @@ Split by [kind of rule](../../guides/authoring_guide/_rule_classification.md):
 - 🔐 **Security basics came without the rules:** every task a run used was pinned to its major version, and every secret run passed the token through `env:` and fetched only `api-token` from Key Vault.
 - ⏱️ **Timeouts and names came only with the rules:** no run without them set `timeoutInMinutes`, and 7 of 12 left a stage, job or step without a `displayName`.
 - 🚀 **Deploys:** with the rules, every deploy pipeline used `extends:`, excluded PR builds and set the `Release-` run name. Without them, all 3 pulled the template in with `- template:` and none did either of the other two.
-- 📁 **Layout was the weakest convention:** 4 of 6 PR and secret runs with the rules put the pipeline at the repo root, not under `src/cicd/`, though every deploy run used it.
-- 🐍 **The Python child was read but not applied:** the edit runs with the rules named the venv preparation script, then used plain `pip`, since the sample has no such script, and kept their test steps inline.
+- 📁 **Layout was the weakest convention:** 4 of 6 PR and secret runs with the rules put the pipeline at the repo root, not under `src/cicd/`, though every deploy run used it. The rerun below shows the fix.
+- 🐍 **The Python child was read but not applied:** the edit runs with the rules named the venv preparation script, then used plain `pip`, since the sample has no such script, and kept their test steps inline. The rerun below shows the fix.
 - ⚠️ **A claim that didn't hold:** 1 edit run with the rules said it had added the `---` opener and 4-space indents, but its file kept neither.
+
+## 🔁 Rerun after tightening the conventions
+
+[#460](https://github.com/paulf-999/ai-engineering-playbook/pull/460) made two team conventions stricter: entry pipelines go under `src/cicd/`, never the repo root, and every shell command lives in a script file, with no inline `script:` steps. On 2026-11-21, the 3 tasks they affect ran 3 more times each with the rules, scored the same way:
+
+| Task | With, before #460 | With, after #460 |
+|---|---|---|
+| 🔍 **PR** | 84% | 98% |
+| 🔐 **Secret** | 84% | 88% |
+| ✏️ **Edit** | 71% | 93% |
+
+- 📁 **Layout fixed:** all 6 PR and secret runs put their pipeline and scripts under `src/cicd/`.
+- 🐚 **Scripts fixed:** every new step ran a script file, and 2 of 3 edit runs also moved the existing ruff step out of the YAML.
+- 📊 **By kind:** across these 3 tasks, standards held at 95% to 96%, and team conventions rose from 73% to 92%.
+- ❌ **Still missed:** all 3 secret runs and 1 PR run skipped the shared variables template, 2 secret runs left the `main` trigger without a `paths:` filter, and 2 of 3 edit runs skipped the venv preparation script.
+- 💰 **Cost:** $1.91 for the 9 runs, up from $1.02 for the same 9 before #460, since each run now writes scripts too.
 
 ## 🧪 How it was run
 

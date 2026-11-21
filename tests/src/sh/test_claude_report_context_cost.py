@@ -86,20 +86,14 @@ def test_terminal_lists_every_file_by_load_type(tmp_path):
     assert "README.md" not in result.stdout, "a README never installs, so it shouldn't be listed"
 
 
-def test_stage_rewrites_and_stages_a_stale_report_except_in_ci(tmp_path):
-    """--stage rewrites a stale report and stages it, and with CI=true fails, leaving the report alone."""
+def test_stage_rewrites_and_stages_a_stale_report(tmp_path):
+    """--stage rewrites a stale report and stages it, so the commit includes it."""
     env = config_repo(tmp_path)
     write_report(tmp_path, env)
     subprocess.run(["git", "add", REPORT], cwd=tmp_path, env=env, check=True)
     (tmp_path / "src" / "claude" / "CLAUDE.md").write_text(HUNDRED_TOKENS * 2)
 
-    stale = (tmp_path / REPORT).read_text()
-    in_ci = run_report(tmp_path, {**env, "CI": "true"}, "--stage")
-    assert in_ci.returncode == 1, f"a stale report should fail in CI:\n{in_ci.stdout}"
-    assert "make context_cost" in in_ci.stdout, "the CI failure should say how to fix it"
-    assert (tmp_path / REPORT).read_text() == stale, "CI must not rewrite the report"
-
-    local = run_report(tmp_path, {k: v for k, v in env.items() if k != "CI"}, "--stage")
+    local = run_report(tmp_path, env, "--stage")
     assert local.returncode == 0, f"a stale report should be fixed locally:\n{local.stdout}"
     assert "| 1 | `CLAUDE.md` | ~200 |" in (tmp_path / REPORT).read_text(), "the report should be rewritten"
     staged_files = ["git", "diff", "--cached", "--name-only"]

@@ -12,7 +12,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              With YES=1, install skips the typed confirmation for provisioning scripts, but never from Claude Code
 #              It adds the rules in 02_preferences/ folders unless PREFERENCES=0, but never into a PROJECT install
 #              It never installs the skill, agent and rule templates, which are for authoring in this repo
-# Usage: [PROJECT=<repo> [HOOKS=1]] [PREFERENCES=0|1] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
+# Usage: [PROJECT=<repo> [HOOKS=1]] [PREFERENCES=0] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
 #        your own terminal or in a provisioning script; make install and make uninstall call it)
 
 # Load reusable shell script vars & functions
@@ -151,24 +151,20 @@ list_source_files() {
     fi
 }
 
-# Settle PREFERENCES: an explicit 0 or 1 wins, otherwise preferences install,
+# Settle PREFERENCES: 0 leaves preferences out, otherwise they install,
 # except into a project, which never gets them, since its .claude/ folder is shared
 resolve_preferences() {
     case "${PREFERENCES}" in
-        0 | 1) ;;
+        0) ;;
         "")
             PREFERENCES=1
-            [[ -n "${PROJECT}" ]] && PREFERENCES=0
+            if [[ -n "${PROJECT}" ]]; then PREFERENCES=0; fi
             ;;
         *)
-            log_message "${ERROR}" "PREFERENCES must be 0 or 1, not '${PREFERENCES}' - nothing changed."
+            log_message "${ERROR}" "PREFERENCES can only be 0, not '${PREFERENCES}', since preferences install by default - nothing changed."
             exit 1
             ;;
     esac
-    if [[ -n "${PROJECT}" && "${PREFERENCES}" == 1 ]]; then
-        log_message "${ERROR}" "${PROJECT_PREFERENCES_NOTE} - nothing changed."
-        exit 1
-    fi
 }
 
 # Succeed if an installed path is a preference

@@ -45,6 +45,8 @@ The latest run's findings, ranked by how much each would cut. Each run replaces 
 
 The run also proposed folding the thin team-conventions files back into their guides, trimming the 15-line threshold from `ai_sdlc_workflow.md`, a 75% always-on target and dropping `kaizen_nudges.log`. These are left out because the team-conventions split is the team's chosen layout, `ai_sdlc_workflow.md` is a [protected file](../../protected_files.md), 90% is the chosen target, and the log is the kaizen trial's evidence until 2026-12-03.
 
+Findings 3 and 4 are only partly taken. The model grader stays, since most behaviour assertions judge meaning and `must_match` already covers literal patterns. `agents/core/` follows the `agents/<group>/` naming pattern, `reference_material/core/` is the protected reading list, and `style_guides/jira/` follows the guide-plus-children layout of the other style guides.
+
 ## 💬 Component feedback
 
 Rows are sorted by path. Each component that helped has one row, and each review adds its PR to that row, or adds a row, but replaces the Unused and Hindered rows, since those are what it acts on.

@@ -500,13 +500,9 @@ def test_zero_removes_preferences_until_a_plain_reinstall(tmp_path):
 
 
 def test_a_project_never_gets_preferences(tmp_path):
-    """A project install leaves preferences out, and refuses PREFERENCES=1 without changing anything."""
+    """A project install leaves preferences out."""
     config, project = tmp_path / "config", tmp_path / "repo"
     project.mkdir()
-    refused = run_install(config, answer="install", PROJECT=str(project), PREFERENCES="1")
-    assert refused.returncode == 1, f"PREFERENCES=1 should be refused in a project:\n{refused.stdout}"
-    assert "own config" in refused.stdout + refused.stderr, "it should say where preferences go"
-    assert not (project / ".claude").exists(), "a refused install should change nothing"
 
     result = run_install(config, answer="install", PROJECT=str(project))
 
@@ -514,11 +510,14 @@ def test_a_project_never_gets_preferences(tmp_path):
     assert preference_files(project / ".claude") == set(), "a project install should have no preferences"
 
 
-def test_a_bad_preferences_value_is_refused(tmp_path):
-    """PREFERENCES must be 0 or 1."""
-    refused = run_install(tmp_path, answer="install", PREFERENCES="yes")
+@pytest.mark.parametrize("value", ["1", "yes"])
+def test_a_preferences_value_other_than_0_is_refused(tmp_path, value):
+    """PREFERENCES can only be 0, since preferences install by default, and a refused install changes nothing."""
+    refused = run_install(tmp_path, answer="install", PREFERENCES=value)
 
-    assert refused.returncode == 1, f"PREFERENCES=yes should be refused:\n{refused.stdout}"
+    assert refused.returncode == 1, f"PREFERENCES={value} should be refused:\n{refused.stdout}"
+    assert "can only be 0" in refused.stdout + refused.stderr, "it should say which value works"
+    assert not (tmp_path / "CLAUDE.md").exists(), "a refused install should change nothing"
 
 
 def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_path):
@@ -526,7 +525,7 @@ def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_pat
     config = tmp_path / "config"
     config.mkdir()
     (config / "CLAUDE.md").write_text("my old config\n")
-    for flag in ("", "1", "", "0"):
+    for flag in ("", "0", "", "0"):
         result = run_install(config, answer="install", **({"PREFERENCES": flag} if flag else {}))
         assert result.returncode == 0, f"install with PREFERENCES={flag!r} should work:\n{result.stdout}"
 

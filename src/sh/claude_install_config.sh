@@ -66,6 +66,8 @@ MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
 SOURCE_FILES=()
 # where each source file installs, one per line, set by list_source_files
 TARGET_PATHS=""
+# where the last file passed to target_path installs
+TARGET_PATH=""
 # files the last install wrote that the repo no longer has, set by list_removed_files
 REMOVED_FILES=()
 # settings.json holds personal settings, so install merges the hooks into it rather than copying a file over it
@@ -89,16 +91,17 @@ DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
 # Functions
 #=======================================================================
 
-# Print where a source file installs: on-demand files move from rules/on_demand/ to on_demand/,
+# Set TARGET_PATH to where a source file installs: on-demand files move from rules/on_demand/ to on_demand/,
 # and a skill in a group folder such as skills/_git_skills/ installs flat under skills/, where Claude Code finds it
+# it sets a variable rather than printing, so callers needn't start a subshell for each file
 target_path() {
     local file="${1}"
     if [[ "${file}" == "${LAZY_RULES_DIR}/"* ]]; then
-        echo "${file#rules/}"
+        TARGET_PATH="${file#rules/}"
     elif [[ "${file}" =~ ^skills/_[^/]+/(.+/.+)$ ]]; then
-        echo "skills/${BASH_REMATCH[1]}"
+        TARGET_PATH="skills/${BASH_REMATCH[1]}"
     else
-        echo "${file}"
+        TARGET_PATH="${file}"
     fi
 }
 
@@ -143,7 +146,8 @@ list_source_files() {
         # a skill group's own files, such as its README, describe the group, which doesn't exist once installed flat
         [[ "${file}" =~ ^skills/_[^/]+/[^/]+$ ]] && continue
         SOURCE_FILES+=("${file}")
-        TARGET_PATHS+="$(target_path "${file}")"$'\n'
+        target_path "${file}"
+        TARGET_PATHS+="${TARGET_PATH}"$'\n'
     done < <(git ls-files -z -- "${SOURCE_DIR}")
     if [[ "${#SOURCE_FILES[@]}" -eq 0 ]]; then
         log_message "${ERROR}" "No tracked files found under ${SOURCE_DIR} - nothing to install."
@@ -189,12 +193,11 @@ remove_emptied_folders() {
 list_removed_files() {
     local path
     file_exists "${MANIFEST}" || return 0
+    # one grep lists the manifest's paths that TARGET_PATHS lacks, rather than one grep per path
     while IFS= read -r path; do
         [[ -n "${path}" && "${path}" != /* && "${path}" != *..* ]] || continue
-        if ! grep -Fxq -- "${path}" <<< "${TARGET_PATHS}" && file_exists "${TARGET_DIR}/${path}"; then
-            REMOVED_FILES+=("${path}")
-        fi
-    done < "${MANIFEST}"
+        file_exists "${TARGET_DIR}/${path}" && REMOVED_FILES+=("${path}")
+    done < <(grep -Fxv -f <(printf '%s' "${TARGET_PATHS}") -- "${MANIFEST}" || true)
 }
 
 # Say how to keep the preferences an install is removing, if it's removing any
@@ -298,9 +301,13 @@ uninstall_files() {
 install_files() {
     local file relative target backup_dir copied=0 backed_up=0
     for file in "${SOURCE_FILES[@]}"; do
-        relative="$(target_path "${file}")"
+        target_path "${file}"
+        relative="${TARGET_PATH}"
         target="${TARGET_DIR}/${relative}"
-        if file_exists "${target}" && cmp -s <(render "${file}") "${target}"; then
+        # only a project install rewrites pointers, so any other compares the source file itself, with no render
+        if [[ -z "${PROJECT}" ]]; then
+            file_exists "${target}" && cmp -s "${SOURCE_DIR}/${file}" "${target}" && continue
+        elif file_exists "${target}" && cmp -s <(render "${file}") "${target}"; then
             continue
         fi
         if file_exists "${target}"; then

@@ -7,6 +7,16 @@ evals:
       input:
           prompt: create a bug in jira, the login page returns a 500 on submit
 
+  # Stops
+    - name: missing_mcp_server_stops
+      behaviour: true
+      # With no Atlassian MCP server, the pre-check fails, so the skill stops before drafting anything
+      input:
+          prompt: /jira-create-issue the dbt nightly run times out on the orders model
+      assertions:
+          - Claude tells the user to enable the Atlassian MCP server and restart Claude Code
+          - Claude does not draft a ticket or show a summary, description or acceptance criteria
+
   # Not for
     - name: confluence_request_goes_elsewhere
       trigger: confluence-create-page

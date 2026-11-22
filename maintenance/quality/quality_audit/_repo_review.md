@@ -79,6 +79,5 @@ Rows are sorted by path. Each component that helped has one row, and each review
 
 | Component | Run | Effect | Evidence | Response |
 |---|---|---|---|---|
-| [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../../src/claude/hooks/hook_enforcement_done_checks.sh) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | Of 49 blocks, about 33 were answered "already ran", mostly before #478. Since #478 and [#484](https://github.com/paulf-999/ai-engineering-playbook/pull/484), it blocked twice in 18 sessions | No change, since #478's fix landed after most of these blocks |
 | [`src/claude/rules/on_demand/`](../../../src/claude/rules/on_demand/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | Installed copies were read mainly when a hook pointed to them | Kept, since the [protected files](../../protected_files.md) page says unused isn't a reason to cut |
 | [`src/claude/skills/`](../../../src/claude/skills/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | `claude-capture-session-prompts`, `jira-create-issue` and `confluence-create-page` never ran, and `git-review-pr` ran 1 to 3 times | Kept, for the same reason |

@@ -27,10 +27,7 @@ If `git status` shows unmerged paths (conflict markers from a merge or rebase), 
 **Commit message:** Conventional Commits format `type(scope): description`
 
 - `type`: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `ci`
-- `scope`:
-  - Single file → filename in backticks (`` `git.md` ``)
-  - Multiple files in one skill → skill name in backticks (`` `git-create-pr` ``)
-  - Area descriptor or omit entirely for cross-area changes
+- `scope`: the area of the repo affected, such as `makefile` or `ci`, or omit it for cross-area changes
 - Description: lowercase, imperative, no period
 
 **PR title:** Derived separately from commit message

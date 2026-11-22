@@ -9,14 +9,13 @@ An external review asked whether each guard prevents a real problem, or only add
 
 ## ⚖️ Verdict totals
 
-How many of the 39 guards, hooks, recurring reviews and test files in this audit got each verdict.
+How many of the 38 guards, hooks, recurring reviews and test files in this audit got each verdict.
 
 | Verdict | Items |
 |---|---|
 | ✅ **Keep** | 27 |
 | 🔒 **Keep (decided)** | 9 |
 | ✂️ **Slim** | 2 |
-| 🗑️ **Drop** | 1 |
 
 "Keep (decided)" marks an item the maintainer has already chosen to keep, so this audit records its evidence without re-proposing it.
 
@@ -47,10 +46,9 @@ How many of the 39 guards, hooks, recurring reviews and test files in this audit
 | # | Item | Problem it prevents | Evidence it fired or helped | Verdict |
 |---|---|---|---|---|
 | 13 | 🗓️ [Review every 20 tasks or 4 weeks](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests) | Parts that don't pay building up | The repo is 18 days old and has had 6 reviews, so the cadence hasn't yet applied | ✅ Keep |
-| 14 | 🔪 Halving test | A setup bigger than it needs to be | Never recorded as run, and the [outcome runs](../../docs/examples/dbt/dbt_outcomes_measured.md) now measure part of it | 🗑️ Drop: removed from the principles and measures |
-| 15 | 🚩 [Two sessions, not one](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests) | Cutting a part on one bad session | Never applied, and the maintainer has overruled its "or if it's unused" half | ✂️ Slim: retire a part only when two sessions show it got in the way |
-| 16 | 📏 [Component feedback and tokens](../../docs/target_architecture/architecture/_measures.md) | Reviews with no evidence | Recorded in the [repo review](quality_audit/_repo_review.md#-component-feedback), and the source of most of this page's evidence | ✅ Keep |
-| 17 | 📄 `ai_sdlc_workflow.md` and `CLAUDE.md` | Not assessed | Not assessed | 🔒 Keep (decided) |
+| 14 | 🚩 [Two sessions, not one](../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests) | Cutting a part on one bad session | Never applied, and the maintainer has overruled its "or if it's unused" half | ✂️ Slim: retire a part only when two sessions show it got in the way |
+| 15 | 📏 [Component feedback and tokens](../../docs/target_architecture/architecture/_measures.md) | Reviews with no evidence | Recorded in the [repo review](quality_audit/_repo_review.md#-component-feedback), and the source of most of this page's evidence | ✅ Keep |
+| 16 | 📄 `ai_sdlc_workflow.md` and `CLAUDE.md` | Not assessed | Not assessed | 🔒 Keep (decided) |
 
 ## 🧪 Tests
 
@@ -58,28 +56,28 @@ Each test file is judged against the [keep or delete criteria](../../tests/READM
 
 | # | Test file | What it protects | Tests | Sessions failed | Verdict |
 |---|---|---|---|---|---|
-| 18 | 📐 [Rules structure](../../tests/src/claude/test_rules_structure.py) | Rule size, pointers and folder placement | 19 | 11 | ✅ Keep |
-| 19 | 📦 [Install config](../../tests/src/sh/test_claude_install_config.py) | Install, upgrade, uninstall, backups and preferences | 28 | 9 | ✅ Keep |
-| 20 | ✅ [Done checks hook](../../tests/src/claude/test_hook_enforcement_done_checks.py) | Stopping once to run the repo's checks | 9 | 1 | ✅ Keep |
-| 21 | 📋 [Plan sections hook](../../tests/src/claude/test_hook_enforcement_plan_sections.py) | Blocking plans with no Intent or Spec | 5 | 0 | ✅ Keep |
-| 22 | 🌳 [Worktree edits hook](../../tests/src/claude/test_hook_enforcement_worktree_edits.py) | Blocking a first edit in the main folder | 7 | 0 | ✅ Keep |
-| 23 | 💡 [Kaizen reminder hook](../../tests/src/claude/test_hook_reminder_kaizen_due.py) | Nudging only once 5 feedback notes are new since a run | 4 | 0 | ✅ Keep |
-| 24 | 💸 [Context-cost report](../../tests/src/sh/test_claude_report_context_cost.py) | An accurate token report | 5 | 1 | 🔒 Keep (decided) |
-| 25 | 💰 [Always-on budget](../../tests/src/sh/test_claude_validate_always_on_budget.py) | The 3,000-token cap and what counts towards it | 5 | 1 | ✅ Keep |
-| 26 | 🧱 [Script structure](../../tests/src/sh/test_script_structure.py) | Every script follows the bash template | 3 | 1 | ✅ Keep |
-| 27 | 🧰 [Shell utils](../../tests/src/sh/test_shell_utils.py) | The shared shell helpers, tested once | 5 | 0 | ✅ Keep |
-| 28 | 🌿 [Branch name](../../tests/src/sh/git/test_git_validate_branch_name.py) | Valid and invalid names, and a detached HEAD | 4 | 0 | ✅ Keep |
-| 29 | 📏 [PR file count](../../tests/src/sh/git/test_git_validate_num_file_changes.py) | Both sides of the file limit, and the `release/` skip | 7 | 0 | ✅ Keep |
-| 30 | 📝 [PR description](../../tests/src/sh/git/test_git_validate_pr_description.py) | Required sections, and no shell execution of the body | 5 | 0 | ✅ Keep |
-| 31 | 🎯 [Trigger evals runner](../../tests/src/py/test_claude_run_trigger_evals.py) | Scenario selection, config copy and grading | 4 | 0 | ✅ Keep |
-| 32 | 🧠 [Behaviour evals runner](../../tests/src/py/test_claude_run_behaviour_evals.py) | Scenario selection, scratch repo setup and transcripts | 4 | 0 | ✅ Keep |
-| 33 | ⚖️ [Rule evals runner](../../tests/src/py/test_claude_run_rule_evals.py) | Case loading, repo preparation and the verdict margin | 5 | 0 | ✅ Keep |
-| 34 | 🔐 [Review PR secret check](../../tests/src/claude/skills/_git_skills/git-review-pr/test_git_review_pr_secret_check.py) | Catching secrets without echoing them | 3 | 0 | ✅ Keep |
-| 35 | 🗒️ [Capture session prompts](../../tests/src/claude/skills/_claude_skills/claude-capture-session-prompts/test_capture_session_prompts.py) | One date's prompts, masked secrets, no overwrite | 4 | 0 | ✅ Keep |
-| 36 | 🛠️ [Makefile](../../tests/test_makefile.py) | `make deps` installs only into a virtualenv | 4 | 0 | ✅ Keep |
-| 37 | 🧩 [Evals common](../../tests/src/py/test_claude_evals_common.py) | The shared eval helpers: config copy, scratch repos and transcripts | 6 | Not searched | ✅ Keep |
-| 38 | 📖 [README evals runner](../../tests/src/py/test_claude_run_readme_evals.py) | The reader brief, tally and pass bar | 3 | Not searched | 🔒 Keep (decided) |
-| 39 | 🏷️ [PR title](../../tests/src/sh/git/test_git_validate_pr_title.py) | Conventional Commits titles, without network access | 3 | Not searched | ✅ Keep |
+| 17 | 📐 [Rules structure](../../tests/src/claude/test_rules_structure.py) | Rule size, pointers and folder placement | 19 | 11 | ✅ Keep |
+| 18 | 📦 [Install config](../../tests/src/sh/test_claude_install_config.py) | Install, upgrade, uninstall, backups and preferences | 28 | 9 | ✅ Keep |
+| 19 | ✅ [Done checks hook](../../tests/src/claude/test_hook_enforcement_done_checks.py) | Stopping once to run the repo's checks | 10 | 1 | ✅ Keep |
+| 20 | 📋 [Plan sections hook](../../tests/src/claude/test_hook_enforcement_plan_sections.py) | Blocking plans with no Intent or Spec | 5 | 0 | ✅ Keep |
+| 21 | 🌳 [Worktree edits hook](../../tests/src/claude/test_hook_enforcement_worktree_edits.py) | Blocking a first edit in the main folder | 7 | 0 | ✅ Keep |
+| 22 | 💡 [Kaizen reminder hook](../../tests/src/claude/test_hook_reminder_kaizen_due.py) | Nudging only once 5 feedback notes are new since a run | 4 | 0 | ✅ Keep |
+| 23 | 💸 [Context-cost report](../../tests/src/sh/test_claude_report_context_cost.py) | An accurate token report | 5 | 1 | 🔒 Keep (decided) |
+| 24 | 💰 [Always-on budget](../../tests/src/sh/test_claude_validate_always_on_budget.py) | The 3,000-token cap and what counts towards it | 5 | 1 | ✅ Keep |
+| 25 | 🧱 [Script structure](../../tests/src/sh/test_script_structure.py) | Every script follows the bash template | 3 | 1 | ✅ Keep |
+| 26 | 🧰 [Shell utils](../../tests/src/sh/test_shell_utils.py) | The shared shell helpers, tested once | 5 | 0 | ✅ Keep |
+| 27 | 🌿 [Branch name](../../tests/src/sh/git/test_git_validate_branch_name.py) | Valid and invalid names, and a detached HEAD | 4 | 0 | ✅ Keep |
+| 28 | 📏 [PR file count](../../tests/src/sh/git/test_git_validate_num_file_changes.py) | Both sides of the file limit, and the `release/` skip | 7 | 0 | ✅ Keep |
+| 29 | 📝 [PR description](../../tests/src/sh/git/test_git_validate_pr_description.py) | Required sections, and no shell execution of the body | 5 | 0 | ✅ Keep |
+| 30 | 🎯 [Trigger evals runner](../../tests/src/py/test_claude_run_trigger_evals.py) | Scenario selection, config copy and grading | 4 | 0 | ✅ Keep |
+| 31 | 🧠 [Behaviour evals runner](../../tests/src/py/test_claude_run_behaviour_evals.py) | Scenario selection, scratch repo setup and transcripts | 4 | 0 | ✅ Keep |
+| 32 | ⚖️ [Rule evals runner](../../tests/src/py/test_claude_run_rule_evals.py) | Case loading, repo preparation and the verdict margin | 5 | 0 | ✅ Keep |
+| 33 | 🔐 [Review PR secret check](../../tests/src/claude/skills/_git_skills/git-review-pr/test_git_review_pr_secret_check.py) | Catching secrets without echoing them | 3 | 0 | ✅ Keep |
+| 34 | 🗒️ [Capture session prompts](../../tests/src/claude/skills/_claude_skills/claude-capture-session-prompts/test_capture_session_prompts.py) | One date's prompts, masked secrets, no overwrite | 4 | 0 | ✅ Keep |
+| 35 | 🛠️ [Makefile](../../tests/test_makefile.py) | `make deps` installs only into a virtualenv | 4 | 0 | ✅ Keep |
+| 36 | 🧩 [Evals common](../../tests/src/py/test_claude_evals_common.py) | The shared eval helpers: config copy, scratch repos and transcripts | 6 | Not searched | ✅ Keep |
+| 37 | 📖 [README evals runner](../../tests/src/py/test_claude_run_readme_evals.py) | The reader brief, tally and pass bar | 3 | Not searched | 🔒 Keep (decided) |
+| 38 | 🏷️ [PR title](../../tests/src/sh/git/test_git_validate_pr_title.py) | Conventional Commits titles, without network access | 3 | Not searched | ✅ Keep |
 
 ## 🎯 Findings for the team
 

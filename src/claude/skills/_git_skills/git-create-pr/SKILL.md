@@ -57,4 +57,4 @@ Routine feature and hotfix PRs, raised faster than by hand, with Conventional Co
 - `reference/_implementation.md` — the phase map and error handling, pointing to the two phase files
 - `reference/_phase1_gather.md` — the read-only checks, how the branch, commit, title, body and labels are derived, and the label check
 - `reference/_phase2_execute.md` — the single confirmation prompt, execution rules and error recovery
-- `tests/evals.yaml` — 11 scenarios, each run by `make evals`
+- `tests/evals.yaml` — 11 scenarios

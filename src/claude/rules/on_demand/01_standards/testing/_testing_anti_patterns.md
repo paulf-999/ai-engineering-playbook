@@ -63,7 +63,7 @@ def test_user_created():
 
 ### 🟥 **Slow Test**
 
-**What:** Test takes >5 seconds to run; developers skip it.
+**What:** Test is slow to run, so developers skip it.
 
 **Example:**
 

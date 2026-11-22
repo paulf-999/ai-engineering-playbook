@@ -14,7 +14,7 @@
 
 ## 📚 Read on demand
 
-- `on_demand/<domain>/<file>.md`, in your Claude config directory, [when to read it].
+- [`on_demand/<domain>/<file>.md`](<relative path to the file>), in your Claude config directory, [when to read it].
 
 <!-- Within 5 top-level bullets, not counting Read on demand pointers: delete the other ## headings and keep one list. -->
 <!-- Over the cap: keep 2 to 4 emoji ## sections, each within it. Split into a parent and 2 or more <parent>/_<aspect>.md children only past the rule size cap, per the playbook repo's authoring guide, which sets each child's minimum size and its exemptions. -->

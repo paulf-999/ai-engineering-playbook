@@ -40,12 +40,13 @@ session_edited_changes() {
 }
 
 # Succeed when the transcript at $2 shows a Bash call, after this session's last edit, that runs a command the
-# CLAUDE.md in the repo at $1 names in backticks, such as `make test`, so checks already run aren't asked for again
+# CLAUDE.md in the repo at $1 names in backticks on its Done means line, such as `make test`, so checks already run
+# aren't asked for again
 checks_ran_since_last_edit() {
     local root="${1}" transcript="${2}" commands
     [[ -r "${transcript}" ]] || return 1
     # shellcheck disable=SC2016  # the backticks are literal, matching CLAUDE.md's inline code
-    commands="$(cat "${root}/CLAUDE.md" "${root}/.claude/CLAUDE.md" 2> /dev/null | grep -o '`[^`]* [^`]*`' | tr -d '`' || true)"
+    commands="$(cat "${root}/CLAUDE.md" "${root}/.claude/CLAUDE.md" 2> /dev/null | grep -i 'done means' | grep -o '`[^`]* [^`]*`' | tr -d '`' || true)"
     [[ -n "${commands}" ]] || return 1
     jq -r 'select(.type == "assistant") | .message.content[]? | select(.type == "tool_use")
         | if (.name | test("^(Edit|MultiEdit|Write|NotebookEdit)$")) then "EDIT"

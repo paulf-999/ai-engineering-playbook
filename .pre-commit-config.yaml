@@ -55,7 +55,7 @@ repos:
             pass_filenames: false
           - id: claude_validate_always_on_budget  # Cap the Claude context loaded into every session
             name: Claude checks — always-on context within budget?
-            description: Fails when CLAUDE.md files, their imports, always-on rules and skill descriptions exceed the token budget.
+            description: Fails when CLAUDE.md files, their imports, always-on rules and skill and agent descriptions exceed the token budget.
             entry: src/sh/claude_validate_always_on_budget.sh
             language: script
             pass_filenames: false

@@ -8,9 +8,9 @@
 |---|---|---|
 | **0 — Pre-check** | Call `getAccessibleAtlassianResources` for the cloud ID | `_troubleshooting.md` → Atlassian access fails |
 | **1 — Pattern and place** | Pick the pattern, and confirm the space and parent page | Patterns below |
-| **2 — Gather** | Follow the pattern's steps to collect the content | `patterns/_<pattern>.md` |
+| **2 — Gather** | Follow the pattern's steps to collect the content | `_<pattern>.md` |
 | **3 — Draft review** | Save a markdown draft, show it and revise it until the user approves | Draft review below |
-| **4 — Create** | Build the page from the approved draft and call `createConfluencePage` with `status: draft` | `common/_common_header.md`, `common/_common_formatting.md` |
+| **4 — Create** | Build the page from the approved draft and call `createConfluencePage` with `status: draft` | `_common_header.md`, `_common_formatting.md` |
 
 ## 🧩 Patterns
 

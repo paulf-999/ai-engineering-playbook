@@ -50,4 +50,4 @@ A periodic look back, such as once a sprint, at what you've had to correct Claud
 ## 📚 References
 
 - `reference/_implementation.md` — picking notes, drafting a case, the budget and the verdicts
-- `tests/evals.yaml` — 3 scenarios, each run by `make evals`
+- `evals.yaml` — 3 scenarios, each run by `make evals`

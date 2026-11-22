@@ -6,7 +6,7 @@ description: Create a Confluence page from the team's templates — use when ask
 ## 🤖 Instructions for Claude
 
 - **Pre-check:** call `getAccessibleAtlassianResources` to get the cloud ID, and if it fails tell the user to enable the Atlassian MCP server and restart Claude Code, then stop.
-- **Read first:** read `reference/_implementation.md` for the phases, then the chosen pattern in `reference/patterns/` and both files in `reference/common/` before drafting.
+- **Read first:** read `reference/_implementation.md` for the phases, then the chosen pattern in `reference/` and both files in `reference/` before drafting.
 - **Always:** save the draft with the topic `confluence_<slug>`, following any drafts rule your config has, and otherwise write it to a temporary file, then tell the user where it is.
 - **Always:** show the draft and wait for an explicit approval before calling `createConfluencePage`, even when asked to "just publish".
 - **Always:** create the page with `status: draft`, so nothing goes live until the user publishes it in Confluence.
@@ -42,12 +42,12 @@ One new page at a time that follows the team's header, formatting and page patte
 
 - **Going live:** publish the page yourself in Confluence, and set its wide view there, since the API can't.
 - **Existing pages:** it doesn't edit them, so change those in Confluence.
-- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`.
+- **Evals:** `make evals` checks the scenarios in `evals.yaml` tagged `trigger:`.
 
 ## 📚 References
 
 - `reference/_implementation.md` — the phase map, the pattern choice and the draft review rules
-- `reference/patterns/_general_page.md` and `reference/patterns/_platform_risk_assessment.md` — what each pattern gathers and how its page is laid out
-- `reference/common/_common_header.md` and `reference/common/_common_formatting.md` — the page header and formatting every pattern uses
+- `reference/_general_page.md` and `reference/_platform_risk_assessment.md` — what each pattern gathers and how its page is laid out
+- `reference/_common_header.md` and `reference/_common_formatting.md` — the page header and formatting every pattern uses
 - `reference/_troubleshooting.md` — symptoms, causes and fixes when access, drafting or publishing fails
-- `tests/evals.yaml` — 5 scenarios, each run by `make evals`
+- `evals.yaml` — 5 scenarios, each run by `make evals`

@@ -30,7 +30,7 @@ Wait for confirmation, then go to Phase 3, the draft review in `_implementation.
 
 **ADF structure** — build the ADF body as a JSON document. Include the following nodes in the `content` array, in order:
 
-- **Header** — read `../common/_common_header.md` and include those nodes first.
-- **Body sections** — after the header, render each user-defined section as: a level-1 heading with an emoji prefix (choose a contextually appropriate emoji from the mapping in `../common/_common_header.md`), followed by its content (`bulletList` for bullet points, `orderedList` for numbered steps, `table` for structured data, `paragraph` for prose), followed by a `rule` divider.
+- **Header** — read `_common_header.md` and include those nodes first.
+- **Body sections** — after the header, render each user-defined section as: a level-1 heading with an emoji prefix (choose a contextually appropriate emoji from the mapping in `_common_header.md`), followed by its content (`bulletList` for bullet points, `orderedList` for numbered steps, `table` for structured data, `paragraph` for prose), followed by a `rule` divider.
 
-Use the ADF conventions in `../common/_common_header.md` throughout. Return the draft URL.
+Use the ADF conventions in `_common_header.md` throughout. Return the draft URL.

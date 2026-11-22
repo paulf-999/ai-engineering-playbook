@@ -5,9 +5,12 @@
 
 A ready-made set of Claude instructions that your team installs with one command, so everyone works to the same standards.
 
-Once installed, Claude Code, Anthropic's AI coding assistant, reads only the instructions a task needs, shows you a plan to approve before it writes code, and keeps an instruction only if Claude does better with it than without it.
+**Goal:** get new and experienced Claude Code users started quickly.
 
-**Goal:** suit new and experienced Claude Code users, keeping things simple and following Anthropic's [course on building software with AI](https://academy.claude.com/courses/ai-native-sdlc-playbook).
+It's built around two ideas:
+
+- ⚡ **Selective context loading:** Claude reads [only the instructions a task needs](src/claude/rules/README.md), so it stays fast and focused.
+- 🔄 **AI-SDLC:** following Anthropic's [course on the SDLC for AI](https://academy.claude.com/courses/ai-native-sdlc-playbook), Claude writes an [intent, spec and plan](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) for you to approve, then builds to it.
 
 For details, see the [implementation overview](docs/target_architecture/implementation_overview.md).
 
@@ -31,17 +34,6 @@ The [getting-started guide](docs/guides/getting_started.md) covers which install
 ## 🗺️ What's in this repo
 
 Everything you install is in [`src/claude/`](src/claude/). The rest of the repo explains and maintains it, and you don't need it to use the instructions.
-
----
-
-## 📦 What you get
-
-- ⚡ **Selective context loading:** Claude reads [only the instructions a task needs](src/claude/rules/README.md), so it stays fast and focused.
-- 📄 **`CLAUDE.md`:** [builds in](src/claude/CLAUDE.md) [Andrej Karpathy's four rules](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md), such as think before coding and keep changes small, to cut common coding mistakes.
-- 🔄 **AI-SDLC:** Claude [agrees a plan](src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) before coding, then checks the result against it.
-- 🔍 **Evidence:** a [before-and-after example](docs/examples/dbt/dbt_before_and_after.md) and measured [dbt](docs/examples/dbt/dbt_rules_measured.md) and [Airflow](docs/examples/airflow/airflow_rules_measured.md) runs show the effect.
-- 🧩 **Templates:** add your own instructions from [ready-made templates](src/claude/_templates/README.md) that come with tests.
-- 👤 **Preferences:** optional personal settings, like the reply format, which you can skip with `PREFERENCES=0`.
 
 ---
 

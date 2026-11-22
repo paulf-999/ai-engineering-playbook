@@ -62,6 +62,7 @@ context_cost:
 
 test:
 	@echo "${INFO}\nCalled makefile target 'test'. Perform any required tests.${COLOUR_OFF}\n"
+	@pytest --help 2> /dev/null | grep -q -- --numprocesses || { echo "pytest or pytest-xdist is missing, and the tests need both. Run make deps first."; exit 1; }
 	@pytest
 
 $(EVALS_VENV)/.evals_ready:

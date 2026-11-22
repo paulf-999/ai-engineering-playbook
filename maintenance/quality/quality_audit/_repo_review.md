@@ -5,7 +5,7 @@
 
 **Purpose:** the latest repo review's bloat and over-engineering scores, findings and component feedback, scored against the [repo rubric](../quality_rubrics/_repo.md).
 
-Each run follows that rubric: one cold reader runs its measures and scores its themes, and this page keeps the latest run's scores, with earlier runs in git history. Tests and rules are checked against their checklists instead, with findings going to GitHub issues.
+Each run follows that rubric: three cold readers run its measures and score its themes, and this page keeps the median of the latest run's scores, with earlier runs in git history. Tests and rules are checked against their checklists instead, with findings going to GitHub issues.
 
 ## 🎈 Bloat
 

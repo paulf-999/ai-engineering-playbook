@@ -76,7 +76,7 @@ src/sh/claude_validate_always_on_budget.sh
 
 ## 🕵️ Reviewer brief
 
-At each [regular review](../../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), one cold reader gets only this brief, since a primed brief inflates scores. It runs as `claude -p --safe-mode` in a fresh clone of `main`, with `quality_audit.md` and `quality_audit/` deleted so no search can show it the last run's scores, and `--add-dir` on the session transcripts so it can judge components:
+At each [regular review](../../../docs/target_architecture/design_principles/01_principles.md#-numbers-and-tests), three cold readers each get only this brief, since a primed brief inflates scores, and each theme records their median, since one reader's judged scores swing between runs. Each runs as `claude -p --safe-mode` in its own fresh clone of `main`, with `quality_audit.md` and `quality_audit/` deleted so no search can show it the last run's scores, and `--add-dir` on the session transcripts so it can judge components:
 
 ```text
 Score this repo against maintenance/quality/quality_rubrics/_repo.md.

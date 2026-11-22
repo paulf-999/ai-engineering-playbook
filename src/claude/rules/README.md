@@ -4,19 +4,13 @@
 
 ## ⚙️ How a rule loads
 
-[Claude Code](https://code.claude.com/docs/en/memory) loads a rule's `.md` file in one of three ways:
+[Claude Code](https://code.claude.com/docs/en/memory) loads a rule's `.md` file in one of three ways, one per folder:
 
-- 🔁 **[Always on](always_on/):** every `.md` file under `~/.claude/rules/` with no `paths:` list loads at the start of each session, so it costs context every time.
-- 📂 **[Path scoped](path_scoped/):** a rule in `rules/` whose frontmatter has a `paths:` list loads only when Claude reads or edits a matching file.
-- 💤 **[On demand](on_demand/):** a file outside `rules/` never loads by itself; Claude reads it when a rule's "Read on demand" pointer or a hook sends it there, which is why `on_demand/` installs beside `rules/`, not inside it.
-
-## 📁 Folders
-
-| Folder | Purpose |
+| Folder | When it loads |
 |---|---|
-| 🔁 [`always_on/`](always_on/) | Rules Claude loads in every session |
-| 📂 [`path_scoped/`](path_scoped/) | Rules that load when Claude works on a file matching the rule's `paths:` list |
-| 💤 [`on_demand/`](on_demand/) | Detail Claude reads only when a rule's "Read on demand" pointer or a hook sends it there |
+| 🔁 [`always_on/`](always_on/) | At each session start, since it has no `paths:` list, so it always costs context |
+| 📂 [`path_scoped/`](path_scoped/) | Only when Claude reads or edits a file matching its frontmatter's `paths:` list |
+| 💤 [`on_demand/`](on_demand/) | Never by itself: Claude reads it when a rule's "Read on demand" pointer or a hook sends it there, so it installs beside `rules/`, not inside it |
 
 ## 🧪 Evals
 

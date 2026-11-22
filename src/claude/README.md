@@ -9,7 +9,7 @@
 | 🧭 [`CLAUDE.md`](CLAUDE.md) | Behavioural guidelines Claude reads every session |
 | 📏 [`rules/`](rules/) | Short rule files, grouped by when they load |
 | 🪝 [`hooks/`](hooks/) | Scripts Claude Code runs at set points, such as before a tool call or when Claude stops |
-| 🛠️ [`skills/`](skills/) | Step-by-step workflows you run by name, such as `/git-create-pr`, grouped in folders that install flat |
+| 🛠️ [`skills/`](skills/) | Step-by-step workflows you run by name, such as `/git-create-pr`, grouped in [`_atlassian_skills/`](skills/_atlassian_skills/README.md), [`_claude_skills/`](skills/_claude_skills/README.md) and [`_git_skills/`](skills/_git_skills/README.md), which install flat |
 | 🤖 [`agents/`](agents/) | Subagents Claude delegates to for a separate context, such as a blind code review |
 | 📋 [`_templates/`](_templates/README.md) | Starting points for new rules, skills, agents and scripts |
 

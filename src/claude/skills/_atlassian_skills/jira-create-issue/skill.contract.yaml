@@ -1,8 +1,6 @@
 ---
 name: jira-create-issue
-version: 1.0.0
 summary: Create one Jira ticket that follows the team's conventions, after you approve the draft
-test_coverage_level: comprehensive
 
 dispatch:
     triggers:

@@ -1,8 +1,6 @@
 ---
 name: confluence-create-page
-version: 1.0.0
 summary: Create a Confluence page from one of the team's patterns, as a Confluence draft, after you approve a local draft
-test_coverage_level: comprehensive
 
 dispatch:
     triggers:

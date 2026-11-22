@@ -32,7 +32,7 @@ COLOUR_OFF := \033[0m
 # the virtualenv make evals runs in, which it creates with only pyyaml on first use, so nobody needs make deps first
 EVALS_VENV ?= .venv
 # the eval runner make evals picks: the trigger evals, or the rule, behaviour or README evals when RULES=1, BEHAVIOUR=1 or README=1 is set
-EVAL_RUNNER := $(if $(RULES),rule,$(if $(BEHAVIOUR),behaviour,$(if $(README),readme,trigger)))
+EVAL_RUNNER := $(or $(RULES:%=rule),$(BEHAVIOUR:%=behaviour),$(README:%=readme),trigger)
 
 #=======================================================================
 # Targets

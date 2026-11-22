@@ -3,7 +3,7 @@
 [![CI](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml/badge.svg)](https://github.com/paulf-999/ai-engineering-playbook/actions/workflows/ci.yml)
 [![Ruff](https://img.shields.io/badge/linting-ruff-blue?logo=python\&logoColor=white)](https://docs.astral.sh/ruff/)
 
-A ready-made set of Claude instructions that your team installs with one command, so everyone works to the same standards.
+A ready-made set of Claude instructions your team installs with one command, so everyone works to the same standards.
 
 **Goal:** get new and experienced Claude Code users started quickly.
 

@@ -1,6 +1,8 @@
 ---
 name: git-review-pr
+version: 1.0.0
 summary: Review a GitHub PR with the code-reviewer agent, and post a scored review comment once you approve it
+test_coverage_level: basic
 
 dispatch:
     triggers:

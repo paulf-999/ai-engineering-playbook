@@ -35,8 +35,8 @@ The latest run's findings, ranked by how often the three readers raised them. Ea
 1. 🎯 **One home for the config-change checks:** all three readers found them restated across `guiding_principles.md`, `01_principles.md` and `02_evaluation_criteria.md`.
 2. 🔮 **Drop `YES=1`:** two readers found it serves provisioning scripts the repo doesn't have, in `claude_install_config.sh`, the `Makefile` and 2 tests.
 3. 🎯 **State `PREFERENCES=0` once:** two readers found it restated in `_rule_classification.md` and the rules READMEs.
-4. 🌿 **Branch-name friction:** Claude made `feat/` and `docs/` branches in 18 sessions, which `git_validate_branch_name.sh` rejects, so `git.md` could name the pattern.
-5. 🧪 **Clear `make test` failure:** it failed with "unrecognized arguments: -n" in 12 sessions without `pytest-xdist`.
+4. 🌿 **Branch-name friction:** Claude made `feat/` and `docs/` branches in 18 sessions, which `git_validate_branch_name.sh` rejects, so `git.md` could name the pattern. Done in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490).
+5. 🧪 **Clear `make test` failure:** it failed with "unrecognized arguments: -n" in 12 sessions without `pytest-xdist`. Done in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490).
 
 All three readers also proposed cutting or folding `governance_audit.md`. It's left out, since retiring it was declined, though slimming its hand-kept Tests table stays open.
 
@@ -79,10 +79,10 @@ Rows are sorted by path. Each component that helped has one row, and each review
 
 ### ⚠️ Unused or hindered, latest run
 
-| Component | Run | Effect | Evidence |
-|---|---|---|---|
-| [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../../src/claude/hooks/hook_enforcement_done_checks.sh) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | Of 49 blocks, about 33 were answered "already ran", mostly before #478, so recheck at the next review |
-| [`src/claude/rules/on_demand/`](../../../src/claude/rules/on_demand/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | Installed copies were read mainly when a hook pointed to them |
-| [`src/claude/skills/`](../../../src/claude/skills/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | `claude-capture-session-prompts`, `jira-create-issue` and `confluence-create-page` never ran, and `git-review-pr` ran 1 to 3 times |
-| [`src/sh/git/git_validate_branch_name.sh`](../../../src/sh/git/git_validate_branch_name.sh) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | Rejected `feat/` and `docs/` branches in 18 sessions, as late as 2026-11-21 |
-| [`tests/`](../../../tests/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | `make test` failed with "unrecognized arguments: -n" in 12 sessions without `pytest-xdist` |
+| Component | Run | Effect | Evidence | Response |
+|---|---|---|---|---|
+| [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../../src/claude/hooks/hook_enforcement_done_checks.sh) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | Of 49 blocks, about 33 were answered "already ran", mostly before #478, so recheck at the next review | No change, since #478's fix landed after most of these blocks |
+| [`src/claude/rules/on_demand/`](../../../src/claude/rules/on_demand/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | Installed copies were read mainly when a hook pointed to them | Kept, since the [protected files](../../protected_files.md) page says unused isn't a reason to cut |
+| [`src/claude/skills/`](../../../src/claude/skills/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | `claude-capture-session-prompts`, `jira-create-issue` and `confluence-create-page` never ran, and `git-review-pr` ran 1 to 3 times | Kept, for the same reason |
+| [`src/sh/git/git_validate_branch_name.sh`](../../../src/sh/git/git_validate_branch_name.sh) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | Rejected `feat/` and `docs/` branches in 18 sessions, as late as 2026-11-21 | Fixed in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490): `git.md` now says to read `CONTRIBUTING.md` before creating a branch |
+| [`tests/`](../../../tests/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | `make test` failed with "unrecognized arguments: -n" in 12 sessions without `pytest-xdist` | Fixed in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490), which says to run `make deps` instead. [#491](https://github.com/paulf-999/ai-engineering-playbook/issues/491) also cut `make test` from 58s to 37s by starting fewer subprocesses per installed file |

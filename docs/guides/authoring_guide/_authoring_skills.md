@@ -4,6 +4,7 @@
 
 - 📄 **SKILL.md:** about 60 lines from `_templates/skills/SKILL.md.template`, leaving longer detail to `reference/`.
 - 📜 **Contract:** a `skill.contract.yaml` from its template, written before `SKILL.md`, since it sets the scope.
+- 🏷️ **Version:** bump the contract's `version` in any PR that changes the skill, the minor number for a behaviour change and the patch for a fix, which CI checks.
 - 📚 **Folders:** `reference/` for the files Claude reads while running the skill, starting with `_implementation.md`, and `evals.yaml` at the root, with nothing else apart from one script there if it runs code.
 - 🏷️ **Name:** follow [`claude_naming_patterns.md`](../../../src/claude/rules/on_demand/01_standards/claude_config/claude_naming_patterns.md), matching the folder name.
 - 🚧 **Not for:** list in the contract's `not_for` what the skill doesn't do, since that boundary matters most.

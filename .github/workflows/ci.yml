@@ -90,6 +90,23 @@ jobs:
                   HEAD_SHA: ${{ github.event.pull_request.head.sha }}
               run: src/sh/git/git_validate_num_file_changes.sh "${BRANCH_NAME}" "${BASE_SHA}" "${HEAD_SHA}"
 
+    skill_versions:
+        name: 'Skill versions: check each changed skill bumps its version'
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+              with:
+                  persist-credentials: false
+                  # full history, so the PR's changes can be diffed against its base
+                  fetch-depth: 0
+            - name: Validate skill contract versions
+              env:
+                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
+                  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+              run: src/sh/git/git_validate_skill_versions.sh "${BASE_SHA}" "${HEAD_SHA}"
+
     test:
         name: 'Tests: run pytest'
         runs-on: ubuntu-latest

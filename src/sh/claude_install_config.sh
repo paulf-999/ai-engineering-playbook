@@ -180,13 +180,20 @@ is_preference() {
 remove_emptied_folders() {
     local file folder
     for file in "${REMOVED_FILES[@]+"${REMOVED_FILES[@]}"}"; do
-        folder="$(dirname "${file}")"
+        # the leading ./ lets each step trim one folder in place, without a dirname subprocess, until only . is left
+        folder="./${file}"
+        folder="${folder%/*}"
         # rmdir only removes an empty folder, so the walk stops at the first one that still holds something
         while [[ "${folder}" != "." ]] && rmdir "${TARGET_DIR}/${folder}" 2> /dev/null; do
-            folder="$(dirname "${folder}")"
+            folder="${folder%/*}"
         done
     done
     return 0
+}
+
+# Create the folder a file path sits in, skipping mkdir when it's already there, since most files share a folder
+make_parent_folder() {
+    [[ -d "${1%/*}" ]] || mkdir -p "${1%/*}"
 }
 
 # Collect the manifest's paths that are no longer installed, skipping any path that could point outside the target
@@ -280,7 +287,7 @@ confirm_uninstall() {
 uninstall_files() {
     local file original restored=0
     for file in "${REMOVED_FILES[@]}"; do
-        mkdir -p "$(dirname "${BACKUP_DIR}/${file}")"
+        make_parent_folder "${BACKUP_DIR}/${file}"
         cp -p "${TARGET_DIR}/${file}" "${BACKUP_DIR}/${file}"
         rm "${TARGET_DIR}/${file}"
         # the glob expands in date order, and the leading digit skips uninstall backups
@@ -312,11 +319,11 @@ install_files() {
         fi
         if file_exists "${target}"; then
             backup_dir="$(backup_dir_for "${relative}")"
-            mkdir -p "$(dirname "${backup_dir}/${relative}")"
+            make_parent_folder "${backup_dir}/${relative}"
             cp -p "${target}" "${backup_dir}/${relative}"
             backed_up=$((backed_up + 1))
         fi
-        mkdir -p "$(dirname "${target}")"
+        make_parent_folder "${target}"
         render "${file}" > "${target}"
         copied=$((copied + 1))
     done
@@ -328,7 +335,7 @@ remove_old_files() {
     local file
     # each removed file is one the manifest lists, so an earlier install wrote it
     for file in "${REMOVED_FILES[@]+"${REMOVED_FILES[@]}"}"; do
-        mkdir -p "$(dirname "${UPGRADE_BACKUP_DIR}/${file}")"
+        make_parent_folder "${UPGRADE_BACKUP_DIR}/${file}"
         cp -p "${TARGET_DIR}/${file}" "${UPGRADE_BACKUP_DIR}/${file}"
         rm "${TARGET_DIR}/${file}"
     done

@@ -8,9 +8,7 @@
 name: <domain>-<action>          # [REQUIRED] must match the skill's folder name
                                  # Example: git-create-pr, confluence-create-page
                                  # Format: lowercase letters, digits and hyphens — https://agentskills.io/specification
-version: 1.0.0                   # [REQUIRED] semver, starting at 1.0.0
 summary: One-line description    # [REQUIRED] plain-language description
-test_coverage_level: none        # [REQUIRED] none, basic, or comprehensive
 
 dispatch:
   triggers:

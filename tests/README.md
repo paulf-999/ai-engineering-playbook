@@ -7,6 +7,7 @@
 Tests follow these layout rules:
 
 - 🪞 **Mirrored paths:** a test sits at the same path as the file it checks, so tests for `src/sh/git/git_validate_pr_description.sh` live in `tests/src/sh/git/test_git_validate_pr_description.py`.
+  - **Folder indexes:** [`src/claude/`](src/claude/README.md), [`src/py/`](src/py/README.md) and [`src/sh/`](src/sh/README.md) each list their tests and what they check.
 - 🤝 **Shared helpers:** modules that start with `_`, such as `_paths.py`, hold code several tests share, and aren't tests themselves.
   - **Importable:** `pythonpath = ["tests"]` in `pyproject.toml` lets any test import them by name.
 - 🏷️ **Naming:** each test file is `test_<what it checks>.py`, and a pre-commit hook enforces the prefix.

@@ -40,7 +40,7 @@ All three readers also proposed cutting or folding `governance_audit.md`. It's l
 
 ## 💬 Component feedback
 
-Rows are sorted by path. Each component that helped has one row, and each review adds its PR to that row, or adds a row, but replaces the Unused and Hindered rows, since those are what it acts on.
+Rows are sorted by path. Each component that helped has one row, and each review adds its PR to that row, or adds a row, but replaces the Unused and Hindered rows, since those are what it acts on, and a Hindered row goes once its fix merges.
 
 ### ✅ Helped
 
@@ -82,5 +82,3 @@ Rows are sorted by path. Each component that helped has one row, and each review
 | [`src/claude/hooks/hook_enforcement_done_checks.sh`](../../../src/claude/hooks/hook_enforcement_done_checks.sh) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | Of 49 blocks, about 33 were answered "already ran", mostly before #478. Since #478 and [#484](https://github.com/paulf-999/ai-engineering-playbook/pull/484), it blocked twice in 18 sessions | No change, since #478's fix landed after most of these blocks |
 | [`src/claude/rules/on_demand/`](../../../src/claude/rules/on_demand/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | Installed copies were read mainly when a hook pointed to them | Kept, since the [protected files](../../protected_files.md) page says unused isn't a reason to cut |
 | [`src/claude/skills/`](../../../src/claude/skills/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Unused | `claude-capture-session-prompts`, `jira-create-issue` and `confluence-create-page` never ran, and `git-review-pr` ran 1 to 3 times | Kept, for the same reason |
-| [`src/sh/git/git_validate_branch_name.sh`](../../../src/sh/git/git_validate_branch_name.sh) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | Rejected `feat/` and `docs/` branches in 18 sessions, as late as 2026-11-21. Fixed in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490), where `git.md` says to read `CONTRIBUTING.md` before creating a branch | Fixed in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490): `git.md` now says to read `CONTRIBUTING.md` before creating a branch |
-| [`tests/`](../../../tests/) | [#489](https://github.com/paulf-999/ai-engineering-playbook/pull/489) | Hindered | `make test` failed with "unrecognized arguments: -n" in 12 sessions without `pytest-xdist`. Fixed in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490), which stops with "Run make deps first" instead | Fixed in [#490](https://github.com/paulf-999/ai-engineering-playbook/pull/490), which says to run `make deps` instead. [#491](https://github.com/paulf-999/ai-engineering-playbook/issues/491) also cut `make test` from 58s to 37s by starting fewer subprocesses per installed file |

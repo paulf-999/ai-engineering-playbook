@@ -19,6 +19,7 @@ Their content stays as it is, so bloat and always-on trims come from other files
 | [`ai_sdlc_workflow.md`](../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) | It's the team's workflow for a change, from Intent to Review |
 | [`01_principles.md`](../docs/target_architecture/design_principles/01_principles.md) | It sets the principles the rest of the repo is built on |
 | [`_budget_and_guards.md`](../docs/target_architecture/architecture/_budget_and_guards.md) | It describes the always-on budget and the guards that enforce it |
+| Each skill's `skill.contract.yaml` and [its template](../src/claude/_templates/skills/skill.contract.yaml.template), with every field | It sets the skill's scope, written before its `SKILL.md`, and its fields are kept for future use |
 
 ## 🧰 Never removed
 
@@ -30,7 +31,6 @@ These can be slimmed, but not removed or made opt-in.
 | [`hook_enforcement_plan_sections.sh`](../src/claude/hooks/hook_enforcement_plan_sections.sh) | It stays on for every engineer, not opt-in |
 | [`context_cost.md`](context_cost.md), with its script, test, pre-commit check and `make context_cost` | The per-file token table stays current |
 | [`src/claude/_templates/`](../src/claude/_templates/) | The skill and agent templates are kept for porting |
-| Each skill's `skill.contract.yaml` | It sets the skill's scope, written before its `SKILL.md` |
 | [`src/sh/shell_utils.sh`](../src/sh/shell_utils.sh) and its copies in [`_templates/utils/`](../src/claude/_templates/utils/) | They're kept as separate copies by choice |
 | [`docs/target_architecture/architecture/`](../docs/target_architecture/architecture/) | The child pages split the design for the maintainer's reading |
 | [`style_guides/`](../src/claude/rules/on_demand/style_guides/) | A heavy guide is slimmed rather than deleted |

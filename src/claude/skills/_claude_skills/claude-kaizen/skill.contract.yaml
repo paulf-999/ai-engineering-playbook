@@ -1,6 +1,8 @@
 ---
 name: claude-kaizen
+version: 1.0.0
 summary: Turn corrections that keep recurring in your feedback notes into proposed rules, each proved by an A/B eval
+test_coverage_level: basic
 
 dispatch:
     triggers:

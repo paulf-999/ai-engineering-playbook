@@ -1,6 +1,8 @@
 ---
 name: claude-capture-session-prompts
+version: 1.0.0
 summary: Write one day's Claude Code prompts to a markdown table, with secrets masked, for review and planning
+test_coverage_level: comprehensive
 
 dispatch:
     triggers:

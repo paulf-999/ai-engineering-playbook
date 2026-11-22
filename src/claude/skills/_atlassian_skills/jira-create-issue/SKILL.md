@@ -41,10 +41,10 @@ Raising one well-formed ticket quickly, without looking up field IDs, sprint IDs
 
 - **Existing tickets:** it doesn't update, move or link tickets, so do that in Jira.
 - **Values file:** without `_local/jira_values.md`, the field and sprint IDs stay `< TODO >` until you fill it in.
-- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`.
+- **Evals:** `make evals` checks the scenarios in `evals.yaml` tagged `trigger:`.
 
 ## 📚 References
 
 - `reference/_implementation.md` — the phase map and what each phase reads
 - `reference/_error_handling.md` — what to do when the MCP server or Jira rejects a call
-- `tests/evals.yaml` — 2 scenarios, each run by `make evals`
+- `evals.yaml` — 2 scenarios, each run by `make evals`

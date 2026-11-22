@@ -43,4 +43,4 @@ Looking back over one day's prompts to spot pending work for the next session.
 
 - `capture_session_prompts.py` — the script the skill runs
 - `reference/_implementation.md` — the output folder, the overwrite check and errors
-- `tests/evals.yaml` — 3 scenarios, each run by `make evals`
+- `evals.yaml` — 3 scenarios, each run by `make evals`

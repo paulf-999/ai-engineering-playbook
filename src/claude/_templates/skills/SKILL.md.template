@@ -36,7 +36,7 @@ and what the user gets back. Keep it to 10–15 lines.]
 
 - `reference/_implementation.md` — phases, logic and error handling
 - `reference/_formats.md` — standards, validation rules and examples (if applicable)
-- `tests/evals.yaml` — [N] test scenarios covering [what they cover]
+- `evals.yaml` — [N] test scenarios covering [what they cover]
 
 ---
 

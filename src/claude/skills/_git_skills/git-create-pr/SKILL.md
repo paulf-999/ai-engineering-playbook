@@ -50,11 +50,11 @@ Routine feature and hotfix PRs, raised faster than by hand, with Conventional Co
 - **Merge conflicts:** it stops when a branch conflicts with `main`, so resolve the conflict by hand and run it again.
 - **Base branch:** every PR targets `main`, so change another base afterwards with `gh pr edit <number> --base <branch>`.
 - **Secrets by name:** it spots likely secret files by name, not content, so read the "Not staged" list and the diff before confirming.
-- **Evals:** `make evals` checks the scenarios in `tests/evals.yaml` tagged `trigger:`, and `make evals BEHAVIOUR=1` grades those tagged `behaviour: true`.
+- **Evals:** `make evals` checks the scenarios in `evals.yaml` tagged `trigger:`, and `make evals BEHAVIOUR=1` grades those tagged `behaviour: true`.
 
 ## 📚 References
 
 - `reference/_implementation.md` — the phase map and error handling, pointing to the two phase files
 - `reference/_phase1_gather.md` — the read-only checks, how the branch, commit, title, body and labels are derived, and the label check
 - `reference/_phase2_execute.md` — the single confirmation prompt, execution rules and error recovery
-- `tests/evals.yaml` — 11 scenarios
+- `evals.yaml` — 11 scenarios

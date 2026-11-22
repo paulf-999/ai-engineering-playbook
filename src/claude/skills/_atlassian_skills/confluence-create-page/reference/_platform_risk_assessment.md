@@ -76,7 +76,7 @@ Create the page as a **draft** using `createConfluencePage` with `contentFormat:
 
 Include the following nodes in the `content` array, in order:
 
-**Header** — read `../common/_common_header.md` and include those nodes first.
+**Header** — read `_common_header.md` and include those nodes first.
 
 **Body sections** — after the header, add these sections, each followed by a `rule` divider:
 
@@ -95,6 +95,6 @@ Render each maturity rating as an inline `status` badge in its table cell (and f
 - Medium → `color: "yellow"`, text: `"Medium"`
 - Low → `color: "red"`, text: `"Low"`
 
-Use the ADF conventions in `../common/_common_header.md` throughout. Return the draft URL.
+Use the ADF conventions in `_common_header.md` throughout. Return the draft URL.
 
 **Critical constraints:** the Instructions for Claude in `SKILL.md` apply here too: no publish before draft approval, no space root, no inferred space, no personal names.

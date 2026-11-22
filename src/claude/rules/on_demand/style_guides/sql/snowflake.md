@@ -25,3 +25,7 @@ The team config excludes these rules. Codes use SQLFluff 2.0+ names, with the le
 | `RF06` (`L059`) | Identifiers aren't quoted unnecessarily | Unnecessary quoting is allowed |
 | `LT15` | No run of too many blank lines | Extra blank lines between CTEs are allowed |
 | `ST09` | Join conditions list the earlier table first | Join condition order is not enforced |
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/sql_team_conventions.md`](../../../path_scoped/style_guides/sql_team_conventions.md), when sizing a warehouse, setting `AUTO_SUSPEND`, or when a SQLFluff rule fails.

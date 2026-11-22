@@ -72,3 +72,7 @@ client.create_source.assert_not_called()
 ```
 
 **Why:** Mocking isolates the code being tested from its dependencies. Mock assertions verify the code interacts with dependencies correctly.
+
+## 📞 Called by
+
+- [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for pytest fixtures & mocking.

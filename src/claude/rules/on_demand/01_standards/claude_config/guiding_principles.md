@@ -21,3 +21,7 @@
 ## 📚 Read on demand
 
 - [`on_demand/01_standards/claude_config/turn_budgets.md`](turn_budgets.md), in your Claude config directory, before testing a config change with `claude -p` or another unattended run.
+
+## 📞 Called by
+
+- [`CLAUDE.md`](../../../../CLAUDE.md), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.

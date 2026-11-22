@@ -48,3 +48,7 @@ When a model uses `materialized='incremental'`, configure these properties expli
 ```
 
 The lookback window (3 days above) must accommodate late-arriving data. Document the chosen window in a model comment if it deviates from the team default.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when adding a model or choosing its layer, prefix or materialisation.

@@ -49,3 +49,7 @@ Use English sentence-style dates in content written for a human audience, in the
 ## 📚 Read on demand
 
 - [`on_demand/style_guides/utilities/datetime_team_conventions.md`](datetime_team_conventions.md), in your Claude config directory, before writing a date into a filename or a human-facing document.
+
+## 📞 Called by
+
+- [`rules/always_on/01_standards/naming_standards.md`](../../../always_on/01_standards/naming_standards.md), when writing a date or time into a name, code or log.

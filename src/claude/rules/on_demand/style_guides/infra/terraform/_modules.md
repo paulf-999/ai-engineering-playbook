@@ -70,3 +70,7 @@ Every module must have a `README.md` documenting:
 - All input variables and their constraints
 - All outputs
 - A usage example
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when composing modules, using `for_each` or adding a `lifecycle` block.

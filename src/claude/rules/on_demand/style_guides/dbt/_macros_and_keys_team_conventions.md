@@ -55,3 +55,7 @@ Staging models include these `NOT NULL` fields, added by `dbt_last_modified_fiel
 | `DA_UNIQUE_KEY` | Unique key from the source system |
 | `DA_FILE_LAST_MODIFIED` | Last modified timestamp of the source file |
 | `DA_START_SCAN_TIME` | Timestamp when the scan or load started |
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/dbt_team_conventions.md`](../../../path_scoped/style_guides/dbt_team_conventions.md), before writing logic a team macro or package may already cover, or using the team's key column or audit fields.

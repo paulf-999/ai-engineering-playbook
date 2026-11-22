@@ -9,3 +9,7 @@
 | 📊 **Data analytics team** | What the data means | Partial | Headings only |
 | 🗄️ **Data engineering team** | Implementation, such as Airflow, dbt and Snowflake | Full | Headings only |
 | ⚙️ **Infrastructure and DevOps** | Infrastructure and operations | Full | Headings only |
+
+## 📞 Called by
+
+- [`rules/on_demand/01_standards/conduct/audience_and_depth.md`](audience_and_depth.md), before setting a page's depth, for this team's audiences.

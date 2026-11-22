@@ -85,3 +85,7 @@ Test every conceivable code path (over-engineered).
 ```
 
 **Why:** Over-testing creates brittle tests that break on unrelated changes. Spot-checking catches real issues with less maintenance.
+
+## 📞 Called by
+
+- [`rules/path_scoped/01_standards/testing.md`](../../../path_scoped/01_standards/testing.md), before writing a new test.

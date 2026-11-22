@@ -10,3 +10,7 @@
 
 - 🗂️ **Group related rules:** put rules for one domain in a subfolder, such as `style_guides/sql.md`.
 - 💤 **On-demand files:** name them the same way, and put them in `on_demand/`.
+
+## 📞 Called by
+
+- [`rules/always_on/01_standards/naming_standards.md`](../../../always_on/01_standards/naming_standards.md), before naming a new rule, skill or agent.

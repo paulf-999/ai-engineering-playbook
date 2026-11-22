@@ -39,3 +39,7 @@ pipelines/                          # CI/CD pipeline definitions
 - No `inputs/` directory — this repo does not use a config-driven YAML inputs pattern.
 - No single root-level `ansible.cfg` — each inventory scope has its own.
 - No static `.ini` inventory files — all inventories use dynamic plugins.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/ansible_team_conventions.md`](../../../../path_scoped/style_guides/infra/ansible_team_conventions.md), before adding a file or folder to the repo.

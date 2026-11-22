@@ -49,3 +49,7 @@ Use `this` when a module manages a single primary resource. Name each resource d
 Use `snake_case`, named to describe the value they expose — not the resource they come from.
 
 Examples: `name`, `id`, `dq_framework_db`
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when naming a Snowflake object, resource, module, variable or output.

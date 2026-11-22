@@ -81,3 +81,7 @@ The following must be present in every `config.yaml` (CI checks enforce this):
 | `start_date` | Required for scheduling; must be a fixed historical ISO date |
 | `tags` | Required for discoverability and filtering in the Airflow UI |
 | `data_src` | Required for task generation via `common` helpers |
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/airflow_team_conventions.md`](../../../path_scoped/style_guides/airflow_team_conventions.md), when creating a DAG folder or naming a DAG.

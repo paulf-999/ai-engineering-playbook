@@ -82,3 +82,7 @@ SET file_modified_date = '1980-02-22 13:19:01.00000'
     , file_size = 209732
 WHERE file_name = '.abc';
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), before writing or reformatting a query.

@@ -91,3 +91,7 @@ Additional parse-time and runtime pitfalls to avoid (from [Astronomer best pract
 - **Heavy parse-time computation:** keep DAG files as configuration only — do not perform computation at import time
 - **Top-level DB/API calls:** avoid them in DAG files — they run every time the scheduler parses the file
 - **Metadata DB overload:** use connection and variable caching to reduce load on the metadata database
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/airflow.md`](../../../path_scoped/style_guides/airflow.md), before changing retries, callbacks, tests or Variables.

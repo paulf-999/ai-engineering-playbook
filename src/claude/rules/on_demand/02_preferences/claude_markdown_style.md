@@ -14,3 +14,7 @@ These rules cover markdown docs, while chat replies follow `claude_output_format
 - 5️⃣ **Five at most:** keep a bulleted list to 5 top-level items, though numbered steps can run longer.
 - 📋 **Lead-in:** open a list with a sentence saying what the items are, unless the heading already says so.
 - 🧮 **Tables:** use one when two or more items share the same fields, and keep each cell to one point in 25 words or fewer.
+
+## 📞 Called by
+
+- [`rules/always_on/02_preferences/claude_output_format.md`](../../always_on/02_preferences/claude_output_format.md), before writing or restructuring a markdown doc.

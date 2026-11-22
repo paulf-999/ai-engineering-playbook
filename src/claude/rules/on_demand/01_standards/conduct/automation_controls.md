@@ -43,3 +43,7 @@ Stay interactive when neither column fits.
 4. **Restart only once fixed:** confirm the new spec won't repeat the problem.
 
 - **Turn caps for other unattended runs:** read `on_demand/01_standards/claude_config/turn_budgets.md`, in your Claude config directory.
+
+## 📞 Called by
+
+- [`rules/always_on/01_standards/behaviour.md`](../../../always_on/01_standards/behaviour.md), before proposing or starting a loop or other unattended run.

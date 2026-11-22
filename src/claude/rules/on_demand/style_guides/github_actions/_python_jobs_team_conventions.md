@@ -22,3 +22,7 @@ steps:
 - 📌 **Versions from the repo:** read each version from `requirements.txt` with `grep -oE '^<tool>==[^ ]+'`, so CI never drifts from local.
 - 🪝 **pre-commit:** install only `pre-commit`, since each hook installs its own tools, and cache `~/.cache/pre-commit` keyed on `hashFiles('.pre-commit-config.yaml')`.
 - 🧪 **Tests:** install `pytest`, `pytest-xdist` and `pyyaml` the same way, then run `pytest`.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/github_actions_team_conventions.md`](../../../path_scoped/style_guides/github_actions_team_conventions.md), when a job sets up Python, installs a tool or caches dependencies.

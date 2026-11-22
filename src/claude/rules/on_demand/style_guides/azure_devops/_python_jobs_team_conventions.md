@@ -27,3 +27,7 @@ steps:
 - 📌 **Central requirements:** every job installs from the repo's `requirements.txt`, so CI never drifts from local.
 - 🔐 **Private feed:** packages come from the team's private feed, whose read-only token reaches the script only through `env:`.
 - 🙈 **Token redaction:** the script turns off `set -x` before installing, and pipes pip's output through `sed` to redact the token.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/azure_devops_team_conventions.md`](../../../path_scoped/style_guides/azure_devops_team_conventions.md), when a job sets up Python or installs packages.

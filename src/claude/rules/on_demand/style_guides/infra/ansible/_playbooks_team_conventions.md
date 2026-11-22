@@ -71,3 +71,7 @@ ansible-playbook playbooks/acme/acme_ilb_setup.yml --skip-tags install
 ## 🔧 Play standards
 
 - Reference roles by their full path: `role: systems/azure_devops_agent`, not `role: azure_devops_agent`.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/ansible_team_conventions.md`](../../../../path_scoped/style_guides/infra/ansible_team_conventions.md), when adding a playbook or its folder or tags.

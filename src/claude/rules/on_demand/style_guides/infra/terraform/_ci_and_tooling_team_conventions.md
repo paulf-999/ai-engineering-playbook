@@ -52,3 +52,7 @@ Each environment's apply job depends on the previous one completing successfully
 The deployment pipeline uses a shared template: `src/cicd/pipelines/code_deployment_terraform_apply.yml`.
 
 Secrets are retrieved from Azure Key Vault at runtime — they are not stored in pipeline variables or code.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/terraform_team_conventions.md`](../../../../path_scoped/style_guides/infra/terraform_team_conventions.md), when a pre-commit hook or pipeline stage fails.

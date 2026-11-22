@@ -62,3 +62,7 @@ The double underscore (`__`) separates the application/department namespace from
 ## 📌 Precedence reminder
 
 When the same variable is defined at multiple levels, the most specific level wins, given that nesting. L6 > L5 > L4 > L3 > L2 > L1 > `all.yml`.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/ansible_team_conventions.md`](../../../../path_scoped/style_guides/infra/ansible_team_conventions.md), when adding variables to `group_vars`.

@@ -63,3 +63,7 @@ CMD [...]
 - Image names: descriptive of the image's purpose, cased as the team's conventions set.
 - Image tags: use semantic versioning (`1.0.0`, `1.1.0`) — never `:latest` in non-local environments.
 - Container names: matching the image name where possible.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/docker.md`](../../../../path_scoped/style_guides/infra/docker.md), when choosing a base image or ordering a Dockerfile's sections.

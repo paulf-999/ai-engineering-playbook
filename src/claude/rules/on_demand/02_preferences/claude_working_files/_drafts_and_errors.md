@@ -16,3 +16,7 @@
 | 🗓️ `meetings` | Meeting notes and agendas |
 | 🧭 `plans` | Plans and proposals |
 | 💬 `teams` | Microsoft Teams message drafts |
+
+## 📞 Called by
+
+- [`rules/always_on/02_preferences/claude_working_files.md`](../../../always_on/02_preferences/claude_working_files.md), before saving a draft or an error write-up.

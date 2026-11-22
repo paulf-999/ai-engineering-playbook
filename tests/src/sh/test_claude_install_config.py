@@ -336,6 +336,17 @@ def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked
     assert edit_hook_commands(target) == [edits], "HOOKS=1 should register the worktree edits hook"
 
 
+def test_project_installed_worktree_hook_names_the_project_folder(tmp_path):
+    """The project-installed worktree hook prints its rewritten pointer as text, not as a backticked command."""
+    _, target = project_install(tmp_path, HOOKS="1")
+    env = {**isolated_git_repo(target.parent), "TMPDIR": str(tmp_path / "state")}
+    edit = {"file_path": str(target.parent / "app.py")}
+    payload = json.dumps({"hook_event_name": "PreToolUse", "session_id": "s1", "tool_name": "Edit", "tool_input": edit})
+    hook = target / "hooks" / "hook_enforcement_worktree_edits.sh"
+    result = subprocess.run(["bash", str(hook)], input=payload, env=env, capture_output=True, text=True, check=False)
+    assert "in this project's `.claude/` folder" in result.stderr, f"the pointer should print intact:\n{result.stderr}"
+
+
 def test_project_install_backs_up_into_your_config_directory(tmp_path):
     """A file the project install overwrites is backed up in your config directory, never in the repo."""
     config, project = tmp_path / "config", tmp_path / "repo"

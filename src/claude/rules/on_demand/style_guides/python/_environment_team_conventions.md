@@ -54,3 +54,7 @@ pip install -r requirements.txt
 boto3==1.34.0
 requests==2.31.0
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/python_team_conventions.md`](../../../path_scoped/style_guides/python_team_conventions.md), when setting up a virtual environment or dependencies.

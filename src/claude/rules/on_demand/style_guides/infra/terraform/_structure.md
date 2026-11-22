@@ -28,3 +28,7 @@ Every module and every environment root contains at least these, plus the team's
 - `terraform.tfstate` and `terraform.tfstate.backup` — state must be stored remotely
 - Private keys or credentials of any kind
 - The `detect-private-key` pre-commit hook blocks private keys, so list the other files in `.gitignore`
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when adding a module or environment, or deciding what to commit.

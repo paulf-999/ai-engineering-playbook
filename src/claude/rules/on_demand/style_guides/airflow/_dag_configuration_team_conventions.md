@@ -72,3 +72,7 @@ The team standard `default_args`:
     "on_success_callback": email_notifications.email_on_airflow_task_success,
 }
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/airflow_team_conventions.md`](../../../path_scoped/style_guides/airflow_team_conventions.md), when editing a DAG's `config.yaml`, schedule, tags or default args.

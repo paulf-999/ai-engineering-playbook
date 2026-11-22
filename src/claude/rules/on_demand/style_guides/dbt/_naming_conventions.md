@@ -73,3 +73,7 @@ Name CTEs as [`../sql/_cte_style_guide.md`](../sql/_cte_style_guide.md) sets out
 SELECT *
 FROM final
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when naming a model, column, key or CTE.

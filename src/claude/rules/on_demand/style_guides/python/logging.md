@@ -42,3 +42,7 @@ except yaml.YAMLError as e:
 - 🔑 **Secrets:** API keys, passwords, tokens or connection strings, so log the host or "using configured credentials" instead.
 - 🪪 **Personal data:** names, emails or phone numbers, so log the record's ID instead.
 - 🔊 **Per-item noise:** a line for every item in a large loop, so log every N items or a summary at the end.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), before adding logging or error handling.

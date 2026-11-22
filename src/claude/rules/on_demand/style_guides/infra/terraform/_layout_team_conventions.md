@@ -38,3 +38,7 @@ environments/prod/
 ```
 
 Lower numbers must be applied before higher numbers — do not rely on implicit ordering.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/terraform_team_conventions.md`](../../../../path_scoped/style_guides/infra/terraform_team_conventions.md), when adding a module or environment.

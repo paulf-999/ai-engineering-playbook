@@ -50,3 +50,7 @@ Source YAML files select the correct database per environment, and avoid repeati
 ## 🔒 Sensitive data
 
 Columns containing PII or data that should not be exposed must be flagged in the YAML, using the team's `meta` key in [`dbt_team_conventions.md`](../../../path_scoped/style_guides/dbt_team_conventions.md).
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when writing model or source YAML.

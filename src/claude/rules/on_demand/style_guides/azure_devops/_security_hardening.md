@@ -32,3 +32,7 @@
 - **No secret output:** never `echo`, run `set -x` or dump `env` in a step that holds a secret, since masking misses transformed values.
 - **Derived secrets:** register any value built from a secret with `##vso[task.setvariable variable=NAME;issecret=true]`, so the logs mask it.
 - **Artifacts:** never publish a folder holding credentials, such as `.git/` or a rendered config file, as a pipeline artifact.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/azure_devops.md`](../../../path_scoped/style_guides/azure_devops.md), before adding a secret, a service connection, a deploy stage or a third-party task.

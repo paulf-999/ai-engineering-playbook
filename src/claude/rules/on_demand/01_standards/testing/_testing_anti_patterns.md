@@ -104,3 +104,7 @@ def test_config():
 **Why it fails:** It breaks on every legitimate rewording and never catches a real bug.
 
 **Fix:** Check structure instead, such as pointers resolving, tables matching the files on disk, or two copies agreeing.
+
+## 📞 Called by
+
+- [`rules/path_scoped/01_standards/testing.md`](../../../path_scoped/01_standards/testing.md), before writing or reviewing a test, for the mistakes that make tests mislead.

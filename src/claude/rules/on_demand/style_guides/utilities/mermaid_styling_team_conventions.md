@@ -55,3 +55,7 @@ class M milestone
 %% include only when failure terminals exist
 class FAIL failure
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/utilities/mermaid_team_conventions.md`](../../../path_scoped/style_guides/utilities/mermaid_team_conventions.md), when choosing node shapes, node text or styling.

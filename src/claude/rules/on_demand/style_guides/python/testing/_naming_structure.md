@@ -63,3 +63,7 @@ def test_parse_args_config_and_apply(monkeypatch):
 ## 📁 Test organisation
 
 Group related tests together in the file, marked as the team's conventions in [`_testing_team_conventions.md`](../_testing_team_conventions.md) set.
+
+## 📞 Called by
+
+- [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for test naming & structure.

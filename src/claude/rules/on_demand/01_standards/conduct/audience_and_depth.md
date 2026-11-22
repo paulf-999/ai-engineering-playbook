@@ -16,3 +16,8 @@
 ## 📚 Read on demand
 
 - [`on_demand/01_standards/conduct/audience_and_depth_team_conventions.md`](audience_and_depth_team_conventions.md), in your Claude config directory, before setting a page's depth, for this team's audiences.
+
+## 📞 Called by
+
+- [`agents/core/technical-writer/AGENT.md`](../../../../agents/core/technical-writer/AGENT.md), for setting depth by reader.
+- [`rules/always_on/01_standards/writing_style.md`](../../../always_on/01_standards/writing_style.md), before writing for people outside the repo, such as a Confluence page, ticket or email.

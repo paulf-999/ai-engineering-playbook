@@ -108,3 +108,7 @@ SELECT
     , total
 FROM final
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), when structuring a query or model into CTEs.

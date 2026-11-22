@@ -29,3 +29,7 @@ SQL style is enforced by SQLFluff, and the canonical config is the `.sqlfluff` f
 - 🔤 **Parse errors:** a `PRS` error often means a reserved keyword, such as `ORDER`, is an unquoted column name, so rename it or quote it as `"ORDER"`.
 
 The team's SQLFluff settings and excluded rules are in [`snowflake.md`](snowflake.md).
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), when choosing a column's data type, creating or resizing a warehouse, refactoring a large query, or when a SQLFluff rule fails.

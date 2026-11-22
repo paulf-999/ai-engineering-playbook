@@ -78,3 +78,7 @@ def test_validate_config_raises_on_invalid_table_descriptor():
 ```
 
 **Why:** Comments make test intent scannable and group related tests visually.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/python_team_conventions.md`](../../../path_scoped/style_guides/python_team_conventions.md), before writing test setup helpers or grouping tests.

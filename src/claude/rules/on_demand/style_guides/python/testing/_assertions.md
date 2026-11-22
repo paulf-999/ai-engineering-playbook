@@ -73,3 +73,7 @@ def test_validate_config_raises_with_pattern_match():
 |---|---|---|
 | **Test exception raised** | `pytest.raises()` | `with pytest.raises(ValueError, match="pattern"):` |
 | **Verify assertion message** | Use `assert` with message | `assert x < 10, f"Expected x < 10, got {x}"` |
+
+## 📞 Called by
+
+- [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for assertions & exception testing.

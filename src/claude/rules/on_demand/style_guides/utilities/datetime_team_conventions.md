@@ -15,3 +15,7 @@ Use English sentence-style dates (e.g. `1st May 2026`, `23rd April 2026`) in con
 - Teams messages and emails
 - Jira ticket descriptions and comments
 - Meeting notes, agendas, catch-up prep and other narrative documents
+
+## 📞 Called by
+
+- [`rules/on_demand/style_guides/utilities/datetime.md`](datetime.md), before writing a date into a filename or a human-facing document.

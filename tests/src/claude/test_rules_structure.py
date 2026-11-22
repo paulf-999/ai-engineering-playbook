@@ -21,6 +21,15 @@ POINTER = re.compile(r"^- \[?`((?:on_demand|_templates)/[^`]+|README\.md)`", re.
 LINKED_POINTER = re.compile(r"^- \[`([^`]+)`\]\(([^)]+)\)")
 
 
+# an on-demand rule's last section lists the files that load it, for readers tracing it back
+CALLED_BY = "## 📞 Called by"
+
+
+def without_called_by(lines):
+    """Return the lines before a Called by section, which the line limits leave out since it's never followed."""
+    return lines[: lines.index(CALLED_BY)] if CALLED_BY in lines else lines
+
+
 def relative(path):
     """Return a rule's path relative to src/claude/rules/, as used in messages and loading checks."""
     return path.relative_to(RULES_DIR).as_posix()
@@ -65,7 +74,7 @@ def size_problems(text):
     """Return a problem if the file is over the line limit."""
     problems = []
     _, body = split_frontmatter(text.split("\n"))
-    counted = [line for line in body if not line.startswith("<!--")]
+    counted = [line for line in without_called_by(body) if not line.startswith("<!--")]
     if len(counted) > MAX_LINES + 1:  # the last element is the empty string after the final newline
         problems.append(f"{len(counted) - 1} lines, over the {MAX_LINES}-line limit, so split it into children")
     return problems
@@ -133,7 +142,7 @@ def find_parent(path, rules_dir=RULES_DIR):
 def body_lines(text):
     """Return a rule's line count, leaving out frontmatter and comment lines, as the size limit counts them."""
     _, body = split_frontmatter(text.rstrip("\n").split("\n"))
-    return len([line for line in body if not line.startswith("<!--")])
+    return len([line for line in without_called_by(body) if not line.startswith("<!--")])
 
 
 TEAM_SUFFIX = "_team_conventions"
@@ -210,6 +219,83 @@ def test_on_demand_rule_has_an_inbound_pointer(path):
     names_it = [source for target, source in pointer_targets() if target == relative(path) and source != path]
     names_it += [hook for hook in (CONFIG_DIR / "hooks").glob("*.sh") if relative(path) in hook.read_text()]
     assert names_it, f"{relative(path)}: point to it from another config file's '## 📚 Read on demand' section"
+
+
+ON_DEMAND_MENTION = re.compile(r"on_demand/[\w/.-]+?\.md")
+CALLER_BULLET = re.compile(r"^- \[`([^`]+)`\]\(([^)]+)\), (.+)$")
+# a pointer's trigger follows its path and the install-location phrase, such as "in your Claude config directory"
+POINTER_TRIGGER = re.compile(
+    r"^- \[?`(on_demand/[^`]+)`(?:\]\([^)]+\))?, (?:in your Claude config directory(?: \([^)]*\))?, )?(.+)$"
+)
+
+
+def caller_files(config_dir=CONFIG_DIR):
+    """Return every config file that can name an on-demand rule: markdown other than READMEs, and hook scripts."""
+    files = [path for path in config_dir.rglob("*.md") if path.name != "README.md"]
+    return sorted(files + list((config_dir / "hooks").glob("*.sh")))
+
+
+def expected_callers(path, config_dir=CONFIG_DIR):
+    """Return each file naming an on-demand rule outside a Called by section, with its pointer's trigger or None."""
+    target = path.relative_to(config_dir / "rules").as_posix()
+    callers = {}
+    for source in caller_files(config_dir):
+        lines = without_called_by(source.read_text().splitlines())
+        if source == path or target not in ON_DEMAND_MENTION.findall("\n".join(lines)):
+            continue
+        triggers = [match[2] for match in map(POINTER_TRIGGER.match, lines) if match and match[1] == target]
+        callers[source.relative_to(config_dir).as_posix()] = triggers[0] if triggers else None
+    return callers
+
+
+def called_by_problems(path, config_dir=CONFIG_DIR):
+    """Return problems with an on-demand rule's Called by section: missing, or out of step with its callers."""
+    lines = path.read_text().splitlines()
+    if CALLED_BY not in lines:
+        return [f"end it with a '{CALLED_BY}' section listing each file that names it"]
+    listed, problems = {}, []
+    for bullet in map(CALLER_BULLET.match, lines[lines.index(CALLED_BY) + 1 :]):
+        if not bullet:
+            continue
+        caller, link, trigger = bullet.groups()
+        listed[caller] = trigger
+        if (path.parent / link).resolve() != (config_dir / caller).resolve():
+            problems.append(f"{caller}: link it to its repo path")
+    expected = expected_callers(path, config_dir)
+    if set(listed) != set(expected):
+        problems.append(f"list exactly these callers: {sorted(expected)}, not {sorted(listed)}")
+    problems += [
+        f"{caller}: copy its trigger, '{trigger}'"
+        for caller, trigger in expected.items()
+        if trigger and caller in listed and listed[caller] != trigger
+    ]
+    return problems
+
+
+@pytest.mark.parametrize("path", [path for path in RULE_FILES if relative(path).startswith("on_demand/")], ids=relative)
+def test_on_demand_rule_lists_its_callers(path):
+    """Each on-demand rule ends with a Called by section listing every file that names it, with each trigger."""
+    problems = called_by_problems(path)
+    assert not problems, f"{relative(path)}: " + "; ".join(problems)
+
+
+def test_a_missing_caller_or_stale_trigger_is_reported(tmp_path):
+    """A Called by section that leaves out a caller, or words a pointer's trigger differently, is reported."""
+    (tmp_path / "rules" / "on_demand").mkdir(parents=True)
+    (tmp_path / "hooks").mkdir()
+    rule = tmp_path / "rules" / "on_demand" / "guide.md"
+    (tmp_path / "rules" / "caller.md").write_text(
+        "- [`on_demand/guide.md`](on_demand/guide.md), in your Claude config directory, before acting.\n"
+    )
+    (tmp_path / "hooks" / "block.sh").write_text("echo 'read on_demand/guide.md first'\n")
+    caller = "- [`rules/caller.md`](../caller.md), before acting.\n"
+    hook = "- [`hooks/block.sh`](../../hooks/block.sh), when it blocks.\n"
+    rule.write_text(f"{CALLED_BY}\n\n{caller}{hook}")
+    assert not called_by_problems(rule, tmp_path)
+    rule.write_text(f"{CALLED_BY}\n\n{caller}")
+    assert any("list exactly these callers" in problem for problem in called_by_problems(rule, tmp_path))
+    rule.write_text(f"{CALLED_BY}\n\n{caller.replace('acting', 'work')}{hook}")
+    assert called_by_problems(rule, tmp_path) == ["rules/caller.md: copy its trigger, 'before acting.'"]
 
 
 def loose_pointers(text):

@@ -8,3 +8,7 @@
 - 🏷️ **Status line:** put `**Plan status:** 🟢 Active · updated <date>` under the H1 of `plan.md`, and update the date whenever a phase moves on.
 - 📍 **Absolute paths:** write the full path, such as `/Users/<you>/.claude_work/_plans/...`, since the Write tool would turn a `~` into a folder literally named `~`.
 - 🗑️ **Scratch copy:** treat plan mode's own file as disposable once split, and don't refer to it again.
+
+## 📞 Called by
+
+- [`rules/always_on/02_preferences/claude_working_files.md`](../../../always_on/02_preferences/claude_working_files.md), when writing a plan.

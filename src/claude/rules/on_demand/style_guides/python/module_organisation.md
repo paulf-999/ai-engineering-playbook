@@ -37,3 +37,7 @@ def _setup_parser(): ...
 - 🌐 **Public:** no underscore, for functions other modules import, such as `load_config()`.
 - 🔐 **Private:** a leading underscore, for helpers used only in this module, such as `_interpolate()`, so they can change freely.
 - ⚖️ **Match the use:** never give the main API an underscore, or leave an internal helper without one.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), when writing docstrings or splitting public and private code.

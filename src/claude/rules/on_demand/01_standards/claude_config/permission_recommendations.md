@@ -6,3 +6,7 @@
 - 🚫 **Gate writes:** keep commands that change state, such as `rm` or `git reset --hard`, behind a prompt, but not `git push` to a branch that server-side rules already protect, since a prompt there stalls unattended loops.
 - 🎯 **No wildcards for destructive tools:** list specific safe subcommands, such as `Bash(git log:*)`, rather than `Bash(git:*)`.
 - 📝 **Say why:** explain what each recommended permission unblocks and why it's safe.
+
+## 📞 Called by
+
+- [`rules/always_on/01_standards/security.md`](../../../always_on/01_standards/security.md), before recommending a permission or allowlist change.

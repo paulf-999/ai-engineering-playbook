@@ -17,3 +17,7 @@
 - **Role defaults:** prefix every variable in `roles/<role>/defaults/main.yml` with the role name, such as `nginx_port`.
 - **host_vars:** put host-specific variables in `host_vars/<inventory_hostname>.yml`, with the filename exactly matching the hostname in the inventory output. Use them only when a value genuinely differs per host, and prefer `group_vars` otherwise.
 - **Precedence:** `host_vars` always overrides `group_vars`, at any level.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/ansible.md`](../../../../path_scoped/style_guides/infra/ansible.md), when writing a play, or adding role defaults or `host_vars`.

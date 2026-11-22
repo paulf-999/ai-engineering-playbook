@@ -75,3 +75,7 @@ When using `community.docker.docker_compose_v2`:
 
 - `main` is the current stable version of every role.
 - Callers must migrate before a breaking role change is merged, using the team's branch naming for the transition.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/ansible.md`](../../../../path_scoped/style_guides/infra/ansible.md), when creating a role or writing its tasks.

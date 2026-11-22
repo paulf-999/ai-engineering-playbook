@@ -53,3 +53,7 @@ provider "snowflake" {
 ```
 
 Only enable the specific preview features required — do not enable all.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when pinning, authenticating or configuring the Snowflake provider.

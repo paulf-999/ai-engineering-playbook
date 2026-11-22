@@ -54,3 +54,7 @@ macros/
     ├── jinja_function_wrapper_macros/
     └── validation_macros/
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/dbt_team_conventions.md`](../../../path_scoped/style_guides/dbt_team_conventions.md), when adding a folder or placing a model or YAML file.

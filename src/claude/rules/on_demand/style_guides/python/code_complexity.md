@@ -33,3 +33,7 @@ def complex_operation():
     2. [Phase B]: what happens here
     """
 ```
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), when a function grows long or deeply nested.

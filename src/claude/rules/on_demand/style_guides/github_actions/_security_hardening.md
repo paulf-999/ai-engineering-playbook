@@ -25,3 +25,7 @@
 
 - **No secret output:** never `echo`, `set -x` or `env` dump a step that holds a secret, since masking misses transformed values.
 - **Artifacts:** never upload a folder holding credentials, such as `.git/` or `~/.config/`, as an artifact.
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/github_actions.md`](../../../path_scoped/style_guides/github_actions.md), before adding a secret, a deploy job, a `pull_request_target` trigger or a third-party action.

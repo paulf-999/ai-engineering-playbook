@@ -66,3 +66,7 @@ Use `TaskGroup` to visually group related tasks in the Airflow UI, and reuse the
 - **Use sparingly:** XComs are not designed for large data transfers — pass only small values (IDs, counts, status flags)
 - **Avoid large data:** do not pass DataFrames or large result sets between tasks
 - **Use storage:** write intermediate data to storage (S3, Snowflake stage) and pass only the reference
+
+## 📞 Called by
+
+- [`rules/path_scoped/style_guides/airflow.md`](../../../path_scoped/style_guides/airflow.md), when writing `dag.py`, choosing an operator or wiring tasks.

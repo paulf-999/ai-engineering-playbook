@@ -122,6 +122,14 @@ def test_checks_run_after_the_last_edit_are_not_asked_for_again(tmp_path, repo, 
     assert result.returncode == expected, f"{order} should exit {expected}:\n{result.stderr}"
 
 
+def test_only_the_done_means_commands_count_as_checks(tmp_path, repo):
+    """Another command CLAUDE.md names, such as its install step, doesn't count as the checks having run."""
+    (repo / "CLAUDE.md").write_text("Install with `make deps`.\n\nDone means `make test` passes.\n")
+    calls = [repo / "CLAUDE.md", "make deps"]
+    result = run_hook(tmp_path, repo, transcript=write_transcript(tmp_path, *calls))
+    assert result.returncode == BLOCKED, f"running only make deps shouldn't allow the stop:\n{result.stderr}"
+
+
 def test_a_stop_while_the_hook_is_active_is_allowed(tmp_path, repo):
     """A stop with stop_hook_active set exits 0, even with changes."""
     (repo / "app.py").write_text("print('changed')\n")

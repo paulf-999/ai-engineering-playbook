@@ -11,6 +11,8 @@ name: <domain>-<action>          # [REQUIRED] must match the skill's folder name
 version: 1.0.0                   # [REQUIRED] semver, starting at 1.0.0
 summary: One-line description    # [REQUIRED] plain-language description
 test_coverage_level: none        # [REQUIRED] none, basic, or comprehensive
+                                 # none: no evals; basic: trigger evals only;
+                                 # comprehensive: trigger evals plus behaviour evals of its main steps and stops
 
 dispatch:
   triggers:

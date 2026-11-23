@@ -2,7 +2,8 @@
 
 **Purpose:** how to name new files, folders and config artefacts.
 
-- 🔤 **Skills and agents:** join their words with hyphens, such as `git-create-pr`, and name agents to match. Other names follow the team's case.
+- 🔡 **snake_case:** name files and folders in lowercase words joined by underscores, and keep existing names as they are.
+- 🔤 **Skills and agents:** join their words with hyphens, such as `git-create-pr`, and name agents to match.
 - 🎯 **Self-describing:** make the name say what it holds, so `naming_standards.md` beats `standards.md`.
 - 📈 **Name for scale:** fit the wider group it belongs to, so `naming_standards.md` beats `hook_naming.md`.
 

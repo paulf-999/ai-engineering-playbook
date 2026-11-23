@@ -21,8 +21,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~27 |
 | 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~386 |
 | 5 | `rules/always_on/01_standards/behaviour.md` | ~490 |
-| 6 | `rules/always_on/01_standards/house_style_team_conventions.md` | ~80 |
-| 7 | `rules/always_on/01_standards/naming_standards.md` | ~210 |
+| 6 | `rules/always_on/01_standards/house_style_team_conventions.md` | ~47 |
+| 7 | `rules/always_on/01_standards/naming_standards.md` | ~232 |
 | 8 | `rules/always_on/01_standards/security.md` | ~211 |
 | 9 | `skills/_atlassian_skills/confluence-create-page/SKILL.md` (description) | ~44 |
 | 10 | `skills/_atlassian_skills/jira-create-issue/SKILL.md` (description) | ~34 |
@@ -30,7 +30,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 12 | `skills/_claude_skills/claude-kaizen/SKILL.md` (description) | ~0 |
 | 13 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~29 |
 | 14 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~37 |
-| | **Subtotal** | **~2158** |
+| | **Subtotal** | **~2146** |
 
 ## 👤 Every session, unless opted out
 

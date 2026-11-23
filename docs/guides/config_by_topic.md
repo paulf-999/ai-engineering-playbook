@@ -2,9 +2,12 @@
 
 **Purpose:** every Claude config file for one topic, such as security, and when each loads, so you needn't search `always_on/`, `path_scoped/`, `on_demand/`, skills, agents and hooks separately.
 
-This page sits in `docs/`, so it's never installed. It lists parent files only, since each parent links its own `_` child files, except where a child holds a topic's main content. A test fails when a parent file is missing from the map.
+This page sits in `docs/`, so it's never installed. It lists parent files only, since each parent links its own `_` child files, except where a child holds a topic's main content. A test fails when a parent file is missing from the map, except the style guides.
 
 ## 🔐 Security
+
+<details>
+<summary>Show the files</summary>
 
 | File | Kind | When it loads |
 |---|---|---|
@@ -16,7 +19,12 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🐳 [docker/_advanced.md](../../src/claude/rules/on_demand/style_guides/infra/docker/_advanced.md#-security) | On-demand child | When hardening an image, in its Security section |
 | 🔍 [code-reviewer/AGENT.md](../../src/claude/agents/core/code-reviewer/AGENT.md) | Agent | When asked to review or score a local diff |
 
+</details>
+
 ## 🧪 Testing
+
+<details>
+<summary>Show the files</summary>
 
 | File | Kind | When it loads |
 |---|---|---|
@@ -24,7 +32,12 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 📋 [on_demand/01_standards/testing.md](../../src/claude/rules/on_demand/01_standards/testing.md) | On-demand rule | Before writing or reviewing a test |
 | 🐍 [python/testing.md](../../src/claude/rules/on_demand/style_guides/python/testing.md) | On-demand rule | Before writing or changing pytest tests |
 
+</details>
+
 ## 🌿 Git and PRs
+
+<details>
+<summary>Show the files</summary>
 
 | File | Kind | When it loads |
 |---|---|---|
@@ -32,7 +45,12 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 📤 [git-create-pr/SKILL.md](../../src/claude/skills/_git_skills/git-create-pr/SKILL.md) | Skill | When asked to create or open a PR |
 | 👀 [git-review-pr/SKILL.md](../../src/claude/skills/_git_skills/git-review-pr/SKILL.md) | Skill | When asked to review a GitHub PR |
 
+</details>
+
 ## ✏️ Writing and docs
+
+<details>
+<summary>Show the files</summary>
 
 | File | Kind | When it loads |
 |---|---|---|
@@ -48,7 +66,12 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 📄 [confluence-create-page/SKILL.md](../../src/claude/skills/_atlassian_skills/confluence-create-page/SKILL.md) | Skill | When asked to create a Confluence page |
 | 🖋️ [technical-writer/AGENT.md](../../src/claude/agents/core/technical-writer/AGENT.md) | Agent | When drafting a PR body or new Confluence page |
 
+</details>
+
 ## 🔄 Workflow and planning
+
+<details>
+<summary>Show the files</summary>
 
 | File | Kind | When it loads |
 |---|---|---|
@@ -65,7 +88,12 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🔁 [claude-kaizen/SKILL.md](../../src/claude/skills/_claude_skills/claude-kaizen/SKILL.md) | Skill | On `/claude-kaizen`, or when the kaizen reminder suggests it |
 | 📜 [claude-capture-session-prompts/SKILL.md](../../src/claude/skills/_claude_skills/claude-capture-session-prompts/SKILL.md) | Skill | When asked to capture or audit a day's session prompts |
 
+</details>
+
 ## 📛 Naming
+
+<details>
+<summary>Show the files</summary>
 
 | File | Kind | When it loads |
 |---|---|---|
@@ -73,7 +101,12 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 📅 [datetime.md](../../src/claude/rules/on_demand/style_guides/utilities/datetime.md) | On-demand rule | When writing a date or time into a name, code or log |
 | 📅 [datetime_team_conventions.md](../../src/claude/rules/on_demand/style_guides/utilities/datetime_team_conventions.md) | On-demand rule | Before writing a date into a filename or human-facing document |
 
+</details>
+
 ## 🧠 Claude config authoring
+
+<details>
+<summary>Show the files</summary>
 
 | File | Kind | When it loads |
 |---|---|---|
@@ -81,26 +114,4 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🏷️ [claude_naming_patterns.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_naming_patterns.md) | On-demand rule | Before naming a new rule, skill or agent |
 | 🔑 [permission_recommendations.md](../../src/claude/rules/on_demand/01_standards/claude_config/permission_recommendations.md) | On-demand rule | Before recommending a permission or allowlist change |
 
-## 🧰 Language style guides
-
-Each language row links its style guide and the team's conventions, which load on the same paths.
-
-| File | Kind | When it loads |
-|---|---|---|
-| 🌬️ [airflow.md](../../src/claude/rules/path_scoped/style_guides/airflow.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/airflow_team_conventions.md) | Path-scoped rule | Reading `dags/` Python files |
-| 🔷 [azure_devops.md](../../src/claude/rules/path_scoped/style_guides/cicd/azure_devops.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/cicd/azure_devops_team_conventions.md) | Path-scoped rule | Reading Azure pipeline YAML files |
-| 🐚 [bash.md](../../src/claude/rules/path_scoped/style_guides/bash.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/bash_team_conventions.md) | Path-scoped rule | Reading `.sh` files |
-| 🧱 [dbt.md](../../src/claude/rules/path_scoped/style_guides/dbt.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/dbt_team_conventions.md) | Path-scoped rule | Reading dbt models or `dbt_project.yml` |
-| 🐙 [github_actions.md](../../src/claude/rules/path_scoped/style_guides/cicd/github_actions.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/cicd/github_actions_team_conventions.md) | Path-scoped rule | Reading `.github/workflows/` YAML files |
-| 📦 [ansible.md](../../src/claude/rules/path_scoped/style_guides/infra/ansible.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/infra/ansible_team_conventions.md) | Path-scoped rule | Reading `playbooks/` or `roles/` YAML files |
-| 🐳 [docker.md](../../src/claude/rules/path_scoped/style_guides/infra/docker.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/infra/docker_team_conventions.md) | Path-scoped rule | Reading a `Dockerfile` |
-| 🌍 [terraform.md](../../src/claude/rules/path_scoped/style_guides/infra/terraform.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/infra/terraform_team_conventions.md) | Path-scoped rule | Reading `.tf` files |
-| 🐍 [python.md](../../src/claude/rules/path_scoped/style_guides/python.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/python_team_conventions.md) | Path-scoped rule | Reading `.py` files |
-| 🐍 [python/code_complexity.md](../../src/claude/rules/on_demand/style_guides/python/code_complexity.md) | On-demand rule | When a Python function grows long or deeply nested |
-| 🐍 [python/logging.md](../../src/claude/rules/on_demand/style_guides/python/logging.md) | On-demand rule | Before adding Python logging or error handling |
-| 🐍 [python/module_organisation.md](../../src/claude/rules/on_demand/style_guides/python/module_organisation.md) | On-demand rule | When writing docstrings or splitting public and private code |
-| 🗄️ [sql.md](../../src/claude/rules/path_scoped/style_guides/sql.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/sql_team_conventions.md) | Path-scoped rule | Reading `.sql` files |
-| ❄️ [sql/snowflake.md](../../src/claude/rules/on_demand/style_guides/sql/snowflake.md) | On-demand rule | When sizing a warehouse, setting `AUTO_SUSPEND` or fixing a SQLFluff failure |
-| 🛠️ [makefile.md](../../src/claude/rules/path_scoped/style_guides/utilities/makefile.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/utilities/makefile_team_conventions.md) | Path-scoped rule | Reading a `Makefile` or `.mk` file |
-| 🧜 [mermaid.md](../../src/claude/rules/path_scoped/style_guides/utilities/mermaid.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/utilities/mermaid_team_conventions.md) | Path-scoped rule | Reading `.mmd` files |
-| 🧜 [mermaid_styling_team_conventions.md](../../src/claude/rules/on_demand/style_guides/utilities/mermaid_styling_team_conventions.md) | On-demand rule | When choosing Mermaid node shapes, text or styling |
+</details>

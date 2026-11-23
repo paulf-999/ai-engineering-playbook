@@ -46,6 +46,7 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 | 🔑 **Bold-keyword bullets** | Starts each rule or definition bullet with its key term in bold, in replies, docs, tickets and commits |
 | 🗂️ **Saved plans** | Saves each approved plan, with its intent and spec, to `~/.claude_work/_plans/` |
 | 📝 **TODO list** | Adds "add to my TODOs" items to a table in your config's `TODO.md` |
+| ✏️ **Writing style** | Keeps prose brief, with one idea per sentence, and says what something does before how it works |
 | 🧱 **Markdown style** | Gives headings, bullets and table rows an emoji, caps lists at 5 items, and opens each list with a lead-in |
 | 📄 **Drafts, errors and session notes** | Saves drafts to `~/_drafts/`, error write-ups to `~/_errors/`, and long-task notes to `~/.claude_work/_sessions/` |
 

@@ -9,7 +9,7 @@
 
 ## 📚 Read on demand
 
-- [`_templates/preferences/TODO.md.template`](../../../../_templates/preferences/TODO.md.template), in your Claude config directory, when creating a missing `TODO.md`, for its table layout.
+[`_templates/preferences/TODO.md.template`](../../../../_templates/preferences/TODO.md.template), in your Claude config directory, when creating a missing `TODO.md`, for its table layout.
 
 ## 📞 Called by
 

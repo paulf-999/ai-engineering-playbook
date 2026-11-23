@@ -16,4 +16,4 @@ paths:
 
 ## 📚 Read on demand
 
-- [`on_demand/01_standards/testing.md`](../../on_demand/01_standards/testing.md), in your Claude config directory, before writing or reviewing a test.
+[`on_demand/01_standards/testing.md`](../../on_demand/01_standards/testing.md), in your Claude config directory, before writing or reviewing a test.

@@ -268,6 +268,8 @@ def called_by_problems(path, config_dir=CONFIG_DIR):
         problems.append("word its one caller as 'This rule is invoked by [`<caller>`](<link>), <trigger>'")
     if len(listed) > 1 and (shapes != {"- "} or CALLER_LEAD_IN not in section):
         problems.append(f"open its callers with '{CALLER_LEAD_IN}', then one bullet per caller")
+    if list(listed) != sorted(listed, key=lambda caller: not caller.startswith("rules/")):
+        problems.append("list rule callers before other callers")
     expected = expected_callers(path, config_dir)
     if set(listed) != set(expected):
         problems.append(f"list exactly these callers: {sorted(expected)}, not {sorted(listed)}")
@@ -287,7 +289,7 @@ def test_on_demand_rule_lists_its_callers(path):
 
 
 def test_a_missing_caller_or_stale_trigger_is_reported(tmp_path):
-    """A Called by section that leaves out a caller, or words a pointer's trigger differently, is reported."""
+    """A Called by section that leaves out a caller, rewords a trigger, or lists a rule caller last, is reported."""
     (tmp_path / "rules" / "on_demand").mkdir(parents=True)
     (tmp_path / "hooks").mkdir()
     rule = tmp_path / "rules" / "on_demand" / "guide.md"
@@ -305,6 +307,8 @@ def test_a_missing_caller_or_stale_trigger_is_reported(tmp_path):
     assert any("list exactly these callers" in problem for problem in called_by_problems(rule, tmp_path))
     rule.write_text(f"{CALLED_BY}\n\n{CALLER_LEAD_IN}\n\n{caller.replace('acting', 'work')}{hook}")
     assert called_by_problems(rule, tmp_path) == ["rules/caller.md: copy its trigger, 'before acting.'"]
+    rule.write_text(f"{CALLED_BY}\n\n{CALLER_LEAD_IN}\n\n{hook}{caller}")
+    assert called_by_problems(rule, tmp_path) == ["list rule callers before other callers"]
 
 
 def loose_pointers(text):

@@ -192,11 +192,12 @@ def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     settings = json.loads((tmp_path / "settings.json").read_text())
     assert settings["model"] == "opus" and settings["permissions"]["allow"] == ["Bash(ls)"], "settings must be kept"
-    assert plan_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_plan_sections.sh"']
+    sdlc = f"{tmp_path}/hooks/ai_sdlc_workflow"
+    assert plan_hook_commands(tmp_path) == [f'bash "{sdlc}/hook_enforcement_plan_sections.sh"']
     review = "hook_enforcement_plan_review.sh"
-    assert plan_hook_commands(tmp_path, review) == [f'bash "{tmp_path}/hooks/{review}"']
-    assert edit_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_worktree_edits.sh"']
-    assert stop_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_done_checks.sh"']
+    assert plan_hook_commands(tmp_path, review) == [f'bash "{sdlc}/{review}"']
+    assert edit_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/git/hook_enforcement_worktree_edits.sh"']
+    assert stop_hook_commands(tmp_path) == [f'bash "{sdlc}/hook_enforcement_done_checks.sh"']
     assert list((tmp_path / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"
 
 
@@ -257,7 +258,7 @@ OTHER_HOOK = {"matcher": "Bash", "hooks": [{"type": "command", "command": "bash 
 
 
 def seed_settings(target, plan_hook_dir):
-    """Write a settings.json holding the plan sections hook installed under plan_hook_dir, plus OTHER_HOOK."""
+    """Write a settings.json holding the plan sections hook at its old flat path in plan_hook_dir, and OTHER_HOOK."""
     plan_hook = {"type": "command", "command": f'bash "{plan_hook_dir}/hooks/hook_enforcement_plan_sections.sh"'}
     settings = {"hooks": {"PreToolUse": [{"matcher": "ExitPlanMode", "hooks": [plan_hook]}, OTHER_HOOK]}}
     (target / "settings.json").write_text(json.dumps(settings))
@@ -286,6 +287,18 @@ def test_install_removes_the_plan_hook_when_it_isnt_shipped(tmp_path):
     assert plan_hook_commands(target) == [], "an unshipped hook should be removed"
     assert pre_tool_use(target) == [OTHER_HOOK], "an unrelated hook must be kept"
     assert list((target / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"
+
+
+def test_install_moves_a_hook_registered_at_an_old_path(tmp_path):
+    """A hook registered at its old flat path is replaced by its current path, keeping other hooks."""
+    seed_settings(tmp_path, tmp_path)
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    current = f'bash "{tmp_path}/hooks/ai_sdlc_workflow/hook_enforcement_plan_sections.sh"'
+    assert plan_hook_commands(tmp_path) == [current], "only the current path should be registered"
+    assert OTHER_HOOK in pre_tool_use(tmp_path), "an unrelated hook must be kept"
 
 
 def project_install(tmp_path, **extra_env):
@@ -324,17 +337,19 @@ def test_project_install_points_rules_at_the_project_folder(default_project_inst
 
 def test_project_install_ships_the_plan_hook_and_the_done_checks_only_when_asked(tmp_path, default_project_install):
     """A project install always registers the plan hook, and the done checks and worktree hooks only with HOOKS=1."""
-    plan = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_plan_sections.sh"'
+    plan = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/ai_sdlc_workflow/hook_enforcement_plan_sections.sh"'
     _, target = default_project_install
     assert plan_hook_commands(target) == [plan], "the plan hook should be registered through CLAUDE_PROJECT_DIR"
-    assert not (target / "hooks" / "hook_enforcement_done_checks.sh").exists(), "no done checks hook by default"
+    assert not (target / "hooks" / "ai_sdlc_workflow" / "hook_enforcement_done_checks.sh").exists(), (
+        "no done checks hook by default"
+    )
     assert not stop_hook_commands(target), "no done checks hook should be registered by default"
     assert not edit_hook_commands(target), "no worktree edits hook should be registered by default"
 
     _, target = project_install(tmp_path / "with", HOOKS="1")
-    done = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_done_checks.sh"'
+    done = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/ai_sdlc_workflow/hook_enforcement_done_checks.sh"'
     assert stop_hook_commands(target) == [done], "HOOKS=1 should register the done checks hook"
-    edits = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/hook_enforcement_worktree_edits.sh"'
+    edits = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/git/hook_enforcement_worktree_edits.sh"'
     assert edit_hook_commands(target) == [edits], "HOOKS=1 should register the worktree edits hook"
 
 
@@ -344,7 +359,7 @@ def test_project_installed_worktree_hook_names_the_project_folder(tmp_path):
     env = {**isolated_git_repo(target.parent), "TMPDIR": str(tmp_path / "state")}
     edit = {"file_path": str(target.parent / "app.py")}
     payload = json.dumps({"hook_event_name": "PreToolUse", "session_id": "s1", "tool_name": "Edit", "tool_input": edit})
-    hook = target / "hooks" / "hook_enforcement_worktree_edits.sh"
+    hook = target / "hooks" / "git" / "hook_enforcement_worktree_edits.sh"
     result = subprocess.run(["bash", str(hook)], input=payload, env=env, capture_output=True, text=True, check=False)
     assert "in this project's `.claude/` folder" in result.stderr, f"the pointer should print intact:\n{result.stderr}"
 

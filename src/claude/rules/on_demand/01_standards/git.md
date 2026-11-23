@@ -26,4 +26,4 @@
 This rule is invoked by:
 
 - [`rules/always_on/01_standards/behaviour.md`](../../always_on/01_standards/behaviour.md), before any git command.
-- [`hooks/hook_enforcement_worktree_edits.sh`](../../../hooks/hook_enforcement_worktree_edits.sh), when it blocks a session's first edit in a repo's main folder.
+- [`hooks/git/hook_enforcement_worktree_edits.sh`](../../../hooks/git/hook_enforcement_worktree_edits.sh), when it blocks a session's first edit in a repo's main folder.

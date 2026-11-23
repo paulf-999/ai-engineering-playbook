@@ -36,10 +36,10 @@ How many of the 38 guards, hooks, recurring reviews and test files in this audit
 
 | # | Hook | Problem it prevents | Evidence it fired or helped | Verdict |
 |---|---|---|---|---|
-| 9 | 📋 [Plan sections](../../src/claude/hooks/hook_enforcement_plan_sections.sh) | Plans with no Intent or Spec | Blocked plans in 29 sessions | 🔒 Keep (decided) |
-| 10 | ✅ [Done checks](../../src/claude/hooks/hook_enforcement_done_checks.sh) | Finishing without running the repo's checks | Fired in 15 sessions, though `CLAUDE.md` alone had Claude run the tests in 42. It also fired on another session's uncommitted changes | ✂️ Slim: now fires only for changed files the session itself edited |
-| 11 | 🌳 [Worktree edits](../../src/claude/hooks/hook_enforcement_worktree_edits.sh) | Two sessions editing the same working tree | Fired in 7 sessions on its first day, and a session that day found another session's changes on `main` | ✅ Keep, too new to judge |
-| 12 | 💡 [Kaizen reminder](../../src/claude/hooks/hook_reminder_kaizen_due.sh) | Recurring corrections that never become rules | Switched on as a trial in #419, and it hasn't nudged yet | ✅ Keep, too new to judge: review by 2026-12-03 |
+| 9 | 📋 [Plan sections](../../src/claude/hooks/ai_sdlc_workflow/hook_enforcement_plan_sections.sh) | Plans with no Intent or Spec | Blocked plans in 29 sessions | 🔒 Keep (decided) |
+| 10 | ✅ [Done checks](../../src/claude/hooks/ai_sdlc_workflow/hook_enforcement_done_checks.sh) | Finishing without running the repo's checks | Fired in 15 sessions, though `CLAUDE.md` alone had Claude run the tests in 42. It also fired on another session's uncommitted changes | ✂️ Slim: now fires only for changed files the session itself edited |
+| 11 | 🌳 [Worktree edits](../../src/claude/hooks/git/hook_enforcement_worktree_edits.sh) | Two sessions editing the same working tree | Fired in 7 sessions on its first day, and a session that day found another session's changes on `main` | ✅ Keep, too new to judge |
+| 12 | 💡 [Kaizen reminder](../../src/claude/hooks/claude_kaizen/hook_reminder_kaizen_due.sh) | Recurring corrections that never become rules | Switched on as a trial in #419, and it hasn't nudged yet | ✅ Keep, too new to judge: review by 2026-12-03 |
 
 ## 🔁 Recurring reviews and measures
 
@@ -58,10 +58,10 @@ Each test file is judged against the [keep or delete criteria](../../tests/READM
 |---|---|---|---|---|---|
 | 17 | 📐 [Rules structure](../../tests/src/claude/test_rules_structure.py) | Rule size, pointers and folder placement | 19 | 11 | ✅ Keep |
 | 18 | 📦 [Install config](../../tests/src/sh/test_claude_install_config.py) | Install, upgrade, uninstall, backups and preferences | 28 | 9 | ✅ Keep |
-| 19 | ✅ [Done checks hook](../../tests/src/claude/hooks/test_hook_enforcement_done_checks.py) | Stopping once to run the repo's checks | 10 | 1 | ✅ Keep |
-| 20 | 📋 [Plan sections hook](../../tests/src/claude/hooks/test_hook_enforcement_plan_sections.py) | Blocking plans with no Intent or Spec | 5 | 0 | ✅ Keep |
-| 21 | 🌳 [Worktree edits hook](../../tests/src/claude/hooks/test_hook_enforcement_worktree_edits.py) | Blocking a first edit in the main folder | 7 | 0 | ✅ Keep |
-| 22 | 💡 [Kaizen reminder hook](../../tests/src/claude/hooks/test_hook_reminder_kaizen_due.py) | Nudging only once 5 feedback notes are new since a run | 4 | 0 | ✅ Keep |
+| 19 | ✅ [Done checks hook](../../tests/src/claude/hooks/ai_sdlc_workflow/test_hook_enforcement_done_checks.py) | Stopping once to run the repo's checks | 10 | 1 | ✅ Keep |
+| 20 | 📋 [Plan sections hook](../../tests/src/claude/hooks/ai_sdlc_workflow/test_hook_enforcement_plan_sections.py) | Blocking plans with no Intent or Spec | 5 | 0 | ✅ Keep |
+| 21 | 🌳 [Worktree edits hook](../../tests/src/claude/hooks/git/test_hook_enforcement_worktree_edits.py) | Blocking a first edit in the main folder | 7 | 0 | ✅ Keep |
+| 22 | 💡 [Kaizen reminder hook](../../tests/src/claude/hooks/claude_kaizen/test_hook_reminder_kaizen_due.py) | Nudging only once 5 feedback notes are new since a run | 4 | 0 | ✅ Keep |
 | 23 | 💸 [Context-cost report](../../tests/src/sh/test_claude_report_context_cost.py) | An accurate token report | 5 | 1 | 🔒 Keep (decided) |
 | 24 | 💰 [Always-on budget](../../tests/src/sh/test_claude_validate_always_on_budget.py) | The 3,000-token cap and what counts towards it | 5 | 1 | ✅ Keep |
 | 25 | 🧱 [Script structure](../../tests/src/sh/test_script_structure.py) | Every script follows the bash template | 3 | 1 | ✅ Keep |

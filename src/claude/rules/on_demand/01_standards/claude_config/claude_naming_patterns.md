@@ -10,6 +10,7 @@
 
 - 🗂️ **Group related rules:** put rules for one domain in a subfolder, such as `style_guides/sql.md`.
 - 🔽 **Child files:** start a file with `_` when only its parent rule links to it, as in `terraform/_terraform_naming.md`, and make the rest of the name read alone, without its folder.
+- 🕵️ **Test new names:** when naming several files at once, give 3 cold readers (`claude -p --safe-mode --max-turns 1`) their contents without titles or filenames, and keep the names they agree on.
 - 💤 **On-demand files:** name them the same way, and put them in `on_demand/`.
 
 ## 📞 Called by

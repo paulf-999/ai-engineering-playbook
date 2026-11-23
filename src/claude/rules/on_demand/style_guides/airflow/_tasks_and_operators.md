@@ -69,4 +69,4 @@ Use `TaskGroup` to visually group related tasks in the Airflow UI, and reuse the
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/airflow.md`](../../../path_scoped/style_guides/airflow.md), when writing `dag.py`, choosing an operator or wiring tasks.
+This rule is invoked by [`rules/path_scoped/style_guides/airflow.md`](../../../path_scoped/style_guides/airflow.md), when writing `dag.py`, choosing an operator or wiring tasks.

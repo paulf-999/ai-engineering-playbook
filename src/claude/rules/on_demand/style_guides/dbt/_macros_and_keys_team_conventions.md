@@ -58,4 +58,4 @@ Staging models include these `NOT NULL` fields, added by `dbt_last_modified_fiel
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/dbt_team_conventions.md`](../../../path_scoped/style_guides/dbt_team_conventions.md), before writing logic a team macro or package may already cover, or using the team's key column or audit fields.
+This rule is invoked by [`rules/path_scoped/style_guides/dbt_team_conventions.md`](../../../path_scoped/style_guides/dbt_team_conventions.md), before writing logic a team macro or package may already cover, or using the team's key column or audit fields.

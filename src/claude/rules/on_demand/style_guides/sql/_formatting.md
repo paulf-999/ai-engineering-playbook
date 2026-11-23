@@ -85,4 +85,4 @@ WHERE file_name = '.abc';
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), before writing or reformatting a query.
+This rule is invoked by [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), before writing or reformatting a query.

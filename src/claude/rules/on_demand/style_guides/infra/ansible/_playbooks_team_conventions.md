@@ -74,4 +74,4 @@ ansible-playbook playbooks/acme/acme_ilb_setup.yml --skip-tags install
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/ansible_team_conventions.md`](../../../../path_scoped/style_guides/infra/ansible_team_conventions.md), when adding a playbook or its folder or tags.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/ansible_team_conventions.md`](../../../../path_scoped/style_guides/infra/ansible_team_conventions.md), when adding a playbook or its folder or tags.

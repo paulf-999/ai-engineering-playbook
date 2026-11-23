@@ -94,4 +94,4 @@ Additional parse-time and runtime pitfalls to avoid (from [Astronomer best pract
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/airflow.md`](../../../path_scoped/style_guides/airflow.md), before changing retries, callbacks, tests or Variables.
+This rule is invoked by [`rules/path_scoped/style_guides/airflow.md`](../../../path_scoped/style_guides/airflow.md), before changing retries, callbacks, tests or Variables.

@@ -52,4 +52,4 @@ Examples: `name`, `id`, `dq_framework_db`
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when naming a Snowflake object, resource, module, variable or output.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when naming a Snowflake object, resource, module, variable or output.

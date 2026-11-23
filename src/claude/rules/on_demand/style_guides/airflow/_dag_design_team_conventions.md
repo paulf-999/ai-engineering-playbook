@@ -84,4 +84,4 @@ The following must be present in every `config.yaml` (CI checks enforce this):
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/airflow_team_conventions.md`](../../../path_scoped/style_guides/airflow_team_conventions.md), when creating a DAG folder or naming a DAG.
+This rule is invoked by [`rules/path_scoped/style_guides/airflow_team_conventions.md`](../../../path_scoped/style_guides/airflow_team_conventions.md), when creating a DAG folder or naming a DAG.

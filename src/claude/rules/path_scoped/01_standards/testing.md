@@ -16,5 +16,4 @@ paths:
 
 ## 📚 Read on demand
 
-- [`on_demand/01_standards/testing/_testing_design_pattern.md`](../../on_demand/01_standards/testing/_testing_design_pattern.md), in your Claude config directory, before writing a new test.
-- [`on_demand/01_standards/testing/_testing_anti_patterns.md`](../../on_demand/01_standards/testing/_testing_anti_patterns.md), before writing or reviewing a test, for the mistakes that make tests mislead.
+- [`on_demand/01_standards/testing.md`](../../on_demand/01_standards/testing.md), in your Claude config directory, before writing or reviewing a test.

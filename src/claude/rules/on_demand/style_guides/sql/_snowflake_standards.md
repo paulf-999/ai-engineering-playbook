@@ -32,4 +32,4 @@ The team's SQLFluff settings and excluded rules are in [`snowflake.md`](snowflak
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), when choosing a column's data type, creating or resizing a warehouse, refactoring a large query, or when a SQLFluff rule fails.
+This rule is invoked by [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), when choosing a column's data type, creating or resizing a warehouse, refactoring a large query, or when a SQLFluff rule fails.

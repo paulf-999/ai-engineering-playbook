@@ -57,4 +57,4 @@ requests==2.31.0
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/python_team_conventions.md`](../../../path_scoped/style_guides/python_team_conventions.md), when setting up a virtual environment or dependencies.
+This rule is invoked by [`rules/path_scoped/style_guides/python_team_conventions.md`](../../../path_scoped/style_guides/python_team_conventions.md), when setting up a virtual environment or dependencies.

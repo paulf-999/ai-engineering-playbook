@@ -76,4 +76,4 @@ FROM final
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when naming a model, column, key or CTE.
+This rule is invoked by [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when naming a model, column, key or CTE.

@@ -6,7 +6,7 @@ import subprocess
 import pytest
 from _paths import REPO_ROOT
 
-HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "hook_enforcement_plan_sections.sh"
+HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "ai_sdlc_workflow" / "hook_enforcement_plan_sections.sh"
 # exit code 2 is how a PreToolUse hook tells Claude Code to block the call
 BLOCKED = 2
 # the hook checks only plans of this many non-blank lines or more

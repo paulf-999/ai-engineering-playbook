@@ -7,7 +7,7 @@ import subprocess
 import pytest
 from _paths import REPO_ROOT
 
-HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "hook_enforcement_done_checks.sh"
+HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "ai_sdlc_workflow" / "hook_enforcement_done_checks.sh"
 # exit code 2 is how a Stop hook tells Claude Code to keep going and show stderr to Claude
 BLOCKED = 2
 GIT_ENV = {

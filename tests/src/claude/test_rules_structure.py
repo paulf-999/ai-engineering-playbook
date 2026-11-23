@@ -217,7 +217,7 @@ def test_a_short_child_is_reported_unless_its_parent_is_always_on(tmp_path):
 def test_on_demand_rule_has_an_inbound_pointer(path):
     """Each on-demand entry-point rule is named in a pointer elsewhere in the config, or in a hook's block message."""
     names_it = [source for target, source in pointer_targets() if target == relative(path) and source != path]
-    names_it += [hook for hook in (CONFIG_DIR / "hooks").glob("*.sh") if relative(path) in hook.read_text()]
+    names_it += [hook for hook in (CONFIG_DIR / "hooks").rglob("*.sh") if relative(path) in hook.read_text()]
     assert names_it, f"{relative(path)}: point to it from another config file's '## 📚 Read on demand' section"
 
 
@@ -233,7 +233,7 @@ POINTER_TRIGGER = re.compile(
 def caller_files(config_dir=CONFIG_DIR):
     """Return every config file that can name an on-demand rule: markdown other than READMEs, and hook scripts."""
     files = [path for path in config_dir.rglob("*.md") if path.name != "README.md"]
-    return sorted(files + list((config_dir / "hooks").glob("*.sh")))
+    return sorted(files + list((config_dir / "hooks").rglob("*.sh")))
 
 
 def expected_callers(path, config_dir=CONFIG_DIR):

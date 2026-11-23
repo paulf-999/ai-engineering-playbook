@@ -28,8 +28,8 @@ These can be slimmed, but not removed or made opt-in.
 | Item | Why it's protected |
 |---|---|
 | The 4 git checks: [branch name](../src/sh/git/git_validate_branch_name.sh), [PR size](../src/sh/git/git_validate_num_file_changes.sh), [PR description](../src/sh/git/git_validate_pr_description.sh) and the PR title check in [`ci.yml`](../.github/workflows/ci.yml) | The team already knows this git process |
-| [`hook_enforcement_plan_sections.sh`](../src/claude/hooks/hook_enforcement_plan_sections.sh) | It stays on for every engineer, not opt-in |
-| [`hook_enforcement_plan_review.sh`](../src/claude/hooks/hook_enforcement_plan_review.sh) | It stays on for every engineer, not opt-in |
+| [`hook_enforcement_plan_sections.sh`](../src/claude/hooks/ai_sdlc_workflow/hook_enforcement_plan_sections.sh) | It stays on for every engineer, not opt-in |
+| [`hook_enforcement_plan_review.sh`](../src/claude/hooks/ai_sdlc_workflow/hook_enforcement_plan_review.sh) | It stays on for every engineer, not opt-in |
 | [`context_cost.md`](context_cost.md), with its script, test, pre-commit check and `make context_cost` | The per-file token table stays current |
 | [`src/claude/_templates/`](../src/claude/_templates/) | The skill and agent templates are kept for porting |
 | [`src/sh/shell_utils.sh`](../src/sh/shell_utils.sh) and its copies in [`_templates/utils/`](../src/claude/_templates/utils/) | They're kept as separate copies by choice |
@@ -44,7 +44,7 @@ These can be slimmed, but not removed or made opt-in.
 | The `01_standards/` and `02_preferences/` kind folders in `always_on/` and `on_demand/`, and `01_standards/` in `path_scoped/` | `test_rules_structure.py` checks every rule sits in one |
 | [`style_guides/jira/`](../src/claude/rules/on_demand/style_guides/jira/) | It follows the guide-plus-children layout of the other style guides |
 | The model grader in [`claude_run_behaviour_evals.py`](../src/py/claude_run_behaviour_evals.py) | Most behaviour assertions judge meaning, and `must_match` already covers literal patterns |
-| `kaizen_nudges.log`, written by [`hook_reminder_kaizen_due.sh`](../src/claude/hooks/hook_reminder_kaizen_due.sh) | It's the kaizen trial's evidence until the trial ends on 2026-12-03 |
+| `kaizen_nudges.log`, written by [`hook_reminder_kaizen_due.sh`](../src/claude/hooks/claude_kaizen/hook_reminder_kaizen_due.sh) | It's the kaizen trial's evidence until the trial ends on 2026-12-03 |
 
 ## ℹ️ Unused isn't a reason to cut
 

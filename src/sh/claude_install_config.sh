@@ -75,11 +75,11 @@ SETTINGS="${TARGET_DIR}/settings.json"
 # each hook the config ships, as event|matcher|path, with an empty matcher for events that take none,
 # and a matcher may hold "|" itself, since only the first and last fields are split off
 SHIPPED_HOOKS=(
-    "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_sections.sh"
-    "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_review.sh"
-    "PreToolUse|Edit|Write|NotebookEdit|hooks/hook_enforcement_worktree_edits.sh"
-    "Stop||hooks/hook_enforcement_done_checks.sh"
-    "SessionStart||hooks/hook_reminder_kaizen_due.sh"
+    "PreToolUse|ExitPlanMode|hooks/ai_sdlc_workflow/hook_enforcement_plan_sections.sh"
+    "PreToolUse|ExitPlanMode|hooks/ai_sdlc_workflow/hook_enforcement_plan_review.sh"
+    "PreToolUse|Edit|Write|NotebookEdit|hooks/git/hook_enforcement_worktree_edits.sh"
+    "Stop||hooks/ai_sdlc_workflow/hook_enforcement_done_checks.sh"
+    "SessionStart||hooks/claude_kaizen/hook_reminder_kaizen_due.sh"
 )
 # deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
 # a bare filename matches at any depth, and a "!" rule carves out of earlier rules in the same settings file, per
@@ -138,7 +138,7 @@ list_source_files() {
     local file
     while IFS= read -r -d '' file; do
         file="${file#"${SOURCE_DIR}"/}"
-        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" =~ ^hooks/hook_enforcement_(done_checks|worktree_edits)\.sh$ ]] \
+        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" =~ ^hooks/[^/]+/hook_enforcement_(done_checks|worktree_edits)\.sh$ ]] \
             && continue
         [[ "${PREFERENCES}" != 1 && ( "/${file}" == */preferences/* || "/${file}" == */02_preferences/* ) ]] && continue
         [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
@@ -374,7 +374,7 @@ register_settings() {
         # an event value that isn't a list can't take the hook, so it's reported rather than aborting the install
         # the command is an absolute path, since hook commands in user settings can't refer to CLAUDE_CONFIG_DIR
         if ! updated="$(jq --arg event "${event}" --arg matcher "${matcher}" \
-            --arg command "${command}" --arg suffix "/${hook}\"" --argjson ship "${ship}" '
+            --arg command "${command}" --arg suffix "/${hook##*/}\"" --argjson ship "${ship}" '
             def ours: (.command? // "") as $c | ($c | type) == "string" and ($c | endswith($suffix));
             (.hooks[$event] // []) as $old
             | if ($old | type) != "array" then error("hooks.\($event) is not a list") else . end

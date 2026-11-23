@@ -7,7 +7,7 @@ import time
 
 from _paths import REPO_ROOT
 
-HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "hook_reminder_kaizen_due.sh"
+HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "claude_kaizen" / "hook_reminder_kaizen_due.sh"
 
 
 def project(tmp_path, notes):

@@ -7,7 +7,7 @@ import subprocess
 import pytest
 from _paths import REPO_ROOT
 
-HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "hook_enforcement_worktree_edits.sh"
+HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "git" / "hook_enforcement_worktree_edits.sh"
 # exit code 2 is how a PreToolUse hook tells Claude Code to block the tool call and show stderr to Claude
 BLOCKED = 2
 GIT_ENV = {

@@ -8,7 +8,7 @@ import pytest
 from _paths import REPO_ROOT
 from test_hook_enforcement_plan_sections import MIN_PLAN_LINES, exit_plan_input, steps
 
-HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "hook_enforcement_plan_review.sh"
+HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "ai_sdlc_workflow" / "hook_enforcement_plan_review.sh"
 # exit code 2 is how a PreToolUse hook tells Claude Code to block the call
 BLOCKED = 2
 # a plan long enough to review, with the Intent and Spec headings the sections hook requires

@@ -22,7 +22,7 @@ MAX_BLOCKS=2
 # seconds to wait for the reviewer before letting the plan through unreviewed
 REVIEW_TIMEOUT=240
 # the writing style rule, at the same path relative to this hook in the repo and in an install
-STYLE_FILE="$(dirname "${BASH_SOURCE[0]}")/../rules/always_on/02_preferences/claude_writing_style.md"
+STYLE_FILE="$(dirname "${BASH_SOURCE[0]}")/../../rules/always_on/02_preferences/claude_writing_style.md"
 # a verdict whose four scores are numbers, pulled from the reviewer's reply even when it's wrapped in a code fence
 VERDICT_FILTER='.result | capture("(?s)(?<json>\\{.*\\})").json | fromjson
     | select([.scores.intent, .scores.spec, .scores.plan, .scores.writing_style] | all(type == "number"))'

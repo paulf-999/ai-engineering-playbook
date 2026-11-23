@@ -59,6 +59,7 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🤖 [automation_controls.md](../../src/claude/rules/on_demand/01_standards/conduct/automation_controls.md) | On-demand rule | Before proposing or starting a loop or other unattended run |
 | ⏱️ [turn_budgets.md](../../src/claude/rules/on_demand/01_standards/claude_config/turn_budgets.md) | On-demand rule | When setting turn caps for `claude -p` or another unattended run |
 | 🗂️ [hook_enforcement_plan_sections.sh](../../src/claude/hooks/hook_enforcement_plan_sections.sh) | Hook | On `ExitPlanMode`, blocking a long plan with no Intent or Spec heading |
+| 🔍 [hook_enforcement_plan_review.sh](../../src/claude/hooks/hook_enforcement_plan_review.sh) | Hook | On `ExitPlanMode`, blocking a long plan until a cold reviewer scores it 10/10, for up to 2 rounds |
 | ✅ [hook_enforcement_done_checks.sh](../../src/claude/hooks/hook_enforcement_done_checks.sh) | Hook | On stop, sending Claude back once to run the done checks |
 | 🌳 [hook_enforcement_worktree_edits.sh](../../src/claude/hooks/hook_enforcement_worktree_edits.sh) | Hook | On a session's first edit in a repo's main folder |
 | 🔁 [hook_reminder_kaizen_due.sh](../../src/claude/hooks/hook_reminder_kaizen_due.sh) | Hook | On session start, once 5 or more feedback notes are new |

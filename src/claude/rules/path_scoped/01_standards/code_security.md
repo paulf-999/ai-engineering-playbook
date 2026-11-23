@@ -3,8 +3,8 @@ paths:
   - "**/*.py"
   - "**/*.sh"
   - "**/*.sql"
-  - "**/*.js"
-  - "**/*.ts"
+  - "**/*.tf"
+  - "**/*.tfvars"
 ---
 # 🛡️ Code security
 

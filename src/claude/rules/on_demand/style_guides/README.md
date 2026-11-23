@@ -8,9 +8,8 @@
 | File or folder | What it covers |
 |---|---|
 | 🌬️ [`airflow/`](airflow/) | Airflow tasks, operators and practices; this team's DAG design and configuration |
-| 🔷 [`azure_devops/`](azure_devops/) | Azure Pipelines security hardening; this team's Python jobs |
+| 🚀 [`cicd/`](cicd/) | GitHub Actions and Azure Pipelines security hardening; this team's Python jobs |
 | 🔵 [`dbt/`](dbt/) | dbt model organisation, names, YAML and snapshots; this team's layout, macros and keys |
-| 🚀 [`github_actions/`](github_actions/) | GitHub Actions security hardening; this team's Python jobs |
 | 🏗️ [`infra/`](infra/) | Ansible, Docker and Terraform detail, with this team's Ansible and Terraform choices |
 | 🎫 [`jira.md`](jira.md), [`jira/`](jira/) | Jira ticket writing; this team's ticket structure, fields, sprints and scoring |
 | 🐍 [`python/`](python/) | Python testing, logging, complexity and modules; this team's environment and test setup |

@@ -1,6 +1,6 @@
 # 🛡️ Security hardening
 
-**Purpose:** the Azure Pipelines practices that keep secrets, service connections and agents from being abused, following Microsoft's "Secure Azure Pipelines" guidance. This team's pools, triggers and Key Vault steps are in [`azure_devops_team_conventions.md`](../../../path_scoped/style_guides/azure_devops_team_conventions.md).
+**Purpose:** the Azure Pipelines practices that keep secrets, service connections and agents from being abused, following Microsoft's "Secure Azure Pipelines" guidance. This team's pools, triggers and Key Vault steps are in [`azure_devops_team_conventions.md`](../../../../path_scoped/style_guides/cicd/azure_devops_team_conventions.md).
 
 ## 🔑 Secrets and service connections
 
@@ -35,4 +35,4 @@
 
 ## 📞 Called by
 
-This rule is invoked by [`rules/path_scoped/style_guides/azure_devops.md`](../../../path_scoped/style_guides/azure_devops.md), before adding a secret, a service connection, a deploy stage or a third-party task.
+This rule is invoked by [`rules/path_scoped/style_guides/cicd/azure_devops.md`](../../../../path_scoped/style_guides/cicd/azure_devops.md), before adding a secret, a service connection, a deploy stage or a third-party task.

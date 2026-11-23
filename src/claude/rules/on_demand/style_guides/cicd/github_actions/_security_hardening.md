@@ -1,6 +1,6 @@
 # 🛡️ Security hardening
 
-**Purpose:** the GitHub Actions practices that keep secrets, tokens and third-party code from being abused, following GitHub's security hardening guide. This team's triggers and pins are in [`github_actions_team_conventions.md`](../../../path_scoped/style_guides/github_actions_team_conventions.md).
+**Purpose:** the GitHub Actions practices that keep secrets, tokens and third-party code from being abused, following GitHub's security hardening guide. This team's triggers and pins are in [`github_actions_team_conventions.md`](../../../../path_scoped/style_guides/cicd/github_actions_team_conventions.md).
 
 ## 📦 Third-party actions
 
@@ -28,4 +28,4 @@
 
 ## 📞 Called by
 
-This rule is invoked by [`rules/path_scoped/style_guides/github_actions.md`](../../../path_scoped/style_guides/github_actions.md), before adding a secret, a deploy job, a `pull_request_target` trigger or a third-party action.
+This rule is invoked by [`rules/path_scoped/style_guides/cicd/github_actions.md`](../../../../path_scoped/style_guides/cicd/github_actions.md), before adding a secret, a deploy job, a `pull_request_target` trigger or a third-party action.

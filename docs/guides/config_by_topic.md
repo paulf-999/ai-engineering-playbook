@@ -11,8 +11,8 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🔐 [security.md](../../src/claude/rules/always_on/01_standards/security.md) | Always-on rule | Every session |
 | 🛡️ [code_security.md](../../src/claude/rules/path_scoped/01_standards/code_security.md) | Path-scoped rule | Reading `.py`, `.sh`, `.sql`, `.tf` or `.tfvars` files |
 | 🔑 [permission_recommendations.md](../../src/claude/rules/on_demand/01_standards/claude_config/permission_recommendations.md) | On-demand rule | Before recommending a permission or allowlist change |
-| 🐙 [github_actions/_security_hardening.md](../../src/claude/rules/on_demand/style_guides/github_actions/_security_hardening.md) | On-demand child | Before adding a secret, deploy job, `pull_request_target` trigger or third-party action |
-| 🔷 [azure_devops/_security_hardening.md](../../src/claude/rules/on_demand/style_guides/azure_devops/_security_hardening.md) | On-demand child | Before adding a secret, service connection, deploy stage or third-party task |
+| 🐙 [github_actions/_security_hardening.md](../../src/claude/rules/on_demand/style_guides/cicd/github_actions/_security_hardening.md) | On-demand child | Before adding a secret, deploy job, `pull_request_target` trigger or third-party action |
+| 🔷 [azure_devops/_security_hardening.md](../../src/claude/rules/on_demand/style_guides/cicd/azure_devops/_security_hardening.md) | On-demand child | Before adding a secret, service connection, deploy stage or third-party task |
 | 🐳 [docker/_advanced.md](../../src/claude/rules/on_demand/style_guides/infra/docker/_advanced.md#-security) | On-demand child | When hardening an image, in its Security section |
 | 🔍 [code-reviewer/AGENT.md](../../src/claude/agents/core/code-reviewer/AGENT.md) | Agent | When asked to review or score a local diff |
 
@@ -88,10 +88,10 @@ Each language row links its style guide and the team's conventions, which load o
 | File | Kind | When it loads |
 |---|---|---|
 | 🌬️ [airflow.md](../../src/claude/rules/path_scoped/style_guides/airflow.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/airflow_team_conventions.md) | Path-scoped rule | Reading `dags/` Python files |
-| 🔷 [azure_devops.md](../../src/claude/rules/path_scoped/style_guides/azure_devops.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/azure_devops_team_conventions.md) | Path-scoped rule | Reading Azure pipeline YAML files |
+| 🔷 [azure_devops.md](../../src/claude/rules/path_scoped/style_guides/cicd/azure_devops.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/cicd/azure_devops_team_conventions.md) | Path-scoped rule | Reading Azure pipeline YAML files |
 | 🐚 [bash.md](../../src/claude/rules/path_scoped/style_guides/bash.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/bash_team_conventions.md) | Path-scoped rule | Reading `.sh` files |
 | 🧱 [dbt.md](../../src/claude/rules/path_scoped/style_guides/dbt.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/dbt_team_conventions.md) | Path-scoped rule | Reading dbt models or `dbt_project.yml` |
-| 🐙 [github_actions.md](../../src/claude/rules/path_scoped/style_guides/github_actions.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/github_actions_team_conventions.md) | Path-scoped rule | Reading `.github/workflows/` YAML files |
+| 🐙 [github_actions.md](../../src/claude/rules/path_scoped/style_guides/cicd/github_actions.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/cicd/github_actions_team_conventions.md) | Path-scoped rule | Reading `.github/workflows/` YAML files |
 | 📦 [ansible.md](../../src/claude/rules/path_scoped/style_guides/infra/ansible.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/infra/ansible_team_conventions.md) | Path-scoped rule | Reading `playbooks/` or `roles/` YAML files |
 | 🐳 [docker.md](../../src/claude/rules/path_scoped/style_guides/infra/docker.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/infra/docker_team_conventions.md) | Path-scoped rule | Reading a `Dockerfile` |
 | 🌍 [terraform.md](../../src/claude/rules/path_scoped/style_guides/infra/terraform.md), [team conventions](../../src/claude/rules/path_scoped/style_guides/infra/terraform_team_conventions.md) | Path-scoped rule | Reading `.tf` files |

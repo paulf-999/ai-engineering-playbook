@@ -25,4 +25,4 @@ steps:
 
 ## 📞 Called by
 
-This rule is invoked by [`rules/path_scoped/style_guides/github_actions_team_conventions.md`](../../../path_scoped/style_guides/github_actions_team_conventions.md), when a job sets up Python, installs a tool or caches dependencies.
+This rule is invoked by [`rules/path_scoped/style_guides/cicd/github_actions_team_conventions.md`](../../../../path_scoped/style_guides/cicd/github_actions_team_conventions.md), when a job sets up Python, installs a tool or caches dependencies.

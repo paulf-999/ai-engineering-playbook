@@ -30,4 +30,4 @@ steps:
 
 ## 📞 Called by
 
-This rule is invoked by [`rules/path_scoped/style_guides/azure_devops_team_conventions.md`](../../../path_scoped/style_guides/azure_devops_team_conventions.md), when a job sets up Python or installs packages.
+This rule is invoked by [`rules/path_scoped/style_guides/cicd/azure_devops_team_conventions.md`](../../../../path_scoped/style_guides/cicd/azure_devops_team_conventions.md), when a job sets up Python or installs packages.

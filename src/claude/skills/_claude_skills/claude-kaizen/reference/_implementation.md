@@ -21,6 +21,7 @@
 ## ✍️ Drafting
 
 - **Rule:** one bullet in the existing file it fits, following that file's format and the [naming standards](../../../../rules/always_on/01_standards/naming_standards.md), rather than a new file.
+- **Principles over rules:** reword an existing bullet if one nearly covers the correction; otherwise draft one principle with its reason, not a narrow rule, as [Warp's article](https://claude.com/resources/articles/how-warp-builds-self-improving-agents-on-claude) advises.
 - **Case:** add it to `src/claude/rules/evals.yaml` with `name`, `rule`, `prompt`, optional `setup` and `assertions`, as the existing cases do.
 - **No priming:** the prompt mustn't hint at the answer the rule gives, such as using British spelling in a spelling case.
 - **No questions:** end a prompt that would make Claude ask something with "don't ask me questions", since the run can't answer.

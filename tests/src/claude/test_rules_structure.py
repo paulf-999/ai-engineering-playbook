@@ -222,7 +222,8 @@ def test_on_demand_rule_has_an_inbound_pointer(path):
 
 
 ON_DEMAND_MENTION = re.compile(r"on_demand/[\w/.-]+?\.md")
-CALLER_BULLET = re.compile(r"^- \[`([^`]+)`\]\(([^)]+)\), (.+)$")
+CALLER_BULLET = re.compile(r"^(- |This rule is invoked by )\[`([^`]+)`\]\(([^)]+)\), (.+)$")
+CALLER_LEAD_IN = "This rule is invoked by:"
 # a pointer's trigger follows its path and the install-location phrase, such as "in your Claude config directory"
 POINTER_TRIGGER = re.compile(
     r"^- \[?`(on_demand/[^`]+)`(?:\]\([^)]+\))?, (?:in your Claude config directory(?: \([^)]*\))?, )?(.+)$"
@@ -253,14 +254,20 @@ def called_by_problems(path, config_dir=CONFIG_DIR):
     lines = path.read_text().splitlines()
     if CALLED_BY not in lines:
         return [f"end it with a '{CALLED_BY}' section listing each file that names it"]
-    listed, problems = {}, []
-    for bullet in map(CALLER_BULLET.match, lines[lines.index(CALLED_BY) + 1 :]):
+    section = lines[lines.index(CALLED_BY) + 1 :]
+    listed, shapes, problems = {}, set(), []
+    for bullet in map(CALLER_BULLET.match, section):
         if not bullet:
             continue
-        caller, link, trigger = bullet.groups()
+        shape, caller, link, trigger = bullet.groups()
         listed[caller] = trigger
+        shapes.add(shape)
         if (path.parent / link).resolve() != (config_dir / caller).resolve():
             problems.append(f"{caller}: link it to its repo path")
+    if len(listed) == 1 and shapes != {"This rule is invoked by "}:
+        problems.append("word its one caller as 'This rule is invoked by [`<caller>`](<link>), <trigger>'")
+    if len(listed) > 1 and (shapes != {"- "} or CALLER_LEAD_IN not in section):
+        problems.append(f"open its callers with '{CALLER_LEAD_IN}', then one bullet per caller")
     expected = expected_callers(path, config_dir)
     if set(listed) != set(expected):
         problems.append(f"list exactly these callers: {sorted(expected)}, not {sorted(listed)}")
@@ -290,11 +297,13 @@ def test_a_missing_caller_or_stale_trigger_is_reported(tmp_path):
     (tmp_path / "hooks" / "block.sh").write_text("echo 'read on_demand/guide.md first'\n")
     caller = "- [`rules/caller.md`](../caller.md), before acting.\n"
     hook = "- [`hooks/block.sh`](../../hooks/block.sh), when it blocks.\n"
-    rule.write_text(f"{CALLED_BY}\n\n{caller}{hook}")
+    rule.write_text(f"{CALLED_BY}\n\n{CALLER_LEAD_IN}\n\n{caller}{hook}")
     assert not called_by_problems(rule, tmp_path)
+    rule.write_text(f"{CALLED_BY}\n\n{caller}{hook}")
+    assert any(CALLER_LEAD_IN in problem for problem in called_by_problems(rule, tmp_path))
     rule.write_text(f"{CALLED_BY}\n\n{caller}")
     assert any("list exactly these callers" in problem for problem in called_by_problems(rule, tmp_path))
-    rule.write_text(f"{CALLED_BY}\n\n{caller.replace('acting', 'work')}{hook}")
+    rule.write_text(f"{CALLED_BY}\n\n{CALLER_LEAD_IN}\n\n{caller.replace('acting', 'work')}{hook}")
     assert called_by_problems(rule, tmp_path) == ["rules/caller.md: copy its trigger, 'before acting.'"]
 
 

@@ -107,4 +107,4 @@ def test_config():
 
 ## 📞 Called by
 
-- [`rules/path_scoped/01_standards/testing.md`](../../../path_scoped/01_standards/testing.md), before writing or reviewing a test, for the mistakes that make tests mislead.
+This rule is invoked by [`rules/path_scoped/01_standards/testing.md`](../../../path_scoped/01_standards/testing.md), before writing or reviewing a test, for the mistakes that make tests mislead.

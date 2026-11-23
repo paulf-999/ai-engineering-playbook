@@ -28,4 +28,4 @@
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/github_actions.md`](../../../path_scoped/style_guides/github_actions.md), before adding a secret, a deploy job, a `pull_request_target` trigger or a third-party action.
+This rule is invoked by [`rules/path_scoped/style_guides/github_actions.md`](../../../path_scoped/style_guides/github_actions.md), before adding a secret, a deploy job, a `pull_request_target` trigger or a third-party action.

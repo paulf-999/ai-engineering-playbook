@@ -51,4 +51,4 @@ The lookback window (3 days above) must accommodate late-arriving data. Document
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when adding a model or choosing its layer, prefix or materialisation.
+This rule is invoked by [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when adding a model or choosing its layer, prefix or materialisation.

@@ -20,4 +20,4 @@
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/ansible.md`](../../../../path_scoped/style_guides/infra/ansible.md), when writing a play, or adding role defaults or `host_vars`.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/ansible.md`](../../../../path_scoped/style_guides/infra/ansible.md), when writing a play, or adding role defaults or `host_vars`.

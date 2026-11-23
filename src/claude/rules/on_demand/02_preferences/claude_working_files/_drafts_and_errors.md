@@ -19,4 +19,4 @@
 
 ## 📞 Called by
 
-- [`rules/always_on/02_preferences/claude_working_files.md`](../../../always_on/02_preferences/claude_working_files.md), before saving a draft or an error write-up.
+This rule is invoked by [`rules/always_on/02_preferences/claude_working_files.md`](../../../always_on/02_preferences/claude_working_files.md), before saving a draft or an error write-up.

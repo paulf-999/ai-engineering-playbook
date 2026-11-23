@@ -88,4 +88,4 @@ Test every conceivable code path (over-engineered).
 
 ## 📞 Called by
 
-- [`rules/path_scoped/01_standards/testing.md`](../../../path_scoped/01_standards/testing.md), before writing a new test.
+This rule is invoked by [`rules/path_scoped/01_standards/testing.md`](../../../path_scoped/01_standards/testing.md), before writing a new test.

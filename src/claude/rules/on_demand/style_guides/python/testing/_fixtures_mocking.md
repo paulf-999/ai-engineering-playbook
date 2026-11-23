@@ -75,4 +75,4 @@ client.create_source.assert_not_called()
 
 ## 📞 Called by
 
-- [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for pytest fixtures & mocking.
+This rule is invoked by [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for pytest fixtures & mocking.

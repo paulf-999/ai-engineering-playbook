@@ -47,4 +47,4 @@ If the date spine produces high row counts, materialise the downstream model as 
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when adding or changing a snapshot.
+This rule is invoked by [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when adding or changing a snapshot.

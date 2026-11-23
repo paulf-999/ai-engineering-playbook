@@ -23,4 +23,4 @@
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), before writing or changing pytest tests.
+This rule is invoked by [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), before writing or changing pytest tests.

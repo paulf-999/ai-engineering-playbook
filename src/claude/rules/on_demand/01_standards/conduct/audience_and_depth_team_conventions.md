@@ -12,4 +12,4 @@
 
 ## 📞 Called by
 
-- [`rules/on_demand/01_standards/conduct/audience_and_depth.md`](audience_and_depth.md), before setting a page's depth, for this team's audiences.
+This rule is invoked by [`rules/on_demand/01_standards/conduct/audience_and_depth.md`](audience_and_depth.md), before setting a page's depth, for this team's audiences.

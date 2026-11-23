@@ -86,6 +86,8 @@ Impact Rating (per <your prioritisation framework>):
 
 ## 📞 Called by
 
+This rule is invoked by:
+
 - [`rules/on_demand/style_guides/jira.md`](../jira.md), before writing or changing a ticket, for this team's ticket format, fields, sprints and scoring.
 - [`skills/_atlassian_skills/jira-create-issue/SKILL.md`](../../../../skills/_atlassian_skills/jira-create-issue/SKILL.md), before drafting a ticket.
 - [`skills/_atlassian_skills/jira-create-issue/reference/_implementation.md`](../../../../skills/_atlassian_skills/jira-create-issue/reference/_implementation.md), at step 2, when drafting the ticket.

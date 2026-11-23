@@ -9,4 +9,4 @@
 
 ## 📞 Called by
 
-- [`rules/always_on/01_standards/security.md`](../../../always_on/01_standards/security.md), before recommending a permission or allowlist change.
+This rule is invoked by [`rules/always_on/01_standards/security.md`](../../../always_on/01_standards/security.md), before recommending a permission or allowlist change.

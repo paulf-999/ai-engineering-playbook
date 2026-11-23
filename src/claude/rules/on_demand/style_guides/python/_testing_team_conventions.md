@@ -81,4 +81,4 @@ def test_validate_config_raises_on_invalid_table_descriptor():
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/python_team_conventions.md`](../../../path_scoped/style_guides/python_team_conventions.md), before writing test setup helpers or grouping tests.
+This rule is invoked by [`rules/path_scoped/style_guides/python_team_conventions.md`](../../../path_scoped/style_guides/python_team_conventions.md), before writing test setup helpers or grouping tests.

@@ -111,4 +111,4 @@ FROM final
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), when structuring a query or model into CTEs.
+This rule is invoked by [`rules/path_scoped/style_guides/sql.md`](../../../path_scoped/style_guides/sql.md), when structuring a query or model into CTEs.

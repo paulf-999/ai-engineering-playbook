@@ -40,4 +40,4 @@ def _setup_parser(): ...
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), when writing docstrings or splitting public and private code.
+This rule is invoked by [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), when writing docstrings or splitting public and private code.

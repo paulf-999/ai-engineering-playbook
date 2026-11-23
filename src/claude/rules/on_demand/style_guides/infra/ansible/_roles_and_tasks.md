@@ -78,4 +78,4 @@ When using `community.docker.docker_compose_v2`:
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/ansible.md`](../../../../path_scoped/style_guides/infra/ansible.md), when creating a role or writing its tasks.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/ansible.md`](../../../../path_scoped/style_guides/infra/ansible.md), when creating a role or writing its tasks.

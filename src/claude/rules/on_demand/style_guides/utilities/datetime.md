@@ -52,4 +52,4 @@ Use English sentence-style dates in content written for a human audience, in the
 
 ## 📞 Called by
 
-- [`rules/always_on/01_standards/naming_standards.md`](../../../always_on/01_standards/naming_standards.md), when writing a date or time into a name, code or log.
+This rule is invoked by [`rules/always_on/01_standards/naming_standards.md`](../../../always_on/01_standards/naming_standards.md), when writing a date or time into a name, code or log.

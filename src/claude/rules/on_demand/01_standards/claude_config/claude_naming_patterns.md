@@ -9,6 +9,7 @@
 | 🤖 **Agent** | `agents/<group>/<domain>-<purpose>/AGENT.md`, hyphenated to match skills | `agents/core/technical-writer/AGENT.md` |
 
 - 🗂️ **Group related rules:** put rules for one domain in a subfolder, such as `style_guides/sql.md`.
+- 🔽 **Child files:** start a file with `_` when only its parent rule links to it, as in `terraform/_terraform_naming.md`, and make the rest of the name read alone, without its folder.
 - 💤 **On-demand files:** name them the same way, and put them in `on_demand/`.
 
 ## 📞 Called by

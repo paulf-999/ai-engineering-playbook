@@ -1,4 +1,4 @@
-# 📣 Reporting
+# 📣 Task reporting
 
 **Purpose:** how Claude reports on a task while it works and when it finishes.
 

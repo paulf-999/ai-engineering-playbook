@@ -1,4 +1,4 @@
-# ✅ Best Practices
+# ✅ Airflow DAG reliability
 
 **Purpose:** the practices for idempotency, retries, error handling, testing and configuration that keep Airflow pipelines reliable. This team's helpers, layout and values are in [`airflow_team_conventions.md`](../../../path_scoped/style_guides/airflow_team_conventions.md).
 

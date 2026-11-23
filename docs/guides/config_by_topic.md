@@ -13,7 +13,7 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🔑 [permission_recommendations.md](../../src/claude/rules/on_demand/01_standards/claude_config/permission_recommendations.md) | On-demand rule | Before recommending a permission or allowlist change |
 | 🐙 [github_actions/_security_hardening.md](../../src/claude/rules/on_demand/style_guides/cicd/github_actions/_security_hardening.md) | On-demand child | Before adding a secret, deploy job, `pull_request_target` trigger or third-party action |
 | 🔷 [azure_devops/_security_hardening.md](../../src/claude/rules/on_demand/style_guides/cicd/azure_devops/_security_hardening.md) | On-demand child | Before adding a secret, service connection, deploy stage or third-party task |
-| 🐳 [docker/_advanced.md](../../src/claude/rules/on_demand/style_guides/infra/docker/_advanced.md#-security) | On-demand child | When hardening an image, in its Security section |
+| 🐳 [docker/_dockerfile_build_practices.md](../../src/claude/rules/on_demand/style_guides/infra/docker/_dockerfile_build_practices.md#-security) | On-demand child | When hardening an image, in its Security section |
 | 🔍 [code-reviewer/AGENT.md](../../src/claude/agents/core/code-reviewer/AGENT.md) | Agent | When asked to review or score a local diff |
 
 ## 🧪 Testing
@@ -55,9 +55,9 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🔄 [ai_sdlc_workflow.md](../../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) | Always-on rule | Every session |
 | 🛡️ [behaviour.md](../../src/claude/rules/always_on/01_standards/behaviour.md) | Always-on rule | Every session |
 | 🗂️ [claude_working_files.md](../../src/claude/rules/always_on/02_preferences/claude_working_files.md) | Always-on rule | Every session, unless installed with `PREFERENCES=0` |
-| ✅ [reporting.md](../../src/claude/rules/on_demand/01_standards/conduct/reporting.md) | On-demand rule | Before saying a task is done |
-| 🤖 [automation_controls.md](../../src/claude/rules/on_demand/01_standards/conduct/automation_controls.md) | On-demand rule | Before proposing or starting a loop or other unattended run |
-| ⏱️ [turn_budgets.md](../../src/claude/rules/on_demand/01_standards/claude_config/turn_budgets.md) | On-demand rule | When setting turn caps for `claude -p` or another unattended run |
+| ✅ [claude_task_reporting.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_task_reporting.md) | On-demand rule | Before saying a task is done |
+| 🤖 [claude_loops_and_batches.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_loops_and_batches.md) | On-demand rule | Before proposing or starting a loop or other unattended run |
+| ⏱️ [claude_turn_limits.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_turn_limits.md) | On-demand rule | When setting turn caps for `claude -p` or another unattended run |
 | 🗂️ [hook_enforcement_plan_sections.sh](../../src/claude/hooks/hook_enforcement_plan_sections.sh) | Hook | On `ExitPlanMode`, blocking a long plan with no Intent or Spec heading |
 | ✅ [hook_enforcement_done_checks.sh](../../src/claude/hooks/hook_enforcement_done_checks.sh) | Hook | On stop, sending Claude back once to run the done checks |
 | 🌳 [hook_enforcement_worktree_edits.sh](../../src/claude/hooks/hook_enforcement_worktree_edits.sh) | Hook | On a session's first edit in a repo's main folder |

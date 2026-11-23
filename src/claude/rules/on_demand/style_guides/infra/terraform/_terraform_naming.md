@@ -1,6 +1,6 @@
-# 🏷️ Conventions
+# 🏷️ Terraform naming
 
-**Purpose:** Set naming standards for Snowflake objects, Terraform resources, modules, variables and outputs; declaration rules live in [`_declarations.md`](_declarations.md).
+**Purpose:** the naming standards any Terraform repo follows, for resources, modules, variables and outputs. This team's Snowflake object patterns are in [`terraform_team_conventions.md`](../../../../path_scoped/style_guides/infra/terraform_team_conventions.md), and declaration rules in [`_declarations.md`](_declarations.md).
 
 ## 📋 Contents
 

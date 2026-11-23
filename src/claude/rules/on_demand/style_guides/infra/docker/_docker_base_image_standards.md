@@ -1,4 +1,4 @@
-# 🐳 Docker Fundamentals
+# 🐳 Docker base image standards
 
 **Purpose:** Set the base-image, Dockerfile structure and naming standards every image starts from.
 

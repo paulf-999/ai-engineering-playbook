@@ -1,6 +1,6 @@
 # 📋 Declarations
 
-**Purpose:** Set what every variable and output must declare, and how to validate inputs, split from [`_conventions.md`](_conventions.md).
+**Purpose:** Set what every variable and output must declare, and how to validate inputs, split from [`_terraform_naming.md`](_terraform_naming.md).
 
 ## 📋 Contents
 

@@ -1,6 +1,6 @@
 # 💤 on_demand
 
-**Purpose:** rules Claude reads only when another rule's "Read on demand" pointer or a hook sends it there, with style guide detail in one folder and other rules sorted by [kind of rule](../../README.md#-three-kinds-of-rule).
+**Purpose:** rules Claude reads only when a "Read on demand" pointer or a hook sends it here, sorted by [kind of rule](../../README.md#-three-kinds-of-rule).
 
 | Folder | What it holds |
 |---|---|

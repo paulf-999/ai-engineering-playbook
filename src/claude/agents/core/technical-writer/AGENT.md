@@ -2,7 +2,7 @@
 name: technical-writer
 description: Use to draft or write a PR body, PR description or new Confluence page, for a skill or the user to publish.
 tools: Read, Grep, Glob, Write
-model: inherit
+model: sonnet
 ---
 
 # ✍️ Technical writer

@@ -17,7 +17,6 @@
 - 📦 **Ship first:** share a usable first version early, then refine it.
 - 📣 **Early progress:** give short updates on longer tasks.
 - 🛂 **Review before sending:** show the user anything meant for an external system, such as a Jira ticket or an email, and send it only once they approve.
-- 📜 **History lives in git:** describe only the current state in repo files, and leave past changes to git.
 
 ## 📚 Read on demand
 

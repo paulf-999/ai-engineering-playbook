@@ -30,4 +30,4 @@ paths:
 
 ## 📚 Read on demand
 
-- [`on_demand/style_guides/cicd/github_actions/_security_hardening.md`](../../../on_demand/style_guides/cicd/github_actions/_security_hardening.md), in your Claude config directory, before adding a secret, a deploy job, a `pull_request_target` trigger or a third-party action.
+[`on_demand/style_guides/cicd/github_actions/_security_hardening.md`](../../../on_demand/style_guides/cicd/github_actions/_security_hardening.md), in your Claude config directory, before adding a secret, a deploy job, a `pull_request_target` trigger or a third-party action.

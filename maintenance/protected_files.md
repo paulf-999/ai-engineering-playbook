@@ -29,6 +29,7 @@ These can be slimmed, but not removed or made opt-in.
 |---|---|
 | The 4 git checks: [branch name](../src/sh/git/git_validate_branch_name.sh), [PR size](../src/sh/git/git_validate_num_file_changes.sh), [PR description](../src/sh/git/git_validate_pr_description.sh) and the PR title check in [`ci.yml`](../.github/workflows/ci.yml) | The team already knows this git process |
 | [`hook_enforcement_plan_sections.sh`](../src/claude/hooks/hook_enforcement_plan_sections.sh) | It stays on for every engineer, not opt-in |
+| [`hook_enforcement_plan_review.sh`](../src/claude/hooks/hook_enforcement_plan_review.sh) | It stays on for every engineer, not opt-in |
 | [`context_cost.md`](context_cost.md), with its script, test, pre-commit check and `make context_cost` | The per-file token table stays current |
 | [`src/claude/_templates/`](../src/claude/_templates/) | The skill and agent templates are kept for porting |
 | [`src/sh/shell_utils.sh`](../src/sh/shell_utils.sh) and its copies in [`_templates/utils/`](../src/claude/_templates/utils/) | They're kept as separate copies by choice |

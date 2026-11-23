@@ -76,6 +76,7 @@ SETTINGS="${TARGET_DIR}/settings.json"
 # and a matcher may hold "|" itself, since only the first and last fields are split off
 SHIPPED_HOOKS=(
     "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_sections.sh"
+    "PreToolUse|ExitPlanMode|hooks/hook_enforcement_plan_review.sh"
     "PreToolUse|Edit|Write|NotebookEdit|hooks/hook_enforcement_worktree_edits.sh"
     "Stop||hooks/hook_enforcement_done_checks.sh"
     "SessionStart||hooks/hook_reminder_kaizen_due.sh"

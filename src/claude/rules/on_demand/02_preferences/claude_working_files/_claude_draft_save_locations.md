@@ -1,4 +1,4 @@
-# 📝 Writing style: Drafts and errors
+# 📝 Draft save locations
 
 **Purpose:** where to save drafts and error write-ups, and how to name them.
 

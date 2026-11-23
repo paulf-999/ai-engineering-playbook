@@ -19,7 +19,7 @@ paths:
 ## 📚 Read on demand
 
 - [`on_demand/style_guides/infra/terraform/_structure.md`](../../../on_demand/style_guides/infra/terraform/_structure.md), in your Claude config directory, when adding a module or environment, or deciding what to commit.
-- [`on_demand/style_guides/infra/terraform/_conventions.md`](../../../on_demand/style_guides/infra/terraform/_conventions.md), when naming a Snowflake object, resource, module, variable or output.
+- [`on_demand/style_guides/infra/terraform/_terraform_naming.md`](../../../on_demand/style_guides/infra/terraform/_terraform_naming.md), when naming a Snowflake object, resource, module, variable or output.
 - [`on_demand/style_guides/infra/terraform/_declarations.md`](../../../on_demand/style_guides/infra/terraform/_declarations.md), when declaring a variable or output, or adding a validation block.
 - [`on_demand/style_guides/infra/terraform/_modules.md`](../../../on_demand/style_guides/infra/terraform/_modules.md), when composing modules, using `for_each` or adding a `lifecycle` block.
 - [`on_demand/style_guides/infra/terraform/_providers.md`](../../../on_demand/style_guides/infra/terraform/_providers.md), when pinning, authenticating or configuring the Snowflake provider.

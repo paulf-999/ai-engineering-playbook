@@ -14,9 +14,9 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🔄 [ai_sdlc_workflow.md](../../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) | Always-on rule | Every session |
 | 🛡️ [behaviour.md](../../src/claude/rules/always_on/01_standards/behaviour.md) | Always-on rule | Every session |
 | 🗂️ [claude_working_files.md](../../src/claude/rules/always_on/02_preferences/claude_working_files.md) | Always-on rule | Every session, unless installed with `PREFERENCES=0` |
-| ✅ [reporting.md](../../src/claude/rules/on_demand/01_standards/conduct/reporting.md) | On-demand rule | Before saying a task is done |
-| 🤖 [automation_controls.md](../../src/claude/rules/on_demand/01_standards/conduct/automation_controls.md) | On-demand rule | Before proposing or starting a loop or other unattended run |
-| ⏱️ [turn_budgets.md](../../src/claude/rules/on_demand/01_standards/claude_config/turn_budgets.md) | On-demand rule | When setting turn caps for `claude -p` or another unattended run |
+| ✅ [claude_task_reporting.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_task_reporting.md) | On-demand rule | Before saying a task is done |
+| 🤖 [claude_loops_and_batches.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_loops_and_batches.md) | On-demand rule | Before proposing or starting a loop or other unattended run |
+| ⏱️ [claude_turn_limits.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_turn_limits.md) | On-demand rule | When setting turn caps for `claude -p` or another unattended run |
 | 🗂️ [hook_enforcement_plan_sections.sh](../../src/claude/hooks/hook_enforcement_plan_sections.sh) | Hook | On `ExitPlanMode`, blocking a long plan with no Intent or Spec heading |
 | 🔍 [hook_enforcement_plan_review.sh](../../src/claude/hooks/hook_enforcement_plan_review.sh) | Hook | On `ExitPlanMode`, blocking a long plan until a cold reviewer scores it 10/10, for up to 2 rounds |
 | ✅ [hook_enforcement_done_checks.sh](../../src/claude/hooks/hook_enforcement_done_checks.sh) | Hook | On stop, sending Claude back once to run the done checks |

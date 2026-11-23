@@ -1,4 +1,4 @@
-# 🐳 Docker Advanced Techniques
+# 🐳 Dockerfile build practices
 
 **Purpose:** Keep images small, cached and secure with layer, security, `.dockerignore` and multi-stage practices.
 

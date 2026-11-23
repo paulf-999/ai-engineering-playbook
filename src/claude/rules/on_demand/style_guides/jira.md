@@ -13,5 +13,5 @@
 
 This rule is invoked by:
 
-- [`rules/always_on/01_standards/writing_style.md`](../../always_on/01_standards/writing_style.md), before writing or changing a Jira ticket.
+- [`rules/always_on/01_standards/behaviour.md`](../../always_on/01_standards/behaviour.md), before writing or changing a Jira ticket.
 - [`skills/_atlassian_skills/jira-create-issue/SKILL.md`](../../../skills/_atlassian_skills/jira-create-issue/SKILL.md), before drafting a ticket.

@@ -147,15 +147,15 @@ def test_manifest_paths_outside_the_target_are_ignored(tmp_path):
     assert outside.read_text() == "keep me\n", "a file outside the config directory must never be removed"
 
 
-def plan_hook_commands(target):
-    """Return the PreToolUse hook commands in the target's settings.json that run the plan sections hook."""
+def plan_hook_commands(target, hook_file="hook_enforcement_plan_sections.sh"):
+    """Return the ExitPlanMode hook commands in the target's settings.json that run hook_file, default plan sections."""
     settings = json.loads((target / "settings.json").read_text())
     return [
         hook["command"]
         for entry in settings.get("hooks", {}).get("PreToolUse", [])
         if entry.get("matcher") == "ExitPlanMode"
         for hook in entry.get("hooks", [])
-        if "hook_enforcement_plan_sections.sh" in hook.get("command", "")
+        if hook_file in hook.get("command", "")
     ]
 
 
@@ -193,6 +193,8 @@ def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
     settings = json.loads((tmp_path / "settings.json").read_text())
     assert settings["model"] == "opus" and settings["permissions"]["allow"] == ["Bash(ls)"], "settings must be kept"
     assert plan_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_plan_sections.sh"']
+    review = "hook_enforcement_plan_review.sh"
+    assert plan_hook_commands(tmp_path, review) == [f'bash "{tmp_path}/hooks/{review}"']
     assert edit_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_worktree_edits.sh"']
     assert stop_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/hook_enforcement_done_checks.sh"']
     assert list((tmp_path / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"

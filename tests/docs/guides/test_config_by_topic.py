@@ -10,12 +10,15 @@ MAPPED_FOLDERS = ("rules", "skills", "agents", "hooks")
 
 
 def parent_config_files():
-    """Return every non-README .md or .sh file under the mapped folders whose name doesn't start with _."""
+    """Return every non-README .md or .sh file under the mapped folders, skipping _ children and style guides."""
     return {
         path.relative_to(CONFIG_DIR).as_posix()
         for folder in MAPPED_FOLDERS
         for path in (CONFIG_DIR / folder).rglob("*")
-        if path.suffix in {".md", ".sh"} and not path.name.startswith("_") and path.name != "README.md"
+        if path.suffix in {".md", ".sh"}
+        and not path.name.startswith("_")
+        and path.name != "README.md"
+        and "style_guides" not in path.parts
     }
 
 

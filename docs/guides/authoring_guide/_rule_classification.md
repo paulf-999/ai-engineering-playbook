@@ -37,7 +37,7 @@ Ask these in order, and stop at the first yes:
 | Datetime | ISO 8601 |
 | Mermaid, Jira, naming and audiences | none, so every style pick is a team convention |
 
-**Maintainer's rulings:** British spelling is a team convention, in `always_on/01_standards/house_style_team_conventions.md`. `snake_case` names, and Claude's skill and agent naming patterns, which the Agent Skills spec sets, are standards, in `always_on/01_standards/naming_standards.md`. Writing style, such as brevity and leading with what something does, is a preference, in `always_on/02_preferences/claude_writing_style.md`.
+**Maintainer's rulings:** `snake_case` names, and Claude's skill and agent naming patterns, which the Agent Skills spec sets, are standards, in `always_on/01_standards/naming_standards.md`. Writing style, such as brevity, leading with what something does and British spelling, is a preference, in `always_on/02_preferences/claude_writing_style.md`.
 
 ## ✂️ Splitting a guide by kind
 

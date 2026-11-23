@@ -7,7 +7,7 @@
 
 ## 📚 Read on demand
 
-- [`on_demand/style_guides/jira/jira_team_conventions.md`](jira/jira_team_conventions.md), in your Claude config directory, before writing or changing a ticket, for this team's ticket format, fields, sprints and scoring.
+[`on_demand/style_guides/jira/jira_team_conventions.md`](jira/jira_team_conventions.md), in your Claude config directory, before writing or changing a ticket, for this team's ticket format, fields, sprints and scoring.
 
 ## 📞 Called by
 

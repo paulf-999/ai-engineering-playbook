@@ -15,10 +15,10 @@ RULE_FILES = sorted(path for path in RULES_DIR.rglob("*.md") if path.name != "RE
 MAX_LINES = 110
 # a child shorter than this saves too little context to be worth its own file and pointer
 MIN_CHILD_LINES = 40
-# a pointer is a Read on demand bullet that opens with its target in backticks, such as `_templates/README.md`,
-# which a rule wraps in a link to the target's place in the repo
-POINTER = re.compile(r"^- \[?`((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
-LINKED_POINTER = re.compile(r"^- \[`([^`]+)`\]\(([^)]+)\)")
+# a pointer is a Read on demand line, bulleted when there are several, that opens with its target in backticks,
+# such as `_templates/README.md`, which a rule wraps in a link to the target's place in the repo
+POINTER = re.compile(r"^(?:- )?\[?`((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
+LINKED_POINTER = re.compile(r"^(?:- )?\[`([^`]+)`\]\(([^)]+)\)")
 
 
 # an on-demand rule's last section lists the files that load it, for readers tracing it back

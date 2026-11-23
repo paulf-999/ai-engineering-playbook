@@ -22,7 +22,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~386 |
 | 5 | `rules/always_on/01_standards/behaviour.md` | ~463 |
 | 6 | `rules/always_on/01_standards/naming_standards.md` | ~232 |
-| 7 | `rules/always_on/01_standards/security.md` | ~211 |
+| 7 | `rules/always_on/01_standards/security.md` | ~210 |
 | 8 | `skills/_atlassian_skills/confluence-create-page/SKILL.md` (description) | ~44 |
 | 9 | `skills/_atlassian_skills/jira-create-issue/SKILL.md` (description) | ~34 |
 | 10 | `skills/_claude_skills/claude-capture-session-prompts/SKILL.md` (description) | ~39 |
@@ -37,8 +37,8 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|
 | 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~147 |
 | 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~224 |
-| 3 | `rules/always_on/02_preferences/claude_writing_style.md` | ~242 |
-| | **Subtotal** | **~614** |
+| 3 | `rules/always_on/02_preferences/claude_writing_style.md` | ~241 |
+| | **Subtotal** | **~613** |
 
 ## 💤 Only when needed
 

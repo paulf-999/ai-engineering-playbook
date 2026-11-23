@@ -14,7 +14,9 @@
 
 ## 📚 Read on demand
 
-- [`on_demand/<domain>/<file>.md`](<relative path to the file>), in your Claude config directory, [when to read it].
+[`on_demand/<domain>/<file>.md`](<relative path to the file>), in your Claude config directory, [when to read it].
+
+<!-- One pointer is a sentence; two or more are bullets. -->
 
 <!-- An on-demand rule ends with a ## 📞 Called by section: "This rule is invoked by [`rules/<caller>.md`](<relative path>), <caller's trigger>" for one caller, or "This rule is invoked by:" then one such bullet per caller, rules first. -->
 <!-- Within 5 top-level bullets, not counting Read on demand pointers: delete the other ## headings and keep one list. -->

@@ -28,4 +28,4 @@ The team config excludes these rules. Codes use SQLFluff 2.0+ names, with the le
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/sql_team_conventions.md`](../../../path_scoped/style_guides/sql_team_conventions.md), when sizing a warehouse, setting `AUTO_SUSPEND`, or when a SQLFluff rule fails.
+This rule is invoked by [`rules/path_scoped/style_guides/sql_team_conventions.md`](../../../path_scoped/style_guides/sql_team_conventions.md), when sizing a warehouse, setting `AUTO_SUSPEND`, or when a SQLFluff rule fails.

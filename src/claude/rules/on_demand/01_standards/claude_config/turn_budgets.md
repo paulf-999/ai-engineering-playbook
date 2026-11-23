@@ -16,5 +16,7 @@
 
 ## 📞 Called by
 
+This rule is invoked by:
+
 - [`rules/on_demand/01_standards/claude_config/guiding_principles.md`](guiding_principles.md), before testing a config change with `claude -p` or another unattended run.
 - [`rules/on_demand/01_standards/conduct/automation_controls.md`](../conduct/automation_controls.md), when setting turn caps for other unattended runs.

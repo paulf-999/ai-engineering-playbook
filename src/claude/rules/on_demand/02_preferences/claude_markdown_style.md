@@ -17,4 +17,4 @@ These rules cover markdown docs, while chat replies follow `claude_output_format
 
 ## 📞 Called by
 
-- [`rules/always_on/02_preferences/claude_output_format.md`](../../always_on/02_preferences/claude_output_format.md), before writing or restructuring a markdown doc.
+This rule is invoked by [`rules/always_on/02_preferences/claude_output_format.md`](../../always_on/02_preferences/claude_output_format.md), before writing or restructuring a markdown doc.

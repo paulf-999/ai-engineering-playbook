@@ -16,7 +16,7 @@
 
 - [`on_demand/<domain>/<file>.md`](<relative path to the file>), in your Claude config directory, [when to read it].
 
-<!-- An on-demand rule ends with a ## 📞 Called by section: one bullet per file that names it, as [`rules/<caller>.md`](<relative path>), then the caller's trigger. -->
+<!-- An on-demand rule ends with a ## 📞 Called by section: "This rule is invoked by [`rules/<caller>.md`](<relative path>), <caller's trigger>" for one caller, or "This rule is invoked by:" then one such bullet per caller. -->
 <!-- Within 5 top-level bullets, not counting Read on demand pointers: delete the other ## headings and keep one list. -->
 <!-- Over the cap: keep 2 to 4 emoji ## sections, each within it. Split into a parent and 2 or more <parent>/_<aspect>.md children only past the rule size cap, per the playbook repo's authoring guide, which sets each child's minimum size and its exemptions. -->
 <!-- Optional: one table between bullets, when two or more items share the same fields, and the Read on demand section. -->

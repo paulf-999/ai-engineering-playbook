@@ -55,4 +55,4 @@ Secrets are retrieved from Azure Key Vault at runtime — they are not stored in
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/terraform_team_conventions.md`](../../../../path_scoped/style_guides/infra/terraform_team_conventions.md), when a pre-commit hook or pipeline stage fails.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/terraform_team_conventions.md`](../../../../path_scoped/style_guides/infra/terraform_team_conventions.md), when a pre-commit hook or pipeline stage fails.

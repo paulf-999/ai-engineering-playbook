@@ -24,4 +24,4 @@
 
 ## 📞 Called by
 
-- [`CLAUDE.md`](../../../../CLAUDE.md), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.
+This rule is invoked by [`CLAUDE.md`](../../../../CLAUDE.md), before proposing or adding a rule, skill, hook, import, setting or memory note to Claude's config.

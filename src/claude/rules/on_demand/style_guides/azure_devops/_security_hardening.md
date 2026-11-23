@@ -35,4 +35,4 @@
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/azure_devops.md`](../../../path_scoped/style_guides/azure_devops.md), before adding a secret, a service connection, a deploy stage or a third-party task.
+This rule is invoked by [`rules/path_scoped/style_guides/azure_devops.md`](../../../path_scoped/style_guides/azure_devops.md), before adding a secret, a service connection, a deploy stage or a third-party task.

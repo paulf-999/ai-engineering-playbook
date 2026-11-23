@@ -107,4 +107,4 @@ ENTRYPOINT ["python", "-m", "myapp"]
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/docker.md`](../../../../path_scoped/style_guides/infra/docker.md), when optimising layers, hardening an image, writing `.dockerignore` or using a multi-stage build.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/docker.md`](../../../../path_scoped/style_guides/infra/docker.md), when optimising layers, hardening an image, writing `.dockerignore` or using a multi-stage build.

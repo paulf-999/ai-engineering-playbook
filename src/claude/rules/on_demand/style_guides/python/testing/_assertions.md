@@ -76,4 +76,4 @@ def test_validate_config_raises_with_pattern_match():
 
 ## 📞 Called by
 
-- [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for assertions & exception testing.
+This rule is invoked by [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for assertions & exception testing.

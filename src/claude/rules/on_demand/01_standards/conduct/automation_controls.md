@@ -46,4 +46,4 @@ Stay interactive when neither column fits.
 
 ## 📞 Called by
 
-- [`rules/always_on/01_standards/behaviour.md`](../../../always_on/01_standards/behaviour.md), before proposing or starting a loop or other unattended run.
+This rule is invoked by [`rules/always_on/01_standards/behaviour.md`](../../../always_on/01_standards/behaviour.md), before proposing or starting a loop or other unattended run.

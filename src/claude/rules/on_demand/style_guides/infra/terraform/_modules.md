@@ -73,4 +73,4 @@ Every module must have a `README.md` documenting:
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when composing modules, using `for_each` or adding a `lifecycle` block.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when composing modules, using `for_each` or adding a `lifecycle` block.

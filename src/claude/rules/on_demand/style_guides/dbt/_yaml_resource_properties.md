@@ -53,4 +53,4 @@ Columns containing PII or data that should not be exposed must be flagged in the
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when writing model or source YAML.
+This rule is invoked by [`rules/path_scoped/style_guides/dbt.md`](../../../path_scoped/style_guides/dbt.md), when writing model or source YAML.

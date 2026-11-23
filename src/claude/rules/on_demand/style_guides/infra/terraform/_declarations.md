@@ -72,4 +72,4 @@ Expose only the attributes that callers are expected to consume.
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when declaring a variable or output, or adding a validation block.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when declaring a variable or output, or adding a validation block.

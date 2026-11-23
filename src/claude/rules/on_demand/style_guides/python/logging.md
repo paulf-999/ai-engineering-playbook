@@ -45,4 +45,4 @@ except yaml.YAMLError as e:
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), before adding logging or error handling.
+This rule is invoked by [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), before adding logging or error handling.

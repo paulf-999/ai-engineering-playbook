@@ -66,4 +66,4 @@ Group related tests together in the file, marked as the team's conventions in [`
 
 ## 📞 Called by
 
-- [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for test naming & structure.
+This rule is invoked by [`rules/on_demand/style_guides/python/testing.md`](../testing.md), for test naming & structure.

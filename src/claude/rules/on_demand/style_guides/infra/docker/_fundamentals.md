@@ -66,4 +66,4 @@ CMD [...]
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/docker.md`](../../../../path_scoped/style_guides/infra/docker.md), when choosing a base image or ordering a Dockerfile's sections.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/docker.md`](../../../../path_scoped/style_guides/infra/docker.md), when choosing a base image or ordering a Dockerfile's sections.

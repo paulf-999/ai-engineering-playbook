@@ -42,4 +42,4 @@ pipelines/                          # CI/CD pipeline definitions
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/ansible_team_conventions.md`](../../../../path_scoped/style_guides/infra/ansible_team_conventions.md), before adding a file or folder to the repo.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/ansible_team_conventions.md`](../../../../path_scoped/style_guides/infra/ansible_team_conventions.md), before adding a file or folder to the repo.

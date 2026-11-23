@@ -36,4 +36,4 @@ def complex_operation():
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), when a function grows long or deeply nested.
+This rule is invoked by [`rules/path_scoped/style_guides/python.md`](../../../path_scoped/style_guides/python.md), when a function grows long or deeply nested.

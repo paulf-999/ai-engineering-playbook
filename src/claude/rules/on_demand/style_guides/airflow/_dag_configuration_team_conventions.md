@@ -75,4 +75,4 @@ The team standard `default_args`:
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/airflow_team_conventions.md`](../../../path_scoped/style_guides/airflow_team_conventions.md), when editing a DAG's `config.yaml`, schedule, tags or default args.
+This rule is invoked by [`rules/path_scoped/style_guides/airflow_team_conventions.md`](../../../path_scoped/style_guides/airflow_team_conventions.md), when editing a DAG's `config.yaml`, schedule, tags or default args.

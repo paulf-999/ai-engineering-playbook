@@ -13,4 +13,4 @@
 
 ## 📞 Called by
 
-- [`rules/always_on/01_standards/naming_standards.md`](../../../always_on/01_standards/naming_standards.md), before naming a new rule, skill or agent.
+This rule is invoked by [`rules/always_on/01_standards/naming_standards.md`](../../../always_on/01_standards/naming_standards.md), before naming a new rule, skill or agent.

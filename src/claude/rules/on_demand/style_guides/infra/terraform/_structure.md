@@ -31,4 +31,4 @@ Every module and every environment root contains at least these, plus the team's
 
 ## 📞 Called by
 
-- [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when adding a module or environment, or deciding what to commit.
+This rule is invoked by [`rules/path_scoped/style_guides/infra/terraform.md`](../../../../path_scoped/style_guides/infra/terraform.md), when adding a module or environment, or deciding what to commit.

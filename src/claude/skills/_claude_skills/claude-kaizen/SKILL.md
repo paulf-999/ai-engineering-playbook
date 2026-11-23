@@ -51,3 +51,4 @@ A periodic look back, such as once a sprint, at what you've had to correct Claud
 
 - `reference/_implementation.md` — picking notes, drafting a case, the budget and the verdicts
 - `evals.yaml` — 3 scenarios, each run by `make evals`
+- [How Warp builds self-improving agents on Claude](https://claude.com/resources/articles/how-warp-builds-self-improving-agents-on-claude) — the feedback-to-edit loop this skill follows

@@ -31,7 +31,7 @@ $ /claude-kaizen
 Read 31 feedback notes. 2 candidates recur and apply beyond this repo:
   1. Write dates as YYYY-MM-DD (4 notes)
   2. Quote test output when reporting a failure (2 notes)
-[diff for writing_style.md, claude_task_reporting.md and rules/evals.yaml]
+[diff for writing_style.md, reporting.md and rules/evals.yaml]
 Write these and run their A/B cases? About a minute of plan usage. (y/n) y
 iso_dates_in_prose: without 0/3, with 3/3, helps — kept
 failure_output_quoted: without 3/3, with 3/3, no effect — undone

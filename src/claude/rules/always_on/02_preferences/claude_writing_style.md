@@ -4,3 +4,4 @@
 
 - ✂️ **Brevity:** cut any sentence or caveat that can go without losing meaning, and keep one idea per sentence.
 - 🎯 **Lead with what it does:** say what something does before how it works, and define each term the first time it appears.
+- 🇬🇧 **British spelling:** use -ise and other British forms in prose, but keep existing identifiers and filenames as they are.

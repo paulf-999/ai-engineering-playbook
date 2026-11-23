@@ -2,7 +2,7 @@
 # Rule A/B cases: make evals RULES=1 runs each one with and without its rule, and reports whether the rule helps
 evals:
     - name: british_spelling_in_prose
-      rule: always_on/01_standards/house_style_team_conventions.md
+      rule: always_on/02_preferences/claude_writing_style.md
       prompt: Write two sentences for a README about how we organize and analyze the team's data.
       assertions:
           - The sentences use British spellings such as organise, organising or analyse, with no -ize or -yze forms

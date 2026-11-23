@@ -4,5 +4,5 @@
 
 | File | Loads for | What it covers |
 |---|---|---|
-| 🛡️ [`code_security.md`](code_security.md) | Python, shell, SQL, JavaScript and TypeScript files | Secure coding standards |
+| 🛡️ [`code_security.md`](code_security.md) | Python, shell, SQL and Terraform files | Secure coding standards |
 | 🧪 [`testing.md`](testing.md) | Python, shell and dbt model files | When code needs a test, and how tests stay in step with it |

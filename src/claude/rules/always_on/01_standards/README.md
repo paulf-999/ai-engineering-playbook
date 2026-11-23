@@ -9,4 +9,3 @@
 | 🇬🇧 [`house_style_team_conventions.md`](house_style_team_conventions.md) | This team's spelling and naming choices |
 | 📛 [`naming_standards.md`](naming_standards.md) | How to name new files, folders and config artefacts |
 | 🔐 [`security.md`](security.md) | How Claude handles untrusted content and secrets |
-| ✏️ [`writing_style.md`](writing_style.md) | How to write everything Claude produces, from replies and docs to tickets and commit messages |

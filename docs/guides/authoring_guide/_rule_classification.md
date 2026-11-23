@@ -16,7 +16,7 @@ Every rule sits in a load-time folder, then a kind folder: `rules/<always_on|pat
 
 Ask these in order, and stop at the first yes:
 
-1. 👤 **Is it on the preference list?** The reply format, bold-keyword bullets, the markdown style rule, and where Claude saves plans, TODOs, drafts, error write-ups and session notes are preferences. A new preference needs the maintainer's ruling.
+1. 👤 **Is it on the preference list?** The reply format, bold-keyword bullets, the writing style rule, the markdown style rule, and where Claude saves plans, TODOs, drafts, error write-ups and session notes are preferences. A new preference needs the maintainer's ruling.
 2. 🏢 **Does it name this company's files, tools, teams or roles?** Examples are `includes/common.py`, Azure Pipelines, the `data_management` owner or CODEOWNERS steps. If so, it's a team convention.
 3. 🎨 **Is it a pick between equally valid styles?** It's a standard only when it matches the guide's reference below, and a team convention otherwise, including where the reference is silent.
 4. 🔢 **Is it a number?** It's a team convention when the reference or the tool's own default sets a different one, such as 120-character lines where ruff defaults to 88. It's a standard when neither sets one, such as a 3-day lookback.
@@ -35,9 +35,9 @@ Ask these in order, and stop at the first yes:
 | GitHub Actions | GitHub's security hardening guide for Actions |
 | Azure DevOps | Microsoft's "Secure Azure Pipelines" guidance |
 | Datetime | ISO 8601 |
-| Mermaid, Jira, writing style, naming and audiences | none, so every style pick is a team convention |
+| Mermaid, Jira, naming and audiences | none, so every style pick is a team convention |
 
-**Maintainer's rulings:** British spelling and `snake_case` names are team conventions, in `always_on/01_standards/house_style_team_conventions.md`. Claude's skill and agent naming patterns are standards, since the Agent Skills spec sets them.
+**Maintainer's rulings:** British spelling and `snake_case` names are team conventions, in `always_on/01_standards/house_style_team_conventions.md`. Claude's skill and agent naming patterns are standards, since the Agent Skills spec sets them. Writing style, such as brevity and leading with what something does, is a preference, in `always_on/02_preferences/claude_writing_style.md`.
 
 ## ✂️ Splitting a guide by kind
 

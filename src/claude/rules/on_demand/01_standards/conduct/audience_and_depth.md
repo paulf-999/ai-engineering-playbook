@@ -20,4 +20,4 @@
 ## 📞 Called by
 
 - [`agents/core/technical-writer/AGENT.md`](../../../../agents/core/technical-writer/AGENT.md), for setting depth by reader.
-- [`rules/always_on/01_standards/writing_style.md`](../../../always_on/01_standards/writing_style.md), before writing for people outside the repo, such as a Confluence page, ticket or email.
+- [`rules/always_on/01_standards/behaviour.md`](../../../always_on/01_standards/behaviour.md), before writing for people outside the repo, such as a Confluence page, ticket or email.

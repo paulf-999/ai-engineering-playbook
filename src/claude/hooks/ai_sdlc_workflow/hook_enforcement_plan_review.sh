@@ -55,6 +55,12 @@ EOF
 }
 
 # Print stdout JSON that passes the plan with a message added to Claude's context, leaving the user's approval in place
+# Append the outcome in $1 and the scores in $2, if any, to the review log, when the project has a memory folder
+log_review() {
+    [[ -n "${REVIEWS_LOG}" && -d "$(dirname "${REVIEWS_LOG}")" ]] || return 0
+    echo "$(date +%Y-%m-%d) session=${SESSION} outcome=$1 ${2:-}" >> "${REVIEWS_LOG}"
+}
+
 allow_with_context() {
     jq -n --arg context "$1" '{hookSpecificOutput: {hookEventName: "PreToolUse", additionalContext: $context}}'
     exit 0
@@ -73,30 +79,47 @@ PLAN="$(jq -r '.tool_input.plan // empty' <<< "${INPUT}" 2> /dev/null || true)"
 [[ "$(grep -c '[^[:space:]]' <<< "${PLAN}")" -ge "${MIN_PLAN_LINES}" ]] || exit 0
 grep -Eiq "${INTENT_HEADING}" <<< "${PLAN}" && grep -Eiq "${SPEC_HEADING}" <<< "${PLAN}" || exit 0
 
+# the session ID names the round counter, kept to safe filename characters
+SESSION="$(jq -r '.session_id // "unknown"' <<< "${INPUT}" | tr -cd '[:alnum:]_-')"
+# auto-memory keeps a project's notes in memory/ beside its session transcripts, so the log sits with them
+TRANSCRIPT="$(jq -r '.transcript_path // empty' <<< "${INPUT}")"
+REVIEWS_LOG=""
+[[ -n "${TRANSCRIPT}" ]] && REVIEWS_LOG="$(dirname "${TRANSCRIPT}")/memory/plan_reviews.log"
+
 # --safe-mode loads no config or hooks, so the reviewer is unprimed and can't trigger this hook again
 # it runs from the temp folder, so the repo's git status doesn't reach the reviewer, and with no tools, so it reads only
 # the prompt; perl's alarm stands in for timeout, which macOS doesn't ship; any failure lets the plan through unreviewed
 RAW="$(review_prompt <<< "${PLAN}" | (cd "${TMPDIR:-/tmp}" && perl -e 'alarm shift; exec @ARGV' "${REVIEW_TIMEOUT}" \
     claude -p --safe-mode --model sonnet --tools "" --no-session-persistence --output-format json) 2> /dev/null)" \
-    || allow_with_context "This plan wasn't reviewed: the reviewer failed or timed out. Tell the user."
+    || {
+        log_review unreviewed
+        allow_with_context "This plan wasn't reviewed: the reviewer failed or timed out. Tell the user."
+    }
 # -e makes jq fail when the filter finds no verdict
 VERDICT="$(jq -ce "${VERDICT_FILTER}" <<< "${RAW}" 2> /dev/null)" \
-    || allow_with_context "This plan wasn't reviewed: the reviewer gave no scores. Tell the user."
+    || {
+        log_review unreviewed
+        allow_with_context "This plan wasn't reviewed: the reviewer gave no scores. Tell the user."
+    }
 
-jq -e '[.scores[]] | all(. == 10)' <<< "${VERDICT}" > /dev/null && exit 0
+SCORES="$(jq -r '.scores | to_entries | map("\(.key)=\(.value)") | join(" ")' <<< "${VERDICT}")"
+if jq -e '[.scores[]] | all(. == 10)' <<< "${VERDICT}" > /dev/null; then
+    log_review passed "${SCORES}"
+    exit 0
+fi
 
 FINDINGS="$(jq -r '"Plan review scores: " + (.scores | to_entries | map("\(.key) \(.value)/10") | join(", ")) + ".",
     (.findings // [] | .[] | "- \(.)")' <<< "${VERDICT}")"
-# the session ID names the round counter, kept to safe filename characters
-SESSION="$(jq -r '.session_id // "unknown"' <<< "${INPUT}" | tr -cd '[:alnum:]_-')"
 ROUNDS_FILE="${TMPDIR:-/tmp}/claude_plan_review_${SESSION}"
 ROUNDS="$(cat "${ROUNDS_FILE}" 2> /dev/null || echo 0)"
 
 if [[ "${ROUNDS}" -ge "${MAX_BLOCKS}" ]]; then
+    log_review capped "${SCORES}"
     allow_with_context "${FINDINGS}
 The plan review still has these findings after ${MAX_BLOCKS} rounds. Show them to the user with the plan."
 fi
 echo $((ROUNDS + 1)) > "${ROUNDS_FILE}"
+log_review blocked "${SCORES}"
 echo "${FINDINGS}
 Fix these findings, then submit the plan again." >&2
 exit "${BLOCK}"

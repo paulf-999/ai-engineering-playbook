@@ -23,8 +23,9 @@ exit "${STUB_EXIT:-0}"
 
 
 def _make_stub(tmp_path):
-    """Put a stub claude first on PATH and return a function that runs the hook against it."""
+    """Put a stub claude first on PATH, with a memory folder beside the transcript, and return a hook runner."""
     (tmp_path / "bin").mkdir()
+    (tmp_path / "memory").mkdir()
     claude = tmp_path / "bin" / "claude"
     claude.write_text(STUB_CLAUDE)
     claude.chmod(0o755)
@@ -33,7 +34,8 @@ def _make_stub(tmp_path):
         """Run the hook on plan, with the stub replying verdict as claude -p JSON, or raw text if given."""
         reply = raw if raw is not None else json.dumps({"result": json.dumps(verdict), "is_error": False})
         (tmp_path / "reply.json").write_text(reply)
-        payload = json.loads(exit_plan_input(plan)) | {"session_id": session}
+        transcript = str(tmp_path / f"{session}.jsonl")
+        payload = json.loads(exit_plan_input(plan)) | {"session_id": session, "transcript_path": transcript}
         env = os.environ | {
             "PATH": f"{tmp_path / 'bin'}:{os.environ['PATH']}",
             "STUB_DIR": str(tmp_path),
@@ -51,6 +53,7 @@ def _make_stub(tmp_path):
         )
 
     run.prompt = tmp_path / "prompt.txt"
+    run.log = tmp_path / "memory" / "plan_reviews.log"
     return run
 
 
@@ -69,6 +72,7 @@ def test_a_short_plan_or_one_without_sections_is_not_reviewed(tmp_path, plan):
     result = stub(plan, {"scores": ALL_TENS, "findings": []})
     assert result.returncode == 0 and result.stdout == "", f"the plan should pass silently:\n{result.stderr}"
     assert not stub.prompt.exists(), "claude should not be called"
+    assert not stub.log.exists(), "a plan that isn't reviewed should not be logged"
 
 
 def test_a_plan_scored_10_on_every_theme_is_allowed(tmp_path):
@@ -109,3 +113,17 @@ def test_a_failed_review_lets_the_plan_through_with_a_note(tmp_path, raw, stub_e
     result = stub(LONG_PLAN, raw=raw, stub_exit=stub_exit)
     assert result.returncode == 0, f"a failed review should not block:\n{result.stderr}"
     assert "wasn't reviewed" in context(result), "Claude should hear the review didn't run"
+
+
+def test_each_review_outcome_is_logged_with_its_scores(tmp_path):
+    """Each reviewed plan adds one line to plan_reviews.log in the memory folder, giving its outcome and scores."""
+    stub = _make_stub(tmp_path)
+    weak = {"scores": ALL_TENS | {"plan": 9}, "findings": ["Step 3 has no check."]}
+    for verdict in (weak, weak, weak):
+        stub(LONG_PLAN, verdict)
+    stub(LONG_PLAN, {"scores": ALL_TENS, "findings": []}, session="s2")
+    stub(LONG_PLAN, raw="not json", session="s3")
+    lines = stub.log.read_text().splitlines()
+    outcomes = [line.split(" outcome=")[1].split()[0] for line in lines]
+    assert outcomes == ["blocked", "blocked", "capped", "passed", "unreviewed"], f"unexpected log:\n{lines}"
+    assert "session=s1" in lines[0] and "plan=9" in lines[0], f"a line should give its session and scores:\n{lines[0]}"

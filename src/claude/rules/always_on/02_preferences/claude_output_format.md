@@ -1,6 +1,6 @@
 # 📝 Output format
 
-**Purpose:** the layout of Claude's replies and bullets.
+**Purpose:** the layout of Claude's replies.
 
 ## 📤 Replies
 
@@ -9,11 +9,3 @@
 - 🔹 **Bullets:** under each theme, put bullets that start with an emoji and make one point in about 15 words.
 - 🔢 **Next steps:** when follow-ups exist, end with numbered options, each an emoji and bold keyword with one child bullet, and mark the best "(recommended)".
 - ⏭️ **Skip:** skip this shape for short answers and casual chat.
-
-## ✍️ Everything you write
-
-- 🔑 **Bold keyword bullets:** open a rule or definition bullet with its key term in bold and a colon, and leave plain lists unlabelled.
-
-## 📚 Read on demand
-
-- [`on_demand/02_preferences/claude_markdown_style.md`](../../on_demand/02_preferences/claude_markdown_style.md), in your Claude config directory, before writing or restructuring a markdown doc.

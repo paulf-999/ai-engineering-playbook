@@ -20,7 +20,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~43 |
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~27 |
 | 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~386 |
-| 5 | `rules/always_on/01_standards/behaviour.md` | ~490 |
+| 5 | `rules/always_on/01_standards/behaviour.md` | ~463 |
 | 6 | `rules/always_on/01_standards/naming_standards.md` | ~232 |
 | 7 | `rules/always_on/01_standards/security.md` | ~211 |
 | 8 | `skills/_atlassian_skills/confluence-create-page/SKILL.md` (description) | ~44 |
@@ -29,16 +29,16 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 11 | `skills/_claude_skills/claude-kaizen/SKILL.md` (description) | ~0 |
 | 12 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~29 |
 | 13 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~37 |
-| | **Subtotal** | **~2099** |
+| | **Subtotal** | **~2072** |
 
 ## 👤 Every session, unless opted out
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~246 |
+| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~147 |
 | 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~224 |
-| 3 | `rules/always_on/02_preferences/claude_writing_style.md` | ~117 |
-| | **Subtotal** | **~588** |
+| 3 | `rules/always_on/02_preferences/claude_writing_style.md` | ~242 |
+| | **Subtotal** | **~614** |
 
 ## 💤 Only when needed
 

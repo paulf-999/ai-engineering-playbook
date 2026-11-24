@@ -36,7 +36,8 @@ Follow [`claude_writing_style.md`](../../src/claude/rules/always_on/02_preferenc
 
 - 👤 **No invented experience:** never write an anecdote, reaction, result or team detail the maintainer hasn't given, and ask for one instead.
 - 🔒 **Privacy:** leave out colleagues' names and anything that identifies an employer, and flag a story a colleague could recognise.
-- 📖 **Primary sources:** open each source before citing it, and say when it's a vendor, paywalled or only a correlation.
+- 🧪 **Examples:** give each main point a short worked example, such as a snippet, a before and after or a filled-in template, and say when it's made up.
+- 📖 **Sources:** open each source before citing it, say when it's a vendor, paywalled or only a correlation, and check claims about Claude against Anthropic's docs, saying where the post differs.
 - 🖼️ **Versions:** mark each draft with a status line giving its version and reading time, such as "draft v0.1.0 · ~4 min", and put "blog" in its file name.
 
 ## ⏱️ Reading time
@@ -55,7 +56,7 @@ Score each from 0 to 10, where 10 means nothing to fix:
 | 🗣️ **Voice** | Reads as if the maintainer wrote it, without parody |
 | ✏️ **Writing style** | Meets the Writing section above |
 | 🧭 **Clarity** | The stated audience can follow it in one read |
-| 🎁 **Usefulness** | The reader leaves with something specific to do |
+| 🎁 **Usefulness** | The reader leaves with something specific to do, shown by an example |
 | 🔬 **Honesty** | Claims are supported or marked as opinion, and limits are stated |
 | 💡 **Insight** | It says something readers are unlikely to have met elsewhere, resting on evidence |
 | 😏 **Engagement** | The reader wants to keep going and share it, without losing trust in it |

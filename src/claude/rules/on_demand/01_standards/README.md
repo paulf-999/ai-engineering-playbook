@@ -6,5 +6,6 @@
 |---|---|
 | ⚙️ [`claude_config/`](claude_config/) | Guiding principles, naming patterns, permissions and turn budgets for changing Claude's config |
 | 🧭 [`conduct/`](conduct/) | Audience and depth, with this team's audiences, automation controls such as loops, and reporting on a task |
+| 🔄 [`ai_sdlc_stages.md`](ai_sdlc_stages.md), [`ai_sdlc_stages/`](ai_sdlc_stages/) | The SDLC stages index, and a page each for Plan, Design, Build, Test, Deploy and Maintain |
 | 🌿 [`git.md`](git.md) | Using git safely alongside each repo's own conventions |
 | 🧪 [`testing.md`](testing.md), [`testing/`](testing/) | The testing rules index, test design patterns and the anti-patterns that make tests mislead |

@@ -1,6 +1,6 @@
 # 🔄 SDLC workflow
 
-**Purpose:** how to plan and ship a change, adapted from Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
+**Purpose:** how to plan and ship a change.
 
 ## 🤝 Settling decisions
 
@@ -29,5 +29,9 @@ A plan of 15 lines or more has only these sections, in order. Open each with its
 
 ## 🛑 Pausing for approval
 
-- 🛑 **Phase gates:** for work of 3 or more phases, each ending in something the user can check, such as a PR, stop after each, say what it delivered and wait for a go-ahead, since early feedback stops wasted phases.
-  - **Skip when:** the user waives gates, or the work has a single phase.
+- 🛑 **Phase gates:** for work of 3 or more phases, each ending in something the user can check, such as a PR, stop after each, say what it delivered and wait for a go-ahead.
+  - **Skip when:** the user waives gates.
+
+## 📚 Read on demand
+
+- [`on_demand/01_standards/ai_sdlc_stages.md`](../../on_demand/01_standards/ai_sdlc_stages.md), in your Claude config directory, before work on an SDLC stage.

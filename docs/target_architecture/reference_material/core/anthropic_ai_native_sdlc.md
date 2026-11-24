@@ -13,6 +13,7 @@
 ## 🔗 Source
 
 - 📚 **Course:** [The AI-native SDLC playbook](https://academy.claude.com/courses/ai-native-sdlc-playbook), from Anthropic's Claude Academy, about an hour of reading.
+- 📰 **Article:** [The AI-native SDLC playbook](https://claude.com/resources/articles/the-ai-native-sdlc-playbook), which adds scheduled scans and chat-raised incidents, captured 2026-11-24.
 - 📅 **Version:** the course gives no date or version, so cite the lesson and the 2026-11-02 access date.
 - 🗓️ **Captured:** 2026-11-02, after reading every lesson in full.
 - 📚 **Further reading:** the [closing lesson](https://academy.claude.com/courses/ai-native-sdlc-playbook/closing-thoughts-and-resources) lists the Claude Code documentation a platform team needs to set up these controls.
@@ -52,6 +53,8 @@ Each of the course's plays, grouped by stage, with its core practice and how to 
 | 🚧 Deploy | [Hooks as approval gates](https://academy.claude.com/courses/ai-native-sdlc-playbook/hooks-as-approval-gates) | Each required approval becomes a hook that allows, asks or blocks an action | Time spent waiting at gates | Gate breaches reaching production |
 | 🚀 Deploy | [CI/CD integration and deployment](https://academy.claude.com/courses/ai-native-sdlc-playbook/ci-cd-integration-and-deployment) | Run Claude unattended and sandboxed, starting with read-only steps and adding write steps behind the existing gates, while a person authorises each release | Pipeline failures triaged without paging a person | DORA measures |
 | 📉 Maintain | [Closing the loop on metrics](https://academy.claude.com/courses/ai-native-sdlc-playbook/closing-the-loop-on-metrics) | Tested code flags unusual readings, then Claude diagnoses them and, for the largest, may open a PR | Time from a flagged reading to an `intent.md` in the triage queue | Repeat incidents, and findings that become merged fixes |
+| 🔍 Maintain | [Recurring codebase scans](https://claude.com/resources/articles/the-ai-native-sdlc-playbook) (article) | Scan on a schedule, validate each finding, and send fixes through the normal review gate | Share of repos on a schedule, and time from a finding to review | Flaws found by scans against those found in production |
+| 💬 Maintain | [Claude on call with Claude Tag](https://claude.com/resources/articles/the-ai-native-sdlc-playbook) (article) | Claude answers incidents raised in chat, keeping the diagnosis, authorisation and fix in the thread | Not given | Not given |
 
 ## ⚠️ Caveats
 
@@ -98,4 +101,4 @@ Which of the course's plays suit this repo, as decided at the maintainer's revie
 | 🧪 Continuous evals | Adapt | `make evals` runs trigger, behaviour and rule A/B evals on the claude.ai login, run by hand rather than in CI |
 | 👀 PR review loop | Adapt | Each config PR states its always-on token change and any red flag in place of a `REVIEW.md`, since a solo maintainer can't separate author and approver |
 | 🚧 Hooks as approval gates | Adapt | User-level hooks that `make install` registers and keeps in step, such as the plan sections hook, since a personal setup has no managed settings |
-| 🚀 CI/CD integration, closing the loop on metrics | Out of scope for now | Both need a deployed service, which this repo doesn't have |
+| 🚀 CI/CD integration, closing the loop on metrics | Adapt | Both need a deployed service, which this repo doesn't have, so the stage pages carry them as guidance for repos that do |

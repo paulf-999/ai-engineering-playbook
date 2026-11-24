@@ -29,7 +29,7 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | 11 | `skills/_claude_skills/claude-kaizen/SKILL.md` (description) | ~0 |
 | 12 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~29 |
 | 13 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~37 |
-| | **Subtotal** | **~2268** |
+| | **Subtotal** | **~2267** |
 
 ## 👤 Every session, unless opted out
 
@@ -45,4 +45,4 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 26 | ~12000 |
-| 💤 On demand, via a pointer | 85 | ~53800 |
+| 💤 On demand, via a pointer | 92 | ~59300 |

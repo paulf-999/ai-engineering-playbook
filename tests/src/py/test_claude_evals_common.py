@@ -1,4 +1,4 @@
-"""Tests for the shared eval helpers: the config copy, scratch repos, transcripts and projects/ cleanup."""
+"""Tests for the shared eval helpers: the config copy, scratch repos, transcripts, grading and projects/ cleanup."""
 
 import importlib
 import subprocess
@@ -76,6 +76,20 @@ def test_transcript_shows_text_tools_and_refusals():
         'TOOL Bash: {"command": "gh"}',
         "REFUSED OR FAILED: denied",
     ]
+
+
+def test_graded_results_pass_only_a_pass_verdict():
+    """Only a pass verdict passes, and an unknown one says so in its reason."""
+    results = [{"assertion": v, "reason": "why", "verdict": v} for v in ("pass", "fail", "unknown")]
+    graded = common.graded_results(["pass", "fail", "unknown"], results)
+    assert [result["pass"] for result in graded] == [True, False, False]
+    assert [result["reason"] for result in graded] == ["why", "why", "unknown: why"]
+
+
+def test_graded_results_rejects_missing_results():
+    """A grader that skips an assertion stops the run instead of counting as a pass."""
+    with pytest.raises(ValueError, match="0 results for 1 assertions"):
+        common.graded_results(["The branch is main"], [])
 
 
 def test_project_folder_only_matches_the_scratch_repo(tmp_path):

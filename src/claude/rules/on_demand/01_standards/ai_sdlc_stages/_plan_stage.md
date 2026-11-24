@@ -15,7 +15,7 @@ Each route ends in the same reviewed intent:
 ## 🪜 Steps
 
 1. Ask the originator what they can't do today, who it affects, what better looks like and what is out of scope.
-2. Ask the analyst questions below, as [Settling decisions](../../../always_on/01_standards/ai_sdlc_workflow.md#-settling-decisions) sets out, until the idea is concrete.
+2. Ask the analyst questions below, as [Settle decisions](../../../always_on/01_standards/ai_sdlc_workflow.md#-settle-decisions) sets out, until the idea is concrete.
 3. Draft the six intent sections from [Plan layout](../../../always_on/01_standards/ai_sdlc_workflow.md#️-plan-layout), keeping the originator's terms.
 4. Show the originator the draft, and correct anything misunderstood.
 5. Once approved, save it in the [intent layout](../../02_preferences/claude_working_files/_saving_plans.md#-intent-layout), if that preference is installed, outside every repo.

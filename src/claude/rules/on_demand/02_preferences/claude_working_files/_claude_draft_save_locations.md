@@ -2,8 +2,8 @@
 
 **Purpose:** where to save drafts and error write-ups, and how to name them.
 
-- 📝 **Drafts:** write proposed content to `~/_drafts/<domain>/YYYY_MM_DD_<topic>.md` before it goes to an external system.
-- 🚨 **Errors:** write error details to `~/_errors/<domain>/YYYY_MM_DD_<topic>.md`.
+- 📝 **Drafts:** write proposed content to `_drafts/<domain>/YYYY_MM_DD_<topic>.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), as an absolute path, before it goes to an external system.
+- 🚨 **Errors:** write error details to `_errors/<domain>/YYYY_MM_DD_<topic>.md` there, as an absolute path.
 - 🏷️ **Names:** lead with the date, then a snake_case topic, such as `2026_08_04_onboarding_plan.md`.
 
 | Domain | Use for |

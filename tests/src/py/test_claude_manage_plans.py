@@ -26,7 +26,7 @@ def home(tmp_path, monkeypatch):
 
 def make_plan(home, folder, name, status_line):
     """Save a plan folder, with a spec beside its plan, and return the folder's path."""
-    plan = home / ".claude_work/_plans" / folder / name
+    plan = home / "config/_plans" / folder / name
     plan.mkdir(parents=True)
     (plan / "plan.md").write_text(f"# Plan\n\n{status_line}\n", encoding="utf-8")
     (plan / "spec.md").write_text(name)
@@ -59,7 +59,7 @@ def test_clean_files_the_whole_folder_by_status(home, status, folder):
     start = "parked" if folder == "active" else "active"
     old = make_plan(home, start, "x", status_line(status))
     run("clean", "--yes")
-    new = home / ".claude_work/_plans" / folder / "x"
+    new = home / "config/_plans" / folder / "x"
     assert not old.exists()
     assert (new / "plan.md").exists() and (new / "spec.md").read_text() == "x"
 
@@ -68,7 +68,7 @@ def test_clean_files_a_plan_outside_every_status_folder(home):
     """A plan saved straight into _plans/ is filed too."""
     make_plan(home, ".", "x", status_line("✅ Done"))
     run("clean", "--yes")
-    assert (home / ".claude_work/_plans/done/x/plan.md").exists()
+    assert (home / "config/_plans/done/x/plan.md").exists()
 
 
 @pytest.mark.parametrize("line", ["", "**Plan status:** 🟣 Waiting · updated 2026-11-24"])
@@ -98,7 +98,7 @@ def test_two_plans_bound_for_one_name_do_not_merge(home):
     second = make_plan(home, "parked", "x", status_line("✅ Done"))
     run("clean", "--yes")
     assert second.exists()
-    assert sorted(p.name for p in (home / ".claude_work/_plans/done/x").iterdir()) == ["plan.md", "spec.md"]
+    assert sorted(p.name for p in (home / "config/_plans/done/x").iterdir()) == ["plan.md", "spec.md"]
 
 
 def test_scratch_name_clash_is_reported_and_left(home, capsys):
@@ -129,11 +129,15 @@ def test_only_top_level_markdown_scratch_plans_are_archived(home):
 
 
 def test_config_folder_defaults_to_dot_claude(home, monkeypatch):
-    """With CLAUDE_CONFIG_DIR unset, scratch plans are read from ~/.claude."""
+    """With CLAUDE_CONFIG_DIR unset, saved and scratch plans are read from ~/.claude."""
     monkeypatch.delenv("CLAUDE_CONFIG_DIR")
     make_scratch(home / ".claude", "x.md", 14)
+    plan = home / ".claude/_plans/active/x/plan.md"
+    plan.parent.mkdir(parents=True)
+    plan.write_text(status_line("✅ Done"), encoding="utf-8")
     run("clean", "--yes")
     assert (home / ".claude/plans/archive/x.md").exists()
+    assert (home / ".claude/_plans/done/x/plan.md").exists()
 
 
 @pytest.mark.parametrize(("answer", "moved"), [("y", True), ("n", False), ("", False)])

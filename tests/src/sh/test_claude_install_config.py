@@ -570,7 +570,7 @@ def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_pat
 def seed_plans(tmp_path):
     """Save a finished plan in active/ and an old scratch plan, returning (home, config, plan, scratch plan)."""
     home, config = tmp_path / "home", tmp_path / "config"
-    plan = home / ".claude_work" / "_plans" / "active" / "x"
+    plan = config / "_plans" / "active" / "x"
     plan.mkdir(parents=True)
     (plan / "plan.md").write_text("# Plan\n\n**Plan status:** ✅ Done · updated 2026-01-01\n", encoding="utf-8")
     scratch = config / "plans" / "x.md"
@@ -586,7 +586,7 @@ def test_a_global_install_files_plans(tmp_path):
     result = run_install(config, answer="install", HOME=str(home))
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert "files saved plans" in result.stdout, "the confirmation should mention filing"
-    assert not plan.exists() and (home / ".claude_work" / "_plans" / "done" / "x" / "plan.md").is_file()
+    assert not plan.exists() and (config / "_plans" / "done" / "x" / "plan.md").is_file()
     assert not scratch.exists() and (config / "plans" / "archive" / "x.md").is_file()
 
 

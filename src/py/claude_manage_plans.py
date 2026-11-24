@@ -1,6 +1,6 @@
 """List saved plans by status, and file them into the folder their status line names.
 
-Saved plans live in ~/.claude_work/_plans/, one folder each, and plan mode's own scratch plans in
+Saved plans live in <Claude config>/_plans/, one folder each, and plan mode's own scratch plans in
 <Claude config>/plans/, where <Claude config> is $CLAUDE_CONFIG_DIR, or ~/.claude when unset. Nothing is deleted or
 overwritten: anything that can't be moved safely is reported and left in place.
 
@@ -21,14 +21,19 @@ STATUS_WORD = re.compile(rf"\s*(?:[^\w\s]+\s*)?({'|'.join(STATUSES)})\b")
 UPDATED = re.compile(r"\bupdated (\d{4}-\d{2}-\d{2})\b")
 
 
+def config_dir():
+    """Return the Claude config directory."""
+    return Path(os.environ.get("CLAUDE_CONFIG_DIR") or Path.home() / ".claude")
+
+
 def saved_plans_dir():
     """Return the folder that holds saved plans."""
-    return Path.home() / ".claude_work" / "_plans"
+    return config_dir() / "_plans"
 
 
 def scratch_plans_dir():
     """Return the folder plan mode writes its scratch plans to."""
-    return Path(os.environ.get("CLAUDE_CONFIG_DIR") or Path.home() / ".claude") / "plans"
+    return config_dir() / "plans"
 
 
 def days_since_changed(path, today):

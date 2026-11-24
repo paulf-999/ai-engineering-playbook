@@ -14,7 +14,7 @@
 | 🗂️ `general` | Anything that fits no other domain |
 | 🎫 `jira` | Jira ticket drafts |
 | 🗓️ `meetings` | Meeting notes and agendas |
-| 🧭 `plans` | Plans and proposals |
+| 🧭 `plans` | Plans and proposals to share, rather than ones Claude carries out |
 | 💬 `teams` | Microsoft Teams message drafts |
 
 ## 📞 Called by

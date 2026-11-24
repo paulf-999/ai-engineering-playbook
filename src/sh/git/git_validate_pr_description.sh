@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
-# Description: Verify a PR that changes the installed Claude config under src/claude/ has a "Plan Spec" section, and
+# Description: Verify a PR that changes the installed Claude config under src/claude/ has a "Claude: Plan" section, and
 #              that one changing an always-on or enforcing file also has an "Evaluation Criteria" section
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
 
@@ -40,7 +40,7 @@ section_problem() {
 description_problems() {
     # src/claude/ is the config that `make install` copies
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/' || return 0
-    section_problem "Plan Spec" "this PR changes src/claude/"
+    section_problem "Claude: Plan" "this PR changes src/claude/"
     # CLAUDE.md, a rule in rules/always_on/ and hooks load in every session or enforce behaviour
     printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/always_on/|hooks/)' || return 0
     section_problem "Evaluation Criteria" "this PR changes an always-on or enforcing file"

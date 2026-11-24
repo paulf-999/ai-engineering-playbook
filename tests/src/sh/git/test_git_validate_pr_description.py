@@ -1,4 +1,4 @@
-"""Tests for the PR description check: a src/claude/ PR carries its spec, and an always-on one the criteria."""
+"""Tests for the PR description check: a src/claude/ PR carries its plan, and an always-on one the criteria."""
 
 import os
 import subprocess
@@ -11,7 +11,7 @@ DETAILS = "## :mag: (Optional) Additional Details\n\n"
 NEXT_SECTION = "\n## :hammer_and_wrench: Type of PR Change\n\n- [x] Documentation\n"
 # the section names the script's reasons quote, kept here so renaming a section changes one line
 CRITERIA_NAME = "Evaluation Criteria"
-SPEC_NAME = "Plan Spec"
+PLAN_NAME = "Claude: Plan"
 TEMPLATE = (REPO_ROOT / ".github" / "pull_request_template.md").read_text()
 
 
@@ -44,34 +44,34 @@ def test_description_with_shell_characters_is_not_executed(tmp_path):
     assert not marker.exists(), "shell syntax in the description was run as a command"
 
 
-# an always-on rule, which needs the spec and the evaluation criteria
+# an always-on rule, which needs the plan and the evaluation criteria
 CONFIG_FILE = "src/claude/rules/always_on/conduct/example.md\ndocs/other.md"
-# an on-demand rule, which needs the spec but not the criteria
+# an on-demand rule, which needs the plan but not the criteria
 ON_DEMAND_FILE = "src/claude/rules/on_demand/example.md"
 CRITERIA = (
     "\n## :balance_scale: Evaluation criteria\n\n- :triangular_flag_on_post: **Red flags:** none.\n"
     "- :toolbox: **Shape:** on demand.\n- :test_tube: **Working:** trial at the next review.\n"
 )
-# the Spec section's heading, and a filled Spec section, which a config PR also needs
-SPEC_HEADING = "\n## :robot: Claude: Plan Spec (spec.md) - Requirements and Design\n\n"
-SPEC = SPEC_HEADING + "- **Hook:** blocks a stop once after files change.\n"
+# the Plan section's heading, and a filled Plan section, which a config PR also needs
+PLAN_HEADING = "\n## :robot: Claude: Plan\n\n"
+PLAN = PLAN_HEADING + "- **Hook:** blocks a stop once after files change.\n"
 
 
 @pytest.mark.parametrize(
     ("description", "changed_files", "expected_code"),
     [
         # a config change with answered criteria passes
-        (DETAILS + bullets(5) + SPEC + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
+        (DETAILS + bullets(5) + PLAN + CRITERIA + NEXT_SECTION, CONFIG_FILE, 0),
         # headings match whatever their case, so a Title Case heading passes
-        (DETAILS + bullets(1) + SPEC + CRITERIA.replace("criteria", "Criteria", 1) + NEXT_SECTION, CONFIG_FILE, 0),
+        (DETAILS + bullets(1) + PLAN + CRITERIA.replace("criteria", "Criteria", 1) + NEXT_SECTION, CONFIG_FILE, 0),
         # a config change without the section fails
         (DETAILS + bullets(4) + NEXT_SECTION, CONFIG_FILE, 1),
         # CLAUDE.md and hooks count as always-on or enforcing, so they need the section too
-        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/CLAUDE.md", 1),
-        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/hooks/example.sh", 1),
-        # an on-demand or path-scoped change needs only the spec
-        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, ON_DEMAND_FILE, 0),
-        (DETAILS + bullets(4) + SPEC + NEXT_SECTION, "src/claude/rules/path_scoped/x.md", 0),
+        (DETAILS + bullets(4) + PLAN + NEXT_SECTION, "src/claude/CLAUDE.md", 1),
+        (DETAILS + bullets(4) + PLAN + NEXT_SECTION, "src/claude/hooks/example.sh", 1),
+        # an on-demand or path-scoped change needs only the plan
+        (DETAILS + bullets(4) + PLAN + NEXT_SECTION, ON_DEMAND_FILE, 0),
+        (DETAILS + bullets(4) + PLAN + NEXT_SECTION, "src/claude/rules/path_scoped/x.md", 0),
         # a PR that doesn't touch src/claude/ needs no section, and nor does a run without a file list
         (DETAILS + bullets(4) + NEXT_SECTION, "docs/other.md\nsrc/sh/x.sh", 0),
         (DETAILS + bullets(4) + NEXT_SECTION, "", 0),
@@ -86,31 +86,31 @@ def test_always_on_changes_require_evaluation_criteria(description, changed_file
 
 
 @pytest.mark.parametrize(
-    ("spec", "changed_files", "expected_code"),
+    ("plan", "changed_files", "expected_code"),
     [
-        # a filled spec or a stated "Not applicable" passes
-        (SPEC, CONFIG_FILE, 0),
-        (SPEC_HEADING + "Not applicable: a typo fix.\n", CONFIG_FILE, 0),
-        # a missing spec fails a config PR
+        # a filled plan or a stated "Not applicable" passes
+        (PLAN, CONFIG_FILE, 0),
+        (PLAN_HEADING + "Not applicable: a typo fix.\n", CONFIG_FILE, 0),
+        # a missing plan fails a config PR
         ("", CONFIG_FILE, 1),
-        # an on-demand change still needs a spec, but a PR that doesn't touch src/claude/ doesn't
+        # an on-demand change still needs a plan, but a PR that doesn't touch src/claude/ doesn't
         ("", ON_DEMAND_FILE, 1),
         ("", "docs/other.md", 0),
     ],
 )
-def test_config_changes_require_a_spec(spec, changed_files, expected_code):
-    """A PR that changes src/claude/ must have a Spec section, for the reviewer."""
-    result = run_check(DETAILS + bullets(1) + spec + CRITERIA + NEXT_SECTION, changed_files)
+def test_config_changes_require_a_plan(plan, changed_files, expected_code):
+    """A PR that changes src/claude/ must have a Plan section, for the reviewer."""
+    result = run_check(DETAILS + bullets(1) + plan + CRITERIA + NEXT_SECTION, changed_files)
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
-        assert SPEC_NAME in result.stdout, f"the reason should name the spec section: {result.stdout}"
+        assert PLAN_NAME in result.stdout, f"the reason should name the plan section: {result.stdout}"
 
 
 @pytest.mark.parametrize(
     ("changed_files", "expected_code", "reason"),
     [
         pytest.param("docs/other.md", 0, None, id="docs_pr_passes_as_is"),
-        pytest.param(ON_DEMAND_FILE, 1, f"Add the '{SPEC_NAME}' section", id="config_needs_spec"),
+        pytest.param(ON_DEMAND_FILE, 1, f"Add the '{PLAN_NAME}' section", id="config_needs_plan"),
         pytest.param(CONFIG_FILE, 1, f"Add the '{CRITERIA_NAME}' section", id="always_on_needs_criteria"),
     ],
 )
@@ -124,7 +124,7 @@ def test_the_unedited_template_passes_only_when_no_section_is_needed(changed_fil
 def test_the_headings_the_template_names_pass():
     """Adding the headings exactly as the template's comment names them satisfies the check."""
     description = (
-        TEMPLATE + f"\n{template_heading(SPEC_NAME)}\n\n- spec\n\n{template_heading(CRITERIA_NAME)}\n\nNo red flags.\n"
+        TEMPLATE + f"\n{template_heading(PLAN_NAME)}\n\n- plan\n\n{template_heading(CRITERIA_NAME)}\n\nNo red flags.\n"
     )
     result = run_check(description, CONFIG_FILE)
     assert result.returncode == 0, f"the template's own headings should pass:\n{result.stdout}"

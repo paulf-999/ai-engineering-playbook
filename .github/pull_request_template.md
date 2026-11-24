@@ -37,11 +37,41 @@ This PR was tested as follows:
 </details>
 
 <!-- Claude config PRs only, which CI checks:
-- Changes src/claude/? Add "## :robot: Claude: Plan" holding the approved plan's saved intent.md, spec.md and plan.md,
-  so a reviewer can check the diff against them, or say why it has none. Open it with the line "This PR was created
-  against the following Claude plan:", then put each file in its own "<details><summary>Show intent.md</summary> ...
-  </details>", in that order and named to match, keeping the heading outside. Paste each file as it stands, without
-  plan.md's progress notes, home folder paths or private details.
+- Changes src/claude/? Add "## :robot: Claude: Plan" so a reviewer can check the diff against the approved plan. With no
+  saved plan, the section holds only the line "No saved plan: " and the reason. Otherwise, open it with this callout:
+
+  > [!NOTE]
+  > These files follow the advice in Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
+
+  Then add the line "This PR was created against the following Claude plan:" and five menus, in this order. Put each in
+  its own <details> ... </details>, with its <summary> on one line:
+
+  <summary>Show intent.md</summary>
+  <summary>Show spec.md</summary>
+  <summary>Show plan.md</summary>
+  Paste each file as it stands, without plan.md's progress notes, home folder paths or private details.
+
+  <summary>Show measures</summary>
+  Write "not recorded" rather than an estimate. Replace each "pending" before merging.
+
+  | Measure | Value |
+  |---|---|
+  | Time to a saved intent | <intent.md: Saved minus Started, the time of the first conversation> |
+  | Intent edits after the spec | <intent.md: Edits after spec> |
+  | Spec edits after the plan | <spec.md: Edits after plan> |
+  | Diff matches the plan | <yes, or each departure> |
+  | Checks run | <each command and its result> |
+  | First-pass CI | <pending, then the first commit's result> |
+  | Rework | <pending, then the number of commits after the PR opened> |
+
+  <summary>Show governance</summary>
+  Write "none" for an empty bullet.
+
+  - **Approved by:** <role, never a name>
+  - **Policy conflicts:** <each conflict>
+  - **Risks:** <each risk>
+  - **Open questions carried forward:** <each question>
+
 - Changes src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook? Also add "## :balance_scale: Claude: Evaluation Criteria".
   Open it with the line "This PR was checked against the following [evaluation criteria](<link>):", linking to
   https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md

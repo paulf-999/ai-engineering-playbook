@@ -54,7 +54,16 @@ CRITERIA = (
 )
 # the Plan section's heading, and a filled Plan section, which a config PR also needs
 PLAN_HEADING = "\n## :robot: Claude: Plan\n\n"
-PLAN = PLAN_HEADING + "- **Hook:** blocks a stop once after files change.\n"
+MENUS = ("intent.md", "spec.md", "plan.md", "measures", "governance")
+
+
+def menu(name):
+    """Return a collapsible menu, as the template's comment lays it out."""
+    return f"<details>\n<summary>Show {name}</summary>\n\n- **Hook:** blocks a stop once.\n\n</details>\n\n"
+
+
+PLAN = PLAN_HEADING + "".join(menu(name) for name in MENUS)
+NO_PLAN = PLAN_HEADING + "No saved plan: a typo fix.\n"
 
 
 @pytest.mark.parametrize(
@@ -88,9 +97,9 @@ def test_always_on_changes_require_evaluation_criteria(description, changed_file
 @pytest.mark.parametrize(
     ("plan", "changed_files", "expected_code"),
     [
-        # a filled plan or a stated "Not applicable" passes
+        # a filled plan or a stated "No saved plan" passes
         (PLAN, CONFIG_FILE, 0),
-        (PLAN_HEADING + "Not applicable: a typo fix.\n", CONFIG_FILE, 0),
+        (NO_PLAN, CONFIG_FILE, 0),
         # a missing plan fails a config PR
         ("", CONFIG_FILE, 1),
         # an on-demand change still needs a plan, but a PR that doesn't touch src/claude/ doesn't
@@ -104,6 +113,47 @@ def test_config_changes_require_a_plan(plan, changed_files, expected_code):
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
         assert PLAN_NAME in result.stdout, f"the reason should name the plan section: {result.stdout}"
+
+
+@pytest.mark.parametrize("missing", MENUS)
+def test_each_plan_menu_is_required_and_named(missing):
+    """A Plan section missing one menu fails, and the message names only that menu."""
+    plan = PLAN_HEADING + "".join(menu(name) for name in MENUS if name != missing)
+    result = run_check(plan, ON_DEMAND_FILE)
+    assert result.returncode == 1, f"a plan without its {missing} menu should fail: {result.stdout}"
+    named = [name for name in MENUS if f"'Show {name}'" in result.stdout]
+    assert named == [missing], f"the reason should name only the missing menu: {result.stdout}"
+
+
+@pytest.mark.parametrize(
+    ("plan", "expected_code"),
+    [
+        pytest.param(PLAN_HEADING + "No saved plan:\n", 1, id="no_reason"),
+        pytest.param(PLAN_HEADING + "No saved plan:  \r\n", 1, id="blank_reason"),
+        pytest.param(PLAN_HEADING + "There is No saved plan: typo.\n", 1, id="reason_mid_line"),
+        pytest.param(f"{PLAN_HEADING}<!--\n{''.join(map(menu, MENUS))}-->\n", 1, id="menus_in_a_comment"),
+        pytest.param(PLAN_HEADING + "<!-- \nNo saved plan: typo.\n-->\n", 1, id="reason_in_a_comment"),
+        pytest.param(f"<!--{PLAN_HEADING}-->\n{''.join(map(menu, MENUS))}", 1, id="heading_in_a_comment"),
+        pytest.param(PLAN.replace("<summary>", "See <summary>"), 1, id="summary_mid_line"),
+        pytest.param(PLAN.replace("\n", "\r\n"), 0, id="windows_line_endings"),
+        pytest.param(NO_PLAN.replace("\n", "\r\n"), 0, id="reason_with_windows_line_endings"),
+        pytest.param(PLAN.replace("<details>\n", "<details>"), 0, id="details_on_the_same_line"),
+        pytest.param("<!-- one --> <!--\ntwo -->\n" + PLAN, 0, id="menus_after_comments"),
+        # bigger than a pipe's buffer, so an early match mustn't break the read
+        pytest.param(PLAN + "a line of a long plan\n" * 2700, 0, id="long_description"),
+    ],
+)
+def test_plan_menus_or_reason_must_be_visible_lines(plan, expected_code):
+    """The menus or the reason count only as whole, visible lines, whatever their line endings."""
+    result = run_check(plan, ON_DEMAND_FILE)
+    assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
+
+
+def test_the_template_names_every_menu():
+    """The template's comment names each menu and the opt-out line that the check looks for."""
+    unnamed = [name for name in MENUS if f"<summary>Show {name}</summary>" not in TEMPLATE]
+    assert not unnamed, f"the template's comment should name the menus: {unnamed}"
+    assert '"No saved plan: ' in TEMPLATE, "the template's comment should name the opt-out line"
 
 
 @pytest.mark.parametrize(
@@ -123,8 +173,9 @@ def test_the_unedited_template_passes_only_when_no_section_is_needed(changed_fil
 
 def test_the_headings_the_template_names_pass():
     """Adding the headings exactly as the template's comment names them satisfies the check."""
+    menus = "".join(menu(name) for name in MENUS)
     description = (
-        TEMPLATE + f"\n{template_heading(PLAN_NAME)}\n\n- plan\n\n{template_heading(CRITERIA_NAME)}\n\nNo red flags.\n"
+        TEMPLATE + f"\n{template_heading(PLAN_NAME)}\n\n{menus}{template_heading(CRITERIA_NAME)}\n\nNo red flags.\n"
     )
     result = run_check(description, CONFIG_FILE)
     assert result.returncode == 0, f"the template's own headings should pass:\n{result.stdout}"

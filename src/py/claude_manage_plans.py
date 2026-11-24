@@ -1,8 +1,9 @@
-"""List saved plans by status, and file them into the folder their status line names.
+"""List saved plans by status, file them into the folder their status line names, and archive old drafts.
 
 Saved plans live in <Claude config>/_plans/, one folder each, and plan mode's own scratch plans in
-<Claude config>/plans/, where <Claude config> is $CLAUDE_CONFIG_DIR, or ~/.claude when unset. Nothing is deleted or
-overwritten: anything that can't be moved safely is reported and left in place.
+<Claude config>/plans/, where <Claude config> is $CLAUDE_CONFIG_DIR, or ~/.claude when unset. Drafts live in
+<Claude config>/_drafts/. No file is deleted or overwritten: anything that can't be moved safely is reported and left
+in place.
 
 Usage: claude_manage_plans.py list | clean [--yes]
 """
@@ -36,6 +37,24 @@ def scratch_plans_dir():
     return config_dir() / "plans"
 
 
+def drafts_dir():
+    """Return the folder that holds drafts."""
+    return config_dir() / "_drafts"
+
+
+def drafts():
+    """Return each draft file not yet archived, leaving out symlinks and Finder's .DS_Store files."""
+    root = drafts_dir()
+    return sorted(
+        path
+        for path in root.rglob("*")
+        if path.is_file()
+        and not path.is_symlink()
+        and path.name != ".DS_Store"
+        and root / "archived" not in path.parents
+    )
+
+
 def days_since_changed(path, today):
     """Return how many days ago a file last changed."""
     return (today - date.fromtimestamp(path.stat().st_mtime)).days
@@ -67,15 +86,15 @@ def read_plan(folder, today):
 
 
 def label(path):
-    """Return a plan's path relative to the folder that holds its kind of plan."""
-    for root in (saved_plans_dir(), scratch_plans_dir()):
+    """Return a plan or draft's path relative to the folder that holds its kind."""
+    for root in (saved_plans_dir(), scratch_plans_dir(), drafts_dir()):
         if root in path.parents:
             return f"{root.name}/{path.relative_to(root)}"
     return str(path)
 
 
 def find_moves(today):
-    """Return the (source, target) moves to make, and a line for each plan to leave in place."""
+    """Return the (source, target) moves to make, and a line for each plan or draft to leave in place."""
     wanted, left = [], []
     for folder in saved_plans():
         status, _ = read_plan(folder, today)
@@ -86,6 +105,9 @@ def find_moves(today):
     for path in sorted(scratch_plans_dir().glob("*.md")):
         if path.is_file() and days_since_changed(path, today) >= MAX_AGE_DAYS:
             wanted.append((path, scratch_plans_dir() / "archive" / path.name))
+    for path in drafts():
+        if days_since_changed(path, today) >= MAX_AGE_DAYS:
+            wanted.append((path, drafts_dir() / "archived" / path.relative_to(drafts_dir())))
     moves = []
     for source, target in wanted:
         if os.path.lexists(target) or target in [taken for _, taken in moves]:
@@ -115,8 +137,15 @@ def list_plans(today):
     print("\n".join(text for text, plans in zip(printed, groups.values()) if plans) or "No saved plans.")
 
 
+def remove_emptied_folders(folder):
+    """Remove a drafts subfolder that a move left empty, and each parent it empties in turn."""
+    while drafts_dir() in folder.parents and not any(folder.iterdir()):
+        folder.rmdir()
+        folder = folder.parent
+
+
 def clean_plans(today, assume_yes):
-    """File saved plans and archive old scratch plans, listing the moves and asking first unless assume_yes."""
+    """File saved plans and archive old scratch plans and drafts, listing the moves and asking unless assume_yes."""
     moves, left = find_moves(today)
     for line in left:
         print(f"Left in place: {line}")
@@ -141,16 +170,17 @@ def clean_plans(today, assume_yes):
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
         source.rename(target)
+        remove_emptied_folders(source.parent)
         moved += 1
-    print(f"Moved {moved} plan(s) into their status or archive folder.")
+    print(f"Moved {moved} item(s) into their status or archive folder.")
 
 
 def main(argv=None, today=None):
     """Run the command named on the command line."""
-    parser = argparse.ArgumentParser(description="List or file saved plans.")
+    parser = argparse.ArgumentParser(description="List or file saved plans, and archive old drafts.")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("list", help="list saved plans by status")
-    clean = commands.add_parser("clean", help="file saved plans and archive old scratch plans")
+    clean = commands.add_parser("clean", help="file saved plans and archive old scratch plans and drafts")
     clean.add_argument("--yes", action="store_true", help="move without asking")
     args = parser.parse_args(argv)
     today = today or date.today()

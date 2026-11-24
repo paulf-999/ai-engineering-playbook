@@ -25,7 +25,7 @@ A plan of 15 lines or more has only these sections, in order. Open each with its
 ## 🔨 Building and review
 
 - 🔁 **Feedback loop:** run the repo's test command, such as `make test`, before calling a step done, and fix what fails rather than skip it.
-- 👀 **Review:** paste the Spec into the PR's "Plan Spec" section when it has one, then check the diff against it before merge.
+- 👀 **Review:** paste the saved files into the PR's "Claude: Plan" section when it has one, then check the diff against the Spec before merge.
 
 ## 🛑 Pausing for approval
 

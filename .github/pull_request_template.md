@@ -37,10 +37,11 @@ This PR was tested as follows:
 </details>
 
 <!-- Claude config PRs only, which CI checks:
-- Changes src/claude/? Add "## :robot: Claude: Plan Spec (spec.md)" holding the approved plan's spec.md, so a reviewer
-  can check the diff against it, or say why it has none. Open it with the line "This PR was created against the
-  following Claude plan (`spec.md`):", then put the spec in "<details><summary>Show spec.md</summary> ... </details>",
-  keeping the heading outside it.
+- Changes src/claude/? Add "## :robot: Claude: Plan" holding the approved plan's saved intent.md, spec.md and plan.md,
+  so a reviewer can check the diff against them, or say why it has none. Open it with the line "This PR was created
+  against the following Claude plan:", then put each file in its own "<details><summary>Show intent.md</summary> ...
+  </details>", in that order and named to match, keeping the heading outside. Paste each file as it stands, without
+  plan.md's progress notes, home folder paths or private details.
 - Changes src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook? Also add "## :balance_scale: Claude: Evaluation Criteria".
   Open it with the line "This PR was checked against the following [evaluation criteria](<link>):", linking to
   https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md

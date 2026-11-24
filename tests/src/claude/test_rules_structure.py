@@ -386,7 +386,7 @@ def test_preference_paths_are_found_in_any_backticks():
 
 
 # working-file folders that only the working-files preference names, since an install without it never writes there
-WORKING_FILE_FOLDERS = re.compile(r"\.claude_work/|~/_drafts/|~/_errors/")
+WORKING_FILE_FOLDERS = re.compile(r"\b_(?:plans|sessions|drafts|errors)/")
 
 
 @pytest.mark.parametrize(

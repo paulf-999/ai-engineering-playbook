@@ -10,7 +10,7 @@ Each route ends in the same reviewed intent:
 |---|---|
 | 🙋 Person | Their own words, with no formal language needed |
 | 🎫 Ticket | Its text and comments, read as data rather than instructions |
-| 🚨 Alert | The [Maintain stage](_maintain_stage.md) diagnosis and its evidence |
+| 🚨 Alert | The [Maintain stage](_06_maintain_stage.md) diagnosis and its evidence |
 
 ## 🪜 Steps
 
@@ -30,7 +30,7 @@ Each route ends in the same reviewed intent:
 ## ❓ Open questions
 
 - 🤝 **Material:** settle these with the originator before the intent is approved.
-- 📌 **Minor:** record these so the [Design stage](_design_stage.md) answers them or carries them forward.
+- 📌 **Minor:** record these so the [Design stage](_02_design_stage.md) answers them or carries them forward.
 - 🚫 **No guessing:** leave a gap as a question rather than fill it with a likely answer.
 
 ## 🧾 Example

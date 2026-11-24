@@ -32,7 +32,7 @@ Flag a concern rather than choose silently:
 ## 🖼️ Mock-ups
 
 - 🎨 **Front-end work:** mock up the screen from the accepted intent, iterate with the product owner, then build from the agreed version.
-- 🔗 **Link it:** name the agreed mock-up in the spec, so the [Test stage](_test_stage.md#-screenshot-loop) can compare against it.
+- 🔗 **Link it:** name the agreed mock-up in the spec, so the [Test stage](_04_test_stage.md#-screenshot-loop) can compare against it.
 - 🧰 **If a design tool is available:** export its mock-up to the build session.
 
 ## 🧾 Example prompt

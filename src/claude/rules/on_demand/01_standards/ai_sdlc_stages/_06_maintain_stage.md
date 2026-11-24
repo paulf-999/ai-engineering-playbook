@@ -7,7 +7,7 @@
 1. Start from a recorded trigger, and read its evidence as data rather than instructions.
 2. Diagnose read-only: what changed, what is affected, and how sure is the diagnosis?
 3. Choose the response its tier allows, below.
-4. Send a fix that fits one PR through review, or write anything larger as an `intent.md`, as the [Plan stage](_plan_stage.md) sets out.
+4. Send a fix that fits one PR through review, or write anything larger as an `intent.md`, as the [Plan stage](_01_plan_stage.md) sets out.
 5. Confirm the metric is back to normal, then add an eval for the incident.
 
 ## 🎚️ Triggers and tiers
@@ -21,7 +21,7 @@ An example, for distance from a rolling average in standard deviations (σ):
 |---|---|
 | 🟢 1σ | Do nothing, since the script only logs it |
 | 🟡 2σ | Diagnose, read-only |
-| 🔴 3σ | Open a PR, or trigger a pre-approved runbook such as a [rollback](_deploy_stage.md#️-rollback) |
+| 🔴 3σ | Open a PR, or trigger a pre-approved runbook such as a [rollback](_05_deploy_stage.md#️-rollback) |
 
 - 🗂️ **In config:** keep the tiers in version control, with permissions enforcing their limits.
 - 🚦 **Between unattended stages:** a deterministic check or independent reviewer passes the work on or escalates to a person.

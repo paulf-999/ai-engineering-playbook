@@ -41,7 +41,7 @@ For each artefact, such as a requirement or design, name one authoritative syste
 - 🧰 **Skills:** write one for knowledge that must be applied consistently, with a policy owner, and test several phrasings trigger it.
 - 🪝 **Hooks:** back a policy that must always hold, such as protected paths or formatting, since a skill only advises.
 - ⚡ **Hook speed:** keep them fast and scoped to the changed file, leaving full test runs to the commit or PR.
-- 🚦 **Approval prompts:** keep these for [Deploy stage](_deploy_stage.md#-approval-gates) gates, so parallel sessions aren't held up.
+- 🚦 **Approval prompts:** keep these for [Deploy stage](_05_deploy_stage.md#-approval-gates) gates, so parallel sessions aren't held up.
 
 Read the [guiding principles](../claude_config/guiding_principles.md) before changing any of these.
 

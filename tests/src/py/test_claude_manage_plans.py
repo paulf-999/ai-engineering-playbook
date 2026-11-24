@@ -1,4 +1,4 @@
-"""Tests for the plan manager: listing saved plans by status, and filing plans without overwriting any."""
+"""Tests for the plan manager: listing saved plans by status, and filing plans and drafts without overwriting any."""
 
 import importlib
 import os
@@ -38,9 +38,9 @@ def status_line(status, updated=TODAY):
     return f"**Plan status:** {status} · updated {updated}"
 
 
-def make_scratch(config, name, age_days):
-    """Write a scratch plan last changed age_days ago and return its path."""
-    path = config / "plans" / name
+def make_scratch(config, name, age_days, folder="plans"):
+    """Write a scratch plan, or a file in another config folder, last changed age_days ago and return its path."""
+    path = config / folder / name
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(name)
     changed = datetime(TODAY.year, TODAY.month, TODAY.day, 12) - timedelta(days=age_days)
@@ -126,6 +126,49 @@ def test_only_top_level_markdown_scratch_plans_are_archived(home):
     kept = [make_scratch(home / "config", name, 20) for name in ["notes.txt", "draft/x.md"]]
     run("clean", "--yes")
     assert all(path.exists() for path in kept)
+
+
+@pytest.mark.parametrize(("age", "archived"), [(13, False), (14, True)])
+@pytest.mark.parametrize("name", ["x.csv", "general/x.md", "general/notes/x.md"])
+def test_drafts_are_archived_at_14_days(home, name, age, archived):
+    """A draft of any type is archived under its own subfolder once unchanged for 14 days."""
+    path = make_scratch(home / "config", name, age, "_drafts")
+    run("clean", "--yes")
+    assert path.exists() is not archived
+    assert (home / "config/_drafts/archived" / name).exists() is archived
+
+
+def test_archiving_drafts_removes_only_emptied_folders(home):
+    """A folder left empty goes, while one that still holds a recent draft stays, and so does _drafts/ itself."""
+    make_scratch(home / "config", "pr/deep/x.md", 14, "_drafts")
+    make_scratch(home / "config", "general/old.md", 14, "_drafts")
+    recent = make_scratch(home / "config", "general/new.md", 1, "_drafts")
+    run("clean", "--yes")
+    drafts = home / "config/_drafts"
+    assert recent.exists()
+    assert sorted(path.name for path in drafts.iterdir()) == ["archived", "general"]
+
+
+def test_archived_drafts_ds_store_and_symlinks_stay(home, capsys):
+    """Drafts archived already, Finder's .DS_Store files and symlinks aren't moved."""
+    kept = [make_scratch(home / "config", name, 20, "_drafts") for name in ["archived/general/x.md", ".DS_Store"]]
+    target = make_scratch(home / "config", "x.md", 20, "elsewhere")
+    link = home / "config/_drafts/link.md"
+    link.symlink_to(target)
+    run("clean", "--yes")
+    assert "Nothing to move" in capsys.readouterr().out
+    assert all(path.exists() for path in [*kept, target]) and link.is_symlink()
+
+
+def test_draft_name_clash_is_reported_and_left(home, capsys):
+    """A draft whose name is archived already stays, and the archived copy is unchanged."""
+    path = make_scratch(home / "config", "general/x.md", 20, "_drafts")
+    archived = home / "config/_drafts/archived/general/x.md"
+    archived.parent.mkdir(parents=True)
+    archived.write_text("original")
+    run("clean", "--yes")
+    assert "_drafts/general/x.md" in capsys.readouterr().out
+    assert path.exists() and archived.read_text() == "original"
 
 
 def test_config_folder_defaults_to_dot_claude(home, monkeypatch):
@@ -222,4 +265,4 @@ def test_clean_with_yes_prints_only_the_count(home, capsys):
     for name in ("a.md", "b.md"):
         make_scratch(home / "config", name, 14)
     run("clean", "--yes")
-    assert capsys.readouterr().out == "Moved 3 plan(s) into their status or archive folder.\n"
+    assert capsys.readouterr().out == "Moved 3 item(s) into their status or archive folder.\n"

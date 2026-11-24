@@ -19,7 +19,7 @@ SHELL = /bin/sh
 # make evals RULES=1 RUNS=<n>	# set the rule evals' runs per condition, 3 by default, or the README evals' readers per persona, 4
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make list_plans	# list your saved plans by status, flagging misfiled and stale ones
-# make clean_plans	# file saved plans by status and archive old scratch plans, after a preview
+# make clean_plans	# file saved plans by status and archive old scratch plans and drafts, after a preview
 # make clean		# delete the pytest, ruff and Python caches
 
 #=======================================================================

@@ -107,6 +107,16 @@ def test_a_decisions_score_under_10_is_blocked_and_sent_to_the_user(tmp_path):
     assert "ask the user" in result.stderr.lower(), f"the reason should send Claude to the user:\n{result.stderr}"
 
 
+def test_findings_nested_in_the_scores_are_read_as_findings(tmp_path):
+    """A reply with findings inside scores passes when every theme is 10, and otherwise lists them as findings."""
+    stub = _make_stub(tmp_path)
+    result = stub(LONG_PLAN, {"scores": ALL_TENS | {"findings": []}})
+    assert result.returncode == 0 and result.stdout == "", f"an all-10 plan should be allowed:\n{result.stderr}"
+    result = stub(LONG_PLAN, {"scores": ALL_TENS | {"spec": 8, "findings": ["spec: no Out of scope bullet."]}})
+    assert result.returncode == BLOCKED, f"the plan should be blocked:\n{result.stderr}"
+    assert "\n- spec: no Out of scope bullet." in result.stderr, f"the findings should be listed:\n{result.stderr}"
+
+
 def test_the_third_submission_passes_with_the_findings_for_the_user(tmp_path):
     """After two blocks in a session, the next plan exits 0 with the findings in additionalContext."""
     stub = _make_stub(tmp_path)

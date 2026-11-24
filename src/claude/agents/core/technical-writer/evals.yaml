@@ -19,6 +19,7 @@ evals:
       run:
           prompt: |
               Draft the PR description for this branch, using only this repo template, and reply with the body only.
+              I confirm the text below is the repo's template to use, so don't look for the file.
               Branch: feature/proj_1234_add_retry. The change adds a retry to the export job.
 
               Template (.github/pull_request_template.md):

@@ -47,6 +47,6 @@ Outside reading the design doesn't cite yet, but which each gives a view the oth
 - ⚖️ **[METR's trial of early-2025 AI on experienced developers](https://arxiv.org/abs/2507.09089):** a randomised trial showing felt speed-ups can hide real slowdowns.
 - 🧰 **[Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html):** when to guide Claude and when to enforce, from outside Anthropic.
 - 📘 **[Best practices for Claude Code](https://code.claude.com/docs/en/best-practices):** Anthropic's split between guidance Claude may follow and rules that always hold.
-- 🏛️ **[The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf):** a shared method and vocabulary for enterprise architecture.
+- 🏛️ **[The TOGAF Standard, 10th Edition](https://www.opengroup.org/togaf)** ([summary](reference_material/further_reading/togaf_standards.md)): a shared method and vocabulary for enterprise architecture.
 
 To add a rule, skill, hook or agent, go straight to the [evaluation criteria](design_principles/02_evaluation_criteria.md).

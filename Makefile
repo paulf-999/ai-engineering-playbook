@@ -18,6 +18,8 @@ SHELL = /bin/sh
 # make evals README=1	# score the README with cold readers playing a new and an experienced Claude Code user
 # make evals RULES=1 RUNS=<n>	# set the rule evals' runs per condition, 3 by default, or the README evals' readers per persona, 4
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
+# make list_plans	# list your saved plans by status, flagging misfiled and stale ones
+# make clean_plans	# file saved plans by status and archive old scratch plans, after a preview
 # make clean		# delete the pytest, ruff and Python caches
 
 #=======================================================================
@@ -74,12 +76,18 @@ evals: $(EVALS_VENV)/.evals_ready
 	@echo "${INFO}\nCalled makefile target 'evals'. Run the $(EVAL_RUNNER) evals.${COLOUR_OFF}\n"
 	@$(EVALS_VENV)/bin/python src/py/claude_run_$(EVAL_RUNNER)_evals.py
 
+list_plans:
+	@python3 src/py/claude_manage_plans.py list
+
+clean_plans:
+	@python3 src/py/claude_manage_plans.py clean
+
 clean:
 	@rm -rf .pytest_cache .ruff_cache
 	@find src tests -name __pycache__ -type d -prune -exec rm -rf {} +
 
 # Phony targets
-.PHONY: all help deps install uninstall test clean context_cost evals
+.PHONY: all help deps install uninstall test clean context_cost evals list_plans clean_plans
 
 # .PHONY tells Make that these targets don't represent files
 # This prevents conflicts with any files named "all" or "clean"

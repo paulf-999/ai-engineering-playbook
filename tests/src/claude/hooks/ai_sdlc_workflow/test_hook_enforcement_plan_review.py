@@ -13,7 +13,9 @@ HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "ai_sdlc_workflow" / "hook_enfor
 BLOCKED = 2
 # a plan long enough to review, with the Intent and Spec headings the sections hook requires
 LONG_PLAN = "## 1. Intent\n\nWhy.\n\n## 2. Spec\n\nWhat.\n\n## 3. Plan\n\n" + steps(MIN_PLAN_LINES)
-ALL_TENS = {"intent": 10, "spec": 10, "plan": 10, "writing_style": 10}
+ALL_TENS = {"intent": 10, "spec": 10, "plan": 10, "writing_style": 10, "decisions": 10}
+# a verdict with no decisions score
+NO_DECISIONS = {"scores": {theme: 10 for theme in ALL_TENS if theme != "decisions"}, "findings": []}
 # a stub claude that saves its prompt, then prints the reply file and exits with STUB_EXIT
 STUB_CLAUDE = """#!/bin/bash
 cat > "${STUB_DIR}/prompt.txt"
@@ -95,6 +97,16 @@ def test_a_plan_scored_under_10_is_blocked_with_the_findings(tmp_path):
     assert "Spec has no Out of scope bullet." in result.stderr, "the reason should list the findings"
 
 
+def test_a_decisions_score_under_10_is_blocked_and_sent_to_the_user(tmp_path):
+    """A decisions score under 10 exits 2, and tells Claude to ask the user about those findings."""
+    stub = _make_stub(tmp_path)
+    verdict = {"scores": ALL_TENS | {"decisions": 6}, "findings": ["decisions: the database choice isn't agreed."]}
+    result = stub(LONG_PLAN, verdict)
+    assert result.returncode == BLOCKED, f"the plan should be blocked:\n{result.stderr}"
+    assert "decisions 6/10" in result.stderr, f"the reason should give the score:\n{result.stderr}"
+    assert "ask the user" in result.stderr.lower(), f"the reason should send Claude to the user:\n{result.stderr}"
+
+
 def test_the_third_submission_passes_with_the_findings_for_the_user(tmp_path):
     """After two blocks in a session, the next plan exits 0 with the findings in additionalContext."""
     stub = _make_stub(tmp_path)
@@ -106,7 +118,15 @@ def test_the_third_submission_passes_with_the_findings_for_the_user(tmp_path):
     assert stub(LONG_PLAN, verdict, session="s2").returncode == BLOCKED, "another session gets its own rounds"
 
 
-@pytest.mark.parametrize(("raw", "stub_exit"), [("", 1), ("not json", 0), (json.dumps({"result": "no verdict"}), 0)])
+@pytest.mark.parametrize(
+    ("raw", "stub_exit"),
+    [
+        ("", 1),
+        ("not json", 0),
+        (json.dumps({"result": "no verdict"}), 0),
+        (json.dumps({"result": json.dumps(NO_DECISIONS)}), 0),
+    ],
+)
 def test_a_failed_review_lets_the_plan_through_with_a_note(tmp_path, raw, stub_exit):
     """When claude fails or returns no verdict, the hook exits 0 and notes that the plan wasn't reviewed."""
     stub = _make_stub(tmp_path)

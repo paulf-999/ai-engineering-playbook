@@ -15,11 +15,12 @@ A plan of 15 lines or more has only these sections, in order. Open each with its
 | Section | First line | Then |
 |---|---|---|
 | `Executive summary` | None | **Outcome**, **Decisions agreed** and **Assumptions** bullets, saying "none" where there are none |
-| `1. Intent` | "Why this change is needed, and how we'll know it worked." | **Why** and **Success** bullets |
+| `1. Intent` | "Why this change is needed, and how we'll know it worked." | **Problem**, **Proposed outcome**, **Success**, **Affected users and systems**, **Constraints** and **Open questions** bullets, saying "none" where empty |
 | `2. Spec` | "What changes, in which files, and what's deliberately left out." | **Change**, **Files changed**, **Why** and **Out of scope** bullets, agreed before building |
 | `3. Plan` | "The steps to build it, each with the check that proves it's done." | Numbered steps, each with its check, and no other headings |
 
 - 💾 **Saved files:** once you approve, the saved-plans preference, if installed, saves the sections as `intent.md`, `spec.md` and `plan.md`, which keeps the summary.
+- 📏 **Measures:** time to a saved `intent.md`, survival rate, and intent edits after the spec, as the saved-plans preference defines.
 
 ## 🔨 Building and review
 

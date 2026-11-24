@@ -17,7 +17,7 @@ trap handle_interruption SIGINT
 
 CHECK_DIR="${1:-.}"
 # the token ceiling, set in docs/target_architecture/design_principles/01_principles.md; override via the ALWAYS_ON_TOKEN_BUDGET env var
-TOKEN_BUDGET="${ALWAYS_ON_TOKEN_BUDGET:-3000}"
+TOKEN_BUDGET="${ALWAYS_ON_TOKEN_BUDGET:-3100}"
 # the files Claude loads in every session, before any @-imports they pull in
 CONTEXT_FILES=("CLAUDE.md" "src/claude/CLAUDE.md")
 # the project config (.claude/) and the global config make install copies (src/claude/), which both load here

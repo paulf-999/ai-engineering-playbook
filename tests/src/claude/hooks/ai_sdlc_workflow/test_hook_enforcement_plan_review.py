@@ -9,6 +9,17 @@ from _paths import REPO_ROOT
 from test_hook_enforcement_plan_sections import MIN_PLAN_LINES, exit_plan_input, steps
 
 HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "ai_sdlc_workflow" / "hook_enforcement_plan_review.sh"
+RULES = REPO_ROOT / "src" / "claude" / "rules"
+WORKFLOW_RULE = RULES / "always_on" / "01_standards" / "ai_sdlc_workflow.md"
+SAVING_RULE = RULES / "on_demand" / "02_preferences" / "claude_working_files" / "_saving_plans.md"
+INTENT_SECTIONS = (
+    "Problem",
+    "Proposed outcome",
+    "Success",
+    "Affected users and systems",
+    "Constraints",
+    "Open questions",
+)
 # exit code 2 is how a PreToolUse hook tells Claude Code to block the call
 BLOCKED = 2
 # a plan long enough to review, with the Intent and Spec headings the sections hook requires
@@ -157,3 +168,26 @@ def test_each_review_outcome_is_logged_with_its_scores(tmp_path):
     outcomes = [line.split(" outcome=")[1].split()[0] for line in lines]
     assert outcomes == ["blocked", "blocked", "capped", "passed", "unreviewed"], f"unexpected log:\n{lines}"
     assert "session=s1" in lines[0] and "plan=9" in lines[0], f"a line should give its session and scores:\n{lines[0]}"
+
+
+def test_the_hook_prompt_and_both_rules_name_the_six_intent_sections(tmp_path):
+    """The reviewer's intent criterion, the workflow rule and the saving template name the same sections."""
+    stub = _make_stub(tmp_path)
+    stub(LONG_PLAN, {"scores": ALL_TENS, "findings": []})
+    criterion = stub.prompt.read_text().split("- intent:")[1].split("- spec:")[0]
+    # the prompt wraps its lines, so a section's name can span two of them
+    criterion = " ".join(criterion.split())
+    row = next(line for line in WORKFLOW_RULE.read_text().splitlines() if line.startswith("| `1. Intent`"))
+    template = SAVING_RULE.read_text()
+    for section in INTENT_SECTIONS:
+        assert section in criterion, f"the hook's intent criterion should name {section}"
+        assert f"**{section}**" in row, f"the workflow rule's Intent row should name {section}"
+        assert f"\n## {section}\n" in template, f"the saving rule's template should have a {section} section"
+
+
+def test_the_saving_rule_records_what_the_measures_need():
+    """The saving rule names the four recorded fields, both decisions and the folder for a closed intent."""
+    rule = SAVING_RULE.read_text()
+    fields = ("**Started:**", "**Saved:**", "**Decision:** accepted", "**Edits after spec:**")
+    for text in (*fields, "**Decision:** closed", "_plans/dropped/"):
+        assert text in rule, f"the saving rule should give {text}"

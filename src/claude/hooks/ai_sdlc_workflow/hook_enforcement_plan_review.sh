@@ -39,7 +39,9 @@ review_prompt() {
     cat << 'EOF'
 You review a software change plan cold. Score each theme from 0 to 10, where 10 means nothing to fix.
 
-- intent: an Intent section with a Why bullet and a Success bullet, where Success is specific enough to check.
+- intent: an Intent section with all six of these bullets: Problem, Proposed outcome, Success, Affected users and
+  systems, Constraints and Open questions. Check for each by name, as a missing one loses 2 points, even when it would
+  only say "none". Success is specific enough to check, and "none" is a fine answer for any other bullet.
 - spec: a Spec section with Change, Files changed, Why and Out of scope bullets, naming the actual files.
 - plan: a Plan section of numbered steps, each with the check that proves it's done. The only sections are an Executive
   summary, Intent, Spec and Plan, in that order, so any other section loses points.

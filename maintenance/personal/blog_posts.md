@@ -4,13 +4,31 @@
 
 ## 🗣️ Voice
 
-Drawn from posts on [the maintainer's Medium page](https://medium.com/@paul-fry):
+Drawn from posts on [the maintainer's Medium page](https://medium.com/@paul-fry), and the maintainer's own preferences:
 
-- 🧱 **Structure:** open with an italic "This post…" line, then an Agenda, numbered sections, a Summary and Useful Resources.
+- 🧱 **Structure:** open with an italic "This post…" line, then follow the Structure section below.
 - 💬 **Phrases:** use plain first-person ones, such as "I'd recommend", "To be honest", "i.e.,", "e.g.," and "described below".
 - ❓ **Habits:** ask the odd rhetorical question, name the caveats, and sign off briefly, such as "Enjoy!" or "Good luck!".
 - 🔗 **Links:** list resources as "Title | site".
 - 🚫 **Avoid:** slogans, dramatic one-line paragraphs, emoji bullets, and tables, which Medium lacks.
+
+## 🏗️ Structure
+
+Lead with the solution, then work backwards to the detail:
+
+1. **TL;DR:** up to three bullets giving the answer, the evidence with its main caveat, and what to do first.
+2. **Solution:** the checklist, rules or code.
+3. **Why:** the problem and the evidence.
+4. **Detail:** how to do it, and the limits.
+5. **Close:** "If you only do one thing", then Useful Resources, with no Agenda or Summary.
+
+## 😏 Humour and visuals
+
+- 🎯 **Humour:** use two or three light jokes or sarcastic asides, aimed at the maintainer or the tools, never at colleagues.
+- 🚫 **Serious parts:** keep jokes out of figures, caveats and instructions.
+- ✍️ **Whose jokes:** suggest lines for the maintainer to swap, since jokes drift from their voice first.
+- 🖼️ **Visuals:** use at most three, preferring the maintainer's own diagrams and recordings, with alt text and a check of any logo's or GIF's terms.
+- 😀 **Emojis:** use a few in headings only.
 
 ## ✏️ Writing
 
@@ -24,7 +42,7 @@ Follow [`claude_writing_style.md`](../../src/claude/rules/always_on/02_preferenc
 ## ⏱️ Reading time
 
 - 🎯 **Target:** 4 minutes, and 5 at most.
-- 🧮 **Measure:** words outside code ÷ 238, plus 3 seconds per code line, leaving out the Agenda and Useful Resources.
+- 🧮 **Measure:** words outside code ÷ 238, plus 3 seconds per code line, leaving out Useful Resources.
 - 🪓 **Over 5:** split the post rather than cut its evidence or caveats.
 - 🔎 **After a cut:** have a cold reader compare the old and new versions for dropped caveats.
 
@@ -40,6 +58,7 @@ Score each from 0 to 10, where 10 means nothing to fix:
 | 🎁 **Usefulness** | The reader leaves with something specific to do |
 | 🔬 **Honesty** | Claims are supported or marked as opinion, and limits are stated |
 | 💡 **Insight** | It says something readers are unlikely to have met elsewhere, resting on evidence |
+| 😏 **Engagement** | The reader wants to keep going and share it, without losing trust in it |
 | 🎯 **Focus** | One clear takeaway, with no padding or repetition |
 
 The insight score uses these anchors:

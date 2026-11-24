@@ -24,8 +24,11 @@ REVIEW_TIMEOUT=240
 # the writing style rule, at the same path relative to this hook in the repo and in an install
 STYLE_FILE="$(dirname "${BASH_SOURCE[0]}")/../../rules/always_on/02_preferences/claude_writing_style.md"
 # a verdict whose five scores are numbers, pulled from the reviewer's reply even when it's wrapped in a code fence
+# it keeps only those scores, since the reviewer sometimes puts its findings inside them
 VERDICT_FILTER='.result | capture("(?s)(?<json>\\{.*\\})").json | fromjson
-    | select([.scores.intent, .scores.spec, .scores.plan, .scores.writing_style, .scores.decisions] | all(type == "number"))'
+    | select([.scores.intent, .scores.spec, .scores.plan, .scores.writing_style, .scores.decisions] | all(type == "number"))
+    | .findings = (.findings // .scores.findings)
+    | .scores |= {intent, spec, plan, writing_style, decisions}'
 
 #=======================================================================
 # Functions

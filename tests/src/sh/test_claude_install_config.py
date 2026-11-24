@@ -5,6 +5,7 @@ import os
 import pty
 import re
 import subprocess
+import tempfile
 
 import pytest
 from _config_files import AUTHORING_TEMPLATES, GIT_ENV, is_preference, tracked_config_files
@@ -17,28 +18,30 @@ SOURCE = REPO_ROOT / "src" / "claude"
 
 def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
     """Run the script from cwd against a target, typing answer at a pseudo-terminal, or with no terminal if None."""
-    env = {**os.environ, **GIT_ENV, "CLAUDE_CONFIG_DIR": str(target), **extra_env}
-    if answer is None:
-        return subprocess.run(
-            [str(SCRIPT)], cwd=cwd, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, check=False
-        )
-    # a pseudo-terminal makes [[ -t 0 ]] true, as it is when a person runs make install
-    controller, terminal = pty.openpty()
-    try:
-        os.write(controller, f"{answer}\n".encode())
-        return subprocess.run(
-            [str(SCRIPT)],
-            cwd=cwd,
-            env=env,
-            stdin=terminal,
-            capture_output=True,
-            text=True,
-            check=False,
-            timeout=30,
-        )
-    finally:
-        os.close(terminal)
-        os.close(controller)
+    # a temporary home, outside the target, so an install never touches the real saved plans
+    with tempfile.TemporaryDirectory() as home:
+        env = {**os.environ, **GIT_ENV, "HOME": home, "CLAUDE_CONFIG_DIR": str(target), **extra_env}
+        if answer is None:
+            return subprocess.run(
+                [str(SCRIPT)], cwd=cwd, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, check=False
+            )
+        # a pseudo-terminal makes [[ -t 0 ]] true, as it is when a person runs make install
+        controller, terminal = pty.openpty()
+        try:
+            os.write(controller, f"{answer}\n".encode())
+            return subprocess.run(
+                [str(SCRIPT)],
+                cwd=cwd,
+                env=env,
+                stdin=terminal,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=30,
+            )
+        finally:
+            os.close(terminal)
+            os.close(controller)
 
 
 def installed_path(source):
@@ -562,3 +565,62 @@ def test_opting_in_and_out_then_uninstalling_leaves_only_the_users_files(tmp_pat
     assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
     assert installed_files(config) - {"settings.json"} == {"CLAUDE.md"}, "only the user's own files should remain"
     assert (config / "CLAUDE.md").read_text() == "my old config\n", "the user's CLAUDE.md should be restored"
+
+
+def seed_plans(tmp_path):
+    """Save a finished plan in active/ and an old scratch plan, returning (home, config, plan, scratch plan)."""
+    home, config = tmp_path / "home", tmp_path / "config"
+    plan = home / ".claude_work" / "_plans" / "active" / "x"
+    plan.mkdir(parents=True)
+    (plan / "plan.md").write_text("# Plan\n\n**Plan status:** ✅ Done · updated 2026-01-01\n", encoding="utf-8")
+    scratch = config / "plans" / "x.md"
+    scratch.parent.mkdir(parents=True)
+    scratch.write_text("scratch\n")
+    os.utime(scratch, (0, 0))
+    return home, config, plan, scratch
+
+
+def test_a_global_install_files_plans(tmp_path):
+    """A plain install says it files plans, then files saved plans and archives old scratch plans."""
+    home, config, plan, scratch = seed_plans(tmp_path)
+    result = run_install(config, answer="install", HOME=str(home))
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert "files saved plans" in result.stdout, "the confirmation should mention filing"
+    assert not plan.exists() and (home / ".claude_work" / "_plans" / "done" / "x" / "plan.md").is_file()
+    assert not scratch.exists() and (config / "plans" / "archive" / "x.md").is_file()
+
+
+@pytest.mark.parametrize("skip", ["PROJECT", "PREFERENCES", "UNINSTALL", "cancelled"])
+def test_other_runs_leave_plans_alone(tmp_path, skip):
+    """A project install, PREFERENCES=0, an uninstall and a cancelled install file nothing."""
+    home, config, plan, scratch = seed_plans(tmp_path)
+    (tmp_path / "project").mkdir()
+    answer, code, extra_env = {
+        "PROJECT": ("install", 0, {"PROJECT": str(tmp_path / "project")}),
+        "PREFERENCES": ("install", 0, {"PREFERENCES": "0"}),
+        "UNINSTALL": ("uninstall", 0, {"UNINSTALL": "1"}),
+        "cancelled": ("no", 1, {}),
+    }[skip]
+    if skip == "UNINSTALL":
+        # a manifest and one installed file give the uninstall something to remove
+        (config / "CLAUDE.md").write_text("installed\n")
+        (config / ".playbook_install_manifest").write_text("CLAUDE.md\n")
+    result = run_install(config, answer=answer, HOME=str(home), **extra_env)
+    assert result.returncode == code, f"unexpected exit:\n{result.stdout}{result.stderr}"
+    assert plan.exists() and scratch.exists(), "no plan should move"
+    assert ("files saved plans" in result.stdout) is (skip == "cancelled"), "only a filing install should mention it"
+
+
+@pytest.mark.parametrize("exit_code", [1, 127])
+def test_a_filing_failure_only_warns(tmp_path, exit_code):
+    """A script error, or the 127 a shell gives for a missing python3, warns, and the install still succeeds."""
+    home, config, plan, _ = seed_plans(tmp_path)
+    python = tmp_path / "bin" / "python3"
+    python.parent.mkdir()
+    python.write_text(f"#!/bin/sh\nexit {exit_code}\n")
+    python.chmod(0o755)
+    path = f"{python.parent}{os.pathsep}{os.environ['PATH']}"
+    result = run_install(config, answer="install", HOME=str(home), PATH=path)
+    assert result.returncode == 0, f"install should still succeed:\n{result.stdout}{result.stderr}"
+    assert "plans weren't filed" in result.stdout, "the failure should be reported"
+    assert (config / "CLAUDE.md").is_file() and plan.exists()

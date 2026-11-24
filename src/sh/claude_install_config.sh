@@ -11,6 +11,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              the config's hooks and deny rules from settings.json
 #              With YES=1, install skips the typed confirmation for provisioning scripts, but never from Claude Code
 #              It adds the rules in 02_preferences/ folders unless PREFERENCES=0, but never into a PROJECT install
+#              An install with preferences also files saved plans by status, and only warns if that fails
 #              It never installs the skill, agent and rule templates, which are for authoring in this repo
 # Usage: [PROJECT=<repo> [HOOKS=1]] [PREFERENCES=0] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
 #        your own terminal or in a provisioning script; make install and make uninstall call it)
@@ -250,6 +251,9 @@ confirm_install() {
     fi
     echo
     echo "It also updates settings.json, backing up anything it changes to $(dirname "${BACKUP_DIR}")."
+    if [[ "${PREFERENCES}" == 1 ]]; then
+        echo "It then files saved plans by their status, and archives plan mode's own plans unchanged for 14 days."
+    fi
     [[ "${ASSUME_YES}" == 1 ]] && return 0
     echo
     read -r -p "$(echo -e "${DEBUG}Type 'install' to continue:${COLOUR_OFF} ")" answer || true
@@ -416,6 +420,14 @@ register_settings() {
     log_message "${INFO}" "Updated the config's hooks and deny rules in ${SETTINGS}."
 }
 
+# File saved plans by status, which is a preference, so it's skipped with PREFERENCES=0 and in a project
+file_plans() {
+    [[ "${PREFERENCES}" == 1 ]] || return 0
+    if ! python3 "$(dirname "${BASH_SOURCE[0]}")/../py/claude_manage_plans.py" clean --yes; then
+        log_message "${WARNING}" "Saved plans weren't filed - run make clean_plans to see why."
+    fi
+}
+
 #=======================================================================
 # Main script logic
 #=======================================================================
@@ -437,6 +449,7 @@ else
     install_files
     remove_old_files
     register_settings
+    file_plans
 fi
 
 print_section_header "${DEBUG}" "Script execution completed." && echo

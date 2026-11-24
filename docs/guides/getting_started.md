@@ -48,7 +48,7 @@ Run the command you chose in your own terminal, since the installer asks you to 
 
 A one-repo install leaves out the check that sends Claude back to run the repo's tests before it finishes, and the one that moves it into its own copy of the repo, so add `HOOKS=1` to include them.
 
-An "Everywhere" install includes the scannable reply format and saved plans, unless you add `PREFERENCES=0`, while a one-repo install never includes them. The [preferences table](../../src/claude/README.md#-preferences) says what each does.
+An "Everywhere" install includes the scannable reply format and saved plans, unless you add `PREFERENCES=0`, while a one-repo install never includes them. With saved plans, each install also moves every saved plan into the folder for its status, and archives plan mode's own plans unchanged for 14 days. The [preferences table](../../src/claude/README.md#-preferences) says what each does.
 
 ## 🧪 4. Try it
 

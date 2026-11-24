@@ -54,8 +54,7 @@ You review a software change plan cold. Score each theme from 0 to 10, where 10 
   decision, and an Out of scope line that only leaves out what the outcome doesn't cover, aren't separate choices. You
   can't see the user's conversation, so take the listed decisions as agreed.
 
-Each section opens with a fixed first line the team's workflow requires, such as "Why this change is needed, and how
-we'll know it worked.", so don't mark those lines down. Judge the plan text alone.
+Judge the plan text alone.
 
 Reply with only this JSON, giving one short finding per point lost, each opening with its theme's name and a colon:
 {"scores": {"intent": 0, "spec": 0, "plan": 0, "writing_style": 0, "decisions": 0}, "findings": ["..."]}

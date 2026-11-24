@@ -44,7 +44,7 @@ Each rule is a standard, a team convention or a preference, which decides whethe
 |---|---|
 | 📤 **Reply format** | Opens each longer reply with a bold Summary, short themed bullets and numbered next steps |
 | 🔑 **Bold-keyword bullets** | Starts each rule or definition bullet with its key term in bold, in replies, docs, tickets and commits |
-| 🗂️ **Saved plans** | Saves each approved plan, with its intent and spec, to `~/.claude_work/_plans/` |
+| 🗂️ **Saved plans** | Saves each approved plan, with its intent and spec, to `~/.claude_work/_plans/`, in a folder named for its status |
 | 📝 **TODO list** | Adds "add to my TODOs" items to a table in your config's `TODO.md` |
 | ✏️ **Writing style** | Keeps prose brief, with one idea per sentence, and says what something does before how it works |
 | 🧱 **Markdown style** | Gives headings, bullets and table rows an emoji, caps lists at 5 items, and opens each list with a lead-in |

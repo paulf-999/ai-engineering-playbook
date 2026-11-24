@@ -210,3 +210,12 @@ def test_no_plan_folders_is_not_an_error(home, args):
     """A machine with no plans yet gets no error and no new folders."""
     run(*args)
     assert list(Path(home).iterdir()) == []
+
+
+def test_clean_with_yes_prints_only_the_count(home, capsys):
+    """With --yes there's nothing to approve, so clean gives one line however many plans it moves."""
+    make_plan(home, "active", "finished", status_line("✅ Done"))
+    for name in ("a.md", "b.md"):
+        make_scratch(home / "config", name, 14)
+    run("clean", "--yes")
+    assert capsys.readouterr().out == "Moved 3 plan(s) into their status or archive folder.\n"

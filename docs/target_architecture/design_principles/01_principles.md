@@ -19,7 +19,7 @@ They're part of this repo's [design principles](../design_principles.md), which 
 
 These limits back the principles:
 
-- 📏 **3,000-token budget:** the most text that may load into every session, a tenth of what the [old configuration](../README.md#️-the-old-setup) loads.
+- 📏 **3,100-token budget:** the most text that may load into every session, about a tenth of what the [old configuration](../README.md#️-the-old-setup) loads.
   - **Why this size:** it's roughly what [Anthropic's advice](https://code.claude.com/docs/en/memory) to keep `CLAUDE.md` under 200 lines allows, by our estimate.
 - 🗓️ **Review every 20 tasks or 4 weeks:** often enough to drop parts that don't pay, with enough evidence to judge each one.
 - 🚩 **Two sessions, not one:** a single session where a part got in the way may be chance.

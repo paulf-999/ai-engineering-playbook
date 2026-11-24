@@ -19,7 +19,14 @@ Follow [`claude_writing_style.md`](../../src/claude/rules/always_on/02_preferenc
 - 👤 **No invented experience:** never write an anecdote, reaction, result or team detail the maintainer hasn't given, and ask for one instead.
 - 🔒 **Privacy:** leave out colleagues' names and anything that identifies an employer, and flag a story a colleague could recognise.
 - 📖 **Primary sources:** open each source before citing it, and say when it's a vendor, paywalled or only a correlation.
-- 🖼️ **Versions:** mark each draft with a status line, such as "draft v0.1.0", and put "blog" in its file name.
+- 🖼️ **Versions:** mark each draft with a status line giving its version and reading time, such as "draft v0.1.0 · ~4 min", and put "blog" in its file name.
+
+## ⏱️ Reading time
+
+- 🎯 **Target:** 4 minutes, and 5 at most.
+- 🧮 **Measure:** words outside code ÷ 238, plus 3 seconds per code line, leaving out the Agenda and Useful Resources.
+- 🪓 **Over 5:** split the post rather than cut its evidence or caveats.
+- 🔎 **After a cut:** have a cold reader compare the old and new versions for dropped caveats.
 
 ## 🏅 Quality themes
 
@@ -45,7 +52,7 @@ The insight score uses these anchors:
 ## ✅ Review and pass mark
 
 - 👥 **Readers:** 3 cold `claude -p --safe-mode` readers score each post separately, given the themes, the Writing section and sample posts.
-- 📏 **Pass:** every theme's median is 8 or more.
+- 📏 **Pass:** every theme's median is 8 or more, and the post is within its reading time.
 - 🔎 **Facts:** a separate reader checks each claim against its sources and finds none contradicted, overstated or unsupported, since voice scores rarely vary.
 - 🔁 **Rounds:** run 2 at most, then hand the open findings to the maintainer.
 - ⚠️ **Last edits:** say which edits came after the final scoring, since they're unscored.

@@ -111,16 +111,16 @@ def list_plans(today):
 
 
 def clean_plans(today, assume_yes):
-    """File saved plans and archive old scratch plans, asking first unless assume_yes."""
+    """File saved plans and archive old scratch plans, listing the moves and asking first unless assume_yes."""
     moves, left = find_moves(today)
     for line in left:
         print(f"Left in place: {line}")
     if not moves:
         print("Nothing to move.")
         return
-    for source, target in moves:
-        print(f"{label(source)} -> {label(target.parent)}/")
     if not assume_yes:
+        for source, target in moves:
+            print(f"{label(source)} -> {label(target.parent)}/")
         try:
             answer = input(f"Move these {len(moves)}? [y/N] ")
         except EOFError:
@@ -137,7 +137,7 @@ def clean_plans(today, assume_yes):
         target.parent.mkdir(parents=True, exist_ok=True)
         source.rename(target)
         moved += 1
-    print(f"Moved {moved}.")
+    print(f"Moved {moved} plan(s) into their status or archive folder.")
 
 
 def main(argv=None, today=None):

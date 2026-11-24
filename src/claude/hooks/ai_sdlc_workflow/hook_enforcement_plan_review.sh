@@ -23,9 +23,9 @@ MAX_BLOCKS=2
 REVIEW_TIMEOUT=240
 # the writing style rule, at the same path relative to this hook in the repo and in an install
 STYLE_FILE="$(dirname "${BASH_SOURCE[0]}")/../../rules/always_on/02_preferences/claude_writing_style.md"
-# a verdict whose four scores are numbers, pulled from the reviewer's reply even when it's wrapped in a code fence
+# a verdict whose five scores are numbers, pulled from the reviewer's reply even when it's wrapped in a code fence
 VERDICT_FILTER='.result | capture("(?s)(?<json>\\{.*\\})").json | fromjson
-    | select([.scores.intent, .scores.spec, .scores.plan, .scores.writing_style] | all(type == "number"))'
+    | select([.scores.intent, .scores.spec, .scores.plan, .scores.writing_style, .scores.decisions] | all(type == "number"))'
 
 #=======================================================================
 # Functions
@@ -38,14 +38,22 @@ You review a software change plan cold. Score each theme from 0 to 10, where 10 
 
 - intent: an Intent section with a Why bullet and a Success bullet, where Success is specific enough to check.
 - spec: a Spec section with Change, Files changed, Why and Out of scope bullets, naming the actual files.
-- plan: a Plan section of numbered steps, each with the check that proves it's done.
+- plan: a Plan section of numbered steps, each with the check that proves it's done. The only sections are an Executive
+  summary, Intent, Spec and Plan, in that order, so any other section loses points.
 - writing_style: the plan follows every bullet of the writing style rule below.
+- decisions: the Executive summary gives the outcome, the decisions agreed with the user and the assumptions, where "none"
+  is a fine answer for decisions or assumptions. Every material choice in the plan is listed under its decisions agreed. A
+  choice is material if it changes the outcome, scope, files or published wording, or is hard to undo. A choice isn't
+  material if it's a minor detail of how the work is done, so it can be an assumption or go unlisted. Flag only a choice
+  the plan text makes, quoting it, and never one it leaves unsaid. Detail that carries out the stated outcome or an agreed
+  decision, and an Out of scope line that only leaves out what the outcome doesn't cover, aren't separate choices. You
+  can't see the user's conversation, so take the listed decisions as agreed.
 
 Each section opens with a fixed first line the team's workflow requires, such as "Why this change is needed, and how
 we'll know it worked.", so don't mark those lines down. Judge the plan text alone.
 
-Reply with only this JSON, giving one short finding per point lost:
-{"scores": {"intent": 0, "spec": 0, "plan": 0, "writing_style": 0}, "findings": ["..."]}
+Reply with only this JSON, giving one short finding per point lost, each opening with its theme's name and a colon:
+{"scores": {"intent": 0, "spec": 0, "plan": 0, "writing_style": 0, "decisions": 0}, "findings": ["..."]}
 
 Writing style rule:
 EOF
@@ -121,5 +129,5 @@ fi
 echo $((ROUNDS + 1)) > "${ROUNDS_FILE}"
 log_review blocked "${SCORES}"
 echo "${FINDINGS}
-Fix these findings, then submit the plan again." >&2
+Ask the user about each decisions finding, fix the others yourself, then submit the plan again." >&2
 exit "${BLOCK}"

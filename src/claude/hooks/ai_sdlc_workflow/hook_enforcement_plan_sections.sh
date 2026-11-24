@@ -50,5 +50,5 @@ MISSING="$(missing_sections <<< "${PLAN}")"
 
 echo "This plan has no $(paste -sd '/' - <<< "${MISSING}") heading." \
     "Follow the SDLC workflow in rules/always_on/01_standards/ai_sdlc_workflow.md," \
-    "then open the plan with an Intent section, then a Spec section, and submit it again." >&2
+    "then open the plan with an Executive summary, then an Intent section, then a Spec section, and submit it again." >&2
 exit "${BLOCK}"

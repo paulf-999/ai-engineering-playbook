@@ -2,7 +2,7 @@
 
 # Description: Which source files install, where, and with which links and pointers
 # Usage: source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_file_selection.sh",
-#        from claude_install_config.sh, which sets the paths and inputs these functions read
+#        from claude_install_config.sh, once _paths.sh sets the paths and inputs these functions read
 
 #=======================================================================
 # Variables
@@ -25,6 +25,13 @@ REMOVED_FILES=()
 #=======================================================================
 # Functions
 #=======================================================================
+
+# Settle which files install and which are removed
+select_files() {
+    resolve_preferences
+    list_source_files
+    list_removed_files
+}
 
 # Settle PREFERENCES: 0 leaves preferences out, otherwise they install,
 # except into a project, which never gets them, since its .claude/ folder is shared

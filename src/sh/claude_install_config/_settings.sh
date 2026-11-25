@@ -2,7 +2,7 @@
 
 # Description: Keep the config's hooks and deny rules in settings.json in step, keeping every other setting
 # Usage: source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_settings.sh",
-#        from claude_install_config.sh, which sets the paths and inputs these functions read
+#        from claude_install_config.sh, once _paths.sh sets the paths and inputs these functions read
 
 #=======================================================================
 # Variables

@@ -2,7 +2,7 @@
 
 # Description: Copy files into the target, and back up, remove and restore the ones already there
 # Usage: source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_file_changes.sh",
-#        from claude_install_config.sh, which sets the paths and inputs these functions read
+#        from claude_install_config.sh, once _paths.sh sets the paths and inputs these functions read
 
 #=======================================================================
 # Variables
@@ -13,6 +13,12 @@
 #=======================================================================
 # Functions
 #=======================================================================
+
+# Install the selected files, then remove the ones the repo no longer has
+update_files() {
+    install_files
+    remove_old_files
+}
 
 # Create the folder a file path sits in, skipping mkdir when it's already there, since most files share a folder
 make_parent_folder() {

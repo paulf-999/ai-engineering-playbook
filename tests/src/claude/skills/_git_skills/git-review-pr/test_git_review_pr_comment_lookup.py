@@ -16,7 +16,7 @@ LOOKUP_FILTER = re.compile(r"issues/<number>/comments\" --paginate \\\n\s+--jq '
 TEMPLATE = re.compile(r"```markdown\n(?P<template>.*?)```", re.S)
 
 BOLD_TITLE = "**Claude review — PR #7**\n**Verdict: Approve ✅**"
-MARKED = "<!-- claude-review-pr-7 -->\n# 🔴 Requires human review\n\n" + BOLD_TITLE
+MARKED = "<!-- claude-review-pr-7 -->\n# 🔴 Human Review Needed: Check the Points Below\n\n" + BOLD_TITLE
 
 
 def found_ids(login, body):

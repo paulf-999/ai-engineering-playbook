@@ -21,7 +21,7 @@ description: Review a GitHub PR and post a scored comment — use when asked to 
 
 Gives a PR the same scored review every time, in a comment a mixed audience can read:
 
-- **Human review heading** — the comment opens with 🔴 or 🟢, saying whether a person needs to review the PR, why, and what to check.
+- **Human review heading** — the comment opens with 🔴 or 🟢, saying whether a person needs to look closely or a normal review is enough, why, and what to check.
 - **Verdict** — Approve, Approve with suggestions, or Request changes, where Must findings alone decide whether it blocks.
 - **Scorecard** — six themes scored out of 10, or N/A when there's nothing to judge: code quality, complexity, testing, security, documentation and standards.
 - **Recommendations** — numbered fixes with a severity, which you can address before posting.
@@ -34,7 +34,7 @@ $ /git-review-pr 2961
 [Phase 1] PR #2961: feat(vm): add SDX virtual machines for the Airflow platform
 [Phase 2] Fetched metadata and diff (106 lines)
 [Phase 3] code-reviewer: Approve with suggestions 💬 — 8.5/10 (A−)
-          # 🔴 Requires human review — 💥 Hard to undo: new infrastructure
+          # 🔴 Human Review Needed: Check the Points Below — 💥 Hard to undo: new infrastructure
 [Phase 4] <full comment shown>
           Address any of these before posting? 1. Plan check  2. Merge text — n
 [Phase 5] Secret check passed · saved the draft 2026_10_05_review_pr_2961.md

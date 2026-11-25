@@ -14,7 +14,7 @@ evals:
           prompt: review this PR
 
   # Human review heading
-    - name: access_change_requires_human_review
+    - name: access_change_needs_human_review
       behaviour: true
       # A sound IAM change with no Must item still gets the red heading
       input:
@@ -42,13 +42,13 @@ evals:
                  }
               ```
       assertions:
-          - The first visible line of the comment is the heading "# 🔴 Requires human review"
+          - The first visible line of the comment is the heading "# 🔴 Human Review Needed: Check the Points Below"
           - A hidden marker for PR 12 comes before the heading, and nothing else does
-          - The Why line names the Sensitive area trigger
-          - The Check line says what a person should look at
+          - Under Why, each trigger has its own bullet, and one names Sensitive area with its reason
+          - Under Check, one or more bullets say what a person should look at
           - No recommendation has Must severity, and the verdict is not Request changes
 
-    - name: docs_only_not_flagged
+    - name: docs_only_ready_for_normal_review
       behaviour: true
       # A docs-only change gets the green heading
       input:
@@ -72,10 +72,10 @@ evals:
               +This library builds a daily summary of sales.
               ```
       assertions:
-          - The first visible line of the comment is the heading "# 🟢 Human review not flagged"
+          - The first visible line of the comment is the heading "# 🟢 Ready for a Normal Review"
           - A hidden marker for PR 13 comes before the heading, and nothing else does
-          - The Why line says why no trigger applies
-          - There is no Check line
+          - The Why line says in one sentence why no trigger applies, with no bullets under it
+          - There is no Check section
 
   # Edge cases and hand-offs
     - name: local_diff_goes_to_the_agent

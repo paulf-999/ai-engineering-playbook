@@ -3,6 +3,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
 #              On-demand files in rules/on_demand/ go beside rules/, since Claude Code loads everything under rules/
+#              Links between files are corrected for where each one installs
 #              A manifest records what was installed, so files the repo has since removed are backed up and removed,
 #              along with any folder that leaves empty
 #              It also keeps the config's hooks and deny rules in settings.json in step, keeping every other setting
@@ -67,6 +68,8 @@ MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
 SOURCE_FILES=()
 # where each source file installs, one per line, set by list_source_files
 TARGET_PATHS=""
+# the Markdown files with a link that climbs out of its folder, one per line, set by list_source_files
+LINKING_FILES=""
 # where the last file passed to target_path installs
 TARGET_PATH=""
 # files the last install wrote that the repo no longer has, set by list_removed_files
@@ -107,9 +110,61 @@ target_path() {
     fi
 }
 
-# Print a source file as it installs: in a project, pointers name the project's .claude/ folder, not your config directory
+# Print a source file as it installs: links point at where files install, and in a project, pointers name its .claude/
+# folder, not your config directory
 render() {
-    render_text < "${SOURCE_DIR}/${1}"
+    if has_links "${1}"; then
+        target_path "${1}"
+        relink "${1}" "${TARGET_PATH}" < "${SOURCE_DIR}/${1}" | render_text
+    else
+        render_text < "${SOURCE_DIR}/${1}"
+    fi
+}
+
+# Succeed if a source file has a link that climbs out of its folder, which may need to change as it installs
+has_links() {
+    [[ $'\n'"${LINKING_FILES}"$'\n' == *$'\n'"${SOURCE_DIR}/${1}"$'\n'* ]]
+}
+
+# Print text from stdin, from the source file $1 that installs at $2, with each link that climbs out of its folder
+# pointing at where its target installs, by the same moves as target_path
+relink() {
+    LC_ALL=C awk -v from="${1}" -v to="${2}" '
+        # the path a link in the file "base" points at, or "" if it climbs out of the config
+        function resolve(base, link,    parts, kept, count, depth, i, path) {
+            sub(/[^\/]*$/, "", base)
+            count = split(base link, parts, "/")
+            for (i = 1; i <= count; i++) {
+                if (parts[i] == "..") { if (--depth < 0) return "" }
+                else if (parts[i] != "" && parts[i] != ".") kept[++depth] = parts[i]
+            }
+            for (i = 1; i <= depth; i++) path = path (i > 1 ? "/" : "") kept[i]
+            return path
+        }
+        function installed(path) {
+            if (path ~ /^rules\/on_demand(\/|$)/) return substr(path, 7)
+            if (path ~ /^skills\/_[^\/]+\/[^\/]+\//) sub(/^skills\/_[^\/]+\//, "skills/", path)
+            return path
+        }
+        # the relative link from the file "base" to path
+        function relative(base, path,    ours, theirs, depth, count, same, i, link) {
+            depth = split(base, ours, "/") - 1
+            count = split(path, theirs, "/")
+            while (same < depth && same < count - 1 && ours[same + 1] == theirs[same + 1]) same++
+            for (i = same; i < depth; i++) link = link "../"
+            for (i = same + 1; i <= count; i++) link = link theirs[i] (i < count ? "/" : "")
+            return link
+        }
+        {
+            rest = $0; line = ""
+            while (match(rest, /\]\(\.\.\/[^)# \t]+/)) {
+                link = substr(rest, RSTART + 2, RLENGTH - 2)
+                path = resolve(from, link)
+                line = line substr(rest, 1, RSTART + 1) (path == "" ? link : relative(to, installed(path)))
+                rest = substr(rest, RSTART + RLENGTH)
+            }
+            print line rest
+        }'
 }
 
 # Print text from stdin as it installs, so a past version of a file can be compared with what an install wrote
@@ -151,6 +206,8 @@ list_source_files() {
         target_path "${file}"
         TARGET_PATHS+="${TARGET_PATH}"$'\n'
     done < <(git ls-files -z -- "${SOURCE_DIR}")
+    # one grep for every file, as most have no such link, so need no rendering
+    LINKING_FILES="$(git grep -lF -e '](../' -- "${SOURCE_DIR}/*.md" || true)"
     if [[ "${#SOURCE_FILES[@]}" -eq 0 ]]; then
         log_message "${ERROR}" "No tracked files found under ${SOURCE_DIR} - nothing to install."
         exit 1
@@ -316,8 +373,8 @@ install_files() {
         target_path "${file}"
         relative="${TARGET_PATH}"
         target="${TARGET_DIR}/${relative}"
-        # only a project install rewrites pointers, so any other compares the source file itself, with no render
-        if [[ -z "${PROJECT}" ]]; then
+        # a file with no links or, in a project, pointers to rewrite is compared as it stands, with no render
+        if [[ -z "${PROJECT}" ]] && ! has_links "${file}"; then
             file_exists "${target}" && cmp -s "${SOURCE_DIR}/${file}" "${target}" && continue
         elif file_exists "${target}" && cmp -s <(render "${file}") "${target}"; then
             continue

@@ -115,8 +115,11 @@ def test_install_copies_every_tracked_file(default_install):
     on_disk = installed_files(default_install)
     assert set(installed) <= on_disk, f"missing: {set(installed) - on_disk}"
     for target, source in installed.items():
-        copied = (default_install / target).read_bytes()
-        assert copied == (SOURCE / source).read_bytes(), f"{target} should match {source}"
+        copied, original = (default_install / target).read_bytes(), (SOURCE / source).read_bytes()
+        if target.endswith(".md"):
+            # install corrects the paths of relative links, which their own test checks
+            copied, original = (re.sub(rb"\]\(\.\./[^)#\s]+", b"](", text) for text in (copied, original))
+        assert copied == original, f"{target} should match {source}"
     assert (default_install / "on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
         "on-demand files should sit beside rules/"
     )
@@ -124,6 +127,22 @@ def test_install_copies_every_tracked_file(default_install):
     assert (SOURCE / "skills" / "_git_skills" / "git-create-pr" / "SKILL.md").is_file(), "the repo should group it"
     assert (default_install / "skills" / "git-create-pr" / "SKILL.md").is_file(), "the skill should install flat"
     assert not (default_install / "skills" / "_git_skills").exists(), "no group folder, nor its README, should install"
+
+
+def test_relative_links_open_once_installed(default_install):
+    """Each link that climbs out of its folder opens its target where it installs, whether either file moved or not."""
+    # the install test shows every link's target is installed, so a broken link here means its path is wrong
+    links = {
+        (path, link)
+        for path in (default_install / installed for installed in installed_files(default_install))
+        if path.suffix == ".md"
+        for link in re.findall(r"\]\((\.\./[^)#\s]+)", path.read_text())
+    }
+    assert links, "the config should hold links between folders"
+    broken = {
+        f"{path.relative_to(default_install)}: {link}" for path, link in links if not (path.parent / link).exists()
+    }
+    assert not broken, f"{len(broken)} broken: {sorted(broken)}"
 
 
 def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):

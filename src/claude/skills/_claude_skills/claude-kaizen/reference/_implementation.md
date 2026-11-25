@@ -10,13 +10,13 @@
 | **2 — Select** | Group notes that make the same correction, and keep a group only if it has 2 or more notes or applies beyond this repo |
 | **3 — Draft** | For each kept group, draft one rule bullet and one case, then show both as a diff and wait for a yes |
 | **4 — Prove** | Write the approved drafts, run each case, and keep or undo it by its verdict |
-| **5 — Report** | List each case's counts and verdict, and the files left changed for `/git-create-pr`, then log each rejection, and the run to `kaizen_runs.log` |
+| **5 — Report** | List each case's counts and verdict, and the files left changed for `/git-create-pr`, then log each rejection, and the run to `_claude_kaizen/runs.log` |
 
 ## 🔍 Selecting notes
 
 - **Skip repo-specific notes:** a note about one repo's files, PR numbers or layout stays in memory, as 29 of 31 did in #393.
 - **Skip what a rule already says:** read the existing rules first, and drop a group they already cover.
-- **Skip what was rejected:** read `kaizen_rejections.md` in the auto-memory folder, if it exists, and drop a group it lists unless a note not named there supports it.
+- **Skip what was rejected:** read `_claude_kaizen/rejections.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), if it exists, and drop a group it lists unless a note not named there supports it.
 - **Name the evidence:** for each group, list its notes by file name, never quoting personal details.
 
 ## ✍️ Drafting
@@ -43,7 +43,7 @@ Undo only your own edits, checking `git diff` first, and stop if another change 
 
 ## 🗒️ Rejections
 
-After undoing a rule, append one line to `kaizen_rejections.md`, creating the file if needed:
+After undoing a rule, append one line to `_claude_kaizen/rejections.md`, creating the file if needed:
 
 ```text
 - 2026-11-25 · quote test output when reporting a failure · without 12/12, with 12/12, no effect · notes: feedback_a.md, feedback_b.md

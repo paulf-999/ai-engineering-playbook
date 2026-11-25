@@ -38,8 +38,9 @@ REPO_DIR="$(git -C "${CWD:-.}" rev-parse --show-toplevel 2> /dev/null || true)"
 MEMORY_DIR="$(dirname "${TRANSCRIPT}")/memory"
 [[ -d "${MEMORY_DIR}" ]] || exit 0
 # /claude-kaizen appends a line here after each run, so a note newer than this file is new since that run
-RUNS_LOG="${MEMORY_DIR}/kaizen_runs.log"
-NUDGES_LOG="${MEMORY_DIR}/kaizen_nudges.log"
+KAIZEN_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}/_claude_kaizen"
+RUNS_LOG="${KAIZEN_DIR}/runs.log"
+NUDGES_LOG="${KAIZEN_DIR}/nudges.log"
 TODAY="$(date +%Y-%m-%d)"
 
 # one nudge a day is enough
@@ -52,6 +53,7 @@ else
 fi
 (( NEW_NOTES >= THRESHOLD )) || exit 0
 
+mkdir -p "${KAIZEN_DIR}"
 echo "${TODAY} new_notes=${NEW_NOTES}" >> "${NUDGES_LOG}"
 echo "${NEW_NOTES} feedback notes have been saved since the last /claude-kaizen run." \
     "Once the user's first task in this session is done, read skills/claude-kaizen/reference/_draft.md in your Claude" \

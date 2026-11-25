@@ -20,6 +20,11 @@ def project(tmp_path, notes):
     return tmp_path / "project"
 
 
+def kaizen_dir(project_dir):
+    """Return the kaizen folder in that project's test config directory."""
+    return project_dir.parent / "config" / "_claude_kaizen"
+
+
 def run_hook(project_dir, source="startup", cwd=REPO_ROOT):
     """Run the hook as Claude Code would at session start, returning its stdout."""
     payload = json.dumps(
@@ -30,7 +35,8 @@ def run_hook(project_dir, source="startup", cwd=REPO_ROOT):
             "transcript_path": str(project_dir / "s1.jsonl"),
         }
     )
-    result = subprocess.run(["bash", str(HOOK)], input=payload, capture_output=True, text=True, check=True)
+    env = {**os.environ, "CLAUDE_CONFIG_DIR": str(project_dir.parent / "config")}
+    result = subprocess.run(["bash", str(HOOK)], input=payload, capture_output=True, text=True, check=True, env=env)
     return result.stdout
 
 
@@ -38,7 +44,7 @@ def test_silent_below_the_threshold(tmp_path):
     """Four new notes add nothing to the session and log no nudge."""
     project_dir = project(tmp_path, 4)
     assert run_hook(project_dir) == ""
-    assert not (project_dir / "memory" / "kaizen_nudges.log").exists()
+    assert not (kaizen_dir(project_dir) / "nudges.log").exists()
 
 
 def test_nudges_and_logs_at_the_threshold(tmp_path):
@@ -47,7 +53,7 @@ def test_nudges_and_logs_at_the_threshold(tmp_path):
     stdout = run_hook(project_dir)
     assert "5 feedback notes have been saved since the last /claude-kaizen run" in stdout
     assert "skills/claude-kaizen/reference/_draft.md" in stdout
-    assert "new_notes=5" in (project_dir / "memory" / "kaizen_nudges.log").read_text()
+    assert "new_notes=5" in (kaizen_dir(project_dir) / "nudges.log").read_text()
 
 
 def test_the_draft_page_it_names_exists():
@@ -60,13 +66,14 @@ def test_nudges_once_a_day(tmp_path):
     project_dir = project(tmp_path, 5)
     assert run_hook(project_dir) != ""
     assert run_hook(project_dir) == ""
-    assert len((project_dir / "memory" / "kaizen_nudges.log").read_text().splitlines()) == 1
+    assert len((kaizen_dir(project_dir) / "nudges.log").read_text().splitlines()) == 1
 
 
 def test_nudges_again_on_a_later_day(tmp_path):
     """A nudge from an earlier day doesn't silence today's."""
     project_dir = project(tmp_path, 5)
-    (project_dir / "memory" / "kaizen_nudges.log").write_text("2020-01-01 new_notes=5\n")
+    kaizen_dir(project_dir).mkdir(parents=True)
+    (kaizen_dir(project_dir) / "nudges.log").write_text("2020-01-01 new_notes=5\n")
     assert run_hook(project_dir) != ""
 
 
@@ -91,7 +98,8 @@ def test_silent_outside_a_repo_with_rule_evals(tmp_path):
 def test_counts_only_notes_newer_than_the_last_run(tmp_path):
     """Notes saved before the last kaizen run don't count towards the next nudge."""
     project_dir = project(tmp_path, 6)
-    runs_log = project_dir / "memory" / "kaizen_runs.log"
+    kaizen_dir(project_dir).mkdir(parents=True)
+    runs_log = kaizen_dir(project_dir) / "runs.log"
     runs_log.write_text("2026-11-19 notes=6 proposed=2 kept=1\n")
     later = time.time() + 60
     os.utime(runs_log, (later, later))

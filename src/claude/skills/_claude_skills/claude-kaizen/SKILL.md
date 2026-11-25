@@ -12,8 +12,8 @@ disable-model-invocation: true
 - **Read first:** read `reference/_implementation.md` for how to pick notes, draft a case and read the verdict.
 - **Always:** show each draft rule bullet and its `rules/evals.yaml` case as a diff, and edit files only after an explicit yes.
 - **Always:** say a case costs 24 runs and 24 grades of plan usage, before running `make evals RULES=1 RUNS=12 CASE=<name>`.
-- **Always:** keep a rule only on a **helps** verdict, and for any other verdict undo your own edits and log the rejection to `kaizen_rejections.md` in the auto-memory folder.
-- **Always:** at the end, append `YYYY-MM-DD notes=<read> proposed=<drafted> kept=<kept>` to `kaizen_runs.log` in the auto-memory folder, which resets the reminder hook's count.
+- **Always:** keep a rule only on a **helps** verdict, and for any other verdict undo your own edits and log the rejection to `_claude_kaizen/rejections.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset).
+- **Always:** at the end, append `YYYY-MM-DD notes=<read> proposed=<drafted> kept=<kept>` to `_claude_kaizen/runs.log` there, which resets the reminder hook's count.
 - **Never:** commit, push or open a PR, since `/git-create-pr` does that once the user is happy.
 - **Never:** quote a feedback note's personal details, such as a name, in a rule or case.
 

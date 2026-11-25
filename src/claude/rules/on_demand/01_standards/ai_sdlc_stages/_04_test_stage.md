@@ -11,6 +11,15 @@ Test design lives in the [testing rules](../testing.md), so this page covers how
 3. Make the change, run the check, and fix the code until it passes.
 4. Paste the output, rather than a claim that it passed, when reporting the task done.
 
+## ⏱️ Keeping checks quick
+
+These keep slow checks from delaying the user or tying up their machine:
+
+- 🎯 **Affected evals only:** run the evals a change affects, by name where the runner allows it, and a full run only when the user asks or a shared part changes, such as the runner.
+- 🎲 **Flaky tests:** save a failing run's full output, rerun that test alone, and never repeat the whole suite to chase it.
+- 🖥️ **Busy machine:** before a long run, check whether other sessions are running tests or evals, and if so tell the user and offer to wait.
+- ⏳ **Long runs:** before a check likely to take over 2 minutes, say roughly how long and why it's needed.
+
 ## 🐞 Bug fixes
 
 Open a bug-fix plan with a failing test, then the fix:
@@ -48,7 +57,7 @@ For UI work, where a browser or screenshot tool is available:
 An eval is a real task with checks that define an acceptable result.
 
 - 📚 **Suite:** collect 20 to 50 recent tasks, and replace cases that no longer tell good from bad.
-- ⏰ **When:** rerun them when `CLAUDE.md`, skills, hooks or the model change, or on a set cadence.
+- ⏰ **When:** rerun the affected ones when `CLAUDE.md`, skills, hooks or the model change, or on a set cadence.
 - 🚨 **Incidents:** add one for each production incident, written by the team that owned it.
 - 🏢 **If CI can run Claude:** run the suite there and review any change that lowers the pass rate before merge.
 

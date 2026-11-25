@@ -22,24 +22,25 @@ concurrency:
 
 jobs:
     pr_description:
-        name: 'PR description: check evaluation criteria'
+        name: 'PR description: check evidence, plan and criteria'
         runs-on: ubuntu-latest
         timeout-minutes: 10
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
               with:
                   persist-credentials: false
+            # A step of its own, so a failed fetch fails the check rather than passing an empty list
+            - name: List the changed files
+              env:
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
+                  GH_TOKEN: ${{ github.token }}
+              run: gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --jq '.[].filename' > "${RUNNER_TEMP}/changed_files"
             # Passed through env, not ${{ }} in the script, so a crafted description can't inject shell
             - name: Validate PR description
               env:
                   PR_DESCRIPTION: ${{ github.event.pull_request.body }}
-                  PR_NUMBER: ${{ github.event.pull_request.number }}
                   PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-                  GH_TOKEN: ${{ github.token }}
-              # The file list is fetched on its own line, so a failed fetch fails the check
-              run: |
-                  changed_files="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --jq '.[].filename')"
-                  src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "${changed_files}" "${PR_AUTHOR}"
+              run: src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "$(cat "${RUNNER_TEMP}/changed_files")" "${PR_AUTHOR}"
 
     human_author:
         name: 'Human author: check a person is named'

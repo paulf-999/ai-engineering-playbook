@@ -385,6 +385,12 @@ def test_preference_paths_are_found_in_any_backticks():
     assert preference_paths(text) == ["`on_demand/02_preferences/x.md`", "`_templates/preferences/y`"]
 
 
+# the one preference path a standard file may name, as the workflow rule says when to read it, "if installed"
+ALLOWED_PREFERENCE_PATH = (
+    "rules/always_on/01_standards/ai_sdlc_workflow.md",
+    "`on_demand/02_preferences/claude_saved_plans.md`",
+)
+
 # working-file folders that only the working-files preference names, since an install without it never writes there
 WORKING_FILE_FOLDERS = re.compile(r"\b_(?:plans|sessions|drafts|errors)/")
 
@@ -399,6 +405,7 @@ def test_no_standard_file_names_what_only_preferences_hold(find):
         for path in sorted(tracked_config_files())
         if not path.endswith("README.md")
         for found in find((CONFIG_DIR / path).read_text())
+        if (path, found) != ALLOWED_PREFERENCE_PATH
     ]
     assert not problems, "standard files name what only preferences hold:\n" + "\n".join(problems)
 

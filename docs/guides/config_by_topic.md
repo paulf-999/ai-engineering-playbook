@@ -14,6 +14,7 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🔄 [ai_sdlc_workflow.md](../../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) | Always-on rule | Every session |
 | 🪜 [ai_sdlc_stages.md](../../src/claude/rules/on_demand/01_standards/ai_sdlc_stages.md) | On-demand rule | Before work on an SDLC stage |
 | 🛡️ [behaviour.md](../../src/claude/rules/always_on/01_standards/behaviour.md) | Always-on rule | Every session |
+| 📤 [claude_saved_plans.md](../../src/claude/rules/on_demand/02_preferences/claude_saved_plans.md) | On-demand rule | When writing a plan |
 | 🗂️ [claude_working_files.md](../../src/claude/rules/always_on/02_preferences/claude_working_files.md) | Always-on rule | Every session, unless installed with `PREFERENCES=0` |
 | ✅ [claude_task_reporting.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_task_reporting.md) | On-demand rule | Before saying a task is done |
 | 🤖 [claude_loops_and_batches.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_loops_and_batches.md) | On-demand rule | Before proposing or starting a loop or other unattended run |

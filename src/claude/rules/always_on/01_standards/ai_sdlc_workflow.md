@@ -24,7 +24,7 @@ A plan is the proposal the user approves before Claude edits anything. If it's 1
 | `3. Plan` | Which steps, and what proves each? | Numbered steps, each with its check, and no other headings | `plan.md` |
 
 - ✏️ **Bullets:** write each bold name as a bullet, saying "none" where empty.
-- 💾 **Saving:** after approval, save these three files outside the repo, if the optional saved-plans preference is installed.
+- 💾 **Saving:** after approval, save these three files outside the repo, as `claude_saved_plans.md` sets out, if installed.
 
 ## 🔨 Build and review
 
@@ -38,3 +38,4 @@ A plan is the proposal the user approves before Claude edits anything. If it's 1
 ## 📚 Read on demand
 
 - [`on_demand/01_standards/ai_sdlc_stages.md`](../../on_demand/01_standards/ai_sdlc_stages.md), in your Claude config directory (`~/.claude` by default), before work on an SDLC stage.
+- [`on_demand/02_preferences/claude_saved_plans.md`](../../on_demand/02_preferences/claude_saved_plans.md), in your Claude config directory, when writing a plan, if installed.

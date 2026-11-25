@@ -44,8 +44,8 @@ This PR was tested as follows:
   > These files follow the advice in Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
 
   Then add the line "This PR was created against the following Claude plan:" and five menus, in this order. Put each in
-  its own <details> ... </details>, with its <summary> on one line. Copy the question and answer shown above each
-  <summary> to just above its <details>, followed by a blank line:
+  its own <details> ... </details>, with its <summary> on one line. Copy the question and answer above each
+  <summary> too, but put them outside the menu: the text first, then a blank line, then <details>:
 
   **What is `intent.md`?**
   It describes the problem being solved, and how we'll know the change worked. It starts the process and is prompted by:

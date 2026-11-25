@@ -42,7 +42,7 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | File | Kind | When it loads |
 |---|---|---|
 | 🧭 [guiding_principles.md](../../src/claude/rules/on_demand/01_standards/claude_config/guiding_principles.md) | On-demand rule | Before proposing a rule, skill, hook, import, setting or memory note |
-| 🏷️ [claude_naming_patterns.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_naming_patterns.md) | On-demand rule | Before naming a new rule, skill or agent |
+| 🏷️ [claude_naming_patterns.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_naming_patterns.md) | On-demand rule | Before naming a new rule, skill, agent or config folder |
 | 🔑 [permission_recommendations.md](../../src/claude/rules/on_demand/01_standards/claude_config/permission_recommendations.md) | On-demand rule | Before recommending a permission or allowlist change |
 
 </details>

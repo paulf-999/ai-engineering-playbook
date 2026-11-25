@@ -22,6 +22,7 @@ Lead with the answer, then give the problem and work through the detail:
 4. **Detail:** how to do it, and the limits.
 5. **Close:** "If you only do one thing", then Useful Resources, with no Agenda or Summary.
 
+- 🌉 **Content flow:** when a section changes topic, open with a sentence or two linking it to what came before.
 - 🧪 **Example sub-headings:** give each example block a sub-heading starting "Example:".
 - ✂️ **One format per point:** make a point once, as a list, an example or a visual, rather than repeat it in several.
 
@@ -59,6 +60,7 @@ Score each from 0 to 10, where 10 means nothing to fix:
 | 🗣️ **Voice** | Reads as if the maintainer wrote it, without parody |
 | ✏️ **Writing style** | Meets the Writing section above |
 | 🧭 **Clarity** | The stated audience can follow it in one read |
+| 🌊 **Content flow** | Each section follows from the one before, with new ideas introduced before they're used |
 | 🎁 **Usefulness** | The reader leaves with something specific to do, shown by an example |
 | 🔬 **Honesty** | Claims are supported or marked as opinion, and limits are stated |
 | 💡 **Insight** | It says something readers are unlikely to have met elsewhere, resting on evidence |
@@ -74,7 +76,7 @@ The insight score uses these anchors:
 
 ## ✅ Review and pass mark
 
-- 👥 **Readers:** 3 cold `claude -p --safe-mode` readers score each post separately, given the themes, the Writing section and sample posts.
+- 👥 **Readers:** 3 cold `claude -p --safe-mode` readers score each post separately, given plain theme names and sample posts, but not this rule or its text.
 - 📏 **Pass:** every theme's median is 8 or more, and the post is within its reading time.
 - 🔎 **Facts:** a separate reader checks each claim against its sources and finds none contradicted, overstated or unsupported, since voice scores rarely vary.
 - 🔁 **Rounds:** run 2 at most, then hand the open findings to the maintainer.

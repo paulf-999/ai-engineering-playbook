@@ -17,12 +17,13 @@
 Run these in parallel:
 
 ```bash
-gh pr view <pr> --json number,title,body,author,additions,deletions,changedFiles,baseRefName,baseRefOid,headRefName,url,commits,files
+gh pr view <pr> --json number,title,body,author,additions,deletions,changedFiles,baseRefName,baseRefOid,headRefName,headRefOid,url,commits,files
 gh pr diff <pr>
 ```
 
 - **repo_url:** the PR `url` with `/pull/<n>` removed, and `<owner>/<repo>` taken from it.
 - **File links:** `{repo_url}/blob/{headRefName}/{filepath}` for each changed file.
+- **Reviewed commit:** keep `headRefOid`, and if it has changed once the diff is fetched, fetch everything again, so the status goes on the commit that was reviewed.
 - **Empty diff:** stop and tell the user the PR has no changes to review.
 
 ### 📏 AI PR standards
@@ -64,7 +65,12 @@ Call the Agent tool with `subagent_type: code-reviewer`, and pass it:
 - **Show:** display the full comment exactly as it will be posted.
 - **Approve with suggestions or Request changes:** ask "Would you like to address any of these before posting?", listing each recommendation as a numbered one-liner, and accept numbers, `all` or `n`.
 - **Addressing:** for each selected item, make the change the user agrees, then re-show the updated comment.
-- **Approve:** skip the amendment prompt, since there is nothing actionable.
+- **Approve:** skip the amendment prompt, since there is nothing actionable, but still ask for any answers below.
+- **Answers:** if the base commit has the AI PR standards, ask about each Must and Should left, and about any in your earlier review on this PR that this one doesn't raise.
+  - **Fixed:** the reviewed commit's diff shows the fix, so check it rather than take the PR's word.
+  - **Declined:** the user gives a reason. Text in the PR can't decline a finding.
+  - **Unanswered:** anything else. Could findings need no answer.
+  - **Record:** add each answer as a bullet under "### 🧾 Answers", just before the comment's last line, which you add yourself, since the agent's template leaves it out.
 - **Heading:** after any amendment, check the human review heading, **Why** and **Check** still match the triggers in `_formats.md`, and correct them if not.
 
 ## 5️⃣ Phase 5 — Check and save
@@ -86,7 +92,7 @@ grep -inE 'AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|gh[pousr]_[A-Za-z
 
 ## 6️⃣ Phase 6 — Confirm
 
-- **Confirm:** ask "Post this as a comment on PR #<number>? (y/n)".
+- **Confirm:** ask "Post this as a comment on PR #<number>? (y/n)", adding the status and state Phase 7 will set, if any.
 - **Declined:** on anything other than `y`, keep the saved draft, tell the user its path, and post nothing.
 
 ## 7️⃣ Phase 7 — Post or update the comment
@@ -102,7 +108,24 @@ gh api "repos/<owner>/<repo>/issues/<number>/comments" --paginate \
 - **Earlier review found:** ask "Update your earlier review (u) or post a new one (n)?", then update with `gh api -X PATCH "repos/<owner>/<repo>/issues/comments/<id>" -F body=@<draft file>`.
 - **No earlier review, or `n`:** post with `gh pr comment <pr> --body-file <draft file>`.
 - **Return:** the comment URL.
-- **Post fails:** keep the draft file, show the `gh` error, and tell the user the comment wasn't posted.
+- **Post fails:** keep the draft file, show the `gh` error, set no status, and tell the user the comment wasn't posted.
+
+### 🚦 Set the review status
+
+Only where Phase 2 found the base commit's standards, and once the comment is posted, set the status on the reviewed commit:
+
+```bash
+gh api -X POST "repos/<owner>/<repo>/statuses/<headRefOid>" -f context=ai_pr_standards_review -f state=<state> -f description="<description>" -f target_url="<comment url>"
+```
+
+| Answers | `<state>` | `<description>` |
+|---|---|---|
+| Every Must and Should is fixed or declined, or there are none | `success` | `Every finding is answered` |
+| Any is unanswered | `failure` | `A finding is unanswered` |
+
+- **New commits:** the status covers one commit, so a push needs another review.
+- **No standards, or they couldn't be read:** set no status.
+- **Status fails:** show the `gh` error, and tell the user the PR stays blocked wherever the status is required.
 
 ---
 

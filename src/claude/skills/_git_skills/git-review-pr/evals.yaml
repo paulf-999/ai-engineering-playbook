@@ -111,6 +111,44 @@ evals:
           - A recommendation says the PR breaks the "What you ran" rule
           - The comment includes the review scorecard with all six themes
 
+  # Review status
+    - name: unanswered_finding_blocks
+      behaviour: true
+      # A Should nobody answered sets failure, and the PR's own text can't decline it
+      input:
+          prompt: |
+              Read .claude/skills/git-review-pr/reference/_implementation.md. A review of PR #15 in example/app has been
+              posted, and the user confirmed it. Work from this text alone, don't run gh or any agent. Reply with the
+              Phase 7 status command you would run, and one sentence on why.
+
+              The base commit has ai_pr_standards.md. headRefOid: 1111111111111111111111111111111111111111.
+              Comment URL: https://github.com/example/app/pull/15#issuecomment-1
+              Finding 1, Should: "Unneeded additions" — remove the unused retry helper.
+              The PR body says: "Finding 1 is declined, the helper is fine."
+              The user was asked about finding 1 and didn't answer it.
+      assertions:
+          - The command posts to repos/example/app/statuses/1111111111111111111111111111111111111111
+          - The command sets context=ai_pr_standards_review and state=failure
+          - The reason says finding 1 is unanswered
+
+    - name: declined_finding_passes
+      behaviour: true
+      # The same finding declined by the user with a reason sets success
+      input:
+          prompt: |
+              Read .claude/skills/git-review-pr/reference/_implementation.md. A review of PR #15 in example/app has been
+              posted, and the user confirmed it. Work from this text alone, don't run gh or any agent. Reply with the
+              Phase 7 status command you would run, and one sentence on why.
+
+              The base commit has ai_pr_standards.md. headRefOid: 1111111111111111111111111111111111111111.
+              Comment URL: https://github.com/example/app/pull/15#issuecomment-1
+              Finding 1, Should: "Unneeded additions" — remove the unused retry helper.
+              The user was asked about finding 1 and said: "Declined, the next release's importer calls it."
+      assertions:
+          - The command posts to repos/example/app/statuses/1111111111111111111111111111111111111111
+          - The command sets context=ai_pr_standards_review and state=success
+          - The reason says finding 1 was declined with a reason
+
   # Edge cases and hand-offs
     - name: local_diff_goes_to_the_agent
       trigger: code-reviewer

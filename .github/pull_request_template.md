@@ -58,11 +58,7 @@ This PR was tested as follows:
   <summary> too, but put them outside the menu: the text first, then a blank line, then <details>:
 
   **What is `intent.md`?**
-  It describes the problem being solved, and how we'll know the change worked. It starts the process and is prompted by:
-
-  - an idea
-  - a ticket
-  - an alert
+  It describes the problem being solved, and how we'll know the change worked.
 
   <summary>Show intent.md</summary>
 

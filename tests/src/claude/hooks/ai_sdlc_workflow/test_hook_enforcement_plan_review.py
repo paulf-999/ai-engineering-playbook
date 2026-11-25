@@ -81,9 +81,18 @@ def context(result):
 
 
 def user_message(result):
-    """Return the systemMessage the hook printed for the user, checking it exited 0."""
-    assert result.returncode == 0, f"the hook should exit 0:\n{result.stderr}"
+    """Return the systemMessage the hook printed for the user on a denied plan."""
+    assert denied(result), f"the plan should be denied:\n{result.stdout}"
     return json.loads(result.stdout)["systemMessage"]
+
+
+def dialog_message(result, plan=LONG_PLAN):
+    """Return the reason shown in the approval dialog, checking the output Claude Code needs in order to show it."""
+    assert result.returncode == 0, f"the hook should exit 0:\n{result.stderr}"
+    output = json.loads(result.stdout)["hookSpecificOutput"]
+    assert output["permissionDecision"] == "ask", "the user's approval should still be asked for"
+    assert output["updatedInput"] == json.loads(exit_plan_input(plan))["tool_input"], "the plan should be unchanged"
+    return output["permissionDecisionReason"]
 
 
 def denied(result):
@@ -116,8 +125,7 @@ def test_a_plan_scored_10_on_every_theme_is_allowed(tmp_path):
     stub = _make_stub(tmp_path)
     result = stub(LONG_PLAN, {"scores": ALL_TENS, "findings": []})
     assert not denied(result), f"the plan should be allowed:\n{result.stdout}"
-    assert "passed" in user_message(result) and "intent 10/10" in user_message(result)
-    assert "hookSpecificOutput" not in json.loads(result.stdout), "a pass should leave the user's approval in place"
+    assert "passed" in dialog_message(result) and "intent 10/10" in dialog_message(result)
     prompt = stub.prompt.read_text()
     assert LONG_PLAN.strip() in prompt, "the reviewer should see the plan"
     assert "British spelling" in prompt, "the reviewer should see the writing style rule"
@@ -152,14 +160,15 @@ def test_findings_nested_in_the_scores_are_read_as_findings(tmp_path):
 
 
 def test_the_third_submission_passes_with_the_findings_for_the_user(tmp_path):
-    """After two blocks, the next submission passes with the findings for Claude and the scores for the user."""
+    """After two blocks, the next submission passes with the findings for Claude and the user."""
     stub = _make_stub(tmp_path)
     verdict = {"scores": ALL_TENS | {"plan": 9}, "findings": ["Step 3 has no check."]}
     assert all(denied(stub(LONG_PLAN, verdict)) for _ in range(2)), "the first two submissions should be denied"
     result = stub(LONG_PLAN, verdict)
     assert not denied(result), f"the third submission should pass:\n{result.stdout}"
     assert "Step 3 has no check." in context(result), "the findings should reach Claude"
-    assert "plan 9/10" in user_message(result) and "after 2 rounds" in user_message(result)
+    assert "plan 9/10" in dialog_message(result) and "after 2 rounds" in dialog_message(result)
+    assert "Step 3 has no check." in dialog_message(result), "the findings should reach the user"
     assert denied(stub(LONG_PLAN, verdict, session="s2")), "another session gets its own rounds"
 
 
@@ -200,7 +209,7 @@ def test_a_failed_review_lets_the_plan_through_with_a_note(tmp_path, raw, stub_e
     result = stub(LONG_PLAN, raw=raw, stub_exit=stub_exit)
     assert result.returncode == 0, f"a failed review should not block:\n{result.stderr}"
     assert "wasn't reviewed" in context(result), "Claude should hear the review didn't run"
-    assert "wasn't reviewed" in user_message(result), "the user should hear the review didn't run"
+    assert "wasn't reviewed" in dialog_message(result), "the user should hear the review didn't run"
 
 
 def test_each_review_outcome_is_logged_with_its_scores(tmp_path):

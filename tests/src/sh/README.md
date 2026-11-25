@@ -4,7 +4,7 @@
 
 | Test | What it checks |
 |---|---|
-| 📦 [test_claude_install_config.py](test_claude_install_config.py) | The install script copies `src/claude/` into a Claude config directory after a typed `install` |
+| 📦 [test_claude_install_config.py](test_claude_install_config.py) | The install script copies `src/claude/` into a Claude config directory, correcting links, after a typed `install` |
 | 📊 [test_claude_report_context_cost.py](test_claude_report_context_cost.py) | The context cost report tables each `src/claude/` file's tokens and when it loads |
 | 📏 [test_claude_validate_always_on_budget.py](test_claude_validate_always_on_budget.py) | The always-on budget check caps the Claude context loaded into every session |
 | 🧱 [test_script_structure.py](test_script_structure.py) | Every script in `src/sh/`, `shell_utils.sh` and the bash script template follow the template's structure |

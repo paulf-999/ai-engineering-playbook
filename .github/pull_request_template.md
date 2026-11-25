@@ -44,12 +44,31 @@ This PR was tested as follows:
   > These files follow the advice in Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
 
   Then add the line "This PR was created against the following Claude plan:" and five menus, in this order. Put each in
-  its own <details> ... </details>, with its <summary> on one line:
+  its own <details> ... </details>, with its <summary> on one line. Copy the question and answer shown above each
+  <summary> to just above its <details>, followed by a blank line:
+
+  **What is `intent.md`?**
+  It describes the problem being solved, and how we'll know the change worked. It starts the process and is prompted by:
+
+  - an idea
+  - a ticket
+  - an alert
 
   <summary>Show intent.md</summary>
+
+  **What is `spec.md`?**
+  It describes what changes and what's left out.
+
   <summary>Show spec.md</summary>
+
+  **What is `plan.md`?**
+  It lists the decisions agreed, the steps to build the change, and the check that proves each step.
+
   <summary>Show plan.md</summary>
-  Paste each file as it stands, without plan.md's progress notes, home folder paths or private details.
+  In these three menus, paste each file as it stands, without plan.md's progress notes, home folder paths or private details.
+
+  **What are the measures?**
+  They show how the work went, such as planning time, test results and rework.
 
   <summary>Show measures</summary>
   Write "not recorded" rather than an estimate. Replace each "pending" before merging.
@@ -63,6 +82,9 @@ This PR was tested as follows:
   | Checks run | <each command and its result> |
   | First-pass CI | <pending, then the first commit's result> |
   | Rework | <pending, then the number of commits after the PR opened> |
+
+  **What is governance?**
+  It records who approved the plan, plus any policy conflicts, risks and open questions.
 
   <summary>Show governance</summary>
   Write "none" for an empty bullet.

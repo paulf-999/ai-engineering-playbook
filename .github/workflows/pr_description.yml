@@ -1,13 +1,14 @@
 ---
-# Check that a PR changing src/claude/ carries its spec, and one changing an always-on or enforcing file answers the
-# evaluation criteria, re-checking whenever its description is edited.
+# Check that a PR says why it's there and what was run, that one changing src/claude/ carries its spec, that one changing
+# an always-on or enforcing file answers the evaluation criteria, and that a bot's PR has a human assignee, re-checking
+# whenever its description or assignees change.
 # A separate workflow from ci.yml, so editing a description doesn't re-run the tests.
 name: PR description
 
 on:
     pull_request:
         branches: [main]
-        types: [opened, edited, reopened, synchronize]
+        types: [opened, edited, reopened, synchronize, assigned, unassigned]
 
 permissions:
     contents: read
@@ -33,5 +34,23 @@ jobs:
               env:
                   PR_DESCRIPTION: ${{ github.event.pull_request.body }}
                   PR_NUMBER: ${{ github.event.pull_request.number }}
+                  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
                   GH_TOKEN: ${{ github.token }}
-              run: src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "$(gh pr diff "${PR_NUMBER}" --name-only --repo "${GITHUB_REPOSITORY}")"
+              # The file list is fetched on its own line, so a failed fetch fails the check
+              run: |
+                  changed_files="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --jq '.[].filename')"
+                  src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "${changed_files}" "${PR_AUTHOR}"
+
+    human_author:
+        name: 'Human author: check a person is named'
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+              with:
+                  persist-credentials: false
+            - name: Validate the author or an assignee is a person
+              env:
+                  AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
+                  ASSIGNEE_TYPES: ${{ join(github.event.pull_request.assignees.*.type, ' ') }}
+              run: src/sh/git/git_validate_human_author.sh "${AUTHOR_TYPE}" "${ASSIGNEE_TYPES}"

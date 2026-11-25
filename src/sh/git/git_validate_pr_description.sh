@@ -3,8 +3,9 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 
 # Description: Verify a PR that changes the installed Claude config under src/claude/ has a "Claude: Plan" section,
 #              that one changing an always-on or enforcing file also has an "Evaluation Criteria" section, and that
-#              any PR's "Claude: Plan" section has its menus, or the reason it has no saved plan
-# Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] (run from the repo root)
+#              any PR's "Claude: Plan" section has its menus, or the reason it has no saved plan, that "Why" and
+#              "What I ran" are filled in, and that a dependency change gives its reason
+# Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] ["<pr author>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/../shell_utils.sh
@@ -20,6 +21,10 @@ trap handle_interruption SIGINT
 PR_DESCRIPTION="${1-}"
 # the PR's changed files, one per line, used to spot changes to the installed Claude config
 CHANGED_FILES="${2-}"
+# the PR author's login, used to skip Dependabot, which can't fill in the template
+PR_AUTHOR="${3-}"
+# files that declare dependencies, wherever they sit in the repo
+DEPENDENCY_FILES='(^|/)(requirements[^/]*\.txt|pyproject\.toml|package\.json)$'
 # the description as a reader sees it, without HTML comments, set in the main logic
 VISIBLE_DESCRIPTION=""
 # the collapsible menus a "Claude: Plan" section holds
@@ -74,8 +79,30 @@ section_problem() {
     has_section "${1}" || echo "Add the '${1}' section that the PR template's comment names, since ${2}."
 }
 
+# Succeed if the "## " section titled exactly $1, after any :emoji:, says something besides its [placeholder]
+section_is_filled() {
+    awk -v title="${1}" '
+        /^## / { heading = $0; sub(/^## +(:[a-z0-9_]+: +)?/, "", heading); sub(/[[:space:]]+$/, "", heading); on = heading == title; next }
+        /^#+ / || /^[[:space:]]*\[.*\][[:space:]]*$/ { next }
+        on && /[[:alnum:]]/ { filled = 1 }
+        END { exit !filled }
+    ' <<< "${VISIBLE_DESCRIPTION}"
+}
+
+# Explain each piece of evidence ai_pr_standards.md asks for that's missing, or print nothing if it's all there
+evidence_problems() {
+    local section
+    for section in "Why" "What I ran"; do
+        section_is_filled "${section}" || echo "Fill in the '${section}' section from the PR template."
+    done
+    grep -qE -- "${DEPENDENCY_FILES}" <<< "${CHANGED_FILES}" || return 0
+    has_line '^Dependency reason:[[:space:]]*[^[:space:]]' \
+        || echo "Add a line 'Dependency reason: <reason>', since this PR changes a dependency file."
+}
+
 # Explain each reason the description fails, or print nothing if it's fine
 description_problems() {
+    evidence_problems
     # src/claude/ is the config that `make install` copies; any other PR may leave the plan out, but not half of it
     if ! printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'; then
         has_section "Claude: Plan" && plan_menu_problems
@@ -92,6 +119,11 @@ description_problems() {
 # Main script logic
 #=======================================================================
 print_section_header "${DEBUG}" "Script execution started."
+
+if [[ "${PR_AUTHOR}" == "dependabot[bot]" ]]; then
+    print_section_header "${INFO}" "SUCCESS: Dependabot's descriptions aren't checked"
+    exit 0
+fi
 
 VISIBLE_DESCRIPTION="$(visible_description)"
 PROBLEMS="$(description_problems)"

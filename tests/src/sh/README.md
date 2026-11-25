@@ -15,4 +15,6 @@
 | 🌿 [git/test_git_validate_branch_name.py](git/test_git_validate_branch_name.py) | The git branch name validation pre-commit hook |
 | 🔢 [git/test_git_validate_num_file_changes.py](git/test_git_validate_num_file_changes.py) | The PR file-count check, which skips `release/` branches |
 | 🏷️ [git/test_git_validate_skill_versions.py](git/test_git_validate_skill_versions.py) | The skill version check, which fails a PR that changes a skill without bumping its contract version |
-| 📝 [git/test_git_validate_pr_description.py](git/test_git_validate_pr_description.py) | The PR description check: a `src/claude/` PR has a Plan section, any Plan section is complete, and an always-on PR has the criteria |
+| 📝 [git/test_git_validate_pr_description.py](git/test_git_validate_pr_description.py) | The PR description check: a `src/claude/` PR has a Plan section, any Plan section is complete, an always-on PR has the criteria, and every PR has its evidence |
+| 🚦 [git/test_git_validate_open_prs.py](git/test_git_validate_open_prs.py) | The open PR check, which limits an author to three and leaves out Dependabot |
+| 🧑 [git/test_git_validate_human_author.py](git/test_git_validate_human_author.py) | The human author check, which needs a person assigned to a bot's PR |

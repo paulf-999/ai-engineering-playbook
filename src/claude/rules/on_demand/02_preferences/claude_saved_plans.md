@@ -1,4 +1,4 @@
-# 📤 Saving plans
+# 📤 Saved plans
 
 **Purpose:** where to keep a plan, with its `intent.md` and `spec.md`, once the user approves it, so approved plans aren't lost in plan mode's scratch folder, and how to track it until it ends.
 
@@ -70,4 +70,4 @@ Each status has its own folder in `_plans/`:
 
 ## 📞 Called by
 
-This rule is invoked by [`rules/always_on/02_preferences/claude_working_files.md`](../../../always_on/02_preferences/claude_working_files.md), when writing a plan.
+This rule is invoked by [`rules/always_on/01_standards/ai_sdlc_workflow.md`](../../always_on/01_standards/ai_sdlc_workflow.md), when writing a plan, if installed.

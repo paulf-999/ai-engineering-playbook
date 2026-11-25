@@ -11,7 +11,7 @@ Show one of these as the `Review:` line in the `git-create-pr` confirmation prom
 | 🪶 `Review: none` | 25 changed lines or fewer, counting additions plus deletions, and no risky paths | CI only, with no review offer |
 | 🔁 `Review: loop (max 2 fix rounds)` | Every other PR | The loop below |
 
-- ⚠️ **Risky paths:** hooks, scripts, CI workflows, install code, settings, dependencies and anything touching security always loop.
+- ⚠️ **Risky paths:** hooks, scripts, CI workflows, install code, settings, dependencies and security code, such as authentication, permissions or secret handling, always loop.
 - ✋ **Approval:** `y` at the prompt approves the tier, and on a loop covers its fix commits and normal pushes to the PR branch, with no prompt each round.
 
 ## 🔁 Run the loop

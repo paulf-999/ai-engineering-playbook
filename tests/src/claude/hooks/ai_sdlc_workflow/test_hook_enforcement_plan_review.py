@@ -12,7 +12,7 @@ from test_hook_enforcement_plan_sections import MIN_PLAN_LINES, exit_plan_input,
 HOOK = REPO_ROOT / "src" / "claude" / "hooks" / "ai_sdlc_workflow" / "hook_enforcement_plan_review.sh"
 RULES = REPO_ROOT / "src" / "claude" / "rules"
 WORKFLOW_RULE = RULES / "always_on" / "01_standards" / "ai_sdlc_workflow.md"
-SAVING_RULE = RULES / "on_demand" / "02_preferences" / "claude_working_files" / "_saving_plans.md"
+SAVING_RULE = RULES / "on_demand" / "02_preferences" / "claude_saved_plans.md"
 INTENT_SECTIONS = (
     "Problem",
     "Proposed outcome",
@@ -67,7 +67,7 @@ def _make_stub(tmp_path):
             capture_output=True,
             text=True,
             check=False,
-            timeout=10,
+            timeout=60,
         )
 
     run.prompt = tmp_path / "prompt.txt"

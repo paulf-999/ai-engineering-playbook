@@ -14,6 +14,7 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🔄 [ai_sdlc_workflow.md](../../src/claude/rules/always_on/01_standards/ai_sdlc_workflow.md) | Always-on rule | Every session |
 | 🪜 [ai_sdlc_stages.md](../../src/claude/rules/on_demand/01_standards/ai_sdlc_stages.md) | On-demand rule | Before work on an SDLC stage |
 | 🛡️ [behaviour.md](../../src/claude/rules/always_on/01_standards/behaviour.md) | Always-on rule | Every session |
+| 📤 [claude_saved_plans.md](../../src/claude/rules/on_demand/02_preferences/claude_saved_plans.md) | On-demand rule | When writing a plan |
 | 🗂️ [claude_working_files.md](../../src/claude/rules/always_on/02_preferences/claude_working_files.md) | Always-on rule | Every session, unless installed with `PREFERENCES=0` |
 | ✅ [claude_task_reporting.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_task_reporting.md) | On-demand rule | Before saying a task is done |
 | 🤖 [claude_loops_and_batches.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_loops_and_batches.md) | On-demand rule | Before proposing or starting a loop or other unattended run |
@@ -42,7 +43,7 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | File | Kind | When it loads |
 |---|---|---|
 | 🧭 [guiding_principles.md](../../src/claude/rules/on_demand/01_standards/claude_config/guiding_principles.md) | On-demand rule | Before proposing a rule, skill, hook, import, setting or memory note |
-| 🏷️ [claude_naming_patterns.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_naming_patterns.md) | On-demand rule | Before naming a new rule, skill or agent |
+| 🏷️ [claude_naming_patterns.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_naming_patterns.md) | On-demand rule | Before naming a new rule, skill, agent or config folder |
 | 🔑 [permission_recommendations.md](../../src/claude/rules/on_demand/01_standards/claude_config/permission_recommendations.md) | On-demand rule | Before recommending a permission or allowlist change |
 
 </details>

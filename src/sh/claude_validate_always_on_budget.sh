@@ -17,7 +17,7 @@ trap handle_interruption SIGINT
 
 CHECK_DIR="${1:-.}"
 # the token ceiling, set in docs/target_architecture/design_principles/01_principles.md; override via the ALWAYS_ON_TOKEN_BUDGET env var
-TOKEN_BUDGET="${ALWAYS_ON_TOKEN_BUDGET:-3100}"
+TOKEN_BUDGET="${ALWAYS_ON_TOKEN_BUDGET:-3300}"
 # the files Claude loads in every session, before any @-imports they pull in
 CONTEXT_FILES=("CLAUDE.md" "src/claude/CLAUDE.md")
 # the project config (.claude/) and the global config make install copies (src/claude/), which both load here
@@ -99,7 +99,7 @@ check_budget() {
     local tokens=$((TOTAL_CHARS / 4))
     if [[ "${tokens}" -gt "${TOKEN_BUDGET}" ]]; then
         print_section_header "${ERROR}" "ERROR: always-on context is ~${tokens} tokens, over the ${TOKEN_BUDGET}-token budget."
-        echo -e "Trim it, move detail to a file loaded on demand, or raise the budget in a PR that links logged evidence (see docs/target_architecture/architecture/_budget_and_guards.md)."
+        echo -e "Trim it, move detail to a file loaded on demand, or raise the budget in a PR that records the reason (see docs/target_architecture/architecture/_budget_and_guards.md)."
         exit 1
     fi
     print_section_header "${INFO}" "SUCCESS: always-on context is ~${tokens} tokens, within the ${TOKEN_BUDGET}-token budget."

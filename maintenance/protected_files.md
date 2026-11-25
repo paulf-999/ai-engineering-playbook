@@ -44,7 +44,7 @@ These can be slimmed, but not removed or made opt-in.
 | The `01_standards/` and `02_preferences/` kind folders in `always_on/` and `on_demand/`, and `01_standards/` in `path_scoped/` | `test_rules_structure.py` checks every rule sits in one |
 | [`style_guides/jira/`](../src/claude/rules/on_demand/style_guides/jira/) | It follows the guide-plus-children layout of the other style guides |
 | The model grader in [`claude_run_behaviour_evals.py`](../src/py/claude_run_behaviour_evals.py) | Most behaviour assertions judge meaning, and `must_match` already covers literal patterns |
-| `kaizen_nudges.log`, written by [`hook_reminder_kaizen_due.sh`](../src/claude/hooks/claude_kaizen/hook_reminder_kaizen_due.sh) | It's the kaizen trial's evidence until the trial ends on 2026-12-03 |
+| `_claude_kaizen/nudges.log`, written by [`hook_reminder_kaizen_due.sh`](../src/claude/hooks/claude_kaizen/hook_reminder_kaizen_due.sh) | It's the kaizen trial's evidence until the trial ends on 2026-12-03 |
 
 ## ℹ️ Unused isn't a reason to cut
 

@@ -18,7 +18,7 @@ Each route ends in the same reviewed intent:
 2. Ask the analyst questions below, as [Settle decisions](../../../always_on/01_standards/ai_sdlc_workflow.md#-settle-decisions) sets out, until the idea is concrete.
 3. Draft the six intent sections from [Plan layout](../../../always_on/01_standards/ai_sdlc_workflow.md#️-plan-layout), keeping the originator's terms.
 4. Show the originator the draft, and correct anything misunderstood.
-5. Once approved, save it in the [intent layout](../../02_preferences/claude_working_files/_saving_plans.md#-intent-layout), if that preference is installed, outside every repo.
+5. Once approved, save it in the [intent layout](../../02_preferences/claude_saved_plans.md#-intent-layout), if that preference is installed, outside every repo.
 
 ## 🔎 Analyst questions
 
@@ -65,7 +65,7 @@ Do third-party assessors need access too?
 
 ## 📏 Measures
 
-The [saved-plans measures](../../02_preferences/claude_working_files/_saving_plans.md#-measures) define these, if installed:
+The [saved-plans measures](../../02_preferences/claude_saved_plans.md#-measures) define these, if installed:
 
 - ⏱️ **Early sign:** time from the first conversation to a saved intent.
 - 🌱 **Later result:** the survival rate, and edits to the intent after the spec.

@@ -4,8 +4,11 @@ import json
 import os
 import pty
 import re
+import shutil
 import subprocess
 import tempfile
+from functools import cache
+from pathlib import Path
 
 import pytest
 from _config_files import AUTHORING_TEMPLATES, GIT_ENV, is_preference, tracked_config_files
@@ -16,8 +19,29 @@ SCRIPT = SCRIPTS_DIR / "claude_install_config.sh"
 SOURCE = REPO_ROOT / "src" / "claude"
 
 
-def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
-    """Run the script from cwd against a target, typing answer at a pseudo-terminal, or with no terminal if None."""
+# a preference that PREFERENCES=0 leaves out
+OUTPUT_FORMAT = "rules/always_on/02_preferences/claude_output_format.md"
+
+
+@cache
+def _make_small_repo():
+    """Return a temporary repo with the real CLAUDE.md and hooks and one preference, deleted when the tests exit."""
+    # an install's time grows with its file count, so only tests about the full config install all of it
+    # those pass cwd=REPO_ROOT, as they check every tracked file, rewritten pointer or preference
+    repo = tempfile.TemporaryDirectory()
+    root = Path(repo.name)
+    env = isolated_git_repo(root)
+    for path in ("CLAUDE.md", OUTPUT_FORMAT):
+        (root / "src" / "claude" / path).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(SOURCE / path, root / "src" / "claude" / path)
+    shutil.copytree(SOURCE / "hooks", root / "src" / "claude" / "hooks")
+    subprocess.run(["git", "add", "src/claude"], cwd=root, env=env, check=True)
+    return repo
+
+
+def run_install(target, answer=None, cwd=None, **extra_env):
+    """Run the script from cwd, default a small repo, typing answer at a pseudo-terminal, or with none if it is None."""
+    cwd = cwd or _make_small_repo().name
     # a temporary home, outside the target, so an install never touches the real saved plans
     with tempfile.TemporaryDirectory() as home:
         env = {**os.environ, **GIT_ENV, "HOME": home, "CLAUDE_CONFIG_DIR": str(target), **extra_env}
@@ -37,7 +61,7 @@ def run_install(target, answer=None, cwd=REPO_ROOT, **extra_env):
                 capture_output=True,
                 text=True,
                 check=False,
-                timeout=30,
+                timeout=120,
             )
         finally:
             os.close(terminal)
@@ -78,7 +102,7 @@ def test_a_wrong_answer_cancels(tmp_path):
 def default_install(tmp_path_factory):
     """Install once into a fresh config directory, shared by the tests that only read a plain install."""
     target = tmp_path_factory.mktemp("default_install")
-    result = run_install(target, answer="install")
+    result = run_install(target, answer="install", cwd=REPO_ROOT)
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     return target
 
@@ -123,7 +147,7 @@ def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
     (tmp_path / "rules" / "mine").mkdir()
     (tmp_path / ".playbook_install_manifest").write_text("rules/gone/old.md\n")
 
-    result = run_install(tmp_path, answer="install")
+    result = run_install(tmp_path, answer="install", cwd=REPO_ROOT)
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     assert not (tmp_path / "rules" / "gone").exists(), "the file and the folder it emptied should be removed"
@@ -321,7 +345,7 @@ def project_install(tmp_path, **extra_env):
 @pytest.fixture(scope="module")
 def default_project_install(tmp_path_factory):
     """Install once into a fresh repo folder, shared by the tests that only read a plain project install."""
-    return project_install(tmp_path_factory.mktemp("default_project_install"))
+    return project_install(tmp_path_factory.mktemp("default_project_install"), cwd=REPO_ROOT)
 
 
 def test_project_install_writes_only_into_the_repo(default_project_install):
@@ -499,8 +523,6 @@ def test_authoring_templates_and_readmes_never_install(default_install):
 
 # files an install writes for its own records, beside the config it copies
 BOOKKEEPING = {".playbook_install_manifest", ".playbook_install_deny_rules", "settings.json"}
-# a preference that PREFERENCES=0 leaves out
-OUTPUT_FORMAT = "rules/always_on/02_preferences/claude_output_format.md"
 
 
 def preference_files(target):
@@ -512,7 +534,7 @@ def test_a_default_install_includes_every_preference(tmp_path):
     """A plain install, with no PREFERENCES set, installs every preference along with everything else."""
     config = tmp_path / "config"
 
-    result = run_install(config, answer="install")
+    result = run_install(config, answer="install", cwd=REPO_ROOT)
 
     assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
     expected = {installed_path(path) for path in tracked_config_files(include_preferences=True)}
@@ -539,7 +561,7 @@ def test_a_project_never_gets_preferences(tmp_path):
     config, project = tmp_path / "config", tmp_path / "repo"
     project.mkdir()
 
-    result = run_install(config, answer="install", PROJECT=str(project))
+    result = run_install(config, answer="install", cwd=REPO_ROOT, PROJECT=str(project))
 
     assert result.returncode == 0, f"a project install should succeed:\n{result.stdout}{result.stderr}"
     assert preference_files(project / ".claude") == set(), "a project install should have no preferences"

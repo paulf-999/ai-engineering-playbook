@@ -18,6 +18,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              Those hooks and deny rules come from claude_install_config/settings.json.j2, which must list every hook
 # Usage: [PROJECT=<repo> [HOOKS=1]] [PREFERENCES=0] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
 #        your own terminal or in a provisioning script; make install and make uninstall call it)
+#        To install, it needs Jinja in .venv, which make install sets up, or RENDER_PYTHON=<a python that has Jinja>
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/shell_utils.sh

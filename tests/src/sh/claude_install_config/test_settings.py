@@ -54,6 +54,12 @@ def test_merge_hooks_replaces_its_own_copy_and_keeps_hooks_beside_it(tmp_path):
     assert settings["hooks"]["PreToolUse"] == [{"matcher": "Bash", "hooks": [mine]}, new]
 
 
+def test_merge_hooks_says_when_the_merge_itself_fails(tmp_path):
+    """Entries jq can't merge leave the settings alone with a warning, rather than being skipped quietly."""
+    result = run_library(tmp_path, rendered({"Stop": [{"hooks": "not a list"}]}) + "merge_hooks", {})
+    assert result.returncode == 1 and "weren't added" in result.stdout, result.stdout + result.stderr
+
+
 @pytest.mark.parametrize("hooks_dir", ["{target}/hooks", "$CLAUDE_PROJECT_DIR/.claude/hooks"])
 def test_strip_dead_hooks_removes_only_hooks_whose_file_is_gone(tmp_path, hooks_dir):
     """An entry for a missing hook_*.sh under hooks/ goes, and one whose file exists or that sits elsewhere stays."""

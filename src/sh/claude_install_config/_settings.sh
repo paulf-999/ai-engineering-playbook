@@ -34,7 +34,7 @@ render_settings() {
     if [[ -z "${PROJECT}" || "${WITH_HOOKS}" == 1 ]]; then options=(--all-hooks); fi
     if ! RENDERED_SETTINGS="$("${RENDER_PYTHON}" "${RENDERER}" "${HOOKS_DIR}" ${options[@]+"${options[@]}"})"; then
         log_message "${ERROR}" "The hooks and deny rules couldn't be rendered, as shown above - nothing changed."
-        echo "If Python or Jinja is missing, run make install, which sets both up in .venv."
+        echo "If Jinja is missing, run make install, which sets up .venv, or install jinja2 and set RENDER_PYTHON to its Python."
         exit 1
     fi
 }
@@ -79,13 +79,16 @@ merge_hooks() {
         log_message "${WARNING}" "${SETTINGS} has a hooks.${event} that isn't a list, so the hooks weren't added."
         return 1
     fi
-    SETTINGS_JSON="$(jq --argjson rendered "${RENDERED_SETTINGS}" "${JQ_STRIP}"'
+    if ! SETTINGS_JSON="$(jq --argjson rendered "${RENDERED_SETTINGS}" "${JQ_STRIP}"'
         reduce ($rendered.hooks // {} | to_entries[]) as {key: $event, value: $entries} (.;
             [$entries[].hooks[].command | "/" + (split("/") | last)] as $suffixes
             | (.hooks[$event] // []) as $old
             | (($old | strip(command_text as $c | any($suffixes[]; . as $s | $c | endswith($s)))) + $entries) as $new
             | if $new == $old then . else .hooks[$event] = $new end
-        )' <<< "${SETTINGS_JSON}")"
+        )' <<< "${SETTINGS_JSON}")"; then
+        log_message "${WARNING}" "The config's hooks couldn't be merged into ${SETTINGS}, so they weren't added."
+        return 1
+    fi
 }
 
 # Strip from SETTINGS_JSON each hook under the target's hooks/ folder whose hook_*.sh file is gone, such as one the config

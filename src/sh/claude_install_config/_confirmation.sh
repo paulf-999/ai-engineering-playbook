@@ -2,7 +2,7 @@
 
 # Description: Show what an install or uninstall will change, and require a typed confirmation
 # Usage: source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_confirmation.sh",
-#        from claude_install_config.sh, which sets the paths and inputs these functions read
+#        from claude_install_config.sh, once _paths.sh sets the paths and inputs these functions read
 
 #=======================================================================
 # Variables

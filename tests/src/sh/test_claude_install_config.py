@@ -129,20 +129,32 @@ def test_install_copies_every_tracked_file(default_install):
     assert not (default_install / "skills" / "_git_skills").exists(), "no group folder, nor its README, should install"
 
 
-def test_relative_links_open_once_installed(default_install):
-    """Each link that climbs out of its folder opens its target where it installs, whether either file moved or not."""
-    # the install test shows every link's target is installed, so a broken link here means its path is wrong
-    links = {
-        (path, link)
-        for path in (default_install / installed for installed in installed_files(default_install))
-        if path.suffix == ".md"
-        for link in re.findall(r"\]\((\.\./[^)#\s]+)", path.read_text())
-    }
-    assert links, "the config should hold links between folders"
-    broken = {
-        f"{path.relative_to(default_install)}: {link}" for path, link in links if not (path.parent / link).exists()
-    }
-    assert not broken, f"{len(broken)} broken: {sorted(broken)}"
+def climbing_links(path):
+    """Return each link in a Markdown file that climbs out of its folder, without any #fragment."""
+    return re.findall(r"\]\((\.\./[^)#\s]+)", path.read_text())
+
+
+@pytest.mark.parametrize("install", ["default_install", "default_project_install"])
+def test_relative_links_reach_their_targets_once_installed(request, install):
+    """Each link that climbs out of its folder leads to where its target installs, whether either file moved or not."""
+    target = request.getfixturevalue(install)
+    if isinstance(target, tuple):
+        # a project install also returns its config directory
+        _, target = target
+    wrong, checked = [], 0
+    for source in tracked_config_files(include_preferences=True):
+        path = target / installed_path(source)
+        if path.suffix != ".md" or not path.is_file():
+            continue
+        links = climbing_links(SOURCE / source)
+        # a target is compared rather than opened, as a project install leaves some out
+        expected = [target / installed_path(os.path.relpath((SOURCE / source).parent / link, SOURCE)) for link in links]
+        actual = [Path(os.path.normpath(path.parent / link)) for link in climbing_links(path)]
+        checked += len(links)
+        if actual != expected:
+            wrong.append(source)
+    assert checked, "the config should hold links between folders"
+    assert not wrong, f"these install with a wrong link: {wrong}"
 
 
 def test_install_backs_up_overwrites_and_keeps_other_files(tmp_path):

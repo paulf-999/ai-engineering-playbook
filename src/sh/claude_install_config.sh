@@ -127,7 +127,8 @@ has_links() {
 }
 
 # Print text from stdin, from the source file $1 that installs at $2, with each link that climbs out of its folder
-# pointing at where its target installs, by the same moves as target_path
+# pointing at where its target installs, by the same moves as target_path, so change both together; it reads inline
+# links only, as the config has no reference-style ones
 relink() {
     LC_ALL=C awk -v from="${1}" -v to="${2}" '
         # the path a link in the file "base" points at, or "" if it climbs out of the config

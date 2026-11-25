@@ -34,6 +34,8 @@ LAZY_RULES_DIR="rules/on_demand"
 CONFIG_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
 # a repo to install into instead of your Claude config directory, and whether its install includes the done checks hook
 PROJECT="${PROJECT:-}"
+# where project installs backed up before BACKUP_PREFIX held a hash, empty for your own config directory
+OLD_BACKUP_PREFIX=""
 WITH_HOOKS="${HOOKS:-}"
 UNINSTALL="${UNINSTALL:-}"
 # skips install's typed confirmation, for devcontainers and onboarding scripts that have no terminal
@@ -50,7 +52,10 @@ if [[ -n "${PROJECT}" ]]; then
     PROJECT="$(cd "${PROJECT}" && pwd)"
     TARGET_DIR="${PROJECT}/.claude"
     # backups go in your own config directory, so they're never committed with the repo
-    BACKUP_PREFIX="${CONFIG_DIR}/backups/project_$(basename "${PROJECT}")_"
+    OLD_BACKUP_PREFIX="${CONFIG_DIR}/backups/project_$(basename "${PROJECT}")_"
+    # a hash of the repo's full path keeps apart the backups of repos with the same folder name
+    PROJECT_HASH="$(cd "${PROJECT}" && pwd -P | git hash-object --stdin)"
+    BACKUP_PREFIX="${OLD_BACKUP_PREFIX}${PROJECT_HASH:0:12}_"
 else
     TARGET_DIR="${CONFIG_DIR}"
     BACKUP_PREFIX="${TARGET_DIR}/backups/install_"
@@ -194,6 +199,8 @@ backup_dir_for() {
 list_source_files() {
     local file
     while IFS= read -r -d '' file; do
+        # a tracked file deleted from the working tree counts as removed
+        file_exists "${file}" || continue
         file="${file#"${SOURCE_DIR}"/}"
         [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" =~ ^hooks/[^/]+/hook_enforcement_(done_checks|worktree_edits)\.sh$ ]] \
             && continue
@@ -263,7 +270,7 @@ list_removed_files() {
     # one grep lists the manifest's paths that TARGET_PATHS lacks, rather than one grep per path
     while IFS= read -r path; do
         [[ -n "${path}" && "${path}" != /* && "${path}" != *..* ]] || continue
-        file_exists "${TARGET_DIR}/${path}" && REMOVED_FILES+=("${path}")
+        if file_exists "${TARGET_DIR}/${path}"; then REMOVED_FILES+=("${path}"); fi
     done < <(grep -Fxv -f <(printf '%s' "${TARGET_PATHS}") -- "${MANIFEST}" || true)
 }
 
@@ -345,6 +352,21 @@ confirm_uninstall() {
     fi
 }
 
+# Print the oldest backup of an installed path, or nothing if there's none, trying a project's hashed folders before the
+# unhashed ones, which could be another repo's with the same name
+oldest_backup() {
+    local prefix backup
+    for prefix in "${BACKUP_PREFIX}" ${OLD_BACKUP_PREFIX:+"${OLD_BACKUP_PREFIX}"}; do
+        # the globs expand in date order, and matching the whole date skips uninstall and upgrade backups
+        for backup in "${prefix}"[0-9][0-9][0-9][0-9]_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/"${1}"; do
+            if file_exists "${backup}"; then
+                echo "${backup}"
+                return 0
+            fi
+        done
+    done
+}
+
 # Back up and remove each installed file, restoring its oldest backup, which holds the user's own file,
 # since an upgrade backs up the playbook's own previous version to the upgrade folder instead
 uninstall_files() {
@@ -353,14 +375,11 @@ uninstall_files() {
         make_parent_folder "${BACKUP_DIR}/${file}"
         cp -p "${TARGET_DIR}/${file}" "${BACKUP_DIR}/${file}"
         rm "${TARGET_DIR}/${file}"
-        # the glob expands in date order, and the leading digit skips uninstall backups
-        for original in "${BACKUP_PREFIX}"[0-9]*/"${file}"; do
-            if file_exists "${original}"; then
-                cp -p "${original}" "${TARGET_DIR}/${file}"
-                restored=$((restored + 1))
-                break
-            fi
-        done
+        original="$(oldest_backup "${file}")"
+        if [[ -n "${original}" ]]; then
+            cp -p "${original}" "${TARGET_DIR}/${file}"
+            restored=$((restored + 1))
+        fi
     done
     rm -f "${MANIFEST}"
     remove_emptied_folders
@@ -405,6 +424,23 @@ remove_old_files() {
     remove_emptied_folders
     log_message "${INFO}" "Removed ${#REMOVED_FILES[@]} file(s) an earlier install added." false
     printf '%s' "${TARGET_PATHS}" > "${MANIFEST}"
+}
+
+# Write settings.json, keeping its mode and any symlink, through a temporary file that's then moved, so a failed write
+# can't leave it half written
+write_settings() {
+    local path="${SETTINGS}" mode
+    if [[ -L "${path}" ]]; then path="$(readlink -f "${path}")"; fi
+    if file_exists "${path}"; then
+        # GNU stat, then macOS's
+        mode="$(stat -c %a "${path}" 2> /dev/null || stat -f %Lp "${path}")"
+        # settings can hold secrets, so the temporary file starts out private
+        (umask 077 && printf '%s\n' "${1}" > "${path}.tmp")
+        chmod "${mode}" "${path}.tmp"
+    else
+        printf '%s\n' "${1}" > "${path}.tmp"
+    fi
+    mv "${path}.tmp" "${path}"
 }
 
 # Keep one entry per hook in settings.json at the current path, or none if it isn't shipped, then the deny rules,
@@ -476,9 +512,7 @@ register_settings() {
         mkdir -p "${BACKUP_DIR}"
         cp -p "${SETTINGS}" "${BACKUP_DIR}/settings.json"
     fi
-    # write a temporary file, then move it, so a failed write can't leave settings.json half written
-    printf '%s\n' "${updated}" > "${SETTINGS}.tmp"
-    mv "${SETTINGS}.tmp" "${SETTINGS}"
+    write_settings "${updated}"
     log_message "${INFO}" "Updated the config's hooks and deny rules in ${SETTINGS}."
 }
 

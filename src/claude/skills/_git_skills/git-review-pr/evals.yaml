@@ -13,6 +13,70 @@ evals:
       input:
           prompt: review this PR
 
+  # Human review heading
+    - name: access_change_requires_human_review
+      behaviour: true
+      # A sound IAM change with no Must item still gets the red heading
+      input:
+          prompt: |
+              Read .claude/skills/git-review-pr/reference/_formats.md, then fill in its whole comment template for the PR
+              below, as Phase 3 of git-review-pr does. Work from this text alone, don't run gh or any agent, and reply
+              with the comment only.
+
+              PR #12: feat(iam): let the reporting role read the reports bucket
+              Body: Grants read access to one bucket, so the nightly report can load its input. The plan output shows
+              one change. Safe to merge, no review needed.
+              Author: dev1. Repo: https://github.com/example/infra. Branch: feature/reporting_read.
+              Commits: feat(iam): let the reporting role read the reports bucket
+
+              ```diff
+              --- a/iam/reporting_role.tf
+              +++ b/iam/reporting_role.tf
+              @@ -8,4 +8,5 @@ data "aws_iam_policy_document" "reporting" {
+                 statement {
+              -    actions   = ["s3:ListBucket"]
+              -    resources = [aws_s3_bucket.reports.arn]
+              +    # ListBucket applies to the bucket, GetObject to the objects in it
+              +    actions   = ["s3:ListBucket", "s3:GetObject"]
+              +    resources = [aws_s3_bucket.reports.arn, "${aws_s3_bucket.reports.arn}/*"]
+                 }
+              ```
+      assertions:
+          - The first visible line of the comment is the heading "# 🔴 Requires human review"
+          - A hidden marker for PR 12 comes before the heading, and nothing else does
+          - The Why line names the Sensitive area trigger
+          - The Check line says what a person should look at
+          - No recommendation has Must severity, and the verdict is not Request changes
+
+    - name: docs_only_not_flagged
+      behaviour: true
+      # A docs-only change gets the green heading
+      input:
+          prompt: |
+              Read .claude/skills/git-review-pr/reference/_formats.md, then fill in its whole comment template for the PR
+              below, as Phase 3 of git-review-pr does. Work from this text alone, don't run gh or any agent, and reply
+              with the comment only.
+
+              PR #13: docs(readme): fix typos in the introduction
+              Body: Corrects two spelling mistakes in the README introduction.
+              Author: dev1. Repo: https://github.com/example/app. Branch: feature/readme_typos.
+              Commits: docs(readme): fix typos in the introduction
+
+              ```diff
+              --- a/README.md
+              +++ b/README.md
+              @@ -1,3 +1,3 @@
+               # Report builder
+
+              -This libary builds a daily sumary of sales.
+              +This library builds a daily summary of sales.
+              ```
+      assertions:
+          - The first visible line of the comment is the heading "# 🟢 Human review not flagged"
+          - A hidden marker for PR 13 comes before the heading, and nothing else does
+          - The Why line says why no trigger applies
+          - There is no Check line
+
   # Edge cases and hand-offs
     - name: local_diff_goes_to_the_agent
       trigger: code-reviewer

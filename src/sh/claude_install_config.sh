@@ -352,7 +352,7 @@ remove_old_files() {
 # Keep one entry per hook in settings.json at the current path, or none if it isn't shipped, then the deny rules,
 # backing up the old file
 register_settings() {
-    local current updated entry event matcher hook ship previous command
+    local current updated entry event matcher hook ship previous command status
     if ! command -v jq > /dev/null; then
         log_message "${WARNING}" "jq isn't installed, so the config's hooks weren't added to ${SETTINGS}."
         return 0
@@ -374,11 +374,14 @@ register_settings() {
         # a project's settings are shared, so its hook command names the project through Claude Code's own variable
         command="bash \"${TARGET_DIR}/${hook}\""
         [[ -n "${PROJECT}" ]] && command="bash \"\$CLAUDE_PROJECT_DIR/.claude/${hook}\""
+        # the plan review takes seconds, so Claude Code shows this while it runs
+        status=""
+        [[ "${hook##*/}" == hook_enforcement_plan_review.sh ]] && status="Reviewing plan against quality gates"
         # strip the hook wherever it's registered, matched by file name so an old path counts, then re-add it if shipped
         # an event value that isn't a list can't take the hook, so it's reported rather than aborting the install
         # the command is an absolute path, since hook commands in user settings can't refer to CLAUDE_CONFIG_DIR
         if ! updated="$(jq --arg event "${event}" --arg matcher "${matcher}" \
-            --arg command "${command}" --arg suffix "/${hook##*/}\"" --argjson ship "${ship}" '
+            --arg command "${command}" --arg suffix "/${hook##*/}\"" --argjson ship "${ship}" --arg status "${status}" '
             def ours: (.command? // "") as $c | ($c | type) == "string" and ($c | endswith($suffix));
             (.hooks[$event] // []) as $old
             | if ($old | type) != "array" then error("hooks.\($event) is not a list") else . end
@@ -388,7 +391,8 @@ register_settings() {
                     else . end)
                 | . + (if $ship
                     then [(if $matcher == "" then {} else {matcher: $matcher} end)
-                        + {hooks: [{type: "command", command: $command}]}]
+                        + {hooks: [{type: "command", command: $command}
+                            + (if $status == "" then {} else {statusMessage: $status} end)]}]
                     else [] end)
               ) as $new
             | if $new == $old then . else .hooks[$event] = $new end' <<< "${updated}" 2> /dev/null)"; then

@@ -10,17 +10,15 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 # Variables
 #=======================================================================
 
-# exit code 2 tells Claude Code to block the tool call and show stderr to Claude
-BLOCK=2
 # a plan with fewer non-blank lines than this is a small task, so it isn't reviewed
 MIN_PLAN_LINES=15
 # the same headings the plan sections hook checks; a plan without them is that hook's to block
 INTENT_HEADING='^#{1,6}[[:space:]]+[^[:alpha:]]*intent\b'
 SPEC_HEADING='^#{1,6}[[:space:]]+[^[:alpha:]]*spec\b'
-# after this many blocks in a session, a plan passes with the findings, so review can't loop forever
+# after this many blocks, a plan passes with the findings, so review can't loop forever
 MAX_BLOCKS=2
 # seconds to wait for the reviewer before letting the plan through unreviewed
-REVIEW_TIMEOUT=240
+REVIEW_TIMEOUT=60
 # the writing style rule, at the same path relative to this hook in the repo and in an install
 STYLE_FILE="$(dirname "${BASH_SOURCE[0]}")/../../rules/always_on/02_preferences/claude_writing_style.md"
 # a verdict whose five scores are numbers, pulled from the reviewer's reply even when it's wrapped in a code fence
@@ -66,16 +64,32 @@ EOF
     cat
 }
 
-# Print stdout JSON that passes the plan with a message added to Claude's context, leaving the user's approval in place
 # Append the outcome in $1 and the scores in $2, if any, to the review log, when the project has a memory folder
 log_review() {
     [[ -n "${REVIEWS_LOG}" && -d "$(dirname "${REVIEWS_LOG}")" ]] || return 0
     echo "$(date +%Y-%m-%d) session=${SESSION} outcome=$1 ${2:-}" >> "${REVIEWS_LOG}"
 }
 
-allow_with_context() {
-    jq -n --arg context "$1" '{hookSpecificOutput: {hookEventName: "PreToolUse", additionalContext: $context}}'
+# Pass the plan, leaving the user's approval in place, with the message in $1 for the user and any context in $2 for Claude
+# each outcome prints JSON and exits 0, as Claude Code reads a hook's JSON only then
+allow() {
+    jq -n --arg message "$1" --arg context "${2:-}" '{systemMessage: $message}
+        + if $context == "" then {}
+            else {hookSpecificOutput: {hookEventName: "PreToolUse", additionalContext: $context}} end'
     exit 0
+}
+
+# Block the plan, with the message in $1 for the user and the reason in $2 for Claude
+deny() {
+    jq -n --arg message "$1" --arg reason "$2" '{systemMessage: $message,
+        hookSpecificOutput: {hookEventName: "PreToolUse", permissionDecision: "deny", permissionDecisionReason: $reason}}'
+    exit 0
+}
+
+# Log that the plan wasn't reviewed for the reason in $1, then pass it
+allow_unreviewed() {
+    log_review unreviewed
+    allow "⚠️ This plan wasn't reviewed: $1." "This plan wasn't reviewed: $1. Tell the user."
 }
 
 #=======================================================================
@@ -103,35 +117,33 @@ REVIEWS_LOG=""
 # the prompt; perl's alarm stands in for timeout, which macOS doesn't ship; any failure lets the plan through unreviewed
 RAW="$(review_prompt <<< "${PLAN}" | (cd "${TMPDIR:-/tmp}" && perl -e 'alarm shift; exec @ARGV' "${REVIEW_TIMEOUT}" \
     claude -p --safe-mode --model sonnet --tools "" --no-session-persistence --output-format json) 2> /dev/null)" \
-    || {
-        log_review unreviewed
-        allow_with_context "This plan wasn't reviewed: the reviewer failed or timed out. Tell the user."
-    }
+    || allow_unreviewed "the reviewer failed or timed out"
 # -e makes jq fail when the filter finds no verdict
 VERDICT="$(jq -ce "${VERDICT_FILTER}" <<< "${RAW}" 2> /dev/null)" \
-    || {
-        log_review unreviewed
-        allow_with_context "This plan wasn't reviewed: the reviewer gave no scores. Tell the user."
-    }
+    || allow_unreviewed "the reviewer gave no scores"
 
 SCORES="$(jq -r '.scores | to_entries | map("\(.key)=\(.value)") | join(" ")' <<< "${VERDICT}")"
+SHOWN_SCORES="$(jq -r '.scores | to_entries | map("\(.key) \(.value)/10") | join(", ")' <<< "${VERDICT}")"
+ROUNDS_FILE="${TMPDIR:-/tmp}/claude_plan_review_${SESSION}"
+# a plan that passes or is capped ends its rounds, so the session's next plan starts at none
 if jq -e '[.scores[]] | all(. == 10)' <<< "${VERDICT}" > /dev/null; then
+    rm -f "${ROUNDS_FILE}"
     log_review passed "${SCORES}"
-    exit 0
+    allow "✅ Plan review passed: ${SHOWN_SCORES}."
 fi
 
-FINDINGS="$(jq -r '"Plan review scores: " + (.scores | to_entries | map("\(.key) \(.value)/10") | join(", ")) + ".",
-    (.findings // [] | .[] | "- \(.)")' <<< "${VERDICT}")"
-ROUNDS_FILE="${TMPDIR:-/tmp}/claude_plan_review_${SESSION}"
+FINDINGS="Plan review scores: ${SHOWN_SCORES}.
+$(jq -r '.findings // [] | .[] | "- \(.)"' <<< "${VERDICT}")"
 ROUNDS="$(cat "${ROUNDS_FILE}" 2> /dev/null || echo 0)"
 
 if [[ "${ROUNDS}" -ge "${MAX_BLOCKS}" ]]; then
+    rm -f "${ROUNDS_FILE}"
     log_review capped "${SCORES}"
-    allow_with_context "${FINDINGS}
+    allow "⚠️ Plan review still has findings after ${MAX_BLOCKS} rounds, so the plan goes through: ${SHOWN_SCORES}." "${FINDINGS}
 The plan review still has these findings after ${MAX_BLOCKS} rounds. Show them to the user with the plan."
 fi
-echo $((ROUNDS + 1)) > "${ROUNDS_FILE}"
+ROUNDS=$((ROUNDS + 1))
+echo "${ROUNDS}" > "${ROUNDS_FILE}"
 log_review blocked "${SCORES}"
-echo "${FINDINGS}
-Ask the user about each decisions finding, fix the others yourself, then submit the plan again." >&2
-exit "${BLOCK}"
+deny "🔁 Plan review sent the plan back to Claude, round ${ROUNDS} of ${MAX_BLOCKS}: ${SHOWN_SCORES}." "${FINDINGS}
+Ask the user about each decisions finding, fix the others yourself, then submit the plan again."

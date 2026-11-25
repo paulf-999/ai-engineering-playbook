@@ -2,6 +2,7 @@
 
 import json
 import os
+import shutil
 import subprocess
 
 import pytest
@@ -20,8 +21,6 @@ INTENT_SECTIONS = (
     "Constraints",
     "Open questions",
 )
-# exit code 2 is how a PreToolUse hook tells Claude Code to block the call
-BLOCKED = 2
 # a plan long enough to review, with the Intent and Spec headings the sections hook requires
 LONG_PLAN = "## 1. Intent\n\nWhy.\n\n## 2. Spec\n\nWhat.\n\n## 3. Plan\n\n" + steps(MIN_PLAN_LINES)
 ALL_TENS = {"intent": 10, "spec": 10, "plan": 10, "writing_style": 10, "decisions": 10}
@@ -32,6 +31,11 @@ STUB_CLAUDE = """#!/bin/bash
 cat > "${STUB_DIR}/prompt.txt"
 cat "${STUB_DIR}/reply.json" 2> /dev/null
 exit "${STUB_EXIT:-0}"
+"""
+# a stub perl that saves the seconds the hook gives the reviewer, then runs the real perl
+STUB_PERL = """#!/bin/bash
+echo "$3" > "${STUB_DIR}/limit.txt"
+exec "${REAL_PERL}" "$@"
 """
 
 
@@ -51,6 +55,7 @@ def _make_stub(tmp_path):
         payload = json.loads(exit_plan_input(plan)) | {"session_id": session, "transcript_path": transcript}
         env = os.environ | {
             "PATH": f"{tmp_path / 'bin'}:{os.environ['PATH']}",
+            "REAL_PERL": shutil.which("perl"),
             "STUB_DIR": str(tmp_path),
             "STUB_EXIT": str(stub_exit),
             "TMPDIR": str(tmp_path),
@@ -75,6 +80,24 @@ def context(result):
     return json.loads(result.stdout)["hookSpecificOutput"]["additionalContext"]
 
 
+def user_message(result):
+    """Return the systemMessage the hook printed for the user, checking it exited 0."""
+    assert result.returncode == 0, f"the hook should exit 0:\n{result.stderr}"
+    return json.loads(result.stdout)["systemMessage"]
+
+
+def denied(result):
+    """Return whether the hook denied the plan."""
+    assert result.returncode == 0, f"the hook should exit 0:\n{result.stderr}"
+    return json.loads(result.stdout).get("hookSpecificOutput", {}).get("permissionDecision") == "deny"
+
+
+def deny_reason(result):
+    """Return the reason the hook gave Claude for denying the plan."""
+    assert denied(result), f"the plan should be denied:\n{result.stdout}"
+    return json.loads(result.stdout)["hookSpecificOutput"]["permissionDecisionReason"]
+
+
 @pytest.mark.parametrize(
     "plan",
     ["## Intent\n\nWhy.\n\n## Spec\n\nWhat.\n", "# Plan\n\nNo sections here.\n" + steps(MIN_PLAN_LINES)],
@@ -89,54 +112,77 @@ def test_a_short_plan_or_one_without_sections_is_not_reviewed(tmp_path, plan):
 
 
 def test_a_plan_scored_10_on_every_theme_is_allowed(tmp_path):
-    """An all-10 verdict exits 0 silently, and the reviewer saw the plan and the writing style rule."""
+    """An all-10 verdict allows the plan and tells the user its scores, and the reviewer saw the plan and style rule."""
     stub = _make_stub(tmp_path)
     result = stub(LONG_PLAN, {"scores": ALL_TENS, "findings": []})
-    assert result.returncode == 0 and result.stdout == "", f"the plan should be allowed:\n{result.stderr}"
+    assert not denied(result), f"the plan should be allowed:\n{result.stdout}"
+    assert "passed" in user_message(result) and "intent 10/10" in user_message(result)
+    assert "hookSpecificOutput" not in json.loads(result.stdout), "a pass should leave the user's approval in place"
     prompt = stub.prompt.read_text()
     assert LONG_PLAN.strip() in prompt, "the reviewer should see the plan"
     assert "British spelling" in prompt, "the reviewer should see the writing style rule"
 
 
 def test_a_plan_scored_under_10_is_blocked_with_the_findings(tmp_path):
-    """Any theme under 10 exits 2, with the scores and findings on stderr."""
+    """Any theme under 10 denies the plan with the scores and findings, and tells the user the scores and round."""
     stub = _make_stub(tmp_path)
     verdict = {"scores": ALL_TENS | {"spec": 8}, "findings": ["Spec has no Out of scope bullet."]}
     result = stub(LONG_PLAN, verdict)
-    assert result.returncode == BLOCKED, f"the plan should be blocked:\n{result.stderr}"
-    assert "spec 8/10" in result.stderr, f"the reason should give the scores:\n{result.stderr}"
-    assert "Spec has no Out of scope bullet." in result.stderr, "the reason should list the findings"
+    assert "spec 8/10" in deny_reason(result), "the reason should give the scores"
+    assert "Spec has no Out of scope bullet." in deny_reason(result), "the reason should list the findings"
+    assert "spec 8/10" in user_message(result) and "round 1 of 2" in user_message(result)
 
 
 def test_a_decisions_score_under_10_is_blocked_and_sent_to_the_user(tmp_path):
-    """A decisions score under 10 exits 2, and tells Claude to ask the user about those findings."""
+    """A decisions score under 10 denies the plan, and tells Claude to ask the user about those findings."""
     stub = _make_stub(tmp_path)
     verdict = {"scores": ALL_TENS | {"decisions": 6}, "findings": ["decisions: the database choice isn't agreed."]}
     result = stub(LONG_PLAN, verdict)
-    assert result.returncode == BLOCKED, f"the plan should be blocked:\n{result.stderr}"
-    assert "decisions 6/10" in result.stderr, f"the reason should give the score:\n{result.stderr}"
-    assert "ask the user" in result.stderr.lower(), f"the reason should send Claude to the user:\n{result.stderr}"
+    assert "decisions 6/10" in deny_reason(result), "the reason should give the score"
+    assert "ask the user" in deny_reason(result).lower(), "the reason should send Claude to the user"
 
 
 def test_findings_nested_in_the_scores_are_read_as_findings(tmp_path):
     """A reply with findings inside scores passes when every theme is 10, and otherwise lists them as findings."""
     stub = _make_stub(tmp_path)
     result = stub(LONG_PLAN, {"scores": ALL_TENS | {"findings": []}})
-    assert result.returncode == 0 and result.stdout == "", f"an all-10 plan should be allowed:\n{result.stderr}"
+    assert not denied(result), f"an all-10 plan should be allowed:\n{result.stdout}"
     result = stub(LONG_PLAN, {"scores": ALL_TENS | {"spec": 8, "findings": ["spec: no Out of scope bullet."]}})
-    assert result.returncode == BLOCKED, f"the plan should be blocked:\n{result.stderr}"
-    assert "\n- spec: no Out of scope bullet." in result.stderr, f"the findings should be listed:\n{result.stderr}"
+    assert "\n- spec: no Out of scope bullet." in deny_reason(result), "the findings should be listed"
 
 
 def test_the_third_submission_passes_with_the_findings_for_the_user(tmp_path):
-    """After two blocks in a session, the next plan exits 0 with the findings in additionalContext."""
+    """After two blocks, the next submission passes with the findings for Claude and the scores for the user."""
     stub = _make_stub(tmp_path)
     verdict = {"scores": ALL_TENS | {"plan": 9}, "findings": ["Step 3 has no check."]}
-    assert [stub(LONG_PLAN, verdict).returncode for _ in range(2)] == [BLOCKED, BLOCKED]
+    assert all(denied(stub(LONG_PLAN, verdict)) for _ in range(2)), "the first two submissions should be denied"
     result = stub(LONG_PLAN, verdict)
-    assert result.returncode == 0, f"the third submission should pass:\n{result.stderr}"
+    assert not denied(result), f"the third submission should pass:\n{result.stdout}"
     assert "Step 3 has no check." in context(result), "the findings should reach Claude"
-    assert stub(LONG_PLAN, verdict, session="s2").returncode == BLOCKED, "another session gets its own rounds"
+    assert "plan 9/10" in user_message(result) and "after 2 rounds" in user_message(result)
+    assert denied(stub(LONG_PLAN, verdict, session="s2")), "another session gets its own rounds"
+
+
+@pytest.mark.parametrize("ending", ["passed", "capped"])
+def test_the_next_plan_in_a_session_gets_its_own_two_rounds(tmp_path, ending):
+    """Once a plan passes or is capped, the next plan in the session is denied twice before it goes through."""
+    stub = _make_stub(tmp_path)
+    weak = {"scores": ALL_TENS | {"plan": 9}, "findings": ["Step 3 has no check."]}
+    clean = {"scores": ALL_TENS, "findings": []}
+    first_plan = [weak, weak, clean if ending == "passed" else weak]
+    assert [denied(stub(LONG_PLAN, verdict)) for verdict in first_plan] == [True, True, False]
+    second_plan = [denied(stub(LONG_PLAN, weak)) for _ in range(3)]
+    assert second_plan == [True, True, False], f"the second plan should get two rounds: {second_plan}"
+
+
+def test_the_reviewer_is_given_60_seconds(tmp_path):
+    """The hook limits the reviewer to 60 seconds."""
+    stub = _make_stub(tmp_path)
+    perl = tmp_path / "bin" / "perl"
+    perl.write_text(STUB_PERL)
+    perl.chmod(0o755)
+    stub(LONG_PLAN, {"scores": ALL_TENS, "findings": []})
+    assert (tmp_path / "limit.txt").read_text().strip() == "60"
 
 
 @pytest.mark.parametrize(
@@ -154,6 +200,7 @@ def test_a_failed_review_lets_the_plan_through_with_a_note(tmp_path, raw, stub_e
     result = stub(LONG_PLAN, raw=raw, stub_exit=stub_exit)
     assert result.returncode == 0, f"a failed review should not block:\n{result.stderr}"
     assert "wasn't reviewed" in context(result), "Claude should hear the review didn't run"
+    assert "wasn't reviewed" in user_message(result), "the user should hear the review didn't run"
 
 
 def test_each_review_outcome_is_logged_with_its_scores(tmp_path):

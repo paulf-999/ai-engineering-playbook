@@ -6,6 +6,7 @@ grader, on Haiku, isn't told which condition it's grading. `RUNS` sets how many 
 runs only the case with that name.
 """
 
+import math
 import os
 import shutil
 import sys
@@ -26,8 +27,8 @@ from claude_evals_common import (
 )
 
 CASES_FILE = SOURCE_DIR / "rules" / "evals.yaml"
-# A rule helps, or hurts, when one condition passes at least this many more runs than the other
-MARGIN = 2
+# A rule helps, or hurts, when one condition leads by a third of the runs, rounded up, and by at least this many
+MIN_MARGIN = 2
 # Runs at once, kept low so parallel claude -p calls stay within plan rate limits
 MAX_WORKERS = 6
 # Haiku grades faster, and agreed with the default grader on all 16 runs of the first four cases
@@ -94,11 +95,12 @@ def count_passes(cases, runs, scratch, run=run_once):
     return passes
 
 
-def verdict(passes_without, passes_with):
+def verdict(passes_without, passes_with, runs):
     """Return whether the rule helps, hurts or has no effect, from each condition's passing run count."""
-    if passes_with - passes_without >= MARGIN:
+    margin = max(MIN_MARGIN, math.ceil(runs / 3))
+    if passes_with - passes_without >= margin:
         return "helps"
-    if passes_without - passes_with >= MARGIN:
+    if passes_without - passes_with >= margin:
         return "hurts"
     return "no effect"
 
@@ -114,7 +116,7 @@ def main():
     for case in cases:
         without, with_ = passes[(case["name"], False)], passes[(case["name"], True)]
         counts = f"without {without}/{runs}, with {with_}/{runs}"
-        print(f"{case['name']} ({case['rule']}): {counts}, {verdict(without, with_)}")
+        print(f"{case['name']} ({case['rule']}): {counts}, {verdict(without, with_, runs)}")
 
 
 if __name__ == "__main__":

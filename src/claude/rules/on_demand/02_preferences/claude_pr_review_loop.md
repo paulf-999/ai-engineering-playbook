@@ -37,7 +37,7 @@ Each round runs these steps, with at most 2 fix rounds, so 3 reviews:
 - 📄 **PR body:** refresh it if a fix made it inaccurate.
 - ⏳ **CI:** wait for it to finish.
 - 📊 **Report:** give the exit reason, first and last scores per theme, declined findings with reasons, and what's left.
-- 📬 **Posting:** post the final review's saved draft on the PR before any merge, once its secret check passes, since the tier's `y` is the approval `git-review-pr` asks for.
+- 📬 **Posting:** post the final review's saved draft on the PR before any merge, once its secret check passes, and link it in the report. The tier's `y` is the approval `git-review-pr` asks for, a deliberate exception to showing the user each comment before it's sent.
 
 ## 📞 Called by
 

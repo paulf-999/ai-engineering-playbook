@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2034  # the libraries in claude_install_config/ read these variables
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Copy the repo's Claude config (src/claude/) into your Claude config directory, backing up each file it overwrites
@@ -20,6 +21,14 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/shell_utils.sh
 source "$(dirname "${BASH_SOURCE[0]}")/shell_utils.sh"
+# shellcheck source=SCRIPTDIR/claude_install_config/_file_selection.sh
+source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_file_selection.sh"
+# shellcheck source=SCRIPTDIR/claude_install_config/_file_changes.sh
+source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_file_changes.sh"
+# shellcheck source=SCRIPTDIR/claude_install_config/_confirmation.sh
+source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_confirmation.sh"
+# shellcheck source=SCRIPTDIR/claude_install_config/_settings.sh
+source "$(dirname "${BASH_SOURCE[0]}")/claude_install_config/_settings.sh"
 
 # Catch Ctrl+C, so an interrupted run says so and exits 1
 trap handle_interruption SIGINT
@@ -30,20 +39,17 @@ trap handle_interruption SIGINT
 
 # mirrors the config directory's layout, so each file is copied to the same relative path, except on-demand files
 SOURCE_DIR="src/claude"
-LAZY_RULES_DIR="rules/on_demand"
 CONFIG_DIR="${CLAUDE_CONFIG_DIR:-${HOME}/.claude}"
 # a repo to install into instead of your Claude config directory, and whether its install includes the done checks hook
 PROJECT="${PROJECT:-}"
+WITH_HOOKS="${HOOKS:-}"
 # where project installs backed up before BACKUP_PREFIX held a hash, empty for your own config directory
 OLD_BACKUP_PREFIX=""
-WITH_HOOKS="${HOOKS:-}"
 UNINSTALL="${UNINSTALL:-}"
 # skips install's typed confirmation, for devcontainers and onboarding scripts that have no terminal
 ASSUME_YES="${YES:-}"
 # 0 leaves out the rules in 02_preferences/ folders, one person's taste, which otherwise install everywhere but a project
 PREFERENCES="${PREFERENCES:-}"
-# authoring templates that never install
-AUTHORING_TEMPLATES=" _templates/AGENT.md.template _templates/rule.md.template "
 if [[ -n "${PROJECT}" ]]; then
     if [[ ! -d "${PROJECT}" ]]; then
         echo "PROJECT=${PROJECT} isn't a folder - nothing changed." >&2
@@ -60,8 +66,6 @@ else
     TARGET_DIR="${CONFIG_DIR}"
     BACKUP_PREFIX="${TARGET_DIR}/backups/install_"
 fi
-# what a project install says about preferences, which only go into your own config
-PROJECT_PREFERENCES_NOTE="Preferences don't install into a project; add them to your own config with make install"
 # each install's backups start with BACKUP_PREFIX then the date, so uninstall can find the oldest copy of each file
 BACKUP_DIR="${BACKUP_PREFIX}$(date +%Y_%m_%d_%H%M%S)"
 [[ "${UNINSTALL}" == 1 ]] && BACKUP_DIR="${BACKUP_PREFIX}uninstall_$(date +%Y_%m_%d_%H%M%S)"
@@ -69,31 +73,8 @@ BACKUP_DIR="${BACKUP_PREFIX}$(date +%Y_%m_%d_%H%M%S)"
 UPGRADE_BACKUP_DIR="${BACKUP_PREFIX}upgrade_$(date +%Y_%m_%d_%H%M%S)"
 # the paths the last install wrote, one per line, so the next install can remove any the repo no longer has
 MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
-# the tracked files under SOURCE_DIR, set by list_source_files
-SOURCE_FILES=()
-# where each source file installs, one per line, set by list_source_files
-TARGET_PATHS=""
-# the Markdown files with a link that climbs out of its folder, one per line, set by list_source_files
-LINKING_FILES=""
-# where the last file passed to target_path installs
-TARGET_PATH=""
-# files the last install wrote that the repo no longer has, set by list_removed_files
-REMOVED_FILES=()
 # settings.json holds personal settings, so install merges the hooks into it rather than copying a file over it
 SETTINGS="${TARGET_DIR}/settings.json"
-# each hook the config ships, as event|matcher|path, with an empty matcher for events that take none,
-# and a matcher may hold "|" itself, since only the first and last fields are split off
-SHIPPED_HOOKS=(
-    "PreToolUse|ExitPlanMode|hooks/ai_sdlc_workflow/hook_enforcement_plan_sections.sh"
-    "PreToolUse|ExitPlanMode|hooks/ai_sdlc_workflow/hook_enforcement_plan_review.sh"
-    "PreToolUse|Edit|Write|NotebookEdit|hooks/git/hook_enforcement_worktree_edits.sh"
-    "Stop||hooks/ai_sdlc_workflow/hook_enforcement_done_checks.sh"
-    "SessionStart||hooks/claude_kaizen/hook_reminder_kaizen_due.sh"
-)
-# deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
-# a bare filename matches at any depth, and a "!" rule carves out of earlier rules in the same settings file, per
-# https://code.claude.com/docs/en/permissions.md
-DENY_RULES=("Read(.env)" "Read(.env.*)" "Read(!.env.example)")
 # the deny rules the last install added, as a JSON list, so the next install can remove any the config has since dropped
 DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
 
@@ -101,419 +82,27 @@ DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
 # Functions
 #=======================================================================
 
-# Set TARGET_PATH to where a source file installs: on-demand files move from rules/on_demand/ to on_demand/,
-# and a skill in a group folder such as skills/_git_skills/ installs flat under skills/, where Claude Code finds it
-# it sets a variable rather than printing, so callers needn't start a subshell for each file
-target_path() {
-    local file="${1}"
-    if [[ "${file}" == "${LAZY_RULES_DIR}/"* ]]; then
-        TARGET_PATH="${file#rules/}"
-    elif [[ "${file}" =~ ^skills/_[^/]+/(.+/.+)$ ]]; then
-        TARGET_PATH="skills/${BASH_REMATCH[1]}"
-    else
-        TARGET_PATH="${file}"
-    fi
+# Copy the config into the target, after a typed confirmation
+run_install() {
+    resolve_preferences
+    list_source_files
+    list_removed_files
+    confirm_install
+    install_files
+    remove_old_files
+    register_settings
+    file_plans
 }
 
-# Print a source file as it installs: links point at where files install, and in a project, pointers name its .claude/
-# folder, not your config directory
-render() {
-    if has_links "${1}"; then
-        target_path "${1}"
-        relink "${1}" "${TARGET_PATH}" < "${SOURCE_DIR}/${1}" | render_text
-    else
-        render_text < "${SOURCE_DIR}/${1}"
-    fi
-}
-
-# Succeed if a source file has a link that climbs out of its folder, which may need to change as it installs
-has_links() {
-    [[ $'\n'"${LINKING_FILES}"$'\n' == *$'\n'"${SOURCE_DIR}/${1}"$'\n'* ]]
-}
-
-# Print text from stdin, from the source file $1 that installs at $2, with each link that climbs out of its folder
-# pointing at where its target installs, by the same moves as target_path, so change both together; it reads inline
-# links only, as the config has no reference-style ones
-relink() {
-    LC_ALL=C awk -v from="${1}" -v to="${2}" '
-        # the path a link in the file "base" points at, or "" if it climbs out of the config
-        function resolve(base, link,    parts, kept, count, depth, i, path) {
-            sub(/[^\/]*$/, "", base)
-            count = split(base link, parts, "/")
-            for (i = 1; i <= count; i++) {
-                if (parts[i] == "..") { if (--depth < 0) return "" }
-                else if (parts[i] != "" && parts[i] != ".") kept[++depth] = parts[i]
-            }
-            for (i = 1; i <= depth; i++) path = path (i > 1 ? "/" : "") kept[i]
-            return path
-        }
-        function installed(path) {
-            if (path ~ /^rules\/on_demand(\/|$)/) return substr(path, 7)
-            if (path ~ /^skills\/_[^\/]+\/[^\/]+\//) sub(/^skills\/_[^\/]+\//, "skills/", path)
-            return path
-        }
-        # the relative link from the file "base" to path
-        function relative(base, path,    ours, theirs, depth, count, same, i, link) {
-            depth = split(base, ours, "/") - 1
-            count = split(path, theirs, "/")
-            while (same < depth && same < count - 1 && ours[same + 1] == theirs[same + 1]) same++
-            for (i = same; i < depth; i++) link = link "../"
-            for (i = same + 1; i <= count; i++) link = link theirs[i] (i < count ? "/" : "")
-            return link
-        }
-        {
-            rest = $0; line = ""
-            while (match(rest, /\]\(\.\.\/[^)# \t]+/)) {
-                link = substr(rest, RSTART + 2, RLENGTH - 2)
-                path = resolve(from, link)
-                line = line substr(rest, 1, RSTART + 1) (path == "" ? link : relative(to, installed(path)))
-                rest = substr(rest, RSTART + RLENGTH)
-            }
-            print line rest
-        }'
-}
-
-# Print text from stdin as it installs, so a past version of a file can be compared with what an install wrote
-render_text() {
-    if [[ -n "${PROJECT}" ]]; then
-        # shellcheck disable=SC2016  # the backticks and \$CLAUDE_CONFIG_DIR are literal text in the rules, not expansions
-        sed -e 's/in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~\/.claude` when unset)/in this project'"'"'s `.claude\/` folder/' \
-            -e 's/in your Claude config directory/in this project'"'"'s `.claude\/` folder/'
-    else
-        cat
-    fi
-}
-
-# Print where to back up an installed path: the upgrade folder for a copy an earlier install wrote, else the usual one
-backup_dir_for() {
-    if file_exists "${MANIFEST}" && grep -Fxq -- "${1}" "${MANIFEST}"; then
-        echo "${UPGRADE_BACKUP_DIR}"
-    else
-        echo "${BACKUP_DIR}"
-    fi
-}
-
-# Collect the files git tracks under SOURCE_DIR, so untracked drafts and caches are never installed,
-# leaving the done checks and worktree edits hooks out of a project install unless HOOKS=1, while the plan sections hook
-# always installs
-list_source_files() {
-    local file
-    while IFS= read -r -d '' file; do
-        # a tracked file deleted from the working tree counts as removed
-        file_exists "${file}" || continue
-        file="${file#"${SOURCE_DIR}"/}"
-        [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" =~ ^hooks/[^/]+/hook_enforcement_(done_checks|worktree_edits)\.sh$ ]] \
-            && continue
-        [[ "${PREFERENCES}" != 1 && ( "/${file}" == */preferences/* || "/${file}" == */02_preferences/* ) ]] && continue
-        [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && continue
-        # a README explains a folder to people browsing the repo, and never loads
-        [[ "${file##*/}" == README.md ]] && continue
-        # a skill group's own files, such as its README, describe the group, which doesn't exist once installed flat
-        [[ "${file}" =~ ^skills/_[^/]+/[^/]+$ ]] && continue
-        SOURCE_FILES+=("${file}")
-        target_path "${file}"
-        TARGET_PATHS+="${TARGET_PATH}"$'\n'
-    done < <(git ls-files -z -- "${SOURCE_DIR}")
-    # one grep for every file, as most have no such link, so need no rendering
-    LINKING_FILES="$(git grep -lF -e '](../' -- "${SOURCE_DIR}/*.md" || true)"
-    if [[ "${#SOURCE_FILES[@]}" -eq 0 ]]; then
-        log_message "${ERROR}" "No tracked files found under ${SOURCE_DIR} - nothing to install."
-        exit 1
-    fi
-}
-
-# Settle PREFERENCES: 0 leaves preferences out, otherwise they install,
-# except into a project, which never gets them, since its .claude/ folder is shared
-resolve_preferences() {
-    case "${PREFERENCES}" in
-        0) ;;
-        "")
-            PREFERENCES=1
-            if [[ -n "${PROJECT}" ]]; then PREFERENCES=0; fi
-            ;;
-        *)
-            log_message "${ERROR}" "PREFERENCES can only be 0, not '${PREFERENCES}', since preferences install by default - nothing changed."
-            exit 1
-            ;;
-    esac
-}
-
-# Succeed if an installed path is a preference
-is_preference() {
-    [[ "/${1}" == */preferences/* || "/${1}" == */02_preferences/* ]]
-}
-
-# Remove the folders that removing REMOVED_FILES left empty, walking up from each file, so other empty folders stay
-remove_emptied_folders() {
-    local file folder
-    for file in "${REMOVED_FILES[@]+"${REMOVED_FILES[@]}"}"; do
-        # the leading ./ lets each step trim one folder in place, without a dirname subprocess, until only . is left
-        folder="./${file}"
-        folder="${folder%/*}"
-        # rmdir only removes an empty folder, so the walk stops at the first one that still holds something
-        while [[ "${folder}" != "." ]] && rmdir "${TARGET_DIR}/${folder}" 2> /dev/null; do
-            folder="${folder%/*}"
-        done
-    done
-    return 0
-}
-
-# Create the folder a file path sits in, skipping mkdir when it's already there, since most files share a folder
-make_parent_folder() {
-    [[ -d "${1%/*}" ]] || mkdir -p "${1%/*}"
-}
-
-# Collect the manifest's paths that are no longer installed, skipping any path that could point outside the target
-list_removed_files() {
-    local path
-    file_exists "${MANIFEST}" || return 0
-    # one grep lists the manifest's paths that TARGET_PATHS lacks, rather than one grep per path
-    while IFS= read -r path; do
-        [[ -n "${path}" && "${path}" != /* && "${path}" != *..* ]] || continue
-        if file_exists "${TARGET_DIR}/${path}"; then REMOVED_FILES+=("${path}"); fi
-    done < <(grep -Fxv -f <(printf '%s' "${TARGET_PATHS}") -- "${MANIFEST}" || true)
-}
-
-# Say how to keep the preferences an install is removing, if it's removing any
-print_opt_in_note() {
-    local file
-    [[ "${PREFERENCES}" == 1 ]] && return 0
-    for file in "${REMOVED_FILES[@]}"; do
-        if is_preference "${file}"; then
-            if [[ -n "${PROJECT}" ]]; then
-                log_message "${WARNING}" "${PROJECT_PREFERENCES_NOTE}."
-            else
-                log_message "${WARNING}" "PREFERENCES=0 removes the preferences: rerun with a plain make install to keep them."
-            fi
-            return 0
-        fi
-    done
-}
-
-# Show what will change and require 'install' typed at a real terminal, so Claude's Bash tool can't run it unattended,
-# unless YES=1 opts out outside Claude Code, which sets CLAUDECODE in its Bash tool
-confirm_install() {
-    local answer file
-    if [[ "${ASSUME_YES}" == 1 && -n "${CLAUDECODE:-}" ]]; then
-        log_message "${ERROR}" "YES=1 can't be used from Claude Code - run make install from your own terminal."
-        exit 1
-    fi
-    if [[ "${ASSUME_YES}" != 1 && ! -t 0 ]]; then
-        log_message "${ERROR}" "Run make install from your own terminal - nothing changed."
-        exit 1
-    fi
-    log_message "${INFO}" "Installing ${#SOURCE_FILES[@]} file(s) into ${TARGET_DIR}."
-    if [[ "${#REMOVED_FILES[@]}" -gt 0 ]]; then
-        log_message "${WARNING}" "Removing ${#REMOVED_FILES[@]} file(s) an earlier install added:"
-        for file in "${REMOVED_FILES[@]}"; do
-            if [[ "${PREFERENCES}" != 1 ]] && is_preference "${file}"; then
-                echo "  ${file} (holds preferences, left out)"
-            else
-                echo "  ${file} (no longer in the repo)"
-            fi
-        done
-        print_opt_in_note
-    fi
-    echo
-    echo "It also updates settings.json, backing up anything it changes to $(dirname "${BACKUP_DIR}")."
-    if [[ "${PREFERENCES}" == 1 ]]; then
-        echo "It then files saved plans by their status, and archives drafts and plan mode's own plans unchanged for 14 days."
-    fi
-    [[ "${ASSUME_YES}" == 1 ]] && return 0
-    echo
-    read -r -p "$(echo -e "${DEBUG}Type 'install' to continue:${COLOUR_OFF} ")" answer || true
-    if [[ "${answer}" != "install" ]]; then
-        log_message "${WARNING}" "Install cancelled - nothing changed."
-        exit 1
-    fi
-}
-
-# Show what uninstall removes and require 'uninstall' typed at a real terminal, as confirm_install does
-confirm_uninstall() {
-    local answer file
-    if [[ ! -t 0 ]]; then
-        log_message "${ERROR}" "Run make uninstall from your own terminal - nothing changed."
-        exit 1
-    fi
-    if [[ "${#REMOVED_FILES[@]}" -eq 0 ]]; then
-        log_message "${WARNING}" "No install manifest lists files in ${TARGET_DIR} - nothing to uninstall."
-        exit 1
-    fi
-    log_message "${WARNING}" "Removing ${#REMOVED_FILES[@]} file(s) the last install added to ${TARGET_DIR}:"
-    for file in "${REMOVED_FILES[@]}"; do
-        echo "  ${file}"
-    done
-    echo "Each is backed up to ${BACKUP_DIR} first, and any file an install replaced is restored from its oldest backup."
-    echo "It also removes the config's hooks and deny rules from ${SETTINGS}, keeping every other setting."
-    read -r -p "Type 'uninstall' to continue: " answer || true
-    if [[ "${answer}" != "uninstall" ]]; then
-        log_message "${WARNING}" "Uninstall cancelled - nothing changed."
-        exit 1
-    fi
-}
-
-# Print the oldest backup of an installed path, or nothing if there's none, trying a project's hashed folders before the
-# unhashed ones, which could be another repo's with the same name
-oldest_backup() {
-    local prefix backup
-    for prefix in "${BACKUP_PREFIX}" ${OLD_BACKUP_PREFIX:+"${OLD_BACKUP_PREFIX}"}; do
-        # the globs expand in date order, and matching the whole date skips uninstall and upgrade backups
-        for backup in "${prefix}"[0-9][0-9][0-9][0-9]_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/"${1}"; do
-            if file_exists "${backup}"; then
-                echo "${backup}"
-                return 0
-            fi
-        done
-    done
-}
-
-# Back up and remove each installed file, restoring its oldest backup, which holds the user's own file,
-# since an upgrade backs up the playbook's own previous version to the upgrade folder instead
-uninstall_files() {
-    local file original restored=0
-    for file in "${REMOVED_FILES[@]}"; do
-        make_parent_folder "${BACKUP_DIR}/${file}"
-        cp -p "${TARGET_DIR}/${file}" "${BACKUP_DIR}/${file}"
-        rm "${TARGET_DIR}/${file}"
-        original="$(oldest_backup "${file}")"
-        if [[ -n "${original}" ]]; then
-            cp -p "${original}" "${TARGET_DIR}/${file}"
-            restored=$((restored + 1))
-        fi
-    done
-    rm -f "${MANIFEST}"
-    remove_emptied_folders
-    log_message "${INFO}" "Removed ${#REMOVED_FILES[@]} file(s), restoring ${restored} from backups."
-}
-
-# Copy each file over the target, backing up any existing copy that differs, and skipping identical ones
-install_files() {
-    local file relative target backup_dir copied=0 backed_up=0
-    for file in "${SOURCE_FILES[@]}"; do
-        target_path "${file}"
-        relative="${TARGET_PATH}"
-        target="${TARGET_DIR}/${relative}"
-        # a file with no links or, in a project, pointers to rewrite is compared as it stands, with no render
-        if [[ -z "${PROJECT}" ]] && ! has_links "${file}"; then
-            file_exists "${target}" && cmp -s "${SOURCE_DIR}/${file}" "${target}" && continue
-        elif file_exists "${target}" && cmp -s <(render "${file}") "${target}"; then
-            continue
-        fi
-        if file_exists "${target}"; then
-            backup_dir="$(backup_dir_for "${relative}")"
-            make_parent_folder "${backup_dir}/${relative}"
-            cp -p "${target}" "${backup_dir}/${relative}"
-            backed_up=$((backed_up + 1))
-        fi
-        make_parent_folder "${target}"
-        render "${file}" > "${target}"
-        copied=$((copied + 1))
-    done
-    log_message "${INFO}" "Installed ${copied} changed file(s), backing up ${backed_up}, into ${TARGET_DIR}."
-}
-
-# Back up and remove each file the repo no longer has, then record what this install wrote
-remove_old_files() {
-    local file
-    # each removed file is one the manifest lists, so an earlier install wrote it
-    for file in "${REMOVED_FILES[@]+"${REMOVED_FILES[@]}"}"; do
-        make_parent_folder "${UPGRADE_BACKUP_DIR}/${file}"
-        cp -p "${TARGET_DIR}/${file}" "${UPGRADE_BACKUP_DIR}/${file}"
-        rm "${TARGET_DIR}/${file}"
-    done
-    remove_emptied_folders
-    log_message "${INFO}" "Removed ${#REMOVED_FILES[@]} file(s) an earlier install added." false
-    printf '%s' "${TARGET_PATHS}" > "${MANIFEST}"
-}
-
-# Write settings.json, keeping its mode and any symlink, through a temporary file that's then moved, so a failed write
-# can't leave it half written
-write_settings() {
-    local path="${SETTINGS}" mode
-    if [[ -L "${path}" ]]; then path="$(readlink -f "${path}")"; fi
-    if file_exists "${path}"; then
-        # GNU stat, then macOS's
-        mode="$(stat -c %a "${path}" 2> /dev/null || stat -f %Lp "${path}")"
-        # settings can hold secrets, so the temporary file starts out private
-        (umask 077 && printf '%s\n' "${1}" > "${path}.tmp")
-        chmod "${mode}" "${path}.tmp"
-    else
-        printf '%s\n' "${1}" > "${path}.tmp"
-    fi
-    mv "${path}.tmp" "${path}"
-}
-
-# Keep one entry per hook in settings.json at the current path, or none if it isn't shipped, then the deny rules,
-# backing up the old file
-register_settings() {
-    local current updated entry event matcher hook ship previous command status
-    if ! command -v jq > /dev/null; then
-        log_message "${WARNING}" "jq isn't installed, so the config's hooks weren't added to ${SETTINGS}."
-        return 0
-    fi
-    current="{}"
-    # a settings file jq can't read is left alone, rather than replaced
-    if file_exists "${SETTINGS}" && ! current="$(jq '.' "${SETTINGS}" 2> /dev/null)"; then
-        log_message "${WARNING}" "${SETTINGS} isn't valid JSON, so the config's hooks weren't added."
-        return 0
-    fi
-    updated="${current}"
-    for entry in "${SHIPPED_HOOKS[@]}"; do
-        event="${entry%%|*}"
-        hook="${entry##*|}"
-        matcher="${entry#*|}"
-        matcher="${matcher%|*}"
-        ship=false
-        grep -Fxq -- "${hook}" <<< "${TARGET_PATHS}" && ship=true
-        # a project's settings are shared, so its hook command names the project through Claude Code's own variable
-        command="bash \"${TARGET_DIR}/${hook}\""
-        [[ -n "${PROJECT}" ]] && command="bash \"\$CLAUDE_PROJECT_DIR/.claude/${hook}\""
-        # the plan review takes seconds, so Claude Code shows this while it runs
-        status=""
-        [[ "${hook##*/}" == hook_enforcement_plan_review.sh ]] && status="Reviewing plan against quality gates"
-        # strip the hook wherever it's registered, matched by file name so an old path counts, then re-add it if shipped
-        # an event value that isn't a list can't take the hook, so it's reported rather than aborting the install
-        # the command is an absolute path, since hook commands in user settings can't refer to CLAUDE_CONFIG_DIR
-        if ! updated="$(jq --arg event "${event}" --arg matcher "${matcher}" \
-            --arg command "${command}" --arg suffix "/${hook##*/}\"" --argjson ship "${ship}" --arg status "${status}" '
-            def ours: (.command? // "") as $c | ($c | type) == "string" and ($c | endswith($suffix));
-            (.hooks[$event] // []) as $old
-            | if ($old | type) != "array" then error("hooks.\($event) is not a list") else . end
-            | ($old
-                | map(if (.hooks? | type) == "array" and any(.hooks[]; ours)
-                    then .hooks |= map(select(ours | not)) | select(.hooks != [])
-                    else . end)
-                | . + (if $ship
-                    then [(if $matcher == "" then {} else {matcher: $matcher} end)
-                        + {hooks: [{type: "command", command: $command}
-                            + (if $status == "" then {} else {statusMessage: $status} end)]}]
-                    else [] end)
-              ) as $new
-            | if $new == $old then . else .hooks[$event] = $new end' <<< "${updated}" 2> /dev/null)"; then
-            log_message "${WARNING}" "${SETTINGS} has a hooks.${event} that isn't a list, so the hooks weren't added."
-            return 0
-        fi
-    done
-    # an unreadable deny manifest counts as empty, so install still adds the current rules
-    previous="$(jq -c 'if type == "array" then . else [] end' "${DENY_MANIFEST}" 2> /dev/null || echo "[]")"
-    # drop the rules the last install added, then put the config's rules at the end, in order, keeping every other rule
-    if ! updated="$(jq --argjson previous "${previous}" --args '
-        (.permissions.deny // []) as $old
-        | if ($old | type) != "array" then error("permissions.deny is not a list") else . end
-        | ($previous + $ARGS.positional) as $ours
-        | ($old | map(select(. as $rule | $ours | index($rule) | not)) + $ARGS.positional) as $new
-        | if $new == $old then . else .permissions.deny = $new end' ${DENY_RULES[@]+"${DENY_RULES[@]}"} <<< "${updated}" 2> /dev/null)"; then
-        log_message "${WARNING}" "${SETTINGS} has a permissions.deny that isn't a list, so the settings weren't added."
-        return 0
-    fi
-    jq -cn '$ARGS.positional' --args ${DENY_RULES[@]+"${DENY_RULES[@]}"} > "${DENY_MANIFEST}"
-    [[ "${updated}" == "${current}" ]] && return 0
-    if file_exists "${SETTINGS}"; then
-        mkdir -p "${BACKUP_DIR}"
-        cp -p "${SETTINGS}" "${BACKUP_DIR}/settings.json"
-    fi
-    write_settings "${updated}"
-    log_message "${INFO}" "Updated the config's hooks and deny rules in ${SETTINGS}."
+# Remove what the last install added, after a typed confirmation
+run_uninstall() {
+    # with no files to install, every file the manifest lists counts as removed, and no hook or deny rule ships
+    DENY_RULES=()
+    list_removed_files
+    confirm_uninstall
+    uninstall_files
+    register_settings
+    rm -f "${DENY_MANIFEST}"
 }
 
 # File saved plans by status and archive old drafts, which is a preference, so it's skipped with PREFERENCES=0 and in a project
@@ -529,23 +118,6 @@ file_plans() {
 #=======================================================================
 print_section_header "${DEBUG}" "Script execution started."
 
-if [[ "${UNINSTALL}" == 1 ]]; then
-    # with no files to install, every file the manifest lists counts as removed, and no hook or deny rule ships
-    DENY_RULES=()
-    list_removed_files
-    confirm_uninstall
-    uninstall_files
-    register_settings
-    rm -f "${DENY_MANIFEST}"
-else
-    resolve_preferences
-    list_source_files
-    list_removed_files
-    confirm_install
-    install_files
-    remove_old_files
-    register_settings
-    file_plans
-fi
+if [[ "${UNINSTALL}" == 1 ]]; then run_uninstall; else run_install; fi
 
 print_section_header "${DEBUG}" "Script execution completed." && echo

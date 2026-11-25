@@ -17,7 +17,7 @@ These keep slow checks from delaying the user or tying up their machine:
 
 - 🎯 **Affected evals only:** run the evals a change affects, by name where the runner allows it, and a full run only when the user asks or a shared part changes, such as the runner.
 - 🎲 **Flaky tests:** save a failing run's full output, rerun that test alone, and never repeat the whole suite to chase it.
-- 🖥️ **Busy machine:** before a long run, check whether other sessions are running tests or evals, and if so tell the user and offer to wait.
+- 🖥️ **Busy machine:** before a long run, check whether other sessions are running tests or evals, such as with `pgrep -f '/[p]ytest( |$)|^claude -p'`, which lists the process ID of each `pytest` or `claude -p` run it spots, and if so tell the user and offer to wait.
 - ⏳ **Long runs:** before a check likely to take over 2 minutes, say roughly how long and why it's needed.
 
 ## 🐞 Bug fixes

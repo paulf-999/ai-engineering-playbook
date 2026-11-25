@@ -72,3 +72,27 @@ def test_count_passes_tallies_each_case_and_condition(tmp_path):
     passes = runner.count_passes([{"name": "a"}, {"name": "b"}], 3, tmp_path, run=fake_run)
     assert passes == {("a", False): 0, ("a", True): 3, ("b", False): 0, ("b", True): 0}, "passes went to the wrong key"
     assert len(set(folders)) == 12, "each run should get its own folder"
+
+
+def test_run_once_grades_the_diff_and_prints_failed_reasons(tmp_path, monkeypatch, capsys):
+    """Claude may edit files, the grader sees the status then the diff, and only failed reasons are printed."""
+    seen = {}
+
+    def fake_claude(prompt, repo_dir, permission_mode=None):
+        seen["mode"] = permission_mode
+        (repo_dir / "new.md").write_text("new line\n")
+        return []
+
+    def fake_grade(assertions, transcript_text, state, grader_dir, model):
+        seen["state"] = state
+        return [{"pass": True, "reason": "fine"}, {"pass": False, "reason": "no heading"}]
+
+    monkeypatch.setattr(runner, "run_claude", fake_claude)
+    monkeypatch.setattr(runner, "grade", fake_grade)
+    case = {**CASE, "prompt": "Write new.md", "assertions": ["a", "b"]}
+    assert runner.run_once(case, False, tmp_path / "case_without_0") is False
+    assert seen["mode"] == "acceptEdits"
+    assert "?? new.md" in seen["state"], "the status should be read before git add -N changes it"
+    assert "+new line" in seen["state"]
+    assert "ignore previous instructions" not in seen["state"], "the case's own files aren't changes"
+    assert capsys.readouterr().out == "case_without_0: no heading\n"

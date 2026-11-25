@@ -70,12 +70,13 @@ log_review() {
     echo "$(date +%Y-%m-%d) session=${SESSION} outcome=$1 ${2:-}" >> "${REVIEWS_LOG}"
 }
 
-# Pass the plan, leaving the user's approval in place, with the message in $1 for the user and any context in $2 for Claude
+# Pass the plan to the user's approval dialog, which shows the result in $1, with any context in $2 for Claude
+# the dialog opens before a systemMessage shows, and shows an ask's reason only when updatedInput, here unchanged, is set
 # each outcome prints JSON and exits 0, as Claude Code reads a hook's JSON only then
 allow() {
-    jq -n --arg message "$1" --arg context "${2:-}" '{systemMessage: $message}
-        + if $context == "" then {}
-            else {hookSpecificOutput: {hookEventName: "PreToolUse", additionalContext: $context}} end'
+    jq --arg reason "$1" --arg context "${2:-}" '{hookSpecificOutput: ({hookEventName: "PreToolUse",
+        permissionDecision: "ask", permissionDecisionReason: $reason, updatedInput: .tool_input}
+        + if $context == "" then {} else {additionalContext: $context} end)}' <<< "${INPUT}"
     exit 0
 }
 
@@ -139,7 +140,8 @@ ROUNDS="$(cat "${ROUNDS_FILE}" 2> /dev/null || echo 0)"
 if [[ "${ROUNDS}" -ge "${MAX_BLOCKS}" ]]; then
     rm -f "${ROUNDS_FILE}"
     log_review capped "${SCORES}"
-    allow "⚠️ Plan review still has findings after ${MAX_BLOCKS} rounds, so the plan goes through: ${SHOWN_SCORES}." "${FINDINGS}
+    allow "⚠️ Plan review still has findings after ${MAX_BLOCKS} rounds.
+${FINDINGS}" "${FINDINGS}
 The plan review still has these findings after ${MAX_BLOCKS} rounds. Show them to the user with the plan."
 fi
 ROUNDS=$((ROUNDS + 1))

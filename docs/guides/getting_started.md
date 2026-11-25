@@ -39,7 +39,7 @@ Besides adding instructions, installing changes how Claude works wherever you in
 
 - 💬 **Replies:** Claude uses British spelling and offers options before big changes. It also uses a scannable reply format, a [preference](../../src/claude/README.md#-preferences).
 - 🗺️ **Plans:** a long plan must say what you want and how to check it's done, and work of 3 or more stages pauses after each one for your go-ahead.
-- 🔍 **Plan review:** a separate Claude scores a long plan's intent, spec, plan, writing style and decisions, and sends it back up to twice if any is below 10/10. You see each result, and a failed review lets the plan through.
+- 🔍 **Plan review:** a separate Claude scores a long plan's intent, spec, plan, writing style and decisions, and sends it back up to twice if any is below 10/10. You see each result, in the conversation if it's sent back and in the approval dialog if not, and a failed review lets the plan through.
 - 🪝 **Automatic checks:** hooks enforce parts of this, such as blocking long plans that skip those sections, as the [hooks README](../../src/claude/hooks/README.md) lists.
 - 🔒 **Files:** Claude's file tools can't read `.env` files. Claude saves your plans and notes outside your repos, another preference.
 

@@ -8,6 +8,7 @@
 - 🧪 **Coverage level:** set the contract's `test_coverage_level` to `none` with no evals, `basic` with trigger evals only, or `comprehensive` once `behaviour: true` evals also check its main steps and stop conditions.
 - 📚 **Folders:** `reference/` for the files Claude reads while running the skill, starting with `_implementation.md`, and `evals.yaml` at the root, with nothing else apart from one script there if it runs code.
 - 🏷️ **Name:** follow [`claude_naming_patterns.md`](../../../src/claude/rules/on_demand/01_standards/claude_config/claude_naming_patterns.md), matching the folder name.
+- 📁 **Files it writes:** keep any that a skill or hook saves in `_<name>/` in the Claude config directory, never in `memory/`.
 - 🚧 **Not for:** list in the contract's `not_for` what the skill doesn't do, since that boundary matters most.
 - 🗣️ **Description:** use the phrases people type to ask for it, and keep it short, since every description loads in every session.
 - 🔇 **Slash-only:** set `disable-model-invocation: true` for a skill people run on purpose, such as a periodic review, since its description then costs no always-on context.

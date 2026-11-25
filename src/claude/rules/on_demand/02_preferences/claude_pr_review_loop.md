@@ -37,6 +37,7 @@ A single review runs step 1 alone, and a loop runs these steps each round, with 
 - ⏳ **CI:** wait for it to finish.
 - 📊 **Report:** give the exit reason, first and last scores per theme, declined findings with reasons, and what's left.
 - 📬 **Posting:** on every PR, post the final review's saved draft before any merge, once its secret check passes, and link it in the report. If the check flags anything, post and merge nothing until the user decides. The tier's `y` is the approval `git-review-pr` asks for, a deliberate exception to showing the user each comment before it's sent.
+- 🔍 **Read-back:** read the whole draft before posting, then read the posted comment back, and if it differs from the reviewer's text, rerun the secret check on the correction and edit the same comment.
 
 ## 📞 Called by
 

@@ -102,7 +102,7 @@ gh api "repos/<owner>/<repo>/issues/<number>/comments" --paginate \
 ## ❓ FAQ
 
 - **Does it approve the PR?** No, it posts a comment only, so a human still owns the merge decision.
-- **Does a green heading mean it's safe to merge?** No, it only means no trigger applied, and the heading is advice that can't enforce a review.
+- **Does a green heading mean it's safe to merge?** No, it means no trigger applied, so the team's usual review is enough, and the heading is advice that can't enforce a review.
 - **Why is Approve under a red heading?** The verdict says whether Claude found a blocker, while the heading says whether a person should look.
 - **Can I see the review without posting?** Yes, add `--dry-run` and the draft is saved but not posted.
 - **What if I run it twice?** It finds your earlier review and offers to update it instead of adding a duplicate.

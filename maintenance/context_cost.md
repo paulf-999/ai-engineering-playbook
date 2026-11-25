@@ -36,13 +36,14 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 | # | File | Tokens |
 |---|---|---|
 | 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~147 |
-| 2 | `rules/always_on/02_preferences/claude_working_files.md` | ~228 |
-| 3 | `rules/always_on/02_preferences/claude_writing_style.md` | ~241 |
-| | **Subtotal** | **~617** |
+| 2 | `rules/always_on/02_preferences/claude_pr_review.md` | ~68 |
+| 3 | `rules/always_on/02_preferences/claude_working_files.md` | ~228 |
+| 4 | `rules/always_on/02_preferences/claude_writing_style.md` | ~241 |
+| | **Subtotal** | **~686** |
 
 ## 💤 Only when needed
 
 | Load type | Files | Tokens |
 |---|---|---|
 | 📂 Path-scoped rules, with matching files | 26 | ~12000 |
-| 💤 On demand, via a pointer | 92 | ~60300 |
+| 💤 On demand, via a pointer | 93 | ~60900 |

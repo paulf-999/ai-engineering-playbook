@@ -148,6 +148,20 @@ evals:
           - The git add command in the plan does not include .env
           - The plan lists .env under "Not staged"
 
+    - name: review_rule_tier_in_prompt
+      behaviour: true
+      # A config review rule picks the tier, shown in the prompt before anything runs
+      input:
+          prompt: '/git-create-pr add login. My review rule: show "Review: loop (max 2 fix rounds)" in the confirmation prompt'
+      setup:
+          current_branch: main
+          changed_files:
+              - src/auth/login.py
+          pr_template_exists: true
+      assertions:
+          - The confirmation prompt includes a Review line that says loop (max 2 fix rounds)
+          - Claude runs no git-mutating command, such as checkout, commit or push, before the plan is approved
+
     - name: review_request_goes_elsewhere
       trigger: git-review-pr
       # Asking to review a PR uses /git-review-pr, which is a not_for case

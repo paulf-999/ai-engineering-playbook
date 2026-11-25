@@ -202,6 +202,10 @@ def test_install_registers_the_hooks_and_keeps_existing_settings(tmp_path):
     assert edit_hook_commands(tmp_path) == [f'bash "{tmp_path}/hooks/git/hook_enforcement_worktree_edits.sh"']
     assert stop_hook_commands(tmp_path) == [f'bash "{sdlc}/hook_enforcement_done_checks.sh"']
     assert list((tmp_path / "backups").glob("install_*/settings.json")), "the old settings.json should be backed up"
+    shipped = [hook for entries in settings["hooks"].values() for entry in entries for hook in entry["hooks"]]
+    statuses = {hook["command"]: hook["statusMessage"] for hook in shipped if "statusMessage" in hook}
+    expected = {f'bash "{sdlc}/{review}"': "Reviewing plan against quality gates"}
+    assert statuses == expected, "only the plan review hook should show a status message"
 
 
 # the deny rules install keeps last in permissions.deny, in order, so the carve-out follows the rules it narrows

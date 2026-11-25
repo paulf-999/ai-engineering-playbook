@@ -27,6 +27,7 @@ OUTPUT_FORMAT = "rules/always_on/02_preferences/claude_output_format.md"
 def _make_small_repo():
     """Return a temporary repo with the real CLAUDE.md and hooks and one preference, deleted when the tests exit."""
     # an install's time grows with its file count, so only tests about the full config install all of it
+    # those pass cwd=REPO_ROOT, as they check every tracked file, rewritten pointer or preference
     repo = tempfile.TemporaryDirectory()
     root = Path(repo.name)
     env = isolated_git_repo(root)

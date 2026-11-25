@@ -5,9 +5,10 @@ skills and agents. Push, gh and web tools are blocked and MCP servers are droppe
 A `confirm_reply` is sent by resuming the session. An agent's scenario with a `run:` block sends its self-contained
 prompt straight to that agent in a bare repo, and checks Claude's text matches each `must_match` pattern and no
 `must_not_match` pattern. The grader is a `claude -p --safe-mode` run that sees only the assertions, the transcript
-and the repo's final state.
+and the repo's final state. `CASE` runs only the scenario with that name.
 """
 
+import os
 import re
 import shutil
 import sys
@@ -23,6 +24,7 @@ from claude_evals_common import (
     remove_project_folder,
     repo_state,
     run_claude,
+    select_cases,
     transcript,
 )
 
@@ -89,10 +91,10 @@ def run_scenario(scenario, scratch_dir):
 
 
 def main():
-    """Run every tagged scenario, print each assertion's verdict, and exit 1 if any failed."""
+    """Run every tagged scenario, or the one `CASE` names, print each assertion's verdict, and exit 1 if any failed."""
     if shutil.which("claude") is None:
         sys.exit("claude isn't on PATH - install Claude Code and log in first.")
-    scenarios = load_scenarios(SOURCE_DIR)
+    scenarios = select_cases(load_scenarios(SOURCE_DIR), os.environ.get("CASE", ""))
     failed = 0
     with tempfile.TemporaryDirectory(prefix="behaviour_evals_") as scratch:
         for scenario in scenarios:

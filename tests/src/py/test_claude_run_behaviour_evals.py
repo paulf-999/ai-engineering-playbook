@@ -4,6 +4,7 @@ import importlib
 import json
 import sys
 
+import pytest
 from _paths import REPO_ROOT
 
 # The runner imports the shared eval helpers by name, as it does when run as a script
@@ -39,3 +40,16 @@ def test_patterns_match_every_line_of_claude_text():
     assert [result["pass"] for result in results] == [True, False]
     results = runner.pattern_results(["range", "absent"], text, must_match=False)
     assert [result["pass"] for result in results] == [False, True]
+
+
+def test_main_runs_only_the_scenario_named_by_case(monkeypatch, capsys):
+    """CASE=<name> runs that scenario alone, so a change can be checked without the full run."""
+    monkeypatch.setenv("CASE", "b")
+    monkeypatch.setattr(runner.shutil, "which", lambda _: "claude")
+    monkeypatch.setattr(runner, "load_scenarios", lambda _: [{"name": "a"}, {"name": "b"}])
+    monkeypatch.setattr(runner, "run_scenario", lambda *_: ([], None))
+    with pytest.raises(SystemExit) as result:
+        runner.main()
+    assert result.value.code == 0, "a passing scenario should exit 0"
+    output = capsys.readouterr().out
+    assert "PASS  b" in output and "PASS  a" not in output, f"expected only scenario b to run: {output}"

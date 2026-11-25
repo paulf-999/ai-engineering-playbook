@@ -25,6 +25,7 @@ from claude_evals_common import (
     repo_changes,
     repo_state,
     run_claude,
+    select_cases,
     transcript,
 )
 
@@ -40,16 +41,6 @@ GRADER_MODEL = "haiku"
 def load_cases(cases_file):
     """Return the cases in the rule evals file."""
     return yaml.safe_load(cases_file.read_text())["evals"]
-
-
-def select_cases(cases, name):
-    """Return only the case called name, or every case when name is empty, and exit if no case has that name."""
-    if not name:
-        return cases
-    chosen = [case for case in cases if case["name"] == name]
-    if not chosen:
-        sys.exit(f"No rule eval case is named {name}.")
-    return chosen
 
 
 def prepare_repo(repo_dir, case, with_rule):

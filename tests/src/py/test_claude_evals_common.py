@@ -144,3 +144,12 @@ def test_run_claude_sets_a_permission_mode_only_when_asked(tmp_path, monkeypatch
     assert ("--permission-mode" in commands[0]) is expected
     if expected:
         assert commands[0][commands[0].index("--permission-mode") + 1] == "acceptEdits"
+
+
+def test_select_cases_runs_only_the_named_case():
+    """CASE picks one case by name, an empty name keeps them all, and an unknown name stops the run."""
+    cases = [{"name": "a"}, {"name": "b"}]
+    assert common.select_cases(cases, "b") == [{"name": "b"}]
+    assert common.select_cases(cases, "") == cases
+    with pytest.raises(SystemExit, match="No eval case is named c"):
+        common.select_cases(cases, "c")

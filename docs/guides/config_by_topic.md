@@ -67,6 +67,8 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | File | Kind | When it loads |
 |---|---|---|
 | 🌿 [git.md](../../src/claude/rules/on_demand/01_standards/git.md) | On-demand rule | Before any git command, or when the worktree hook blocks an edit |
+| 🔍 [claude_pr_review.md](../../src/claude/rules/always_on/02_preferences/claude_pr_review.md) | Always-on rule | Every session, unless installed with `PREFERENCES=0` |
+| 🔁 [claude_pr_review_loop.md](../../src/claude/rules/on_demand/02_preferences/claude_pr_review_loop.md) | On-demand rule | Before running `git-create-pr` |
 
 </details>
 

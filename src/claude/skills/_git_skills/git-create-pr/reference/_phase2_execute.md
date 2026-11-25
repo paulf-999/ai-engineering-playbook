@@ -23,6 +23,7 @@ Here is what I will run:
 Commit message: <type(scope): imperative description>
 Missing labels: <labels not in the repo, or "none">   # reply `create labels` to add them
 Not staged:     <likely secret files left out, or "none">   # name a file to stage it anyway
+Review:         <the tier your config's review rule picks>   # (omit if your config has no review rule)
 
 PR body:
 ---
@@ -54,7 +55,7 @@ Wait for the user's reply before running anything.
 - **Title through a quoted heredoc:** pass the title as `--title "$(cat <<'EOF' … EOF)"`, whose quoted `'EOF'` stops the shell expanding `$(...)`, backticks or quotes in it.
 - **Pre-commit hooks:** report a hook failure clearly, and never retry with `--no-verify` unless the user explicitly asks.
 - **Report the result:** finish with the new PR's number and URL.
-- **Offer a review:** then ask whether to run `/git-review-pr <number>` on the new PR, and run it only on a `y`.
+- **Review:** then follow any review rule your config has, otherwise ask whether to run `/git-review-pr <number>` on the new PR, and run it only on a `y`.
 
 ## 🚨 Error recovery
 

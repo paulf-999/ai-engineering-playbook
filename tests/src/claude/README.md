@@ -10,4 +10,5 @@
 | 🌳 [hooks/git/test_hook_enforcement_worktree_edits.py](hooks/git/test_hook_enforcement_worktree_edits.py) | The worktree edits hook blocks a session's first edit in a repo's main folder once, and never one in a worktree |
 | 🔁 [hooks/claude_kaizen/test_hook_reminder_kaizen_due.py](hooks/claude_kaizen/test_hook_reminder_kaizen_due.py) | The kaizen reminder hook stays silent below 5 new feedback notes, counts only notes since the last run, and logs each nudge |
 | 📐 [test_rules_structure.py](test_rules_structure.py) | Every rule file under `src/claude/rules/` meets the rule template's structural gates |
+| 🔎 [test_git_review_pr_comment_lookup.py](skills/_git_skills/git-review-pr/test_git_review_pr_comment_lookup.py) | `git-review-pr` finds the user's own earlier review of the same PR, in the current or older comment format, and no other comment |
 | 🔐 [test_git_review_pr_secret_check.py](skills/_git_skills/git-review-pr/test_git_review_pr_secret_check.py) | `git-review-pr`'s secret check flags known secret shapes by line number only, and passes ordinary review text |

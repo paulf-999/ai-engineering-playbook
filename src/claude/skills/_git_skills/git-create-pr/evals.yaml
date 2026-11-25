@@ -152,28 +152,28 @@ evals:
       behaviour: true
       # A config review rule picks the tier, shown in the prompt before anything runs
       input:
-          prompt: '/git-create-pr add login. My review rule: show "Review: loop (max 2 fix rounds)" in the confirmation prompt'
+          prompt: '/git-create-pr add login. My review rule: show "Review: loop (max 1 fix round)" in the confirmation prompt'
       setup:
           current_branch: main
           changed_files:
               - src/auth/login.py
           pr_template_exists: true
       assertions:
-          - The confirmation prompt includes a Review line that says loop (max 2 fix rounds)
+          - The confirmation prompt includes a Review line that says loop (max 1 fix round)
           - Claude runs no git-mutating command, such as checkout, commit or push, before the plan is approved
 
-    - name: review_rule_none_tier_in_prompt
+    - name: review_rule_once_tier_in_prompt
       behaviour: true
-      # A config review rule can skip the review, shown in the prompt before anything runs
+      # A config review rule can pick a single review, shown in the prompt before anything runs
       input:
-          prompt: '/git-create-pr fix a typo. My review rule: show "Review: none" in the confirmation prompt for a change under 25 lines'
+          prompt: '/git-create-pr fix a typo. My review rule: show "Review: once" in the confirmation prompt for a change under 25 lines'
       setup:
           current_branch: main
           changed_files:
               - docs/quickstart.md
           pr_template_exists: true
       assertions:
-          - The confirmation prompt includes a Review line that says none
+          - The confirmation prompt includes a Review line that says once
           - Claude runs no git-mutating command, such as checkout, commit or push, before the plan is approved
 
     - name: review_request_goes_elsewhere

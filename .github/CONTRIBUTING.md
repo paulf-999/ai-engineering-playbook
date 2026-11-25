@@ -26,8 +26,9 @@ Two valid messages:
 - 📄 **Template:** fill in the [PR template](pull_request_template.md).
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
 - 📏 **Size:** keep each PR within the file limit CI checks, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
-- ⚖️ **Claude config:** a PR that changes `src/claude/` adds the Plan section, which holds its saved plan files, measures and governance record, and Evaluation criteria when the [evaluation criteria](../docs/target_architecture/design_principles/02_evaluation_criteria.md) say so, as the template's comment names them.
-- ⏳ **Before merge:** in a Claude config PR, replace each "pending" in the measures menu with its result.
+- 🤖 **Saved plan:** a PR that builds a saved plan, whatever it changes, adds the Plan section, which holds that plan's files, measures and governance record, as the template's comment lays out.
+- ⚖️ **Claude config:** a PR that changes `src/claude/` always has the Plan section, saying why if it has no saved plan, and adds Evaluation criteria when the [evaluation criteria](../docs/target_architecture/design_principles/02_evaluation_criteria.md) say so, as the template's comment names them.
+- ⏳ **Before merge:** in a PR with a saved plan, replace each "pending" in the measures menu with its result.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR

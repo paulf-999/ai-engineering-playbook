@@ -1,4 +1,4 @@
-"""Tests for the PR description check: a src/claude/ PR carries its plan, and an always-on one the criteria."""
+"""Tests for the PR description check: config PRs need a plan, any plan is complete, and always-on PRs need criteria."""
 
 import os
 import subprocess
@@ -147,6 +147,21 @@ def test_plan_menus_or_reason_must_be_visible_lines(plan, expected_code):
     """The menus or the reason count only as whole, visible lines, whatever their line endings."""
     result = run_check(plan, ON_DEMAND_FILE)
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
+
+
+@pytest.mark.parametrize(
+    ("plan", "expected_code"),
+    [
+        pytest.param(PLAN, 0, id="all_menus"),
+        pytest.param(NO_PLAN, 0, id="reason"),
+        pytest.param(PLAN_HEADING + menu("intent.md"), 1, id="missing_menus"),
+    ],
+)
+def test_a_plan_outside_the_config_is_checked_when_present(plan, expected_code):
+    """A PR that doesn't touch src/claude/ may leave the Plan section out, but one it has must be complete."""
+    result = run_check(DETAILS + bullets(1) + plan + NEXT_SECTION, "docs/other.md")
+    assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
+    assert ("'Show spec.md'" in result.stdout) is bool(expected_code), f"unexpected reason: {result.stdout}"
 
 
 def test_the_template_names_every_menu():

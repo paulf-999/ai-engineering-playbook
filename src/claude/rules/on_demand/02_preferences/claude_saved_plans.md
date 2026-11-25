@@ -5,6 +5,7 @@
 - 🔗 **Spec link:** open the plan's Spec section with a **spec.md** bullet linking the absolute path it will be saved to, marked "(saved on approval)".
 - 📂 **Change folder:** before starting work, make `_plans/active/YYYY_MM_DD_<topic>/` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), rather than in the repo you're working in.
 - ✂️ **Split it:** write the plan's Intent section to `intent.md` in the [layout below](#-intent-layout), its Spec section to `spec.md` under the [line below](#-spec-layout), and the rest to `plan.md`, which links to both, waiting until approval since plan mode lets Claude write only its own plan file.
+- ✏️ **Writing style:** follow [`claude_writing_style.md`](../../always_on/02_preferences/claude_writing_style.md) in all three files, since PRs show them as they stand.
 - 🏷️ **Status line:** put `**Plan status:** 🟢 Active · updated <date>` under the H1 of `plan.md`, and update the date whenever a phase moves on.
 - 📍 **Absolute paths:** write the full path, such as `/Users/<you>/.claude/_plans/...`, since the Write tool would turn a `~` into a folder literally named `~`.
 - 🗑️ **Scratch copy:** treat plan mode's own file as disposable once split, and don't refer to it again.
@@ -27,6 +28,7 @@ Write `intent.md` in this layout, with one to three lines per section and "none"
 ```
 
 - ✍️ **Recording:** fill in all four fields on saving, with **Started** as the time of the first conversation, or "unknown".
+- ↩️ **Line breaks:** start each sentence on a new line.
 - ✅ **Accepted:** approving a plan accepts its intent.
 - 🗑️ **Closed:** when the user abandons a plan before approving it, save its intent in `_plans/dropped/YYYY_MM_DD_<topic>/` with `**Decision:** closed`, once plan mode allows writes, beside a short `plan.md` with status `🗑️ Dropped`.
 - 🔢 **Edits:** add 1 to **Edits after spec** for each change to `intent.md` after `spec.md` is first saved.

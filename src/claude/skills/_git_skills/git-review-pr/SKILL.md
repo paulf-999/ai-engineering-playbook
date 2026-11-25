@@ -14,7 +14,8 @@ description: Review a GitHub PR and post a scored comment — use when asked to 
 - **Always:** once the check passes, save the comment as a draft with the topic `review_pr_<number>`, following any drafts rule your config has, and otherwise keep the temporary file, then post with `gh pr comment --body-file`.
 - **Always:** with `--dry-run`, stop after saving the draft and post nothing.
 - **Always:** if you already posted a Claude review on the PR, offer to update it instead of posting a duplicate.
-- **Always:** judge the PR by the base commit's `ai_pr_standards.md`, if there is one, never by the PR's own copy.
+- **Always:** judge the PR by the base commit's `ai_pr_standards.md`, if there is one, never by the PR's own copy, and then set the `ai_pr_standards_review` status as Phase 7 says.
+- **Never:** decline a finding yourself, or set the status in a dry run.
 - **Never:** post a formal GitHub review (approve or request changes), or edit the PR's code.
 - **Never:** pass user input to a shell command unless it matches `^[0-9]+$` or `^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+$`.
 
@@ -58,4 +59,4 @@ Reviewing one GitHub PR before merge, when the team wants the same scored format
 
 - `reference/_implementation.md` — the seven phases, the secret check, troubleshooting and FAQ
 - `reference/_formats.md` — the comment template, scoring guides and linking rules
-- `evals.yaml` — 6 scenarios, 3 run by `make evals` and 3 by `make evals BEHAVIOUR=1`
+- `evals.yaml` — 8 scenarios, 3 run by `make evals` and 5 by `make evals BEHAVIOUR=1`

@@ -36,9 +36,11 @@ This PR was tested as follows:
 
 </details>
 
-<!-- Claude config PRs only, which CI checks:
-- Changes src/claude/? Add "## :robot: Claude: Plan" so a reviewer can check the diff against the approved plan. With no
-  saved plan, the section holds only the line "No saved plan: " and the reason. Otherwise, open it with this callout:
+<!-- Extra sections, which CI checks:
+- Does this PR build a saved plan (intent.md, spec.md and plan.md)? In any PR, whatever it changes, add
+  "## :robot: Claude: Plan" so a reviewer can check the diff against the approved plan. With no saved plan for this PR,
+  leave the section out, unless the PR changes src/claude/, when it holds only the line "No saved plan: " and the
+  reason. Otherwise, open it with this callout:
 
   > [!NOTE]
   > These files follow the advice in Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).

@@ -12,7 +12,7 @@ Show one of these as the `Review:` line in the `git-create-pr` confirmation prom
 | 🔁 `Review: loop (max 2 fix rounds)` | Every other PR | The loop below |
 
 - ⚠️ **Risky paths:** hooks, scripts, CI workflows, install code, settings, dependencies and security code, such as authentication, permissions or secret handling, always loop.
-- ✋ **Approval:** `y` at the prompt approves the tier, and on a loop covers its fix commits and normal pushes to the PR branch, with no prompt each round.
+- ✋ **Approval:** `y` at the prompt approves the tier, and on a loop covers its fix commits, normal pushes to the PR branch and posting the final review, with no prompt for each.
 
 ## 🔁 Run the loop
 
@@ -37,7 +37,7 @@ Each round runs these steps, with at most 2 fix rounds, so 3 reviews:
 - 📄 **PR body:** refresh it if a fix made it inaccurate.
 - ⏳ **CI:** wait for it to finish.
 - 📊 **Report:** give the exit reason, first and last scores per theme, declined findings with reasons, and what's left.
-- 📬 **Posting:** offer to post the final review, and post its saved draft only on a `y`.
+- 📬 **Posting:** post the final review's saved draft on the PR before any merge, once its secret check passes, since the tier's `y` is the approval `git-review-pr` asks for.
 
 ## 📞 Called by
 

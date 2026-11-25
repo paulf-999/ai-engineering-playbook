@@ -37,7 +37,7 @@ A single review runs step 1 alone, and a loop runs these steps each round, with 
 - 📄 **PR body:** refresh it if a fix made it inaccurate.
 - ⏳ **CI:** wait for it to finish.
 - 📊 **Report:** give the exit reason, first and last scores per theme, declined findings with reasons, and what's left.
-- 📬 **Posting:** on every PR, post the final review's saved draft before any merge, once its secret check passes, and link it in the report. The tier's `y` is the approval `git-review-pr` asks for, a deliberate exception to showing the user each comment before it's sent.
+- 📬 **Posting:** on every PR, post the final review's saved draft before any merge, once its secret check passes, and link it in the report. If the check flags anything, post and merge nothing until the user decides. The tier's `y` is the approval `git-review-pr` asks for, a deliberate exception to showing the user each comment before it's sent.
 
 ## 📞 Called by
 

@@ -8,6 +8,7 @@ disable-model-invocation: true
 ## 🤖 Instructions for Claude
 
 - **Pre-check:** confirm the current repo has `src/claude/rules/evals.yaml` and a `make evals` target, and if not, say to run the skill from the playbook repo and stop.
+- **Drafts ready:** if this session already drafted rules, start from those the user likes.
 - **Read first:** read `reference/_implementation.md` for how to pick notes, draft a case and read the verdict.
 - **Always:** show each draft rule bullet and its `rules/evals.yaml` case as a diff, and edit files only after an explicit yes.
 - **Always:** say a case costs 24 runs and 24 grades of plan usage, before running `make evals RULES=1 RUNS=12 CASE=<name>`.
@@ -49,6 +50,7 @@ A periodic look back, such as once a sprint, at what you've had to correct Claud
 
 ## 📚 References
 
+- `reference/_draft.md` — drafting without being asked, when the session-start reminder fires
 - `reference/_implementation.md` — picking notes, drafting a case, the budget and the verdicts
 - `evals.yaml` — 3 scenarios, each run by `make evals`
 - [How Warp builds self-improving agents on Claude](https://claude.com/resources/articles/how-warp-builds-self-improving-agents-on-claude) — the feedback-to-edit loop this skill follows

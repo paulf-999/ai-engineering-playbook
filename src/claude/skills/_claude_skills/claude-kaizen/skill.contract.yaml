@@ -1,6 +1,6 @@
 ---
 name: claude-kaizen
-version: 1.2.0
+version: 1.3.0
 summary: Turn corrections that keep recurring in your feedback notes into proposed rules, each proved by an A/B eval
 test_coverage_level: basic
 

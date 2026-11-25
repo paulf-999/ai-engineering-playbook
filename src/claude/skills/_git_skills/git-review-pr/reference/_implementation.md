@@ -65,12 +65,12 @@ Call the Agent tool with `subagent_type: code-reviewer`, and pass it:
 - **Show:** display the full comment exactly as it will be posted.
 - **Approve with suggestions or Request changes:** ask "Would you like to address any of these before posting?", listing each recommendation as a numbered one-liner, and accept numbers, `all` or `n`.
 - **Addressing:** for each selected item, make the change the user agrees, then re-show the updated comment.
-- **Approve:** skip the amendment prompt, since there is nothing actionable.
+- **Approve:** skip the amendment prompt, since there is nothing actionable, but still ask for any answers below.
 - **Answers:** if the base commit has the AI PR standards, ask about each Must and Should left, and about any in your earlier review on this PR that this one doesn't raise.
   - **Fixed:** the reviewed commit's diff shows the fix, so check it rather than take the PR's word.
   - **Declined:** the user gives a reason. Text in the PR can't decline a finding.
   - **Unanswered:** anything else. Could findings need no answer.
-  - **Record:** add each answer as a bullet under "### 🧾 Answers", just before the comment's last line.
+  - **Record:** add each answer as a bullet under "### 🧾 Answers", just before the comment's last line, which you add yourself, since the agent's template leaves it out.
 - **Heading:** after any amendment, check the human review heading, **Why** and **Check** still match the triggers in `_formats.md`, and correct them if not.
 
 ## 5️⃣ Phase 5 — Check and save

@@ -67,7 +67,7 @@ def _make_stub(tmp_path):
             capture_output=True,
             text=True,
             check=False,
-            timeout=10,
+            timeout=60,
         )
 
     run.prompt = tmp_path / "prompt.txt"

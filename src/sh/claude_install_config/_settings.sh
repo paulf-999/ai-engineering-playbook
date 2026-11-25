@@ -8,27 +8,38 @@
 # Variables
 #=======================================================================
 
-# each hook the config ships, as event|matcher|path, with an empty matcher for events that take none,
-# and a matcher may hold "|" itself, since only the first and last fields are split off
-SHIPPED_HOOKS=(
-    "PreToolUse|ExitPlanMode|hooks/ai_sdlc_workflow/hook_enforcement_plan_sections.sh"
-    "PreToolUse|ExitPlanMode|hooks/ai_sdlc_workflow/hook_enforcement_plan_review.sh"
-    "PreToolUse|Edit|Write|NotebookEdit|hooks/git/hook_enforcement_worktree_edits.sh"
-    "Stop||hooks/ai_sdlc_workflow/hook_enforcement_done_checks.sh"
-    "SessionStart||hooks/claude_kaizen/hook_reminder_kaizen_due.sh"
-)
-# deny rules that keep Claude's file tools out of .env files, kept last in this order so the carve-out follows its rule
-# a bare filename matches at any depth, and a "!" rule carves out of earlier rules in the same settings file, per
-# https://code.claude.com/docs/en/permissions.md
-DENY_RULES=("Read(.env)" "Read(.env.*)" "Read(!.env.example)")
+# the hooks and deny rules to merge, as JSON, which an uninstall leaves empty, set by render_settings
+RENDERED_SETTINGS="{}"
 # settings.json's content, set by read_settings and changed by the merges
 SETTINGS_JSON=""
+# jq helpers: strip removes the hooks that match f, and any entry that leaves empty, and hook_path is the path under $dir
+# of the hook_*.sh file a hook's command runs, or null if it doesn't run one
+# shellcheck disable=SC2016  # these are jq variables, not shell ones
+JQ_STRIP='
+    def command_text: (.command? // "") | if type == "string" then . else "" end;
+    def hook_path($dir): command_text
+        | split($dir + "/")[1:] | join($dir + "/")
+        | capture("^(?<path>[^\"]*hook_[^/\"]*\\.sh)([\"\u0027\\s]|$)").path? // null;
+    def strip(f): map(if (.hooks? | type) == "array" and any(.hooks[]; f)
+        then .hooks |= map(select(f | not)) | select(.hooks != []) else . end);
+'
 
 #=======================================================================
 # Functions
 #=======================================================================
 
-# Keep one entry per hook in settings.json at the current path, or none if it isn't shipped, then the deny rules
+# Set RENDERED_SETTINGS from the settings template, or stop if a hook isn't in it, before anything has changed
+render_settings() {
+    local options=()
+    if [[ -z "${PROJECT}" || "${WITH_HOOKS}" == 1 ]]; then options=(--all-hooks); fi
+    if ! RENDERED_SETTINGS="$("${RENDER_PYTHON}" "${RENDERER}" "${HOOKS_DIR}" ${options[@]+"${options[@]}"})"; then
+        log_message "${ERROR}" "The hooks and deny rules couldn't be rendered, as shown above - nothing changed."
+        echo "If Python or Jinja is missing, run make install, which sets both up in .venv."
+        exit 1
+    fi
+}
+
+# Keep one entry per rendered hook in settings.json, then the deny rules, and none for a hook whose file is gone
 register_settings() {
     local current
     # bash ignores set -e inside these three, so each returns 1 itself once it has said why it can't go on
@@ -36,7 +47,8 @@ register_settings() {
     current="${SETTINGS_JSON}"
     merge_hooks || return 0
     merge_deny_rules || return 0
-    jq -cn '$ARGS.positional' --args ${DENY_RULES[@]+"${DENY_RULES[@]}"} > "${DENY_MANIFEST}"
+    strip_dead_hooks
+    jq -c '.permissions.deny // []' <<< "${RENDERED_SETTINGS}" > "${DENY_MANIFEST}"
     [[ "${SETTINGS_JSON}" == "${current}" ]] && return 0
     if file_exists "${SETTINGS}"; then back_up_file "${BACKUP_DIR}" settings.json; fi
     write_settings
@@ -56,49 +68,39 @@ read_settings() {
     fi
 }
 
-# Merge each hook the config ships into SETTINGS_JSON
+# Merge the rendered hooks into SETTINGS_JSON: strip each wherever its event has it, matched by file name so an old path
+# counts, then add the current entries, failing if an event's value isn't a list, so can't take the hook
 merge_hooks() {
-    local entry event matcher hook ship command status
-    for entry in "${SHIPPED_HOOKS[@]}"; do
-        event="${entry%%|*}"
-        hook="${entry##*|}"
-        matcher="${entry#*|}"
-        matcher="${matcher%|*}"
-        ship=false
-        grep -Fxq -- "${hook}" <<< "${TARGET_PATHS}" && ship=true
-        # a project's settings are shared, so its hook command names the project through Claude Code's own variable
-        command="bash \"${TARGET_DIR}/${hook}\""
-        [[ -n "${PROJECT}" ]] && command="bash \"\$CLAUDE_PROJECT_DIR/.claude/${hook}\""
-        # the plan review takes seconds, so Claude Code shows this while it runs
-        status=""
-        [[ "${hook##*/}" == hook_enforcement_plan_review.sh ]] && status="Reviewing plan against quality gates"
-        if ! merge_hook "${event}" "${matcher}" "${command}" "/${hook##*/}\"" "${ship}" "${status}"; then
-            log_message "${WARNING}" "${SETTINGS} has a hooks.${event} that isn't a list, so the hooks weren't added."
-            return 1
-        fi
-    done
+    local event
+    event="$(jq -r --argjson rendered "${RENDERED_SETTINGS}" '. as $settings | first($rendered.hooks // {} | keys_unsorted[]
+        | select(. as $event | try ($settings.hooks[$event] // [] | type != "array") catch true)) // empty' \
+        <<< "${SETTINGS_JSON}")"
+    if [[ -n "${event}" ]]; then
+        log_message "${WARNING}" "${SETTINGS} has a hooks.${event} that isn't a list, so the hooks weren't added."
+        return 1
+    fi
+    SETTINGS_JSON="$(jq --argjson rendered "${RENDERED_SETTINGS}" "${JQ_STRIP}"'
+        reduce ($rendered.hooks // {} | to_entries[]) as {key: $event, value: $entries} (.;
+            [$entries[].hooks[].command | "/" + (split("/") | last)] as $suffixes
+            | (.hooks[$event] // []) as $old
+            | (($old | strip(command_text as $c | any($suffixes[]; . as $s | $c | endswith($s)))) + $entries) as $new
+            | if $new == $old then . else .hooks[$event] = $new end
+        )' <<< "${SETTINGS_JSON}")"
 }
 
-# Merge one hook into SETTINGS_JSON: strip it wherever it's registered, matched by file name so an old path counts, then
-# re-add it if shipped, failing if the event's value isn't a list, so can't take the hook
-# the command is an absolute path, since hook commands in user settings can't refer to CLAUDE_CONFIG_DIR
-merge_hook() {
-    SETTINGS_JSON="$(jq --arg event "${1}" --arg matcher "${2}" --arg command "${3}" --arg suffix "${4}" \
-        --argjson ship "${5}" --arg status "${6}" '
-        def ours: (.command? // "") as $c | ($c | type) == "string" and ($c | endswith($suffix));
-        (.hooks[$event] // []) as $old
-        | if ($old | type) != "array" then error("hooks.\($event) is not a list") else . end
-        | ($old
-            | map(if (.hooks? | type) == "array" and any(.hooks[]; ours)
-                then .hooks |= map(select(ours | not)) | select(.hooks != [])
-                else . end)
-            | . + (if $ship
-                then [(if $matcher == "" then {} else {matcher: $matcher} end)
-                    + {hooks: [{type: "command", command: $command}
-                        + (if $status == "" then {} else {statusMessage: $status} end)]}]
-                else [] end)
-          ) as $new
-        | if $new == $old then . else .hooks[$event] = $new end' <<< "${SETTINGS_JSON}" 2> /dev/null)"
+# Strip from SETTINGS_JSON each hook under the target's hooks/ folder whose hook_*.sh file is gone, such as one the config
+# has dropped, or all of them once an uninstall has removed the files
+strip_dead_hooks() {
+    local path dead=()
+    while IFS= read -r path; do
+        if [[ -n "${path}" ]] && ! file_exists "${TARGET_DIR}/hooks/${path}"; then dead+=("${path}"); fi
+    done < <(jq -r --arg dir "${HOOKS_DIR}" "${JQ_STRIP}"'.hooks[]?[]?.hooks?[]? | hook_path($dir) // empty' \
+        <<< "${SETTINGS_JSON}" 2> /dev/null || true)
+    [[ "${#dead[@]}" -gt 0 ]] || return 0
+    SETTINGS_JSON="$(jq --arg dir "${HOOKS_DIR}" "${JQ_STRIP}"'
+        .hooks |= map_values(if type == "array"
+            then strip(hook_path($dir) as $path | $path != null and any($ARGS.positional[]; . == $path))
+            else . end)' --args "${dead[@]}" <<< "${SETTINGS_JSON}")"
 }
 
 # Drop the deny rules the last install added from SETTINGS_JSON, then put the config's at the end, in order, keeping
@@ -107,13 +109,13 @@ merge_deny_rules() {
     local previous
     # an unreadable deny manifest counts as empty, so install still adds the current rules
     previous="$(jq -c 'if type == "array" then . else [] end' "${DENY_MANIFEST}" 2> /dev/null || echo "[]")"
-    if ! SETTINGS_JSON="$(jq --argjson previous "${previous}" --args '
+    if ! SETTINGS_JSON="$(jq --argjson previous "${previous}" --argjson rendered "${RENDERED_SETTINGS}" '
         (.permissions.deny // []) as $old
         | if ($old | type) != "array" then error("permissions.deny is not a list") else . end
-        | ($previous + $ARGS.positional) as $ours
-        | ($old | map(select(. as $rule | $ours | index($rule) | not)) + $ARGS.positional) as $new
-        | if $new == $old then . else .permissions.deny = $new end' \
-        ${DENY_RULES[@]+"${DENY_RULES[@]}"} <<< "${SETTINGS_JSON}" 2> /dev/null)"; then
+        | ($rendered.permissions.deny // []) as $current
+        | ($previous + $current) as $ours
+        | ($old | map(select(. as $rule | $ours | index($rule) | not)) + $current) as $new
+        | if $new == $old then . else .permissions.deny = $new end' <<< "${SETTINGS_JSON}" 2> /dev/null)"; then
         log_message "${WARNING}" "${SETTINGS} has a permissions.deny that isn't a list, so the settings weren't added."
         return 1
     fi

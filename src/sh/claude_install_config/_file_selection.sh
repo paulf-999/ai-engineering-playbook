@@ -47,14 +47,13 @@ is_preference() {
     [[ "/${1}" == */preferences/* || "/${1}" == */02_preferences/* ]]
 }
 
-# Succeed if a tracked file under SOURCE_DIR should install, leaving the done checks and worktree edits hooks out of a
-# project install unless HOOKS=1, while the plan sections hook always installs
+# Succeed if a tracked file under SOURCE_DIR should install
 is_installable() {
     local file="${1}"
     # a tracked file deleted from the working tree counts as removed
     file_exists "${SOURCE_DIR}/${file}" || return 1
-    [[ -n "${PROJECT}" && "${WITH_HOOKS}" != 1 && "${file}" =~ ^hooks/[^/]+/hook_enforcement_(done_checks|worktree_edits)\.sh$ ]] \
-        && return 1
+    # a hook installs only if the rendered settings name it, in a command that ends with its path and an escaped quote
+    [[ "${file}" =~ ^hooks/(.*/)?hook_[^/]*\.sh$ && "${RENDERED_SETTINGS}" != *"/${file}\\\""* ]] && return 1
     [[ "${PREFERENCES}" != 1 ]] && is_preference "${file}" && return 1
     [[ "${AUTHORING_TEMPLATES}" == *" ${file} "* || "${file}" == _templates/skills/* ]] && return 1
     # a README explains a folder to people browsing the repo, and never loads

@@ -15,6 +15,7 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 #              It adds the rules in 02_preferences/ folders unless PREFERENCES=0, but never into a PROJECT install
 #              An install with preferences also files saved plans by status and archives old drafts, and only warns if that fails
 #              It never installs the skill, agent and rule templates, which are for authoring in this repo
+#              Those hooks and deny rules come from claude_install_config/settings.json.j2, which must list every hook
 # Usage: [PROJECT=<repo> [HOOKS=1]] [PREFERENCES=0] [UNINSTALL=1 | YES=1] src/sh/claude_install_config.sh (run from the repo root, at
 #        your own terminal or in a provisioning script; make install and make uninstall call it)
 
@@ -75,6 +76,13 @@ UPGRADE_BACKUP_DIR="${BACKUP_PREFIX}upgrade_$(date +%Y_%m_%d_%H%M%S)"
 MANIFEST="${TARGET_DIR}/.playbook_install_manifest"
 # settings.json holds personal settings, so install merges the hooks into it rather than copying a file over it
 SETTINGS="${TARGET_DIR}/settings.json"
+# the hooks folder as hook commands name it: a project's settings are shared, so they use Claude Code's own variable
+HOOKS_DIR="${TARGET_DIR}/hooks"
+# shellcheck disable=SC2016  # Claude Code expands it, not this script
+if [[ -n "${PROJECT}" ]]; then HOOKS_DIR='$CLAUDE_PROJECT_DIR/.claude/hooks'; fi
+# fills in the settings template, with the repo's own .venv, which make install creates and adds Jinja to
+RENDERER="$(dirname "${BASH_SOURCE[0]}")/../py/claude_render_settings.py"
+RENDER_PYTHON="${RENDER_PYTHON:-$(dirname "${BASH_SOURCE[0]}")/../../.venv/bin/python}"
 # the deny rules the last install added, as a JSON list, so the next install can remove any the config has since dropped
 DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
 
@@ -85,6 +93,7 @@ DENY_MANIFEST="${TARGET_DIR}/.playbook_install_deny_rules"
 # Copy the config into the target, after a typed confirmation
 run_install() {
     resolve_preferences
+    render_settings
     list_source_files
     list_removed_files
     confirm_install
@@ -96,8 +105,8 @@ run_install() {
 
 # Remove what the last install added, after a typed confirmation
 run_uninstall() {
-    # with no files to install, every file the manifest lists counts as removed, and no hook or deny rule ships
-    DENY_RULES=()
+    # with no files to install or settings rendered, every file the manifest lists counts as removed, and no hook or deny
+    # rule ships
     list_removed_files
     confirm_uninstall
     uninstall_files

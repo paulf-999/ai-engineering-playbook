@@ -120,8 +120,8 @@ jobs:
                   python-version: '3.13'
                   cache: pip
                   cache-dependency-path: requirements.txt
-            # The tests only need pytest, pytest-xdist and pyyaml, at the versions pinned in requirements.txt
-            - name: Install pytest, pytest-xdist and pyyaml
-              run: pip install $(grep -oE '^(pytest|pytest-xdist|pyyaml)==[^ ]+' requirements.txt)
+            # The tests only need these packages, at the versions pinned in requirements.txt
+            - name: Install pytest, pytest-xdist, pyyaml and jinja2
+              run: pip install $(grep -oE '^(pytest|pytest-xdist|pyyaml|jinja2)==[^ ]+' requirements.txt)
             - name: Run tests
               run: pytest

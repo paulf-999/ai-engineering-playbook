@@ -6,6 +6,7 @@ import pty
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from functools import cache
 from pathlib import Path
@@ -44,7 +45,9 @@ def run_install(target, answer=None, cwd=None, **extra_env):
     cwd = cwd or _make_small_repo().name
     # a temporary home, outside the target, so an install never touches the real saved plans
     with tempfile.TemporaryDirectory() as home:
-        env = {**os.environ, **GIT_ENV, "HOME": home, "CLAUDE_CONFIG_DIR": str(target), **extra_env}
+        env = {**os.environ, **GIT_ENV, "HOME": home, "CLAUDE_CONFIG_DIR": str(target)}
+        # the tests' own python, which has Jinja, so no test creates a virtualenv
+        env = {**env, "RENDER_PYTHON": sys.executable, **extra_env}
         if answer is None:
             return subprocess.run(
                 [str(SCRIPT)], cwd=cwd, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, check=False
@@ -324,6 +327,39 @@ def test_unmergeable_settings_are_left_alone(tmp_path, original):
     assert result.returncode == 0, f"install should still succeed:\n{result.stdout}{result.stderr}"
     assert (tmp_path / "settings.json").read_text() == original, "an unmergeable settings.json must be unchanged"
     assert "weren't added" in result.stdout, "the install should say the settings weren't added"
+
+
+@pytest.mark.parametrize("cause", ["an unlisted hook", "no virtualenv"])
+def test_settings_that_cant_be_rendered_stop_the_install_before_it_asks(tmp_path, cause):
+    """A hook the template lacks, or a missing virtualenv, stops the install with nothing changed, saying why."""
+    repo, config, extra = tmp_path / "repo", tmp_path / "config", {}
+    repo.mkdir()
+    files = {"CLAUDE.md": "config\n"}
+    if cause == "an unlisted hook":
+        files["hooks/git/hook_enforcement_new.sh"] = "#!/bin/bash\n"
+    else:
+        extra["RENDER_PYTHON"] = str(tmp_path / ".venv" / "bin" / "python")
+    commit_config(repo, isolated_git_repo(repo), files)
+
+    result = run_install(config, answer="install", cwd=repo, **extra)
+
+    assert result.returncode == 1, f"install should stop:\n{result.stdout}"
+    named = "hook_enforcement_new.sh" if cause == "an unlisted hook" else extra["RENDER_PYTHON"]
+    assert named in result.stderr and "nothing changed" in result.stdout, "it should say why"
+    assert "Installing" not in result.stdout and not config.exists(), "nothing should be written"
+
+
+def test_make_install_adds_jinja_to_the_virtualenv_on_first_use(tmp_path):
+    """make install creates the virtualenv with the pinned Jinja, uses its python, and skips setup once ready."""
+    venv = tmp_path / "venv"
+    command = ["make", "-n", "install", f"EVALS_VENV={venv}"]
+    first = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True, check=True).stdout
+    assert f"python3 -m venv {venv}" in first and "grep -i '^jinja2==' requirements.txt" in first
+    assert f'RENDER_PYTHON="{venv}/bin/python" bash src/sh/claude_install_config.sh' in first
+    venv.mkdir()
+    (venv / ".install_ready").touch()
+    ready = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True, check=True).stdout
+    assert "-m venv" not in ready and "pip install" not in ready, "a ready virtualenv should be reused"
 
 
 def test_without_jq_the_files_install_and_settings_are_left_alone(tmp_path):

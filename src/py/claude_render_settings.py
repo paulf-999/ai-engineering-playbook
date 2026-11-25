@@ -35,8 +35,10 @@ def main():
 def shipped_hooks(root=Path()):
     """Return the tracked hooks that exist, as paths relative to the hooks folder."""
     command = ["git", "ls-files", "-z", "--", str(HOOKS_SOURCE)]
-    listed = subprocess.run(command, cwd=root, capture_output=True, text=True, check=False).stdout.split("\0")
-    hooks = [Path(path) for path in listed if Path(path).match("hook_*.sh")]
+    listed = subprocess.run(command, cwd=root, capture_output=True, text=True, check=False)
+    if listed.returncode:
+        sys.exit(f"The hooks couldn't be listed: {listed.stderr.strip()}")
+    hooks = [Path(path) for path in listed.stdout.split("\0") if Path(path).match("hook_*.sh")]
     return {str(hook.relative_to(HOOKS_SOURCE)) for hook in hooks if (root / hook).is_file()}
 
 

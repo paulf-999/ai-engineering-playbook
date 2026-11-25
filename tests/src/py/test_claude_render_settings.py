@@ -85,3 +85,10 @@ def test_a_tracked_hook_deleted_from_the_checkout_isnt_shipped(tmp_path):
     repo = _make_repo(tmp_path, ["git/hook_enforcement_new.sh"])
     (repo / renderer.HOOKS_SOURCE / "git" / "hook_enforcement_new.sh").unlink()
     assert renderer.shipped_hooks(repo) == set()
+
+
+def test_a_failed_git_listing_stops_it(tmp_path):
+    """Outside a git repo it exits 1 with git's message, rather than printing settings with every hook left out."""
+    result = run_renderer(tmp_path, "/hooks")
+    assert result.returncode == 1 and result.stdout == "", "it should stop and print nothing"
+    assert "not a git repository" in result.stderr, result.stderr

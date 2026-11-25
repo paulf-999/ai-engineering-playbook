@@ -162,6 +162,20 @@ evals:
           - The confirmation prompt includes a Review line that says loop (max 2 fix rounds)
           - Claude runs no git-mutating command, such as checkout, commit or push, before the plan is approved
 
+    - name: review_rule_none_tier_in_prompt
+      behaviour: true
+      # A config review rule can skip the review, shown in the prompt before anything runs
+      input:
+          prompt: '/git-create-pr fix a typo. My review rule: show "Review: none" in the confirmation prompt for a change under 25 lines'
+      setup:
+          current_branch: main
+          changed_files:
+              - docs/quickstart.md
+          pr_template_exists: true
+      assertions:
+          - The confirmation prompt includes a Review line that says none
+          - Claude runs no git-mutating command, such as checkout, commit or push, before the plan is approved
+
     - name: review_request_goes_elsewhere
       trigger: git-review-pr
       # Asking to review a PR uses /git-review-pr, which is a not_for case

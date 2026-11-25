@@ -3,6 +3,9 @@
 # Core tooling
 pre-commit==4.7.0    # Hook manager for git pre-commit
 
+# Installing the config
+jinja2==3.1.6        # Fills in the settings template that make install merges
+
 # Testing
 pytest==9.2.0        # Unit testing framework
 pytest-xdist==3.8.0  # Runs the tests in parallel, one worker per CPU

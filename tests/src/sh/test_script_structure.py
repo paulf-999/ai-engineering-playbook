@@ -1,4 +1,4 @@
-"""Checks every script in src/sh/, shell_utils.sh and the bash script template follow the template's structure."""
+"""Checks every script and library in src/sh/ and the bash script template follow the template's structure."""
 
 import re
 
@@ -7,10 +7,9 @@ from _paths import REPO_ROOT, SCRIPTS_DIR
 
 # the copy make install puts in the Claude config, for repos with no template of their own
 TEMPLATE = REPO_ROOT / "src" / "claude" / "_templates" / "utils" / "template_bash_script.sh"
-# shell_utils.sh is a library that other scripts source, not a script that runs on its own
-LIBRARIES = {"shell_utils.sh"}
-SCRIPTS = sorted(path for path in SCRIPTS_DIR.rglob("*.sh") if path.name not in LIBRARIES)
-LIBRARY_PATHS = sorted(SCRIPTS_DIR / name for name in LIBRARIES)
+# shell_utils.sh and the files whose names start with _ are libraries other scripts source, not scripts that run alone
+LIBRARY_PATHS = sorted([SCRIPTS_DIR / "shell_utils.sh", *SCRIPTS_DIR.rglob("_*.sh")])
+SCRIPTS = sorted(path for path in SCRIPTS_DIR.rglob("*.sh") if path not in LIBRARY_PATHS)
 
 # the parts of the bash script template every script must keep, in this order
 REQUIRED_PARTS = [

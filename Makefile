@@ -32,7 +32,8 @@ SHELL = /bin/sh
 INFO := \033[0;32m
 COLOUR_OFF := \033[0m
 
-# the virtualenv make evals runs in, which it creates with only pyyaml on first use, so nobody needs make deps first
+# the virtualenv make evals and make install run in, each adding only the package it needs on first use, so nobody needs
+# make deps first
 EVALS_VENV ?= .venv
 # the eval runner make evals picks: the trigger evals, or the rule, behaviour or README evals when RULES=1, BEHAVIOUR=1 or README=1 is set
 EVAL_RUNNER := $(or $(RULES:%=rule),$(BEHAVIOUR:%=behaviour),$(README:%=readme),trigger)
@@ -55,9 +56,15 @@ deps:
 	@python -m pip install -r requirements.txt
 	@python -m pre_commit install
 
-install:
+$(EVALS_VENV)/.install_ready: requirements.txt
+	@echo "${INFO}\nCalled makefile target '$@'. Add Jinja to the virtualenv.${COLOUR_OFF}\n"
+	@python3 -m venv $(EVALS_VENV)
+	@$(EVALS_VENV)/bin/python -m pip install --quiet --disable-pip-version-check "$$(grep -i '^jinja2==' requirements.txt | cut -d' ' -f1)"
+	@touch $@
+
+install: $(EVALS_VENV)/.install_ready
 	@echo "${INFO}\nCalled makefile target 'install'. Copy the Claude config into $${PROJECT:+$$PROJECT/.claude}$$([ -n "$${PROJECT:-}" ] || echo "$${CLAUDE_CONFIG_DIR:-$$HOME/.claude}").${COLOUR_OFF}\n"
-	@bash src/sh/claude_install_config.sh
+	@RENDER_PYTHON="$(EVALS_VENV)/bin/python" bash src/sh/claude_install_config.sh
 
 uninstall:
 	@echo "${INFO}\nCalled makefile target 'uninstall'. Remove the Claude config that make install added.${COLOUR_OFF}\n"

@@ -6,6 +6,7 @@ import pty
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from functools import cache
 from pathlib import Path
@@ -44,7 +45,9 @@ def run_install(target, answer=None, cwd=None, **extra_env):
     cwd = cwd or _make_small_repo().name
     # a temporary home, outside the target, so an install never touches the real saved plans
     with tempfile.TemporaryDirectory() as home:
-        env = {**os.environ, **GIT_ENV, "HOME": home, "CLAUDE_CONFIG_DIR": str(target), **extra_env}
+        env = {**os.environ, **GIT_ENV, "HOME": home, "CLAUDE_CONFIG_DIR": str(target)}
+        # the tests' own python, which has Jinja, so no test creates a virtualenv
+        env = {**env, "RENDER_PYTHON": sys.executable, **extra_env}
         if answer is None:
             return subprocess.run(
                 [str(SCRIPT)], cwd=cwd, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, check=False
@@ -191,6 +194,16 @@ def test_files_the_repo_removed_are_backed_up_then_removed(tmp_path):
     )
 
 
+def test_a_manifest_path_whose_file_is_already_gone_is_skipped(tmp_path):
+    """A manifest path the repo dropped, whose installed file was already deleted, doesn't stop the install."""
+    (tmp_path / ".playbook_install_manifest").write_text("rules/gone.md\n")
+
+    result = run_install(tmp_path, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert (tmp_path / "CLAUDE.md").is_file(), "the config should be installed"
+
+
 def test_manifest_paths_outside_the_target_are_ignored(tmp_path):
     """A manifest path containing '..' is skipped, so the file it points at is left alone."""
     target = tmp_path / "config"
@@ -302,10 +315,11 @@ def test_reinstalling_registers_each_hook_once(tmp_path):
     assert not (tmp_path / "backups").exists(), "an unchanged settings.json should not be backed up"
 
 
-@pytest.mark.parametrize("settings", [{"hooks": {"PreToolUse": "not a list"}}, {"permissions": {"deny": "not a list"}}])
-def test_unmergeable_settings_are_left_alone(tmp_path, settings):
-    """A settings.json whose hooks.PreToolUse or permissions.deny isn't a list is kept, and the install succeeds."""
-    original = json.dumps(settings)
+@pytest.mark.parametrize(
+    "original", ['{"hooks": {"PreToolUse": "not a list"}}', '{"permissions": {"deny": "not a list"}}', "{not json"]
+)
+def test_unmergeable_settings_are_left_alone(tmp_path, original):
+    """A settings.json that isn't JSON, or whose hooks or deny rules aren't a list, is kept as it is."""
     (tmp_path / "settings.json").write_text(original)
 
     result = run_install(tmp_path, answer="install")
@@ -313,6 +327,70 @@ def test_unmergeable_settings_are_left_alone(tmp_path, settings):
     assert result.returncode == 0, f"install should still succeed:\n{result.stdout}{result.stderr}"
     assert (tmp_path / "settings.json").read_text() == original, "an unmergeable settings.json must be unchanged"
     assert "weren't added" in result.stdout, "the install should say the settings weren't added"
+
+
+@pytest.mark.parametrize("cause", ["an unlisted hook", "no virtualenv"])
+def test_settings_that_cant_be_rendered_stop_the_install_before_it_asks(tmp_path, cause):
+    """A hook the template lacks, or a missing virtualenv, stops the install with nothing changed, saying why."""
+    repo, config, extra = tmp_path / "repo", tmp_path / "config", {}
+    repo.mkdir()
+    files = {"CLAUDE.md": "config\n"}
+    if cause == "an unlisted hook":
+        files["hooks/git/hook_enforcement_new.sh"] = "#!/bin/bash\n"
+    else:
+        extra["RENDER_PYTHON"] = str(tmp_path / ".venv" / "bin" / "python")
+    commit_config(repo, isolated_git_repo(repo), files)
+
+    result = run_install(config, answer="install", cwd=repo, **extra)
+
+    assert result.returncode == 1, f"install should stop:\n{result.stdout}"
+    named = "hook_enforcement_new.sh" if cause == "an unlisted hook" else extra["RENDER_PYTHON"]
+    assert named in result.stderr and "nothing changed" in result.stdout, "it should say why"
+    assert "Installing" not in result.stdout and not config.exists(), "nothing should be written"
+
+
+def test_make_install_adds_jinja_to_the_virtualenv_on_first_use(tmp_path):
+    """make install creates the virtualenv with the pinned Jinja, uses its python, and skips setup once ready."""
+    venv = tmp_path / "venv"
+    command = ["make", "-n", "install", f"EVALS_VENV={venv}"]
+    first = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True, check=True).stdout
+    assert f"python3 -m venv {venv}" in first and "grep -i '^jinja2==' requirements.txt" in first
+    assert f'RENDER_PYTHON="{venv}/bin/python" bash src/sh/claude_install_config.sh' in first
+    venv.mkdir()
+    (venv / ".install_ready").touch()
+    ready = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True, check=True).stdout
+    assert "-m venv" not in ready and "pip install" not in ready, "a ready virtualenv should be reused"
+
+
+def test_without_jq_the_files_install_and_settings_are_left_alone(tmp_path):
+    """With no jq, the install still copies the files, says the hooks weren't added and writes no settings.json."""
+    # bash reads this before the script runs, and it makes "command -v jq" fail wherever jq lives
+    no_jq = tmp_path / "no_jq.sh"
+    no_jq.write_text('command() { [[ "$*" != *jq* ]] && builtin command "$@"; }\n')
+    config = tmp_path / "config"
+
+    result = run_install(config, answer="install", BASH_ENV=str(no_jq))
+
+    assert result.returncode == 0, f"install should still succeed:\n{result.stdout}{result.stderr}"
+    assert "jq isn't installed" in result.stdout, "it should say why the hooks weren't added"
+    assert (config / "CLAUDE.md").is_file(), "the files should still install"
+    assert not (config / "settings.json").exists(), "no settings should be written"
+
+
+def test_writing_settings_keeps_the_files_mode_and_symlink(tmp_path):
+    """A settings.json linked from elsewhere, such as a dotfiles repo, stays a link, and its file keeps its mode."""
+    config, dotfiles = tmp_path / "config", tmp_path / "dotfiles.json"
+    config.mkdir()
+    dotfiles.write_text('{"model": "opus"}')
+    dotfiles.chmod(0o600)
+    (config / "settings.json").symlink_to("../dotfiles.json")
+
+    result = run_install(config, answer="install")
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert (config / "settings.json").is_symlink(), "settings.json should stay a symlink"
+    assert "hooks" in json.loads(dotfiles.read_text()), "the linked file should gain the hooks"
+    assert dotfiles.stat().st_mode & 0o777 == 0o600, "the linked file should keep its mode"
 
 
 # an unrelated PreToolUse hook, which install must keep whatever it does to the plan sections hook
@@ -439,6 +517,60 @@ def test_project_install_backs_up_into_your_config_directory(tmp_path):
     assert not (project / ".claude" / "backups").exists(), "no backup should be written inside the repo"
 
 
+def test_a_project_that_isnt_a_folder_is_refused(tmp_path):
+    """A PROJECT path that isn't a folder exits 1, says so and writes nothing."""
+    result = run_install(tmp_path, answer="install", PROJECT=str(tmp_path / "missing"))
+    assert result.returncode == 1, f"a missing project should be refused:\n{result.stdout}"
+    assert "isn't a folder - nothing changed" in result.stderr, "the refusal should say why"
+    assert not any(tmp_path.iterdir()), "nothing should be written"
+
+
+def uninstall_project(config, project):
+    """Uninstall from a project, failing the test if it doesn't succeed."""
+    result = run_install(config, answer="uninstall", PROJECT=str(project), UNINSTALL="1")
+    assert result.returncode == 0, f"a project uninstall should succeed:\n{result.stdout}{result.stderr}"
+
+
+def test_project_uninstall_leaves_only_the_teams_files_and_settings(tmp_path):
+    """A project uninstall removes what the install added and keeps the team's own files and settings."""
+    config, target = project_install(tmp_path, HOOKS="1")
+    (target / "team.md").write_text("ours\n")
+    uninstall_project(config, target.parent)
+    assert installed_files(target) == {"team.md", "settings.json"}, "only the team's files should remain"
+    settings = json.loads((target / "settings.json").read_text())
+    left = [entry for entries in settings["hooks"].values() for entry in entries]
+    assert left == [] and settings["permissions"]["deny"] == [], "the config's hooks and deny rules should be removed"
+
+
+def test_projects_with_the_same_name_each_get_their_own_files_back(tmp_path):
+    """Uninstalling from two repos with the same folder name restores each one's own CLAUDE.md."""
+    config = tmp_path / "config"
+    config.mkdir()
+    projects = [tmp_path / team / "app" for team in ("one", "two")]
+    for project in projects:
+        (project / ".claude").mkdir(parents=True)
+        (project / ".claude" / "CLAUDE.md").write_text(f"{project.parent.name}\n")
+        result = run_install(config, answer="install", PROJECT=str(project))
+        assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    for project in projects:
+        uninstall_project(config, project)
+    restored = [(project / ".claude" / "CLAUDE.md").read_text() for project in projects]
+    assert restored == ["one\n", "two\n"], "each repo should get its own file back"
+
+
+def test_project_uninstall_restores_a_backup_only_from_its_own_unhashed_folder(tmp_path):
+    """A backup from before folders were hashed is used, but not one from a repo named as this one plus _2."""
+    config, project = tmp_path / "config", tmp_path / "app"
+    (project / ".claude").mkdir(parents=True)
+    (project / ".claude" / "CLAUDE.md").write_text("installed\n")
+    (project / ".claude" / ".playbook_install_manifest").write_text("CLAUDE.md\n")
+    for folder, text in (("app_2026_01_01_000000", "mine\n"), ("app_2_2025_01_01_000000", "another repo's\n")):
+        (config / "backups" / f"project_{folder}").mkdir(parents=True)
+        (config / "backups" / f"project_{folder}" / "CLAUDE.md").write_text(text)
+    uninstall_project(config, project)
+    assert (project / ".claude" / "CLAUDE.md").read_text() == "mine\n", "only this repo's own backup should be restored"
+
+
 def test_uninstall_removes_the_install_and_restores_what_it_replaced(tmp_path):
     """Uninstall removes installed files, restores the pre-install CLAUDE.md and strips only the config's settings."""
     (tmp_path / "CLAUDE.md").write_text("my old config\n")
@@ -497,6 +629,48 @@ def test_an_upgrade_backs_up_the_installs_own_copies_where_uninstall_wont_restor
     assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
     for installed in INSTALLED:
         assert not (config / installed).exists(), f"no copy of {installed} should be restored"
+
+
+def test_a_tracked_file_missing_from_the_working_tree_counts_as_removed(tmp_path):
+    """A file deleted from the checkout but still tracked is removed from the install, rather than emptied."""
+    repo, config = tmp_path / "repo", tmp_path / "config"
+    repo.mkdir()
+    commit_config(repo, isolated_git_repo(repo), release(1))
+    assert run_install(config, answer="install", cwd=repo).returncode == 0, "the first install should work"
+    (repo / "src" / "claude" / "rules" / "always_on" / "rule.md").unlink()
+
+    result = run_install(config, answer="install", cwd=repo)
+
+    assert result.returncode == 0, f"install should succeed:\n{result.stdout}{result.stderr}"
+    assert not (config / INSTALLED[0]).exists(), "the deleted file should be removed"
+    assert (config / INSTALLED[1]).is_file(), "the other file should stay"
+
+
+def test_uninstall_restores_the_oldest_backup(tmp_path):
+    """When several backups hold a file, uninstall restores the oldest, and never an upgrade's or uninstall's."""
+    (tmp_path / "CLAUDE.md").write_text("installed\n")
+    (tmp_path / ".playbook_install_manifest").write_text("CLAUDE.md\n")
+    stamps = ("2025_01_01_000000", "2026_01_01_000000", "upgrade_2024_01_01_000000", "uninstall_2024_01_01_000000")
+    for stamp in stamps:
+        (tmp_path / "backups" / f"install_{stamp}").mkdir(parents=True)
+        (tmp_path / "backups" / f"install_{stamp}" / "CLAUDE.md").write_text(stamp)
+
+    result = run_install(tmp_path, answer="uninstall", UNINSTALL="1")
+
+    assert result.returncode == 0, f"uninstall should succeed:\n{result.stdout}{result.stderr}"
+    assert (tmp_path / "CLAUDE.md").read_text() == "2025_01_01_000000", "the oldest install backup should be restored"
+
+
+def test_a_wrong_answer_cancels_uninstall(tmp_path):
+    """Typing anything other than 'uninstall' cancels with exit 1 and changes nothing."""
+    (tmp_path / "CLAUDE.md").write_text("installed\n")
+    (tmp_path / ".playbook_install_manifest").write_text("CLAUDE.md\n")
+
+    result = run_install(tmp_path, answer="install", UNINSTALL="1")
+
+    assert result.returncode == 1, f"a wrong answer should cancel:\n{result.stdout}"
+    assert "nothing changed" in result.stdout, "the cancellation should be reported"
+    assert installed_files(tmp_path) == {"CLAUDE.md", ".playbook_install_manifest"}, "nothing should change"
 
 
 def test_uninstall_without_a_terminal_changes_nothing(tmp_path):

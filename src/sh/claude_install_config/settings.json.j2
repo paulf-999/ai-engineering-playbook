@@ -1,0 +1,52 @@
+{#
+The hooks and deny rules make install merges into settings.json, filled in by src/py/claude_render_settings.py.
+
+- hooks_dir: where the hooks install, already escaped for JSON. A project's settings are shared, so there it starts with
+  Claude Code's own $CLAUDE_PROJECT_DIR, while your own config has an absolute path, as its hook commands can't refer to
+  CLAUDE_CONFIG_DIR.
+- all_hooks: false in a project install without HOOKS=1, which leaves out the hooks inside the ifs.
+- Every hook file under src/claude/hooks/ needs an entry here, or the install stops.
+- The deny rules keep Claude's file tools out of .env files. A bare filename matches at any depth, and a "!" rule carves
+  out of earlier rules, so keep it after them: https://code.claude.com/docs/en/permissions.md
+#}
+{
+  "hooks": {
+    "PreToolUse": [
+{% if all_hooks %}
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [{"type": "command", "command": "bash \"{{ hooks_dir }}/git/hook_enforcement_worktree_edits.sh\""}]
+      },
+{% endif %}
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [{"type": "command", "command": "bash \"{{ hooks_dir }}/ai_sdlc_workflow/hook_enforcement_plan_sections.sh\""}]
+      },
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{ hooks_dir }}/ai_sdlc_workflow/hook_enforcement_plan_review.sh\"",
+            "statusMessage": "Reviewing plan against quality gates"
+          }
+        ]
+      }
+    ],
+{% if all_hooks %}
+    "Stop": [
+      {
+        "hooks": [{"type": "command", "command": "bash \"{{ hooks_dir }}/ai_sdlc_workflow/hook_enforcement_done_checks.sh\""}]
+      }
+    ],
+{% endif %}
+    "SessionStart": [
+      {
+        "hooks": [{"type": "command", "command": "bash \"{{ hooks_dir }}/claude_kaizen/hook_reminder_kaizen_due.sh\""}]
+      }
+    ]
+  },
+  "permissions": {
+    "deny": ["Read(.env)", "Read(.env.*)", "Read(!.env.example)"]
+  }
+}

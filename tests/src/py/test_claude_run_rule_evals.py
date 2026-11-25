@@ -34,12 +34,22 @@ def test_prepare_repo_differs_only_by_the_rule(tmp_path, with_rule):
 
 
 @pytest.mark.parametrize(
-    ("without", "with_", "expected"),
-    [(0, 2, "helps"), (1, 2, "no effect"), (3, 1, "hurts"), (2, 1, "no effect")],
+    ("without", "with_", "runs", "expected"),
+    [
+        (0, 2, 3, "helps"),
+        (1, 2, 3, "no effect"),
+        (3, 1, 3, "hurts"),
+        (2, 1, 3, "no effect"),
+        (4, 6, 6, "helps"),
+        (4, 5, 6, "no effect"),
+        (8, 12, 12, "helps"),
+        (8, 11, 12, "no effect"),
+        (12, 8, 12, "hurts"),
+    ],
 )
-def test_verdict_needs_a_margin_of_two_runs(without, with_, expected):
-    """A rule helps or hurts only when one condition passes at least 2 more runs than the other."""
-    assert runner.verdict(without, with_) == expected
+def test_verdict_needs_a_lead_of_a_third_of_the_runs(without, with_, runs, expected):
+    """A rule helps or hurts only when one condition leads by a third of the runs, and by at least 2."""
+    assert runner.verdict(without, with_, runs) == expected
 
 
 def test_select_cases_runs_only_the_named_case():

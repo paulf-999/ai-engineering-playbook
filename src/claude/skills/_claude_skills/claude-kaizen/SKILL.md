@@ -10,8 +10,8 @@ disable-model-invocation: true
 - **Pre-check:** confirm the current repo has `src/claude/rules/evals.yaml` and a `make evals` target, and if not, say to run the skill from the playbook repo and stop.
 - **Read first:** read `reference/_implementation.md` for how to pick notes, draft a case and read the verdict.
 - **Always:** show each draft rule bullet and its `rules/evals.yaml` case as a diff, and edit files only after an explicit yes.
-- **Always:** say a case costs 6 runs and 6 grades of plan usage, run in parallel in under a minute, before running `make evals RULES=1 CASE=<name>`.
-- **Always:** keep a rule only on a **helps** verdict, and undo your own edits for any other verdict.
+- **Always:** say a case costs 24 runs and 24 grades of plan usage, before running `make evals RULES=1 RUNS=12 CASE=<name>`.
+- **Always:** keep a rule only on a **helps** verdict, and for any other verdict undo your own edits and log the rejection to `kaizen_rejections.md` in the auto-memory folder.
 - **Always:** at the end, append `YYYY-MM-DD notes=<read> proposed=<drafted> kept=<kept>` to `kaizen_runs.log` in the auto-memory folder, which resets the reminder hook's count.
 - **Never:** commit, push or open a PR, since `/git-create-pr` does that once the user is happy.
 - **Never:** quote a feedback note's personal details, such as a name, in a rule or case.
@@ -32,9 +32,9 @@ Read 31 feedback notes. 2 candidates recur and apply beyond this repo:
   1. Write dates as YYYY-MM-DD (4 notes)
   2. Quote test output when reporting a failure (2 notes)
 [diff for writing_style.md, reporting.md and rules/evals.yaml]
-Write these and run their A/B cases? About a minute of plan usage. (y/n) y
-iso_dates_in_prose: without 0/3, with 3/3, helps — kept
-failure_output_quoted: without 3/3, with 3/3, no effect — undone
+Write these and run their A/B cases? Each costs 24 runs and 24 grades. (y/n) y
+iso_dates_in_prose: without 0/12, with 12/12, helps — kept
+failure_output_quoted: without 12/12, with 12/12, no effect — undone
 Kept 1 rule in the working tree. Run /git-create-pr to open the PR.
 ```
 

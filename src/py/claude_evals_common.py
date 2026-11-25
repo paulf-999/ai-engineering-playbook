@@ -170,7 +170,7 @@ def repo_changes(repo_dir, base):
     # Intent-to-add makes git diff show new files, and skips the excluded .claude/
     git(repo_dir, "add", "-A", "-N")
     diff = git(repo_dir, "diff", base)
-    return diff if len(diff) <= MAX_DIFF_CHARS else f"{diff[:MAX_DIFF_CHARS]}\n(cut)"
+    return diff if len(diff) <= MAX_DIFF_CHARS else f"{diff[:MAX_DIFF_CHARS]}\n(cut: the rest of the diff isn't shown)"
 
 
 def graded_results(assertions, results):

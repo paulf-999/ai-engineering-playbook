@@ -127,7 +127,7 @@ def test_repo_changes_cuts_only_diffs_over_the_cap(tmp_path, monkeypatch, over, 
     diff = "x" * (common.MAX_DIFF_CHARS + over)
     monkeypatch.setattr(common, "git", lambda repo_dir, *args: diff if args[0] == "diff" else "")
     changes = common.repo_changes(tmp_path, "base")
-    assert changes == "x" * common.MAX_DIFF_CHARS + ("\n(cut)" if cut else "")
+    assert changes == "x" * common.MAX_DIFF_CHARS + ("\n(cut: the rest of the diff isn't shown)" if cut else "")
 
 
 @pytest.mark.parametrize(("options", "expected"), [({}, False), ({"permission_mode": "acceptEdits"}, True)])

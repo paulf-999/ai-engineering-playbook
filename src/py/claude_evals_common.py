@@ -22,6 +22,7 @@ BLOCKED_TOOLS = ["Bash(git push:*)", "Bash(curl:*)", "WebFetch", "WebSearch"]
 SETUP_KEYS = {"current_branch", "changed_files", "changed_file_count", "pr_template_exists"}
 MAX_TURNS = "15"
 TIMEOUT_SECONDS = 900
+MAX_DIFF_CHARS = 4000
 GRADER_SCHEMA = {
     "type": "object",
     "properties": {
@@ -121,8 +122,8 @@ def build_repo(repo_dir, setup):
         (repo_dir / name).write_text("PLACEHOLDER=1\n" if name.endswith(".env") else "print('changed')\n")
 
 
-def run_claude(prompt, repo_dir, session_id=None, agent=None):
-    """Run one turn of claude -p in repo_dir, resuming session_id or as agent if given, and return its events."""
+def run_claude(prompt, repo_dir, session_id=None, agent=None, permission_mode=None):
+    """Run one turn of claude -p in repo_dir, with any session, agent or permission mode given, and return events."""
     command = ["claude", "-p", prompt, "--setting-sources", "project", "--strict-mcp-config"]
     command += ["--output-format", "stream-json", "--verbose", "--max-turns", MAX_TURNS]
     command += ["--allowedTools", *ALLOWED_TOOLS, "--disallowedTools", *BLOCKED_TOOLS]
@@ -130,6 +131,8 @@ def run_claude(prompt, repo_dir, session_id=None, agent=None):
         command += ["--resume", session_id]
     if agent:
         command += ["--agent", agent]
+    if permission_mode:
+        command += ["--permission-mode", permission_mode]
     result = subprocess.run(command, cwd=repo_dir, capture_output=True, text=True, timeout=TIMEOUT_SECONDS)
     return parse_events(result.stdout.splitlines())
 
@@ -160,6 +163,14 @@ def repo_state(repo_dir):
     branch = git(repo_dir, "branch", "--show-current").strip()
     status = git(repo_dir, "status", "--short") or "(clean)\n"
     return f"branch: {branch}\nstatus:\n{status}log:\n{git(repo_dir, 'log', '--oneline', '-5')}"
+
+
+def repo_changes(repo_dir, base):
+    """Return the capped diff from commit base to the working tree, covering commits, edits and new files."""
+    # Intent-to-add makes git diff show new files, and skips the excluded .claude/
+    git(repo_dir, "add", "-A", "-N")
+    diff = git(repo_dir, "diff", base)
+    return diff if len(diff) <= MAX_DIFF_CHARS else f"{diff[:MAX_DIFF_CHARS]}\n(cut)"
 
 
 def graded_results(assertions, results):

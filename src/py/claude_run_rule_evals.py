@@ -2,7 +2,8 @@
 
 Each run gets its own scratch git repo, built from the case's `setup:`, with no skills or agents, so the only
 difference between the two conditions is the rule, copied into `.claude/rules/`. The runs go in parallel, and the
-grader, on Haiku, isn't told which condition it's grading. `RUNS` sets how many runs each condition gets, and `CASE`
+grader, on Haiku, isn't told which condition it's grading. Claude may edit files in the scratch repo, the grader sees
+the diff, and each failed assertion's reason is printed. `RUNS` sets how many runs each condition gets, and `CASE`
 runs only the case with that name.
 """
 
@@ -21,6 +22,7 @@ from claude_evals_common import (
     git,
     grade,
     remove_project_folder,
+    repo_changes,
     repo_state,
     run_claude,
     transcript,
@@ -71,11 +73,16 @@ def run_once(case, with_rule, run_dir):
     """Run the case once in run_dir and return True if the grader passes every assertion."""
     run_dir.mkdir()
     prepare_repo(run_dir, case, with_rule)
-    events = run_claude(case["prompt"], run_dir)
+    base = git(run_dir, "rev-parse", "HEAD").strip()
+    events = run_claude(case["prompt"], run_dir, permission_mode="acceptEdits")
     remove_project_folder(events, run_dir.resolve())
-    results = grade(
-        case["assertions"], transcript([(case["prompt"], events)]), repo_state(run_dir), run_dir.parent, GRADER_MODEL
-    )
+    # repo_changes runs git add -N, which changes the status, so read the state first
+    state = repo_state(run_dir)
+    state += f"changes:\n{repo_changes(run_dir, base)}"
+    results = grade(case["assertions"], transcript([(case["prompt"], events)]), state, run_dir.parent, GRADER_MODEL)
+    for result in results:
+        if not result["pass"]:
+            print(f"{run_dir.name}: {result['reason']}")
     return all(result["pass"] for result in results)
 
 

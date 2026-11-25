@@ -103,3 +103,44 @@ def test_project_folder_only_matches_the_scratch_repo(tmp_path):
     assert str(common.project_folder([init], repo_dir)) == "/cfg/projects/-tmp-trigger-evals-ab12"
     init["memory_paths"]["auto"] = "/cfg/projects/-Users-me-real-repo/memory/"
     assert common.project_folder([init], repo_dir) is None
+
+
+def test_repo_changes_shows_commits_edits_and_new_files(tmp_path):
+    """The diff covers a commit, an edit and a new file made since the base commit, and leaves out .claude/."""
+    common.build_repo(tmp_path, {})
+    base = common.git(tmp_path, "rev-parse", "HEAD").strip()
+    (tmp_path / "committed.md").write_text("committed line\n")
+    common.git(tmp_path, "add", "-A")
+    common.git(tmp_path, "commit", "-q", "-m", "docs: add a file")
+    (tmp_path / "README.md").write_text("edited line\n")
+    (tmp_path / "new.md").write_text("new line\n")
+    (tmp_path / ".claude").mkdir()
+    (tmp_path / ".claude/rule.md").write_text("hidden rule\n")
+    changes = common.repo_changes(tmp_path, base)
+    assert all(f"+{name} line" in changes for name in ("committed", "edited", "new")), changes
+    assert "hidden rule" not in changes
+
+
+@pytest.mark.parametrize(("over", "cut"), [(0, False), (1, True)])
+def test_repo_changes_cuts_only_diffs_over_the_cap(tmp_path, monkeypatch, over, cut):
+    """A diff at the cap is whole, and one over it is cut and says so."""
+    diff = "x" * (common.MAX_DIFF_CHARS + over)
+    monkeypatch.setattr(common, "git", lambda repo_dir, *args: diff if args[0] == "diff" else "")
+    changes = common.repo_changes(tmp_path, "base")
+    assert changes == "x" * common.MAX_DIFF_CHARS + ("\n(cut)" if cut else "")
+
+
+@pytest.mark.parametrize(("options", "expected"), [({}, False), ({"permission_mode": "acceptEdits"}, True)])
+def test_run_claude_sets_a_permission_mode_only_when_asked(tmp_path, monkeypatch, options, expected):
+    """Other evals keep their command, and a runner that asks for a permission mode gets the flag."""
+    commands = []
+
+    def fake_run(command, **kwargs):
+        commands.append(command)
+        return subprocess.CompletedProcess(command, 0, stdout="")
+
+    monkeypatch.setattr(common.subprocess, "run", fake_run)
+    common.run_claude("hello", tmp_path, **options)
+    assert ("--permission-mode" in commands[0]) is expected
+    if expected:
+        assert commands[0][commands[0].index("--permission-mode") + 1] == "acceptEdits"

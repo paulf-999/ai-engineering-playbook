@@ -1,6 +1,6 @@
 ---
 name: claude-kaizen
-description: Turn recurring corrections into A/B-proved rules — run /claude-kaizen, or when the reminder suggests it
+description: Turn recurring corrections into rules that pass an A/B check — run /claude-kaizen, or when the reminder suggests it
 # slash-only, so its description costs no always-on context; the reminder hook names the command instead
 disable-model-invocation: true
 ---
@@ -11,8 +11,8 @@ disable-model-invocation: true
 - **Drafts ready:** if this session already drafted rules, start from those the user likes.
 - **Read first:** read `reference/_implementation.md` for how to pick notes, draft a case and read the verdict.
 - **Always:** show each draft rule bullet and its `rules/evals.yaml` case as a diff, and edit files only after an explicit yes.
-- **Always:** say a case costs 24 runs and 24 grades of plan usage, before running `make evals RULES=1 RUNS=12 CASE=<name>`.
-- **Always:** keep a rule only on a **helps** verdict, and for any other verdict undo your own edits and log the rejection to `_claude_kaizen/rejections.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset).
+- **Always:** say a case costs 10 to 20 runs and as many grades of plan usage, before running `make evals RULES=1 CASE=<name>`.
+- **Always:** keep a rule only on a **helps** verdict, and for any other verdict undo your own edits, logging a **no effect** or **hurts** verdict to `_claude_kaizen/rejections.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset).
 - **Always:** at the end, append `YYYY-MM-DD notes=<read> proposed=<drafted> kept=<kept>` to `_claude_kaizen/runs.log` there, which resets the reminder hook's count.
 - **Never:** commit, push or open a PR, since `/git-create-pr` does that once the user is happy.
 - **Never:** quote a feedback note's personal details, such as a name, in a rule or case.
@@ -22,7 +22,7 @@ disable-model-invocation: true
 Turns the corrections you keep giving Claude into team rules, but only those that measurably change what Claude does:
 
 - **Recurring only** — a correction joins only if it recurs or applies beyond one repo.
-- **Proved** — each rule ships with an A/B case run with and without the rule.
+- **Checked** — each rule ships with an A/B case, run with and without the rule, that it passes at p < 0.01.
 - **Your call** — every rule is a diff you approve, and nothing is committed.
 
 ## 💡 Example Usage
@@ -33,9 +33,9 @@ Read 31 feedback notes. 2 candidates recur and apply beyond this repo:
   1. Write dates as YYYY-MM-DD (4 notes)
   2. Quote test output when reporting a failure (2 notes)
 [diff for writing_style.md, reporting.md and rules/evals.yaml]
-Write these and run their A/B cases? Each costs 24 runs and 24 grades. (y/n) y
-iso_dates_in_prose: without 0/12, with 12/12, helps — kept
-failure_output_quoted: without 12/12, with 12/12, no effect — undone
+Write these and run their A/B cases? Each costs 10 to 20 runs and as many grades. (y/n) y
+iso_dates_in_prose: without 0/5, with 5/5, helps (p = 0.0040) — kept
+failure_output_quoted: without 5/5, with 5/5, no effect (p = 1.0000) — undone
 Kept 1 rule in the working tree. Run /git-create-pr to open the PR.
 ```
 

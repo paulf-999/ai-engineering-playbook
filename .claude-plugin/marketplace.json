@@ -1,0 +1,13 @@
+{
+  "name": "ai-engineering-playbook",
+  "owner": {
+    "name": "paulf-999"
+  },
+  "plugins": [
+    {
+      "name": "claude-kaizen",
+      "source": "./plugins/claude-kaizen",
+      "description": "Turn recurring corrections in your feedback notes into rules that pass an A/B check"
+    }
+  ]
+}

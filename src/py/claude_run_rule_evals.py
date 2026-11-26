@@ -4,7 +4,8 @@ Each run gets its own scratch git repo, built from the case's `setup:`, with no 
 difference between the two conditions is the rule, copied into `.claude/rules/`. The runs go in parallel, and the
 grader, on Haiku, isn't told which condition it's grading. Claude may edit files in the scratch repo, the grader sees
 the diff, and each failed assertion's reason is printed. `RUNS` sets how many runs each condition gets, and `CASE`
-runs only the case with that name.
+runs only the case with that name. `RULE_EVALS_FILE` and `RULES_DIR` point the runner at another cases file and rules
+folder, as the claude-kaizen plugin does outside this repo.
 """
 
 import math
@@ -30,6 +31,7 @@ from claude_evals_common import (
 )
 
 CASES_FILE = SOURCE_DIR / "rules" / "evals.yaml"
+RULES_DIR = SOURCE_DIR / "rules"
 # A rule helps, or hurts, when one condition leads by a third of the runs, rounded up, and by at least this many
 MIN_MARGIN = 2
 # Runs at once, kept low so parallel claude -p calls stay within plan rate limits
@@ -55,7 +57,7 @@ def prepare_repo(repo_dir, case, with_rule):
         git(repo_dir, "add", "-A")
         git(repo_dir, "commit", "-q", "-m", "chore: add case files")
     if with_rule:
-        rule = SOURCE_DIR / "rules" / case["rule"]
+        rule = Path(os.environ.get("RULES_DIR", RULES_DIR)) / case["rule"]
         (repo_dir / ".claude/rules").mkdir(parents=True)
         shutil.copy(rule, repo_dir / ".claude/rules" / rule.name)
 
@@ -108,7 +110,7 @@ def main():
     if shutil.which("claude") is None:
         sys.exit("claude isn't on PATH - install Claude Code and log in first.")
     runs = int(os.environ.get("RUNS", "3"))
-    cases = select_cases(load_cases(CASES_FILE), os.environ.get("CASE", ""))
+    cases = select_cases(load_cases(Path(os.environ.get("RULE_EVALS_FILE", CASES_FILE))), os.environ.get("CASE", ""))
     with tempfile.TemporaryDirectory(prefix="rule_evals_") as scratch:
         passes = count_passes(cases, runs, Path(scratch).resolve())
     for case in cases:

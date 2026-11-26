@@ -33,6 +33,30 @@ def test_prepare_repo_differs_only_by_the_rule(tmp_path, with_rule):
     assert (tmp_path / ".claude/rules/security.md").exists() is with_rule
 
 
+def test_rules_dir_override_copies_the_rule_from_there(tmp_path, monkeypatch):
+    """RULES_DIR makes the with-rule condition copy its rule from another folder, as the plugin does."""
+    rules = tmp_path / "rules"
+    (rules / "always_on").mkdir(parents=True)
+    (rules / "always_on/mine.md").write_text("# Mine\n")
+    monkeypatch.setenv("RULES_DIR", str(rules))
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    runner.prepare_repo(repo, {**CASE, "rule": "always_on/mine.md"}, True)
+    assert (repo / ".claude/rules/mine.md").read_text() == "# Mine\n"
+
+
+def test_rule_evals_file_override_picks_the_cases(tmp_path, monkeypatch, capsys):
+    """RULE_EVALS_FILE makes main read its cases from another file, so a plugin user's cases run."""
+    cases_file = tmp_path / "evals.yaml"
+    cases_file.write_text("evals:\n  - name: mine\n    rule: always_on/mine.md\n    prompt: p\n    assertions: [a]\n")
+    monkeypatch.setenv("RULE_EVALS_FILE", str(cases_file))
+    monkeypatch.delenv("CASE", raising=False)
+    monkeypatch.setattr(runner.shutil, "which", lambda name: "/bin/claude")
+    monkeypatch.setattr(runner, "count_passes", lambda cases, runs, scratch: {("mine", False): 0, ("mine", True): 0})
+    runner.main()
+    assert capsys.readouterr().out.startswith("mine (always_on/mine.md):")
+
+
 @pytest.mark.parametrize(
     ("without", "with_", "runs", "expected"),
     [

@@ -1,6 +1,6 @@
 ---
-# Re-run the local git hooks and tests on every PR, so `git commit --no-verify` can't skip them,
-# and check the PR's title, size and author's open PRs
+# Re-run the local git hooks and tests on every PR, so `git commit --no-verify` can't skip them.
+# pr_governance.yml checks the PR itself, from main's copy, so a PR can't edit those checks to pass
 name: CI
 
 on:
@@ -53,79 +53,6 @@ jobs:
               env:
                   SKIP: no-commit-to-branch,git_branch_name_validation,claude_report_context_cost
               run: pre-commit run --all-files --show-diff-on-failure
-
-    pr_title:
-        name: 'PR title: check it follows Conventional Commits'
-        if: github.event_name == 'pull_request'
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-              with:
-                  persist-credentials: false
-            # Squash merges use the PR title as the commit message on main, so commitlint checks it with the config
-            # version the commit-msg hook pins in .pre-commit-config.yaml, and the matching CLI release
-            # Passed through env, not ${{ }} in the script, so a crafted title can't inject shell
-            - name: Validate PR title
-              env:
-                  PR_TITLE: ${{ github.event.pull_request.title }}
-              run: src/sh/git/git_validate_pr_title.sh "${PR_TITLE}"
-
-    pr_size:
-        name: "PR size: check it's within the file limit"
-        if: github.event_name == 'pull_request'
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-              with:
-                  persist-credentials: false
-                  # full history, so the PR's changes can be diffed against its base
-                  fetch-depth: 0
-            # Passed through env, not ${{ }} in the script, so a crafted branch name can't inject shell
-            - name: Validate number of changed files
-              env:
-                  BRANCH_NAME: ${{ github.head_ref }}
-                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
-                  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-              run: src/sh/git/git_validate_num_file_changes.sh "${BRANCH_NAME}" "${BASE_SHA}" "${HEAD_SHA}"
-
-    open_prs:
-        name: 'Open PRs: check the author is within the limit'
-        if: github.event_name == 'pull_request'
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        permissions:
-            contents: read
-            # list the repo's open PRs
-            pull-requests: read
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-              with:
-                  persist-credentials: false
-            - name: Validate number of open PRs
-              env:
-                  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-                  PR_NUMBER: ${{ github.event.pull_request.number }}
-                  GH_TOKEN: ${{ github.token }}
-              run: src/sh/git/git_validate_open_prs.sh "${PR_AUTHOR}" "${GITHUB_REPOSITORY}" "${PR_NUMBER}"
-
-    skill_versions:
-        name: 'Skill versions: check each changed skill bumps its version'
-        if: github.event_name == 'pull_request'
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-              with:
-                  persist-credentials: false
-                  # full history, so the PR's changes can be diffed against its base
-                  fetch-depth: 0
-            - name: Validate skill contract versions
-              env:
-                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
-                  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-              run: src/sh/git/git_validate_skill_versions.sh "${BASE_SHA}" "${HEAD_SHA}"
 
     test:
         name: 'Tests: run pytest'

@@ -15,7 +15,7 @@ They cover PRs only. For data and access, see the [security rule](src/claude/rul
 
 ## 📬 Opening a PR
 
-- **4. Pace:** agents shouldn't open PRs faster than reviewers can clear them, so only an author's six oldest open PRs should merge, and newer ones wait until older ones merge.
+- **4. Pace:** agents shouldn't open PRs faster than reviewers can clear them, so only an author's six oldest PRs ready for review should merge, and newer ones wait until older ones merge. Drafts don't count, since they can't merge.
 - **5. One topic:** you must give the agent one topic per PR, and split what it produces.
 
 ## 👀 Reviewing a PR
@@ -30,4 +30,4 @@ They cover PRs only. For data and access, see the [security rule](src/claude/rul
 - 🚦 **Review status:** `git-review-pr` sets `ai_pr_standards_review` on the commit it reviewed, which fails while a Must or Should finding is neither fixed nor declined with a reason.
   - **Advisory:** it blocks a merge only where repo settings require it.
   - **Limit:** anyone with write access could set it by hand.
-- 📌 **Which copy applies:** `git-review-pr` judges a PR by the base branch's copy of this file, so a PR can't relax the rules it's judged by.
+- 📌 **Which copy applies:** `git-review-pr` judges a PR by the base branch's copy of this file, and CI runs the base branch's copy of the checks, so a PR can't relax the rules it's judged by.

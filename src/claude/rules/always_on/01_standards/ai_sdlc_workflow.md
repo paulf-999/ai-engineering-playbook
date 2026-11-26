@@ -37,5 +37,5 @@ A plan is the proposal the user approves before Claude edits anything. If it's 1
 
 ## 📚 Read on demand
 
-- [`on_demand/01_standards/ai_sdlc_stages.md`](../../on_demand/01_standards/ai_sdlc_stages.md), in your Claude config directory (`~/.claude` by default), before work on an SDLC stage.
-- [`on_demand/02_preferences/claude_saved_plans.md`](../../on_demand/02_preferences/claude_saved_plans.md), in your Claude config directory, when writing a plan, if installed.
+- [`_on_demand/01_standards/ai_sdlc_stages.md`](../../on_demand/01_standards/ai_sdlc_stages.md), in your Claude config directory (`~/.claude` by default), before work on an SDLC stage.
+- [`_on_demand/02_preferences/claude_saved_plans.md`](../../on_demand/02_preferences/claude_saved_plans.md), in your Claude config directory, when writing a plan, if installed.

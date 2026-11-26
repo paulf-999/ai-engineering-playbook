@@ -17,5 +17,5 @@ paths:
 
 ## 📚 Read on demand
 
-- [`on_demand/style_guides/python/_environment_team_conventions.md`](../../on_demand/style_guides/python/_environment_team_conventions.md), in your Claude config directory, when setting up a virtual environment or dependencies.
-- [`on_demand/style_guides/python/_testing_team_conventions.md`](../../on_demand/style_guides/python/_testing_team_conventions.md), before writing test setup helpers or grouping tests.
+- [`_on_demand/style_guides/python/_environment_team_conventions.md`](../../on_demand/style_guides/python/_environment_team_conventions.md), in your Claude config directory, when setting up a virtual environment or dependencies.
+- [`_on_demand/style_guides/python/_testing_team_conventions.md`](../../on_demand/style_guides/python/_testing_team_conventions.md), before writing test setup helpers or grouping tests.

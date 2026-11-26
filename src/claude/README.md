@@ -20,7 +20,7 @@ Every rule costs context, so its top folder, `always_on/`, `path_scoped/` or `on
 <details>
 <summary>Where on-demand and child files go</summary>
 
-- 📍 **Install location:** `on_demand/` installs beside `rules/`, not inside it, since Claude Code loads files in `rules/` by itself.
+- 📍 **Install location:** `on_demand/` installs as `_on_demand/`, outside `rules/`, since Claude Code loads files in `rules/` by itself.
 - 🧩 **Child files:** a name starting with `_` marks detail split from a parent rule, read only when the parent points to it.
 
 </details>

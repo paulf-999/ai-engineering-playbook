@@ -42,7 +42,7 @@ Stay interactive when neither column fits.
 3. **Narrow it:** cut the units, tighten the condition or ask the missed decision.
 4. **Restart only once fixed:** confirm the new spec won't repeat the problem.
 
-- **Turn caps for other unattended runs:** read `on_demand/01_standards/claude_config/claude_turn_limits.md`, in your Claude config directory.
+- **Turn caps for other unattended runs:** read `_on_demand/01_standards/claude_config/claude_turn_limits.md`, in your Claude config directory.
 
 ## 📞 Called by
 

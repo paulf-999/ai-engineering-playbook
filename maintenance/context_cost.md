@@ -16,20 +16,20 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `CLAUDE.md` | ~523 |
+| 1 | `CLAUDE.md` | ~524 |
 | 2 | `agents/core/code-reviewer/AGENT.md` (description) | ~43 |
 | 3 | `agents/core/technical-writer/AGENT.md` (description) | ~27 |
 | 4 | `rules/always_on/01_standards/ai_sdlc_workflow.md` | ~667 |
-| 5 | `rules/always_on/01_standards/behaviour.md` | ~472 |
-| 6 | `rules/always_on/01_standards/naming_standards.md` | ~235 |
-| 7 | `rules/always_on/01_standards/security.md` | ~210 |
+| 5 | `rules/always_on/01_standards/behaviour.md` | ~473 |
+| 6 | `rules/always_on/01_standards/naming_standards.md` | ~236 |
+| 7 | `rules/always_on/01_standards/security.md` | ~211 |
 | 8 | `skills/_atlassian_skills/confluence-create-page/SKILL.md` (description) | ~44 |
 | 9 | `skills/_atlassian_skills/jira-create-issue/SKILL.md` (description) | ~34 |
 | 10 | `skills/_claude_skills/claude-capture-session-prompts/SKILL.md` (description) | ~39 |
 | 11 | `skills/_claude_skills/claude-kaizen/SKILL.md` (description) | ~0 |
 | 12 | `skills/_git_skills/git-create-pr/SKILL.md` (description) | ~29 |
 | 13 | `skills/_git_skills/git-review-pr/SKILL.md` (description) | ~37 |
-| | **Subtotal** | **~2365** |
+| | **Subtotal** | **~2368** |
 
 ## 👤 Every session, unless opted out
 
@@ -37,9 +37,9 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 |---|---|---|
 | 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~147 |
 | 2 | `rules/always_on/02_preferences/claude_pr_review.md` | ~68 |
-| 3 | `rules/always_on/02_preferences/claude_working_files.md` | ~186 |
+| 3 | `rules/always_on/02_preferences/claude_working_files.md` | ~187 |
 | 4 | `rules/always_on/02_preferences/claude_writing_style.md` | ~241 |
-| | **Subtotal** | **~644** |
+| | **Subtotal** | **~645** |
 
 ## 💤 Only when needed
 

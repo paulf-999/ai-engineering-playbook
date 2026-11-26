@@ -99,13 +99,13 @@ list_removed_files() {
     done < <(grep -Fxv -f <(printf '%s' "${TARGET_PATHS}") -- "${MANIFEST}" || true)
 }
 
-# Set TARGET_PATH to where a source file installs: on-demand files move from rules/on_demand/ to on_demand/,
+# Set TARGET_PATH to where a source file installs: on-demand files move from rules/on_demand/ to _on_demand/,
 # and a skill in a group folder such as skills/_git_skills/ installs flat under skills/, where Claude Code finds it
 # it sets a variable rather than printing, so callers needn't start a subshell for each file
 target_path() {
     local file="${1}"
     if [[ "${file}" == "${LAZY_RULES_DIR}/"* ]]; then
-        TARGET_PATH="${file#rules/}"
+        TARGET_PATH="_${file#rules/}"
     elif [[ "${file}" =~ ^skills/_[^/]+/(.+/.+)$ ]]; then
         TARGET_PATH="skills/${BASH_REMATCH[1]}"
     else
@@ -146,7 +146,7 @@ relink() {
             return path
         }
         function installed(path) {
-            if (path ~ /^rules\/on_demand(\/|$)/) return substr(path, 7)
+            if (path ~ /^rules\/on_demand(\/|$)/) return "_" substr(path, 7)
             if (path ~ /^skills\/_[^\/]+\/[^\/]+\//) sub(/^skills\/_[^\/]+\//, "skills/", path)
             return path
         }

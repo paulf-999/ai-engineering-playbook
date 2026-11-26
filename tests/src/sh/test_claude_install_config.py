@@ -72,9 +72,9 @@ def run_install(target, answer=None, cwd=None, **extra_env):
 
 
 def installed_path(source):
-    """Return where a src/claude/ file should install, with on-demand files moved out of rules/ and skills flattened."""
+    """Return where a src/claude/ file should install, with on-demand files in _on_demand/ and skills flattened."""
     if source.startswith("rules/on_demand/"):
-        return source.removeprefix("rules/")
+        return "_" + source.removeprefix("rules/")
     return re.sub(r"^skills/_[^/]+/", "skills/", source)
 
 
@@ -111,7 +111,7 @@ def default_install(tmp_path_factory):
 
 
 def test_install_copies_every_tracked_file(default_install):
-    """Each tracked file installs to its relative path, with on-demand files beside rules/ and grouped skills flat."""
+    """Each tracked file installs to its relative path, with on-demand files in _on_demand/ and grouped skills flat."""
     sources = tracked_config_files()
     assert sources, "git should list at least one file under src/claude/"
     installed = {installed_path(path): path for path in sources}
@@ -123,13 +123,27 @@ def test_install_copies_every_tracked_file(default_install):
             # install corrects the paths of relative links, which their own test checks
             copied, original = (re.sub(rb"\]\(\.\./[^)#\s]+", b"](", text) for text in (copied, original))
         assert copied == original, f"{target} should match {source}"
-    assert (default_install / "on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
-        "on-demand files should sit beside rules/"
+    assert (default_install / "_on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
+        "on-demand files should install to _on_demand/"
     )
     assert not (default_install / "rules" / "on_demand").exists(), "no on-demand file should install under rules/"
+    assert not (default_install / "on_demand").exists(), "no on-demand file should install to on_demand/"
     assert (SOURCE / "skills" / "_git_skills" / "git-create-pr" / "SKILL.md").is_file(), "the repo should group it"
     assert (default_install / "skills" / "git-create-pr" / "SKILL.md").is_file(), "the skill should install flat"
     assert not (default_install / "skills" / "_git_skills").exists(), "no group folder, nor its README, should install"
+
+
+@pytest.mark.parametrize("install", ["default_install", "default_project_install"])
+def test_no_installed_file_points_at_a_bare_on_demand_path(install, request):
+    """Each pointer names _on_demand/, where on-demand files install, never the bare on_demand/ folder."""
+    target = request.getfixturevalue(install)
+    target = target[1] if isinstance(target, tuple) else target
+    stale = [
+        str(path.relative_to(target))
+        for path in target.rglob("*")
+        if path.is_file() and "backups" not in path.parts and b"`on_demand/" in path.read_bytes()
+    ]
+    assert not stale, f"these files name `on_demand/ rather than `_on_demand/: {stale}"
 
 
 def climbing_links(path):
@@ -461,7 +475,7 @@ def test_project_install_writes_only_into_the_repo(default_project_install):
     """With PROJECT set, the config lands in the repo's .claude/ folder, and your config directory gets nothing."""
     config, target = default_project_install
     assert (target / "CLAUDE.md").is_file(), "CLAUDE.md should install into the repo's .claude/ folder"
-    assert (target / "on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
+    assert (target / "_on_demand" / "01_standards" / "claude_config" / "guiding_principles.md").is_file(), (
         "on-demand files should too"
     )
     assert installed_files(config) == set(), "nothing but backups should land in your own config directory"
@@ -598,12 +612,12 @@ def commit_config(repo, env, files):
     subprocess.run(["git", "commit", "-q", "-m", "release"], cwd=repo, env=env, check=True)
 
 
-# an always-on rule and an on-demand one, which installs beside rules/, each with a pointer a project install rewrites
+# an always-on rule and an on-demand one, which installs to _on_demand/, each with a pointer a project install rewrites
 RULES = {
     "rules/always_on/rule.md": "rule {}: see it in your Claude config directory\n",
     "rules/on_demand/detail.md": "detail {}: see it in your Claude config directory\n",
 }
-INSTALLED = ["rules/always_on/rule.md", "on_demand/detail.md"]
+INSTALLED = ["rules/always_on/rule.md", "_on_demand/detail.md"]
 
 
 def release(version):

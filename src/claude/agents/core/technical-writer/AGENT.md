@@ -41,5 +41,5 @@ This agent:
 
 ## 📚 References
 
-- 👥 **Audience:** `on_demand/01_standards/conduct/audience_and_depth.md`, in your Claude config directory, for setting depth by reader.
+- 👥 **Audience:** `_on_demand/01_standards/conduct/audience_and_depth.md`, in your Claude config directory, for setting depth by reader.
 - 🧪 **[`evals.yaml`](evals.yaml):** the scenarios that check its drafts, audiences and boundaries.

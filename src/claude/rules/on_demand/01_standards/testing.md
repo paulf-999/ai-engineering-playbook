@@ -6,9 +6,9 @@
 
 ## 📚 Read on demand
 
-- [`on_demand/01_standards/testing/_testing_design_pattern.md`](testing/_testing_design_pattern.md), in your Claude config directory, before writing a new test.
-- [`on_demand/01_standards/testing/_testing_anti_patterns.md`](testing/_testing_anti_patterns.md), before writing or reviewing a test, for the mistakes that make tests mislead.
-- [`on_demand/style_guides/python/testing.md`](../style_guides/python/testing.md), before writing or changing pytest tests.
+- [`_on_demand/01_standards/testing/_testing_design_pattern.md`](testing/_testing_design_pattern.md), in your Claude config directory, before writing a new test.
+- [`_on_demand/01_standards/testing/_testing_anti_patterns.md`](testing/_testing_anti_patterns.md), before writing or reviewing a test, for the mistakes that make tests mislead.
+- [`_on_demand/style_guides/python/testing.md`](../style_guides/python/testing.md), before writing or changing pytest tests.
 
 ## 📞 Called by
 

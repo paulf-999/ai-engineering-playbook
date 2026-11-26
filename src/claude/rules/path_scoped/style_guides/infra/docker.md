@@ -14,5 +14,5 @@ paths:
 
 ## 📚 Read on demand
 
-- [`on_demand/style_guides/infra/docker/_docker_base_image_standards.md`](../../../on_demand/style_guides/infra/docker/_docker_base_image_standards.md), in your Claude config directory, when choosing a base image or ordering a Dockerfile's sections.
-- [`on_demand/style_guides/infra/docker/_dockerfile_build_practices.md`](../../../on_demand/style_guides/infra/docker/_dockerfile_build_practices.md), when optimising layers, hardening an image, writing `.dockerignore` or using a multi-stage build.
+- [`_on_demand/style_guides/infra/docker/_docker_base_image_standards.md`](../../../on_demand/style_guides/infra/docker/_docker_base_image_standards.md), in your Claude config directory, when choosing a base image or ordering a Dockerfile's sections.
+- [`_on_demand/style_guides/infra/docker/_dockerfile_build_practices.md`](../../../on_demand/style_guides/infra/docker/_dockerfile_build_practices.md), when optimising layers, hardening an image, writing `.dockerignore` or using a multi-stage build.

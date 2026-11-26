@@ -9,4 +9,4 @@
 
 ## 📚 Read on demand
 
-[`on_demand/01_standards/claude_config/permission_recommendations.md`](../../on_demand/01_standards/claude_config/permission_recommendations.md), in your Claude config directory, before recommending a permission or allowlist change.
+[`_on_demand/01_standards/claude_config/permission_recommendations.md`](../../on_demand/01_standards/claude_config/permission_recommendations.md), in your Claude config directory, before recommending a permission or allowlist change.

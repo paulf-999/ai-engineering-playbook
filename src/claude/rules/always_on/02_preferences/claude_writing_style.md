@@ -10,4 +10,4 @@
 
 ## 📚 Read on demand
 
-[`on_demand/02_preferences/claude_markdown_style.md`](../../on_demand/02_preferences/claude_markdown_style.md), in your Claude config directory, before writing or restructuring a markdown doc.
+[`_on_demand/02_preferences/claude_markdown_style.md`](../../on_demand/02_preferences/claude_markdown_style.md), in your Claude config directory, before writing or restructuring a markdown doc.

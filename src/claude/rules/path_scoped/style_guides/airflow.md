@@ -16,5 +16,5 @@ paths:
 
 ## 📚 Read on demand
 
-- [`on_demand/style_guides/airflow/_tasks_and_operators.md`](../../on_demand/style_guides/airflow/_tasks_and_operators.md), in your Claude config directory, when writing `dag.py`, choosing an operator or wiring tasks.
-- [`on_demand/style_guides/airflow/_airflow_dag_reliability.md`](../../on_demand/style_guides/airflow/_airflow_dag_reliability.md), before changing retries, callbacks, tests or Variables.
+- [`_on_demand/style_guides/airflow/_tasks_and_operators.md`](../../on_demand/style_guides/airflow/_tasks_and_operators.md), in your Claude config directory, when writing `dag.py`, choosing an operator or wiring tasks.
+- [`_on_demand/style_guides/airflow/_airflow_dag_reliability.md`](../../on_demand/style_guides/airflow/_airflow_dag_reliability.md), before changing retries, callbacks, tests or Variables.

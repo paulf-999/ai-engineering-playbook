@@ -77,4 +77,4 @@ stages:
 
 ## 📚 Read on demand
 
-[`on_demand/style_guides/cicd/azure_devops/_python_jobs_team_conventions.md`](../../../on_demand/style_guides/cicd/azure_devops/_python_jobs_team_conventions.md), in your Claude config directory, when a job sets up Python or installs packages.
+[`_on_demand/style_guides/cicd/azure_devops/_python_jobs_team_conventions.md`](../../../on_demand/style_guides/cicd/azure_devops/_python_jobs_team_conventions.md), in your Claude config directory, when a job sets up Python or installs packages.

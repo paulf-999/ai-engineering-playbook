@@ -54,3 +54,9 @@ def test_it_keeps_every_check_name():
     """Each governance check keeps the exact name the ruleset requires."""
     names = {job["name"] for job in WORKFLOW["jobs"].values()}
     assert names == CHECK_NAMES, f"missing: {CHECK_NAMES - names}, unexpected: {names - CHECK_NAMES}"
+
+
+def test_no_run_line_interpolates_an_expression():
+    """No run: line holds a ${{ }} expression, so untrusted PR text reaches scripts only through env."""
+    interpolated = [step["run"] for step in _all_steps() if "${{" in step.get("run", "")]
+    assert not interpolated, f"these run: lines interpolate an expression, so pass it through env: {interpolated}"

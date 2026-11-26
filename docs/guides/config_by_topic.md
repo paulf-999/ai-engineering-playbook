@@ -18,6 +18,7 @@ This page sits in `docs/`, so it's never installed. It lists parent files only, 
 | 🗂️ [claude_working_files.md](../../src/claude/rules/always_on/02_preferences/claude_working_files.md) | Always-on rule | Every session, unless installed with `PREFERENCES=0` |
 | ✅ [claude_task_reporting.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_task_reporting.md) | On-demand rule | Before saying a task is done |
 | 🤖 [claude_loops_and_batches.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_loops_and_batches.md) | On-demand rule | Before proposing or starting a loop or other unattended run |
+| 🙈 [claude_blind_reviews.md](../../src/claude/rules/on_demand/01_standards/conduct/claude_blind_reviews.md) | On-demand rule | Before running a blind or cold review of a doc, plan or repo |
 | ⏱️ [claude_turn_limits.md](../../src/claude/rules/on_demand/01_standards/claude_config/claude_turn_limits.md) | On-demand rule | When setting turn caps for `claude -p` or another unattended run |
 
 </details>

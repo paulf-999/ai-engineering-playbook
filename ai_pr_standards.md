@@ -23,7 +23,7 @@ They cover PRs only. For data and access, see the [security rule](src/claude/rul
 - **6. Right approver:** you shouldn't shop for an approval, or count an AI review as one.
   - **Solo maintainer:** your own merge is the approval, and the AI review is only advice.
 - **7. Guardrails:** AI shouldn't change its own guardrails, the files that set or run these checks, without review.
-  - **Check:** only `git-review-pr`'s red heading, which hooks, rules and skills trigger, but CI files don't.
+  - **Check:** only `git-review-pr`'s red heading, which AI controls such as rules and skills trigger, and CI changes trigger as hard to undo.
 
 ## ⚖️ How strict each rule is
 

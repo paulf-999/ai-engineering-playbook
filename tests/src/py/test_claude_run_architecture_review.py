@@ -41,7 +41,12 @@ def test_prepare_copies_a_folder_and_a_single_file(tmp_path):
     folder.mkdir()
     (folder / "steps.md").write_text("# Steps\n")
     (tmp_path / "scratch").mkdir()
-    assert (runner.prepare(folder, tmp_path / "scratch") / "steps.md").exists()
+    (folder / ".env").write_text("TOKEN=x\n")
+    (folder / "link.md").symlink_to(tmp_path / "outside.md")
+    copy = runner.prepare(folder, tmp_path / "scratch")
+    assert (copy / "steps.md").exists()
+    assert not (copy / ".env").exists()
+    assert (copy / "link.md").is_symlink()
     root = runner.prepare(folder / "steps.md", tmp_path / "scratch")
     assert [path.name for path in root.iterdir()] == ["steps.md"]
 
@@ -66,6 +71,19 @@ def test_collect_briefs_one_reader_per_lens(tmp_path):
     assert set(results) == set(runner.LENSES)
     for lens, findings in results.items():
         assert findings[0]["problem"].startswith(runner.LENSES[lens])
+
+
+def test_collect_keeps_the_other_readers_when_one_fails(tmp_path):
+    """A reader whose run fails returns no findings, and the other lenses keep theirs."""
+
+    def fake_read(prompt, root):
+        if prompt.startswith(runner.LENSES["maintainer"]):
+            raise runner.subprocess.TimeoutExpired("claude", 1)
+        return [_make_finding("a.py")]
+
+    results = runner.collect(tmp_path, read=fake_read)
+    assert results["maintainer"] == []
+    assert len(results["newcomer"]) == 1
 
 
 # --- ranking tests ---

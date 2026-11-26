@@ -1,7 +1,8 @@
 """Review any local target blind, with three cold readers who play a newcomer, a maintainer and an adopting manager.
 
 Each reader is a `claude -p --safe-mode` run with read-only tools, so it sees only its lens and a scratch copy of
-the target, with none of your config. A git repo is copied by a fresh clone, so readers see only committed files.
+the target, with none of your config. Safe mode also confines the file tools to that copy. A git repo is copied by a
+fresh clone, so readers see only committed files, and a folder is copied without `.env` files, `.venv` or symlinks.
 Each reader lists up to 8 findings, and the report groups them by the file each cites, ranked by how many readers
 named that file. Set `TARGET` to the repo, folder or file to review, and `OUT` to write the report to a file.
 """
@@ -74,7 +75,8 @@ def prepare(target, scratch):
     if (target / ".git").exists():
         subprocess.run(["git", "clone", "--quiet", str(target), str(root)], check=True)
     elif target.is_dir():
-        shutil.copytree(target, root)
+        # leave out local secrets and environments, and copy symlinks as links so nothing outside target comes along
+        shutil.copytree(target, root, symlinks=True, ignore=shutil.ignore_patterns(".env", ".env.*", ".venv"))
     else:
         root.mkdir()
         shutil.copy2(target, root)
@@ -96,10 +98,15 @@ def read_once(prompt, root):
 
 
 def collect(root, read=read_once):
-    """Run one reader per lens in parallel, returning each lens's findings."""
+    """Run one reader per lens in parallel, returning each lens's findings, or none for a reader that failed."""
 
     def run_lens(lens):
-        return lens, read(build_prompt(lens, root), root)
+        # one failed or timed-out reader shouldn't discard the other readers' findings
+        try:
+            return lens, read(build_prompt(lens, root), root)
+        except (subprocess.SubprocessError, ValueError, KeyError, TypeError) as error:
+            print(f"The {lens} reader failed, so the report leaves it out: {error!r}", file=sys.stderr)
+            return lens, []
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         return dict(pool.map(run_lens, LENSES))

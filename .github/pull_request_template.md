@@ -6,7 +6,7 @@
 
 [If needed, only what a reviewer must or should know, as a list of 5 items at most. Open each with an emoji and a bold keyword, per the [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), keep it to about 20 words, and link any file, issue or PR with a full GitHub URL.]
 
-## :thinking: Why
+## :thinking: Why Is This Change Needed?
 
 [Say why the complex or non-obvious parts are there. If AI drafts this, open it with "Drafted by AI, approved by <name>" once you've approved it. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
 
@@ -27,22 +27,9 @@ Choose one:
 
 [Link related issues or tickets here]
 
-## :computer: What I ran
-
-[List each command or check that was run, who ran it (you, the AI or CI) and its result.]
-
 ## :microscope: How Has This Been Tested?
 
-This PR was tested as follows:
-
-<details>
-<summary>Show testing checklist</summary>
-
-- [ ] DEV / Local testing by developer
-- [ ] UAT testing
-- [ ] Other (please specify)
-
-</details>
+[List each command or check that was run, who ran it (you, the AI or CI) and its result.]
 
 <!-- Extra sections, which CI checks:
 - Does this PR build a saved plan (intent.md, spec.md and plan.md)? In any PR, whatever it changes, add

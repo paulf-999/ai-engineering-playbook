@@ -20,9 +20,12 @@ def template_heading(section):
     return next(part for part in TEMPLATE.split('"') if part.startswith("## ") and section in part)
 
 
-# a filled "Why" and "What I ran", which every PR needs
-EVIDENCE = "## :thinking: Why\n\nIt keeps the rule short.\n\n## :computer: What I ran\n\n- `make test`: passed\n\n"
-# the template with its "Why" and "What I ran" placeholders filled in
+# the two evidence sections every PR needs filled in
+WHY = "Why Is This Change Needed?"
+TESTED = "How Has This Been Tested?"
+# both evidence sections, filled in
+EVIDENCE = f"## :thinking: {WHY}\n\nIt keeps the rule short.\n\n## :microscope: {TESTED}\n\n- `make test`: passed\n\n"
+# the template with both evidence placeholders filled in
 FILLED_TEMPLATE = TEMPLATE.replace("[Say why", "Because it helps.\n\n[Say why").replace(
     "[List each command", "- `make test`: passed\n\n[List each command"
 )
@@ -212,21 +215,21 @@ def test_the_headings_the_template_names_pass():
 @pytest.mark.parametrize(
     ("section", "body", "expected_code"),
     [
-        pytest.param("Why", "It keeps the rule short.", 0, id="why_filled"),
-        pytest.param("Why", "", 1, id="why_empty"),
-        pytest.param("Why", "[Say, in your own words, why.]", 1, id="why_placeholder"),
-        pytest.param("Why", "<!-- because -->", 1, id="why_in_a_comment"),
-        pytest.param("What I ran", "- `make test`: passed", 0, id="ran_filled"),
-        pytest.param("What I ran", "-", 1, id="ran_empty"),
-        pytest.param("What I ran", "[List each command.]", 1, id="ran_placeholder"),
+        pytest.param(WHY, "It keeps the rule short.", 0, id="why_filled"),
+        pytest.param(WHY, "", 1, id="why_empty"),
+        pytest.param(WHY, "[Say, in your own words, why.]", 1, id="why_placeholder"),
+        pytest.param(WHY, "<!-- because -->", 1, id="why_in_a_comment"),
+        pytest.param(TESTED, "- `make test`: passed", 0, id="ran_filled"),
+        pytest.param(TESTED, "-", 1, id="ran_empty"),
+        pytest.param(TESTED, "[List each command.]", 1, id="ran_placeholder"),
     ],
 )
 def test_each_evidence_section_must_be_filled(section, body, expected_code):
-    """A PR fails while "Why" or "What I ran" is empty, a placeholder or a comment, and the reason names the section."""
-    other = "What I ran" if section == "Why" else "Why"
+    """A PR fails while an evidence section is empty, a placeholder or a comment, and the reason names it."""
+    other = TESTED if section == WHY else WHY
     result = run_check(f"## {other}\n\nFilled.\n\n## :pencil2: {section}\r\n\n{body}\n{NEXT_SECTION}", evidence="")
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
-    named = [name for name in ("Why", "What I ran") if f"'{name}'" in result.stdout]
+    named = [name for name in (WHY, TESTED) if f"'{name}'" in result.stdout]
     assert named == ([section] if expected_code else []), f"the reason should name only {section}: {result.stdout}"
 
 
@@ -234,7 +237,7 @@ def test_the_unedited_template_lacks_both_evidence_sections():
     """The template, unedited, fails with a reason for each evidence section, so its headings match the check's."""
     result = run_check(TEMPLATE, evidence="")
     assert result.returncode == 1, f"unfilled evidence should fail: {result.stdout}"
-    assert "'Why'" in result.stdout and "'What I ran'" in result.stdout, f"both should be named: {result.stdout}"
+    assert f"'{WHY}'" in result.stdout and f"'{TESTED}'" in result.stdout, f"both should be named: {result.stdout}"
 
 
 @pytest.mark.parametrize(

@@ -41,6 +41,7 @@ def test_prepare_repo_differs_only_by_the_rule(tmp_path, with_rule):
         (4, 5, None),
         (2, 2, "no effect"),
         (3, 1, "no effect"),
+        (5, 0, "no effect"),
         (0, 4, None),
         (1, 3, None),
     ],

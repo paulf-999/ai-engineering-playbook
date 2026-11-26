@@ -39,7 +39,7 @@ The runner tests in two stages of 5 runs per condition. Stage 1 settles a case e
 |---|---|---|
 | **helps** | 5/5 against 0/5 at stage 1, or p < 0.01 over 10 runs, such as 9/10 against 3/10 | Keep the rule and its case |
 | **no effect** | At stage 1, the without-rule runs all pass or the with-rule runs don't lead | Undo both and log the rejection, since Claude already behaves this way or the case can't show it |
-| **hurts** | p < 0.01 over 10 runs in favour of the without-rule runs | Undo both, log the rejection, and tell the user |
+| **hurts** | p < 0.01 over 10 runs in favour of the without-rule runs, reachable only at stage 2, since stage 1 reports a trailing rule as **no effect** | Undo both, log the rejection, and tell the user |
 | **inconclusive** | Stage 2 gives p of 0.01 or more, such as 8/10 against 4/10 | Undo both without logging, so a later run can try again |
 
 A run that fails, such as the runner crashing, is also undone and never logged.

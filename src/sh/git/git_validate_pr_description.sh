@@ -79,10 +79,10 @@ section_problem() {
     has_section "${1}" || echo "Add the '${1}' section that the PR template's comment names, since ${2}."
 }
 
-# Succeed if the "## " section titled exactly $1, after any :emoji:, says something besides its [placeholder]
+# Succeed if the first "## " section whose title contains $1, in any case, says something besides its [placeholder]
 section_is_filled() {
     awk -v title="${1}" '
-        /^## / { heading = $0; sub(/^## +(:[a-z0-9_]+: +)?/, "", heading); sub(/[[:space:]]+$/, "", heading); on = heading == title; next }
+        /^## / { heading = $0; sub(/^## +(:[a-z0-9_]+: +)?/, "", heading); sub(/[[:space:]]+$/, "", heading); on = !found && index(tolower(heading), tolower(title)); found = found || on; next }
         /^#+ / || /^[[:space:]]*\[.*\][[:space:]]*$/ { next }
         on && /[[:alnum:]]/ { filled = 1 }
         END { exit !filled }
@@ -104,15 +104,19 @@ evidence_problems() {
 description_problems() {
     evidence_problems
     # src/claude/ is the config that `make install` copies; any other PR may leave the plan out, but not half of it
-    if ! printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/'; then
+    # here-strings, not pipes, since grep -q exiting early can fail a long pipe under pipefail
+    if ! grep -qE '^src/claude/' <<< "${CHANGED_FILES}"; then
         has_section "Claude: Plan" && plan_menu_problems
         return 0
     fi
     section_problem "Claude: Plan" "this PR changes src/claude/"
     plan_menu_problems
     # CLAUDE.md, a rule in rules/always_on/ and hooks load in every session or enforce behaviour
-    printf '%s\n' "${CHANGED_FILES}" | grep -qE '^src/claude/(CLAUDE\.md|rules/always_on/|hooks/)' || return 0
+    grep -qE '^src/claude/(CLAUDE\.md|rules/always_on/|hooks/)' <<< "${CHANGED_FILES}" || return 0
     section_problem "Evaluation Criteria" "this PR changes an always-on or enforcing file"
+    if has_section "Evaluation Criteria" && ! section_is_filled "Evaluation Criteria"; then
+        echo "Fill in the 'Evaluation Criteria' section, since this PR changes an always-on or enforcing file."
+    fi
 }
 
 #=======================================================================

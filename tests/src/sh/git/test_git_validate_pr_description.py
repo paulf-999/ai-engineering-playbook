@@ -96,6 +96,8 @@ NO_PLAN = PLAN_HEADING + "No saved plan: a typo fix.\n"
         # an on-demand or path-scoped change needs only the plan
         (DETAILS + bullets(4) + PLAN + NEXT_SECTION, ON_DEMAND_FILE, 0),
         (DETAILS + bullets(4) + PLAN + NEXT_SECTION, "src/claude/rules/path_scoped/x.md", 0),
+        # a criteria heading with nothing under it fails
+        (DETAILS + bullets(1) + PLAN + "\n## :balance_scale: Evaluation criteria\n" + NEXT_SECTION, CONFIG_FILE, 1),
         # a PR that doesn't touch src/claude/ needs no section, and nor does a run without a file list
         (DETAILS + bullets(4) + NEXT_SECTION, "docs/other.md\nsrc/sh/x.sh", 0),
         (DETAILS + bullets(4) + NEXT_SECTION, "", 0),
@@ -107,6 +109,17 @@ def test_always_on_changes_require_evaluation_criteria(description, changed_file
     assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"
     if expected_code == 1:
         assert CRITERIA_NAME in result.stdout, f"the reason should name the missing section: {result.stdout}"
+
+
+# a file list too long for a pipe's buffer, whose first file is an always-on hook
+LONG_CONFIG_FILES = "src/claude/hooks/example.sh\n" + "".join(f"docs/file_{n:05}.md\n" for n in range(5000))
+
+
+@pytest.mark.parametrize("description", [NEXT_SECTION, PLAN + NEXT_SECTION], ids=["needs_plan", "needs_criteria"])
+def test_a_long_file_list_still_needs_the_plan_and_criteria(description):
+    """A long file list can't make the check skip the plan or the criteria."""
+    result = run_check(DETAILS + bullets(1) + description, LONG_CONFIG_FILES)
+    assert result.returncode == 1, f"a long file list should still need the plan and criteria: {result.stdout}"
 
 
 @pytest.mark.parametrize(

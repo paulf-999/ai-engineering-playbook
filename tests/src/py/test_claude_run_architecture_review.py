@@ -12,6 +12,10 @@ sys.path.insert(0, str(REPO_ROOT / "src" / "py"))
 runner = importlib.import_module("claude_run_architecture_review")
 
 
+# files a folder copy must leave out, one per kind of secret it skips
+SECRETS = (".env", "deploy.pem", "cert.pfx", "id_ed25519", "credentials.json", ".git-credentials", ".npmrc")
+
+
 def _make_finding(file, problem="unclear"):
     """Return one reader finding for file."""
     return {"file": file, "problem": problem, "change": "fix it"}
@@ -36,18 +40,22 @@ def test_prepare_clones_a_repo_without_untracked_files(tmp_path):
 
 
 def test_prepare_copies_a_folder_and_a_single_file(tmp_path):
-    """A plain folder is copied whole, and a single file lands alone in its own folder."""
+    """A folder is copied without secrets, nested git folders or links out of it, and a file lands alone."""
     folder = tmp_path / "process"
     folder.mkdir()
     (folder / "steps.md").write_text("# Steps\n")
     (tmp_path / "scratch").mkdir()
-    for secret in (".env", "deploy.pem", "credentials.json", ".npmrc"):
+    for secret in SECRETS:
         (folder / secret).write_text("TOKEN=x\n")
+    (folder / "inner" / ".git").mkdir(parents=True)
     (folder / "link.md").symlink_to(tmp_path / "outside.md")
+    (folder / "inside.md").symlink_to("steps.md")
     copy = runner.prepare(folder, tmp_path / "scratch")
     assert (copy / "steps.md").exists()
-    assert not [name for name in (".env", "deploy.pem", "credentials.json", ".npmrc") if (copy / name).exists()]
-    assert (copy / "link.md").is_symlink()
+    assert not [name for name in SECRETS if (copy / name).exists()]
+    assert not (copy / "inner" / ".git").exists()
+    assert not (copy / "link.md").is_symlink(), "a link out of the target should be dropped"
+    assert (copy / "inside.md").is_symlink(), "a link within the target should be kept"
     root = runner.prepare(folder / "steps.md", tmp_path / "scratch")
     assert [path.name for path in root.iterdir()] == ["steps.md"]
 
@@ -95,6 +103,23 @@ def test_main_fails_when_every_reader_fails(tmp_path, monkeypatch):
     with pytest.raises(SystemExit) as raised:
         runner.main()
     assert "Every reader failed" in str(raised.value), f"the exit should say why: {raised.value}"
+
+
+def test_read_once_runs_a_read_only_safe_mode_reader(tmp_path, monkeypatch):
+    """Each reader runs claude in safe mode in the copy, with only the read-only tools and no saved session."""
+    calls = []
+
+    def fake_run(command, **kwargs):
+        calls.append((command, kwargs))
+        return subprocess.CompletedProcess(command, 0, stdout='{"structured_output": {"findings": []}}')
+
+    monkeypatch.setattr(runner.subprocess, "run", fake_run)
+    assert runner.read_once("brief", tmp_path) == []
+    command, kwargs = calls[0]
+    assert {"--safe-mode", "--no-session-persistence", "--strict-mcp-config"} <= set(command)
+    tools = command[command.index("--tools") + 1 : command.index("--output-format")]
+    assert tools == runner.READ_ONLY_TOOLS, f"readers should get read-only tools only: {tools}"
+    assert kwargs["cwd"] == tmp_path
 
 
 # --- ranking tests ---

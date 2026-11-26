@@ -2,8 +2,8 @@
 
 Each reader is a `claude -p --safe-mode` run with read-only tools, so it sees only its lens and a scratch copy of
 the target, with none of your config. Safe mode also confines the file tools to that copy. A git repo is copied by a
-fresh clone, so readers see only committed files, and a folder is copied without likely secret files, `.venv` or
-followed symlinks.
+fresh clone, so readers see only committed files, and a folder is copied without likely secret files, `.venv`,
+nested git folders or symlinks that point out of it.
 Each reader lists up to 8 findings, and the report groups them by the file each cites, ranked by how many readers
 named that file. Set `TARGET` to the repo, folder or file to review, and `OUT` to write the report to a file.
 """
@@ -32,18 +32,24 @@ MODEL = "sonnet"
 MAX_TURNS = "40"
 TIMEOUT_SECONDS = 900
 READ_ONLY_TOOLS = ["Read", "Glob", "Grep"]
-# files a folder copy leaves out, as likely secrets or local environments, matching git-create-pr's secret list
+# files a folder copy leaves out: likely secrets, starting from git-create-pr's list, plus local environments and
+# nested git folders, whose history can hold secrets a later commit removed
 SKIPPED_IN_COPIES = [
     ".env",
     ".env.*",
     "*.pem",
     "*.key",
     "*.p12",
+    "*.pfx",
     "id_rsa*",
+    "id_ed25519*",
     "credentials*",
+    ".git-credentials",
     ".npmrc",
     ".netrc",
+    ".aws",
     ".venv",
+    ".git",
 ]
 SCHEMA = {
     "type": "object",
@@ -96,10 +102,19 @@ def prepare(target, scratch):
     elif target.is_dir():
         # leave out likely secrets and environments, and copy symlinks as links so nothing outside target comes along
         shutil.copytree(target, root, symlinks=True, ignore=shutil.ignore_patterns(*SKIPPED_IN_COPIES))
+        drop_outward_links(root)
     else:
         root.mkdir()
         shutil.copy2(target, root)
     return root
+
+
+def drop_outward_links(root):
+    """Remove each copied symlink that points outside root, so no reader can follow one out of the copy."""
+    root = Path(root).resolve()
+    for path in list(root.rglob("*")):
+        if path.is_symlink() and not path.resolve().is_relative_to(root):
+            path.unlink()
 
 
 def build_prompt(lens, root):

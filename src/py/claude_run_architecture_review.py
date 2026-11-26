@@ -41,11 +41,14 @@ SKIPPED_IN_COPIES = [
     "*.key",
     "*.p12",
     "*.pfx",
+    "*.p8",
+    "*.tfvars",
     "id_rsa*",
     "id_ed25519*",
     "credentials*",
     ".git-credentials",
     ".npmrc",
+    ".pypirc",
     ".netrc",
     ".aws",
     ".venv",
@@ -99,6 +102,7 @@ def prepare(target, scratch):
     root = Path(scratch) / target.name
     if (target / ".git").exists():
         subprocess.run(["git", "clone", "--quiet", str(target), str(root)], check=True)
+        drop_outward_links(root)
     elif target.is_dir():
         # leave out likely secrets and environments, and copy symlinks as links so nothing outside target comes along
         shutil.copytree(target, root, symlinks=True, ignore=shutil.ignore_patterns(*SKIPPED_IN_COPIES))

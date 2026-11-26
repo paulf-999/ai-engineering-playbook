@@ -13,7 +13,16 @@ runner = importlib.import_module("claude_run_architecture_review")
 
 
 # files a folder copy must leave out, one per kind of secret it skips
-SECRETS = (".env", "deploy.pem", "cert.pfx", "id_ed25519", "credentials.json", ".git-credentials", ".npmrc")
+SECRETS = (
+    ".env",
+    "deploy.pem",
+    "cert.pfx",
+    "id_ed25519",
+    "credentials.json",
+    ".git-credentials",
+    ".npmrc",
+    "prod.tfvars",
+)
 
 
 def _make_finding(file, problem="unclear"):
@@ -25,18 +34,20 @@ def _make_finding(file, problem="unclear"):
 
 
 def test_prepare_clones_a_repo_without_untracked_files(tmp_path):
-    """A git repo is copied by a fresh clone, so untracked files never reach the readers."""
+    """A git repo is copied by a fresh clone, without untracked files or committed links out of it."""
     repo = tmp_path / "repo"
     repo.mkdir()
     (repo / "kept.md").write_text("committed\n")
+    (repo / "out.md").symlink_to(tmp_path / "outside.md")
     git = ["git", "-C", str(repo), "-c", "user.name=t", "-c", "user.email=t@t"]
     subprocess.run(["git", "init", "--quiet", str(repo)], check=True)
-    subprocess.run([*git, "add", "kept.md"], check=True)
+    subprocess.run([*git, "add", "kept.md", "out.md"], check=True)
     subprocess.run([*git, "commit", "--quiet", "-m", "init"], check=True)
     (repo / "untracked.md").write_text("local\n")
     root = runner.prepare(repo, tmp_path / "scratch")
     assert (root / "kept.md").exists()
     assert not (root / "untracked.md").exists()
+    assert not (root / "out.md").is_symlink(), "a committed link out of the repo should be dropped"
 
 
 def test_prepare_copies_a_folder_and_a_single_file(tmp_path):

@@ -106,8 +106,9 @@ jobs:
             - name: Validate number of open PRs
               env:
                   PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
                   GH_TOKEN: ${{ github.token }}
-              run: src/sh/git/git_validate_open_prs.sh "${PR_AUTHOR}" "${GITHUB_REPOSITORY}"
+              run: src/sh/git/git_validate_open_prs.sh "${PR_AUTHOR}" "${GITHUB_REPOSITORY}" "${PR_NUMBER}"
 
     skill_versions:
         name: 'Skill versions: check each changed skill bumps its version'

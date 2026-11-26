@@ -58,4 +58,4 @@ jobs:
 
 ## 📚 Read on demand
 
-[`on_demand/style_guides/cicd/github_actions/_python_jobs_team_conventions.md`](../../../on_demand/style_guides/cicd/github_actions/_python_jobs_team_conventions.md), in your Claude config directory, when a job sets up Python, installs a tool or caches dependencies.
+[`_on_demand/style_guides/cicd/github_actions/_python_jobs_team_conventions.md`](../../../on_demand/style_guides/cicd/github_actions/_python_jobs_team_conventions.md), in your Claude config directory, when a job sets up Python, installs a tool or caches dependencies.

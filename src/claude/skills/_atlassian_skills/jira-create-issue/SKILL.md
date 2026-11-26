@@ -6,7 +6,7 @@ description: Create a Jira ticket in the team's conventions — use when asked t
 ## 🤖 Instructions for Claude
 
 - **Pre-check:** call `getAccessibleAtlassianResources` to get the cloud ID, and if it fails tell the user to enable the Atlassian MCP server and restart Claude Code, then stop.
-- **Read first:** read `reference/_implementation.md`, then `on_demand/style_guides/jira.md`, `on_demand/style_guides/jira/jira_team_conventions.md` and `_local/jira_values.md` in your Claude config directory before drafting.
+- **Read first:** read `reference/_implementation.md`, then `_on_demand/style_guides/jira.md`, `_on_demand/style_guides/jira/jira_team_conventions.md` and `_local/jira_values.md` in your Claude config directory before drafting.
 - **Always:** draft a Story with a parent epic unless the user names another type, ask for the values the user can give, and mark the rest `< TODO >`.
 - **Always:** show the full ticket and wait for an explicit yes before calling `createJiraIssue`.
 - **Never:** infer the Jira project, so take it from the user or the values file and confirm it.

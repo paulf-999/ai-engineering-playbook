@@ -1,6 +1,6 @@
 ---
 name: jira-create-issue
-version: 1.1.2
+version: 1.1.3
 summary: Create one Jira ticket that follows the team's conventions, after you approve the draft
 test_coverage_level: basic
 
@@ -23,7 +23,7 @@ dispatch:
 
 requires:
     tools: [Read, getAccessibleAtlassianResources, getJiraIssue, searchJiraIssuesUsingJql, getJiraIssueTypeMetaWithFields, createJiraIssue]
-    resources: [on_demand/style_guides/jira.md, on_demand/style_guides/jira/jira_team_conventions.md, _local/jira_values.md]
+    resources: [_on_demand/style_guides/jira.md, _on_demand/style_guides/jira/jira_team_conventions.md, _local/jira_values.md]
     mcp_servers: [Atlassian]
 
 output:

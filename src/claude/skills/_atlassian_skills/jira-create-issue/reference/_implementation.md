@@ -8,7 +8,7 @@
 |---|---|---|
 | **0 — Pre-check** | Call `getAccessibleAtlassianResources` for the cloud ID | `_error_handling.md` → No MCP server |
 | **1 — Project** | Take the project key from the user or the values file, and confirm it | `_local/jira_values.md` |
-| **2 — Draft** | Write the summary, description and acceptance criteria, and fill the fields from the conventions, as a Story with a parent epic by default | `on_demand/style_guides/jira/jira_team_conventions.md` |
+| **2 — Draft** | Write the summary, description and acceptance criteria, and fill the fields from the conventions, as a Story with a parent epic by default | `_on_demand/style_guides/jira/jira_team_conventions.md` |
 | **3 — Confirm** | Show every field, with unknowns as `< TODO >`, and wait for an explicit yes | SKILL.md → Instructions |
 | **4 — Create** | Call `createJiraIssue`, then report the issue key and browse link | `_error_handling.md` |
 

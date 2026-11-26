@@ -39,4 +39,4 @@ paths:
 
 ## 📚 Read on demand
 
-[`on_demand/style_guides/cicd/azure_devops/_security_hardening.md`](../../../on_demand/style_guides/cicd/azure_devops/_security_hardening.md), in your Claude config directory, before adding a secret, a service connection, a deploy stage or a third-party task.
+[`_on_demand/style_guides/cicd/azure_devops/_security_hardening.md`](../../../on_demand/style_guides/cicd/azure_devops/_security_hardening.md), in your Claude config directory, before adding a secret, a service connection, a deploy stage or a third-party task.

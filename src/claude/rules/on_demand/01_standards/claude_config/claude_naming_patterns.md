@@ -12,7 +12,7 @@
 - 📁 **Working folders:** start a folder you or a component adds to the Claude config directory with `_`, such as `_claude_kaizen/`, and leave the ones Claude Code makes, such as `memory/`, as they are.
 - 🔽 **Child files:** start a file with `_` when only its parent rule links to it, as in `terraform/_terraform_naming.md`, and make the rest of the name read alone, without its folder.
 - 🕵️ **Test new names:** when naming several files at once, give 3 cold readers (`claude -p --safe-mode --max-turns 1`) their contents without titles or filenames, and keep the names they agree on.
-- 💤 **On-demand files:** name them the same way, and put them in `on_demand/`.
+- 💤 **On-demand files:** name them the same way, and put them in the repo's `rules/on_demand/`, which installs to `_on_demand/`.
 
 ## 📞 Called by
 

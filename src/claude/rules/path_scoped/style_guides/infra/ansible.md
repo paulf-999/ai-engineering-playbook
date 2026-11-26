@@ -25,5 +25,5 @@ Use FQCN for all modules: `ansible.builtin.apt`, not `apt`.
 
 ## 📚 Read on demand
 
-- [`on_demand/style_guides/infra/ansible/_roles_and_tasks.md`](../../../on_demand/style_guides/infra/ansible/_roles_and_tasks.md), in your Claude config directory, when creating a role or writing its tasks.
-- [`on_demand/style_guides/infra/ansible/_plays_and_variables.md`](../../../on_demand/style_guides/infra/ansible/_plays_and_variables.md), when writing a play, or adding role defaults or `host_vars`.
+- [`_on_demand/style_guides/infra/ansible/_roles_and_tasks.md`](../../../on_demand/style_guides/infra/ansible/_roles_and_tasks.md), in your Claude config directory, when creating a role or writing its tasks.
+- [`_on_demand/style_guides/infra/ansible/_plays_and_variables.md`](../../../on_demand/style_guides/infra/ansible/_plays_and_variables.md), when writing a play, or adding role defaults or `host_vars`.

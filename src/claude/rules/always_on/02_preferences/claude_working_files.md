@@ -6,5 +6,5 @@
 
 ## 📚 Read on demand
 
-- [`on_demand/02_preferences/claude_working_files/_todo_logging.md`](../../on_demand/02_preferences/claude_working_files/_todo_logging.md), when the user asks to add something to their TODOs.
-- [`on_demand/02_preferences/claude_working_files/_claude_draft_save_locations.md`](../../on_demand/02_preferences/claude_working_files/_claude_draft_save_locations.md), before saving a draft or an error write-up.
+- [`_on_demand/02_preferences/claude_working_files/_todo_logging.md`](../../on_demand/02_preferences/claude_working_files/_todo_logging.md), when the user asks to add something to their TODOs.
+- [`_on_demand/02_preferences/claude_working_files/_claude_draft_save_locations.md`](../../on_demand/02_preferences/claude_working_files/_claude_draft_save_locations.md), before saving a draft or an error write-up.

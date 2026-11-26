@@ -25,4 +25,4 @@ flowchart TD
 
 ## 📚 Read on demand
 
-[`on_demand/style_guides/utilities/mermaid_styling_team_conventions.md`](../../../on_demand/style_guides/utilities/mermaid_styling_team_conventions.md), in your Claude config directory, when choosing node shapes, node text or styling.
+[`_on_demand/style_guides/utilities/mermaid_styling_team_conventions.md`](../../../on_demand/style_guides/utilities/mermaid_styling_team_conventions.md), in your Claude config directory, when choosing node shapes, node text or styling.

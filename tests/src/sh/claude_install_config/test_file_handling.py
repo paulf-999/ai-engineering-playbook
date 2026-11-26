@@ -36,13 +36,13 @@ def succeeds(command, **variables):
 @pytest.mark.parametrize(
     ("source", "target"),
     [
-        ("rules/on_demand/style_guides/jira.md", "on_demand/style_guides/jira.md"),
+        ("rules/on_demand/style_guides/jira.md", "_on_demand/style_guides/jira.md"),
         ("skills/_git_skills/git-create-pr/SKILL.md", "skills/git-create-pr/SKILL.md"),
         ("rules/always_on/rule.md", "rules/always_on/rule.md"),
     ],
 )
 def test_target_path_moves_on_demand_files_and_flattens_skill_groups(source, target):
-    """On-demand files move out of rules/, a grouped skill loses its group folder, and other files stay put."""
+    """On-demand files move to _on_demand/, a grouped skill loses its group folder, and other files stay put."""
     assert run_library(f'target_path "{source}"; echo "${{TARGET_PATH}}"').stdout == f"{target}\n"
 
 
@@ -83,7 +83,7 @@ def test_is_installable_leaves_out_what_never_installs(tmp_path, path, variables
 def test_relink_points_at_where_targets_install(link, installed):
     """A link from an on-demand rule leads to where its target installs, keeping any #fragment."""
     source = "rules/on_demand/guides/from.md"
-    text = run_library(f'printf "see [x]({link}#top) now" | relink {source} on_demand/guides/from.md').stdout
+    text = run_library(f'printf "see [x]({link}#top) now" | relink {source} _on_demand/guides/from.md').stdout
     assert text == f"see [x]({installed}#top) now\n"
 
 

@@ -10,7 +10,7 @@
 |---|---|
 | 🔁 [`always_on/`](always_on/) | At each session start, since it has no `paths:` list, so it always costs context |
 | 📂 [`path_scoped/`](path_scoped/) | Only when Claude reads or edits a file matching its frontmatter's `paths:` list |
-| 💤 [`on_demand/`](on_demand/) | Never by itself: Claude reads it when a rule's "Read on demand" pointer or a hook sends it there, so it installs beside `rules/`, not inside it |
+| 💤 [`on_demand/`](on_demand/) | Never by itself: Claude reads it when a rule's "Read on demand" pointer or a hook sends it there, so it installs as `_on_demand/`, outside `rules/` |
 
 ## 🧪 Evals
 

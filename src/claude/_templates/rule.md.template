@@ -14,7 +14,7 @@
 
 ## 📚 Read on demand
 
-[`on_demand/<domain>/<file>.md`](<relative path to the file>), in your Claude config directory, [when to read it].
+[`_on_demand/<domain>/<file>.md`](<relative path to the file>), in your Claude config directory, [when to read it].
 
 <!-- One pointer is a sentence; two or more are bullets. -->
 

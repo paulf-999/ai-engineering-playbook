@@ -39,7 +39,7 @@ paths:
 
 ## 📚 Read on demand
 
-- [`on_demand/style_guides/python/testing.md`](../../on_demand/style_guides/python/testing.md), in your Claude config directory, before writing or changing pytest tests.
-- [`on_demand/style_guides/python/logging.md`](../../on_demand/style_guides/python/logging.md), before adding logging or error handling.
-- [`on_demand/style_guides/python/code_complexity.md`](../../on_demand/style_guides/python/code_complexity.md), when a function grows long or deeply nested.
-- [`on_demand/style_guides/python/module_organisation.md`](../../on_demand/style_guides/python/module_organisation.md), when writing docstrings or splitting public and private code.
+- [`_on_demand/style_guides/python/testing.md`](../../on_demand/style_guides/python/testing.md), in your Claude config directory, before writing or changing pytest tests.
+- [`_on_demand/style_guides/python/logging.md`](../../on_demand/style_guides/python/logging.md), before adding logging or error handling.
+- [`_on_demand/style_guides/python/code_complexity.md`](../../on_demand/style_guides/python/code_complexity.md), when a function grows long or deeply nested.
+- [`_on_demand/style_guides/python/module_organisation.md`](../../on_demand/style_guides/python/module_organisation.md), when writing docstrings or splitting public and private code.

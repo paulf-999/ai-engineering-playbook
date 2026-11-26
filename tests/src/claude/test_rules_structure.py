@@ -16,8 +16,9 @@ MAX_LINES = 110
 # a child shorter than this saves too little context to be worth its own file and pointer
 MIN_CHILD_LINES = 40
 # a pointer is a Read on demand line, bulleted when there are several, that opens with its target in backticks,
-# such as `_templates/README.md`, which a rule wraps in a link to the target's place in the repo
-POINTER = re.compile(r"^(?:- )?\[?`((?:on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
+# such as `_templates/README.md`, which a rule wraps in a link to the target's place in the repo;
+# on-demand targets install to _on_demand/, so a pointer names that folder
+POINTER = re.compile(r"^(?:- )?\[?`((?:_on_demand|_templates)/[^`]+|README\.md)`", re.MULTILINE)
 LINKED_POINTER = re.compile(r"^(?:- )?\[`([^`]+)`\]\(([^)]+)\)")
 
 
@@ -179,8 +180,8 @@ def pointer_targets():
 
 
 def resolve(target):
-    """Return where a pointer's target lives in the repo, since on-demand files install beside rules/."""
-    return RULES_DIR / target if target.startswith("on_demand/") else CONFIG_DIR / target
+    """Return where a pointer's target lives in the repo, since files in rules/on_demand/ install to _on_demand/."""
+    return RULES_DIR / target.removeprefix("_") if target.startswith("_on_demand/") else CONFIG_DIR / target
 
 
 @pytest.mark.parametrize(
@@ -216,17 +217,18 @@ def test_a_short_child_is_reported_unless_its_parent_is_always_on(tmp_path):
 )
 def test_on_demand_rule_has_an_inbound_pointer(path):
     """Each on-demand entry-point rule is named in a pointer elsewhere in the config, or in a hook's block message."""
-    names_it = [source for target, source in pointer_targets() if target == relative(path) and source != path]
+    names_it = [source for target, source in pointer_targets() if resolve(target) == path and source != path]
     names_it += [hook for hook in (CONFIG_DIR / "hooks").rglob("*.sh") if relative(path) in hook.read_text()]
     assert names_it, f"{relative(path)}: point to it from another config file's '## 📚 Read on demand' section"
 
 
-ON_DEMAND_MENTION = re.compile(r"on_demand/[\w/.-]+?\.md")
+# a mention names the installed path, _on_demand/<file>, and captures the file's path under rules/
+ON_DEMAND_MENTION = re.compile(r"_(on_demand/[\w/.-]+?\.md)")
 CALLER_BULLET = re.compile(r"^(- |This rule is invoked by )\[`([^`]+)`\]\(([^)]+)\), (.+)$")
 CALLER_LEAD_IN = "This rule is invoked by:"
 # a pointer's trigger follows its path and the install-location phrase, such as "in your Claude config directory"
 POINTER_TRIGGER = re.compile(
-    r"^- \[?`(on_demand/[^`]+)`(?:\]\([^)]+\))?, (?:in your Claude config directory(?: \([^)]*\))?, )?(.+)$"
+    r"^- \[?`_(on_demand/[^`]+)`(?:\]\([^)]+\))?, (?:in your Claude config directory(?: \([^)]*\))?, )?(.+)$"
 )
 
 
@@ -294,9 +296,9 @@ def test_a_missing_caller_or_stale_trigger_is_reported(tmp_path):
     (tmp_path / "hooks").mkdir()
     rule = tmp_path / "rules" / "on_demand" / "guide.md"
     (tmp_path / "rules" / "caller.md").write_text(
-        "- [`on_demand/guide.md`](on_demand/guide.md), in your Claude config directory, before acting.\n"
+        "- [`_on_demand/guide.md`](on_demand/guide.md), in your Claude config directory, before acting.\n"
     )
-    (tmp_path / "hooks" / "block.sh").write_text("echo 'read on_demand/guide.md first'\n")
+    (tmp_path / "hooks" / "block.sh").write_text("echo 'read _on_demand/guide.md first'\n")
     caller = "- [`rules/caller.md`](../caller.md), before acting.\n"
     hook = "- [`hooks/block.sh`](../../hooks/block.sh), when it blocks.\n"
     rule.write_text(f"{CALLED_BY}\n\n{CALLER_LEAD_IN}\n\n{caller}{hook}")
@@ -363,9 +365,9 @@ def test_rule_pointers_link_to_their_target(path):
 def test_an_unlinked_or_misdirected_pointer_is_reported():
     """A pointer in backticks only, or linked to the wrong file, is reported, and a correct link isn't."""
     target = "on_demand/01_standards/git.md"
-    good = f"- [`{target}`](../../{target}), before git."
-    bare = f"- `{target}`, before git."
-    wrong = f"- [`{target}`](../{target}), before git."
+    good = f"- [`_{target}`](../../{target}), before git."
+    bare = f"- `_{target}`, before git."
+    wrong = f"- [`_{target}`](../{target}), before git."
     folder = RULES_DIR / "always_on" / "01_standards"
     assert unlinked_pointers("\n".join([good, bare, wrong]), folder) == [bare, wrong]
 
@@ -381,14 +383,14 @@ def preference_paths(text):
 
 def test_preference_paths_are_found_in_any_backticks():
     """A pointer bullet, a table cell or prose naming a 02_preferences/ path is caught, and other paths aren't."""
-    text = "- `on_demand/02_preferences/x.md`, when\n| `_templates/preferences/y` |\nsee `rules/always_on/z.md`"
-    assert preference_paths(text) == ["`on_demand/02_preferences/x.md`", "`_templates/preferences/y`"]
+    text = "- `_on_demand/02_preferences/x.md`, when\n| `_templates/preferences/y` |\nsee `rules/always_on/z.md`"
+    assert preference_paths(text) == ["`_on_demand/02_preferences/x.md`", "`_templates/preferences/y`"]
 
 
 # the one preference path a standard file may name, as the workflow rule says when to read it, "if installed"
 ALLOWED_PREFERENCE_PATH = (
     "rules/always_on/01_standards/ai_sdlc_workflow.md",
-    "`on_demand/02_preferences/claude_saved_plans.md`",
+    "`_on_demand/02_preferences/claude_saved_plans.md`",
 )
 
 
@@ -400,7 +402,7 @@ def disallowed(path, found):
 def test_only_the_allowed_file_may_name_the_allowed_preference_path():
     """A second preference path in the allowed file, or the allowed path in another file, is still disallowed."""
     allowed_file, allowed_path = ALLOWED_PREFERENCE_PATH
-    second_path = "`on_demand/02_preferences/x.md`"
+    second_path = "`_on_demand/02_preferences/x.md`"
     assert disallowed(allowed_file, [allowed_path, second_path]) == [second_path], "only the allowed path may pass"
     assert disallowed("rules/always_on/z.md", [allowed_path]) == [allowed_path], "no other file may name it"
 

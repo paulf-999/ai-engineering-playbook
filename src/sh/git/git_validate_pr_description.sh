@@ -3,8 +3,8 @@ set -euo pipefail  # Fail fast, including on unset variables and errors anywhere
 
 # Description: Verify a PR that changes the installed Claude config under src/claude/ has a "Claude: Plan" section,
 #              that one changing an always-on or enforcing file also has an "Evaluation Criteria" section, and that
-#              any PR's "Claude: Plan" section has its menus, or the reason it has no saved plan, that "Why" and
-#              "What I ran" are filled in, and that a dependency change gives its reason
+#              any PR's "Claude: Plan" section has its menus, or the reason it has no saved plan, that "Why Is This Change Needed?" and
+#              "How Has This Been Tested?" are filled in, and that a dependency change gives its reason
 # Usage: src/sh/git/git_validate_pr_description.sh "<pr description>" ["<changed files, one per line>"] ["<pr author>"] (run from the repo root)
 
 # Load reusable shell script vars & functions
@@ -89,10 +89,10 @@ section_is_filled() {
     ' <<< "${VISIBLE_DESCRIPTION}"
 }
 
-# Explain each piece of evidence ai_pr_standards.md asks for that's missing, or print nothing if it's all there
+# Explain each piece of evidence the PR template asks for that's missing, or print nothing if it's all there
 evidence_problems() {
     local section
-    for section in "Why" "What I ran"; do
+    for section in "Why Is This Change Needed?" "How Has This Been Tested?"; do
         section_is_filled "${section}" || echo "Fill in the '${section}' section from the PR template."
     done
     grep -qE -- "${DEPENDENCY_FILES}" <<< "${CHANGED_FILES}" || return 0

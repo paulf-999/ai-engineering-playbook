@@ -6,6 +6,10 @@
 
 [If needed, only what a reviewer must or should know, as a list of 5 items at most. Open each with an emoji and a bold keyword, per the [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md), keep it to about 20 words, and link any file, issue or PR with a full GitHub URL.]
 
+## :thinking: Why Is This Change Needed?
+
+[The reasons for the change, as a list. Open each item with an emoji and a bold keyword, per the [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md). Link any file, issue or PR with a full GitHub URL.]
+
 ## :hammer_and_wrench: Type of PR Change
 
 Choose one:

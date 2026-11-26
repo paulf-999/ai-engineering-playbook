@@ -12,7 +12,7 @@ disable-model-invocation: true
   - **Plugin:** Claude Code fills in the paths below for a plugin install, so they start with a real folder rather than a dollar sign. Rules go in your Claude config directory's `rules/`, cases in `${CLAUDE_PLUGIN_DATA}/evals.yaml`, and the runner is `"${CLAUDE_PLUGIN_DATA}/venv/bin/python" "${CLAUDE_PLUGIN_ROOT}/scripts/claude_run_rule_evals.py"`, run with `RULE_EVALS_FILE` set to that cases file, `RULES_DIR` to that `rules/` folder, and `CASE=<name>`.
 - **Drafts ready:** if this session already drafted rules, start from those the user likes.
 - **Read first:** read `reference/_implementation.md` for how to pick notes, draft a case and read the verdict.
-- **Always:** show each draft rule bullet and its `rules/evals.yaml` case as a diff, and edit files only after an explicit yes.
+- **Always:** show each draft rule bullet and its case as a diff, and edit files only after an explicit yes.
 - **Always:** say a case costs 24 runs and 24 grades of plan usage, before running it with `RUNS=12` and `CASE=<name>`.
 - **Always:** keep a rule only on a **helps** verdict, and for any other verdict undo your own edits and log the rejection to `_claude_kaizen/rejections.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset).
 - **Always:** at the end, append `YYYY-MM-DD notes=<read> proposed=<drafted> kept=<kept>` to `_claude_kaizen/runs.log` there, in either flow.
@@ -34,11 +34,11 @@ $ /claude-kaizen
 Read 31 feedback notes. 2 candidates recur and apply beyond this repo:
   1. Write dates as YYYY-MM-DD (4 notes)
   2. Quote test output when reporting a failure (2 notes)
-[diff for writing_style.md, reporting.md and rules/evals.yaml]
+[diff for writing_style.md, reporting.md and the cases file]
 Write these and run their A/B cases? Each costs 24 runs and 24 grades. (y/n) y
 iso_dates_in_prose: without 0/12, with 12/12, helps — kept
 failure_output_quoted: without 12/12, with 12/12, no effect — undone
-Kept 1 rule in the working tree. Run /git-create-pr to open the PR.
+Kept 1 rule in the working tree. Run /git-create-pr to open the PR (playbook flow).
 ```
 
 ## ✨ Best For
@@ -53,7 +53,7 @@ A periodic look back, such as once a sprint, at what you've had to correct Claud
 
 ## 📚 References
 
-- `reference/_draft.md` — drafting without being asked, when the session-start reminder fires
+- `reference/_draft.md` — drafting without being asked, when the playbook's session-start reminder fires
 - `reference/_implementation.md` — picking notes, drafting a case, the budget and the verdicts
-- `evals.yaml` — 3 scenarios, each run by `make evals`
+- `evals.yaml` — 3 scenarios, each run by `make evals`, in the playbook repo only
 - [How Warp builds self-improving agents on Claude](https://claude.com/resources/articles/how-warp-builds-self-improving-agents-on-claude) — the feedback-to-edit loop this skill follows

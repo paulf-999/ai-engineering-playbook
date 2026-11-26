@@ -111,6 +111,38 @@ evals:
           - A recommendation says the PR breaks the "What you ran" rule
           - The comment includes the review scorecard with all six themes
 
+    - name: mixed_pr_gets_a_split_finding
+      behaviour: true
+      # Two unrelated changes give a Mixed topic and a finding to split the PR
+      input:
+          prompt: |
+              Read .claude/skills/git-review-pr/reference/_formats.md, then fill in its whole comment template for the PR
+              below, as Phase 3 of git-review-pr does. Work from this text alone, don't run gh or any agent, and reply
+              with the comment only.
+
+              PR #16: docs(readme): fix a typo and raise the retry limit
+              Body: Fixes a README typo, and raises the retry limit while I was there.
+              Author: dev1. Repo: https://github.com/example/app. Branch: feature/readme_typo.
+              Commits: docs(readme): fix a typo and raise the retry limit
+
+              ```diff
+              --- a/README.md
+              +++ b/README.md
+              @@ -1,3 +1,3 @@
+               # Report builder
+
+              -This libary builds a daily summary of sales.
+              +This library builds a daily summary of sales.
+              --- a/config/retries.yaml
+              +++ b/config/retries.yaml
+              @@ -1 +1 @@
+              -max_retries: 3
+              +max_retries: 10
+              ```
+      assertions:
+          - The Summary has a Topic line that starts "Mixed:" and names both the typo and the retry limit
+          - A recommendation says to split the PR into one PR per topic
+
   # Review status
     - name: unanswered_finding_blocks
       behaviour: true

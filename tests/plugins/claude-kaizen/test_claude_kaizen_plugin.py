@@ -81,6 +81,21 @@ def test_setup_hook_builds_once_and_rebuilds_on_new_requirements(tmp_path):
     assert log.read_text().count("-m venv") == 2, "new requirements should rebuild"
 
 
+def test_setup_hook_removes_a_half_built_venv(tmp_path):
+    """When pip fails, the hook removes the virtualenv, so the next session rebuilds it rather than trusting it."""
+    (tmp_path / "root").mkdir()
+    (tmp_path / "root" / "requirements.txt").write_text("pyyaml==1\n")
+    stub = tmp_path / "bin"
+    stub.mkdir()
+    (stub / "python3").write_text(
+        '#!/bin/bash\nmkdir -p "$3/bin"\nprintf \'#!/bin/bash\\nexit 1\\n\' > "$3/bin/python"\n'
+        'chmod +x "$3/bin/python"\n'
+    )
+    (stub / "python3").chmod(0o755)
+    assert run_hook(tmp_path, f"{stub}:/usr/bin:/bin") == ""
+    assert not (tmp_path / "data" / "venv").exists()
+
+
 def test_setup_hook_is_silent_without_python(tmp_path):
     """With no python3 on PATH, the hook exits cleanly with no output, and builds nothing."""
     (tmp_path / "root").mkdir()

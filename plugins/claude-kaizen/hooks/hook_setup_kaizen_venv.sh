@@ -27,5 +27,8 @@ mkdir -p "${DATA}"
 if python3 -m venv "${DATA}/venv" > /dev/null 2>&1 \
     && "${DATA}/venv/bin/python" -m pip install --quiet --disable-pip-version-check -r "${ROOT}/requirements.txt" > /dev/null 2>&1; then
     cp "${ROOT}/requirements.txt" "${DATA}/requirements.txt"
+else
+    # A half-built virtualenv would pass the check above next time, so remove it and retry from scratch
+    rm -rf "${DATA}/venv"
 fi
 exit 0

@@ -9,14 +9,14 @@ disable-model-invocation: true
 
 - **Pre-check:** pick the flow, and stop if neither fits.
   - **Playbook:** the current repo has `src/claude/rules/evals.yaml` and a `make evals` target, so rules and cases go there and `make evals RULES=1` runs them.
-  - **Plugin:** this path is real, not a `${...}` placeholder: `${CLAUDE_PLUGIN_ROOT}`. Rules go in your Claude config directory's `rules/`, cases in `${CLAUDE_PLUGIN_DATA}/evals.yaml`, and the runner is `"${CLAUDE_PLUGIN_DATA}/venv/bin/python" "${CLAUDE_PLUGIN_ROOT}/scripts/claude_run_rule_evals.py"`, run with `RULE_EVALS_FILE` set to that cases file, `RULES_DIR` to that `rules/` folder, and `CASE=<name>`.
+  - **Plugin:** Claude Code fills in the paths below for a plugin install, so they start with a real folder rather than a dollar sign. Rules go in your Claude config directory's `rules/`, cases in `${CLAUDE_PLUGIN_DATA}/evals.yaml`, and the runner is `"${CLAUDE_PLUGIN_DATA}/venv/bin/python" "${CLAUDE_PLUGIN_ROOT}/scripts/claude_run_rule_evals.py"`, run with `RULE_EVALS_FILE` set to that cases file, `RULES_DIR` to that `rules/` folder, and `CASE=<name>`.
 - **Drafts ready:** if this session already drafted rules, start from those the user likes.
 - **Read first:** read `reference/_implementation.md` for how to pick notes, draft a case and read the verdict.
 - **Always:** show each draft rule bullet and its `rules/evals.yaml` case as a diff, and edit files only after an explicit yes.
 - **Always:** say a case costs 24 runs and 24 grades of plan usage, before running it with `RUNS=12` and `CASE=<name>`.
 - **Always:** keep a rule only on a **helps** verdict, and for any other verdict undo your own edits and log the rejection to `_claude_kaizen/rejections.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset).
-- **Always:** at the end, append `YYYY-MM-DD notes=<read> proposed=<drafted> kept=<kept>` to `_claude_kaizen/runs.log` there, which resets the reminder hook's count.
-- **Never:** commit, push or open a PR, since `/git-create-pr` does that once the user is happy in the playbook flow.
+- **Always:** at the end, append `YYYY-MM-DD notes=<read> proposed=<drafted> kept=<kept>` to `_claude_kaizen/runs.log` there, in either flow.
+- **Never:** commit, push or open a PR. In the playbook flow, `/git-create-pr` does that once the user is happy, and in the plugin flow the approved rule simply stays in your config's `rules/`.
 - **Never:** quote a feedback note's personal details, such as a name, in a rule or case.
 
 ## 🎯 Purpose

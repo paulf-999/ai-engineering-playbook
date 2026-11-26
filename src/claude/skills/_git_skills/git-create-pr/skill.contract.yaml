@@ -1,6 +1,6 @@
 ---
 name: git-create-pr
-version: 1.2.2
+version: 1.2.3
 summary: Create a GitHub PR from your changes, with a branch, commit message and PR body
 test_coverage_level: comprehensive
 

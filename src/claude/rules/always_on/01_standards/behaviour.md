@@ -23,5 +23,6 @@
 - [`_on_demand/01_standards/git.md`](../../on_demand/01_standards/git.md), in your Claude config directory, before any git command.
 - [`_on_demand/01_standards/conduct/claude_loops_and_batches.md`](../../on_demand/01_standards/conduct/claude_loops_and_batches.md), before proposing or starting a loop or other unattended run.
 - [`_on_demand/01_standards/conduct/claude_task_reporting.md`](../../on_demand/01_standards/conduct/claude_task_reporting.md), before saying a task is done.
+- [`_on_demand/01_standards/conduct/claude_blind_reviews.md`](../../on_demand/01_standards/conduct/claude_blind_reviews.md), before running a blind or cold review of a doc, plan or repo.
 - [`_on_demand/01_standards/conduct/audience_and_depth.md`](../../on_demand/01_standards/conduct/audience_and_depth.md), before writing for people outside the repo, such as a Confluence page, ticket or email.
 - [`_on_demand/style_guides/jira.md`](../../on_demand/style_guides/jira.md), before writing or changing a Jira ticket.

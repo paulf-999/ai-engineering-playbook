@@ -11,6 +11,8 @@ Claude loads this rule in every session. It's based on Anthropic's [AI-native SD
 - 🎯 **Material choice:** one that changes the outcome, scope, files or published wording, or is hard to undo.
 - 💬 **Discuss first:** before writing a plan, ask about material choices in rounds of up to 4 questions until none is open.
 - 📌 **Minor choices:** list them as assumptions rather than ask.
+- 🔄 **Chosen approach:** if an approach the user picked stops fitting, bring the problem and the options back to them rather than switching.
+- 🧾 **Decisions agreed:** list only choices the user made.
 
 ## 🗺️ Plan layout
 

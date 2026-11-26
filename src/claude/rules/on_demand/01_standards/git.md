@@ -8,6 +8,8 @@
 - 📜 **Repo conventions:** read each repo's `CONTRIBUTING.md` before creating a branch, and follow it and CI for branch names, commit messages and PRs, rather than a global copy.
 - 🧩 **Flag complex operations:** say so before a stash, reset or cross-branch reconcile, and offer the simplest option, such as redoing a small edit.
 - 🪜 **No stacked PRs:** branch each PR from `main`, never from another open PR's branch, since squash-merging the first leaves the second merging into a dead branch.
+- 🔢 **Check PR numbers:** run `gh pr view <n>` before acting on a PR the user names by number.
+- 🚫 **No guessed numbers:** cite a PR's number only once the PR exists, since other sessions open PRs too.
 
 ## 🔀 Shared working trees
 

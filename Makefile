@@ -18,6 +18,8 @@ SHELL = /bin/sh
 # make evals RULES=1 CASE=<name>	# run only the named rule eval
 # make evals README=1	# score the README with cold readers playing a new and an experienced Claude Code user
 # make evals RULES=1 RUNS=<n>	# set the rule evals' runs per condition, 3 by default, or the README evals' readers per persona, 4
+# make architecture_review TARGET=<path>	# review a repo, folder or file blind with three cold readers, printing ranked findings
+# make architecture_review TARGET=<path> OUT=<file>	# write the review's report to a file
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/
 # make list_plans	# list your saved plans by status, flagging misfiled and stale ones
 # make clean_plans	# file saved plans by status and archive old scratch plans and drafts, after a preview
@@ -89,6 +91,11 @@ evals: $(EVALS_VENV)/.evals_ready
 	@echo "${INFO}\nCalled makefile target 'evals'. Run the $(EVAL_RUNNER) evals.${COLOUR_OFF}\n"
 	@$(EVALS_VENV)/bin/python src/py/claude_run_$(EVAL_RUNNER)_evals.py
 
+architecture_review:
+	@echo "${INFO}\nCalled makefile target 'architecture_review'. Review $${TARGET:-nothing} with three cold readers.${COLOUR_OFF}\n"
+	@test -n "$${TARGET:-}" || { echo "Set TARGET to the repo, folder or file to review, such as make architecture_review TARGET=../my_repo"; exit 1; }
+	@python3 src/py/claude_run_architecture_review.py
+
 list_plans:
 	@echo "${INFO}\nCalled makefile target 'list_plans'. List your saved plans by status.${COLOUR_OFF}\n"
 	@python3 src/py/claude_manage_plans.py list
@@ -103,7 +110,7 @@ clean:
 	@find src tests -name __pycache__ -type d -prune -exec rm -rf {} +
 
 # Phony targets
-.PHONY: all help deps install uninstall test clean context_cost evals list_plans clean_plans
+.PHONY: all help deps install uninstall test clean context_cost evals architecture_review list_plans clean_plans
 
 # .PHONY tells Make that these targets don't represent files
 # This prevents conflicts with any files named "all" or "clean"

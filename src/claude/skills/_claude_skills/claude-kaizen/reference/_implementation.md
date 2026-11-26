@@ -9,7 +9,7 @@
 | **1 — Gather** | Read every `feedback_*.md` note in the session's auto-memory folder, which the memory instructions name |
 | **2 — Select** | Group notes that make the same correction, and keep a group only if it has 2 or more notes or applies beyond this repo |
 | **3 — Draft** | For each kept group, draft one rule bullet and one case, then show both as a diff and wait for a yes |
-| **4 — Prove** | Write the approved drafts, run each case, and keep or undo it by its verdict |
+| **4 — Check** | Write the approved drafts, run each case, and keep or undo it by its verdict |
 | **5 — Report** | List each case's counts and verdict, and the files left changed for `/git-create-pr`, then log each rejection, and the run to `_claude_kaizen/runs.log` |
 
 ## 🔍 Selecting notes
@@ -33,20 +33,25 @@ For a rule in `rules/always_on/`, run `bash src/sh/claude_validate_always_on_bud
 
 ## ⚖️ Verdicts
 
+The runner tests in two stages of 5 runs per condition. Stage 1 settles a case early, and otherwise stage 2 runs 5 more and a one-sided Fisher exact test judges all 10. Each verdict prints its p, so a kept rule "passed an A/B check (p = …)".
+
 | Verdict | Meaning | Action |
 |---|---|---|
-| **helps** | With the rule passes at least 4 more of 12 runs | Keep the rule and its case |
-| **no effect** | Neither condition leads by 4 runs | Undo both, since Claude already behaves this way or the case can't show it |
-| **hurts** | Without the rule passes at least 4 more runs | Undo both, and tell the user |
+| **helps** | 5/5 against 0/5 at stage 1, or p < 0.01 over 10 runs, such as 9/10 against 3/10 | Keep the rule and its case |
+| **no effect** | At stage 1, the without-rule runs all pass or the with-rule runs don't lead | Undo both and log the rejection, since Claude already behaves this way or the case can't show it |
+| **hurts** | p < 0.01 over 10 runs in favour of the without-rule runs | Undo both, log the rejection, and tell the user |
+| **inconclusive** | Stage 2 gives p of 0.01 or more, such as 8/10 against 4/10 | Undo both without logging, so a later run can try again |
+
+A run that fails, such as the runner crashing, is also undone and never logged.
 
 Undo only your own edits, checking `git diff` first, and stop if another change sits in the same file.
 
 ## 🗒️ Rejections
 
-After undoing a rule, append one line to `_claude_kaizen/rejections.md`, creating the file if needed:
+After undoing a rule for **no effect** or **hurts**, append one line to `_claude_kaizen/rejections.md`, creating the file if needed:
 
 ```text
-- 2026-11-25 · quote test output when reporting a failure · without 12/12, with 12/12, no effect · notes: feedback_a.md, feedback_b.md
+- 2026-11-25 · quote test output when reporting a failure · without 5/5, with 5/5, no effect · notes: feedback_a.md, feedback_b.md
 ```
 
 ## 🧯 Errors

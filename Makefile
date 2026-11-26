@@ -14,10 +14,10 @@ SHELL = /bin/sh
 # make evals		# run the evals tagged trigger: live with claude -p, on your own login, setting up .venv on first use
 # make evals BEHAVIOUR=1	# run the evals tagged behaviour: true end to end, and grade their assertions
 # make evals BEHAVIOUR=1 CASE=<name>	# run only the named behaviour eval
-# make evals RULES=1	# run each rule eval with and without its rule, and say if the rule helps
+# make evals RULES=1	# run each rule eval with and without its rule, in up to 2 stages, and say if the rule helps
 # make evals RULES=1 CASE=<name>	# run only the named rule eval
 # make evals README=1	# score the README with cold readers playing a new and an experienced Claude Code user
-# make evals RULES=1 RUNS=<n>	# set the rule evals' runs per condition, 3 by default, or the README evals' readers per persona, 4
+# make evals RULES=1 RUNS=<n>	# set the rule evals' runs per condition in each stage, 5 by default, or the README evals' readers per persona, 4
 # make architecture_review TARGET=<path>	# review a repo, folder or file blind with three cold readers, printing ranked findings
 # make architecture_review TARGET=<path> OUT=<file>	# write the review's report to a file
 # make context_cost	# rewrite maintenance/context_cost.md from src/claude/

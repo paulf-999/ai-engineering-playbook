@@ -9,6 +9,7 @@
 | Domain | Use for |
 |---|---|
 | 👥 `1on1` | One-to-one meeting notes and prep |
+| 🏛️ `architecture_reviews` | Reports from blind architecture reviews |
 | 📄 `confluence` | Confluence page drafts |
 | ✉️ `email` | Email drafts |
 | 🗂️ `general` | Anything that fits no other domain |

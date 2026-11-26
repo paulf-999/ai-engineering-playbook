@@ -8,7 +8,7 @@
 
 ## :thinking: Why Is This Change Needed?
 
-[Say why the complex or non-obvious parts are there. If AI drafts this, open it with "Drafted by AI, approved by <name>" once you've approved it. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
+[Say why the complex or non-obvious parts are there, as up to 5 bullets that each open with an emoji and a bold keyword and colon. If AI drafts this, open it with "Drafted by AI, approved by <name>" once you've approved it. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
 
 ## :hammer_and_wrench: Type of PR Change
 

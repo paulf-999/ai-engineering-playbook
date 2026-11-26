@@ -23,7 +23,7 @@
 
 - **Rule:** one bullet in the existing file it fits, following that file's format and the [naming standards](../../../../rules/always_on/01_standards/naming_standards.md), rather than a new file.
 - **Principles over rules:** reword an existing bullet if one nearly covers the correction; otherwise draft one principle with its reason, not a narrow rule, as [Warp's article](https://claude.com/resources/articles/how-warp-builds-self-improving-agents-on-claude) advises.
-- **Case:** add it to `src/claude/rules/evals.yaml` with `name`, `rule`, `prompt`, optional `setup` and `assertions`, as the existing cases do.
+- **Case:** add it to the flow's cases file, `src/claude/rules/evals.yaml` or `${CLAUDE_PLUGIN_DATA}/evals.yaml`, with `name`, `rule`, `prompt`, optional `setup` and `assertions`, as the existing cases do. Create the plugin's file with a top-level `evals:` list if it's missing, and give `rule` as a path inside the flow's rules folder.
 - **No priming:** the prompt mustn't hint at the answer the rule gives, such as using British spelling in a spelling case.
 - **No questions:** end a prompt that would make Claude ask something with "don't ask me questions", since the run can't answer.
 
@@ -39,7 +39,7 @@ For a rule in `rules/always_on/`, run `bash src/sh/claude_validate_always_on_bud
 | **no effect** | Neither condition leads by 4 runs | Undo both, since Claude already behaves this way or the case can't show it |
 | **hurts** | Without the rule passes at least 4 more runs | Undo both, and tell the user |
 
-Undo only your own edits, checking `git diff` first, and stop if another change sits in the same file.
+Undo only your own edits, checking `git diff` first in the playbook flow, or restoring the copy you took before editing in the plugin flow, and stop if another change sits in the same file.
 
 ## 🗒️ Rejections
 
@@ -56,3 +56,4 @@ After undoing a rule, append one line to `_claude_kaizen/rejections.md`, creatin
 | `No rule eval case is named` | The case name doesn't match the one written | Check the `name:` in `rules/evals.yaml` |
 | `claude isn't on PATH` | Claude Code isn't installed or logged in where `make` runs | Install it and log in, then rerun |
 | No feedback notes | Memory is off, or this project has none yet | Tell the user, and stop |
+| The plugin's `venv/bin/python` is missing | The plugin's setup hook hasn't run yet, or `python3` isn't on PATH | Start a new session, or install Python 3, then rerun |

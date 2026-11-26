@@ -1,0 +1,10 @@
+{
+  "name": "claude-kaizen",
+  "version": "1.4.0",
+  "description": "Turn recurring corrections in your feedback notes into rules that pass an A/B check",
+  "author": {
+    "name": "paulf-999"
+  },
+  "repository": "https://github.com/paulf-999/ai-engineering-playbook",
+  "license": "MIT"
+}

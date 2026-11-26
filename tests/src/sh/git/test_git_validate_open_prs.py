@@ -10,8 +10,10 @@ SCRIPT = SCRIPTS_DIR / "git" / "git_validate_open_prs.sh"
 
 
 def run_check(tmp_path, author, open_prs, pr_number=100, gh_exit=0):
-    """Run the check with a stub gh that lists each open PR's author and number, and return the full result."""
-    (tmp_path / "authors").write_text("".join(f"{name} {number}\n" for name, number in open_prs))
+    """Run the check with a stub gh listing each open PR's author, number and draft flag, and return the result."""
+    (tmp_path / "authors").write_text(
+        "".join(f"{name} {number} {str(draft).lower()}\n" for name, number, draft in open_prs)
+    )
     stub = tmp_path / "gh"
     stub.write_text(f'#!/bin/bash\ncat "{tmp_path}/authors"\nexit {gh_exit}\n')
     stub.chmod(0o755)
@@ -26,9 +28,9 @@ def run_check(tmp_path, author, open_prs, pr_number=100, gh_exit=0):
     )
 
 
-def prs(author, count, first=1):
-    """Return count open PRs by the author, numbered from first."""
-    return [(author, number) for number in range(first, first + count)]
+def prs(author, count, first=1, draft=False):
+    """Return count open PRs by the author, numbered from first, all drafts or all ready for review."""
+    return [(author, number, draft) for number in range(first, first + count)]
 
 
 @pytest.mark.parametrize(
@@ -66,3 +68,16 @@ def test_a_failed_lookup_fails_the_check(tmp_path):
     result = run_check(tmp_path, "dev1", [], gh_exit=1)
     assert result.returncode == 1, f"a failed lookup should fail: {result.stdout}"
     assert "couldn't list" in result.stdout, f"the reason should say the lookup failed: {result.stdout}"
+
+
+@pytest.mark.parametrize(
+    ("open_prs", "expected_code"),
+    [
+        pytest.param(prs("dev1", 6) + prs("dev1", 3, 50, draft=True), 0, id="older_drafts_dont_count"),
+        pytest.param(prs("dev1", 10) + prs("dev1", 1, 100, draft=True), 0, id="a_draft_pr_passes"),
+    ],
+)
+def test_drafts_dont_count_towards_the_limit(tmp_path, open_prs, expected_code):
+    """Only PRs ready for review count, and a draft PR itself passes, since it can't merge."""
+    result = run_check(tmp_path, "dev1", open_prs)
+    assert result.returncode == expected_code, f"expected exit {expected_code}: {result.stdout}"

@@ -76,19 +76,25 @@ jobs:
         if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
         timeout-minutes: 10
+        permissions:
+            contents: read
+            # read the PR's changed files
+            pull-requests: read
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
               with:
                   persist-credentials: false
-                  # full history, so the PR's changes can be diffed against its base
-                  fetch-depth: 0
+            # A step of its own, so a failed fetch fails the check rather than passing an empty list
+            - name: List the changed files
+              env:
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
+                  GH_TOKEN: ${{ github.token }}
+              run: gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --jq '.[].filename' > "${RUNNER_TEMP}/changed_files"
             # Passed through env, not ${{ }} in the script, so a crafted branch name can't inject shell
             - name: Validate number of changed files
               env:
                   BRANCH_NAME: ${{ github.head_ref }}
-                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
-                  HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-              run: src/sh/git/git_validate_num_file_changes.sh "${BRANCH_NAME}" "${BASE_SHA}" "${HEAD_SHA}"
+              run: src/sh/git/git_validate_num_file_changes.sh "${BRANCH_NAME}" "$(cat "${RUNNER_TEMP}/changed_files")"
 
     open_prs:
         name: 'Open PRs: check the author is within the limit'
@@ -115,17 +121,26 @@ jobs:
         if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
         timeout-minutes: 10
+        permissions:
+            contents: read
+            # read the PR's changed files
+            pull-requests: read
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
               with:
                   persist-credentials: false
-                  # full history, so the PR's changes can be diffed against its base
-                  fetch-depth: 0
+            # A step of its own, so a failed fetch fails the check rather than passing an empty list
+            - name: List the changed files
+              env:
+                  PR_NUMBER: ${{ github.event.pull_request.number }}
+                  GH_TOKEN: ${{ github.token }}
+              run: gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --jq '.[].filename' > "${RUNNER_TEMP}/changed_files"
             - name: Validate skill contract versions
               env:
                   BASE_SHA: ${{ github.event.pull_request.base.sha }}
                   HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-              run: src/sh/git/git_validate_skill_versions.sh "${BASE_SHA}" "${HEAD_SHA}"
+                  GH_TOKEN: ${{ github.token }}
+              run: src/sh/git/git_validate_skill_versions.sh "${GITHUB_REPOSITORY}" "${BASE_SHA}" "${HEAD_SHA}" "$(cat "${RUNNER_TEMP}/changed_files")"
 
     test:
         name: 'Tests: run pytest'

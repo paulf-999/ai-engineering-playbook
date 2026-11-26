@@ -2,8 +2,8 @@
 set -euo pipefail  # Fail fast, including on unset variables and errors anywhere in a pipeline.
 
 # Description: Fail a PR that changes more than the max number of files, unless it's on a release/ branch
-# Usage: src/sh/git/git_validate_num_file_changes.sh <git branch name> <base ref> [head ref]
-#        (head ref defaults to HEAD; run from the repo root)
+# Usage: src/sh/git/git_validate_num_file_changes.sh <git branch name> "<changed files, one per line>" (run from the repo
+#        root, with the list from GitHub's PR files API, so no checkout of the PR is needed)
 
 # Load reusable shell script vars & functions
 # shellcheck source=SCRIPTDIR/../shell_utils.sh
@@ -17,8 +17,8 @@ trap handle_interruption SIGINT
 #=======================================================================
 
 GIT_BRANCH_NAME="${1:?Required: git branch name (arg 1)}"
-BASE_REF="${2:?Required: base ref to compare against (arg 2)}"
-HEAD_REF="${3:-HEAD}"
+# the PR's changed files, one per line
+CHANGED_FILES="${2-}"
 # maximum number of files a PR can change; override via the MAX_FILES_ALLOWED env var
 MAX_FILES_CHANGED="${MAX_FILES_ALLOWED:-20}"
 # how many changed files to list before summarising the rest
@@ -27,11 +27,6 @@ MAX_FILES_LISTED=50
 #=======================================================================
 # Functions
 #=======================================================================
-
-# Check a ref resolves to a commit
-ref_exists() {
-    git rev-parse --verify --quiet "${1}^{commit}" >/dev/null
-}
 
 # Check whether the branch is a release/ branch
 is_release_branch() {
@@ -47,18 +42,8 @@ validate_max_files_changed() {
     fi
 }
 
-# Make sure the base ref exists, or exit 1
-resolve_base_ref() {
-    if ! ref_exists "${BASE_REF}"; then
-        print_section_header "${ERROR}" "ERROR: base ref ${BASE_REF} not found. Fetch it first, such as with git fetch origin main."
-        exit 1
-    fi
-}
-
-# Set CHANGED_FILES and FILE_COUNT from the diff against the base
+# Set FILE_COUNT from the changed files
 count_changed_files() {
-    # list added, deleted, modified and renamed files since the branch left the base
-    CHANGED_FILES=$(git diff --name-only --diff-filter=ADMR "${BASE_REF}...${HEAD_REF}")
     # count non-empty lines; grep exits 1 when there are none, so don't let set -e stop the script
     FILE_COUNT=$(grep -c . <<< "${CHANGED_FILES}" || true)
 }
@@ -95,7 +80,6 @@ if is_release_branch; then
 fi
 
 validate_max_files_changed
-resolve_base_ref
 count_changed_files
 print_changed_files
 check_file_count

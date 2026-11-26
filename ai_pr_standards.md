@@ -15,7 +15,7 @@ They cover PRs only. For data and access, see the [security rule](src/claude/rul
 
 ## 📬 Opening a PR
 
-- **4. Pace:** agents shouldn't open PRs faster than reviewers can clear them, so only an author's six oldest open PRs should merge, and newer ones wait until older ones merge.
+- **4. Pace:** agents shouldn't open PRs faster than reviewers can clear them, so only an author's six oldest PRs ready for review should merge, and newer ones wait until older ones merge. Drafts don't count, since they can't merge.
 - **5. One topic:** you must give the agent one topic per PR, and split what it produces.
 
 ## 👀 Reviewing a PR

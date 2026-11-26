@@ -41,11 +41,12 @@ def test_prepare_copies_a_folder_and_a_single_file(tmp_path):
     folder.mkdir()
     (folder / "steps.md").write_text("# Steps\n")
     (tmp_path / "scratch").mkdir()
-    (folder / ".env").write_text("TOKEN=x\n")
+    for secret in (".env", "deploy.pem", "credentials.json", ".npmrc"):
+        (folder / secret).write_text("TOKEN=x\n")
     (folder / "link.md").symlink_to(tmp_path / "outside.md")
     copy = runner.prepare(folder, tmp_path / "scratch")
     assert (copy / "steps.md").exists()
-    assert not (copy / ".env").exists()
+    assert not [name for name in (".env", "deploy.pem", "credentials.json", ".npmrc") if (copy / name).exists()]
     assert (copy / "link.md").is_symlink()
     root = runner.prepare(folder / "steps.md", tmp_path / "scratch")
     assert [path.name for path in root.iterdir()] == ["steps.md"]
@@ -74,7 +75,7 @@ def test_collect_briefs_one_reader_per_lens(tmp_path):
 
 
 def test_collect_keeps_the_other_readers_when_one_fails(tmp_path):
-    """A reader whose run fails returns no findings, and the other lenses keep theirs."""
+    """A reader whose run fails returns None, and the other lenses keep their findings."""
 
     def fake_read(prompt, root):
         if prompt.startswith(runner.LENSES["maintainer"]):
@@ -82,8 +83,18 @@ def test_collect_keeps_the_other_readers_when_one_fails(tmp_path):
         return [_make_finding("a.py")]
 
     results = runner.collect(tmp_path, read=fake_read)
-    assert results["maintainer"] == []
+    assert results["maintainer"] is None
     assert len(results["newcomer"]) == 1
+
+
+def test_main_fails_when_every_reader_fails(tmp_path, monkeypatch):
+    """When no reader returns findings, main exits with an error rather than printing an empty report."""
+    monkeypatch.setenv("TARGET", str(tmp_path))
+    monkeypatch.setattr(runner.shutil, "which", lambda name: "/bin/claude")
+    monkeypatch.setattr(runner, "collect", lambda root: dict.fromkeys(runner.LENSES))
+    with pytest.raises(SystemExit) as raised:
+        runner.main()
+    assert "Every reader failed" in str(raised.value), f"the exit should say why: {raised.value}"
 
 
 # --- ranking tests ---
@@ -125,3 +136,10 @@ def test_cited_files_drops_line_notes_and_the_scratch_folder(tmp_path, cited, ex
     """A single file copied into a folder of its own name is cited many ways, and each maps back to the file."""
     root = tmp_path / "steps.md"
     assert runner.cited_files(cited.format(root=root), root) == [expected]
+
+
+def test_rank_keeps_a_citation_with_glob_characters(tmp_path):
+    """A cited name holding glob characters is matched literally, so ranking keeps it instead of failing."""
+    (tmp_path / "a.py").write_text("x\n")
+    ranked = runner.rank({"newcomer": [_make_finding("[draft]*.md")], "maintainer": None}, tmp_path)
+    assert [file for file, _ in ranked] == ["[draft]*.md"]

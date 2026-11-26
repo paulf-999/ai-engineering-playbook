@@ -2,11 +2,13 @@
 
 Each reader is a `claude -p --safe-mode` run with read-only tools, so it sees only its lens and a scratch copy of
 the target, with none of your config. Safe mode also confines the file tools to that copy. A git repo is copied by a
-fresh clone, so readers see only committed files, and a folder is copied without `.env` files, `.venv` or symlinks.
+fresh clone, so readers see only committed files, and a folder is copied without likely secret files, `.venv` or
+followed symlinks.
 Each reader lists up to 8 findings, and the report groups them by the file each cites, ranked by how many readers
 named that file. Set `TARGET` to the repo, folder or file to review, and `OUT` to write the report to a file.
 """
 
+import glob
 import json
 import os
 import re
@@ -30,6 +32,19 @@ MODEL = "sonnet"
 MAX_TURNS = "40"
 TIMEOUT_SECONDS = 900
 READ_ONLY_TOOLS = ["Read", "Glob", "Grep"]
+# files a folder copy leaves out, as likely secrets or local environments, matching git-create-pr's secret list
+SKIPPED_IN_COPIES = [
+    ".env",
+    ".env.*",
+    "*.pem",
+    "*.key",
+    "*.p12",
+    "id_rsa*",
+    "credentials*",
+    ".npmrc",
+    ".netrc",
+    ".venv",
+]
 SCHEMA = {
     "type": "object",
     "properties": {
@@ -58,7 +73,11 @@ def main():
         sys.exit(f"TARGET {target!r} doesn't exist - set it to a repo, folder or file.")
     with tempfile.TemporaryDirectory(prefix="architecture_review_") as scratch:
         root = prepare(target, scratch)
-        report = render(rank(collect(root), root), target)
+        results = collect(root)
+        # every reader failing, such as on a rate limit or a lapsed login, must not look like a clean review
+        if all(findings is None for findings in results.values()):
+            sys.exit("Every reader failed, so there's no report - check the errors above, then run it again.")
+        report = render(rank(results, root), target)
     out = os.environ.get("OUT")
     if out:
         Path(out).parent.mkdir(parents=True, exist_ok=True)
@@ -75,8 +94,8 @@ def prepare(target, scratch):
     if (target / ".git").exists():
         subprocess.run(["git", "clone", "--quiet", str(target), str(root)], check=True)
     elif target.is_dir():
-        # leave out local secrets and environments, and copy symlinks as links so nothing outside target comes along
-        shutil.copytree(target, root, symlinks=True, ignore=shutil.ignore_patterns(".env", ".env.*", ".venv"))
+        # leave out likely secrets and environments, and copy symlinks as links so nothing outside target comes along
+        shutil.copytree(target, root, symlinks=True, ignore=shutil.ignore_patterns(*SKIPPED_IN_COPIES))
     else:
         root.mkdir()
         shutil.copy2(target, root)
@@ -98,7 +117,7 @@ def read_once(prompt, root):
 
 
 def collect(root, read=read_once):
-    """Run one reader per lens in parallel, returning each lens's findings, or none for a reader that failed."""
+    """Run one reader per lens in parallel, returning each lens's findings, or None for a reader that failed."""
 
     def run_lens(lens):
         # one failed or timed-out reader shouldn't discard the other readers' findings
@@ -106,7 +125,7 @@ def collect(root, read=read_once):
             return lens, read(build_prompt(lens, root), root)
         except (subprocess.SubprocessError, ValueError, KeyError, TypeError) as error:
             print(f"The {lens} reader failed, so the report leaves it out: {error!r}", file=sys.stderr)
-            return lens, []
+            return lens, None
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         return dict(pool.map(run_lens, LENSES))
@@ -116,7 +135,7 @@ def rank(results, root):
     """Group findings by cited file, ranked by how many distinct readers named it, then by file name."""
     files = {}
     for lens, findings in results.items():
-        for finding in findings:
+        for finding in findings or []:
             for file in cited_files(finding["file"], root):
                 files.setdefault(file, []).append((lens, finding))
     return sorted(files.items(), key=lambda item: (-len({lens for lens, _ in item[1]}), item[0]))
@@ -139,7 +158,11 @@ def relative_file(cited, root):
     while cited.startswith("./"):
         cited = cited[2:]
     # a bare file name, such as install.sh, maps to its path when only one file in root has that name
-    found = [] if (Path(root) / cited).exists() else Path(root).rglob(Path(cited).name)
+    try:
+        found = [] if (Path(root) / cited).exists() else list(Path(root).rglob(glob.escape(Path(cited).name)))
+    except (OSError, ValueError):
+        # an unusual citation, such as one too long for a path, keeps its own text rather than ending the run
+        found = []
     matches = [path for path in found if ".git" not in path.relative_to(root).parts]
     return matches[0].relative_to(root).as_posix() if len(matches) == 1 else cited or "."
 

@@ -141,7 +141,7 @@ evals:
               ```
       assertions:
           - The Summary has a Topic line that starts "Mixed:" and names both the typo and the retry limit
-          - A recommendation says to split the PR into one PR per topic
+          - A recommendation says to split the PR into one PR per topic, with Should severity
 
   # Review status
     - name: unanswered_finding_blocks

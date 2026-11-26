@@ -137,7 +137,7 @@ The overall score does not determine the verdict. Must items decide whether it b
 
 **Summary guidance (pass this to the agent):**
 
-- **Topic:** name the one topic the diff serves. If it holds unrelated changes, write "Mixed:", list each topic, and raise a finding to split the PR, naming the AI PR standards' one-topic rule when Phase 2 found them
+- **Topic:** name the one topic the diff serves. If it holds unrelated changes, write "Mixed:", list each topic, and raise a finding to split the PR: a Must naming the AI PR standards' one-topic rule when Phase 2 found them and it says "must", and a Should otherwise
 - Think theme and intent, not file names or implementation — "what problem does this PR solve?" not "what does it add?"
 - If the PR has multiple distinct themes, pick the dominant one for bullet 1 and use bullet 2 for context or impact
 - Avoid phrases like "This PR adds...", "This PR introduces..." — lead with the capability or outcome instead

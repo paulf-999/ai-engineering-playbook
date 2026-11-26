@@ -8,7 +8,7 @@
 
 ## :thinking: Why Is This Change Needed?
 
-[Say why the complex or non-obvious parts are there, as up to 5 bullets that each open with an emoji and a bold keyword and colon. If AI drafts this, open it with "Drafted by AI, approved by <name>" once you've approved it. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
+[Say why the complex or non-obvious parts are there, as up to 5 bullets that each open with an emoji and a bold keyword and colon. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
 
 ## :hammer_and_wrench: Type of PR Change
 
@@ -29,7 +29,7 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
-[List each command or check that was run, who ran it (you, the AI or CI) and its result.]
+[List each command or check that was run, and its result.]
 
 <!-- Extra sections, which CI checks:
 - Does this PR build a saved plan (intent.md, spec.md and plan.md)? In any PR, whatever it changes, add

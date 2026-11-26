@@ -89,7 +89,7 @@ section_is_filled() {
     ' <<< "${VISIBLE_DESCRIPTION}"
 }
 
-# Explain each piece of evidence ai_pr_standards.md asks for that's missing, or print nothing if it's all there
+# Explain each piece of evidence the PR template asks for that's missing, or print nothing if it's all there
 evidence_problems() {
     local section
     for section in "Why Is This Change Needed?" "How Has This Been Tested?"; do

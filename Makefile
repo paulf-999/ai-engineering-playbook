@@ -60,7 +60,7 @@ deps:
 
 $(EVALS_VENV)/.install_ready: requirements.txt
 	@echo "${INFO}\nCalled makefile target '$@'. Add Jinja to the virtualenv.${COLOUR_OFF}\n"
-	@python3 -m venv $(EVALS_VENV)
+	@test -x $(EVALS_VENV)/bin/python || python3 -m venv $(EVALS_VENV)
 	@$(EVALS_VENV)/bin/python -m pip install --quiet --disable-pip-version-check "$$(grep -i '^jinja2==' requirements.txt | cut -d' ' -f1)"
 	@touch $@
 
@@ -78,12 +78,12 @@ context_cost:
 
 test:
 	@echo "${INFO}\nCalled makefile target 'test'. Perform any required tests.${COLOUR_OFF}\n"
-	@pytest --help 2> /dev/null | grep -q -- --numprocesses || { echo "pytest or pytest-xdist is missing, and the tests need both. Run make deps first."; exit 1; }
-	@pytest
+	@python -m pytest --help 2> /dev/null | grep -q -- --numprocesses || { echo "pytest or pytest-xdist is missing, and the tests need both. Run make deps first."; exit 1; }
+	@python -m pytest
 
 $(EVALS_VENV)/.evals_ready:
 	@echo "${INFO}\nCalled makefile target '$@'. Create the evals virtualenv.${COLOUR_OFF}\n"
-	@python3 -m venv $(EVALS_VENV)
+	@test -x $(EVALS_VENV)/bin/python || python3 -m venv $(EVALS_VENV)
 	@$(EVALS_VENV)/bin/python -m pip install --quiet --disable-pip-version-check "$$(grep -i '^pyyaml==' requirements.txt | cut -d' ' -f1)"
 	@touch $@
 

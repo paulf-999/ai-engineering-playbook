@@ -59,7 +59,9 @@ def test_evals_creates_its_own_virtualenv_on_first_use(tmp_path):
     """Without a ready virtualenv, evals creates one, installs only the pinned pyyaml, then runs with its python."""
     venv = tmp_path / "venv"
     commands = dry_run_evals(venv)
-    assert f"python3 -m venv {venv}" in commands
+    assert f"test -x {venv}/bin/python || python3 -m venv {venv}" in commands, (
+        "never rebuild over an existing virtualenv"
+    )
     assert "grep -i '^pyyaml==' requirements.txt" in commands
     assert f"{venv}/bin/python src/py/claude_run_trigger_evals.py" in commands
 
@@ -72,3 +74,12 @@ def test_evals_reuses_a_ready_virtualenv(tmp_path):
     commands = dry_run_evals(venv)
     assert "-m venv" not in commands and "pip install" not in commands
     assert f"{venv}/bin/python src/py/claude_run_trigger_evals.py" in commands
+
+
+def test_test_runs_pytest_through_the_active_python():
+    """make test runs pytest as `python -m pytest`, so it uses the interpreter make deps installed into."""
+    # a bare `pytest` script can point at a different Python than `python` in a virtualenv rebuilt over an old one
+    result = subprocess.run(["make", "-n", "test"], cwd=REPO_ROOT, capture_output=True, text=True, check=True)
+    commands = result.stdout.splitlines()
+    assert any(line.startswith("python -m pytest --help") for line in commands), result.stdout
+    assert "python -m pytest" in commands, result.stdout

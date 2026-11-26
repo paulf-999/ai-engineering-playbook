@@ -77,10 +77,10 @@ def test_fisher_p_matches_known_values():
 @pytest.mark.parametrize(
     ("stage_one", "stage_two", "line"),
     [
-        ({False: 0, True: 5}, None, "without 0/5, with 5/5, helps (p = 0.004)"),
-        ({False: 5, True: 5}, None, "without 5/5, with 5/5, no effect (p = 1.000)"),
-        ({False: 1, True: 3}, {False: 2, True: 6}, "without 3/10, with 9/10, helps (p = 0.010)"),
-        ({False: 1, True: 3}, {False: 3, True: 5}, "without 4/10, with 8/10, inconclusive (p = 0.085)"),
+        ({False: 0, True: 5}, None, "without 0/5, with 5/5, helps (p = 0.0040)"),
+        ({False: 5, True: 5}, None, "without 5/5, with 5/5, no effect (p = 1.0000)"),
+        ({False: 1, True: 3}, {False: 2, True: 6}, "without 3/10, with 9/10, helps (p = 0.0099)"),
+        ({False: 1, True: 3}, {False: 3, True: 5}, "without 4/10, with 8/10, inconclusive (p = 0.0849)"),
     ],
 )
 def test_main_runs_stage_two_only_when_stage_one_is_unsettled(monkeypatch, capsys, stage_one, stage_two, line):

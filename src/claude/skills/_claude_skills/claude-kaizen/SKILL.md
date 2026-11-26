@@ -34,8 +34,8 @@ Read 31 feedback notes. 2 candidates recur and apply beyond this repo:
   2. Quote test output when reporting a failure (2 notes)
 [diff for writing_style.md, reporting.md and rules/evals.yaml]
 Write these and run their A/B cases? Each costs 10 to 20 runs and as many grades. (y/n) y
-iso_dates_in_prose: without 0/5, with 5/5, helps (p = 0.004) — kept
-failure_output_quoted: without 5/5, with 5/5, no effect (p = 1.000) — undone
+iso_dates_in_prose: without 0/5, with 5/5, helps (p = 0.0040) — kept
+failure_output_quoted: without 5/5, with 5/5, no effect (p = 1.0000) — undone
 Kept 1 rule in the working tree. Run /git-create-pr to open the PR.
 ```
 

@@ -153,7 +153,7 @@ def main():
         total = runs if settled[case["name"]] else 2 * runs
         result, p = settled[case["name"]] or verdict(without, with_, total)
         print(
-            f"{case['name']} ({case['rule']}): without {without}/{total}, with {with_}/{total}, {result} (p = {p:.3f})"
+            f"{case['name']} ({case['rule']}): without {without}/{total}, with {with_}/{total}, {result} (p = {p:.4f})"
         )
 
 

@@ -29,41 +29,55 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
-[List each command or check that was run, and its result.]
+[List each command or check that was run, and its result, including failures. For a check not run, write "Not run: " and the reason.]
 
-<!-- Extra sections, which CI checks:
-- Does this PR build a saved plan (intent.md, spec.md and plan.md)? In any PR, whatever it changes, add
-  "## :robot: Claude: Plan" so a reviewer can check the diff against the approved plan. With no saved plan for this PR,
-  leave the section out, unless the PR changes src/claude/, when it holds only the line "No saved plan: " and the
-  reason. Otherwise, open it with this line:
+<!-- Extra sections, which CI checks with src/sh/git/git_validate_pr_description.sh:
+- Does this PR build a saved plan (intent.md, spec.md and plan.md, which `make list_plans` lists)? In any PR, whatever
+  it changes, add "## :robot: Claude: Plan" so a reviewer can check the diff against the approved plan. With no saved
+  plan for this PR, leave the section out, unless the PR changes src/claude/, when it holds only the line
+  "No saved plan: " and the reason. Otherwise, copy the skeleton below and replace each <placeholder>:
+  - In the intent.md, spec.md and plan.md menus, paste each file as it stands, but leave out plan.md's progress notes,
+    and any home folder paths or private details from all three files.
+  - In the measures menu, write "not recorded" rather than an estimate, and replace each "pending" before merging.
+  - In the governance menu, write "none" for an empty bullet.
+
+  ## :robot: Claude: Plan
 
   This PR was built against this Claude plan, per Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
 
-  Then put everything else in one <details><summary>Show Claude plan</summary> ... </details>, holding five menus in
-  this order. Put each in its own <details> ... </details>, with its <summary> on one line. Copy the question and
-  answer above each <summary> too, but put them outside that menu: the text first, then a blank line, then <details>:
+  <details><summary>Show Claude plan</summary>
 
   **What is `intent.md`?**
   It describes the problem being solved, and how we'll know the change worked.
 
-  <summary>Show intent.md</summary>
+  <details><summary>Show intent.md</summary>
+
+  <intent.md>
+
+  </details>
 
   **What is `spec.md`?**
   It describes what changes and what's left out.
 
-  <summary>Show spec.md</summary>
+  <details><summary>Show spec.md</summary>
+
+  <spec.md>
+
+  </details>
 
   **What is `plan.md`?**
   It lists the decisions agreed, the steps to build the change, and the check that proves each step.
 
-  <summary>Show plan.md</summary>
-  In these three menus, paste each file as it stands, without plan.md's progress notes, home folder paths or private details.
+  <details><summary>Show plan.md</summary>
+
+  <plan.md>
+
+  </details>
 
   **What are the measures?**
   They show how the work went, such as planning time, test results and rework.
 
-  <summary>Show measures</summary>
-  Write "not recorded" rather than an estimate. Replace each "pending" before merging.
+  <details><summary>Show measures</summary>
 
   | Measure | Value |
   |---|---|
@@ -75,19 +89,25 @@ Choose one:
   | First-pass CI | <pending, then the first commit's result> |
   | Rework | <pending, then the number of commits after the PR opened> |
 
+  </details>
+
   **What is governance?**
   It records who approved the plan, plus any policy conflicts, risks and open questions.
 
-  <summary>Show governance</summary>
-  Write "none" for an empty bullet.
+  <details><summary>Show governance</summary>
 
   - **Approved by:** <role, never a name>
   - **Policy conflicts:** <each conflict>
   - **Risks:** <each risk>
   - **Open questions carried forward:** <each question>
 
-- Changes src/claude/CLAUDE.md, a rule in rules/always_on/ or a hook? Also add "## :balance_scale: Claude: Evaluation Criteria".
-  Open it with the line "This PR was checked against the following [evaluation criteria](<link>):", linking to
+  </details>
+
+  </details>
+
+- Changes src/claude/CLAUDE.md, or a file in src/claude/rules/always_on/ or src/claude/hooks/? Also add
+  "## :balance_scale: Claude: Evaluation Criteria". Open it with the line
+  "This PR was checked against the following [evaluation criteria](<link>):", linking to
   https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/target_architecture/design_principles/02_evaluation_criteria.md
   Then put one bullet per red flag, as "- 🚩 **<keyword>:** <file or issue>; <decision and why>.", or the single line
   "No red flags.", in "<details><summary>Show red flags</summary> ... </details>", keeping the heading outside it. -->

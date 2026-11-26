@@ -1,63 +1,74 @@
 """Tests for the skill version check, which fails a PR that changes a skill without bumping its contract version."""
 
+import os
 import subprocess
 
 import pytest
-from _git_repo import isolated_git_repo
-from _paths import SCRIPTS_DIR
+from _paths import REPO_ROOT, SCRIPTS_DIR
 
 SCRIPT = SCRIPTS_DIR / "git" / "git_validate_skill_versions.sh"
 SKILL = "src/claude/skills/_git_skills/demo-skill"
+CONTRACT = f"{SKILL}/skill.contract.yaml"
+# a stub gh that answers the compare call with the merge base, and each contents call from files under commits/
+STUB_GH = """#!/bin/bash
+case "$2" in
+    */compare/*) echo merge_base ;;
+    */contents/*)
+        [[ -f "{root}/fail" ]] && {{ echo "HTTP 500" >&2; exit 1; }}
+        path="${{2#*/contents/}}"
+        file="{root}/commits/${{path#*ref=}}/${{path%%\\?ref=*}}"
+        [[ -f "${{file}}" ]] || {{ echo "gh: Not Found (HTTP 404)" >&2; exit 1; }}
+        cat "${{file}}" ;;
+esac
+"""
 
 
-def commit(repo, env, message):
-    """Stage everything in repo and commit it."""
-    subprocess.run(["git", "add", "."], cwd=repo, env=env, check=True)
-    subprocess.run(["git", "commit", "-q", "-m", message], cwd=repo, env=env, check=True)
+def _make_contract(tmp_path, commit, version):
+    """Write the demo skill's contract at the given version into a commit the stub gh serves."""
+    contract = tmp_path / "commits" / commit / CONTRACT
+    contract.parent.mkdir(parents=True, exist_ok=True)
+    contract.write_text(f"name: demo-skill\nversion: {version}\n")
 
 
-@pytest.fixture
-def git_repo(tmp_path):
-    """Create a repo whose main holds one skill at version 1.0.0, then switch to a feature branch."""
-    env = isolated_git_repo(tmp_path, branch="main")
-    skill = tmp_path / SKILL
-    skill.mkdir(parents=True)
-    (skill / "SKILL.md").write_text("# demo\n")
-    (skill / "skill.contract.yaml").write_text("name: demo-skill\nversion: 1.0.0\n")
-    commit(tmp_path, env, "base")
-    subprocess.run(["git", "switch", "-q", "-c", "feature/change"], cwd=tmp_path, env=env, check=True)
-    return tmp_path, env
+def run_check(tmp_path, changed_files):
+    """Run the version check with the stub gh on the PR's changed files, and return the full result."""
+    stub = tmp_path / "gh"
+    stub.write_text(STUB_GH.format(root=tmp_path))
+    stub.chmod(0o755)
+    env = {**os.environ, "PATH": f"{tmp_path}:{os.environ['PATH']}"}
+    return subprocess.run(
+        ["bash", str(SCRIPT), "org/repo", "base_sha", "head_sha", changed_files],
+        cwd=REPO_ROOT,
+        env=env,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
 
 
-def run_check(repo, env):
-    """Run the version check against main and return the full result."""
-    return subprocess.run(["bash", str(SCRIPT), "main"], cwd=repo, env=env, capture_output=True, text=True, check=False)
-
-
-@pytest.mark.parametrize(("bump", "expected"), [(False, 1), (True, 0)])
-def test_a_changed_skill_needs_a_version_bump(git_repo, bump, expected):
+@pytest.mark.parametrize(("head_version", "expected"), [("1.0.0", 1), ("1.1.0", 0)])
+def test_a_changed_skill_needs_a_version_bump(tmp_path, head_version, expected):
     """Changing a skill's files fails until its contract version changes too, and names the skill."""
-    repo, env = git_repo
-    (repo / SKILL / "SKILL.md").write_text("# demo, changed\n")
-    if bump:
-        (repo / SKILL / "skill.contract.yaml").write_text("name: demo-skill\nversion: 1.1.0\n")
-    commit(repo, env, "change")
-    result = run_check(repo, env)
-    assert result.returncode == expected, f"bump={bump} should exit {expected}:\n{result.stdout}"
-    if not bump:
+    _make_contract(tmp_path, "merge_base", "1.0.0")
+    _make_contract(tmp_path, "head_sha", head_version)
+    result = run_check(tmp_path, f"{SKILL}/SKILL.md\n")
+    assert result.returncode == expected, f"head version {head_version} should exit {expected}:\n{result.stdout}"
+    if expected == 1:
         assert "demo-skill" in result.stdout, "the failure should name the skill to bump"
 
 
-@pytest.mark.parametrize("change", ["other_file", "new_skill"])
-def test_changes_with_no_existing_skill_pass(git_repo, change):
-    """A PR that changes no existing skill, or adds a new one, passes."""
-    repo, env = git_repo
-    if change == "other_file":
-        (repo / "README.md").write_text("hello\n")
-    else:
-        new = repo / "src/claude/skills/_git_skills/new-skill"
-        new.mkdir()
-        (new / "skill.contract.yaml").write_text("name: new-skill\nversion: 1.0.0\n")
-    commit(repo, env, "change")
-    result = run_check(repo, env)
-    assert result.returncode == 0, f"{change} should pass:\n{result.stdout}"
+@pytest.mark.parametrize(
+    "changed_files", ["README.md\n", "src/claude/skills/_git_skills/new-skill/skill.contract.yaml\n"]
+)
+def test_changes_with_no_existing_skill_pass(tmp_path, changed_files):
+    """A PR that changes no skill, or adds a new one with no earlier contract, passes."""
+    result = run_check(tmp_path, changed_files)
+    assert result.returncode == 0, f"{changed_files!r} should pass:\n{result.stdout}"
+
+
+def test_a_failed_lookup_fails_the_check(tmp_path):
+    """When GitHub can't be read the check fails, rather than treating the skill as new."""
+    (tmp_path / "fail").touch()
+    result = run_check(tmp_path, f"{SKILL}/SKILL.md\n")
+    assert result.returncode == 1, f"a failed lookup should fail: {result.stdout}"
+    assert "couldn't read" in result.stdout, f"the reason should say the lookup failed: {result.stdout}"

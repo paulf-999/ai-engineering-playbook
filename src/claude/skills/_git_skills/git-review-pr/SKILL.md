@@ -59,4 +59,4 @@ Reviewing one GitHub PR before merge, when the team wants the same scored format
 
 - `reference/_implementation.md` — the seven phases, the secret check, troubleshooting and FAQ
 - `reference/_formats.md` — the comment template, scoring guides and linking rules
-- `evals.yaml` — 8 scenarios, 3 run by `make evals` and 5 by `make evals BEHAVIOUR=1`
+- `evals.yaml` — 9 scenarios, 3 run by `make evals` and 6 by `make evals BEHAVIOUR=1`

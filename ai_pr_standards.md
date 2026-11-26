@@ -1,26 +1,24 @@
 # 🤖 AI PR standards
 
-**Purpose:** nine rules for pull requests (PRs) that use AI, grouped by stage.
+**Purpose:** seven rules for pull requests (PRs) that use AI, grouped by stage.
 
 They cover PRs only. For data and access, see the [security rule](src/claude/rules/always_on/01_standards/security.md).
 
 ## ✍️ Before opening a PR
 
 - **1. Named author:** a person, never an agent, must be the PR's named author.
-- **2. Reasons:** you must explain, in your own words, why the complex or non-obvious parts are there.
-- **3. What you ran:** you must report what you ran yourself, not what the AI says it ran.
-- **4. Unneeded additions:** you should remove anything the AI added that the task didn't need.
-- **5. Existing tools:** you must prefer existing tools over custom AI-written code, and give the reason when a dependency file changes.
+- **2. Unneeded additions:** you should remove anything the AI added that the task didn't need.
+- **3. Existing tools:** you must prefer existing tools over custom AI-written code, and give the reason when a dependency file changes.
 
 ## 📬 Opening a PR
 
-- **6. Pace:** agents must not open PRs faster than reviewers can clear them, so an author can have three open.
-- **7. One topic:** you must give the agent one topic per PR, and split what it produces.
+- **4. Pace:** agents must not open PRs faster than reviewers can clear them, so only an author's six oldest open PRs can merge, and newer ones wait until older ones merge.
+- **5. One topic:** you must give the agent one topic per PR, and split what it produces.
 
 ## 👀 Reviewing a PR
 
-- **8. Right approver:** you shouldn't shop for an approval, or count an AI review as one.
-- **9. Guardrails:** AI shouldn't change its own guardrails, the files that set or run these checks, without review.
+- **6. Right approver:** you shouldn't shop for an approval, or count an AI review as one.
+- **7. Guardrails:** AI shouldn't change its own guardrails, the files that set or run these checks, without review.
 
 ## ⚖️ How strict each rule is
 

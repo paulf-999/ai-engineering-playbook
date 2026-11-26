@@ -105,6 +105,7 @@ gh api "repos/<owner>/<repo>/issues/<number>/comments" --paginate \
   --jq '.[] | select(.user.login == "<login>" and (.body | startswith("<!-- claude-review-pr-<number> -->") or startswith("**Claude review — PR #<number>**"))) | .id'
 ```
 
+- **Recheck:** run the secret check on the draft file just before posting it, since a drafts rule may have changed it, and on a match or error stop as Phase 5 says.
 - **Earlier review found:** ask "Update your earlier review (u) or post a new one (n)?", then update with `gh api -X PATCH "repos/<owner>/<repo>/issues/comments/<id>" -F body=@<draft file>`.
 - **No earlier review, or `n`:** post with `gh pr comment <pr> --body-file <draft file>`.
 - **Return:** the comment URL.
@@ -125,6 +126,7 @@ gh api -X POST "repos/<owner>/<repo>/statuses/<headRefOid>" -f context=ai_pr_sta
 
 - **New commits:** the status covers one commit, so a push needs another review.
 - **No standards, or they couldn't be read:** set no status.
+- **Advisory:** the status blocks a merge only in a repo whose settings require it.
 - **Status fails:** show the `gh` error, and tell the user the PR stays blocked wherever the status is required.
 
 ---

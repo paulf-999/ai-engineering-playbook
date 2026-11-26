@@ -23,7 +23,7 @@ def template_heading(section):
 # a filled "Why" and "What I ran", which every PR needs
 EVIDENCE = "## :thinking: Why\n\nIt keeps the rule short.\n\n## :computer: What I ran\n\n- `make test`: passed\n\n"
 # the template with its "Why" and "What I ran" placeholders filled in
-FILLED_TEMPLATE = TEMPLATE.replace("[Say, in your own words", "Because it helps.\n\n[Say, in your own words").replace(
+FILLED_TEMPLATE = TEMPLATE.replace("[Say why", "Because it helps.\n\n[Say why").replace(
     "[List each command", "- `make test`: passed\n\n[List each command"
 )
 

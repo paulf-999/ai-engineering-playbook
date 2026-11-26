@@ -8,7 +8,7 @@
 
 ## :thinking: Why
 
-[Say, in your own words, why the complex or non-obvious parts are there. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
+[Say why the complex or non-obvious parts are there. AI can draft this, but approve it as your own. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
 
 ## :hammer_and_wrench: Type of PR Change
 
@@ -29,7 +29,7 @@ Choose one:
 
 ## :computer: What I ran
 
-[List each command or check you ran yourself, with its result, rather than what the AI says it ran.]
+[List each command or check that was run, who ran it (you, the AI or CI) and its result.]
 
 ## :microscope: How Has This Been Tested?
 

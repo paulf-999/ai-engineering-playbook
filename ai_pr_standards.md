@@ -7,8 +7,8 @@ They cover PRs only. For data and access, see the [security rule](src/claude/rul
 ## ✍️ Before opening a PR
 
 - **1. Named author:** a person, never an agent, must be the PR's named author.
-- **2. Reasons:** you must explain, in your own words, why the complex or non-obvious parts are there.
-- **3. What you ran:** you must report what you ran yourself, not what the AI says it ran.
+- **2. Reasons:** you must explain why the complex or non-obvious parts are there. AI can draft it, but you approve it as your own.
+- **3. What was run:** you must report each check that was run, who ran it (you, the AI or CI) and its result.
 - **4. Unneeded additions:** you should remove anything the AI added that the task didn't need.
 - **5. Existing tools:** you must prefer existing tools over custom AI-written code, and give the reason when a dependency file changes.
 

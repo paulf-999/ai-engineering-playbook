@@ -35,14 +35,13 @@ Choose one:
 - Does this PR build a saved plan (intent.md, spec.md and plan.md)? In any PR, whatever it changes, add
   "## :robot: Claude: Plan" so a reviewer can check the diff against the approved plan. With no saved plan for this PR,
   leave the section out, unless the PR changes src/claude/, when it holds only the line "No saved plan: " and the
-  reason. Otherwise, open it with this callout:
+  reason. Otherwise, open it with this line:
 
-  > [!NOTE]
-  > These files follow the advice in Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
+  This PR was built against this Claude plan, per Anthropic's [AI-native SDLC course](https://academy.claude.com/courses/ai-native-sdlc-playbook).
 
-  Then add the line "This PR was created against the following Claude plan:" and five menus, in this order. Put each in
-  its own <details> ... </details>, with its <summary> on one line. Copy the question and answer above each
-  <summary> too, but put them outside the menu: the text first, then a blank line, then <details>:
+  Then put everything else in one <details><summary>Show Claude plan</summary> ... </details>, holding five menus in
+  this order. Put each in its own <details> ... </details>, with its <summary> on one line. Copy the question and
+  answer above each <summary> too, but put them outside that menu: the text first, then a blank line, then <details>:
 
   **What is `intent.md`?**
   It describes the problem being solved, and how we'll know the change worked.

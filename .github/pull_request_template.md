@@ -8,7 +8,7 @@
 
 ## :thinking: Why Is This Change Needed?
 
-[The reasons for the change, as a list. Open each item with an emoji and a bold keyword, per the [authoring guide](https://github.com/paulf-999/ai-engineering-playbook/blob/main/docs/guides/authoring_guide.md). Link any file, issue or PR with a full GitHub URL.]
+[Say why the complex or non-obvious parts are there, as up to 5 bullets that each open with an emoji and a bold keyword and colon. If a dependency file changes, add a line that starts "Dependency reason: " with why existing tools weren't enough.]
 
 ## :hammer_and_wrench: Type of PR Change
 
@@ -29,16 +29,7 @@ Choose one:
 
 ## :microscope: How Has This Been Tested?
 
-This PR was tested as follows:
-
-<details>
-<summary>Show testing checklist</summary>
-
-- [ ] DEV / Local testing by developer
-- [ ] UAT testing
-- [ ] Other (please specify)
-
-</details>
+[List each command or check that was run, and its result.]
 
 <!-- Extra sections, which CI checks:
 - Does this PR build a saved plan (intent.md, spec.md and plan.md)? In any PR, whatever it changes, add
@@ -54,11 +45,7 @@ This PR was tested as follows:
   <summary> too, but put them outside the menu: the text first, then a blank line, then <details>:
 
   **What is `intent.md`?**
-  It describes the problem being solved, and how we'll know the change worked. It starts the process and is prompted by:
-
-  - an idea
-  - a ticket
-  - an alert
+  It describes the problem being solved, and how we'll know the change worked.
 
   <summary>Show intent.md</summary>
 

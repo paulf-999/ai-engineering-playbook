@@ -354,7 +354,8 @@ def test_make_install_adds_jinja_to_the_virtualenv_on_first_use(tmp_path):
     venv = tmp_path / "venv"
     command = ["make", "-n", "install", f"EVALS_VENV={venv}"]
     first = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True, check=True).stdout
-    assert f"python3 -m venv {venv}" in first and "grep -i '^jinja2==' requirements.txt" in first
+    assert f"test -x {venv}/bin/python || python3 -m venv {venv}" in first, "never rebuild over an existing virtualenv"
+    assert "grep -i '^jinja2==' requirements.txt" in first
     assert f'RENDER_PYTHON="{venv}/bin/python" bash src/sh/claude_install_config.sh' in first
     venv.mkdir()
     (venv / ".install_ready").touch()

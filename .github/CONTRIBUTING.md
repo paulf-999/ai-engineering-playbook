@@ -16,20 +16,19 @@ Before your first commit, activate a virtualenv (see the [virtualenv setup guide
   - **Scope:** the area of the repo affected, such as `makefile` or `ci`.
 - 🛂 **Checked:** a commit-message hook rejects any message that doesn't match the format.
 
-Two valid messages:
+<details><summary>Show two valid messages</summary>
 
 - `feat(pre-commit): add ruff`
 - `fix(makefile): run pytest from make test`
 
+</details>
+
 ## 🔀 Pull Requests
 
-- 📄 **Template:** fill in the [PR template](pull_request_template.md).
+- 📄 **Template:** fill in the [PR template](pull_request_template.md), adding any extra section its hidden comment calls for.
 - 🔤 **Title:** use the commit format, because a squash merge makes the title the commit message on `main`.
 - 🤖 **AI PR standards:** follow the [AI PR standards](../ai_pr_standards.md) in any PR that uses AI.
 - 📏 **Size:** keep each PR within the file limit CI checks, or use a [`release/` branch](../docs/guides/git_branching_strategy.md#-exceptions-for-large-changes--use-the-release-prefix) for one bulk change.
-- 🤖 **Saved plan:** a PR that builds a saved plan, whatever it changes, adds the Plan section, which holds that plan's files, measures and governance record, as the template's comment lays out.
-- ⚖️ **Claude config:** a PR that changes `src/claude/` always has the Plan section, saying why if it has no saved plan, and adds Evaluation criteria when the [evaluation criteria](../docs/target_architecture/design_principles/02_evaluation_criteria.md) say so, as the template's comment names them.
-- ⏳ **Before merge:** in a PR with a saved plan, replace each "pending" in the measures menu with its result.
 - 💥 **Breaking change:** tick it if it applies, and describe the rollout impact.
 
 ### ✅ Before raising a PR

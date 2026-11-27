@@ -18,5 +18,5 @@
 ## 🏁 Before merging
 
 - 🧪 **Evals:** add evals that cover its main triggers and one case where it shouldn't fire, tagging each with `trigger: <skill-or-agent>` or `trigger: none` so `make evals` checks it. Tag a scenario `behaviour: true` too when its setup is local git state, so `make evals BEHAVIOUR=1` grades its assertions. Tag every scenario, since nothing runs an untagged one, and name any script tests and uncovered cases in a comment at the top of `evals.yaml`.
-- 📋 **PR sections:** add the ones [CONTRIBUTING](../../../.github/CONTRIBUTING.md#-pull-requests) names for a Claude config PR.
+- 📋 **PR sections:** add the ones the [PR template](../../../.github/pull_request_template.md)'s hidden comment names for a Claude config PR.
 - 🏅 **Review:** have a fresh-context reviewer check it against a checklist for its type, modelled on the [rules checklist](../../../maintenance/quality/quality_rubrics/_repo.md#-rules-and-tests-checklists).

@@ -63,8 +63,6 @@ evals:
           - The reply says it doesn't publish
       run:
           prompt: Write and publish a Confluence page about the on-call rota.
-          must_match:
-              - (?i)(can't|cannot|don't|do not|won't) publish
 
     - name: declines_adr
       behaviour: true

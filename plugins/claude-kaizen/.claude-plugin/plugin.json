@@ -1,6 +1,6 @@
 {
   "name": "claude-kaizen",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Turn recurring corrections in your feedback notes into rules that pass an A/B check",
   "author": {
     "name": "paulf-999"

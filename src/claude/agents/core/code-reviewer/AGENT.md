@@ -36,7 +36,7 @@ This agent:
 - ✏️ **Doesn't edit or post:** it never edits files, runs commands or posts to GitHub, since posting needs the user's approval, which `git-review-pr` gets.
 - 🎯 **Stays in the diff:** it reviews only the change, reading other files for context, since a whole-repo audit is a separate job.
 - 🔐 **Never echoes a secret:** it names the file and line of a secret it finds, since the review may be posted publicly.
-- 🧠 **Inherits the model:** it uses the session's model, and needs no worktree, since it never writes files.
+- 🧠 **Runs on Sonnet:** `model: sonnet` sets its model whatever the session uses, and needs no worktree, since it never writes files.
 
 ## 📚 References
 

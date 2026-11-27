@@ -35,11 +35,11 @@ This page belongs to the repo's maintenance records. `make context_cost` writes 
 
 | # | File | Tokens |
 |---|---|---|
-| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~147 |
+| 1 | `rules/always_on/02_preferences/claude_output_format.md` | ~145 |
 | 2 | `rules/always_on/02_preferences/claude_pr_review.md` | ~68 |
 | 3 | `rules/always_on/02_preferences/claude_working_files.md` | ~187 |
 | 4 | `rules/always_on/02_preferences/claude_writing_style.md` | ~241 |
-| | **Subtotal** | **~645** |
+| | **Subtotal** | **~643** |
 
 ## 💤 Only when needed
 

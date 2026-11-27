@@ -14,7 +14,7 @@
 
 ## 🔍 Selecting notes
 
-- **Skip repo-specific notes:** a note about one repo's files, PR numbers or layout stays in memory, as 29 of 31 did in #393.
+- **Skip repo-specific notes:** a note about one repo's files, PR numbers or layout stays in memory.
 - **Skip what a rule already says:** read the existing rules first, and drop a group they already cover.
 - **Skip what was rejected:** read `_claude_kaizen/rejections.md` in your Claude config directory (`$CLAUDE_CONFIG_DIR`, or `~/.claude` when unset), if it exists, and drop a group it lists unless a note not named there supports it.
 - **Name the evidence:** for each group, list its notes by file name, never quoting personal details.

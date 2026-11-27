@@ -38,7 +38,7 @@ This agent:
 - 🚫 **Never publishes:** it doesn't commit, push, open PRs or write to Confluence, so it has no Bash tool.
 - 🤝 **Hands off:** it ends by naming who publishes the draft, such as `git-create-pr` for a PR body.
 - ✂️ **Declines edits:** it says why when asked to edit an existing doc, ADR, runbook, README or diagram.
-- 🧠 **Inherits the model:** it uses the session's model, and needs no worktree, since it never changes repo files.
+- 🧠 **Runs on Sonnet:** `model: sonnet` sets its model whatever the session uses, and needs no worktree, since it never changes repo files.
 
 ## 📚 References
 

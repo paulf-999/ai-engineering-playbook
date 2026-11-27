@@ -44,7 +44,7 @@ If `git status` shows unmerged paths (conflict markers from a merge or rebase), 
 **PR body:** Use Agent tool (`subagent_type: technical-writer`) to draft following template structure exactly:
 
 - **Wait before the gate:** start the writer as the last Phase 1 step and wait for its result before showing the Phase 2 prompt, so the prompt shows the finished body and nothing waits between prompts.
-- **Summary:** 1 punchy sentence max. 2 sentences only if critical context would be lost. No jargon, no code refs. State what.
+- **Summary:** say what changed and why as briefly as that allows, with no jargon or code refs.
 - **Why:** give the reasons in the template's "Why Is This Change Needed?" section, as its placeholder describes.
 - **Additional Details:** Omit if not needed, and otherwise give only what a reviewer must or should know, in the template's 5 bullets or fewer, never mixing prose and bullets.
 - **Links:** give every file, issue or PR the body names a full GitHub URL, with file links on the branch until the push pins them to the head commit, because CI rejects relative links in some repos and they never work in a PR.

@@ -1,0 +1,20 @@
+---
+# Throwaway test: a job that copies a required check's name and always passes, to see whether it can satisfy that
+# check while the real one fails. Never merge.
+name: Spoof check test
+
+on:
+    pull_request:
+        branches: [main]
+
+permissions:
+    contents: read
+
+jobs:
+    pr_size:
+        name: "PR size: check it's within the file limit"
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        steps:
+            - name: Always pass
+              run: 'true'

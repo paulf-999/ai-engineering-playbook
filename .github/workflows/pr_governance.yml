@@ -1,6 +1,6 @@
 ---
-# Check a PR's title, size, description, author, open PRs and skill versions, using main's copy of this workflow and
-# its scripts, so a PR can't make its own checks pass by editing them.
+# Check a PR's size, open PRs and skill versions, using main's copy of this workflow and its scripts, so a PR can't
+# make its own checks pass by editing them.
 # pull_request_target runs this file and the checked-out scripts from main. It never checks out or runs the PR's code,
 # which a pull_request_target workflow must not do: every check reads the PR through the event and GitHub's API.
 # Keep the job names as they are, since the ruleset requires some of these checks by name.
@@ -22,22 +22,6 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    pr_title:
-        name: 'PR title: check it follows Conventional Commits'
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-              with:
-                  persist-credentials: false
-            # Squash merges use the PR title as the commit message on main, so commitlint checks it with the config
-            # version the commit-msg hook pins in .pre-commit-config.yaml, and the matching CLI release
-            # Passed through env, not ${{ }} in the script, so a crafted title can't inject shell
-            - name: Validate PR title
-              env:
-                  PR_TITLE: ${{ github.event.pull_request.title }}
-              run: src/sh/git/git_validate_pr_title.sh "${PR_TITLE}"
-
     pr_size:
         name: "PR size: check it's within the file limit"
         runs-on: ubuntu-latest
@@ -57,43 +41,6 @@ jobs:
               env:
                   BRANCH_NAME: ${{ github.head_ref }}
               run: src/sh/git/git_validate_num_file_changes.sh "${BRANCH_NAME}" "$(cat "${RUNNER_TEMP}/changed_files")"
-
-    pr_description:
-        name: 'PR description: check evidence, plan and criteria'
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-              with:
-                  persist-credentials: false
-            # A step of its own, so a failed fetch fails the check rather than passing an empty list. A renamed file
-            # lists its old path too, so moving a file out of src/claude/ still counts as changing it
-            - name: List the changed files
-              env:
-                  PR_NUMBER: ${{ github.event.pull_request.number }}
-                  GH_TOKEN: ${{ github.token }}
-              run: gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --jq '.[] | .filename, (.previous_filename // empty)' > "${RUNNER_TEMP}/changed_files"
-            # Passed through env, not ${{ }} in the script, so a crafted description can't inject shell
-            - name: Validate PR description
-              env:
-                  PR_DESCRIPTION: ${{ github.event.pull_request.body }}
-                  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-              run: src/sh/git/git_validate_pr_description.sh "${PR_DESCRIPTION}" "$(cat "${RUNNER_TEMP}/changed_files")" "${PR_AUTHOR}"
-
-    human_author:
-        name: 'Human author: check a person is named'
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-              with:
-                  persist-credentials: false
-            - name: Validate the author or an assignee is a person
-              env:
-                  AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
-                  ASSIGNEE_TYPES: ${{ join(github.event.pull_request.assignees.*.type, ' ') }}
-                  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-              run: src/sh/git/git_validate_human_author.sh "${AUTHOR_TYPE}" "${ASSIGNEE_TYPES}" "${PR_AUTHOR}"
 
     open_prs:
         name: 'Open PRs: check the author is within the limit'

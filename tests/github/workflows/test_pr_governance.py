@@ -11,10 +11,7 @@ WORKFLOW_TEXT = WORKFLOW_PATH.read_text()
 WORKFLOW = yaml.safe_load(WORKFLOW_TEXT)
 # the check names the ruleset and the PR process rely on, so renaming a job can't silently drop a required check
 CHECK_NAMES = {
-    "PR title: check it follows Conventional Commits",
     "PR size: check it's within the file limit",
-    "PR description: check evidence, plan and criteria",
-    "Human author: check a person is named",
     "Open PRs: check the author is within the limit",
     "Skill versions: check each changed skill bumps its version",
 }

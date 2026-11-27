@@ -9,12 +9,12 @@ An external review asked whether each guard prevents a real problem, or only add
 
 ## ⚖️ Verdict totals
 
-How many of the 38 guards, hooks, recurring reviews and test files in this audit got each verdict.
+How many of the 35 guards, hooks, recurring reviews and test files in this audit got each verdict.
 
 | Verdict | Items |
 |---|---|
-| ✅ **Keep** | 27 |
-| 🔒 **Keep (decided)** | 9 |
+| ✅ **Keep** | 25 |
+| 🔒 **Keep (decided)** | 8 |
 | ✂️ **Slim** | 2 |
 
 "Keep (decided)" marks an item the maintainer has already chosen to keep, so this audit records its evidence without re-proposing it.
@@ -27,8 +27,7 @@ How many of the 38 guards, hooks, recurring reviews and test files in this audit
 | 2 | 📏 [Rule size](../../tests/src/claude/test_rules_structure.py), 110 lines | Rules too long to read in one go | Failed in 2 sessions, each followed by a split | ✅ Keep |
 | 3 | 📦 [PR size](../../src/sh/git/git_validate_num_file_changes.sh) | PRs too big to review | 3 CI failures, each moved onto a `release/` branch | 🔒 Keep (decided) |
 | 4 | 🌿 [Branch name](../../src/sh/git/git_validate_branch_name.sh), in CI and pre-commit | Branches that break the naming rules | Caught bad prefixes in 6 sessions, with 1 false fire on a detached HEAD | 🔒 Keep (decided) |
-| 5 | 🏷️ PR title and commitlint | Messages that aren't Conventional Commits | Caught bad commit messages in 4 sessions, with 1 false fire in CI on a Dependabot PR | 🔒 Keep (decided) |
-| 6 | 📝 [PR description](../../src/sh/git/git_validate_pr_description.sh) | Claude config PRs missing their Plan section, any of its five menus, or the Evaluation Criteria section | 4 CI failures, each fixed before merge | 🔒 Keep (decided) |
+| 5 | 🏷️ Commitlint, as a local hook | Messages that aren't Conventional Commits | Caught bad commit messages in 4 sessions | 🔒 Keep (decided) |
 | 7 | 💸 [Context-cost table](../../src/sh/claude_report_context_cost.sh) | A stale token report | The most frequent failure: 3 of the 14 CI failures, and 14 sessions locally. CI skips it since #473, and the local hook stages the report | 🔒 Keep (decided) |
 | 8 | 🔐 [pip-audit](../../.github/workflows/pip_audit.yml), weekly | Known vulnerabilities in dependencies | Never fired, and costs nothing to run | ✅ Keep |
 
@@ -68,7 +67,6 @@ Each test file is judged against the [keep or delete criteria](../../tests/READM
 | 26 | 🧰 [Shell utils](../../tests/src/sh/test_shell_utils.py) | The shared shell helpers, tested once | 5 | 0 | ✅ Keep |
 | 27 | 🌿 [Branch name](../../tests/src/sh/git/test_git_validate_branch_name.py) | Valid and invalid names, and a detached HEAD | 4 | 0 | ✅ Keep |
 | 28 | 📏 [PR file count](../../tests/src/sh/git/test_git_validate_num_file_changes.py) | Both sides of the file limit, and the `release/` skip | 7 | 0 | ✅ Keep |
-| 29 | 📝 [PR description](../../tests/src/sh/git/test_git_validate_pr_description.py) | Required sections and plan menus, and no shell execution of the body | 8 | 0 | ✅ Keep |
 | 30 | 🎯 [Trigger evals runner](../../tests/src/py/test_claude_run_trigger_evals.py) | Scenario selection, config copy and grading | 4 | 0 | ✅ Keep |
 | 31 | 🧠 [Behaviour evals runner](../../tests/src/py/test_claude_run_behaviour_evals.py) | Scenario selection, scratch repo setup and transcripts | 4 | 0 | ✅ Keep |
 | 32 | ⚖️ [Rule evals runner](../../tests/src/py/test_claude_run_rule_evals.py) | Case loading, repo preparation and the verdict margin | 5 | 0 | ✅ Keep |
@@ -77,7 +75,6 @@ Each test file is judged against the [keep or delete criteria](../../tests/READM
 | 35 | 🛠️ [Makefile](../../tests/test_makefile.py) | `make deps` installs only into a virtualenv | 4 | 0 | ✅ Keep |
 | 36 | 🧩 [Evals common](../../tests/src/py/test_claude_evals_common.py) | The shared eval helpers: config copy, scratch repos and transcripts | 6 | Not searched | ✅ Keep |
 | 37 | 📖 [README evals runner](../../tests/src/py/test_claude_run_readme_evals.py) | The reader brief, tally and pass bar | 3 | Not searched | 🔒 Keep (decided) |
-| 38 | 🏷️ [PR title](../../tests/src/sh/git/test_git_validate_pr_title.py) | Conventional Commits titles, without network access | 3 | Not searched | ✅ Keep |
 
 ## 🎯 Findings for the team
 

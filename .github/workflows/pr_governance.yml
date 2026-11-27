@@ -1,5 +1,6 @@
 ---
-# Check a PR's size, open PRs and skill versions, using main's copy of this workflow and its scripts, so a PR can't make its own checks pass by editing them.
+# Check a PR's size, open PRs and skill versions, using main's copy of this workflow and its scripts, so a PR can't
+# make its own checks pass by editing them.
 # pull_request_target runs this file and the checked-out scripts from main. It never checks out or runs the PR's code,
 # which a pull_request_target workflow must not do: every check reads the PR through the event and GitHub's API.
 # Keep the job names as they are, since the ruleset requires some of these checks by name.

@@ -9,12 +9,12 @@ An external review asked whether each guard prevents a real problem, or only add
 
 ## ⚖️ Verdict totals
 
-How many of the 38 guards, hooks, recurring reviews and test files in this audit got each verdict.
+How many of the 35 guards, hooks, recurring reviews and test files in this audit got each verdict.
 
 | Verdict | Items |
 |---|---|
-| ✅ **Keep** | 27 |
-| 🔒 **Keep (decided)** | 9 |
+| ✅ **Keep** | 25 |
+| 🔒 **Keep (decided)** | 8 |
 | ✂️ **Slim** | 2 |
 
 "Keep (decided)" marks an item the maintainer has already chosen to keep, so this audit records its evidence without re-proposing it.
@@ -27,7 +27,7 @@ How many of the 38 guards, hooks, recurring reviews and test files in this audit
 | 2 | 📏 [Rule size](../../tests/src/claude/test_rules_structure.py), 110 lines | Rules too long to read in one go | Failed in 2 sessions, each followed by a split | ✅ Keep |
 | 3 | 📦 [PR size](../../src/sh/git/git_validate_num_file_changes.sh) | PRs too big to review | 3 CI failures, each moved onto a `release/` branch | 🔒 Keep (decided) |
 | 4 | 🌿 [Branch name](../../src/sh/git/git_validate_branch_name.sh), in CI and pre-commit | Branches that break the naming rules | Caught bad prefixes in 6 sessions, with 1 false fire on a detached HEAD | 🔒 Keep (decided) |
-| 5 | 🏷️ PR title and commitlint | Messages that aren't Conventional Commits | Caught bad commit messages in 4 sessions, with 1 false fire in CI on a Dependabot PR | 🔒 Keep (decided) |
+| 5 | 🏷️ Commitlint, as a local hook | Messages that aren't Conventional Commits | Caught bad commit messages in 4 sessions | 🔒 Keep (decided) |
 | 7 | 💸 [Context-cost table](../../src/sh/claude_report_context_cost.sh) | A stale token report | The most frequent failure: 3 of the 14 CI failures, and 14 sessions locally. CI skips it since #473, and the local hook stages the report | 🔒 Keep (decided) |
 | 8 | 🔐 [pip-audit](../../.github/workflows/pip_audit.yml), weekly | Known vulnerabilities in dependencies | Never fired, and costs nothing to run | ✅ Keep |
 

@@ -31,7 +31,7 @@ Choose one:
 
 [List each command or check that was run, and its result, including failures. For a check not run, write "Not run: " and the reason.]
 
-<!-- Extra sections, which CI checks with src/sh/git/git_validate_pr_description.sh:
+<!-- Extra sections, which reviewers check:
 - Does this PR build a saved plan (intent.md, spec.md and plan.md, which `make list_plans` lists)? In any PR, whatever
   it changes, add "## :robot: Claude: Plan" so a reviewer can check the diff against the approved plan. With no saved
   plan for this PR, leave the section out, unless the PR changes src/claude/, when it holds only the line

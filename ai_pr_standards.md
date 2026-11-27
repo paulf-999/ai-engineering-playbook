@@ -1,7 +1,7 @@
 # 🤖 AI PR standards
 
 > [!NOTE]
-> **Work in progress:** these rules are on trial, so the review status, human-author and open-PR checks report but don't block a merge.
+> **Work in progress:** these rules are on trial, so the review status and open-PR checks report but don't block a merge.
 
 **Purpose:** six rules for pull requests (PRs) that use AI, grouped by stage.
 
@@ -11,7 +11,7 @@ They cover PRs only. For data and access, see the [security rule](src/claude/rul
 
 - **1. Named author:** a person, never an agent, should be the PR's author or assignee, though Dependabot's PRs need neither.
 - **2. Unneeded additions:** you should remove anything the AI added that the task didn't need.
-- **3. Existing tools:** you must prefer existing tools over custom AI-written code, and give the reason when a dependency file changes.
+- **3. Existing tools:** you should prefer existing tools over custom AI-written code, and give the reason when a dependency file changes.
 
 ## 📬 Opening a PR
 
